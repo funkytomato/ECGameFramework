@@ -1,0 +1,1177 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		186F6E512040D1D1001EEF65 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186F6E502040D1D1001EEF65 /* AppDelegate.swift */; };
+		186F6E6C2040D1D1001EEF65 /* ECGameFrameworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186F6E6B2040D1D1001EEF65 /* ECGameFrameworkTests.swift */; };
+		186F6E772040D1D1001EEF65 /* ECGameFrameworkUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186F6E762040D1D1001EEF65 /* ECGameFrameworkUITests.swift */; };
+		186F6E9D2040DAF5001EEF65 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186F6E9C2040DAF5001EEF65 /* GameViewController.swift */; };
+		186F6E9E2040DAF5001EEF65 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186F6E9C2040DAF5001EEF65 /* GameViewController.swift */; };
+		186F6E9F2040DAF5001EEF65 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186F6E9C2040DAF5001EEF65 /* GameViewController.swift */; };
+		186F6EA22040DC39001EEF65 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 186F6EA02040DC36001EEF65 /* Main.storyboard */; };
+		186F6EA32040DC39001EEF65 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 186F6EA02040DC36001EEF65 /* Main.storyboard */; };
+		186F6EA42040DC39001EEF65 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 186F6EA02040DC36001EEF65 /* Main.storyboard */; };
+		186F6EA52040DC39001EEF65 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 186F6EA12040DC38001EEF65 /* LaunchScreen.storyboard */; };
+		186F6EA62040DC39001EEF65 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 186F6EA12040DC38001EEF65 /* LaunchScreen.storyboard */; };
+		186F6EA72040DC39001EEF65 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 186F6EA12040DC38001EEF65 /* LaunchScreen.storyboard */; };
+		18FCE9C42040EB3C009A5C0D /* LoadResourcesOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCE9B62040EB3B009A5C0D /* LoadResourcesOperation.swift */; };
+		18FCE9C52040EB3C009A5C0D /* LoadSceneOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCE9B72040EB3B009A5C0D /* LoadSceneOperation.swift */; };
+		18FCE9C62040EB3C009A5C0D /* ResourceLoadableType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCE9B82040EB3B009A5C0D /* ResourceLoadableType.swift */; };
+		18FCE9C72040EB3C009A5C0D /* SceneLoaderDownloadFailedState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCE9BA2040EB3B009A5C0D /* SceneLoaderDownloadFailedState.swift */; };
+		18FCE9C82040EB3C009A5C0D /* SceneLoaderDownloadingResourcesState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCE9BB2040EB3B009A5C0D /* SceneLoaderDownloadingResourcesState.swift */; };
+		18FCE9C92040EB3C009A5C0D /* SceneLoaderInitialState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCE9BC2040EB3B009A5C0D /* SceneLoaderInitialState.swift */; };
+		18FCE9CA2040EB3C009A5C0D /* SceneLoaderPreparingResourcesState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCE9BD2040EB3B009A5C0D /* SceneLoaderPreparingResourcesState.swift */; };
+		18FCE9CB2040EB3C009A5C0D /* SceneLoaderResourcesAvailableState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCE9BE2040EB3B009A5C0D /* SceneLoaderResourcesAvailableState.swift */; };
+		18FCE9CC2040EB3C009A5C0D /* SceneLoaderResourcesReadyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCE9BF2040EB3B009A5C0D /* SceneLoaderResourcesReadyState.swift */; };
+		18FCE9CD2040EB3C009A5C0D /* SceneLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCE9C02040EB3B009A5C0D /* SceneLoader.swift */; };
+		18FCE9CE2040EB3C009A5C0D /* SceneManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCE9C12040EB3B009A5C0D /* SceneManager.swift */; };
+		18FCE9CF2040EB3C009A5C0D /* SceneMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCE9C22040EB3B009A5C0D /* SceneMetadata.swift */; };
+		18FCE9D02040EB3C009A5C0D /* SceneOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCE9C32040EB3C009A5C0D /* SceneOperation.swift */; };
+		18FCEA472040EC40009A5C0D /* BaseScene+Buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCE9D22040EB9E009A5C0D /* BaseScene+Buttons.swift */; };
+		18FCEA482040EC40009A5C0D /* BaseScene+Focus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCE9D32040EB9E009A5C0D /* BaseScene+Focus.swift */; };
+		18FCEA492040EC40009A5C0D /* BaseScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCE9D42040EB9E009A5C0D /* BaseScene.swift */; };
+		18FCEA4A2040EC40009A5C0D /* HomeEndScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCE9D52040EB9E009A5C0D /* HomeEndScene.swift */; };
+		18FCEA4B2040EC40009A5C0D /* LevelConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCE9D62040EB9E009A5C0D /* LevelConfiguration.swift */; };
+		18FCEA4C2040EC40009A5C0D /* LevelSceneActiveState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCE9D82040EB9E009A5C0D /* LevelSceneActiveState.swift */; };
+		18FCEA4D2040EC40009A5C0D /* LevelSceneFailState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCE9D92040EB9E009A5C0D /* LevelSceneFailState.swift */; };
+		18FCEA4E2040EC40009A5C0D /* LevelSceneOverlayState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCE9DA2040EB9E009A5C0D /* LevelSceneOverlayState.swift */; };
+		18FCEA4F2040EC40009A5C0D /* LevelScenePauseState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCE9DB2040EB9E009A5C0D /* LevelScenePauseState.swift */; };
+		18FCEA502040EC40009A5C0D /* LevelSceneSuccessState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCE9DC2040EB9E009A5C0D /* LevelSceneSuccessState.swift */; };
+		18FCEA512040EC40009A5C0D /* LevelScene+Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCE9DD2040EB9E009A5C0D /* LevelScene+Debug.swift */; };
+		18FCEA522040EC40009A5C0D /* LevelScene+Pause.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCE9DE2040EB9E009A5C0D /* LevelScene+Pause.swift */; };
+		18FCEA532040EC40009A5C0D /* LevelScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCE9DF2040EB9E009A5C0D /* LevelScene.swift */; };
+		18FCEA542040EC40009A5C0D /* ProgressScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCE9E02040EB9E009A5C0D /* ProgressScene.swift */; };
+		18FCEA552040EC40009A5C0D /* SceneOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCE9E12040EB9E009A5C0D /* SceneOverlay.swift */; };
+		18FCEA562040EC40009A5C0D /* FlyingBot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCE9E32040EB9F009A5C0D /* FlyingBot.swift */; };
+		18FCEA572040EC40009A5C0D /* GameplayConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCE9E42040EB9F009A5C0D /* GameplayConfiguration.swift */; };
+		18FCEA582040EC40009A5C0D /* GroundBot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCE9E52040EB9F009A5C0D /* GroundBot.swift */; };
+		18FCEA592040EC40009A5C0D /* PlayerBot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCE9E62040EB9F009A5C0D /* PlayerBot.swift */; };
+		18FCEA5A2040EC40009A5C0D /* TaskBot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCE9E72040EB9F009A5C0D /* TaskBot.swift */; };
+		18FCEA5B2040EC40009A5C0D /* TaskBotAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCE9E82040EB9F009A5C0D /* TaskBotAgent.swift */; };
+		18FCEA5C2040EC40009A5C0D /* AnimationComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCE9EA2040EB9F009A5C0D /* AnimationComponent.swift */; };
+		18FCEA5D2040EC40009A5C0D /* BeamCoolingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCE9EC2040EB9F009A5C0D /* BeamCoolingState.swift */; };
+		18FCEA5E2040EC40009A5C0D /* BeamFiringState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCE9ED2040EB9F009A5C0D /* BeamFiringState.swift */; };
+		18FCEA5F2040EC40009A5C0D /* BeamIdleState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCE9EE2040EB9F009A5C0D /* BeamIdleState.swift */; };
+		18FCEA602040EC40009A5C0D /* BeamComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCE9EF2040EB9F009A5C0D /* BeamComponent.swift */; };
+		18FCEA612040EC40009A5C0D /* ChargeComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCE9F02040EB9F009A5C0D /* ChargeComponent.swift */; };
+		18FCEA622040EC40009A5C0D /* CompassDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCE9F12040EB9F009A5C0D /* CompassDirection.swift */; };
+		18FCEA632040EC40009A5C0D /* InputComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCE9F22040EB9F009A5C0D /* InputComponent.swift */; };
+		18FCEA642040EC40009A5C0D /* PlayerBotAppearState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCE9F42040EB9F009A5C0D /* PlayerBotAppearState.swift */; };
+		18FCEA652040EC40009A5C0D /* PlayerBotHitState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCE9F52040EB9F009A5C0D /* PlayerBotHitState.swift */; };
+		18FCEA662040EC40009A5C0D /* PlayerBotPlayerControlledState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCE9F62040EB9F009A5C0D /* PlayerBotPlayerControlledState.swift */; };
+		18FCEA672040EC40009A5C0D /* PlayerBotRechargingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCE9F72040EB9F009A5C0D /* PlayerBotRechargingState.swift */; };
+		18FCEA682040EC40009A5C0D /* FlyingBotBlastState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCE9F92040EB9F009A5C0D /* FlyingBotBlastState.swift */; };
+		18FCEA692040EC40009A5C0D /* FlyingBotPreAttackState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCE9FA2040EB9F009A5C0D /* FlyingBotPreAttackState.swift */; };
+		18FCEA6A2040EC40009A5C0D /* GroundBotAttackState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCE9FB2040EB9F009A5C0D /* GroundBotAttackState.swift */; };
+		18FCEA6B2040EC40009A5C0D /* GroundBotPreAttackState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCE9FC2040EB9F009A5C0D /* GroundBotPreAttackState.swift */; };
+		18FCEA6C2040EC40009A5C0D /* GroundBotRotateToAttackState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCE9FD2040EB9F009A5C0D /* GroundBotRotateToAttackState.swift */; };
+		18FCEA6D2040EC40009A5C0D /* TaskBotAgentControlledState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCE9FE2040EB9F009A5C0D /* TaskBotAgentControlledState.swift */; };
+		18FCEA6E2040EC40009A5C0D /* TaskBotZappedState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCE9FF2040EB9F009A5C0D /* TaskBotZappedState.swift */; };
+		18FCEA6F2040EC40009A5C0D /* IntelligenceComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCEA002040EB9F009A5C0D /* IntelligenceComponent.swift */; };
+		18FCEA702040EC40009A5C0D /* MovementComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCEA012040EB9F009A5C0D /* MovementComponent.swift */; };
+		18FCEA712040EC40009A5C0D /* OrientationComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCEA022040EB9F009A5C0D /* OrientationComponent.swift */; };
+		18FCEA722040EC40009A5C0D /* PhysicsComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCEA032040EB9F009A5C0D /* PhysicsComponent.swift */; };
+		18FCEA732040EC40009A5C0D /* RenderComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCEA042040EB9F009A5C0D /* RenderComponent.swift */; };
+		18FCEA742040EC40009A5C0D /* RulesComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCEA052040EB9F009A5C0D /* RulesComponent.swift */; };
+		18FCEA752040EC40009A5C0D /* ShadowComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCEA062040EB9F009A5C0D /* ShadowComponent.swift */; };
+		18FCEA762040EC40009A5C0D /* GeometryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCEA082040EB9F009A5C0D /* GeometryExtensions.swift */; };
+		18FCEA772040EC40009A5C0D /* TaskBotBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCEA092040EB9F009A5C0D /* TaskBotBehavior.swift */; };
+		18FCEA782040EC40009A5C0D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18FCEA0B2040EC3C009A5C0D /* Assets.xcassets */; };
+		18FCEA792040EC40009A5C0D /* Beam.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18FCEA0D2040EC3C009A5C0D /* Beam.xcassets */; };
+		18FCEA7A2040EC40009A5C0D /* BeamLine.sks in Resources */ = {isa = PBXBuildFile; fileRef = 18FCEA0E2040EC3C009A5C0D /* BeamLine.sks */; };
+		18FCEA7B2040EC40009A5C0D /* PlayerBot.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18FCEA0F2040EC3C009A5C0D /* PlayerBot.xcassets */; };
+		18FCEA7C2040EC40009A5C0D /* Teleport.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 18FCEA102040EC3C009A5C0D /* Teleport.fsh */; };
+		18FCEA7D2040EC40009A5C0D /* ButtonFocusActions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 18FCEA122040EC3C009A5C0D /* ButtonFocusActions.sks */; };
+		18FCEA7E2040EC40009A5C0D /* EndScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 18FCEA132040EC3C009A5C0D /* EndScene.sks */; };
+		18FCEA7F2040EC40009A5C0D /* HomeScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 18FCEA142040EC3C009A5C0D /* HomeScene.sks */; };
+		18FCEA802040EC40009A5C0D /* Level1.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18FCEA162040EC3C009A5C0D /* Level1.plist */; };
+		18FCEA812040EC40009A5C0D /* Level1.sks in Resources */ = {isa = PBXBuildFile; fileRef = 18FCEA172040EC3C009A5C0D /* Level1.sks */; };
+		18FCEA822040EC40009A5C0D /* Level1.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18FCEA182040EC3C009A5C0D /* Level1.xcassets */; };
+		18FCEA832040EC40009A5C0D /* Level2.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18FCEA1A2040EC3C009A5C0D /* Level2.plist */; };
+		18FCEA842040EC40009A5C0D /* Level2.sks in Resources */ = {isa = PBXBuildFile; fileRef = 18FCEA1B2040EC3C009A5C0D /* Level2.sks */; };
+		18FCEA852040EC40009A5C0D /* Level2.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18FCEA1C2040EC3C009A5C0D /* Level2.xcassets */; };
+		18FCEA862040EC40009A5C0D /* Level3.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18FCEA1E2040EC3C009A5C0D /* Level3.plist */; };
+		18FCEA872040EC40009A5C0D /* Level3.sks in Resources */ = {isa = PBXBuildFile; fileRef = 18FCEA1F2040EC3C009A5C0D /* Level3.sks */; };
+		18FCEA882040EC40009A5C0D /* Level3.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18FCEA202040EC3C009A5C0D /* Level3.xcassets */; };
+		18FCEA892040EC40009A5C0D /* FailScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 18FCEA222040EC3C009A5C0D /* FailScene.sks */; };
+		18FCEA8A2040EC40009A5C0D /* PauseScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 18FCEA232040EC3C009A5C0D /* PauseScene.sks */; };
+		18FCEA8B2040EC40009A5C0D /* SuccessScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 18FCEA242040EC3C009A5C0D /* SuccessScene.sks */; };
+		18FCEA8C2040EC40009A5C0D /* ProgressScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 18FCEA252040EC3C009A5C0D /* ProgressScene.sks */; };
+		18FCEA8D2040EC40009A5C0D /* SceneConfiguration.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18FCEA262040EC3C009A5C0D /* SceneConfiguration.plist */; };
+		18FCEA8E2040EC40009A5C0D /* Scenery.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18FCEA272040EC3C009A5C0D /* Scenery.xcassets */; };
+		18FCEA8F2040EC40009A5C0D /* FlyingBot.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18FCEA292040EC3C009A5C0D /* FlyingBot.xcassets */; };
+		18FCEA902040EC40009A5C0D /* FlyingBotBadAttackParticleEmitter.sks in Resources */ = {isa = PBXBuildFile; fileRef = 18FCEA2A2040EC3C009A5C0D /* FlyingBotBadAttackParticleEmitter.sks */; };
+		18FCEA912040EC40009A5C0D /* FlyingBotGoodAttackParticleEmitter.sks in Resources */ = {isa = PBXBuildFile; fileRef = 18FCEA2B2040EC3C009A5C0D /* FlyingBotGoodAttackParticleEmitter.sks */; };
+		18FCEA922040EC40009A5C0D /* GroundBot.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18FCEA2C2040EC3C009A5C0D /* GroundBot.xcassets */; };
+		18FCEA932040EC40009A5C0D /* ReferenceActions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 18FCEA2D2040EC3C009A5C0D /* ReferenceActions.sks */; };
+		18FCEA942040EC40009A5C0D /* ReferenceScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 18FCEA2E2040EC3C009A5C0D /* ReferenceScene.sks */; };
+		18FCEA952040EC40009A5C0D /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 18FCEA2F2040EC3C009A5C0D /* spark.png */; };
+		18FCEA962040EC40009A5C0D /* ColliderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCEA312040EC3E009A5C0D /* ColliderType.swift */; };
+		18FCEA972040EC40009A5C0D /* ContactNotifiableType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCEA322040EC3E009A5C0D /* ContactNotifiableType.swift */; };
+		18FCEA982040EC40009A5C0D /* BeamNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCEA342040EC3F009A5C0D /* BeamNode.swift */; };
+		18FCEA992040EC40009A5C0D /* ButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCEA352040EC3F009A5C0D /* ButtonNode.swift */; };
+		18FCEA9A2040EC40009A5C0D /* ChargeBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCEA362040EC3F009A5C0D /* ChargeBar.swift */; };
+		18FCEA9B2040EC40009A5C0D /* ThumbStickNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCEA372040EC3F009A5C0D /* ThumbStickNode.swift */; };
+		18FCEA9C2040EC40009A5C0D /* FuzzyTaskBotRule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCEA392040EC3F009A5C0D /* FuzzyTaskBotRule.swift */; };
+		18FCEA9D2040EC40009A5C0D /* LevelStateSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCEA3A2040EC3F009A5C0D /* LevelStateSnapshot.swift */; };
+		18FCEA9E2040EC40009A5C0D /* Rules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCEA3B2040EC3F009A5C0D /* Rules.swift */; };
+		18FCEAA02040EC40009A5C0D /* BaseScene+TouchEventForwarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCEA3E2040EC3F009A5C0D /* BaseScene+TouchEventForwarding.swift */; };
+		18FCEAA12040EC40009A5C0D /* ControlInputSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCEA3F2040EC3F009A5C0D /* ControlInputSource.swift */; };
+		18FCEAA22040EC40009A5C0D /* GameControllerInputSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCEA402040EC3F009A5C0D /* GameControllerInputSource.swift */; };
+		18FCEAA32040EC40009A5C0D /* GameInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCEA412040EC3F009A5C0D /* GameInput.swift */; };
+		18FCEAA52040EC40009A5C0D /* TouchControlInputNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCEA432040EC3F009A5C0D /* TouchControlInputNode.swift */; };
+		18FCEAA62040EC40009A5C0D /* BaseScene+ScreenRecording.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCEA452040EC40009A5C0D /* BaseScene+ScreenRecording.swift */; };
+		18FCEAA72040EC40009A5C0D /* ButtonNodeResponderType+ScreenRecording.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCEA462040EC40009A5C0D /* ButtonNodeResponderType+ScreenRecording.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		186F6E682040D1D1001EEF65 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 186F6E452040D1D1001EEF65 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 186F6E4C2040D1D1001EEF65;
+			remoteInfo = ECGameFramework;
+		};
+		186F6E732040D1D1001EEF65 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 186F6E452040D1D1001EEF65 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 186F6E4C2040D1D1001EEF65;
+			remoteInfo = ECGameFramework;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		186F6E4D2040D1D1001EEF65 /* ECGameFramework.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ECGameFramework.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		186F6E502040D1D1001EEF65 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		186F6E622040D1D1001EEF65 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		186F6E672040D1D1001EEF65 /* ECGameFrameworkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ECGameFrameworkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		186F6E6B2040D1D1001EEF65 /* ECGameFrameworkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ECGameFrameworkTests.swift; sourceTree = "<group>"; };
+		186F6E6D2040D1D1001EEF65 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		186F6E722040D1D1001EEF65 /* ECGameFrameworkUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ECGameFrameworkUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		186F6E762040D1D1001EEF65 /* ECGameFrameworkUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ECGameFrameworkUITests.swift; sourceTree = "<group>"; };
+		186F6E782040D1D1001EEF65 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		186F6E9C2040DAF5001EEF65 /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		186F6EA02040DC36001EEF65 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		186F6EA12040DC38001EEF65 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		18FCE9B62040EB3B009A5C0D /* LoadResourcesOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadResourcesOperation.swift; sourceTree = "<group>"; };
+		18FCE9B72040EB3B009A5C0D /* LoadSceneOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadSceneOperation.swift; sourceTree = "<group>"; };
+		18FCE9B82040EB3B009A5C0D /* ResourceLoadableType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceLoadableType.swift; sourceTree = "<group>"; };
+		18FCE9BA2040EB3B009A5C0D /* SceneLoaderDownloadFailedState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneLoaderDownloadFailedState.swift; sourceTree = "<group>"; };
+		18FCE9BB2040EB3B009A5C0D /* SceneLoaderDownloadingResourcesState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneLoaderDownloadingResourcesState.swift; sourceTree = "<group>"; };
+		18FCE9BC2040EB3B009A5C0D /* SceneLoaderInitialState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneLoaderInitialState.swift; sourceTree = "<group>"; };
+		18FCE9BD2040EB3B009A5C0D /* SceneLoaderPreparingResourcesState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneLoaderPreparingResourcesState.swift; sourceTree = "<group>"; };
+		18FCE9BE2040EB3B009A5C0D /* SceneLoaderResourcesAvailableState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneLoaderResourcesAvailableState.swift; sourceTree = "<group>"; };
+		18FCE9BF2040EB3B009A5C0D /* SceneLoaderResourcesReadyState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneLoaderResourcesReadyState.swift; sourceTree = "<group>"; };
+		18FCE9C02040EB3B009A5C0D /* SceneLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneLoader.swift; sourceTree = "<group>"; };
+		18FCE9C12040EB3B009A5C0D /* SceneManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneManager.swift; sourceTree = "<group>"; };
+		18FCE9C22040EB3B009A5C0D /* SceneMetadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneMetadata.swift; sourceTree = "<group>"; };
+		18FCE9C32040EB3C009A5C0D /* SceneOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneOperation.swift; sourceTree = "<group>"; };
+		18FCE9D22040EB9E009A5C0D /* BaseScene+Buttons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BaseScene+Buttons.swift"; sourceTree = "<group>"; };
+		18FCE9D32040EB9E009A5C0D /* BaseScene+Focus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BaseScene+Focus.swift"; sourceTree = "<group>"; };
+		18FCE9D42040EB9E009A5C0D /* BaseScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseScene.swift; sourceTree = "<group>"; };
+		18FCE9D52040EB9E009A5C0D /* HomeEndScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeEndScene.swift; sourceTree = "<group>"; };
+		18FCE9D62040EB9E009A5C0D /* LevelConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelConfiguration.swift; sourceTree = "<group>"; };
+		18FCE9D82040EB9E009A5C0D /* LevelSceneActiveState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelSceneActiveState.swift; sourceTree = "<group>"; };
+		18FCE9D92040EB9E009A5C0D /* LevelSceneFailState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelSceneFailState.swift; sourceTree = "<group>"; };
+		18FCE9DA2040EB9E009A5C0D /* LevelSceneOverlayState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelSceneOverlayState.swift; sourceTree = "<group>"; };
+		18FCE9DB2040EB9E009A5C0D /* LevelScenePauseState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelScenePauseState.swift; sourceTree = "<group>"; };
+		18FCE9DC2040EB9E009A5C0D /* LevelSceneSuccessState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelSceneSuccessState.swift; sourceTree = "<group>"; };
+		18FCE9DD2040EB9E009A5C0D /* LevelScene+Debug.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "LevelScene+Debug.swift"; sourceTree = "<group>"; };
+		18FCE9DE2040EB9E009A5C0D /* LevelScene+Pause.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "LevelScene+Pause.swift"; sourceTree = "<group>"; };
+		18FCE9DF2040EB9E009A5C0D /* LevelScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelScene.swift; sourceTree = "<group>"; };
+		18FCE9E02040EB9E009A5C0D /* ProgressScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressScene.swift; sourceTree = "<group>"; };
+		18FCE9E12040EB9E009A5C0D /* SceneOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneOverlay.swift; sourceTree = "<group>"; };
+		18FCE9E32040EB9F009A5C0D /* FlyingBot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlyingBot.swift; sourceTree = "<group>"; };
+		18FCE9E42040EB9F009A5C0D /* GameplayConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameplayConfiguration.swift; sourceTree = "<group>"; };
+		18FCE9E52040EB9F009A5C0D /* GroundBot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroundBot.swift; sourceTree = "<group>"; };
+		18FCE9E62040EB9F009A5C0D /* PlayerBot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerBot.swift; sourceTree = "<group>"; };
+		18FCE9E72040EB9F009A5C0D /* TaskBot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskBot.swift; sourceTree = "<group>"; };
+		18FCE9E82040EB9F009A5C0D /* TaskBotAgent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskBotAgent.swift; sourceTree = "<group>"; };
+		18FCE9EA2040EB9F009A5C0D /* AnimationComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationComponent.swift; sourceTree = "<group>"; };
+		18FCE9EC2040EB9F009A5C0D /* BeamCoolingState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeamCoolingState.swift; sourceTree = "<group>"; };
+		18FCE9ED2040EB9F009A5C0D /* BeamFiringState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeamFiringState.swift; sourceTree = "<group>"; };
+		18FCE9EE2040EB9F009A5C0D /* BeamIdleState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeamIdleState.swift; sourceTree = "<group>"; };
+		18FCE9EF2040EB9F009A5C0D /* BeamComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeamComponent.swift; sourceTree = "<group>"; };
+		18FCE9F02040EB9F009A5C0D /* ChargeComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChargeComponent.swift; sourceTree = "<group>"; };
+		18FCE9F12040EB9F009A5C0D /* CompassDirection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompassDirection.swift; sourceTree = "<group>"; };
+		18FCE9F22040EB9F009A5C0D /* InputComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputComponent.swift; sourceTree = "<group>"; };
+		18FCE9F42040EB9F009A5C0D /* PlayerBotAppearState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerBotAppearState.swift; sourceTree = "<group>"; };
+		18FCE9F52040EB9F009A5C0D /* PlayerBotHitState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerBotHitState.swift; sourceTree = "<group>"; };
+		18FCE9F62040EB9F009A5C0D /* PlayerBotPlayerControlledState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerBotPlayerControlledState.swift; sourceTree = "<group>"; };
+		18FCE9F72040EB9F009A5C0D /* PlayerBotRechargingState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerBotRechargingState.swift; sourceTree = "<group>"; };
+		18FCE9F92040EB9F009A5C0D /* FlyingBotBlastState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlyingBotBlastState.swift; sourceTree = "<group>"; };
+		18FCE9FA2040EB9F009A5C0D /* FlyingBotPreAttackState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlyingBotPreAttackState.swift; sourceTree = "<group>"; };
+		18FCE9FB2040EB9F009A5C0D /* GroundBotAttackState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroundBotAttackState.swift; sourceTree = "<group>"; };
+		18FCE9FC2040EB9F009A5C0D /* GroundBotPreAttackState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroundBotPreAttackState.swift; sourceTree = "<group>"; };
+		18FCE9FD2040EB9F009A5C0D /* GroundBotRotateToAttackState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroundBotRotateToAttackState.swift; sourceTree = "<group>"; };
+		18FCE9FE2040EB9F009A5C0D /* TaskBotAgentControlledState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskBotAgentControlledState.swift; sourceTree = "<group>"; };
+		18FCE9FF2040EB9F009A5C0D /* TaskBotZappedState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskBotZappedState.swift; sourceTree = "<group>"; };
+		18FCEA002040EB9F009A5C0D /* IntelligenceComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntelligenceComponent.swift; sourceTree = "<group>"; };
+		18FCEA012040EB9F009A5C0D /* MovementComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovementComponent.swift; sourceTree = "<group>"; };
+		18FCEA022040EB9F009A5C0D /* OrientationComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrientationComponent.swift; sourceTree = "<group>"; };
+		18FCEA032040EB9F009A5C0D /* PhysicsComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhysicsComponent.swift; sourceTree = "<group>"; };
+		18FCEA042040EB9F009A5C0D /* RenderComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenderComponent.swift; sourceTree = "<group>"; };
+		18FCEA052040EB9F009A5C0D /* RulesComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RulesComponent.swift; sourceTree = "<group>"; };
+		18FCEA062040EB9F009A5C0D /* ShadowComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShadowComponent.swift; sourceTree = "<group>"; };
+		18FCEA082040EB9F009A5C0D /* GeometryExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeometryExtensions.swift; sourceTree = "<group>"; };
+		18FCEA092040EB9F009A5C0D /* TaskBotBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskBotBehavior.swift; sourceTree = "<group>"; };
+		18FCEA0B2040EC3C009A5C0D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		18FCEA0D2040EC3C009A5C0D /* Beam.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Beam.xcassets; sourceTree = "<group>"; };
+		18FCEA0E2040EC3C009A5C0D /* BeamLine.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = BeamLine.sks; sourceTree = "<group>"; };
+		18FCEA0F2040EC3C009A5C0D /* PlayerBot.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = PlayerBot.xcassets; sourceTree = "<group>"; };
+		18FCEA102040EC3C009A5C0D /* Teleport.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Teleport.fsh; sourceTree = "<group>"; };
+		18FCEA122040EC3C009A5C0D /* ButtonFocusActions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ButtonFocusActions.sks; sourceTree = "<group>"; };
+		18FCEA132040EC3C009A5C0D /* EndScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = EndScene.sks; sourceTree = "<group>"; };
+		18FCEA142040EC3C009A5C0D /* HomeScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = HomeScene.sks; sourceTree = "<group>"; };
+		18FCEA162040EC3C009A5C0D /* Level1.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Level1.plist; sourceTree = "<group>"; };
+		18FCEA172040EC3C009A5C0D /* Level1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level1.sks; sourceTree = "<group>"; };
+		18FCEA182040EC3C009A5C0D /* Level1.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Level1.xcassets; sourceTree = "<group>"; };
+		18FCEA1A2040EC3C009A5C0D /* Level2.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Level2.plist; sourceTree = "<group>"; };
+		18FCEA1B2040EC3C009A5C0D /* Level2.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level2.sks; sourceTree = "<group>"; };
+		18FCEA1C2040EC3C009A5C0D /* Level2.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Level2.xcassets; sourceTree = "<group>"; };
+		18FCEA1E2040EC3C009A5C0D /* Level3.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Level3.plist; sourceTree = "<group>"; };
+		18FCEA1F2040EC3C009A5C0D /* Level3.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level3.sks; sourceTree = "<group>"; };
+		18FCEA202040EC3C009A5C0D /* Level3.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Level3.xcassets; sourceTree = "<group>"; };
+		18FCEA222040EC3C009A5C0D /* FailScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = FailScene.sks; sourceTree = "<group>"; };
+		18FCEA232040EC3C009A5C0D /* PauseScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = PauseScene.sks; sourceTree = "<group>"; };
+		18FCEA242040EC3C009A5C0D /* SuccessScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = SuccessScene.sks; sourceTree = "<group>"; };
+		18FCEA252040EC3C009A5C0D /* ProgressScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ProgressScene.sks; sourceTree = "<group>"; };
+		18FCEA262040EC3C009A5C0D /* SceneConfiguration.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SceneConfiguration.plist; sourceTree = "<group>"; };
+		18FCEA272040EC3C009A5C0D /* Scenery.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Scenery.xcassets; sourceTree = "<group>"; };
+		18FCEA292040EC3C009A5C0D /* FlyingBot.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = FlyingBot.xcassets; sourceTree = "<group>"; };
+		18FCEA2A2040EC3C009A5C0D /* FlyingBotBadAttackParticleEmitter.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = FlyingBotBadAttackParticleEmitter.sks; sourceTree = "<group>"; };
+		18FCEA2B2040EC3C009A5C0D /* FlyingBotGoodAttackParticleEmitter.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = FlyingBotGoodAttackParticleEmitter.sks; sourceTree = "<group>"; };
+		18FCEA2C2040EC3C009A5C0D /* GroundBot.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = GroundBot.xcassets; sourceTree = "<group>"; };
+		18FCEA2D2040EC3C009A5C0D /* ReferenceActions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ReferenceActions.sks; sourceTree = "<group>"; };
+		18FCEA2E2040EC3C009A5C0D /* ReferenceScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ReferenceScene.sks; sourceTree = "<group>"; };
+		18FCEA2F2040EC3C009A5C0D /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
+		18FCEA312040EC3E009A5C0D /* ColliderType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColliderType.swift; sourceTree = "<group>"; };
+		18FCEA322040EC3E009A5C0D /* ContactNotifiableType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactNotifiableType.swift; sourceTree = "<group>"; };
+		18FCEA342040EC3F009A5C0D /* BeamNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeamNode.swift; sourceTree = "<group>"; };
+		18FCEA352040EC3F009A5C0D /* ButtonNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonNode.swift; sourceTree = "<group>"; };
+		18FCEA362040EC3F009A5C0D /* ChargeBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChargeBar.swift; sourceTree = "<group>"; };
+		18FCEA372040EC3F009A5C0D /* ThumbStickNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThumbStickNode.swift; sourceTree = "<group>"; };
+		18FCEA392040EC3F009A5C0D /* FuzzyTaskBotRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FuzzyTaskBotRule.swift; sourceTree = "<group>"; };
+		18FCEA3A2040EC3F009A5C0D /* LevelStateSnapshot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelStateSnapshot.swift; sourceTree = "<group>"; };
+		18FCEA3B2040EC3F009A5C0D /* Rules.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rules.swift; sourceTree = "<group>"; };
+		18FCEA3E2040EC3F009A5C0D /* BaseScene+TouchEventForwarding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BaseScene+TouchEventForwarding.swift"; sourceTree = "<group>"; };
+		18FCEA3F2040EC3F009A5C0D /* ControlInputSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControlInputSource.swift; sourceTree = "<group>"; };
+		18FCEA402040EC3F009A5C0D /* GameControllerInputSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameControllerInputSource.swift; sourceTree = "<group>"; };
+		18FCEA412040EC3F009A5C0D /* GameInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameInput.swift; sourceTree = "<group>"; };
+		18FCEA432040EC3F009A5C0D /* TouchControlInputNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchControlInputNode.swift; sourceTree = "<group>"; };
+		18FCEA452040EC40009A5C0D /* BaseScene+ScreenRecording.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BaseScene+ScreenRecording.swift"; sourceTree = "<group>"; };
+		18FCEA462040EC40009A5C0D /* ButtonNodeResponderType+ScreenRecording.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ButtonNodeResponderType+ScreenRecording.swift"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		186F6E4A2040D1D1001EEF65 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		186F6E642040D1D1001EEF65 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		186F6E6F2040D1D1001EEF65 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		186F6E442040D1D1001EEF65 = {
+			isa = PBXGroup;
+			children = (
+				186F6E4F2040D1D1001EEF65 /* ECGameFramework */,
+				186F6E6A2040D1D1001EEF65 /* ECGameFrameworkTests */,
+				186F6E752040D1D1001EEF65 /* ECGameFrameworkUITests */,
+				186F6E4E2040D1D1001EEF65 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		186F6E4E2040D1D1001EEF65 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				186F6E4D2040D1D1001EEF65 /* ECGameFramework.app */,
+				186F6E672040D1D1001EEF65 /* ECGameFrameworkTests.xctest */,
+				186F6E722040D1D1001EEF65 /* ECGameFrameworkUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		186F6E4F2040D1D1001EEF65 /* ECGameFramework */ = {
+			isa = PBXGroup;
+			children = (
+				18FCEA0A2040EC3C009A5C0D /* Assets */,
+				18FCEA072040EB9F009A5C0D /* Behaviors */,
+				18FCE9E92040EB9F009A5C0D /* Components */,
+				18FCE9E22040EB9F009A5C0D /* Entities */,
+				18FCEA332040EC3F009A5C0D /* Nodes */,
+				18FCEA302040EC3E009A5C0D /* Physics Contacts and Collisions */,
+				18FCEA3C2040EC3F009A5C0D /* Player Control */,
+				18FCEA382040EC3F009A5C0D /* Rules */,
+				18FCE9D12040EB9E009A5C0D /* Scenes */,
+				18FCEA442040EC40009A5C0D /* Screen Recording */,
+				18FCE9B52040EB3B009A5C0D /* Scene Loading and ODR */,
+				186F6E502040D1D1001EEF65 /* AppDelegate.swift */,
+				186F6E9C2040DAF5001EEF65 /* GameViewController.swift */,
+				186F6EA12040DC38001EEF65 /* LaunchScreen.storyboard */,
+				186F6EA02040DC36001EEF65 /* Main.storyboard */,
+				186F6E622040D1D1001EEF65 /* Info.plist */,
+			);
+			path = ECGameFramework;
+			sourceTree = "<group>";
+		};
+		186F6E6A2040D1D1001EEF65 /* ECGameFrameworkTests */ = {
+			isa = PBXGroup;
+			children = (
+				186F6E6B2040D1D1001EEF65 /* ECGameFrameworkTests.swift */,
+				186F6E6D2040D1D1001EEF65 /* Info.plist */,
+			);
+			path = ECGameFrameworkTests;
+			sourceTree = "<group>";
+		};
+		186F6E752040D1D1001EEF65 /* ECGameFrameworkUITests */ = {
+			isa = PBXGroup;
+			children = (
+				186F6E762040D1D1001EEF65 /* ECGameFrameworkUITests.swift */,
+				186F6E782040D1D1001EEF65 /* Info.plist */,
+			);
+			path = ECGameFrameworkUITests;
+			sourceTree = "<group>";
+		};
+		18FCE9B52040EB3B009A5C0D /* Scene Loading and ODR */ = {
+			isa = PBXGroup;
+			children = (
+				18FCE9B62040EB3B009A5C0D /* LoadResourcesOperation.swift */,
+				18FCE9B72040EB3B009A5C0D /* LoadSceneOperation.swift */,
+				18FCE9B82040EB3B009A5C0D /* ResourceLoadableType.swift */,
+				18FCE9B92040EB3B009A5C0D /* SceneLoader States */,
+				18FCE9C02040EB3B009A5C0D /* SceneLoader.swift */,
+				18FCE9C12040EB3B009A5C0D /* SceneManager.swift */,
+				18FCE9C22040EB3B009A5C0D /* SceneMetadata.swift */,
+				18FCE9C32040EB3C009A5C0D /* SceneOperation.swift */,
+			);
+			path = "Scene Loading and ODR";
+			sourceTree = "<group>";
+		};
+		18FCE9B92040EB3B009A5C0D /* SceneLoader States */ = {
+			isa = PBXGroup;
+			children = (
+				18FCE9BA2040EB3B009A5C0D /* SceneLoaderDownloadFailedState.swift */,
+				18FCE9BB2040EB3B009A5C0D /* SceneLoaderDownloadingResourcesState.swift */,
+				18FCE9BC2040EB3B009A5C0D /* SceneLoaderInitialState.swift */,
+				18FCE9BD2040EB3B009A5C0D /* SceneLoaderPreparingResourcesState.swift */,
+				18FCE9BE2040EB3B009A5C0D /* SceneLoaderResourcesAvailableState.swift */,
+				18FCE9BF2040EB3B009A5C0D /* SceneLoaderResourcesReadyState.swift */,
+			);
+			path = "SceneLoader States";
+			sourceTree = "<group>";
+		};
+		18FCE9D12040EB9E009A5C0D /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				18FCE9D22040EB9E009A5C0D /* BaseScene+Buttons.swift */,
+				18FCE9D32040EB9E009A5C0D /* BaseScene+Focus.swift */,
+				18FCE9D42040EB9E009A5C0D /* BaseScene.swift */,
+				18FCE9D52040EB9E009A5C0D /* HomeEndScene.swift */,
+				18FCE9D62040EB9E009A5C0D /* LevelConfiguration.swift */,
+				18FCE9D72040EB9E009A5C0D /* LevelScene States */,
+				18FCE9DD2040EB9E009A5C0D /* LevelScene+Debug.swift */,
+				18FCE9DE2040EB9E009A5C0D /* LevelScene+Pause.swift */,
+				18FCE9DF2040EB9E009A5C0D /* LevelScene.swift */,
+				18FCE9E02040EB9E009A5C0D /* ProgressScene.swift */,
+				18FCE9E12040EB9E009A5C0D /* SceneOverlay.swift */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		18FCE9D72040EB9E009A5C0D /* LevelScene States */ = {
+			isa = PBXGroup;
+			children = (
+				18FCE9D82040EB9E009A5C0D /* LevelSceneActiveState.swift */,
+				18FCE9D92040EB9E009A5C0D /* LevelSceneFailState.swift */,
+				18FCE9DA2040EB9E009A5C0D /* LevelSceneOverlayState.swift */,
+				18FCE9DB2040EB9E009A5C0D /* LevelScenePauseState.swift */,
+				18FCE9DC2040EB9E009A5C0D /* LevelSceneSuccessState.swift */,
+			);
+			path = "LevelScene States";
+			sourceTree = "<group>";
+		};
+		18FCE9E22040EB9F009A5C0D /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				18FCE9E32040EB9F009A5C0D /* FlyingBot.swift */,
+				18FCE9E42040EB9F009A5C0D /* GameplayConfiguration.swift */,
+				18FCE9E52040EB9F009A5C0D /* GroundBot.swift */,
+				18FCE9E62040EB9F009A5C0D /* PlayerBot.swift */,
+				18FCE9E72040EB9F009A5C0D /* TaskBot.swift */,
+				18FCE9E82040EB9F009A5C0D /* TaskBotAgent.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		18FCE9E92040EB9F009A5C0D /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				18FCE9EA2040EB9F009A5C0D /* AnimationComponent.swift */,
+				18FCE9EB2040EB9F009A5C0D /* BeamComponent States */,
+				18FCE9EF2040EB9F009A5C0D /* BeamComponent.swift */,
+				18FCE9F02040EB9F009A5C0D /* ChargeComponent.swift */,
+				18FCE9F12040EB9F009A5C0D /* CompassDirection.swift */,
+				18FCE9F22040EB9F009A5C0D /* InputComponent.swift */,
+				18FCE9F32040EB9F009A5C0D /* IntelligenceComponent States (PlayerBot) */,
+				18FCE9F82040EB9F009A5C0D /* IntelligenceComponent States (TaskBot) */,
+				18FCEA002040EB9F009A5C0D /* IntelligenceComponent.swift */,
+				18FCEA012040EB9F009A5C0D /* MovementComponent.swift */,
+				18FCEA022040EB9F009A5C0D /* OrientationComponent.swift */,
+				18FCEA032040EB9F009A5C0D /* PhysicsComponent.swift */,
+				18FCEA042040EB9F009A5C0D /* RenderComponent.swift */,
+				18FCEA052040EB9F009A5C0D /* RulesComponent.swift */,
+				18FCEA062040EB9F009A5C0D /* ShadowComponent.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		18FCE9EB2040EB9F009A5C0D /* BeamComponent States */ = {
+			isa = PBXGroup;
+			children = (
+				18FCE9EC2040EB9F009A5C0D /* BeamCoolingState.swift */,
+				18FCE9ED2040EB9F009A5C0D /* BeamFiringState.swift */,
+				18FCE9EE2040EB9F009A5C0D /* BeamIdleState.swift */,
+			);
+			path = "BeamComponent States";
+			sourceTree = "<group>";
+		};
+		18FCE9F32040EB9F009A5C0D /* IntelligenceComponent States (PlayerBot) */ = {
+			isa = PBXGroup;
+			children = (
+				18FCE9F42040EB9F009A5C0D /* PlayerBotAppearState.swift */,
+				18FCE9F52040EB9F009A5C0D /* PlayerBotHitState.swift */,
+				18FCE9F62040EB9F009A5C0D /* PlayerBotPlayerControlledState.swift */,
+				18FCE9F72040EB9F009A5C0D /* PlayerBotRechargingState.swift */,
+			);
+			path = "IntelligenceComponent States (PlayerBot)";
+			sourceTree = "<group>";
+		};
+		18FCE9F82040EB9F009A5C0D /* IntelligenceComponent States (TaskBot) */ = {
+			isa = PBXGroup;
+			children = (
+				18FCE9F92040EB9F009A5C0D /* FlyingBotBlastState.swift */,
+				18FCE9FA2040EB9F009A5C0D /* FlyingBotPreAttackState.swift */,
+				18FCE9FB2040EB9F009A5C0D /* GroundBotAttackState.swift */,
+				18FCE9FC2040EB9F009A5C0D /* GroundBotPreAttackState.swift */,
+				18FCE9FD2040EB9F009A5C0D /* GroundBotRotateToAttackState.swift */,
+				18FCE9FE2040EB9F009A5C0D /* TaskBotAgentControlledState.swift */,
+				18FCE9FF2040EB9F009A5C0D /* TaskBotZappedState.swift */,
+			);
+			path = "IntelligenceComponent States (TaskBot)";
+			sourceTree = "<group>";
+		};
+		18FCEA072040EB9F009A5C0D /* Behaviors */ = {
+			isa = PBXGroup;
+			children = (
+				18FCEA082040EB9F009A5C0D /* GeometryExtensions.swift */,
+				18FCEA092040EB9F009A5C0D /* TaskBotBehavior.swift */,
+			);
+			path = Behaviors;
+			sourceTree = "<group>";
+		};
+		18FCEA0A2040EC3C009A5C0D /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				18FCEA0B2040EC3C009A5C0D /* Assets.xcassets */,
+				18FCEA0C2040EC3C009A5C0D /* PlayerBot */,
+				18FCEA112040EC3C009A5C0D /* Scenes */,
+				18FCEA282040EC3C009A5C0D /* TaskBot */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		18FCEA0C2040EC3C009A5C0D /* PlayerBot */ = {
+			isa = PBXGroup;
+			children = (
+				18FCEA0D2040EC3C009A5C0D /* Beam.xcassets */,
+				18FCEA0E2040EC3C009A5C0D /* BeamLine.sks */,
+				18FCEA0F2040EC3C009A5C0D /* PlayerBot.xcassets */,
+				18FCEA102040EC3C009A5C0D /* Teleport.fsh */,
+			);
+			path = PlayerBot;
+			sourceTree = "<group>";
+		};
+		18FCEA112040EC3C009A5C0D /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				18FCEA122040EC3C009A5C0D /* ButtonFocusActions.sks */,
+				18FCEA132040EC3C009A5C0D /* EndScene.sks */,
+				18FCEA142040EC3C009A5C0D /* HomeScene.sks */,
+				18FCEA152040EC3C009A5C0D /* Level1 */,
+				18FCEA192040EC3C009A5C0D /* Level2 */,
+				18FCEA1D2040EC3C009A5C0D /* Level3 */,
+				18FCEA212040EC3C009A5C0D /* LevelScene States */,
+				18FCEA252040EC3C009A5C0D /* ProgressScene.sks */,
+				18FCEA262040EC3C009A5C0D /* SceneConfiguration.plist */,
+				18FCEA272040EC3C009A5C0D /* Scenery.xcassets */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		18FCEA152040EC3C009A5C0D /* Level1 */ = {
+			isa = PBXGroup;
+			children = (
+				18FCEA162040EC3C009A5C0D /* Level1.plist */,
+				18FCEA172040EC3C009A5C0D /* Level1.sks */,
+				18FCEA182040EC3C009A5C0D /* Level1.xcassets */,
+			);
+			path = Level1;
+			sourceTree = "<group>";
+		};
+		18FCEA192040EC3C009A5C0D /* Level2 */ = {
+			isa = PBXGroup;
+			children = (
+				18FCEA1A2040EC3C009A5C0D /* Level2.plist */,
+				18FCEA1B2040EC3C009A5C0D /* Level2.sks */,
+				18FCEA1C2040EC3C009A5C0D /* Level2.xcassets */,
+			);
+			path = Level2;
+			sourceTree = "<group>";
+		};
+		18FCEA1D2040EC3C009A5C0D /* Level3 */ = {
+			isa = PBXGroup;
+			children = (
+				18FCEA1E2040EC3C009A5C0D /* Level3.plist */,
+				18FCEA1F2040EC3C009A5C0D /* Level3.sks */,
+				18FCEA202040EC3C009A5C0D /* Level3.xcassets */,
+			);
+			path = Level3;
+			sourceTree = "<group>";
+		};
+		18FCEA212040EC3C009A5C0D /* LevelScene States */ = {
+			isa = PBXGroup;
+			children = (
+				18FCEA222040EC3C009A5C0D /* FailScene.sks */,
+				18FCEA232040EC3C009A5C0D /* PauseScene.sks */,
+				18FCEA242040EC3C009A5C0D /* SuccessScene.sks */,
+			);
+			path = "LevelScene States";
+			sourceTree = "<group>";
+		};
+		18FCEA282040EC3C009A5C0D /* TaskBot */ = {
+			isa = PBXGroup;
+			children = (
+				18FCEA292040EC3C009A5C0D /* FlyingBot.xcassets */,
+				18FCEA2A2040EC3C009A5C0D /* FlyingBotBadAttackParticleEmitter.sks */,
+				18FCEA2B2040EC3C009A5C0D /* FlyingBotGoodAttackParticleEmitter.sks */,
+				18FCEA2C2040EC3C009A5C0D /* GroundBot.xcassets */,
+				18FCEA2D2040EC3C009A5C0D /* ReferenceActions.sks */,
+				18FCEA2E2040EC3C009A5C0D /* ReferenceScene.sks */,
+				18FCEA2F2040EC3C009A5C0D /* spark.png */,
+			);
+			path = TaskBot;
+			sourceTree = "<group>";
+		};
+		18FCEA302040EC3E009A5C0D /* Physics Contacts and Collisions */ = {
+			isa = PBXGroup;
+			children = (
+				18FCEA312040EC3E009A5C0D /* ColliderType.swift */,
+				18FCEA322040EC3E009A5C0D /* ContactNotifiableType.swift */,
+			);
+			path = "Physics Contacts and Collisions";
+			sourceTree = "<group>";
+		};
+		18FCEA332040EC3F009A5C0D /* Nodes */ = {
+			isa = PBXGroup;
+			children = (
+				18FCEA342040EC3F009A5C0D /* BeamNode.swift */,
+				18FCEA352040EC3F009A5C0D /* ButtonNode.swift */,
+				18FCEA362040EC3F009A5C0D /* ChargeBar.swift */,
+				18FCEA372040EC3F009A5C0D /* ThumbStickNode.swift */,
+			);
+			path = Nodes;
+			sourceTree = "<group>";
+		};
+		18FCEA382040EC3F009A5C0D /* Rules */ = {
+			isa = PBXGroup;
+			children = (
+				18FCEA392040EC3F009A5C0D /* FuzzyTaskBotRule.swift */,
+				18FCEA3A2040EC3F009A5C0D /* LevelStateSnapshot.swift */,
+				18FCEA3B2040EC3F009A5C0D /* Rules.swift */,
+			);
+			path = Rules;
+			sourceTree = "<group>";
+		};
+		18FCEA3C2040EC3F009A5C0D /* Player Control */ = {
+			isa = PBXGroup;
+			children = (
+				18FCEA3E2040EC3F009A5C0D /* BaseScene+TouchEventForwarding.swift */,
+				18FCEA3F2040EC3F009A5C0D /* ControlInputSource.swift */,
+				18FCEA402040EC3F009A5C0D /* GameControllerInputSource.swift */,
+				18FCEA412040EC3F009A5C0D /* GameInput.swift */,
+				18FCEA432040EC3F009A5C0D /* TouchControlInputNode.swift */,
+			);
+			path = "Player Control";
+			sourceTree = "<group>";
+		};
+		18FCEA442040EC40009A5C0D /* Screen Recording */ = {
+			isa = PBXGroup;
+			children = (
+				18FCEA452040EC40009A5C0D /* BaseScene+ScreenRecording.swift */,
+				18FCEA462040EC40009A5C0D /* ButtonNodeResponderType+ScreenRecording.swift */,
+			);
+			path = "Screen Recording";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		186F6E4C2040D1D1001EEF65 /* ECGameFramework */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 186F6E7B2040D1D1001EEF65 /* Build configuration list for PBXNativeTarget "ECGameFramework" */;
+			buildPhases = (
+				186F6E492040D1D1001EEF65 /* Sources */,
+				186F6E4A2040D1D1001EEF65 /* Frameworks */,
+				186F6E4B2040D1D1001EEF65 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ECGameFramework;
+			productName = ECGameFramework;
+			productReference = 186F6E4D2040D1D1001EEF65 /* ECGameFramework.app */;
+			productType = "com.apple.product-type.application";
+		};
+		186F6E662040D1D1001EEF65 /* ECGameFrameworkTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 186F6E7E2040D1D1001EEF65 /* Build configuration list for PBXNativeTarget "ECGameFrameworkTests" */;
+			buildPhases = (
+				186F6E632040D1D1001EEF65 /* Sources */,
+				186F6E642040D1D1001EEF65 /* Frameworks */,
+				186F6E652040D1D1001EEF65 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				186F6E692040D1D1001EEF65 /* PBXTargetDependency */,
+			);
+			name = ECGameFrameworkTests;
+			productName = ECGameFrameworkTests;
+			productReference = 186F6E672040D1D1001EEF65 /* ECGameFrameworkTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		186F6E712040D1D1001EEF65 /* ECGameFrameworkUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 186F6E812040D1D1001EEF65 /* Build configuration list for PBXNativeTarget "ECGameFrameworkUITests" */;
+			buildPhases = (
+				186F6E6E2040D1D1001EEF65 /* Sources */,
+				186F6E6F2040D1D1001EEF65 /* Frameworks */,
+				186F6E702040D1D1001EEF65 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				186F6E742040D1D1001EEF65 /* PBXTargetDependency */,
+			);
+			name = ECGameFrameworkUITests;
+			productName = ECGameFrameworkUITests;
+			productReference = 186F6E722040D1D1001EEF65 /* ECGameFrameworkUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		186F6E452040D1D1001EEF65 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				KnownAssetTags = (
+					Level2,
+				);
+				LastSwiftUpdateCheck = 0920;
+				LastUpgradeCheck = 0920;
+				ORGANIZATIONNAME = "Jason Fry";
+				TargetAttributes = {
+					186F6E4C2040D1D1001EEF65 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
+					186F6E662040D1D1001EEF65 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 186F6E4C2040D1D1001EEF65;
+					};
+					186F6E712040D1D1001EEF65 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 186F6E4C2040D1D1001EEF65;
+					};
+				};
+			};
+			buildConfigurationList = 186F6E482040D1D1001EEF65 /* Build configuration list for PBXProject "ECGameFramework" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 186F6E442040D1D1001EEF65;
+			productRefGroup = 186F6E4E2040D1D1001EEF65 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				186F6E4C2040D1D1001EEF65 /* ECGameFramework */,
+				186F6E662040D1D1001EEF65 /* ECGameFrameworkTests */,
+				186F6E712040D1D1001EEF65 /* ECGameFrameworkUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		186F6E4B2040D1D1001EEF65 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				18FCEA8E2040EC40009A5C0D /* Scenery.xcassets in Resources */,
+				18FCEA7E2040EC40009A5C0D /* EndScene.sks in Resources */,
+				18FCEA7F2040EC40009A5C0D /* HomeScene.sks in Resources */,
+				18FCEA892040EC40009A5C0D /* FailScene.sks in Resources */,
+				18FCEA812040EC40009A5C0D /* Level1.sks in Resources */,
+				18FCEA882040EC40009A5C0D /* Level3.xcassets in Resources */,
+				18FCEA902040EC40009A5C0D /* FlyingBotBadAttackParticleEmitter.sks in Resources */,
+				18FCEA932040EC40009A5C0D /* ReferenceActions.sks in Resources */,
+				18FCEA8F2040EC40009A5C0D /* FlyingBot.xcassets in Resources */,
+				18FCEA802040EC40009A5C0D /* Level1.plist in Resources */,
+				18FCEA922040EC40009A5C0D /* GroundBot.xcassets in Resources */,
+				18FCEA8B2040EC40009A5C0D /* SuccessScene.sks in Resources */,
+				18FCEA842040EC40009A5C0D /* Level2.sks in Resources */,
+				18FCEA8D2040EC40009A5C0D /* SceneConfiguration.plist in Resources */,
+				18FCEA852040EC40009A5C0D /* Level2.xcassets in Resources */,
+				186F6EA22040DC39001EEF65 /* Main.storyboard in Resources */,
+				18FCEA7A2040EC40009A5C0D /* BeamLine.sks in Resources */,
+				18FCEA7D2040EC40009A5C0D /* ButtonFocusActions.sks in Resources */,
+				18FCEA7C2040EC40009A5C0D /* Teleport.fsh in Resources */,
+				18FCEA832040EC40009A5C0D /* Level2.plist in Resources */,
+				18FCEA912040EC40009A5C0D /* FlyingBotGoodAttackParticleEmitter.sks in Resources */,
+				18FCEA8A2040EC40009A5C0D /* PauseScene.sks in Resources */,
+				18FCEA782040EC40009A5C0D /* Assets.xcassets in Resources */,
+				18FCEA872040EC40009A5C0D /* Level3.sks in Resources */,
+				18FCEA792040EC40009A5C0D /* Beam.xcassets in Resources */,
+				18FCEA8C2040EC40009A5C0D /* ProgressScene.sks in Resources */,
+				18FCEA942040EC40009A5C0D /* ReferenceScene.sks in Resources */,
+				18FCEA862040EC40009A5C0D /* Level3.plist in Resources */,
+				18FCEA7B2040EC40009A5C0D /* PlayerBot.xcassets in Resources */,
+				18FCEA952040EC40009A5C0D /* spark.png in Resources */,
+				18FCEA822040EC40009A5C0D /* Level1.xcassets in Resources */,
+				186F6EA52040DC39001EEF65 /* LaunchScreen.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		186F6E652040D1D1001EEF65 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				186F6EA32040DC39001EEF65 /* Main.storyboard in Resources */,
+				186F6EA62040DC39001EEF65 /* LaunchScreen.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		186F6E702040D1D1001EEF65 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				186F6EA42040DC39001EEF65 /* Main.storyboard in Resources */,
+				186F6EA72040DC39001EEF65 /* LaunchScreen.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		186F6E492040D1D1001EEF65 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				18FCEA4E2040EC40009A5C0D /* LevelSceneOverlayState.swift in Sources */,
+				18FCEA962040EC40009A5C0D /* ColliderType.swift in Sources */,
+				18FCEA6E2040EC40009A5C0D /* TaskBotZappedState.swift in Sources */,
+				18FCEA522040EC40009A5C0D /* LevelScene+Pause.swift in Sources */,
+				18FCEA6D2040EC40009A5C0D /* TaskBotAgentControlledState.swift in Sources */,
+				18FCEA6A2040EC40009A5C0D /* GroundBotAttackState.swift in Sources */,
+				18FCEA722040EC40009A5C0D /* PhysicsComponent.swift in Sources */,
+				18FCEA9B2040EC40009A5C0D /* ThumbStickNode.swift in Sources */,
+				18FCEA632040EC40009A5C0D /* InputComponent.swift in Sources */,
+				18FCEAA22040EC40009A5C0D /* GameControllerInputSource.swift in Sources */,
+				18FCEA5F2040EC40009A5C0D /* BeamIdleState.swift in Sources */,
+				18FCEA662040EC40009A5C0D /* PlayerBotPlayerControlledState.swift in Sources */,
+				18FCE9C92040EB3C009A5C0D /* SceneLoaderInitialState.swift in Sources */,
+				18FCEA5A2040EC40009A5C0D /* TaskBot.swift in Sources */,
+				18FCEA9A2040EC40009A5C0D /* ChargeBar.swift in Sources */,
+				18FCEAA52040EC40009A5C0D /* TouchControlInputNode.swift in Sources */,
+				18FCEA732040EC40009A5C0D /* RenderComponent.swift in Sources */,
+				18FCEA492040EC40009A5C0D /* BaseScene.swift in Sources */,
+				18FCEA512040EC40009A5C0D /* LevelScene+Debug.swift in Sources */,
+				18FCEA6F2040EC40009A5C0D /* IntelligenceComponent.swift in Sources */,
+				18FCEA532040EC40009A5C0D /* LevelScene.swift in Sources */,
+				18FCEA592040EC40009A5C0D /* PlayerBot.swift in Sources */,
+				18FCEA6B2040EC40009A5C0D /* GroundBotPreAttackState.swift in Sources */,
+				186F6E9D2040DAF5001EEF65 /* GameViewController.swift in Sources */,
+				18FCEA552040EC40009A5C0D /* SceneOverlay.swift in Sources */,
+				18FCEAA72040EC40009A5C0D /* ButtonNodeResponderType+ScreenRecording.swift in Sources */,
+				18FCEA982040EC40009A5C0D /* BeamNode.swift in Sources */,
+				18FCEA682040EC40009A5C0D /* FlyingBotBlastState.swift in Sources */,
+				18FCEA602040EC40009A5C0D /* BeamComponent.swift in Sources */,
+				186F6E512040D1D1001EEF65 /* AppDelegate.swift in Sources */,
+				18FCEA622040EC40009A5C0D /* CompassDirection.swift in Sources */,
+				18FCEA772040EC40009A5C0D /* TaskBotBehavior.swift in Sources */,
+				18FCEA6C2040EC40009A5C0D /* GroundBotRotateToAttackState.swift in Sources */,
+				18FCEA582040EC40009A5C0D /* GroundBot.swift in Sources */,
+				18FCEA5B2040EC40009A5C0D /* TaskBotAgent.swift in Sources */,
+				18FCE9C52040EB3C009A5C0D /* LoadSceneOperation.swift in Sources */,
+				18FCEA482040EC40009A5C0D /* BaseScene+Focus.swift in Sources */,
+				18FCE9CC2040EB3C009A5C0D /* SceneLoaderResourcesReadyState.swift in Sources */,
+				18FCEA5C2040EC40009A5C0D /* AnimationComponent.swift in Sources */,
+				18FCEAA32040EC40009A5C0D /* GameInput.swift in Sources */,
+				18FCEA672040EC40009A5C0D /* PlayerBotRechargingState.swift in Sources */,
+				18FCEA762040EC40009A5C0D /* GeometryExtensions.swift in Sources */,
+				18FCEA5E2040EC40009A5C0D /* BeamFiringState.swift in Sources */,
+				18FCEA502040EC40009A5C0D /* LevelSceneSuccessState.swift in Sources */,
+				18FCEA692040EC40009A5C0D /* FlyingBotPreAttackState.swift in Sources */,
+				18FCEA9C2040EC40009A5C0D /* FuzzyTaskBotRule.swift in Sources */,
+				18FCEA4B2040EC40009A5C0D /* LevelConfiguration.swift in Sources */,
+				18FCEA472040EC40009A5C0D /* BaseScene+Buttons.swift in Sources */,
+				18FCEAA12040EC40009A5C0D /* ControlInputSource.swift in Sources */,
+				18FCEA742040EC40009A5C0D /* RulesComponent.swift in Sources */,
+				18FCEA4F2040EC40009A5C0D /* LevelScenePauseState.swift in Sources */,
+				18FCEAA62040EC40009A5C0D /* BaseScene+ScreenRecording.swift in Sources */,
+				18FCEA652040EC40009A5C0D /* PlayerBotHitState.swift in Sources */,
+				18FCEA542040EC40009A5C0D /* ProgressScene.swift in Sources */,
+				18FCE9C42040EB3C009A5C0D /* LoadResourcesOperation.swift in Sources */,
+				18FCEA562040EC40009A5C0D /* FlyingBot.swift in Sources */,
+				18FCEA702040EC40009A5C0D /* MovementComponent.swift in Sources */,
+				18FCEA5D2040EC40009A5C0D /* BeamCoolingState.swift in Sources */,
+				18FCEA9D2040EC40009A5C0D /* LevelStateSnapshot.swift in Sources */,
+				18FCEA4C2040EC40009A5C0D /* LevelSceneActiveState.swift in Sources */,
+				18FCEA612040EC40009A5C0D /* ChargeComponent.swift in Sources */,
+				18FCEAA02040EC40009A5C0D /* BaseScene+TouchEventForwarding.swift in Sources */,
+				18FCEA712040EC40009A5C0D /* OrientationComponent.swift in Sources */,
+				18FCE9CB2040EB3C009A5C0D /* SceneLoaderResourcesAvailableState.swift in Sources */,
+				18FCE9CF2040EB3C009A5C0D /* SceneMetadata.swift in Sources */,
+				18FCEA642040EC40009A5C0D /* PlayerBotAppearState.swift in Sources */,
+				18FCE9CA2040EB3C009A5C0D /* SceneLoaderPreparingResourcesState.swift in Sources */,
+				18FCE9C72040EB3C009A5C0D /* SceneLoaderDownloadFailedState.swift in Sources */,
+				18FCE9D02040EB3C009A5C0D /* SceneOperation.swift in Sources */,
+				18FCE9CD2040EB3C009A5C0D /* SceneLoader.swift in Sources */,
+				18FCE9C82040EB3C009A5C0D /* SceneLoaderDownloadingResourcesState.swift in Sources */,
+				18FCEA4A2040EC40009A5C0D /* HomeEndScene.swift in Sources */,
+				18FCEA752040EC40009A5C0D /* ShadowComponent.swift in Sources */,
+				18FCEA9E2040EC40009A5C0D /* Rules.swift in Sources */,
+				18FCE9CE2040EB3C009A5C0D /* SceneManager.swift in Sources */,
+				18FCE9C62040EB3C009A5C0D /* ResourceLoadableType.swift in Sources */,
+				18FCEA972040EC40009A5C0D /* ContactNotifiableType.swift in Sources */,
+				18FCEA992040EC40009A5C0D /* ButtonNode.swift in Sources */,
+				18FCEA572040EC40009A5C0D /* GameplayConfiguration.swift in Sources */,
+				18FCEA4D2040EC40009A5C0D /* LevelSceneFailState.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		186F6E632040D1D1001EEF65 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				186F6E9E2040DAF5001EEF65 /* GameViewController.swift in Sources */,
+				186F6E6C2040D1D1001EEF65 /* ECGameFrameworkTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		186F6E6E2040D1D1001EEF65 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				186F6E9F2040DAF5001EEF65 /* GameViewController.swift in Sources */,
+				186F6E772040D1D1001EEF65 /* ECGameFrameworkUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		186F6E692040D1D1001EEF65 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 186F6E4C2040D1D1001EEF65 /* ECGameFramework */;
+			targetProxy = 186F6E682040D1D1001EEF65 /* PBXContainerItemProxy */;
+		};
+		186F6E742040D1D1001EEF65 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 186F6E4C2040D1D1001EEF65 /* ECGameFramework */;
+			targetProxy = 186F6E732040D1D1001EEF65 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		186F6E792040D1D1001EEF65 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		186F6E7A2040D1D1001EEF65 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		186F6E7C2040D1D1001EEF65 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3GUBKE4V5J;
+				FRAMEWORK_SEARCH_PATHS = build;
+				INFOPLIST_FILE = ECGameFramework/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				ON_DEMAND_RESOURCES_INITIAL_INSTALL_TAGS = "Blue GroundBot Level 1";
+				PRODUCT_BUNDLE_IDENTIFIER = funkytomato.ECGameFramework;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		186F6E7D2040D1D1001EEF65 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3GUBKE4V5J;
+				FRAMEWORK_SEARCH_PATHS = build;
+				INFOPLIST_FILE = ECGameFramework/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				ON_DEMAND_RESOURCES_INITIAL_INSTALL_TAGS = "Blue GroundBot Level 1";
+				PRODUCT_BUNDLE_IDENTIFIER = funkytomato.ECGameFramework;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		186F6E7F2040D1D1001EEF65 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3GUBKE4V5J;
+				INFOPLIST_FILE = ECGameFrameworkTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = funkytomato.ECGameFrameworkTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ECGameFramework.app/ECGameFramework";
+			};
+			name = Debug;
+		};
+		186F6E802040D1D1001EEF65 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3GUBKE4V5J;
+				INFOPLIST_FILE = ECGameFrameworkTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = funkytomato.ECGameFrameworkTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ECGameFramework.app/ECGameFramework";
+			};
+			name = Release;
+		};
+		186F6E822040D1D1001EEF65 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3GUBKE4V5J;
+				INFOPLIST_FILE = ECGameFrameworkUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = funkytomato.ECGameFrameworkUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = ECGameFramework;
+			};
+			name = Debug;
+		};
+		186F6E832040D1D1001EEF65 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3GUBKE4V5J;
+				INFOPLIST_FILE = ECGameFrameworkUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = funkytomato.ECGameFrameworkUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = ECGameFramework;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		186F6E482040D1D1001EEF65 /* Build configuration list for PBXProject "ECGameFramework" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				186F6E792040D1D1001EEF65 /* Debug */,
+				186F6E7A2040D1D1001EEF65 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		186F6E7B2040D1D1001EEF65 /* Build configuration list for PBXNativeTarget "ECGameFramework" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				186F6E7C2040D1D1001EEF65 /* Debug */,
+				186F6E7D2040D1D1001EEF65 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		186F6E7E2040D1D1001EEF65 /* Build configuration list for PBXNativeTarget "ECGameFrameworkTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				186F6E7F2040D1D1001EEF65 /* Debug */,
+				186F6E802040D1D1001EEF65 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		186F6E812040D1D1001EEF65 /* Build configuration list for PBXNativeTarget "ECGameFrameworkUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				186F6E822040D1D1001EEF65 /* Debug */,
+				186F6E832040D1D1001EEF65 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 186F6E452040D1D1001EEF65 /* Project object */;
+}
