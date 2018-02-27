@@ -9,7 +9,8 @@
 import SpriteKit
 import GameController
 
-class GameControllerInputSource: ControlInputSourceType {
+class GameControllerInputSource: ControlInputSourceType
+{
     // MARK: Properties
     
     /// `ControlInputSourceType` delegates.
@@ -22,7 +23,8 @@ class GameControllerInputSource: ControlInputSourceType {
 
     // MARK: Initializers
     
-    init(gameController: GCController) {
+    init(gameController: GCController)
+    {
         self.gameController = gameController
         
         registerPauseEvent()
@@ -33,43 +35,51 @@ class GameControllerInputSource: ControlInputSourceType {
     
     // MARK: Gamepad Registration Methods
     
-    private func registerPauseEvent() {
+    private func registerPauseEvent()
+    {
         gameController.controllerPausedHandler = { [unowned self] _ in
             self.gameStateDelegate?.controlInputSourceDidTogglePauseState(self)
         }
     }
     
-    private func registerAttackEvents() {
+    private func registerAttackEvents()
+    {
         /// A handler for button press events that trigger an attack action.
         let attackHandler: GCControllerButtonValueChangedHandler = { [unowned self] button, _, pressed in
-            if pressed {
+            if pressed
+            {
                 self.delegate?.controlInputSourceDidBeginAttacking(self)
 
                 #if os(tvOS)
-                if let microGamepad = self.gameController.microGamepad, button == microGamepad.buttonA || button == microGamepad.buttonX {
+                if let microGamepad = self.gameController.microGamepad, button == microGamepad.buttonA || button == microGamepad.buttonX
+                {
                     self.gameStateDelegate?.controlInputSourceDidSelect(self)
                 }
                 #else
-                if let gamepad = self.gameController.gamepad, button == gamepad.buttonA || button == gamepad.buttonX {
+                if let gamepad = self.gameController.gamepad, button == gamepad.buttonA || button == gamepad.buttonX
+                {
                     self.gameStateDelegate?.controlInputSourceDidSelect(self)
                 }
                 #endif
             }
-            else {
+            else
+            {
                 self.delegate?.controlInputSourceDidFinishAttacking(self)
             }
         }
         
         #if os(tvOS)
         // `GCMicroGamepad` button handlers.
-        if let microGamepad = gameController.microGamepad {
+        if let microGamepad = gameController.microGamepad
+        {
             microGamepad.buttonA.pressedChangedHandler = attackHandler
             microGamepad.buttonX.pressedChangedHandler = attackHandler
         }
         #endif
     
         // `GCGamepad` button handlers.
-        if let gamepad = gameController.gamepad {
+        if let gamepad = gameController.gamepad
+        {
             /*
                 Assign an action to every button, even if this means that multiple
                 buttons provide the same functionality. It's better to have repeated
@@ -84,13 +94,15 @@ class GameControllerInputSource: ControlInputSourceType {
         }
         
         // `GCExtendedGamepad` trigger handlers.
-        if let extendedGamepad = gameController.extendedGamepad {
+        if let extendedGamepad = gameController.extendedGamepad
+        {
             extendedGamepad.rightTrigger.pressedChangedHandler = attackHandler
             extendedGamepad.leftTrigger.pressedChangedHandler  = attackHandler
         }
     }
     
-    private func registerMovementEvents() {
+    private func registerMovementEvents()
+    {
         /// An analog movement handler for D-pads and movement thumbsticks.
         let movementHandler: GCControllerDirectionPadValueChangedHandler = { [unowned self] _, xValue, yValue in
             // Move toward the direction of the axis.
@@ -98,14 +110,16 @@ class GameControllerInputSource: ControlInputSourceType {
             
             self.delegate?.controlInputSource(self, didUpdateDisplacement: displacement)
             
-            if let direction = ControlInputDirection(vector: displacement) {
+            if let direction = ControlInputDirection(vector: displacement)
+            {
                 self.gameStateDelegate?.controlInputSource(self, didSpecifyDirection: direction)
             }
         }
         
         #if os(tvOS)
         // `GCMicroGamepad` D-pad handler.
-        if let microGamepad = gameController.microGamepad {
+        if let microGamepad = gameController.microGamepad
+        {
             // Allow the gamepad to handle transposing D-pad values when rotating the controller.
             microGamepad.allowsRotation = true
             microGamepad.dpad.valueChangedHandler = movementHandler
@@ -113,19 +127,23 @@ class GameControllerInputSource: ControlInputSourceType {
         #endif
         
         // `GCGamepad` D-pad handler.
-        if let gamepad = gameController.gamepad {
+        if let gamepad = gameController.gamepad
+        {
             gamepad.dpad.valueChangedHandler = movementHandler 
         }
         
         // `GCExtendedGamepad` left thumbstick.
-        if let extendedGamepad = gameController.extendedGamepad {
+        if let extendedGamepad = gameController.extendedGamepad
+        {
             extendedGamepad.leftThumbstick.valueChangedHandler = movementHandler
         }
     }
     
-    private func registerRotationEvents() {
+    private func registerRotationEvents()
+    {
         // `GCExtendedGamepad` right thumbstick controls rotational attack independent of movement direction.
-        if let extendedGamepad = gameController.extendedGamepad {
+        if let extendedGamepad = gameController.extendedGamepad
+        {
         
             extendedGamepad.rightThumbstick.valueChangedHandler = { [unowned self] _, xValue, yValue in
                 // Rotate by the angle formed from the supplied axis.
@@ -134,10 +152,12 @@ class GameControllerInputSource: ControlInputSourceType {
                 self.delegate?.controlInputSource(self, didUpdateAngularDisplacement: angularDisplacement)
                 
                 // Attack while rotating. This closely mirrors the behavior of the iOS touch controls.
-                if length(angularDisplacement) > 0 {
+                if length(angularDisplacement) > 0
+                {
                     self.delegate?.controlInputSourceDidBeginAttacking(self)
                 }
-                else {
+                else
+                {
                     self.delegate?.controlInputSourceDidFinishAttacking(self)
                 }
             }
@@ -146,7 +166,8 @@ class GameControllerInputSource: ControlInputSourceType {
     
     // MARK: ControlInputSourceType
     
-    func resetControlState() {
+    func resetControlState()
+    {
         /*
             Check the current values of the dpad and right thumbstick to see if
             any direction is currently being requested for focused based navigation.
@@ -156,7 +177,8 @@ class GameControllerInputSource: ControlInputSourceType {
         guard let dpad = gameController.gamepad?.dpad else { return }
         let dpadDisplacement = float2(x: dpad.xAxis.value, y: dpad.yAxis.value)
         
-        if let inputDirection = ControlInputDirection(vector: dpadDisplacement) {
+        if let inputDirection = ControlInputDirection(vector: dpadDisplacement)
+        {
             gameStateDelegate?.controlInputSource(self, didSpecifyDirection: inputDirection)
             return
         }
@@ -164,7 +186,8 @@ class GameControllerInputSource: ControlInputSourceType {
         guard let thumbStick = gameController.extendedGamepad?.leftThumbstick else { return }
         let thumbStickDisplacement = float2(x: thumbStick.xAxis.value, y: thumbStick.yAxis.value)
         
-        if let inputDirection = ControlInputDirection(vector: thumbStickDisplacement) {
+        if let inputDirection = ControlInputDirection(vector: thumbStickDisplacement)
+        {
             gameStateDelegate?.controlInputSource(self, didSpecifyDirection: inputDirection)
         }
     }

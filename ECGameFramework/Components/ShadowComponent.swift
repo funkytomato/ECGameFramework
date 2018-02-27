@@ -9,7 +9,8 @@
 import SpriteKit
 import GameplayKit
 
-class ShadowComponent: GKComponent {
+class ShadowComponent: GKComponent
+{
     // MARK: Properties
     
     /**
@@ -19,7 +20,8 @@ class ShadowComponent: GKComponent {
     */
     let node: SKSpriteNode
 
-    init(texture: SKTexture, size: CGSize, offset: CGPoint) {
+    init(texture: SKTexture, size: CGSize, offset: CGPoint)
+    {
         node = SKSpriteNode(texture: texture)
         node.alpha = 0.25
         node.size = size
@@ -27,7 +29,8 @@ class ShadowComponent: GKComponent {
         super.init()
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder)
+    {
         fatalError("init(coder:) has not been implemented")
     }
     

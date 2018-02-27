@@ -9,7 +9,8 @@
 import SpriteKit
 import GameplayKit
 
-class BeamCoolingState: GKState {
+class BeamCoolingState: GKState
+{
     // MARK: Properties
     
     unowned var beamComponent: BeamComponent
@@ -19,31 +20,37 @@ class BeamCoolingState: GKState {
     
     // MARK: Initializers
     
-    required init(beamComponent: BeamComponent) {
+    required init(beamComponent: BeamComponent)
+    {
         self.beamComponent = beamComponent
     }
     
     // MARK: GKState life cycle
     
-    override func didEnter(from previousState: GKState?) {
+    override func didEnter(from previousState: GKState?)
+    {
         super.didEnter(from: previousState)
         
         elapsedTime = 0.0
     }
     
-    override func update(deltaTime seconds: TimeInterval) {
+    override func update(deltaTime seconds: TimeInterval)
+    {
         super.update(deltaTime: seconds)
         
         elapsedTime += seconds
         
         // If the beam has spent long enough cooling down, enter `BeamIdleState`.
-        if elapsedTime >= GameplayConfiguration.Beam.coolDownDuration {
+        if elapsedTime >= GameplayConfiguration.Beam.coolDownDuration
+        {
             stateMachine?.enter(BeamIdleState.self)
         }
     }
     
-    override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-        switch stateClass {
+    override func isValidNextState(_ stateClass: AnyClass) -> Bool
+    {
+        switch stateClass
+        {
             case is BeamIdleState.Type, is BeamFiringState.Type:
                 return true
                 
@@ -52,10 +59,12 @@ class BeamCoolingState: GKState {
         }
     }
     
-    override func willExit(to nextState: GKState) {
+    override func willExit(to nextState: GKState)
+    {
         super.willExit(to: nextState)
         
-        if let playerBot = beamComponent.entity as? PlayerBot {
+        if let playerBot = beamComponent.entity as? PlayerBot
+        {
             beamComponent.beamNode.update(withBeamState: nextState, source: playerBot)
         }
     }

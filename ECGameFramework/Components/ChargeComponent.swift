@@ -9,31 +9,37 @@
 import SpriteKit
 import GameplayKit
 
-protocol ChargeComponentDelegate: class {
+protocol ChargeComponentDelegate: class
+{
     // Called whenever a `ChargeComponent` loses charge through a call to `loseCharge`
     func chargeComponentDidLoseCharge(chargeComponent: ChargeComponent)
 }
 
-class ChargeComponent: GKComponent {
+class ChargeComponent: GKComponent
+{
     // MARK: Properties
     
     var charge: Double
     
     let maximumCharge: Double
 
-    var percentageCharge: Double {
-        if maximumCharge == 0 {
+    var percentageCharge: Double
+    {
+        if maximumCharge == 0
+        {
             return 0.0
         }
 
         return charge / maximumCharge
     }
     
-    var hasCharge: Bool {
+    var hasCharge: Bool
+    {
         return (charge > 0.0)
     }
     
-    var isFullyCharged: Bool {
+    var isFullyCharged: Bool
+    {
         return charge == maximumCharge
     }
 
@@ -48,15 +54,18 @@ class ChargeComponent: GKComponent {
 
     // MARK: Initializers
 
-    init(charge: Double, maximumCharge: Double, displaysChargeBar: Bool = false) {
+    init(charge: Double, maximumCharge: Double, displaysChargeBar: Bool = false)
+    {
         self.charge = charge
         self.maximumCharge = maximumCharge
 
         // Create a `ChargeBar` if this `ChargeComponent` should display one.
-        if displaysChargeBar {
+        if displaysChargeBar
+        {
             chargeBar = ChargeBar()
         }
-        else {
+        else
+        {
             chargeBar = nil
         }
         
@@ -65,13 +74,15 @@ class ChargeComponent: GKComponent {
         chargeBar?.level = percentageCharge
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder)
+    {
         fatalError("init(coder:) has not been implemented")
     }
 
     // MARK: Component actions
     
-    func loseCharge(chargeToLose: Double) {
+    func loseCharge(chargeToLose: Double)
+    {
         var newCharge = charge - chargeToLose
         
         // Clamp the new value to the valid range.
@@ -79,14 +90,16 @@ class ChargeComponent: GKComponent {
         newCharge = max(0.0, newCharge)
         
         // Check if the new charge is less than the current charge.
-        if newCharge < charge {
+        if newCharge < charge
+        {
             charge = newCharge
             chargeBar?.level = percentageCharge
             delegate?.chargeComponentDidLoseCharge(chargeComponent: self)
         }
     }
     
-    func addCharge(chargeToAdd: Double) {
+    func addCharge(chargeToAdd: Double)
+    {
         var newCharge = charge + chargeToAdd
         
         // Clamp the new value to the valid range.
@@ -94,7 +107,8 @@ class ChargeComponent: GKComponent {
         newCharge = max(0.0, newCharge)
         
         // Check if the new charge is greater than the current charge.
-        if newCharge > charge {
+        if newCharge > charge
+        {
             charge = newCharge
             chargeBar?.level = percentageCharge
         }

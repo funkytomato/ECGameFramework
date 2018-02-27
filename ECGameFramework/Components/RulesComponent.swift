@@ -8,12 +8,14 @@
 
 import GameplayKit
 
-protocol RulesComponentDelegate: class {
+protocol RulesComponentDelegate: class
+{
     // Called whenever the rules component finishes evaluating its rules.
     func rulesComponent(rulesComponent: RulesComponent, didFinishEvaluatingRuleSystem ruleSystem: GKRuleSystem)
 }
 
-class RulesComponent: GKComponent {
+class RulesComponent: GKComponent
+{
     // MARK: Properties
     
     weak var delegate: RulesComponentDelegate?
@@ -25,24 +27,28 @@ class RulesComponent: GKComponent {
     
     // MARK: Initializers
     
-    override init() {
+    override init()
+    {
         ruleSystem = GKRuleSystem()
         super.init()
     }
     
-    init(rules: [GKRule]) {
+    init(rules: [GKRule])
+    {
         ruleSystem = GKRuleSystem()
         ruleSystem.add(rules)
         super.init()
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder)
+    {
         fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: GKComponent Life Cycle
     
-    override func update(deltaTime seconds: TimeInterval) {
+    override func update(deltaTime seconds: TimeInterval)
+    {
         timeSinceRulesUpdate += seconds
         
         if timeSinceRulesUpdate < GameplayConfiguration.TaskBot.rulesUpdateWaitDuration { return }
@@ -52,7 +58,8 @@ class RulesComponent: GKComponent {
         if let taskBot = entity as? TaskBot,
             let level = taskBot.component(ofType: RenderComponent.self)?.node.scene as? LevelScene,
             let entitySnapshot = level.entitySnapshotForEntity(entity: taskBot),
-            !taskBot.isGood {
+            !taskBot.isGood
+        {
 
             ruleSystem.reset()
             

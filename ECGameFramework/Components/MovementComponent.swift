@@ -22,7 +22,8 @@ import GameplayKit
             Passing the same vector but `isRelativeToOrientation = false` will move the node to the top
             of the screen regardless of the node's orientation.
 */
-struct MovementKind {
+struct MovementKind
+{
     // MARK: Properties
 
     /**
@@ -36,13 +37,15 @@ struct MovementKind {
     
     // MARK: Initializers
 
-    init(displacement: float2, relativeToOrientation: Bool = false) {
+    init(displacement: float2, relativeToOrientation: Bool = false)
+    {
         isRelativeToOrientation = relativeToOrientation
         self.displacement = displacement
     }
 }
 
-class MovementComponent: GKComponent {
+class MovementComponent: GKComponent
+{
     // MARK: Properties
 
     /// Value used to calculate the translational movement of the entity.
@@ -54,19 +57,22 @@ class MovementComponent: GKComponent {
     var allowsStrafing = false
     
     /// The `RenderComponent` for this component's entity.
-    var renderComponent: RenderComponent {
+    var renderComponent: RenderComponent
+    {
         guard let renderComponent = entity?.component(ofType: RenderComponent.self) else { fatalError("A MovementComponent's entity must have a RenderComponent") }
         return renderComponent
     }
 
     /// The `AnimationComponent` for this component's entity.
-    var animationComponent: AnimationComponent {
+    var animationComponent: AnimationComponent
+    {
         guard let animationComponent = entity?.component(ofType: AnimationComponent.self) else { fatalError("A MovementComponent's entity must have an AnimationComponent") }
         return animationComponent
     }
     
     /// The `OrientationComponent` for this component's entity.
-    var orientationComponent: OrientationComponent {
+    var orientationComponent: OrientationComponent
+    {
         guard let orientationComponent = entity?.component(ofType: OrientationComponent.self) else { fatalError("A MovementComponent's entity must have an OrientationComponent") }
         return orientationComponent
     }
@@ -79,19 +85,22 @@ class MovementComponent: GKComponent {
     
     // MARK: Initializers
     
-    override init() {
+    override init()
+    {
         movementSpeed = GameplayConfiguration.PlayerBot.movementSpeed
         angularSpeed = GameplayConfiguration.PlayerBot.angularSpeed
         super.init()
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder)
+    {
         fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: GKComponent Life Cycle
     
-    override func update(deltaTime: TimeInterval) {
+    override func update(deltaTime: TimeInterval)
+    {
         super.update(deltaTime: deltaTime)
 
         // Declare local versions of computed properties so we don't compute them multiple times.
@@ -104,27 +113,32 @@ class MovementComponent: GKComponent {
             Check if strafing behavior is enabled. Strafing allows the entity to remain
             fixed in the direction of the target while the beam is locked.
         */
-        if allowsStrafing, let targetVector = vectorForBeamTowardsCurrentTarget() {
+        if allowsStrafing, let targetVector = vectorForBeamTowardsCurrentTarget()
+        {
             // Overwrite the `nextRotation` to face the target.
             nextRotation = MovementKind(displacement: targetVector)
         }
         
-        if let movement = nextRotation, let newRotation = angleForRotatingNode(node: node, withRotationalMovement: movement, duration: deltaTime)  {
+        if let movement = nextRotation, let newRotation = angleForRotatingNode(node: node, withRotationalMovement: movement, duration: deltaTime)
+        {
             // Update the node's `zRotation` with new rotation information.
             orientationComponent.zRotation = newRotation
             animationState = .idle
         }
-        else {
+        else
+        {
             // Clear the rotation if a valid angle could not be created.
             nextRotation = nil
         }
         
         // Update the node's `position` with new displacement information.
-        if let movement = nextTranslation, let newPosition = pointForTranslatingNode(node: node, withTranslationalMovement: movement, duration: deltaTime) {
+        if let movement = nextTranslation, let newPosition = pointForTranslatingNode(node: node, withTranslationalMovement: movement, duration: deltaTime)
+        {
             node.position = newPosition
             
             // If no explicit rotation is being provided, orient in the direction of movement.
-            if nextRotation == nil {
+            if nextRotation == nil
+            {
                 orientationComponent.zRotation = CGFloat(atan2(movement.displacement.y, movement.displacement.x))
             }
             
@@ -134,7 +148,8 @@ class MovementComponent: GKComponent {
             */
             animationState = animationStateForDestination(node: node, destination: newPosition)
         }
-        else {
+        else
+        {
             // Clear the translation if a valid point could not be created.
             nextTranslation = nil
         }
@@ -144,11 +159,13 @@ class MovementComponent: GKComponent {
             and the requested animation can be overwritten, update the `AnimationComponent`'s
             requested animation state.
         */
-        if let animationState = animationState {
+        if let animationState = animationState
+        {
             // `animationComponent` is a computed property. Declare a local version so we don't compute it multiple times.
             let animationComponent = self.animationComponent
 
-            if animationStateCanBeOverwritten(animationState: animationComponent.currentAnimation?.animationState) && animationStateCanBeOverwritten(animationState: animationComponent.requestedAnimationState) {
+            if animationStateCanBeOverwritten(animationState: animationComponent.currentAnimation?.animationState) && animationStateCanBeOverwritten(animationState: animationComponent.requestedAnimationState)
+            {
                 animationComponent.requestedAnimationState = animationState
             }
         }
@@ -157,7 +174,8 @@ class MovementComponent: GKComponent {
     // MARK: Convenience Methods
     
     /// Creates a vector towards the current target of a `BeamComponent` attack (if one exists).
-    func vectorForBeamTowardsCurrentTarget() -> float2? {
+    func vectorForBeamTowardsCurrentTarget() -> float2?
+    {
         guard let beamComponent = entity?.component(ofType: BeamComponent.self) else { return nil }
         
         let target = (beamComponent.stateMachine.currentState as? BeamFiringState)?.target
@@ -169,7 +187,8 @@ class MovementComponent: GKComponent {
     }
     
     /// Produces the destination point for the node, based on the provided translation.
-    func pointForTranslatingNode(node: SKNode, withTranslationalMovement translation: MovementKind, duration: TimeInterval) -> CGPoint? {
+    func pointForTranslatingNode(node: SKNode, withTranslationalMovement translation: MovementKind, duration: TimeInterval) -> CGPoint?
+    {
         // No translation if the vector is a zeroVector.
         guard translation.displacement != float2() else { return nil }
         
@@ -178,7 +197,8 @@ class MovementComponent: GKComponent {
             If the translation is relative, the displacement vector needs to be
             rotated to account for the node's current orientation.
         */
-        if translation.isRelativeToOrientation {
+        if translation.isRelativeToOrientation
+        {
             // Ensure the relative displacement component is non-zero.
             guard displacement.x != 0 else { return nil }
             displacement = calculateAbsoluteDisplacementFromRelativeDisplacement(relativeDisplacement: displacement)
@@ -201,7 +221,8 @@ class MovementComponent: GKComponent {
         if length(displacement) > 1.0 {
             normalizedDisplacement = normalize(displacement)
         }
-        else {
+        else
+        {
             normalizedDisplacement = displacement
         }
         
@@ -215,12 +236,14 @@ class MovementComponent: GKComponent {
         return CGPoint(x: node.position.x + dx, y: node.position.y + dy)
     }
     
-    func angleForRotatingNode(node: SKNode, withRotationalMovement rotation: MovementKind, duration: TimeInterval) -> CGFloat? {
+    func angleForRotatingNode(node: SKNode, withRotationalMovement rotation: MovementKind, duration: TimeInterval) -> CGFloat?
+    {
         // No rotation if the vector is a zeroVector.
         guard rotation.displacement != float2() else { return nil }
 
         let angle: CGFloat
-        if rotation.isRelativeToOrientation {
+        if rotation.isRelativeToOrientation
+        {
             // Clockwise: (dx: 0.0, dy: -1.0), CounterClockwise: (dx: 0.0, dy: 1.0)
             let rotationComponent = rotation.displacement.y
             guard rotationComponent != 0 else { return nil }
@@ -245,6 +268,7 @@ class MovementComponent: GKComponent {
             angle = orientationComponent.zRotation + dz
         }
         else {
+            
             // Determine the angle of the rotational displacement.
             angle = CGFloat(atan2(rotation.displacement.y, rotation.displacement.x))
         }
@@ -253,7 +277,8 @@ class MovementComponent: GKComponent {
     }
     
     /// Provides the appropriate animation depending on how the node is moving in reference to its `zRotation`.
-    private func animationStateForDestination(node: SKNode, destination: CGPoint) -> AnimationState {
+    private func animationStateForDestination(node: SKNode, destination: CGPoint) -> AnimationState
+    {
         // Ensures nodes rotation is the same direction as the destination point.
         let isMovingWithOrientation = (orientationComponent.zRotation * atan2(destination.y, destination.x)) > 0
         return isMovingWithOrientation ? .walkForward : .walkBackward
@@ -263,12 +288,14 @@ class MovementComponent: GKComponent {
         Calculates a new vector by taking a relative displacement and adjusting 
         the angle to match the initial orientation and requested displacement.
     */
-    private func calculateAbsoluteDisplacementFromRelativeDisplacement(relativeDisplacement: float2) -> float2 {
+    private func calculateAbsoluteDisplacementFromRelativeDisplacement(relativeDisplacement: float2) -> float2
+    {
         // If available use the `nextRotation` for the most recent request, otherwise use current `zRotation`.
         var angleRelativeToOrientation = Float(orientationComponent.zRotation)
       
         // Forward: (dx: 1.0, dy: 0.0), Backward: (dx: -1.0, dy: 0.0)
-        if relativeDisplacement.x < 0 {
+        if relativeDisplacement.x < 0
+        {
             // The entity is moving backwards, add 180 degrees to the angle
             angleRelativeToOrientation += Float(M_PI)
         }
@@ -278,7 +305,8 @@ class MovementComponent: GKComponent {
         let dy = length(relativeDisplacement) * sin(angleRelativeToOrientation)
 
         // Make rotation correspond with relative movement, so that entities can walk and face the same direction.
-        if nextRotation == nil {
+        if nextRotation == nil
+        {
             let directionFactor = Float(relativeDisplacement.x)
             nextRotation = MovementKind(displacement: float2(x: directionFactor * dx, y: directionFactor * dy))
         }
@@ -291,8 +319,10 @@ class MovementComponent: GKComponent {
         an `.Attack` animation is being run, we do not want to replace this 
         with any sort of movement animation.
     */
-    private func animationStateCanBeOverwritten(animationState: AnimationState?) -> Bool {
-        switch animationState {
+    private func animationStateCanBeOverwritten(animationState: AnimationState?) -> Bool
+    {
+        switch animationState
+        {
             case .idle?, .walkForward?, .walkBackward?:
                 return true
             

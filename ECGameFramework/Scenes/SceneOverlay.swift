@@ -8,7 +8,8 @@
 
 import SpriteKit
 
-class SceneOverlay {
+class SceneOverlay
+{
     // MARK: Properties
     
     let backgroundNode: SKSpriteNode
@@ -19,7 +20,8 @@ class SceneOverlay {
     
     // MARK: Intialization
     
-    init(overlaySceneFileName fileName: String, zPosition: CGFloat) {
+    init(overlaySceneFileName fileName: String, zPosition: CGFloat)
+    {
         // Load the scene and get the overlay node from it.
         let overlayScene = SKScene(fileNamed: fileName)!
         let contentTemplateNode = overlayScene.childNode(withName: "Overlay") as! SKSpriteNode
@@ -40,7 +42,8 @@ class SceneOverlay {
         nativeContentSize = contentNode.size
     }
     
-    func updateScale() {
+    func updateScale()
+    {
         guard let viewSize = backgroundNode.scene?.view?.frame.size else {
             return
         }

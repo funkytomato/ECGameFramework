@@ -9,7 +9,8 @@
 import SpriteKit
 import GameplayKit
 
-class FlyingBotPreAttackState: GKState {
+class FlyingBotPreAttackState: GKState
+{
     // MARK: Properties
     
     unowned var entity: FlyingBot
@@ -18,20 +19,23 @@ class FlyingBotPreAttackState: GKState {
     var elapsedTime: TimeInterval = 0.0
     
     /// The `AnimationComponent` associated with the `entity`.
-    var animationComponent: AnimationComponent {
+    var animationComponent: AnimationComponent
+    {
         guard let animationComponent = entity.component(ofType: AnimationComponent.self) else { fatalError("A FlyingBotPreAttackState's entity must have an AnimationComponent.") }
         return animationComponent
     }
 
     // MARK: Initializers
     
-    required init(entity: FlyingBot) {
+    required init(entity: FlyingBot)
+    {
         self.entity = entity
     }
     
     // MARK: GKState Life Cycle
     
-    override func didEnter(from previousState: GKState?) {
+    override func didEnter(from previousState: GKState?)
+    {
         super.didEnter(from: previousState)
         
         // Reset the tracking of how long the `TaskBot` has been in a "pre-attack" state.
@@ -41,7 +45,8 @@ class FlyingBotPreAttackState: GKState {
         animationComponent.requestedAnimationState = .attack
     }
     
-    override func update(deltaTime seconds: TimeInterval) {
+    override func update(deltaTime seconds: TimeInterval)
+    {
         super.update(deltaTime: seconds)
         
         // Update the time that the `TaskBot` has been in its "pre-attack" state.
@@ -51,13 +56,16 @@ class FlyingBotPreAttackState: GKState {
             If the `TaskBot` has been in its "pre-attack" state for long enough,
             move to the attack state.
         */
-        if elapsedTime >= GameplayConfiguration.TaskBot.preAttackStateDuration {
+        if elapsedTime >= GameplayConfiguration.TaskBot.preAttackStateDuration
+        {
             stateMachine?.enter(FlyingBotBlastState.self)
         }
     }
     
-    override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-        switch stateClass {
+    override func isValidNextState(_ stateClass: AnyClass) -> Bool
+    {
+        switch stateClass
+        {
             case is TaskBotAgentControlledState.Type, is FlyingBotBlastState.Type, is TaskBotZappedState.Type:
                 return true
             

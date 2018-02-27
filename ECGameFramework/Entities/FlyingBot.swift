@@ -9,7 +9,8 @@
 import SpriteKit
 import GameplayKit
 
-class FlyingBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType {
+class FlyingBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
+{
     // MARK: Static Properties
     
     /// The size to use for the `FlyingBot`s animation textures.
@@ -35,31 +36,36 @@ class FlyingBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType {
 
     // MARK: TaskBot Properties
     
-    override var goodAnimations: [AnimationState: [CompassDirection: Animation]] {
+    override var goodAnimations: [AnimationState: [CompassDirection: Animation]]
+    {
         return FlyingBot.goodAnimations!
     }
     
-    override var badAnimations: [AnimationState: [CompassDirection: Animation]] {
+    override var badAnimations: [AnimationState: [CompassDirection: Animation]]
+    {
         return FlyingBot.badAnimations!
     }
     
     // MARK: Initialization
 
-    required init(isGood: Bool, goodPathPoints: [CGPoint], badPathPoints: [CGPoint]) {
+    required init(isGood: Bool, goodPathPoints: [CGPoint], badPathPoints: [CGPoint])
+    {
         super.init(isGood: isGood, goodPathPoints: goodPathPoints, badPathPoints: badPathPoints)
 
         // Determine initial animations and charge based on the initial state of the bot.
         let initialAnimations: [AnimationState: [CompassDirection: Animation]]
         let initialCharge: Double
 
-        if isGood {
+        if isGood
+        {
             guard let goodAnimations = FlyingBot.goodAnimations else {
                 fatalError("Attempt to access FlyingBot.goodAnimations before they have been loaded.")
             }
             initialAnimations = goodAnimations
             initialCharge = 0.0
         }
-        else {
+        else
+        {
             guard let badAnimations = FlyingBot.badAnimations else {
                 fatalError("Attempt to access FlyingBot.badAnimations before they have been loaded.")
             }
@@ -107,36 +113,42 @@ class FlyingBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType {
         beamTargetOffset = GameplayConfiguration.FlyingBot.beamTargetOffset
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder)
+    {
         fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: ContactableType
 
-    override func contactWithEntityDidBegin(_ entity: GKEntity) {
+    override func contactWithEntityDidBegin(_ entity: GKEntity)
+    {
         super.contactWithEntityDidBegin(entity)
         
         guard !isGood else { return }
 
         var shouldStartAttack = false
         
-        if let otherTaskBot = entity as? TaskBot, otherTaskBot.isGood {
+        if let otherTaskBot = entity as? TaskBot, otherTaskBot.isGood
+        {
             // Contact with good task bot will trigger an attack.
             shouldStartAttack = true
         }
-        else if let playerBot = entity as? PlayerBot, !playerBot.isPoweredDown {
+        else if let playerBot = entity as? PlayerBot, !playerBot.isPoweredDown
+        {
             // Contact with an active `PlayerBot` will trigger an attack.
             shouldStartAttack = true
         }
         
-        if let stateMachine = component(ofType: IntelligenceComponent.self)?.stateMachine, shouldStartAttack {
+        if let stateMachine = component(ofType: IntelligenceComponent.self)?.stateMachine, shouldStartAttack
+        {
             stateMachine.enter(FlyingBotPreAttackState.self)
         }
     }
     
     // MARK: ChargeComponentDelegate
     
-    func chargeComponentDidLoseCharge(chargeComponent: ChargeComponent) {
+    func chargeComponentDidLoseCharge(chargeComponent: ChargeComponent)
+    {
         guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
         
         intelligenceComponent.stateMachine.enter(TaskBotZappedState.self)
@@ -145,11 +157,13 @@ class FlyingBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType {
     
     // MARK: ResourceLoadableType
     
-    static var resourcesNeedLoading: Bool {
+    static var resourcesNeedLoading: Bool
+    {
         return goodAnimations == nil || badAnimations == nil
     }
     
-    static func loadResources(withCompletionHandler completionHandler: @escaping () -> ()) {
+    static func loadResources(withCompletionHandler completionHandler: @escaping () -> ())
+    {
         // Load `TaskBot`s shared assets.
         super.loadSharedAssets()
         
@@ -166,7 +180,8 @@ class FlyingBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType {
             the overall loading speed of the animation cycles for this character.
         */
         SKTextureAtlas.preloadTextureAtlasesNamed(flyingBotAtlasNames) { error, flyingBotAtlases in
-            if let error = error {
+            if let error = error
+            {
                 fatalError("One or more texture atlases could not be found: \(error)")
             }
             /*
@@ -187,7 +202,8 @@ class FlyingBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType {
         }
     }
     
-    static func purgeResources() {
+    static func purgeResources()
+    {
         goodAnimations = nil
         badAnimations = nil
     }

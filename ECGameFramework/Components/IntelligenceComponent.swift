@@ -9,7 +9,8 @@
 import SpriteKit
 import GameplayKit
 
-class IntelligenceComponent: GKComponent {
+class IntelligenceComponent: GKComponent
+{
     
     // MARK: Properties
     
@@ -19,20 +20,23 @@ class IntelligenceComponent: GKComponent {
     
     // MARK: Initializers
     
-    init(states: [GKState]) {
+    init(states: [GKState])
+    {
         stateMachine = GKStateMachine(states: states)
         let firstState = states.first!
         initialStateClass = type(of: firstState)
         super.init()
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder)
+    {
         fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: GKComponent Life Cycle
 
-    override func update(deltaTime seconds: TimeInterval) {
+    override func update(deltaTime seconds: TimeInterval)
+    {
         super.update(deltaTime: seconds)
 
         stateMachine.update(deltaTime: seconds)
@@ -40,7 +44,8 @@ class IntelligenceComponent: GKComponent {
     
     // MARK: Actions
     
-    func enterInitialState() {
+    func enterInitialState()
+    {
         stateMachine.enter(initialStateClass)
     }
 }

@@ -8,7 +8,8 @@
 
 import GameplayKit
 
-class SceneLoaderDownloadingResourcesState: GKState {
+class SceneLoaderDownloadingResourcesState: GKState
+{
     // MARK: Properties
     
     unowned let sceneLoader: SceneLoader
@@ -18,13 +19,15 @@ class SceneLoaderDownloadingResourcesState: GKState {
     
     // MARK: Initialization
     
-    init(sceneLoader: SceneLoader) {
+    init(sceneLoader: SceneLoader)
+    {
         self.sceneLoader = sceneLoader
     }
     
     // MARK: GKState Life Cycle
     
-    override func didEnter(from previousState: GKState?) {
+    override func didEnter(from previousState: GKState?)
+    {
         super.didEnter(from: previousState)
         
         // Clear any previous errors, and begin downloading the scene's resources. 
@@ -32,8 +35,10 @@ class SceneLoaderDownloadingResourcesState: GKState {
         beginDownloadingScene()
     }
     
-    override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-        switch stateClass {
+    override func isValidNextState(_ stateClass: AnyClass) -> Bool
+    {
+        switch stateClass
+        {
             case is SceneLoaderDownloadFailedState.Type, is SceneLoaderResourcesAvailableState.Type, is SceneLoaderPreparingResourcesState.Type:
                 return true
                 
@@ -45,7 +50,8 @@ class SceneLoaderDownloadingResourcesState: GKState {
     // MARK: Downloading Actions
 
     /// Downloads the scene into local storage.
-    private func beginDownloadingScene() {
+    private func beginDownloadingScene()
+    {
         /*
             Create a new bundle request every time downloading needs to begin 
             because `NSBundleResourceRequest`s are single use objects.
@@ -60,7 +66,8 @@ class SceneLoaderDownloadingResourcesState: GKState {
             
             // Progress to the next appropriate state from the main queue.
             DispatchQueue.main.async {
-                if let error = error {
+                if let error = error
+                {
                     // Release the resources because we'll need to start a new request.
                     bundleResourceRequest.endAccessingResources()
                     
@@ -69,10 +76,12 @@ class SceneLoaderDownloadingResourcesState: GKState {
                     
                     self.stateMachine!.enter(SceneLoaderDownloadFailedState.self)
                 }
-                else if self.enterPreparingStateWhenFinished {
+                else if self.enterPreparingStateWhenFinished
+                {
                     // If requested, proceed to the preparing state immediately.
                     self.stateMachine!.enter(SceneLoaderPreparingResourcesState.self)
                 }
+                
                 else {
                     self.stateMachine!.enter(SceneLoaderResourcesAvailableState.self)
                 }

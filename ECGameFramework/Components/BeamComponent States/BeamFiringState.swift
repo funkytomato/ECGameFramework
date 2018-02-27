@@ -9,7 +9,8 @@
 import SpriteKit
 import GameplayKit
 
-class BeamFiringState: GKState {
+class BeamFiringState: GKState
+{
     // MARK: Properties
     
     unowned var beamComponent: BeamComponent
@@ -21,33 +22,38 @@ class BeamFiringState: GKState {
     var elapsedTime: TimeInterval = 0.0
 
     /// The `PlayerBot` associated with the `BeamComponent`'s `entity`.
-    var playerBot: PlayerBot {
+    var playerBot: PlayerBot
+    {
         guard let playerBot = beamComponent.entity as? PlayerBot else { fatalError("A BeamFiringState's beamComponent must be associated with a PlayerBot.") }
         return playerBot
     }
     
     /// The `RenderComponent` associated with the `BeamComponent`'s `entity`.
-    var renderComponent: RenderComponent {
+    var renderComponent: RenderComponent
+    {
         guard let renderComponent = beamComponent.entity?.component(ofType: RenderComponent.self) else { fatalError("A BeamFiringState's entity must have a RenderComponent.") }
         return renderComponent
     }
 
     // MARK: Initializers
     
-    required init(beamComponent: BeamComponent) {
+    required init(beamComponent: BeamComponent)
+    {
         self.beamComponent = beamComponent
     }
     
     // MARK: GKState life cycle
     
-    override func didEnter(from previousState: GKState?) {
+    override func didEnter(from previousState: GKState?)
+    {
         super.didEnter(from: previousState)
         
         // Reset the "amount of time firing" tracker when we enter the "firing" state.
         elapsedTime = 0.0
         
         // Add the `BeamNode` to the scene if it hasn't already been added.
-        if beamComponent.beamNode.parent == nil {
+        if beamComponent.beamNode.parent == nil
+        {
             // `playerBot` is a computed property. Declare a local version so we don't compute it multiple times.
             let playerBot = self.playerBot
             
@@ -79,30 +85,36 @@ class BeamFiringState: GKState {
         updateBeamNode(withDeltaTime: 0.0)
     }
     
-    override func update(deltaTime seconds: TimeInterval) {
+    override func update(deltaTime seconds: TimeInterval)
+    {
         super.update(deltaTime: seconds)
         
         // Update the "amount of time firing" tracker.
         elapsedTime += seconds
 
-        if elapsedTime >= GameplayConfiguration.Beam.maximumFireDuration {
+        if elapsedTime >= GameplayConfiguration.Beam.maximumFireDuration
+        {
             /**
                 The player has been firing the beam for too long. Enter the `BeamCoolingState`
                 to disable firing until the beam has had time to cool down.
             */
             stateMachine?.enter(BeamCoolingState.self)
         }
-        else if !beamComponent.isTriggered {
+        else if !beamComponent.isTriggered
+        {
             // The beam is no longer being fired. Enter the `BeamIdleState`.
             stateMachine?.enter(BeamIdleState.self)
         }
-        else {
+        else
+        {
             updateBeamNode(withDeltaTime: seconds)
         }
     }
     
-    override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-        switch stateClass {
+    override func isValidNextState(_ stateClass: AnyClass) -> Bool
+    {
+        switch stateClass
+        {
             case is BeamIdleState.Type, is BeamCoolingState.Type:
                 return true
                 
@@ -111,7 +123,8 @@ class BeamFiringState: GKState {
         }
     }
     
-    override func willExit(to nextState: GKState) {
+    override func willExit(to nextState: GKState)
+    {
         super.willExit(to: nextState)
         
         // Clear the current target. 
@@ -123,12 +136,14 @@ class BeamFiringState: GKState {
     
     // MARK: Convenience
     
-    func updateBeamNode(withDeltaTime seconds: TimeInterval) {
+    func updateBeamNode(withDeltaTime seconds: TimeInterval)
+    {
         // Find an appropriate target for the beam.
         target = beamComponent.findTargetInBeamArc(withCurrentTarget: target)
         
         // If the beam has a target with a charge component, drain charge from it.
-        if let chargeComponent = target?.component(ofType: ChargeComponent.self) {
+        if let chargeComponent = target?.component(ofType: ChargeComponent.self)
+        {
             let chargeToLose = GameplayConfiguration.Beam.chargeLossPerSecond * seconds
             chargeComponent.loseCharge(chargeToLose: chargeToLose)
         }
@@ -137,7 +152,8 @@ class BeamFiringState: GKState {
         beamComponent.beamNode.update(withBeamState: self, source: playerBot, target: target)
         
         // If the current target has been turned good, deactivate the beam and move to the idle state.
-        if let currentTarget = target, currentTarget.isGood {
+        if let currentTarget = target, currentTarget.isGood
+        {
             beamComponent.isTriggered = false
             stateMachine?.enter(BeamIdleState.self)
         }

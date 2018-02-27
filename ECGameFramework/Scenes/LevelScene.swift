@@ -10,7 +10,8 @@ import SpriteKit
 import GameplayKit
 
 /// The names and z-positions of each layer in a level's world.
-enum WorldLayer: CGFloat {
+enum WorldLayer: CGFloat
+{
     // The zPosition offset to use per character (`PlayerBot` or `TaskBot`).
     static let zSpacePerCharacter: CGFloat = 100
     
@@ -18,8 +19,10 @@ enum WorldLayer: CGFloat {
     case board = -100, debug = -75, shadows = -50, obstacles = -25, characters = 0, aboveCharacters = 1000, top = 1100
     
     // The expected name for this node in the scene file.
-    var nodeName: String {
-        switch self {
+    var nodeName: String
+    {
+        switch self
+        {
             case .board: return "board"
             case .debug: return "debug"
             case .shadows: return "shadows"
@@ -31,20 +34,23 @@ enum WorldLayer: CGFloat {
     }
     
     // The full path to this node, for use with `childNode(withName name:)`.
-    var nodePath: String {
+    var nodePath: String
+    {
         return "/world/\(nodeName)"
     }
 
     static var allLayers = [board, debug, shadows, obstacles, characters, aboveCharacters, top]
 }
 
-class LevelScene: BaseScene, SKPhysicsContactDelegate {
+class LevelScene: BaseScene, SKPhysicsContactDelegate
+{
     // MARK: Properties
     
     /// Stores a reference to the root nodes for each world layer in the scene.
     var worldLayerNodes = [WorldLayer: SKNode]()
     
-    var worldNode: SKNode {
+    var worldNode: SKNode
+    {
         return childNode(withName: "world")!
     }
 
@@ -65,8 +71,10 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate {
     
     let timerNode = SKLabelNode(text: "--:--")
     
-    override var overlay: SceneOverlay? {
-        didSet {
+    override var overlay: SceneOverlay?
+    {
+        didSet
+        {
             // Ensure that focus changes are only enabled when the `overlay` is present.
             focusChangesEnabled = (overlay != nil)
         }
@@ -82,8 +90,10 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate {
   
     // MARK: Pathfinding Debug
     
-    var debugDrawingEnabled = false {
-        didSet {
+    var debugDrawingEnabled = false
+    {
+        didSet
+        {
             debugDrawingEnabledDidChange()
         }
     }
@@ -94,9 +104,11 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate {
     
     var levelStateSnapshot: LevelStateSnapshot?
     
-    func entitySnapshotForEntity(entity: GKEntity) -> EntitySnapshot? {
+    func entitySnapshotForEntity(entity: GKEntity) -> EntitySnapshot?
+    {
         // Create a snapshot of the level's state if one does not already exist for this update cycle.
-        if levelStateSnapshot == nil {
+        if levelStateSnapshot == nil
+        {
             levelStateSnapshot = LevelStateSnapshot(scene: self)
         }
         
@@ -121,13 +133,15 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate {
     
     // MARK: Initializers
     
-    deinit {
+    deinit
+    {
         unregisterForPauseNotifications()
     }
 
     // MARK: Scene Life Cycle
     
-    override func didMove(to view: SKView) {
+    override func didMove(to view: SKView)
+    {
         super.didMove(to: view)
         
         // Load the level's configuration from the level data file.
@@ -168,7 +182,8 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate {
         camera!.addChild(timerNode)
 
         // A convenience function to find node locations given a set of node names.
-        func nodePointsFromNodeNames(nodeNames: [String]) -> [CGPoint] {
+        func nodePointsFromNodeNames(nodeNames: [String]) -> [CGPoint]
+        {
             let charactersNode = childNode(withName: WorldLayer.characters.nodePath)!
             return nodeNames.map {
                 charactersNode[$0].first!.position
@@ -176,7 +191,8 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate {
         }
         
         // Iterate over the `TaskBot` configurations for this level, and create each `TaskBot`.
-        for taskBotConfiguration in levelConfiguration.taskBotConfigurations {
+        for taskBotConfiguration in levelConfiguration.taskBotConfigurations
+        {
             let taskBot: TaskBot
 
             // Find the locations of the nodes that define the `TaskBot`'s "good" and "bad" patrol paths.
@@ -184,7 +200,8 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate {
             let badPathPoints = nodePointsFromNodeNames(nodeNames: taskBotConfiguration.badPathNodeNames)
             
             // Create the appropriate type `TaskBot` (ground or flying).
-            switch taskBotConfiguration.locomotion {
+            switch taskBotConfiguration.locomotion
+            {
                 case .flying:
                     taskBot = FlyingBot(isGood: !taskBotConfiguration.startsBad, goodPathPoints: goodPathPoints, badPathPoints: badPathPoints)
                     
@@ -223,7 +240,8 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate {
         #endif
     }
     
-    override func didChangeSize(_ oldSize: CGSize) {
+    override func didChangeSize(_ oldSize: CGSize)
+    {
         super.didChangeSize(oldSize)
         
         /*
@@ -239,7 +257,8 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate {
     // MARK: SKScene Processing
     
     /// Called before each frame is rendered.
-    override func update(_ currentTime: TimeInterval) {
+    override func update(_ currentTime: TimeInterval)
+    {
         super.update(currentTime)
         
         // Don't perform any updates if the scene isn't in a view.
@@ -272,14 +291,17 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate {
             The order of systems in `componentSystems` is important
             and was determined when the `componentSystems` array was instantiated.
         */
-        for componentSystem in componentSystems {
+        for componentSystem in componentSystems
+        {
             componentSystem.update(deltaTime: deltaTime)
         }
     }
 
-    override func didFinishUpdate() {
+    override func didFinishUpdate()
+    {
         // Check if the `playerBot` has been added to this scene.
-        if let playerBotNode = playerBot.component(ofType: RenderComponent.self)?.node, playerBotNode.scene == self {
+        if let playerBotNode = playerBot.component(ofType: RenderComponent.self)?.node, playerBotNode.scene == self
+        {
             /*
                 Update the `PlayerBot`'s agent position to match its node position.
                 This makes sure that the agent is in a valid location in the SpriteKit
@@ -298,7 +320,8 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate {
         
         // Set the `zPosition` of each entity so that entities with a higher y-position are rendered above those with a lower y-position.
         var characterZPosition = WorldLayer.zSpacePerCharacter
-        for entity in ySortedEntities {
+        for entity in ySortedEntities
+        {
             let node = entity.component(ofType: RenderComponent.self)!.node
             node.zPosition = characterZPosition
             
@@ -309,13 +332,15 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate {
     
     // MARK: SKPhysicsContactDelegate
     
-    @objc(didBeginContact:) func didBegin(_ contact: SKPhysicsContact) {
+    @objc(didBeginContact:) func didBegin(_ contact: SKPhysicsContact)
+    {
         handleContact(contact: contact) { (ContactNotifiableType: ContactNotifiableType, otherEntity: GKEntity) in
             ContactNotifiableType.contactWithEntityDidBegin(otherEntity)
         }
     }
     
-    @objc(didEndContact:) func didEnd(_ contact: SKPhysicsContact) {
+    @objc(didEndContact:) func didEnd(_ contact: SKPhysicsContact)
+    {
         handleContact(contact: contact) { (ContactNotifiableType: ContactNotifiableType, otherEntity: GKEntity) in
             ContactNotifiableType.contactWithEntityDidEnd(otherEntity)
         }
@@ -323,7 +348,8 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate {
     
     // MARK: SKPhysicsContactDelegate convenience
     
-    private func handleContact(contact: SKPhysicsContact, contactCallback: (ContactNotifiableType, GKEntity) -> Void) {
+    private func handleContact(contact: SKPhysicsContact, contactCallback: (ContactNotifiableType, GKEntity) -> Void)
+    {
         // Get the `ColliderType` for each contacted body.
         let colliderTypeA = ColliderType(rawValue: contact.bodyA.categoryBitMask)
         let colliderTypeB = ColliderType(rawValue: contact.bodyB.categoryBitMask)
@@ -342,7 +368,8 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate {
             If `entityA` is a notifiable type and `colliderTypeA` specifies that it should be notified
             of contact with `colliderTypeB`, call the callback on `entityA`.
         */
-        if let notifiableEntity = entityA as? ContactNotifiableType, let otherEntity = entityB, aWantsCallback {
+        if let notifiableEntity = entityA as? ContactNotifiableType, let otherEntity = entityB, aWantsCallback
+        {
             contactCallback(notifiableEntity, otherEntity)
         }
         
@@ -350,15 +377,18 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate {
             If `entityB` is a notifiable type and `colliderTypeB` specifies that it should be notified
             of contact with `colliderTypeA`, call the callback on `entityB`.
         */
-        if let notifiableEntity = entityB as? ContactNotifiableType, let otherEntity = entityA, bWantsCallback {
+        if let notifiableEntity = entityB as? ContactNotifiableType, let otherEntity = entityA, bWantsCallback
+        {
             contactCallback(notifiableEntity, otherEntity)
         }
     }
     
     // MARK: Level Construction
     
-    func loadWorldLayers() {
-        for worldLayer in WorldLayer.allLayers {
+    func loadWorldLayers()
+    {
+        for worldLayer in WorldLayer.allLayers
+        {
             // Try to find a matching node for this world layer's node name.
             let foundNodes = self["world/\(worldLayer.nodeName)"]
             
@@ -376,22 +406,26 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate {
         }
     }
     
-    func addEntity(entity: GKEntity) {
+    func addEntity(entity: GKEntity)
+    {
         entities.insert(entity)
 
-        for componentSystem in self.componentSystems {
+        for componentSystem in self.componentSystems
+        {
             componentSystem.addComponent(foundIn: entity)
         }
 
         // If the entity has a `RenderComponent`, add its node to the scene.
-        if let renderNode = entity.component(ofType: RenderComponent.self)?.node {
+        if let renderNode = entity.component(ofType: RenderComponent.self)?.node
+        {
             addNode(node: renderNode, toWorldLayer: .characters)
 
             /* 
                 If the entity has a `ShadowComponent`, add its shadow node to the scene.
                 Constrain the `ShadowComponent`'s node to the `RenderComponent`'s node.
             */
-            if let shadowNode = entity.component(ofType: ShadowComponent.self)?.node {
+            if let shadowNode = entity.component(ofType: ShadowComponent.self)?.node
+            {
                 addNode(node: shadowNode, toWorldLayer: .shadows)
                 
                 // Constrain the shadow node's position to the render node.
@@ -408,7 +442,8 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate {
                 If the entity has a `ChargeComponent` with a `ChargeBar`, add the `ChargeBar`
                 to the scene. Constrain the `ChargeBar` to the `RenderComponent`'s node.
             */
-            if let chargeBar = entity.component(ofType: ChargeComponent.self)?.chargeBar {
+            if let chargeBar = entity.component(ofType: ChargeComponent.self)?.chargeBar
+            {
                 addNode(node: chargeBar, toWorldLayer: .aboveCharacters)
                 
                 // Constrain the `ChargeBar`'s node position to the render node.
@@ -423,12 +458,14 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate {
         }
         
         // If the entity has an `IntelligenceComponent`, enter its initial state.
-        if let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self) {
+        if let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self)
+        {
             intelligenceComponent.enterInitialState()
         }
     }
     
-    func addNode(node: SKNode, toWorldLayer worldLayer: WorldLayer) {
+    func addNode(node: SKNode, toWorldLayer worldLayer: WorldLayer)
+    {
         let worldLayerNode = worldLayerNodes[worldLayer]!
         
         worldLayerNode.addChild(node)
@@ -436,14 +473,16 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate {
     
     // MARK: GameInputDelegate
 
-    override func gameInputDidUpdateControlInputSources(gameInput: GameInput) {
+    override func gameInputDidUpdateControlInputSources(gameInput: GameInput)
+    {
         super.gameInputDidUpdateControlInputSources(gameInput: gameInput)
         
         /*
             Update the player's `controlInputSources` to delegate input
             to the playerBot's `InputComponent`.
         */
-        for controlInputSource in gameInput.controlInputSources {
+        for controlInputSource in gameInput.controlInputSources
+        {
             controlInputSource.delegate = playerBot.component(ofType: InputComponent.self)
         }
         
@@ -455,20 +494,25 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate {
     
     // MARK: ControlInputSourceGameStateDelegate
     
-    override func controlInputSourceDidTogglePauseState(_ controlInputSource: ControlInputSourceType) {
-        if stateMachine.currentState is LevelSceneActiveState {
+    override func controlInputSourceDidTogglePauseState(_ controlInputSource: ControlInputSourceType)
+    {
+        if stateMachine.currentState is LevelSceneActiveState
+        {
             stateMachine.enter(LevelScenePauseState.self)
         }
-        else {
+        else
+        {
             stateMachine.enter(LevelSceneActiveState.self)
         }
     }
     
     #if DEBUG
-    override func controlInputSourceDidToggleDebugInfo(_ controlInputSource: ControlInputSourceType) {
+    override func controlInputSourceDidToggleDebugInfo(_ controlInputSource: ControlInputSourceType)
+    {
         debugDrawingEnabled = !debugDrawingEnabled
         
-        if let view = view {
+        if let view = view
+        {
             view.showsPhysics   = debugDrawingEnabled
             view.showsFPS       = debugDrawingEnabled
             view.showsNodeCount = debugDrawingEnabled
@@ -476,14 +520,18 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate {
         }
     }
     
-    override func controlInputSourceDidTriggerLevelSuccess(_ controlInputSource: ControlInputSourceType) {
-        if stateMachine.currentState is LevelSceneActiveState {
+    override func controlInputSourceDidTriggerLevelSuccess(_ controlInputSource: ControlInputSourceType)
+    {
+        if stateMachine.currentState is LevelSceneActiveState
+        {
             stateMachine.enter(LevelSceneSuccessState.self)
         }
     }
     
-    override func controlInputSourceDidTriggerLevelFailure(_ controlInputSource: ControlInputSourceType) {
-        if stateMachine.currentState is LevelSceneActiveState {
+    override func controlInputSourceDidTriggerLevelFailure(_ controlInputSource: ControlInputSourceType)
+    {
+        if stateMachine.currentState is LevelSceneActiveState
+        {
             stateMachine.enter(LevelSceneFailState.self)
         }
     }
@@ -492,8 +540,10 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate {
     
     // MARK: ButtonNodeResponderType
     
-    override func buttonTriggered(button: ButtonNode) {
-        switch button.buttonIdentifier! {
+    override func buttonTriggered(button: ButtonNode)
+    {
+        switch button.buttonIdentifier!
+        {
         case .resume:
             stateMachine.enter(LevelSceneActiveState.self)
             
@@ -506,7 +556,8 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate {
     // MARK: Convenience
     
     /// Constrains the camera to follow the PlayerBot without approaching the scene edges.
-    private func setCameraConstraints() {
+    private func setCameraConstraints()
+    {
         // Don't try to set up camera constraints if we don't yet have a camera.
         guard let camera = camera else { return }
         
@@ -566,7 +617,8 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate {
     }
     
     /// Scales and positions the timer node to fit the scene's current height.
-    private func scaleTimerNode() {
+    private func scaleTimerNode()
+    {
         // Update the font size of the timer node based on the height of the scene.
         timerNode.fontSize = size.height * GameplayConfiguration.Timer.fontSize
         
@@ -581,7 +633,8 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate {
         #endif
     }
     
-    private func beamInPlayerBot() {
+    private func beamInPlayerBot()
+    {
         // Find the location of the player's initial position.
         let charactersNode = childNode(withName: WorldLayer.characters.nodePath)!
         let transporterCoordinate = charactersNode.childNode(withName: "transporter_coordinate")!

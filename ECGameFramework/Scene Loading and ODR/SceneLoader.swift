@@ -14,16 +14,19 @@ import GameplayKit
 
     The `object` property of the notification will contain the `SceneLoader`.
 */
-extension NSNotification.Name {
+extension NSNotification.Name
+{
     public static let SceneLoaderDidCompleteNotification    = NSNotification.Name(rawValue: "SceneLoaderDidCompleteNotification")
     public static let SceneLoaderDidFailNotification        = NSNotification.Name(rawValue: "SceneLoaderDidFailNotification")
 }
 
 /// A class encapsulating the work necessary to load a scene and its resources based on a given `SceneMetadata` instance.
-class SceneLoader {
+class SceneLoader
+{
     // MARK: Properties
     
-    lazy var stateMachine: GKStateMachine = {
+    lazy var stateMachine: GKStateMachine =
+    {
         var states = [
             SceneLoaderInitialState(sceneLoader: self),
             SceneLoaderResourcesAvailableState(sceneLoader: self),
@@ -57,8 +60,10 @@ class SceneLoader {
         `SceneLoaderDownloadingResourcesState` and `SceneLoaderPreparingResourcesState` 
         states.
     */
-    var progress: Progress? {
-        didSet {
+    var progress: Progress?
+    {
+        didSet
+        {
             guard let progress = progress else { return }
 
             progress.cancellationHandler = { [unowned self] in
@@ -89,7 +94,8 @@ class SceneLoader {
         A computed property that returns `true` if the scene's resources are expected
         to take a long time to load.
     */
-    var requiresProgressSceneForPreparing: Bool {
+    var requiresProgressSceneForPreparing: Bool
+    {
         return sceneMetadata.loadableTypes.contains { $0.resourcesNeedLoading }
     }
     
@@ -97,8 +103,10 @@ class SceneLoader {
         Indicates whether the scene we are loading has been requested to be presented
         to the user. Used to change how aggressively the resources are being made available.
     */
-    var requestedForPresentation = false {
-        didSet {
+    var requestedForPresentation = false
+    {
+        didSet
+        {
             /*
                 Don't adjust resource loading priorities if `requestedForPresentation`
                 was just set to `false`.
@@ -116,7 +124,8 @@ class SceneLoader {
             }
             #endif
             
-            if let preparingState = stateMachine.currentState as? SceneLoaderPreparingResourcesState {
+            if let preparingState = stateMachine.currentState as? SceneLoaderPreparingResourcesState
+            {
                 /*
                     The presentation of this scene is blocked by the preparation of
                     the scene's resources, so bump up the quality of service of
@@ -129,7 +138,8 @@ class SceneLoader {
     
     // MARK: Initialization
     
-    init(sceneMetadata: SceneMetadata) {
+    init(sceneMetadata: SceneMetadata)
+    {
         self.sceneMetadata = sceneMetadata
         
         // Enter the initial state as soon as the scene loader is created.
@@ -141,11 +151,14 @@ class SceneLoader {
         Moves the state machine to the appropriate state when a request is made to
         download the `sceneLoader`'s scene.
     */
-    func downloadResourcesIfNecessary() {
-        if sceneMetadata.requiresOnDemandResources {
+    func downloadResourcesIfNecessary()
+    {
+        if sceneMetadata.requiresOnDemandResources
+        {
             stateMachine.enter(SceneLoaderDownloadingResourcesState.self)
         }
-        else {
+        else
+        {
             stateMachine.enter(SceneLoaderResourcesAvailableState.self)
         }
     }
@@ -158,13 +171,16 @@ class SceneLoader {
         Note: On iOS there are two distinct steps to loading: downloading on demand resources
         -> loading assets into memory.
     */
-    func asynchronouslyLoadSceneForPresentation() -> Progress {
+    func asynchronouslyLoadSceneForPresentation() -> Progress
+    {
         // If a valid progress already exists it means the scene is already being prepared.
-        if let progress = progress , !progress.isCancelled {
+        if let progress = progress , !progress.isCancelled
+        {
             return progress
         }
 
-        switch stateMachine.currentState {
+        switch stateMachine.currentState
+        {
             case is SceneLoaderResourcesReadyState:
                 // No additional work needs to be done.
                 progress = Progress(totalUnitCount: 0)
@@ -216,7 +232,8 @@ class SceneLoader {
     
     #if os(iOS) || os(tvOS)
     /// Marks the resources as no longer necessary cancelling any pending requests.
-    func purgeResources() {
+    func purgeResources()
+    {
         // Cancel any pending requests.
         progress?.cancel()
         

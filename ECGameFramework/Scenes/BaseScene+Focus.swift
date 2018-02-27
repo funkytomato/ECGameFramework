@@ -7,26 +7,32 @@
                 with game controllers and the keyboard on OS X.
 */
 
-extension BaseScene {
+extension BaseScene
+{
     // MARK: Properties
     
     /// The currently focused button, if any.
-    var focusedButton: ButtonNode? {
-        get {
-            for button in currentlyFocusableButtons where button.isFocused {
+    var focusedButton: ButtonNode?
+    {
+        get
+        {
+            for button in currentlyFocusableButtons where button.isFocused
+            {
                 return button
             }
             return nil
         }
         
-        set {
+        set
+        {
             focusedButton?.isFocused = false
             newValue?.isFocused = true
         }
     }
     
     /// A computed property to determine which buttons are focusable.
-    var currentlyFocusableButtons: [ButtonNode] {
+    var currentlyFocusableButtons: [ButtonNode]
+    {
         return buttons.filter { !$0.isHidden && $0.isUserInteractionEnabled }
     }
     
@@ -38,7 +44,8 @@ extension BaseScene {
         different buttons in the scene, this array determines which button should
         be focused on first.
     */
-    private var buttonIdentifiersOrderedByInitialFocusPriority: [ButtonIdentifier] {
+    private var buttonIdentifiersOrderedByInitialFocusPriority: [ButtonIdentifier]
+    {
         return [
             .resume,
             .proceedToNextScene,
@@ -59,14 +66,16 @@ extension BaseScene {
         Note: This only establishes the vertical relationship between buttons, but 
         could be expanded to include horizontal navigation if necessary.
     */
-    func createButtonFocusGraph() {
+    func createButtonFocusGraph()
+    {
         let sortedFocusableButtons = currentlyFocusableButtons.sorted { $0.position.y > $1.position.y }
         
         // Clear any existing connections.
         sortedFocusableButtons.forEach { $0.focusableNeighbors.removeAll() }
         
         // Connect the adjacent button nodes.
-        for i in 0..<sortedFocusableButtons.count - 1 {
+        for i in 0..<sortedFocusableButtons.count - 1
+        {
             let node = sortedFocusableButtons[i]
             let nextNode = sortedFocusableButtons[i + 1]
             
@@ -82,7 +91,8 @@ extension BaseScene {
     
         If playing on iOS, focus is only used when a game controller is connected.
     */
-    func resetFocus() {
+    func resetFocus()
+    {
         #if os(iOS)
         // On iOS, ensure a game controller is connected otherwise return without providing focus.
         guard sceneManager.gameInput.isGameControllerConnected else { return }

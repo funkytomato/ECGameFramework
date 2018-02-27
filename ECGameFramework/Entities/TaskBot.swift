@@ -9,11 +9,13 @@
 import SpriteKit
 import GameplayKit
 
-class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentDelegate {
+class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentDelegate
+{
     // MARK: Nested types
     
     /// Encapsulates a `TaskBot`'s current mandate, i.e. the aim that the `TaskBot` is setting out to achieve.
-    enum TaskBotMandate {
+    enum TaskBotMandate
+    {
         // Hunt another agent (either a `PlayerBot` or a "good" `TaskBot`).
         case huntAgent(GKAgent2D)
 
@@ -30,8 +32,10 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
     // MARK: Properties
     
     /// Indicates whether or not the `TaskBot` is currently in a "good" (benevolent) or "bad" (adversarial) state.
-    var isGood: Bool {
-        didSet {
+    var isGood: Bool
+    {
+        didSet
+        {
             // Do nothing if the value hasn't changed.
             guard isGood != oldValue else { return }
             
@@ -44,7 +48,8 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             agent.maxSpeed = GameplayConfiguration.TaskBot.maximumSpeedForIsGood(isGood: isGood)
             agent.maxAcceleration = GameplayConfiguration.TaskBot.maximumAcceleration
 
-            if isGood {
+            if isGood
+            {
                 /*
                     The `TaskBot` just turned from "bad" to "good".
                     Set its mandate to `.ReturnToPositionOnPath` for the closest point on its "good" patrol path.
@@ -52,11 +57,13 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 let closestPointOnGoodPath = closestPointOnPath(path: goodPathPoints)
                 mandate = .returnToPositionOnPath(float2(closestPointOnGoodPath))
                 
-                if self is FlyingBot {
+                if self is FlyingBot
+                {
                     // Enter the `FlyingBotBlastState` so it performs a curing blast.
                     intelligenceComponent.stateMachine.enter(FlyingBotBlastState.self)
                 }
-                else {
+                else
+                {
                     // Make sure the `TaskBot`s state is `TaskBotAgentControlledState` so that it follows its mandate.
                     intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
                 }
@@ -67,7 +74,8 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 // Set the appropriate amount of charge.
                 chargeComponent.charge = 0.0
             }
-            else {
+            else
+            {
                 /*
                     The `TaskBot` just turned from "good" to "bad".
                     Default to a `.ReturnToPositionOnPath` mandate for the closest point on its "bad" patrol path.
@@ -98,7 +106,8 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
     var badPathPoints: [CGPoint]
 
     /// The appropriate `GKBehavior` for the `TaskBot`, based on its current `mandate`.
-    var behaviorForCurrentMandate: GKBehavior {
+    var behaviorForCurrentMandate: GKBehavior
+    {
         // Return an empty behavior if this `TaskBot` is not yet in a `LevelScene`.
         guard let levelScene = component(ofType: RenderComponent.self)?.node.scene as? LevelScene else {
             return GKBehavior()
@@ -112,7 +121,8 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         var debugPathShouldCycle = false
         let debugColor: SKColor
         
-        switch mandate {
+        switch mandate
+        {
             case .followGoodPatrolPath, .followBadPatrolPath:
                 let pathPoints = isGood ? goodPathPoints : badPathPoints
                 radius = GameplayConfiguration.TaskBot.patrolPathRadius
@@ -133,10 +143,12 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 debugColor = SKColor.yellow
         }
 
-        if levelScene.debugDrawingEnabled {
+        if levelScene.debugDrawingEnabled
+        {
             drawDebugPath(path: debugPathPoints, cycle: debugPathShouldCycle, color: debugColor, radius: radius)
         }
-        else {
+        else
+        {
             debugNode.removeAllChildren()
         }
 
@@ -144,23 +156,27 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
     }
     
     /// The animations to use when a `TaskBot` is in its "good" state.
-    var goodAnimations: [AnimationState: [CompassDirection: Animation]] {
+    var goodAnimations: [AnimationState: [CompassDirection: Animation]]
+    {
         fatalError("goodAnimations must be overridden in subclasses")
     }
     
     /// The animations to use when a `TaskBot` is in its "bad" state.
-    var badAnimations: [AnimationState: [CompassDirection: Animation]] {
+    var badAnimations: [AnimationState: [CompassDirection: Animation]]
+    {
         fatalError("badAnimations must be overridden in subclasses")
     }
     
     /// The `GKAgent` associated with this `TaskBot`.
-    var agent: TaskBotAgent {
+    var agent: TaskBotAgent
+    {
         guard let agent = component(ofType: TaskBotAgent.self) else { fatalError("A TaskBot entity must have a GKAgent2D component.") }
         return agent
     }
 
     /// The `RenderComponent` associated with this `TaskBot`.
-    var renderComponent: RenderComponent {
+    var renderComponent: RenderComponent
+    {
         guard let renderComponent = component(ofType: RenderComponent.self) else { fatalError("A TaskBot must have an RenderComponent.") }
         return renderComponent
     }
@@ -173,7 +189,8 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
     
     // MARK: Initializers
     
-    required init(isGood: Bool, goodPathPoints: [CGPoint], badPathPoints: [CGPoint]) {
+    required init(isGood: Bool, goodPathPoints: [CGPoint], badPathPoints: [CGPoint])
+    {
         // Whether or not the `TaskBot` is "good" when first created.
         self.isGood = isGood
 
@@ -224,13 +241,15 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         rulesComponent.delegate = self
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder)
+    {
         fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: GKAgentDelegate
     
-    func agentWillUpdate(_: GKAgent) {
+    func agentWillUpdate(_: GKAgent)
+    {
         /*
             `GKAgent`s do not operate in the SpriteKit physics world,
             and are not affected by SpriteKit physics collisions.
@@ -246,11 +265,13 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         updateAgentRotationToMatchTaskBotOrientation()
     }
     
-    func agentDidUpdate(_: GKAgent) {
+    func agentDidUpdate(_: GKAgent)
+    {
         guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
         guard let orientationComponent = component(ofType: OrientationComponent.self) else { return }
         
-        if intelligenceComponent.stateMachine.currentState is TaskBotAgentControlledState {
+        if intelligenceComponent.stateMachine.currentState is TaskBotAgentControlledState
+        {
             
             // `TaskBot`s always move in a forward direction when they are agent-controlled.
             component(ofType: AnimationComponent.self)?.requestedAnimationState = .walkForward
@@ -260,10 +281,12 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             
             // If the agent has a velocity, the `zRotation` should be the arctangent of the agent's velocity. Otherwise use the agent's `rotation` value.
             let newRotation: Float
-            if agent.velocity.x > 0.0 || agent.velocity.y > 0.0 {
+            if agent.velocity.x > 0.0 || agent.velocity.y > 0.0
+            {
                 newRotation = atan2(agent.velocity.y, agent.velocity.x)
             }
-            else {
+            else
+            {
                 newRotation = agent.rotation
             }
 
@@ -272,7 +295,8 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
 
             orientationComponent.zRotation = CGFloat(newRotation)
         }
-        else {
+        else
+        {
             /*
                 When the `TaskBot` is not agent-controlled, the agent position
                 and rotation follow the node position and `TaskBot` orientation.
@@ -284,7 +308,8 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
     
     // MARK: RulesComponentDelegate
     
-    func rulesComponent(rulesComponent: RulesComponent, didFinishEvaluatingRuleSystem ruleSystem: GKRuleSystem) {
+    func rulesComponent(rulesComponent: RulesComponent, didFinishEvaluatingRuleSystem ruleSystem: GKRuleSystem)
+    {
         let state = ruleSystem.state["snapshot"] as! EntitySnapshot
         
         // Adjust the `TaskBot`'s `mandate` based on the result of evaluating the rules.
@@ -388,18 +413,22 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         // Find the maximum of the minima from above.
         let huntTaskBot = huntTaskBotRaw.reduce(0.0, max)
         
-        if huntPlayerBot >= huntTaskBot && huntPlayerBot > 0.0 {
+        if huntPlayerBot >= huntTaskBot && huntPlayerBot > 0.0
+        {
             // The rules provided greater motivation to hunt the PlayerBot. Ignore any motivation to hunt the nearest good TaskBot.
             guard let playerBotAgent = state.playerBotTarget?.target.agent else { return }
             mandate = .huntAgent(playerBotAgent)
         }
-        else if huntTaskBot > huntPlayerBot {
+        else if huntTaskBot > huntPlayerBot
+        {
             // The rules provided greater motivation to hunt the nearest good TaskBot. Ignore any motivation to hunt the PlayerBot.
             mandate = .huntAgent(state.nearestGoodTaskBotTarget!.target.agent)
         }
-        else {
+        else
+        {
             // The rules provided no motivation to hunt, so patrol in the "bad" state.
-            switch mandate {
+            switch mandate
+            {
                 case .followBadPatrolPath:
                     // The `TaskBot` is already on its "bad" patrol path, so no update is needed.
                     break
@@ -420,21 +449,24 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
     // MARK: Convenience
     
     /// The direct distance between this `TaskBot`'s agent and another agent in the scene.
-    func distanceToAgent(otherAgent: GKAgent2D) -> Float {
+    func distanceToAgent(otherAgent: GKAgent2D) -> Float
+    {
         let deltaX = agent.position.x - otherAgent.position.x
         let deltaY = agent.position.y - otherAgent.position.y
         
         return hypot(deltaX, deltaY)
     }
     
-    func distanceToPoint(otherPoint: float2) -> Float {
+    func distanceToPoint(otherPoint: float2) -> Float
+    {
         let deltaX = agent.position.x - otherPoint.x
         let deltaY = agent.position.y - otherPoint.y
         
         return hypot(deltaX, deltaY)
     }
     
-    func closestPointOnPath(path: [CGPoint]) -> CGPoint {
+    func closestPointOnPath(path: [CGPoint]) -> CGPoint
+    {
         // Find the closest point to the `TaskBot`.
         let taskBotPosition = agent.position
         let closestPoint = path.min {
@@ -445,7 +477,8 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
     }
     
     /// Sets the `TaskBot` `GKAgent` position to match the node position (plus an offset).
-    func updateAgentPositionToMatchNodePosition() {
+    func updateAgentPositionToMatchNodePosition()
+    {
         // `renderComponent` is a computed property. Declare a local version so we don't compute it multiple times.
         let renderComponent = self.renderComponent
         
@@ -454,13 +487,15 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
     }
     
     /// Sets the `TaskBot` `GKAgent` rotation to match the `TaskBot`'s orientation.
-    func updateAgentRotationToMatchTaskBotOrientation() {
+    func updateAgentRotationToMatchTaskBotOrientation()
+    {
         guard let orientationComponent = component(ofType: OrientationComponent.self) else { return }
         agent.rotation = Float(orientationComponent.zRotation)
     }
     
     /// Sets the `TaskBot` node position to match the `GKAgent` position (minus an offset).
-    func updateNodePositionToMatchAgentPosition() {
+    func updateNodePositionToMatchAgentPosition()
+    {
         // `agent` is a computed property. Declare a local version of its property so we don't compute it multiple times.
         let agentPosition = CGPoint(agent.position)
         
@@ -470,14 +505,16 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
     
     // MARK: Debug Path Drawing
     
-    func drawDebugPath(path: [CGPoint], cycle: Bool, color: SKColor, radius: Float) {
+    func drawDebugPath(path: [CGPoint], cycle: Bool, color: SKColor, radius: Float)
+    {
         guard path.count > 1 else { return }
         
         debugNode.removeAllChildren()
         
         var drawPath = path
         
-        if cycle {
+        if cycle
+        {
             drawPath += [drawPath.first!]
         }
 
@@ -492,7 +529,8 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         let strokeColor = SKColor(red: red, green: green, blue: blue, alpha: 0.4)
         let fillColor = SKColor(red: red, green: green, blue: blue, alpha: 0.2)
         
-        for index in 0..<drawPath.count - 1 {
+        for index in 0..<drawPath.count - 1
+        {
             let current = CGPoint(x: drawPath[index].x, y: drawPath[index].y)
             let next = CGPoint(x: drawPath[index + 1].x, y: drawPath[index + 1].y)
             
@@ -515,7 +553,8 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
     
     // MARK: Shared Assets
     
-    class func loadSharedAssets() {
+    class func loadSharedAssets()
+    {
         ColliderType.definedCollisions[.TaskBot] = [
             .Obstacle,
             .PlayerBot,

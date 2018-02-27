@@ -8,20 +8,23 @@
 
 import GameplayKit
 
-class SceneLoaderResourcesReadyState: GKState {
+class SceneLoaderResourcesReadyState: GKState
+{
     // MARK: Properties
     
     unowned let sceneLoader: SceneLoader
     
     // MARK: Initialization
     
-    init(sceneLoader: SceneLoader) {
+    init(sceneLoader: SceneLoader)
+    {
         self.sceneLoader = sceneLoader
     }
     
     // MARK: GKState Life Cycle
     
-    override func didEnter(from previousState: GKState?) {
+    override func didEnter(from previousState: GKState?)
+    {
         super.didEnter(from: previousState)
         
         // Clear the `sceneLoader`'s progress as loading is complete. 
@@ -31,8 +34,10 @@ class SceneLoaderResourcesReadyState: GKState {
         NotificationCenter.default.post(name: NSNotification.Name.SceneLoaderDidCompleteNotification, object: sceneLoader)
     }
     
-    override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-        switch stateClass {
+    override func isValidNextState(_ stateClass: AnyClass) -> Bool
+    {
+        switch stateClass
+        {
             case is SceneLoaderResourcesAvailableState.Type, is SceneLoaderInitialState.Type:
                 return true
             
@@ -41,7 +46,8 @@ class SceneLoaderResourcesReadyState: GKState {
         }
     }
 
-    override func willExit(to nextState: GKState) {
+    override func willExit(to nextState: GKState)
+    {
         super.willExit(to: nextState)
         
         /*

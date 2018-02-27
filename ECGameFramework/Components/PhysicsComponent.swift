@@ -9,14 +9,16 @@
 import SpriteKit
 import GameplayKit
 
-class PhysicsComponent: GKComponent {
+class PhysicsComponent: GKComponent
+{
     // MARK: Properties
     
     var physicsBody: SKPhysicsBody
     
     // MARK: Initializers
     
-    init(physicsBody: SKPhysicsBody, colliderType: ColliderType) {
+    init(physicsBody: SKPhysicsBody, colliderType: ColliderType)
+    {
         self.physicsBody = physicsBody
         self.physicsBody.categoryBitMask = colliderType.categoryMask
         self.physicsBody.collisionBitMask = colliderType.collisionMask
@@ -24,7 +26,8 @@ class PhysicsComponent: GKComponent {
         super.init()
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder)
+    {
         fatalError("init(coder:) has not been implemented")
     }
 }

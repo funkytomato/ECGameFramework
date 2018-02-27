@@ -9,7 +9,8 @@
 import CoreGraphics
 
 /// The different directions that an animated character can be facing.
-enum CompassDirection: Int {
+enum CompassDirection: Int
+{
     case east = 0, eastByNorthEast, northEast, northByNorthEast
     case north, northByNorthWest, northWest, westByNorthWest
     case west, westBySouthWest, southWest, southBySouthWest
@@ -25,7 +26,8 @@ enum CompassDirection: Int {
         ]
     
     /// The angle of rotation that the orientation represents.
-    var zRotation: CGFloat {
+    var zRotation: CGFloat
+    {
         // Calculate the number of radians between each direction.
         let stepSize = CGFloat(M_PI * 2.0) / CGFloat(CompassDirection.allDirections.count)
         
@@ -33,7 +35,8 @@ enum CompassDirection: Int {
     }
     
     /// Creates a new `FacingDirection` for a given `zRotation` in radians.
-    init(zRotation: CGFloat) {
+    init(zRotation: CGFloat)
+    {
         let twoPi = M_PI * 2
         
         // Normalize the node's rotation.
@@ -49,8 +52,10 @@ enum CompassDirection: Int {
         self = CompassDirection(rawValue: Int(rawFacingValue))!
     }
     
-    init(string: String) {
-        switch string {
+    init(string: String)
+    {
+        switch string
+        {
             case "North":
                 self = .north
                 

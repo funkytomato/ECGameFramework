@@ -8,23 +8,27 @@
 
 import GameplayKit
 
-class SceneLoaderInitialState: GKState {
+class SceneLoaderInitialState: GKState
+{
     // MARK: Properties
     
     unowned let sceneLoader: SceneLoader
 
     // MARK: Initialization
     
-    init(sceneLoader: SceneLoader) {
+    init(sceneLoader: SceneLoader)
+    {
         self.sceneLoader = sceneLoader
     }
     
     // MARK: GKState Life Cycle
     
-    override func didEnter(from previousState: GKState?) {
+    override func didEnter(from previousState: GKState?)
+    {
         #if os(iOS) || os(tvOS)
         // Move the `stateMachine` to the available state if no on-demand resources are required.
-        if !sceneLoader.sceneMetadata.requiresOnDemandResources {
+        if !sceneLoader.sceneMetadata.requiresOnDemandResources
+        {
             stateMachine!.enter(SceneLoaderResourcesAvailableState.self)
         }
         #elseif os(OSX)
@@ -33,9 +37,11 @@ class SceneLoaderInitialState: GKState {
         #endif
     }
     
-    override func isValidNextState(_  stateClass: AnyClass) -> Bool {
+    override func isValidNextState(_  stateClass: AnyClass) -> Bool
+    {
         #if os(iOS) || os(tvOS)
-        if stateClass is SceneLoaderDownloadingResourcesState.Type {
+        if stateClass is SceneLoaderDownloadingResourcesState.Type
+        {
             return true
         }
         #endif

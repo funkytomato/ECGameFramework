@@ -9,7 +9,8 @@
 import SpriteKit
 import GameplayKit
 
-class TaskBotAgentControlledState: GKState {
+class TaskBotAgentControlledState: GKState
+{
     // MARK: Properties
     
     unowned var entity: TaskBot
@@ -22,13 +23,15 @@ class TaskBotAgentControlledState: GKState {
     
     // MARK: Initializers
     
-    required init(entity: TaskBot) {
+    required init(entity: TaskBot)
+    {
         self.entity = entity
     }
     
     // MARK: GKState Life Cycle
     
-    override func didEnter(from previousState: GKState?) {
+    override func didEnter(from previousState: GKState?)
+    {
         super.didEnter(from: previousState)
         
         // Reset the amount of time since the last behavior update.
@@ -42,13 +45,15 @@ class TaskBotAgentControlledState: GKState {
             `TaskBot`s recover to a full charge if they're hit with the beam but don't become "good".
             If this `TaskBot` has any charge, restore it to the full amount.
         */
-        if let chargeComponent = entity.component(ofType: ChargeComponent.self), chargeComponent.hasCharge {
+        if let chargeComponent = entity.component(ofType: ChargeComponent.self), chargeComponent.hasCharge
+        {
             let chargeToAdd = chargeComponent.maximumCharge - chargeComponent.charge
             chargeComponent.addCharge(chargeToAdd: chargeToAdd)
         }
     }
     
-    override func update(deltaTime seconds: TimeInterval) {
+    override func update(deltaTime seconds: TimeInterval)
+    {
         super.update(deltaTime: seconds)
         
         // Update the "time since last behavior update" tracker.
@@ -56,10 +61,12 @@ class TaskBotAgentControlledState: GKState {
         elapsedTime += seconds
         
         // Check if enough time has passed since the last behavior update, and update the behavior if so.
-        if timeSinceBehaviorUpdate >= GameplayConfiguration.TaskBot.behaviorUpdateWaitDuration {
+        if timeSinceBehaviorUpdate >= GameplayConfiguration.TaskBot.behaviorUpdateWaitDuration
+        {
 
             // When a `TaskBot` is returning to its path patrol start, and gets near enough, it should start to patrol.
-            if case let .returnToPositionOnPath(position) = entity.mandate, entity.distanceToPoint(otherPoint: position) <= GameplayConfiguration.TaskBot.thresholdProximityToPatrolPathStartPoint {
+            if case let .returnToPositionOnPath(position) = entity.mandate, entity.distanceToPoint(otherPoint: position) <= GameplayConfiguration.TaskBot.thresholdProximityToPatrolPathStartPoint
+            {
                 entity.mandate = entity.isGood ? .followGoodPatrolPath : .followBadPatrolPath
             }
             
@@ -71,8 +78,10 @@ class TaskBotAgentControlledState: GKState {
         }
     }
     
-    override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-        switch stateClass {
+    override func isValidNextState(_ stateClass: AnyClass) -> Bool
+    {
+        switch stateClass
+        {
             case is FlyingBotPreAttackState.Type, is GroundBotRotateToAttackState.Type, is TaskBotZappedState.Type:
                 return true
                 
@@ -81,7 +90,8 @@ class TaskBotAgentControlledState: GKState {
         }
     }
     
-    override func willExit(to nextState: GKState) {
+    override func willExit(to nextState: GKState)
+    {
         super.willExit(to: nextState)
         
         /*

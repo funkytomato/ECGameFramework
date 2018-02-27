@@ -9,10 +9,12 @@
 import SpriteKit
 import GameplayKit
 
-class BeamNode: SKNode, ResourceLoadableType {
+class BeamNode: SKNode, ResourceLoadableType
+{
     // MARK: Static properties
     
-    struct AnimationActions {
+    struct AnimationActions
+    {
         static var source: SKAction!
         static var untargetedSource: SKAction!
         static var destination: SKAction!
@@ -45,7 +47,8 @@ class BeamNode: SKNode, ResourceLoadableType {
 
     // MARK: Initializers
     
-    override init() {
+    override init()
+    {
         sourceNode = SKSpriteNode()
         sourceNode.size = BeamNode.dotTextureSize
         sourceNode.isHidden = true
@@ -72,15 +75,18 @@ class BeamNode: SKNode, ResourceLoadableType {
         self.addChild(debugNode)
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder)
+    {
         fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: Actions
     
-    func update(withBeamState state: GKState, source: PlayerBot, target: TaskBot? = nil) {
+    func update(withBeamState state: GKState, source: PlayerBot, target: TaskBot? = nil)
+    {
         // Constrain the position of the target's antenna if it's not already constrained to it.
-        if let target = target, let targetNode = target.component(ofType: RenderComponent.self)?.node, destinationNode.constraints?.first?.referenceNode != targetNode {
+        if let target = target, let targetNode = target.component(ofType: RenderComponent.self)?.node, destinationNode.constraints?.first?.referenceNode != targetNode
+        {
                 let xRange = SKRange(constantValue: target.beamTargetOffset.x)
                 let yRange = SKRange(constantValue: target.beamTargetOffset.y)
                 
@@ -90,7 +96,8 @@ class BeamNode: SKNode, ResourceLoadableType {
                 destinationNode.constraints = [constraint]
         }
         
-        switch state {
+        switch state
+        {
             case is BeamIdleState:
                 // Hide the source and destination nodes.
                 sourceNode.isHidden = true
@@ -108,13 +115,15 @@ class BeamNode: SKNode, ResourceLoadableType {
                     Adding a new copy of the template will ensure the actions are re-started when
                     the beam starts being fired.
                 */
-                if lineNode == nil {
+                if lineNode == nil
+                {
                     lineNode = BeamNode.lineNodeTemplate.copy() as? SKSpriteNode
                     lineNode!.isHidden = true
                     addChild(lineNode!)
                 }
                 
-                if let target = target {
+                if let target = target
+                {
                     // Show the `sourceNode` with the its firing animation.
                     sourceNode.isHidden = false
                     animate(sourceNode, withAction: AnimationActions.source)
@@ -127,7 +136,8 @@ class BeamNode: SKNode, ResourceLoadableType {
                     positionLineNode(from: source, to: target)
                     lineNode?.isHidden = false
                 }
-                else {
+                else
+                {
                     // Show the `sourceNode` with the its untargeted animation.
                     sourceNode.isHidden = false
                     animate(sourceNode, withAction: AnimationActions.untargetedSource)
@@ -140,7 +150,8 @@ class BeamNode: SKNode, ResourceLoadableType {
                 // Update the debug node if debug drawing is enabled.
                 debugNode.isHidden = !debugDrawingEnabled
                 
-                if debugDrawingEnabled {
+                if debugDrawingEnabled
+                {
                     guard let sourceOrientation = source.component(ofType: OrientationComponent.self) else {
                         fatalError("BeamNodees must be associated with entities that have an orientation node")
                     }
@@ -155,7 +166,8 @@ class BeamNode: SKNode, ResourceLoadableType {
                     let arcPath = CGMutablePath.init()
                     
                     // Only draw beam arc if there is a target.
-                    if let target = target {
+                    if let target = target
+                    {
                         let distanceRatio = GameplayConfiguration.Beam.arcLength / CGFloat(distance(source.agent.position, target.agent.position))
                         let arcAngle = min(GameplayConfiguration.Beam.arcAngle * distanceRatio, 1 / GameplayConfiguration.Beam.maxArcAngle)
                         
@@ -190,14 +202,17 @@ class BeamNode: SKNode, ResourceLoadableType {
     
     // MARK: Convenience
     
-    func animate(_ node: SKSpriteNode, withAction action: SKAction) {
-        if runningNodeAnimations[node] != action {
+    func animate(_ node: SKSpriteNode, withAction action: SKAction)
+    {
+        if runningNodeAnimations[node] != action
+        {
             node.run(action, withKey: BeamNode.animationActionKey)
             runningNodeAnimations[node] = action
         }
     }
 
-    func positionLineNode(from source: PlayerBot, to target: TaskBot) {
+    func positionLineNode(from source: PlayerBot, to target: TaskBot)
+    {
         guard let lineNode = lineNode else { fatalError("positionLineNodeFrom(_: to:) requires a lineNode to have been created.") }
         
         // Calculate the source and destination positions.
@@ -239,11 +254,13 @@ class BeamNode: SKNode, ResourceLoadableType {
     
     // MARK: ResourceLoadableType
     
-    static var resourcesNeedLoading: Bool {
+    static var resourcesNeedLoading: Bool
+    {
         return AnimationActions.source == nil || AnimationActions.untargetedSource == nil || AnimationActions.destination == nil || AnimationActions.cooling == nil
     }
     
-    static func loadResources(withCompletionHandler completionHandler: @escaping () -> ()) {
+    static func loadResources(withCompletionHandler completionHandler: @escaping () -> ())
+    {
         let beamAtlasNames = [
             "BeamDot",
             "BeamCharging"
@@ -269,7 +286,8 @@ class BeamNode: SKNode, ResourceLoadableType {
         }
     }
     
-    static func purgeResources() {
+    static func purgeResources()
+    {
         AnimationActions.source = nil
         AnimationActions.destination = nil
         AnimationActions.untargetedSource = nil

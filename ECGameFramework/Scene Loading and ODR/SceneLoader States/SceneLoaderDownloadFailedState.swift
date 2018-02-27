@@ -8,20 +8,23 @@
 
 import GameplayKit
 
-class SceneLoaderDownloadFailedState: GKState {
+class SceneLoaderDownloadFailedState: GKState
+{
     // MARK: Properties
     
     unowned let sceneLoader: SceneLoader
     
     // MARK: Initialization
     
-    init(sceneLoader: SceneLoader) {
+    init(sceneLoader: SceneLoader)
+    {
         self.sceneLoader = sceneLoader
     }
     
     // MARK: GKState Life Cycle
     
-    override func didEnter(from previousState: GKState?) {
+    override func didEnter(from previousState: GKState?)
+    {
         super.didEnter(from: previousState)
         
         // Clear the `sceneLoader`'s progress.
@@ -31,7 +34,8 @@ class SceneLoaderDownloadFailedState: GKState {
         NotificationCenter.default.post(name: NSNotification.Name.SceneLoaderDidFailNotification, object: sceneLoader)
     }
     
-    override func isValidNextState(_ stateClass: AnyClass) -> Bool {
+    override func isValidNextState(_ stateClass: AnyClass) -> Bool
+    {
         return stateClass is SceneLoaderDownloadingResourcesState.Type
     }
 }

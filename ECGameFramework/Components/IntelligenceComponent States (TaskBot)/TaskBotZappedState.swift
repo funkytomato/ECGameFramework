@@ -9,7 +9,8 @@
 import SpriteKit
 import GameplayKit
 
-class TaskBotZappedState: GKState {
+class TaskBotZappedState: GKState
+{
     // MARK: Properties
     
     unowned var entity: TaskBot
@@ -18,27 +19,31 @@ class TaskBotZappedState: GKState {
     var elapsedTime: TimeInterval = 0.0
     
     /// The `AnimationComponent` associated with the `entity`.
-    var animationComponent: AnimationComponent {
+    var animationComponent: AnimationComponent
+    {
         guard let animationComponent = entity.component(ofType: AnimationComponent.self) else { fatalError("A TaskBotZappedState's entity must have an AnimationComponent.") }
         return animationComponent
     }
 
     // MARK: Initializers
     
-    required init(entity: TaskBot) {
+    required init(entity: TaskBot)
+    {
         self.entity = entity
     }
     
     // MARK: GKState Life Cycle
     
-    override func didEnter(from previousState: GKState?) {
+    override func didEnter(from previousState: GKState?)
+    {
         super.didEnter(from: previousState)
         
         // Reset the elapsed time.
         elapsedTime = 0.0
 
         // Check if the `TaskBot` has a movement component. (`GroundBot`s do, `FlyingBot`s do not.)
-        if let movementComponent = entity.component(ofType: MovementComponent.self) {
+        if let movementComponent = entity.component(ofType: MovementComponent.self)
+        {
             // Clear any pending movement.
             movementComponent.nextTranslation = nil
             movementComponent.nextRotation = nil
@@ -49,7 +54,8 @@ class TaskBotZappedState: GKState {
         animationComponent.requestedAnimationState = .zapped
     }
 
-    override func update(deltaTime seconds: TimeInterval) {
+    override func update(deltaTime seconds: TimeInterval)
+    {
         super.update(deltaTime: seconds)
         
         elapsedTime += seconds
@@ -63,8 +69,10 @@ class TaskBotZappedState: GKState {
         }
     }
     
-    override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-        switch stateClass {
+    override func isValidNextState(_ stateClass: AnyClass) -> Bool
+    {
+        switch stateClass
+        {
             case is TaskBotZappedState.Type:
                 /*
                     Reset the elapsed time the `taskBot` has been in `TaskBotZappedState`. This ensures

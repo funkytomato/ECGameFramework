@@ -9,7 +9,8 @@
 
 import Foundation
 
-class LoadSceneOperation: SceneOperation, ProgressReporting {
+class LoadSceneOperation: SceneOperation, ProgressReporting
+{
     // MARK: Properties
     
     /// The metadata for the scene to load.
@@ -23,7 +24,8 @@ class LoadSceneOperation: SceneOperation, ProgressReporting {
     
     // MARK: Initialization
     
-    init(sceneMetadata: SceneMetadata) {
+    init(sceneMetadata: SceneMetadata)
+    {
         self.sceneMetadata = sceneMetadata
         
         progress = Progress(totalUnitCount: 1)
@@ -32,11 +34,13 @@ class LoadSceneOperation: SceneOperation, ProgressReporting {
     
     // MARK: NSOperation
     
-    override func start() {
+    override func start()
+    {
         // If the operation is cancelled there's nothing to do.
         guard !isCancelled else { return }
         
-        if progress.isCancelled {
+        if progress.isCancelled
+        {
             // Ensure the operation is marked as `cancelled`.
             cancel()
             return

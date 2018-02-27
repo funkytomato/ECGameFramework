@@ -9,15 +9,18 @@
 import Foundation
 
 /// Encapsulates the starting configuration of a level in the game.
-struct LevelConfiguration {
+struct LevelConfiguration
+{
     // MARK: Types
     
     /// Encapsulates the starting configuration of a single `GroundBot` or `FlyingBot`.
-    struct TaskBotConfiguration {
+    struct TaskBotConfiguration
+    {
         // MARK: Properties
 
         /// The different types of `TaskBot` that can exist in a level.
-        enum Locomotion {
+        enum Locomotion
+        {
             case ground
             case flying
         }
@@ -38,8 +41,10 @@ struct LevelConfiguration {
         
         // MARK: Initialization
 
-        init(botConfigurationInfo: [String: AnyObject]) {
-            switch botConfigurationInfo["locomotion"] as! String {
+        init(botConfigurationInfo: [String: AnyObject])
+        {
+            switch botConfigurationInfo["locomotion"] as! String
+            {
                 case "ground":
                     locomotion = .ground
                     
@@ -76,23 +81,27 @@ struct LevelConfiguration {
         Returns the name of the next level, if any. The final level doesn't have a
         next level name, so this property is optional.
     */
-    var nextLevelName: String? {
+    var nextLevelName: String?
+    {
         return configurationInfo["nextLevel"] as! String?
     }
     
     /// The time limit (in seconds) for this level.
-    var timeLimit: TimeInterval {
+    var timeLimit: TimeInterval
+    {
         return configurationInfo["timeLimit"] as! TimeInterval
     }
     
     /// The factor used to normalize distances between characters for 'fuzzy' logic.
-    var proximityFactor: Float {
+    var proximityFactor: Float
+    {
         return configurationInfo["proximityFactor"] as! Float
     }
 
     // MARK: Initialization
 
-    init(fileName: String) {
+    init(fileName: String)
+    {
         self.fileName = fileName
         
         let url = Bundle.main.url(forResource: fileName, withExtension: "plist")

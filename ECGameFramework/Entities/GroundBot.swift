@@ -9,7 +9,8 @@
 import SpriteKit
 import GameplayKit
 
-class GroundBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType {
+class GroundBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
+{
     // MARK: Static Properties
     
     /// The size to use for the `GroundBot`s animation textures.
@@ -35,11 +36,13 @@ class GroundBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType {
     
     // MARK: TaskBot Properties
     
-    override var goodAnimations: [AnimationState: [CompassDirection: Animation]] {
+    override var goodAnimations: [AnimationState: [CompassDirection: Animation]]
+    {
         return GroundBot.goodAnimations!
     }
     
-    override var badAnimations: [AnimationState: [CompassDirection: Animation]] {
+    override var badAnimations: [AnimationState: [CompassDirection: Animation]]
+    {
         return GroundBot.badAnimations!
     }
     
@@ -50,21 +53,24 @@ class GroundBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType {
     
     // MARK: Initialization
 
-    required init(isGood: Bool, goodPathPoints: [CGPoint], badPathPoints: [CGPoint]) {
+    required init(isGood: Bool, goodPathPoints: [CGPoint], badPathPoints: [CGPoint])
+    {
         super.init(isGood: isGood, goodPathPoints: goodPathPoints, badPathPoints: badPathPoints)
         
         // Determine initial animations and charge based on the initial state of the bot.
         let initialAnimations: [AnimationState: [CompassDirection: Animation]]
         let initialCharge: Double
 
-        if isGood {
+        if isGood
+        {
             guard let goodAnimations = GroundBot.goodAnimations else {
                 fatalError("Attempt to access GroundBot.goodAnimations before they have been loaded.")
             }
             initialAnimations = goodAnimations
             initialCharge = 0.0
         }
-        else {
+        else
+        {
             guard let badAnimations = GroundBot.badAnimations else {
                 fatalError("Attempt to access GroundBot.badAnimations before they have been loaded.")
             }
@@ -116,13 +122,15 @@ class GroundBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType {
         beamTargetOffset = GameplayConfiguration.GroundBot.beamTargetOffset
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder)
+    {
         fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: ContactableType
     
-    override func contactWithEntityDidBegin(_ entity: GKEntity) {
+    override func contactWithEntityDidBegin(_ entity: GKEntity)
+    {
         super.contactWithEntityDidBegin(entity)
         
         // Retrieve the current state from this `GroundBot` as a `GroundBotAttackState`.
@@ -134,7 +142,8 @@ class GroundBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType {
     
     // MARK: RulesComponentDelegate
     
-    override func rulesComponent(rulesComponent: RulesComponent, didFinishEvaluatingRuleSystem ruleSystem: GKRuleSystem) {
+    override func rulesComponent(rulesComponent: RulesComponent, didFinishEvaluatingRuleSystem ruleSystem: GKRuleSystem)
+    {
         super.rulesComponent(rulesComponent: rulesComponent, didFinishEvaluatingRuleSystem: ruleSystem)
 
         /*
@@ -176,23 +185,27 @@ class GroundBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType {
     
     // MARK: ChargeComponentDelegate
     
-    func chargeComponentDidLoseCharge(chargeComponent: ChargeComponent) {
+    func chargeComponentDidLoseCharge(chargeComponent: ChargeComponent)
+    {
         guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
         
         isGood = !chargeComponent.hasCharge
         
-        if !isGood {
+        if !isGood
+        {
             intelligenceComponent.stateMachine.enter(TaskBotZappedState.self)
         }
     }
     
     // MARK: ResourceLoadableType
     
-    static var resourcesNeedLoading: Bool {
+    static var resourcesNeedLoading: Bool
+    {
         return goodAnimations == nil || badAnimations == nil
     }
     
-    static func loadResources(withCompletionHandler completionHandler: @escaping () -> ()) {
+    static func loadResources(withCompletionHandler completionHandler: @escaping () -> ())
+    {
         // Load `TaskBot`s shared assets.
         super.loadSharedAssets()
 
@@ -229,7 +242,8 @@ class GroundBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType {
         }
     }
     
-    static func purgeResources() {
+    static func purgeResources()
+    {
         goodAnimations = nil
         badAnimations = nil
     }

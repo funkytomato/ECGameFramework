@@ -8,21 +8,25 @@
 
 import SpriteKit
 
-class HomeEndScene: BaseScene {
+class HomeEndScene: BaseScene
+{
     // MARK: Properties
     
     /// Returns the background node from the scene.
-    override var backgroundNode: SKSpriteNode? {
+    override var backgroundNode: SKSpriteNode?
+    {
         return childNode(withName: "backgroundNode") as? SKSpriteNode
     }
     
     /// The screen recorder button for the scene (if it has one).
-    var screenRecorderButton: ButtonNode? {
+    var screenRecorderButton: ButtonNode?
+    {
         return backgroundNode?.childNode(withName: ButtonIdentifier.screenRecorderToggle.rawValue) as? ButtonNode
     }
     
     /// The "NEW GAME" button which allows the player to proceed to the first level.
-    var proceedButton: ButtonNode? {
+    var proceedButton: ButtonNode?
+    {
         return backgroundNode?.childNode(withName: ButtonIdentifier.proceedToNextScene.rawValue) as? ButtonNode
     }
 
@@ -31,16 +35,19 @@ class HomeEndScene: BaseScene {
 
     // MARK: Deinitialization
     
-    deinit {
+    deinit
+    {
         // Deregister for scene loader notifications.
-        for observer in sceneLoaderNotificationObservers {
+        for observer in sceneLoaderNotificationObservers
+        {
             NotificationCenter.default.removeObserver(observer)
         }
     }
     
     // MARK: Scene Life Cycle
 
-    override func didMove(to view: SKView) {
+    override func didMove(to view: SKView)
+    {
         super.didMove(to: view)
 
         #if os(iOS)
@@ -61,7 +68,8 @@ class HomeEndScene: BaseScene {
         let levelLoader = sceneManager.sceneLoader(forSceneIdentifier: .level(1))
         
         // If the first level is not ready, hide the buttons until we are notified.
-        if !(levelLoader.stateMachine.currentState is SceneLoaderResourcesReadyState) {
+        if !(levelLoader.stateMachine.currentState is SceneLoaderResourcesReadyState)
+        {
             proceedButton?.alpha = 0.0
             proceedButton?.isUserInteractionEnabled = false
             
@@ -70,7 +78,8 @@ class HomeEndScene: BaseScene {
         }
     }
     
-    func registerForNotifications() {
+    func registerForNotifications()
+    {
         // Only register for notifications if we haven't done so already.
         guard sceneLoaderNotificationObservers.isEmpty else { return }
         
@@ -79,7 +88,8 @@ class HomeEndScene: BaseScene {
             let sceneLoader = notification.object as! SceneLoader
             
             // Show the proceed button if the `sceneLoader` pertains to a `LevelScene`.
-            if sceneLoader.sceneMetadata.sceneType is LevelScene.Type {
+            if sceneLoader.sceneMetadata.sceneType is LevelScene.Type
+            {
                 // Allow the proceed and screen to be tapped or clicked.
                 self.proceedButton?.isUserInteractionEnabled = true
                 self.screenRecorderButton?.isUserInteractionEnabled = true

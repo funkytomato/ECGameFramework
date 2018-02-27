@@ -10,22 +10,26 @@ import CoreGraphics
 import simd
 
 // Extend `CGPoint` to add an initializer from a `float2` representation of a point.
-extension CGPoint {
+extension CGPoint
+{
     // MARK: Initializers
     
     /// Initialize with a `float2` type.
-    init(_ point: float2) {
+    init(_ point: float2)
+    {
         x = CGFloat(point.x)
         y = CGFloat(point.y)
     }
 }
 
 // Extend `float2` to add an initializer from a `CGPoint`.
-extension float2 {
+extension float2
+{
     // MARK: Initialization
     
     /// Initialize with a `CGPoint` type.
-    init(_ point: CGPoint) {
+    init(_ point: CGPoint)
+    {
         self.init(x: Float(point.x), y: Float(point.y))
     }
 }
@@ -37,14 +41,17 @@ extension float2 {
 extension float2:Equatable {}
 
 /// An equality operator function to determine if two `float2`s are the same.
-public func ==(lhs: float2, rhs: float2) -> Bool {
+public func ==(lhs: float2, rhs: float2) -> Bool
+{
     return lhs.x == rhs.x && lhs.y == rhs.y
 }
 
 // Extend `float2` to provide a convenience method for working with pathfinding graphs.
-extension float2 {
+extension float2
+{
     /// Calculates the nearest point to this point on a line from `pointA` to `pointB`.
-    func nearestPointOnLineSegment(lineSegment: (startPoint: float2, endPoint: float2)) -> float2 {
+    func nearestPointOnLineSegment(lineSegment: (startPoint: float2, endPoint: float2)) -> float2
+    {
         // A vector from this point to the line start.
         let vectorFromStartToLine = self - lineSegment.startPoint
         

@@ -9,10 +9,12 @@
 import Foundation
 
 /// Extends `BaseScene` to respond to ButtonNode events.
-extension BaseScene: ButtonNodeResponderType {
+extension BaseScene: ButtonNodeResponderType
+{
     
     /// Searches the scene for all `ButtonNode`s.
-    func findAllButtonsInScene() -> [ButtonNode] {
+    func findAllButtonsInScene() -> [ButtonNode]
+    {
         return ButtonIdentifier.allButtonIdentifiers.flatMap { buttonIdentifier in
             childNode(withName: "//\(buttonIdentifier.rawValue)") as? ButtonNode
         }
@@ -20,8 +22,10 @@ extension BaseScene: ButtonNodeResponderType {
     
     // MARK: ButtonNodeResponderType
     
-    func buttonTriggered(button: ButtonNode) {
-        switch button.buttonIdentifier! {
+    func buttonTriggered(button: ButtonNode)
+    {
+        switch button.buttonIdentifier!
+        {
             case .home:
                 sceneManager.transitionToScene(identifier: .home)
             

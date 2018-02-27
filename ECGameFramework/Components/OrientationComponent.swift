@@ -9,22 +9,28 @@
 import SpriteKit
 import GameplayKit
 
-class OrientationComponent: GKComponent {
+class OrientationComponent: GKComponent
+{
     // MARK: Properties
     
-    var zRotation: CGFloat = 0.0 {
-        didSet {
+    var zRotation: CGFloat = 0.0
+    {
+        didSet
+        {
             let twoPi = CGFloat(M_PI * 2)
             zRotation = (zRotation + twoPi).truncatingRemainder(dividingBy: twoPi)
         }
     }
     
-    var compassDirection: CompassDirection {
-        get {
+    var compassDirection: CompassDirection
+    {
+        get
+        {
             return CompassDirection(zRotation: zRotation)
         }
         
-        set {
+        set
+        {
             zRotation = newValue.zRotation
         }
     }

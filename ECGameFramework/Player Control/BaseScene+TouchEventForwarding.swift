@@ -13,22 +13,26 @@ import UIKit
     control input source. On iOS, this is a `TouchControlInputNode`, which is
     overlaid on the scene to receive touch events.
 */
-extension BaseScene {
+extension BaseScene
+{
     // MARK: Properties
     
-    var touchControlInputNode: TouchControlInputNode {
+    var touchControlInputNode: TouchControlInputNode
+    {
         return sceneManager.gameInput.nativeControlInputSource as! TouchControlInputNode
     }
     
     // MARK: Setup Touch Handling
     
-    func addTouchInputToScene() {
+    func addTouchInputToScene()
+    {
         guard let camera = camera else { fatalError("Touch input controls can only be added to a scene that has an associated camera.") }
         
         // Ensure the touch input source is not associated any other parent.
         touchControlInputNode.removeFromParent()
         
-        if self is LevelScene {
+        if self is LevelScene
+        {
             // Ensure the control node fills the scene's size.
             touchControlInputNode.size = size
             

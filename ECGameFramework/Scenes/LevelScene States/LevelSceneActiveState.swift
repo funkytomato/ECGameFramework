@@ -9,7 +9,8 @@
 import SpriteKit
 import GameplayKit
 
-class LevelSceneActiveState: GKState {
+class LevelSceneActiveState: GKState
+{
     // MARK: Properties
     
     unowned let levelScene: LevelScene
@@ -29,7 +30,8 @@ class LevelSceneActiveState: GKState {
     }()
     
     // The formatted string representing the time remaining.
-    var timeRemainingString: String {
+    var timeRemainingString: String
+    {
         let components = NSDateComponents()
         components.second = Int(max(0.0, timeRemaining))
         
@@ -38,7 +40,8 @@ class LevelSceneActiveState: GKState {
     
     // MARK: Initializers
     
-    init(levelScene: LevelScene) {
+    init(levelScene: LevelScene)
+    {
         self.levelScene = levelScene
         
         timeRemaining = levelScene.levelConfiguration.timeLimit
@@ -46,13 +49,15 @@ class LevelSceneActiveState: GKState {
     
     // MARK: GKState Life Cycle
     
-    override func didEnter(from previousState: GKState?) {
+    override func didEnter(from previousState: GKState?)
+    {
         super.didEnter(from: previousState)
 
         levelScene.timerNode.text = timeRemainingString
     }
     
-    override func update(deltaTime seconds: TimeInterval) {
+    override func update(deltaTime seconds: TimeInterval)
+    {
         super.update(deltaTime: seconds)
         
         // Subtract the elapsed time from the remaining time.
@@ -63,25 +68,30 @@ class LevelSceneActiveState: GKState {
         
         // Check if the `levelScene` contains any bad `TaskBot`s.
         let allTaskBotsAreGood = !levelScene.entities.contains { entity in
-            if let taskBot = entity as? TaskBot {
+            if let taskBot = entity as? TaskBot
+            {
                 return !taskBot.isGood
             }
             
             return false
         }
         
-        if allTaskBotsAreGood {
+        if allTaskBotsAreGood
+        {
             // If all the TaskBots are good, the player has completed the level.
             stateMachine?.enter(LevelSceneSuccessState.self)
         }
-        else if timeRemaining <= 0.0 {
+        else if timeRemaining <= 0.0
+        {
             // If there is no time remaining, the player has failed to complete the level.
             stateMachine?.enter(LevelSceneFailState.self)
         }
     }
     
-    override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-        switch stateClass {
+    override func isValidNextState(_ stateClass: AnyClass) -> Bool
+    {
+        switch stateClass
+        {
             case is LevelScenePauseState.Type, is LevelSceneFailState.Type, is LevelSceneSuccessState.Type:
                 return true
                 

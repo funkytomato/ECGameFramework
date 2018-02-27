@@ -9,7 +9,8 @@
 import SpriteKit
 import GameplayKit
 
-class PlayerBot: GKEntity, ChargeComponentDelegate, ResourceLoadableType {
+class PlayerBot: GKEntity, ChargeComponentDelegate, ResourceLoadableType
+{
     // MARK: Static properties
     
     /// The size to use for the `PlayerBot`s animation textures.
@@ -47,10 +48,12 @@ class PlayerBot: GKEntity, ChargeComponentDelegate, ResourceLoadableType {
         A `PlayerBot` is only targetable when it is actively being controlled by a player or is taking damage.
         It is not targetable when appearing or recharging.
     */
-    var isTargetable: Bool {
+    var isTargetable: Bool
+    {
         guard let currentState = component(ofType: IntelligenceComponent.self)?.stateMachine.currentState else { return false }
 
-        switch currentState {
+        switch currentState
+        {
             case is PlayerBotPlayerControlledState, is PlayerBotHitState:
                 return true
             
@@ -70,7 +73,8 @@ class PlayerBot: GKEntity, ChargeComponentDelegate, ResourceLoadableType {
 
     // MARK: Initializers
     
-    override init() {
+    override init()
+    {
         agent = GKAgent2D()
         agent.radius = GameplayConfiguration.PlayerBot.agentRadius
         
@@ -133,19 +137,24 @@ class PlayerBot: GKEntity, ChargeComponentDelegate, ResourceLoadableType {
         addComponent(intelligenceComponent)
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder)
+    {
         fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: Charge component delegate
     
-    func chargeComponentDidLoseCharge(chargeComponent: ChargeComponent) {
-        if let intelligenceComponent = component(ofType: IntelligenceComponent.self) {
-            if !chargeComponent.hasCharge {
+    func chargeComponentDidLoseCharge(chargeComponent: ChargeComponent)
+    {
+        if let intelligenceComponent = component(ofType: IntelligenceComponent.self)
+        {
+            if !chargeComponent.hasCharge
+            {
                 isPoweredDown = true
                 intelligenceComponent.stateMachine.enter(PlayerBotRechargingState.self)
             }
-            else {
+            else
+            {
                 intelligenceComponent.stateMachine.enter(PlayerBotHitState.self)
             }
         }
@@ -153,11 +162,13 @@ class PlayerBot: GKEntity, ChargeComponentDelegate, ResourceLoadableType {
     
     // MARK: ResourceLoadableType
     
-    static var resourcesNeedLoading: Bool {
+    static var resourcesNeedLoading: Bool
+    {
         return appearTextures == nil || animations == nil
     }
     
-    static func loadResources(withCompletionHandler completionHandler: @escaping () -> ()) {
+    static func loadResources(withCompletionHandler completionHandler: @escaping () -> ())
+    {
         loadMiscellaneousAssets()
         
         let playerBotAtlasNames = [
@@ -172,7 +183,8 @@ class PlayerBot: GKEntity, ChargeComponentDelegate, ResourceLoadableType {
             the overall loading speed of the animation cycles for this character.
         */
         SKTextureAtlas.preloadTextureAtlasesNamed(playerBotAtlasNames) { error, playerBotAtlases in
-            if let error = error {
+            if let error = error
+            {
                 fatalError("One or more texture atlases could not be found: \(error)")
             }
 
@@ -184,7 +196,8 @@ class PlayerBot: GKEntity, ChargeComponentDelegate, ResourceLoadableType {
                 for use in the `PlayerBot`'s "appear"  state.
             */
             appearTextures = [:]
-            for orientation in CompassDirection.allDirections {
+            for orientation in CompassDirection.allDirections
+            {
                 appearTextures![orientation] = AnimationComponent.firstTextureForOrientation(compassDirection: orientation, inAtlas: playerBotAtlases[0], withImageIdentifier: "PlayerBotIdle")
             }
             
@@ -201,12 +214,14 @@ class PlayerBot: GKEntity, ChargeComponentDelegate, ResourceLoadableType {
         }
     }
     
-    static func purgeResources() {
+    static func purgeResources()
+    {
         appearTextures = nil
         animations = nil
     }
     
-    class func loadMiscellaneousAssets() {
+    class func loadMiscellaneousAssets()
+    {
         teleportShader = SKShader(fileNamed: "Teleport.fsh")
         teleportShader.addUniform(SKUniform(name: "u_duration", float: Float(GameplayConfiguration.PlayerBot.appearDuration)))
         
@@ -220,7 +235,8 @@ class PlayerBot: GKEntity, ChargeComponentDelegate, ResourceLoadableType {
     // MARK: Convenience
     
     /// Sets the `PlayerBot` `GKAgent` position to match the node position (plus an offset).
-    func updateAgentPositionToMatchNodePosition() {
+    func updateAgentPositionToMatchNodePosition()
+    {
         // `renderComponent` is a computed property. Declare a local version so we don't compute it multiple times.
         let renderComponent = self.renderComponent
         

@@ -10,9 +10,11 @@ import SpriteKit
 import GameplayKit
 
 // Extend LevelScene by adding functions for drawing graph connections and obstacles.
-extension LevelScene {
+extension LevelScene
+{
     
-    func debugDrawingEnabledDidChange() {
+    func debugDrawingEnabledDidChange()
+    {
         // Draw or remove the pathfinding graph for this level.
         drawGraph()
         
@@ -20,29 +22,35 @@ extension LevelScene {
             Turn on debug drawing for every obstacle in the level, to show their
             pathfinding buffer radius.
         */
-        for obstacle in obstacleSpriteNodes {
+        for obstacle in obstacleSpriteNodes
+        {
             obstacle.debugDrawingEnabled = debugDrawingEnabled
         }
         
         // Notify any `beamNode`'s inside `BeamComponent`s of the new debug drawing state.
-        for componentSystem in componentSystems {
+        for componentSystem in componentSystems
+        {
             guard componentSystem.componentClass is BeamComponent.Type else { continue }
             
-            for component in componentSystem.components as! [BeamComponent] {
+            for component in componentSystem.components as! [BeamComponent]
+            {
                 component.beamNode.debugDrawingEnabled = debugDrawingEnabled
             }
         }
     }
     
     /// Draws (or removes) a debug representation of the pathfinding graph for this level.
-    func drawGraph() {
+    func drawGraph()
+    {
         guard debugDrawingEnabled else {
             graphLayer.removeAllChildren()
             return
         }
 
-        for node in graph.nodes as! [GKGraphNode2D] {
-            for destination in node.connectedNodes as! [GKGraphNode2D] {
+        for node in graph.nodes as! [GKGraphNode2D]
+        {
+            for destination in node.connectedNodes as! [GKGraphNode2D]
+            {
                 let points = [CGPoint(node.position), CGPoint(destination.position)]
 
                 let shapeNode = SKShapeNode(points: UnsafeMutablePointer<CGPoint>(mutating: points), count: 2)
@@ -60,20 +68,25 @@ extension LevelScene {
     Extend `SKSpriteNode` to draw a buffer radius around nodes that have physics bodies.
     This is useful when debugging `GKAgent2D` pathfinding around obstacles.
 */
-extension SKSpriteNode {
+extension SKSpriteNode
+{
     
     /// A convenience name for use when adding and removing the debug layer.
-    private var debugBufferShapeName: String {
+    private var debugBufferShapeName: String
+    {
         return "debugBufferShape"
     }
     
-    var debugDrawingEnabled: Bool {
-        set {
+    var debugDrawingEnabled: Bool
+    {
+        set
+        {
             // Only enable buffer radius debug drawing for sprite nodes with a physics body.
             if physicsBody == nil { return }
             
             // Add a debug shape layer if we are turning on debug drawing for this node.
-            if newValue == true {
+            if newValue == true
+            {
                 let bufferRadius = CGFloat(GameplayConfiguration.TaskBot.pathfindingGraphBufferRadius)
                 let bufferFrame = frame.insetBy(dx: -bufferRadius, dy: -bufferRadius)
                 let bufferedShape = SKShapeNode(rectOf: bufferFrame.size)
@@ -82,13 +95,15 @@ extension SKSpriteNode {
                 bufferedShape.name = debugBufferShapeName
                 addChild(bufferedShape)
             }
-            else {
+            else
+            {
                 // Remove any existing debug shape layer if we are turning off debug drawing for this node.
                 guard let debugBufferShape = childNode(withName: debugBufferShapeName) else { return }
                 removeChildren(in: [debugBufferShape])
             }
         }
-        get {
+        get
+        {
             // Debug drawing is considered "enabled" if we have the debug node as a child.
             return childNode(withName: debugBufferShapeName) != nil
         }

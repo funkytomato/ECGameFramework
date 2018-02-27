@@ -10,7 +10,8 @@ import SpriteKit
 import GameplayKit
 
 /// The different animation states that an animated character can be in.
-enum AnimationState: String {
+enum AnimationState: String
+{
     case idle = "Idle"
     case walkForward = "WalkForward"
     case walkBackward = "WalkBackward"
@@ -25,7 +26,8 @@ enum AnimationState: String {
     Encapsulates all of the information needed to animate an entity and its shadow
     for a given animation state and facing direction.
 */
-struct Animation {
+struct Animation
+{
 
     // MARK: Properties
     
@@ -49,8 +51,10 @@ struct Animation {
         An array of textures that runs from the animation's `frameOffset` to its end,
         followed by the textures from its start to just before the `frameOffset`.
     */
-    var offsetTextures: [SKTexture] {
-        if frameOffset == 0 {
+    var offsetTextures: [SKTexture]
+    {
+        if frameOffset == 0
+        {
             return textures
         }
         let offsetToEnd = Array(textures[frameOffset..<textures.count])
@@ -74,7 +78,8 @@ struct Animation {
     let shadowAction: SKAction?
 }
 
-class AnimationComponent: GKComponent {
+class AnimationComponent: GKComponent
+{
     
     /// The key to use when adding an optional action to the entity's body.
     static let bodyActionKey = "bodyAction"
@@ -113,19 +118,22 @@ class AnimationComponent: GKComponent {
     
     // MARK: Initializers
 
-    init(textureSize: CGSize, animations: [AnimationState: [CompassDirection: Animation]]) {
+    init(textureSize: CGSize, animations: [AnimationState: [CompassDirection: Animation]])
+    {
         node = SKSpriteNode(texture: nil, size: textureSize)
         self.animations = animations
         super.init()
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder)
+    {
         fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: Character Animation
 
-    private func runAnimationForAnimationState(animationState: AnimationState, compassDirection: CompassDirection, deltaTime: TimeInterval) {
+    private func runAnimationForAnimationState(animationState: AnimationState, compassDirection: CompassDirection, deltaTime: TimeInterval)
+    {
         
         // Update the tracking of how long we have been animating.
         elapsedAnimationDuration += deltaTime
@@ -148,7 +156,8 @@ class AnimationComponent: GKComponent {
         var animation = unwrappedAnimation
         
         // Check if the action for the body node has changed.
-        if currentAnimation?.bodyActionName != animation.bodyActionName {
+        if currentAnimation?.bodyActionName != animation.bodyActionName
+        {
             // Remove the existing body action if it exists.
             node.removeAction(forKey: AnimationComponent.bodyActionKey)
             
@@ -156,13 +165,15 @@ class AnimationComponent: GKComponent {
             node.position = CGPoint.zero
 
             // Add the new body action to the node if an action exists.
-            if let bodyAction = animation.bodyAction {
+            if let bodyAction = animation.bodyAction
+            {
                 node.run(SKAction.repeatForever(bodyAction), withKey: AnimationComponent.bodyActionKey)
             }
         }
 
         // Check if the action for the shadow node has changed.
-        if currentAnimation?.shadowActionName != animation.shadowActionName {
+        if currentAnimation?.shadowActionName != animation.shadowActionName
+        {
             // Remove the existing shadow action if it exists.
             shadowNode?.removeAction(forKey: AnimationComponent.shadowActionKey)
 
@@ -174,7 +185,8 @@ class AnimationComponent: GKComponent {
             shadowNode?.yScale = 1.0
             
             // Add the new shadow action to the shadow node if an action exists.
-            if let shadowAction = animation.shadowAction {
+            if let shadowAction = animation.shadowAction
+            {
                 shadowNode?.run(SKAction.repeatForever(shadowAction), withKey: AnimationComponent.shadowActionKey)
             }
         }
@@ -185,13 +197,16 @@ class AnimationComponent: GKComponent {
         // Create a new action to display the appropriate animation textures.
         let texturesAction: SKAction
         
-        if animation.textures.count == 1 {
+        if animation.textures.count == 1
+        {
             // If the new animation only has a single frame, create a simple "set texture" action.
             texturesAction = SKAction.setTexture(animation.textures.first!)
         }
-        else {
+        else
+        {
             
-            if currentAnimation != nil && animationState == currentAnimation!.animationState {
+            if currentAnimation != nil && animationState == currentAnimation!.animationState
+            {
                 /*
                     We have just changed facing direction within the same animation state.
                     To make the animation feel smooth as we change direction,
@@ -214,10 +229,12 @@ class AnimationComponent: GKComponent {
             }
             
             // Create an appropriate action from the (possibly offset) animation frames.
-            if animation.repeatTexturesForever {
+            if animation.repeatTexturesForever
+            {
                 texturesAction = SKAction.repeatForever(SKAction.animate(with: animation.offsetTextures, timePerFrame: AnimationComponent.timePerFrame))
             }
-            else {
+            else
+            {
                 texturesAction = SKAction.animate(with: animation.offsetTextures, timePerFrame: AnimationComponent.timePerFrame)
             }
         }
@@ -234,11 +251,13 @@ class AnimationComponent: GKComponent {
     
     // MARK: GKComponent Life Cycle
     
-    override func update(deltaTime: TimeInterval) {
+    override func update(deltaTime: TimeInterval)
+    {
         super.update(deltaTime: deltaTime)
         
         // If an animation has been requested, run the animation.
-        if let animationState = requestedAnimationState {
+        if let animationState = requestedAnimationState
+        {
             guard let orientationComponent = entity?.component(ofType: OrientationComponent.self) else { fatalError("An AnimationComponent's entity must have an OrientationComponent.") }
             
             runAnimationForAnimationState(animationState: animationState, compassDirection: orientationComponent.compassDirection, deltaTime: deltaTime)
@@ -249,7 +268,8 @@ class AnimationComponent: GKComponent {
     // MARK: Texture loading utilities
 
     /// Returns the first texture in an atlas for a given `CompassDirection`.
-    class func firstTextureForOrientation(compassDirection: CompassDirection, inAtlas atlas: SKTextureAtlas, withImageIdentifier identifier: String) -> SKTexture {
+    class func firstTextureForOrientation(compassDirection: CompassDirection, inAtlas atlas: SKTextureAtlas, withImageIdentifier identifier: String) -> SKTexture
+    {
         // Filter for this facing direction, and sort the resulting texture names alphabetically.
         let textureNames = atlas.textureNames.filter {
             $0.hasPrefix("\(identifier)_\(compassDirection.rawValue)_")
@@ -260,46 +280,55 @@ class AnimationComponent: GKComponent {
     }
     
     /// Creates a texture action from all textures in an atlas.
-    class func actionForAllTexturesInAtlas(atlas: SKTextureAtlas) -> SKAction {
+    class func actionForAllTexturesInAtlas(atlas: SKTextureAtlas) -> SKAction
+    {
         // Sort the texture names alphabetically, and map them to an array of actual textures.
         let textures = atlas.textureNames.sorted().map {
             atlas.textureNamed($0)
         }
 
         // Create an appropriate action for these textures.
-        if textures.count == 1 {
+        if textures.count == 1
+        {
             return SKAction.setTexture(textures.first!)
         }
-        else {
+        else
+        {
             let texturesAction = SKAction.animate(with: textures, timePerFrame: AnimationComponent.timePerFrame)
             return SKAction.repeatForever(texturesAction)
         }
     }
 
     /// Creates an `Animation` from textures in an atlas and actions loaded from file.
-    class func animationsFromAtlas(atlas: SKTextureAtlas, withImageIdentifier identifier: String, forAnimationState animationState: AnimationState, bodyActionName: String? = nil, shadowActionName: String? = nil, repeatTexturesForever: Bool = true, playBackwards: Bool = false) -> [CompassDirection: Animation] {
+    class func animationsFromAtlas(atlas: SKTextureAtlas, withImageIdentifier identifier: String, forAnimationState animationState: AnimationState, bodyActionName: String? = nil, shadowActionName: String? = nil, repeatTexturesForever: Bool = true, playBackwards: Bool = false) -> [CompassDirection: Animation]
+    {
         // Load a body action from an actions file if requested.
         let bodyAction: SKAction?
-        if let name = bodyActionName {
+        if let name = bodyActionName
+        {
             bodyAction = SKAction(named: name)
         }
-        else {
+        else
+        {
             bodyAction = nil
         }
 
         // Load a shadow action from an actions file if requested.
         let shadowAction: SKAction?
-        if let name = shadowActionName {
+        if let name = shadowActionName
+        {
             shadowAction = SKAction(named: name)
         }
-        else {
+        else
+        {
             shadowAction = nil
         }
         
         /// A dictionary of animations with an entry for each compass direction.
         var animations = [CompassDirection: Animation]()
         
-        for compassDirection in CompassDirection.allDirections {
+        for compassDirection in CompassDirection.allDirections
+        {
             
             // Find all matching texture names, sorted alphabetically, and map them to an array of actual textures.
             let textures = atlas.textureNames.filter {

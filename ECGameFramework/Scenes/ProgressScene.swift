@@ -14,19 +14,23 @@ import SpriteKit
 */
 private var progressSceneKVOContext = 0
 
-class ProgressScene: BaseScene {
+class ProgressScene: BaseScene
+{
     // MARK: Properties
     
     /// Returns the background node from the scene.
-    override var backgroundNode: SKSpriteNode? {
+    override var backgroundNode: SKSpriteNode?
+    {
         return childNode(withName: "backgroundNode") as? SKSpriteNode
     }
     
-    var labelNode: SKLabelNode {
+    var labelNode: SKLabelNode
+    {
         return backgroundNode!.childNode(withName: "label") as! SKLabelNode
     }
     
-    var progressBarNode: SKSpriteNode {
+    var progressBarNode: SKSpriteNode
+    {
         return backgroundNode!.childNode(withName: "progressBar") as! SKSpriteNode
     }
     
@@ -45,8 +49,10 @@ class ProgressScene: BaseScene {
     var progressBarInitialWidth: CGFloat!
     
     /// Add child progress objects to track downloading and loading states.
-    var progress: Progress? {
-        didSet {
+    var progress: Progress?
+    {
+        didSet
+        {
             // Unregister as an observer on the old value for the "fractionCompleted" property.
             oldValue?.removeObserver(self, forKeyPath: "fractionCompleted", context: &progressSceneKVOContext)
 
@@ -65,7 +71,8 @@ class ProgressScene: BaseScene {
         progress of on demand resources and the loading progress of bringing
         assets into memory.
     */
-    static func progressScene(withSceneLoader loader: SceneLoader) -> ProgressScene {
+    static func progressScene(withSceneLoader loader: SceneLoader) -> ProgressScene
+    {
         // Load the progress scene from its sks file.
         let progressScene = ProgressScene(fileNamed: "ProgressScene")!
         
@@ -76,15 +83,18 @@ class ProgressScene: BaseScene {
         return progressScene
     }
     
-    func setup(withSceneLoader loader: SceneLoader) {
+    func setup(withSceneLoader loader: SceneLoader)
+    {
         // Set the sceneLoader. This may be in the downloading or preparing state.
         self.sceneLoader = loader
         
         // Grab the `sceneLoader`'s progress if it is already loading.
-        if let progress = sceneLoader.progress {
+        if let progress = sceneLoader.progress
+        {
             self.progress = progress
         }
-        else {
+        else
+        {
             // Else start loading the scene and hold onto the progress.
             progress = sceneLoader.asynchronouslyLoadSceneForPresentation()
         }
@@ -98,9 +108,11 @@ class ProgressScene: BaseScene {
         }
     }
     
-    deinit {
+    deinit
+    {
         // Unregister as an observer of 'SceneLoaderDownloadFailedNotification' notifications.
-        if let downloadFailedObserver = downloadFailedObserver {
+        if let downloadFailedObserver = downloadFailedObserver
+        {
             NotificationCenter.default.removeObserver(downloadFailedObserver, name: NSNotification.Name.SceneLoaderDidFailNotification, object: sceneLoader)
         }
         
@@ -110,7 +122,8 @@ class ProgressScene: BaseScene {
     
     // MARK: Scene Life Cycle
     
-    override func didMove(to view: SKView) {
+    override func didMove(to view: SKView)
+    {
         super.didMove(to: view)
         
         centerCameraOnPoint(point: backgroundNode!.position)
@@ -118,18 +131,21 @@ class ProgressScene: BaseScene {
         // Remember the progress bar's initial width. It will change to indicate progress.
         progressBarInitialWidth = progressBarNode.frame.width
         
-        if let error = sceneLoader.error {
+        if let error = sceneLoader.error
+        {
             // Show the scene loader's error.
             showError(error as NSError)
         }
-        else {
+        else
+        {
             showDefaultState()
         }
     }
     
     // MARK: Key Value Observing (KVO) for NSProgress
 
-    @nonobjc override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    @nonobjc override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?)
+    {
         // Check if this is the KVO notification we need.
         
         guard context == &progressSceneKVOContext else {
@@ -137,7 +153,8 @@ class ProgressScene: BaseScene {
             return
         }
         
-        if let changedProgress = object as? Progress, changedProgress == progress, keyPath == "fractionCompleted" {
+        if let changedProgress = object as? Progress, changedProgress == progress, keyPath == "fractionCompleted"
+        {
             // Update the progress UI on the main queue.
             DispatchQueue.main.async {
                 guard let progress = self.progress else { return }
@@ -153,8 +170,10 @@ class ProgressScene: BaseScene {
     
     // MARK: ButtonNodeResponderType
     
-    override func buttonTriggered(button: ButtonNode) {
-        switch button.buttonIdentifier! {
+    override func buttonTriggered(button: ButtonNode)
+    {
+        switch button.buttonIdentifier!
+        {
             case .retry:
                 // Set up the progress for a new preparation attempt.
                 progress = sceneLoader.asynchronouslyLoadSceneForPresentation()
@@ -183,11 +202,13 @@ class ProgressScene: BaseScene {
     
     // MARK: Convenience
     
-    func button(withIdentifier identifier: ButtonIdentifier) -> ButtonNode? {
+    func button(withIdentifier identifier: ButtonIdentifier) -> ButtonNode?
+    {
         return backgroundNode?.childNode(withName: identifier.rawValue) as? ButtonNode
     }
     
-    func showDefaultState() {
+    func showDefaultState()
+    {
         progressBarNode.isHidden = false
         
         // Only display the "Cancel" button.
@@ -199,7 +220,8 @@ class ProgressScene: BaseScene {
         resetFocus()
     }
     
-    func showError(_ error: NSError) {
+    func showError(_ error: NSError)
+    {
         // A new progress object will have to be created for any subsequent loading attempts.
         progress = nil
         
@@ -216,15 +238,18 @@ class ProgressScene: BaseScene {
         resetFocus()
         
         // Check if the error was due to the user cancelling the operation.
-        if error.domain == NSCocoaErrorDomain && error.code == NSUserCancelledError {
+        if error.domain == NSCocoaErrorDomain && error.code == NSUserCancelledError
+        {
             labelNode.text = NSLocalizedString("Cancelled", comment: "Displayed when the user cancels loading.")
         }
-        else {
+        else
+        {
             showAlert(for: error)
         }
     }
     
-    func showAlert(for error: NSError) {
+    func showAlert(for error: NSError)
+    {
         labelNode.text = NSLocalizedString("Failed", comment: "Displayed when the scene loader fails to load a scene.")
         
         // Display the error description in a native alert.

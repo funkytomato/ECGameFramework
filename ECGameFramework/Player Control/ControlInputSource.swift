@@ -8,25 +8,30 @@
 
 import simd
 
-enum ControlInputDirection: Int {
+enum ControlInputDirection: Int
+{
     case up = 0, down, left, right
     
-    init?(vector: float2) {
+    init?(vector: float2)
+    {
         // Require sufficient displacement to specify direction.
         guard length(vector) >= 0.5 else { return nil }
         
         // Take the max displacement as the specified axis.
-        if abs(vector.x) > abs(vector.y) {
+        if abs(vector.x) > abs(vector.y)
+        {
             self = vector.x > 0 ? .right : .left
         }
-        else {
+        else
+        {
             self = vector.y > 0 ? .up : .down
         }
     }
 }
 
 /// Delegate methods for responding to control input that applies to the game as a whole.
-protocol ControlInputSourceGameStateDelegate: class {
+protocol ControlInputSourceGameStateDelegate: class
+{
     func controlInputSourceDidSelect(_ controlInputSource: ControlInputSourceType)
     func controlInputSource(_ controlInputSource: ControlInputSourceType, didSpecifyDirection: ControlInputDirection)
     func controlInputSourceDidTogglePauseState(_ controlInputSource: ControlInputSourceType)
@@ -40,7 +45,8 @@ protocol ControlInputSourceGameStateDelegate: class {
 }
 
 /// Delegate methods for responding to control input that applies to the `PlayerBot`.
-protocol ControlInputSourceDelegate: class {
+protocol ControlInputSourceDelegate: class
+{
     /**
         Update the `ControlInputSourceDelegate` with new displacement
         in a top down 2D coordinate system (x, y):
@@ -82,7 +88,8 @@ protocol ControlInputSourceDelegate: class {
 }
 
 /// A protocol to be adopted by classes that provide control input and notify their delegates when input is available.
-protocol ControlInputSourceType: class {
+protocol ControlInputSourceType: class
+{
     /// A delegate that receives information about actions that apply to the `PlayerBot`.
     weak var delegate: ControlInputSourceDelegate? { get set }
     

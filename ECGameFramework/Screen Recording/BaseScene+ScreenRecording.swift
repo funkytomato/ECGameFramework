@@ -8,16 +8,19 @@
 
 import ReplayKit
 
-extension BaseScene: RPPreviewViewControllerDelegate, RPScreenRecorderDelegate {
+extension BaseScene: RPPreviewViewControllerDelegate, RPScreenRecorderDelegate
+{
     // MARK: Computed Properties
     
-    var screenRecordingToggleEnabled: Bool {
+    var screenRecordingToggleEnabled: Bool
+    {
         return UserDefaults.standard.bool(forKey: screenRecorderEnabledKey)
     }
     
     // MARK: Start/Stop Screen Recording
     
-    func startScreenRecording() {
+    func startScreenRecording()
+    {
         // Do nothing if screen recording hasn't been enabled.
         guard screenRecordingToggleEnabled else { return }
         
@@ -27,23 +30,27 @@ extension BaseScene: RPPreviewViewControllerDelegate, RPScreenRecorderDelegate {
         sharedRecorder.delegate = self
         
         sharedRecorder.startRecording() { error in
-            if let error = error {
+            if let error = error
+            {
                 self.showScreenRecordingAlert(message: error.localizedDescription)
             }
         }
     }
     
-    func stopScreenRecording(withHandler handler:@escaping (() -> Void)) {
+    func stopScreenRecording(withHandler handler:@escaping (() -> Void))
+    {
         let sharedRecorder = RPScreenRecorder.shared()
 
         sharedRecorder.stopRecording { previewViewController, error in
-            if let error = error {
+            if let error = error
+            {
                 // If an error has occurred, display an alert to the user.
                 self.showScreenRecordingAlert(message: error.localizedDescription)
                 return
             }
             
-            if let previewViewController = previewViewController {
+            if let previewViewController = previewViewController
+            {
                 // Set delegate to handle view controller dismissal.
                 previewViewController.previewControllerDelegate = self
                 
@@ -58,7 +65,8 @@ extension BaseScene: RPPreviewViewControllerDelegate, RPScreenRecorderDelegate {
         }
     }
     
-    func showScreenRecordingAlert(message: String) {
+    func showScreenRecordingAlert(message: String)
+    {
         // Pause the scene and un-pause after the alert returns.
         isPaused = true
         
@@ -79,7 +87,8 @@ extension BaseScene: RPPreviewViewControllerDelegate, RPScreenRecorderDelegate {
         }
     }
     
-    func discardRecording() {
+    func discardRecording()
+    {
         // When we no longer need the `previewViewController`, tell `ReplayKit` to discard the recording and nil out our reference
         RPScreenRecorder.shared().discardRecording {
             self.previewViewController = nil
@@ -88,19 +97,22 @@ extension BaseScene: RPPreviewViewControllerDelegate, RPScreenRecorderDelegate {
     
     // MARK: RPScreenRecorderDelegate
     
-    func screenRecorder(_ screenRecorder: RPScreenRecorder, didStopRecordingWithError error: Error, previewViewController: RPPreviewViewController?) {
+    func screenRecorder(_ screenRecorder: RPScreenRecorder, didStopRecordingWithError error: Error, previewViewController: RPPreviewViewController?)
+    {
         // Display the error the user to alert them that the recording failed.
         showScreenRecordingAlert(message: error.localizedDescription)
         
         /// Hold onto a reference of the `previewViewController` if not nil.
-        if previewViewController != nil {
+        if previewViewController != nil
+        {
             self.previewViewController = previewViewController
         }
     }
     
     // MARK: RPPreviewViewControllerDelegate
     
-    func previewControllerDidFinish(previewController: RPPreviewViewController) {
+    func previewControllerDidFinish(previewController: RPPreviewViewController)
+    {
         previewViewController?.dismiss(animated: true, completion: nil)
     }
 }

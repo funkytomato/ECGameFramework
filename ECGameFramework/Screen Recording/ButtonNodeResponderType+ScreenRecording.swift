@@ -17,15 +17,18 @@ let screenRecorderEnabledKey = "AppConfiguration.Defaults.screenRecorderEnabledK
     The type constraint ensures that only types that are `BaseScene` instances will
     get this additional functionality.
 */
-extension ButtonNodeResponderType where Self: BaseScene {
-    func toggleScreenRecording(button: ButtonNode) {
+extension ButtonNodeResponderType where Self: BaseScene
+{
+    func toggleScreenRecording(button: ButtonNode)
+    {
 
         button.isSelected = !button.isSelected
         
         UserDefaults.standard.set(button.isSelected, forKey: screenRecorderEnabledKey)
     }
     
-    func displayRecordedContent() {
+    func displayRecordedContent()
+    {
         guard let previewViewController = previewViewController else { fatalError("The user requested playback, but a valid preview controller does not exist.") }
         guard let rootViewController = view?.window?.rootViewController else { fatalError("The scene must be contained in a window with a root view controller.") }
         

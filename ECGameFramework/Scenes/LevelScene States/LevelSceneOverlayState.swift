@@ -9,7 +9,8 @@
 import SpriteKit
 import GameplayKit
 
-class LevelSceneOverlayState: GKState {
+class LevelSceneOverlayState: GKState
+{
     // MARK: Properties
     
     unowned let levelScene: LevelScene
@@ -22,7 +23,8 @@ class LevelSceneOverlayState: GKState {
     
     // MARK: Initializers
     
-    init(levelScene: LevelScene) {
+    init(levelScene: LevelScene)
+    {
         self.levelScene = levelScene
         
         super.init()
@@ -33,22 +35,26 @@ class LevelSceneOverlayState: GKState {
             Set the level preview image to the image for this state's level if this state
             has a "view recorded content" button, with a child node called "levelPreview".
         */
-        if let viewRecordedContentButton = button(withIdentifier: .viewRecordedContent), let levelPreviewNode = viewRecordedContentButton.childNode(withName: "levelPreview") as? SKSpriteNode {
+        if let viewRecordedContentButton = button(withIdentifier: .viewRecordedContent), let levelPreviewNode = viewRecordedContentButton.childNode(withName: "levelPreview") as? SKSpriteNode
+        {
             levelPreviewNode.texture = SKTexture(imageNamed: levelScene.levelConfiguration.fileName)
         }
     }
 
     // MARK: GKState Life Cycle
 
-    override func didEnter(from previousState: GKState?) {
+    override func didEnter(from previousState: GKState?)
+    {
         super.didEnter(from: previousState)
         
         #if os(iOS)
         // Show the appropriate state for the recording buttons.
         button(withIdentifier: .screenRecorderToggle)?.isSelected = levelScene.screenRecordingToggleEnabled
         
-        if self is LevelSceneSuccessState || self is LevelSceneFailState {
-            if let viewRecordedContentButton = button(withIdentifier: .viewRecordedContent) {
+        if self is LevelSceneSuccessState || self is LevelSceneFailState
+        {
+            if let viewRecordedContentButton = button(withIdentifier: .viewRecordedContent)
+            {
                 viewRecordedContentButton.isHidden = true
                 
                 // Stop screen recording and update view recorded content button when complete.
@@ -69,13 +75,15 @@ class LevelSceneOverlayState: GKState {
         levelScene.overlay = overlay
     }
 
-    override func willExit(to nextState: GKState) {
+    override func willExit(to nextState: GKState)
+    {
         super.willExit(to: nextState)
         
         levelScene.overlay = nil
         
         #if os(iOS)
-        if self is LevelSceneSuccessState || self is LevelSceneFailState {
+        if self is LevelSceneSuccessState || self is LevelSceneFailState
+        {
             // After leaving this state, we should discard the recording.
             levelScene.discardRecording()
         }
@@ -84,7 +92,8 @@ class LevelSceneOverlayState: GKState {
     
     // MARK: Convenience
     
-    func button(withIdentifier identifier: ButtonIdentifier) -> ButtonNode? {
+    func button(withIdentifier identifier: ButtonIdentifier) -> ButtonNode?
+    {
         return overlay.contentNode.childNode(withName: "//\(identifier.rawValue)") as? ButtonNode
     }
 }

@@ -8,7 +8,8 @@
 
 import GameplayKit
 
-class SceneLoaderPreparingResourcesState: GKState {
+class SceneLoaderPreparingResourcesState: GKState
+{
     // MARK: Properties
     
     unowned let sceneLoader: SceneLoader
@@ -20,8 +21,10 @@ class SceneLoaderPreparingResourcesState: GKState {
         An NSProgress object that can be used to query and monitor progress of 
         the resources being loaded. Also supports cancellation.
     */
-    var progress: Progress? {
-        didSet {
+    var progress: Progress?
+    {
+        didSet
+        {
             guard let progress = progress else { return }
             
             /*
@@ -36,7 +39,8 @@ class SceneLoaderPreparingResourcesState: GKState {
 
     // MARK: Initialization
     
-    init(sceneLoader: SceneLoader) {
+    init(sceneLoader: SceneLoader)
+    {
         self.sceneLoader = sceneLoader
         
         // Set the name of the operation queue to identify the queue at run time.
@@ -52,15 +56,18 @@ class SceneLoaderPreparingResourcesState: GKState {
     
     // MARK: GKState Life Cycle
     
-    override func didEnter(from previousState: GKState?) {
+    override func didEnter(from previousState: GKState?)
+    {
         super.didEnter(from: previousState)
         
         // Begin loading the scene and associated resources in the background.
         loadResourcesAsynchronously()
     }
     
-    override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-        switch stateClass {
+    override func isValidNextState(_ stateClass: AnyClass) -> Bool
+    {
+        switch stateClass
+        {
             // Only valid if the `sceneLoader`'s scene has been loaded.
             case is SceneLoaderResourcesReadyState.Type where sceneLoader.scene != nil:
                 return true
@@ -83,7 +90,8 @@ class SceneLoaderPreparingResourcesState: GKState {
         this method. Attempting to load the scene without the necessary 
         resources in local storage will result in a crash.
     */
-    private func loadResourcesAsynchronously() {
+    private func loadResourcesAsynchronously()
+    {
         let sceneMetadata = sceneLoader.sceneMetadata
         
         /*
@@ -117,7 +125,8 @@ class SceneLoaderPreparingResourcesState: GKState {
             Create an operation for each resource that needs to be loaded. Make `loadSceneOperation`
             dependent on each new operation.
         */
-        for loaderType in sceneMetadata.loadableTypes {
+        for loaderType in sceneMetadata.loadableTypes
+        {
             let loadResourcesOperation = LoadResourcesOperation(loadableType: loaderType)
             
             // Update the progress object's completed unit count when the operation has completed.
@@ -135,7 +144,8 @@ class SceneLoaderPreparingResourcesState: GKState {
     }
     
     /// Cancels all pending operations and sets an appropriate error.
-    func cancel() {
+    func cancel()
+    {
         // Ensure all operations are cancelled.
         operationQueue.cancelAllOperations()
         sceneLoader.scene = nil

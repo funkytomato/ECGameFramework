@@ -9,13 +9,15 @@
 import SpriteKit
 
 /// A type that can respond to `ButtonNode` button press events.
-protocol ButtonNodeResponderType: class {
+protocol ButtonNodeResponderType: class
+{
     /// Responds to a button press.
     func buttonTriggered(button: ButtonNode)
 }
 
 /// The complete set of button identifiers supported in the app.
-enum ButtonIdentifier: String {
+enum ButtonIdentifier: String
+{
     case resume = "Resume"
     case home = "Home"
     case proceedToNextScene = "ProceedToNextScene"
@@ -31,8 +33,10 @@ enum ButtonIdentifier: String {
     ]
     
     /// The name of the texture to use for a button when the button is selected.
-    var selectedTextureName: String? {
-        switch self {
+    var selectedTextureName: String?
+    {
+        switch self
+        {
             case .screenRecorderToggle:
                 return "ButtonAutoRecordOn"
             default:
@@ -42,7 +46,8 @@ enum ButtonIdentifier: String {
 }
 
 /// A custom sprite node that represents a press able and selectable button in a scene.
-class ButtonNode: SKSpriteNode {
+class ButtonNode: SKSpriteNode
+{
     // MARK: Properties
     
     /// The identifier for this button, deduced from its name in the scene.
@@ -52,7 +57,8 @@ class ButtonNode: SKSpriteNode {
         The scene that contains a `ButtonNode` must be a `ButtonNodeResponderType`
         so that touch events can be forwarded along through `buttonPressed()`.
     */
-    var responder: ButtonNodeResponderType {
+    var responder: ButtonNodeResponderType
+    {
         guard let responder = scene as? ButtonNodeResponderType else {
             fatalError("ButtonNode may only be used within a `ButtonNodeResponderType` scene.")
         }
@@ -60,9 +66,11 @@ class ButtonNode: SKSpriteNode {
     }
 
     /// Indicates whether the button is currently highlighted (pressed).
-    var isHighlighted = false {
+    var isHighlighted = false
+    {
         // Animate to a pressed / unpressed state when the highlight state changes.
-        didSet {
+        didSet
+        {
             // Guard against repeating the same action.
             guard oldValue != isHighlighted else { return }
             
@@ -88,8 +96,10 @@ class ButtonNode: SKSpriteNode {
         selection is used by the screen recorder buttons to indicate whether
         screen recording is turned on or off.
     */
-    var isSelected = false {
-        didSet {
+    var isSelected = false
+    {
+        didSet
+        {
             // Change the texture based on the current selection state.
             texture = isSelected ? selectedTexture : defaultTexture
         }
@@ -109,16 +119,20 @@ class ButtonNode: SKSpriteNode {
         button is pressed on indirect input devices such as game controllers
         and keyboards.
     */
-    var isFocused = false {
-        didSet {
-            if isFocused {
+    var isFocused = false
+    {
+        didSet
+        {
+            if isFocused
+            {
                 run(SKAction.scale(to: 1.08, duration: 0.20))
                 
                 focusRing.alpha = 0.0
                 focusRing.isHidden = false
                 focusRing.run(SKAction.fadeIn(withDuration: 0.2))
             }
-            else {
+            else
+            {
                 run(SKAction.scale(to: 1.0, duration: 0.20))
                 
                 focusRing.isHidden = true
@@ -132,11 +146,13 @@ class ButtonNode: SKSpriteNode {
     // MARK: Initializers
     
     /// Overridden to support `copy(with zone:)`.
-    override init(texture: SKTexture?, color: SKColor, size: CGSize) {
+    override init(texture: SKTexture?, color: SKColor, size: CGSize)
+    {
         super.init(texture: texture, color: color, size: size)
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder)
+    {
         super.init(coder: aDecoder)
 
         // Ensure that the node has a supported button identifier as its name.
@@ -148,11 +164,13 @@ class ButtonNode: SKSpriteNode {
         // Remember the button's default texture (taken from its texture in the scene).
         defaultTexture = texture
         
-        if let textureName = buttonIdentifier.selectedTextureName {
+        if let textureName = buttonIdentifier.selectedTextureName
+        {
             // Use a specific selected texture if one is specified for this identifier.
             selectedTexture = SKTexture(imageNamed: textureName)
         }
-        else {
+        else
+        {
             // Otherwise, use the default `texture`.
             selectedTexture = texture
         }
@@ -164,7 +182,8 @@ class ButtonNode: SKSpriteNode {
         isUserInteractionEnabled = true
     }
     
-    override func copy(with zone: NSZone? = nil) -> Any {
+    override func copy(with zone: NSZone? = nil) -> Any
+    {
         let newButton = super.copy(with: zone) as! ButtonNode
         
         // Copy the `ButtonNode` specific properties.
@@ -175,8 +194,10 @@ class ButtonNode: SKSpriteNode {
         return newButton
     }
     
-    func buttonTriggered() {
-        if isUserInteractionEnabled {
+    func buttonTriggered()
+    {
+        if isUserInteractionEnabled
+        {
             // Forward the button press event through to the responder.
             responder.buttonTriggered(button: self)
         }
@@ -187,17 +208,19 @@ class ButtonNode: SKSpriteNode {
         away but no other focusable buttons are available in the requested 
         direction.
     */
-    func performInvalidFocusChangeAnimationForDirection(direction: ControlInputDirection) {
+    func performInvalidFocusChangeAnimationForDirection(direction: ControlInputDirection)
+    {
         let animationKey = "ButtonNode.InvalidFocusChangeAnimationKey"
         guard action(forKey: animationKey) == nil else { return }
         
         // Find the reference action from `ButtonFocusActions.sks`.
         let theAction: SKAction
-        switch direction {
-        case .up:    theAction = SKAction(named: "InvalidFocusChange_Up")!
-        case .down:  theAction = SKAction(named: "InvalidFocusChange_Down")!
-        case .left:  theAction = SKAction(named: "InvalidFocusChange_Left")!
-        case .right: theAction = SKAction(named: "InvalidFocusChange_Right")!
+        switch direction
+        {
+            case .up:    theAction = SKAction(named: "InvalidFocusChange_Up")!
+            case .down:  theAction = SKAction(named: "InvalidFocusChange_Down")!
+            case .left:  theAction = SKAction(named: "InvalidFocusChange_Left")!
+            case .right: theAction = SKAction(named: "InvalidFocusChange_Right")!
         }
         
         run(theAction, withKey: animationKey)
@@ -207,31 +230,36 @@ class ButtonNode: SKSpriteNode {
     
     #if os(iOS)
     /// UIResponder touch handling.
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
+    {
         super.touchesBegan(touches, with: event)
     
         isHighlighted = true
     }
 
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?)
+    {
         super.touchesEnded(touches, with: event)
     
         isHighlighted = false
 
         // Touch up inside behavior.
-        if containsTouches(touches: touches) {
+        if containsTouches(touches: touches)
+        {
             buttonTriggered()
         }
     }
     
-    override func touchesCancelled(_ touches: Set<UITouch>?, with event: UIEvent?) {
+    override func touchesCancelled(_ touches: Set<UITouch>?, with event: UIEvent?)
+    {
         super.touchesCancelled(touches!, with: event)
     
         isHighlighted = false
     }
     
     /// Determine if any of the touches are within the `ButtonNode`.
-    private func containsTouches(touches: Set<UITouch>) -> Bool {
+    private func containsTouches(touches: Set<UITouch>) -> Bool
+    {
         guard let scene = scene else { fatalError("Button must be used within a scene.") }
         
         return touches.contains { touch in
@@ -243,25 +271,29 @@ class ButtonNode: SKSpriteNode {
     
     #elseif os(OSX)
     /// NSResponder mouse handling.
-    override func mouseDown(with event: NSEvent) {
+    override func mouseDown(with event: NSEvent)
+    {
         super.mouseDown(with: event)
 
         isHighlighted = true
     }
     
-    override func mouseUp(with event: NSEvent) {
+    override func mouseUp(with event: NSEvent)
+    {
         super.mouseUp(with: event)
         
         isHighlighted = false
 
         // Touch up inside behavior.
-        if containsLocationForEvent(event) {
+        if containsLocationForEvent(event)
+        {
             buttonTriggered()
         }
     }
     
     /// Determine if the event location is within the `ButtonNode`.
-    private func containsLocationForEvent(_ event: NSEvent) -> Bool {
+    private func containsLocationForEvent(_ event: NSEvent) -> Bool
+    {
         guard let scene = scene else { fatalError("Button must be used within a scene.")  }
 
         let location = event.location(in: scene)

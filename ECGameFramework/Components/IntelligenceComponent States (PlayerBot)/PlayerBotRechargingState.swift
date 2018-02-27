@@ -9,7 +9,8 @@
 import SpriteKit
 import GameplayKit
 
-class PlayerBotRechargingState: GKState {
+class PlayerBotRechargingState: GKState
+{
     // MARK: Properties
     
     unowned var entity: PlayerBot
@@ -18,26 +19,30 @@ class PlayerBotRechargingState: GKState {
     var elapsedTime: TimeInterval = 0.0
     
     /// The `AnimationComponent` associated with the `entity`.
-    var animationComponent: AnimationComponent {
+    var animationComponent: AnimationComponent
+    {
         guard let animationComponent = entity.component(ofType: AnimationComponent.self) else { fatalError("A PlayerBotRechargingState's entity must have an AnimationComponent.") }
         return animationComponent
     }
     
     /// The `ChargeComponent` associated with the `entity`.
-    var chargeComponent: ChargeComponent {
+    var chargeComponent: ChargeComponent
+    {
         guard let chargeComponent = entity.component(ofType: ChargeComponent.self) else { fatalError("A PlayerBotRechargingState's entity must have a ChargeComponent.") }
         return chargeComponent
     }
     
     // MARK: Initializers
     
-    required init(entity: PlayerBot) {
+    required init(entity: PlayerBot)
+    {
         self.entity = entity
     }
     
     // MARK: GKState life cycle
     
-    override func didEnter(from previousState: GKState?) {
+    override func didEnter(from previousState: GKState?)
+    {
         super.didEnter(from: previousState)
         
         // Reset the recharge duration when entering this state.
@@ -47,7 +52,8 @@ class PlayerBotRechargingState: GKState {
         animationComponent.requestedAnimationState = .inactive
     }
     
-    override func update(deltaTime seconds: TimeInterval) {
+    override func update(deltaTime seconds: TimeInterval)
+    {
         super.update(deltaTime: seconds)
         
         // Update the elapsed recharge duration.
@@ -67,13 +73,15 @@ class PlayerBotRechargingState: GKState {
         chargeComponent.addCharge(chargeToAdd: amountToRecharge)
         
         // If the `PlayerBot` is fully charged it can become player controlled again.
-        if chargeComponent.isFullyCharged {
+        if chargeComponent.isFullyCharged
+        {
             entity.isPoweredDown = false
             stateMachine?.enter(PlayerBotPlayerControlledState.self)
         }
     }
     
-    override func isValidNextState(_ stateClass: AnyClass) -> Bool {
+    override func isValidNextState(_ stateClass: AnyClass) -> Bool
+    {
         return stateClass is PlayerBotPlayerControlledState.Type
     }
 }

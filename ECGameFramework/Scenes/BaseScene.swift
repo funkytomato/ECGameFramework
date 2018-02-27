@@ -15,7 +15,8 @@ import ReplayKit
 /**
     A base class for all of the scenes in the app.
 */
-class BaseScene: SKScene, GameInputDelegate, ControlInputSourceGameStateDelegate {
+class BaseScene: SKScene, GameInputDelegate, ControlInputSourceGameStateDelegate
+{
     // MARK: Properties
 
     #if os(iOS)
@@ -34,7 +35,8 @@ class BaseScene: SKScene, GameInputDelegate, ControlInputSourceGameStateDelegate
         The background node for this `BaseScene` if needed. Provided by those subclasses
         that use a background scene in their SKS file to center the scene on screen.
     */
-    var backgroundNode: SKSpriteNode? {
+    var backgroundNode: SKSpriteNode?
+    {
         return nil
     }
     
@@ -49,12 +51,15 @@ class BaseScene: SKScene, GameInputDelegate, ControlInputSourceGameStateDelegate
     var focusChangesEnabled = false
     
     /// The current scene overlay (if any) that is displayed over this scene.
-    var overlay: SceneOverlay? {
-        didSet {
+    var overlay: SceneOverlay?
+    {
+        didSet
+        {
             // Clear the `buttons` in preparation for new buttons in the overlay.
             buttons = []
             
-            if let overlay = overlay, let camera = camera {
+            if let overlay = overlay, let camera = camera
+            {
                 overlay.backgroundNode.removeFromParent()
                 camera.addChild(overlay.backgroundNode)
                 
@@ -81,7 +86,8 @@ class BaseScene: SKScene, GameInputDelegate, ControlInputSourceGameStateDelegate
     
     // MARK: SKScene Life Cycle
     
-    override func didMove(to view: SKView) {
+    override func didMove(to view: SKView)
+    {
         super.didMove(to: view)
         
         updateCameraScale()
@@ -95,7 +101,8 @@ class BaseScene: SKScene, GameInputDelegate, ControlInputSourceGameStateDelegate
         resetFocus()
     }
     
-    override func didChangeSize(_ oldSize: CGSize) {
+    override func didChangeSize(_ oldSize: CGSize)
+    {
         super.didChangeSize(oldSize)
         
         updateCameraScale()
@@ -104,9 +111,11 @@ class BaseScene: SKScene, GameInputDelegate, ControlInputSourceGameStateDelegate
     
     // MARK: GameInputDelegate
     
-    func gameInputDidUpdateControlInputSources(gameInput: GameInput) {
+    func gameInputDidUpdateControlInputSources(gameInput: GameInput)
+    {
         // Ensure all player controlInputSources delegate game actions to `BaseScene`.
-        for controlInputSource in gameInput.controlInputSources {
+        for controlInputSource in gameInput.controlInputSources
+        {
             controlInputSource.gameStateDelegate = self
         }
         
@@ -122,11 +131,13 @@ class BaseScene: SKScene, GameInputDelegate, ControlInputSourceGameStateDelegate
     
     // MARK: ControlInputSourceGameStateDelegate
     
-    func controlInputSourceDidSelect(_ controlInputSource: ControlInputSourceType) {
+    func controlInputSourceDidSelect(_ controlInputSource: ControlInputSourceType)
+    {
         focusedButton?.buttonTriggered()
     }
     
-    func controlInputSource(_ controlInputSource: ControlInputSourceType, didSpecifyDirection direction: ControlInputDirection) {
+    func controlInputSource(_ controlInputSource: ControlInputSourceType, didSpecifyDirection direction: ControlInputDirection)
+    {
         // Check that this scene has focus changes enabled, otherwise ignore.
         guard focusChangesEnabled else { return }
         
@@ -145,8 +156,10 @@ class BaseScene: SKScene, GameInputDelegate, ControlInputSourceGameStateDelegate
             Update the focused button to the neighbor of the currently focused button that
             lies in the direction the input source specified.
         */
-        if let currentFocusedButton = focusedButton {
-            if let newFocusButton = currentFocusedButton.focusableNeighbors[direction] {
+        if let currentFocusedButton = focusedButton
+        {
+            if let newFocusButton = currentFocusedButton.focusableNeighbors[direction]
+            {
                 focusedButton = newFocusButton
                 
                 /*
@@ -166,31 +179,37 @@ class BaseScene: SKScene, GameInputDelegate, ControlInputSourceGameStateDelegate
                     controlInputSource.resetControlState()
                 }
             }
-            else {
+            else
+            {
                 // Indicate that a neighboring button does not exist for the requested direction.
                 currentFocusedButton.performInvalidFocusChangeAnimationForDirection(direction: direction)
             }
         }
-        else {
+        else
+        {
             // Set the initial focus if there is no currently focused button.
             resetFocus()
         }
     }
     
-    func controlInputSourceDidTogglePauseState(_ controlInputSource: ControlInputSourceType) {
+    func controlInputSourceDidTogglePauseState(_ controlInputSource: ControlInputSourceType)
+    {
         // Subclasses implement to toggle pause state.
     }
     
     #if DEBUG
-    func controlInputSourceDidToggleDebugInfo(_ controlInputSource: ControlInputSourceType) {
+    func controlInputSourceDidToggleDebugInfo(_ controlInputSource: ControlInputSourceType)
+    {
         // Subclasses implement if necessary, to display useful debug info.
     }
     
-    func controlInputSourceDidTriggerLevelSuccess(_ controlInputSource: ControlInputSourceType) {
+    func controlInputSourceDidTriggerLevelSuccess(_ controlInputSource: ControlInputSourceType)
+    {
         // Implemented by subclasses to switch to next level while debugging.
     }
     
-    func controlInputSourceDidTriggerLevelFailure(_ controlInputSource: ControlInputSourceType) {
+    func controlInputSourceDidTriggerLevelFailure(_ controlInputSource: ControlInputSourceType)
+    {
         // Implemented by subclasses to force failing the level while debugging.
     }
     #endif
@@ -201,12 +220,15 @@ class BaseScene: SKScene, GameInputDelegate, ControlInputSourceGameStateDelegate
         Creates a camera for the scene, and updates its scale.
         This method should be called when initializing an instance of a `BaseScene` subclass.
     */
-    func createCamera() {
-        if let backgroundNode = backgroundNode {
+    func createCamera()
+    {
+        if let backgroundNode = backgroundNode
+        {
             // If the scene has a background node, use its size as the native size of the scene.
             nativeSize = backgroundNode.size
         }
-        else {
+        else
+        {
             // Otherwise, use the scene's own size as the native size of the scene.
             nativeSize = size
         }
@@ -219,19 +241,23 @@ class BaseScene: SKScene, GameInputDelegate, ControlInputSourceGameStateDelegate
     }
     
     /// Centers the scene's camera on a given point.
-    func centerCameraOnPoint(point: CGPoint) {
-        if let camera = camera {
+    func centerCameraOnPoint(point: CGPoint)
+    {
+        if let camera = camera
+        {
             camera.position = point
         }
     }
     
     /// Scales the scene's camera.
-    func updateCameraScale() {
+    func updateCameraScale()
+    {
         /*
             Because the game is normally playing in landscape, use the scene's current and
             original heights to calculate the camera scale.
         */
-        if let camera = camera {
+        if let camera = camera
+        {
             camera.setScale(nativeSize.height / size.height)
         }
     }

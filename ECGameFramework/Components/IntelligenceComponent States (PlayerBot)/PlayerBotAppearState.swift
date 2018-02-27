@@ -9,7 +9,8 @@
 import SpriteKit
 import GameplayKit
 
-class PlayerBotAppearState: GKState {
+class PlayerBotAppearState: GKState
+{
     // MARK: Properties
     
     unowned var entity: PlayerBot
@@ -18,25 +19,29 @@ class PlayerBotAppearState: GKState {
     var elapsedTime: TimeInterval = 0.0
     
     /// The `AnimationComponent` associated with the `entity`.
-    var animationComponent: AnimationComponent {
+    var animationComponent: AnimationComponent
+    {
         guard let animationComponent = entity.component(ofType: AnimationComponent.self) else { fatalError("A PlayerBotAppearState's entity must have an AnimationComponent.") }
         return animationComponent
     }
     
     /// The `RenderComponent` associated with the `entity`.
-    var renderComponent: RenderComponent {
+    var renderComponent: RenderComponent
+    {
         guard let renderComponent = entity.component(ofType: RenderComponent.self) else { fatalError("A PlayerBotAppearState's entity must have an RenderComponent.") }
         return renderComponent
     }
     
     /// The `OrientationComponent` associated with the `entity`.
-    var orientationComponent: OrientationComponent {
+    var orientationComponent: OrientationComponent
+    {
         guard let orientationComponent = entity.component(ofType: OrientationComponent.self) else { fatalError("A PlayerBotAppearState's entity must have an OrientationComponent.") }
         return orientationComponent
     }
     
     /// The `InputComponent` associated with the `entity`.
-    var inputComponent: InputComponent {
+    var inputComponent: InputComponent
+    {
         guard let inputComponent = entity.component(ofType: InputComponent.self) else { fatalError("A PlayerBotAppearState's entity must have an InputComponent.") }
         return inputComponent
     }
@@ -46,13 +51,15 @@ class PlayerBotAppearState: GKState {
     
     // MARK: Initializers
     
-    required init(entity: PlayerBot) {
+    required init(entity: PlayerBot)
+    {
         self.entity = entity
     }
     
     // MARK: GKState Life Cycle
     
-    override func didEnter(from previousState: GKState?) {
+    override func didEnter(from previousState: GKState?)
+    {
         super.didEnter(from: previousState)
         
         // Reset the elapsed time.
@@ -84,14 +91,16 @@ class PlayerBotAppearState: GKState {
         inputComponent.isEnabled = false
     }
     
-    override func update(deltaTime seconds: TimeInterval) {
+    override func update(deltaTime seconds: TimeInterval)
+    {
         super.update(deltaTime: seconds)
         
         // Update the amount of time that the `PlayerBot` has been teleporting in to the level.
         elapsedTime += seconds
 
         // Check if we have spent enough time
-        if elapsedTime > GameplayConfiguration.PlayerBot.appearDuration {
+        if elapsedTime > GameplayConfiguration.PlayerBot.appearDuration
+        {
             // Remove the node from the scene
             node.removeFromParent()
             
@@ -100,11 +109,13 @@ class PlayerBotAppearState: GKState {
         }
     }
     
-    override func isValidNextState(_ stateClass: AnyClass) -> Bool {
+    override func isValidNextState(_ stateClass: AnyClass) -> Bool
+    {
         return stateClass is PlayerBotPlayerControlledState.Type
     }
     
-    override func willExit(to nextState: GKState) {
+    override func willExit(to nextState: GKState)
+    {
         super.willExit(to: nextState)
         
         // Un-hide the animation component node.

@@ -8,10 +8,12 @@
 
 import SpriteKit
 
-class ChargeBar: SKSpriteNode {
+class ChargeBar: SKSpriteNode
+{
     // MARK: Static Properties
     
-    struct Configuration {
+    struct Configuration
+    {
         /// The size of the complete bar (back and level indicator).
         static let size = CGSize(width: 74.0, height: 10.0)
         
@@ -30,8 +32,10 @@ class ChargeBar: SKSpriteNode {
     
     // MARK: Properties
     
-    var level: Double = 1.0 {
-        didSet {
+    var level: Double = 1.0
+    {
+        didSet
+        {
             // Scale the level bar node based on the current health level.
             let action = SKAction.scaleX(to: CGFloat(level), duration: Configuration.levelUpdateDuration)
             action.timingMode = .easeInEaseOut
@@ -45,7 +49,8 @@ class ChargeBar: SKSpriteNode {
     
     // MARK: Initializers
     
-    init() {
+    init()
+    {
         super.init(texture: nil, color: Configuration.backgroundColor, size: Configuration.size)
         
         addChild(chargeLevelNode)
@@ -61,7 +66,8 @@ class ChargeBar: SKSpriteNode {
         chargeLevelNode.constraints = [constraint]
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder)
+    {
         fatalError("init(coder:) has not been implemented")
     }
 }

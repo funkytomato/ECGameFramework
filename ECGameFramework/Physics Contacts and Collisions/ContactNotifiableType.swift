@@ -8,7 +8,8 @@
 
 import GameplayKit
 
-protocol ContactNotifiableType {
+protocol ContactNotifiableType
+{
 
     func contactWithEntityDidBegin(_ entity: GKEntity)
     

@@ -9,7 +9,8 @@
 import Foundation
 
 /// Encapsulates the metadata about a scene in the game.
-struct SceneMetadata {
+struct SceneMetadata
+{
     // MARK: Properties
     
     /// The base file name to use when loading the scene and related resources.
@@ -25,7 +26,8 @@ struct SceneMetadata {
     let onDemandResourcesTags: Set<String>
     
     /// A flag indicating whether the scene requires on demand resources to load.
-    var requiresOnDemandResources: Bool {
+    var requiresOnDemandResources: Bool
+    {
         #if os(OSX)
         /*
             OS X does not use on demand resources, so resources will always be
@@ -44,11 +46,13 @@ struct SceneMetadata {
     // MARK: Initialization
     
     /// Initializes a new `SceneMetadata` instance from a dictionary.
-    init(sceneConfiguration: [String: AnyObject]) {
+    init(sceneConfiguration: [String: AnyObject])
+    {
         fileName = sceneConfiguration["fileName"] as! String
         
         let typeIdentifier = sceneConfiguration["sceneType"] as! String
-        switch typeIdentifier {
+        switch typeIdentifier
+        {
             case "LevelScene":
                 sceneType = LevelScene.self
             
@@ -62,7 +66,8 @@ struct SceneMetadata {
         var loadableTypesForScene = [ResourceLoadableType.Type]()
         
         // The on demand resource tags for the scene (if needed).
-        if let tags = sceneConfiguration["onDemandResourcesTags"] as? [String] {
+        if let tags = sceneConfiguration["onDemandResourcesTags"] as? [String]
+        {
             onDemandResourcesTags = Set(tags)
             
             /*
@@ -70,7 +75,8 @@ struct SceneMetadata {
                 to be preloaded for a `LevelScene`.
             */
             loadableTypesForScene += tags.flatMap { tag in
-                switch tag {
+                switch tag
+                {
                     case "GroundBot":
                         return GroundBot.self
                         
@@ -82,7 +88,8 @@ struct SceneMetadata {
                 }
             }
         }
-        else {
+        else
+        {
             onDemandResourcesTags = []
         }
         
@@ -91,7 +98,8 @@ struct SceneMetadata {
             if the scene is a `LevelScene`, so add these `ResourceLoadableType`s 
             by default.
         */
-        if sceneType == LevelScene.self {
+        if sceneType == LevelScene.self
+        {
             loadableTypesForScene = loadableTypesForScene + [PlayerBot.self, BeamNode.self]
         }
         
@@ -106,8 +114,10 @@ struct SceneMetadata {
     Extend `SceneMetadata` to conform to the `Hashable` protocol so that it may be
     used as a dictionary key by `SceneManger`.
 */
-extension SceneMetadata: Hashable {
-    var hashValue: Int {
+extension SceneMetadata: Hashable
+{
+    var hashValue: Int
+    {
         return fileName.hashValue
     }
 }
@@ -117,6 +127,7 @@ extension SceneMetadata: Hashable {
     This requirement is satisfied by providing an equality operator function
     that takes two `SceneMetadata` instances and determines if they are equal.
 */
-func ==(lhs: SceneMetadata, rhs: SceneMetadata)-> Bool {
+func ==(lhs: SceneMetadata, rhs: SceneMetadata)-> Bool
+{
     return lhs.hashValue == rhs.hashValue
 }

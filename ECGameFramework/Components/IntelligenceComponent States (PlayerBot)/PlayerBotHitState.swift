@@ -9,7 +9,8 @@
 import SpriteKit
 import GameplayKit
 
-class PlayerBotHitState: GKState {
+class PlayerBotHitState: GKState
+{
     // MARK: Properties
     
     unowned var entity: PlayerBot
@@ -18,20 +19,23 @@ class PlayerBotHitState: GKState {
     var elapsedTime: TimeInterval = 0.0
     
     /// The `AnimationComponent` associated with the `entity`.
-    var animationComponent: AnimationComponent {
+    var animationComponent: AnimationComponent
+    {
         guard let animationComponent = entity.component(ofType: AnimationComponent.self) else { fatalError("A PlayerBotHitState's entity must have an AnimationComponent.") }
         return animationComponent
     }
     
     // MARK: Initializers
     
-    required init(entity: PlayerBot) {
+    required init(entity: PlayerBot)
+    {
         self.entity = entity
     }
     
     // MARK: GKState Life Cycle
     
-    override func didEnter(from previousState: GKState?) {
+    override func didEnter(from previousState: GKState?)
+    {
         super.didEnter(from: previousState)
         
         // Reset the elapsed "hit" duration on entering this state.
@@ -41,25 +45,31 @@ class PlayerBotHitState: GKState {
         animationComponent.requestedAnimationState = .hit
     }
     
-    override func update(deltaTime seconds: TimeInterval) {
+    override func update(deltaTime seconds: TimeInterval)
+    {
         super.update(deltaTime: seconds)
         
         // Update the amount of time the `PlayerBot` has been in the "hit" state.
         elapsedTime += seconds
         
         // When the `PlayerBot` has been in this state for long enough, transition to the appropriate next state.
-        if elapsedTime >= GameplayConfiguration.PlayerBot.hitStateDuration {
-            if entity.isPoweredDown {
+        if elapsedTime >= GameplayConfiguration.PlayerBot.hitStateDuration
+        {
+            if entity.isPoweredDown
+            {
                 stateMachine?.enter(PlayerBotRechargingState.self)
             }
-            else {
+            else
+            {
                 stateMachine?.enter(PlayerBotPlayerControlledState.self)
             }
         }
     }
     
-    override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-        switch stateClass {
+    override func isValidNextState(_ stateClass: AnyClass) -> Bool
+    {
+        switch stateClass
+        {
             case is PlayerBotPlayerControlledState.Type, is PlayerBotRechargingState.Type:
                 return true
             

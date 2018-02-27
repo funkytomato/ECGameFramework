@@ -9,19 +9,23 @@
 import SpriteKit
 import GameplayKit
 
-class LevelSceneSuccessState: LevelSceneOverlayState {
+class LevelSceneSuccessState: LevelSceneOverlayState
+{
     // MARK: Properties
     
-    override var overlaySceneFileName: String {
+    override var overlaySceneFileName: String
+    {
         return "SuccessScene"
     }
     
     // MARK: GKState Life Cycle
     
-    override func didEnter(from previousState: GKState?) {
+    override func didEnter(from previousState: GKState?)
+    {
         super.didEnter(from: previousState)
         
-        if let inputComponent = levelScene.playerBot.component(ofType: InputComponent.self) {
+        if let inputComponent = levelScene.playerBot.component(ofType: InputComponent.self)
+        {
             inputComponent.isEnabled = false
         }
         
@@ -29,7 +33,8 @@ class LevelSceneSuccessState: LevelSceneOverlayState {
         levelScene.sceneManager.prepareScene(identifier: .nextLevel)
     }
     
-    override func isValidNextState(_ stateClass: AnyClass) -> Bool {
+    override func isValidNextState(_ stateClass: AnyClass) -> Bool
+    {
         return false
     }
 }

@@ -8,7 +8,8 @@
 
 import GameplayKit
 
-class FuzzyTaskBotRule: GKRule {
+class FuzzyTaskBotRule: GKRule
+{
     // MARK: Properties
     
     var snapshot: EntitySnapshot!
@@ -19,7 +20,8 @@ class FuzzyTaskBotRule: GKRule {
     
     // MARK: Initializers
     
-    init(fact: Fact) {
+    init(fact: Fact)
+    {
         self.fact = fact
         
         super.init()
@@ -30,17 +32,20 @@ class FuzzyTaskBotRule: GKRule {
     
     // MARK: GPRule Overrides
     
-    override func evaluatePredicate(in system: GKRuleSystem) -> Bool {
+    override func evaluatePredicate(in system: GKRuleSystem) -> Bool
+    {
         snapshot = system.state["snapshot"] as! EntitySnapshot
         
-        if grade() >= 0.0 {
+        if grade() >= 0.0
+        {
             return true
         }
         
         return false
     }
     
-    override func performAction(in system: GKRuleSystem) {
+    override func performAction(in system: GKRuleSystem)
+    {
         system.assertFact(fact.rawValue as NSObject, grade: grade())
     }
 }

@@ -9,7 +9,8 @@ A subclass of `NSOperation` that maps the different states of an `NSOperation`
 
 import Foundation
 
-class SceneOperation: Operation {
+class SceneOperation: Operation
+{
     // MARK: Types
     
     /**
@@ -52,19 +53,23 @@ class SceneOperation: Operation {
     /**
         Add the "state" key to the key value observable properties of `NSOperation`.
     */
-    class func keyPathsForValuesAffectingIsReady() -> Set<String> {
+    class func keyPathsForValuesAffectingIsReady() -> Set<String>
+    {
         return ["state"]
     }
     
-    class func keyPathsForValuesAffectingIsExecuting() -> Set<String> {
+    class func keyPathsForValuesAffectingIsExecuting() -> Set<String>
+    {
         return ["state"]
     }
     
-    class func keyPathsForValuesAffectingIsFinished() -> Set<String> {
+    class func keyPathsForValuesAffectingIsFinished() -> Set<String>
+    {
         return ["state"]
     }
     
-    class func keyPathsForValuesAffectingIsCancelled() -> Set<String> {
+    class func keyPathsForValuesAffectingIsCancelled() -> Set<String>
+    {
         return ["state"]
     }
 }

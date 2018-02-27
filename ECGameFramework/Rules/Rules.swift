@@ -20,7 +20,8 @@
 
 import GameplayKit
 
-enum Fact: String {
+enum Fact: String
+{
     // Fuzzy rules pertaining to the proportion of "bad" bots in the level.
     case badTaskBotPercentageLow = "BadTaskBotPercentageLow"
     case badTaskBotPercentageMedium = "BadTaskBotPercentageMedium"
@@ -38,10 +39,12 @@ enum Fact: String {
 }
 
 /// Asserts whether the number of "bad" `TaskBot`s is considered "low".
-class BadTaskBotPercentageLowRule: FuzzyTaskBotRule {
+class BadTaskBotPercentageLowRule: FuzzyTaskBotRule
+{
     // MARK: Properties
     
-    override func grade() -> Float {
+    override func grade() -> Float
+    {
         return max(0.0, 1.0 - 3.0 * snapshot.badBotPercentage)
     }
     
@@ -51,14 +54,18 @@ class BadTaskBotPercentageLowRule: FuzzyTaskBotRule {
 }
 
 /// Asserts whether the number of "bad" `TaskBot`s is considered "medium".
-class BadTaskBotPercentageMediumRule: FuzzyTaskBotRule {
+class BadTaskBotPercentageMediumRule: FuzzyTaskBotRule
+{
     // MARK: Properties
     
-    override func grade() -> Float {
-        if snapshot.badBotPercentage <= 1.0 / 3.0 {
+    override func grade() -> Float
+    {
+        if snapshot.badBotPercentage <= 1.0 / 3.0
+        {
             return min(1.0, 3.0 * snapshot.badBotPercentage)
         }
-        else {
+        else
+        {
             return max(0.0, 1.0 - (3.0 * snapshot.badBotPercentage - 1.0))
         }
     }
@@ -69,10 +76,12 @@ class BadTaskBotPercentageMediumRule: FuzzyTaskBotRule {
 }
 
 /// Asserts whether the number of "bad" `TaskBot`s is considered "high".
-class BadTaskBotPercentageHighRule: FuzzyTaskBotRule {
+class BadTaskBotPercentageHighRule: FuzzyTaskBotRule
+{
     // MARK: Properties
     
-    override func grade() -> Float {
+    override func grade() -> Float
+    {
         return min(1.0, max(0.0, (3.0 * snapshot.badBotPercentage - 1)))
     }
     
@@ -82,10 +91,12 @@ class BadTaskBotPercentageHighRule: FuzzyTaskBotRule {
 }
 
 /// Asserts whether the `PlayerBot` is considered to be "near" to this `TaskBot`.
-class PlayerBotNearRule: FuzzyTaskBotRule {
+class PlayerBotNearRule: FuzzyTaskBotRule
+{
     // MARK: Properties
 
-    override func grade() -> Float {
+    override func grade() -> Float
+    {
         guard let distance = snapshot.playerBotTarget?.distance else { return 0.0 }
         let oneThird = snapshot.proximityFactor / 3
         return (oneThird - distance) / oneThird
@@ -97,10 +108,12 @@ class PlayerBotNearRule: FuzzyTaskBotRule {
 }
 
 /// Asserts whether the `PlayerBot` is considered to be at a "medium" distance from this `TaskBot`.
-class PlayerBotMediumRule: FuzzyTaskBotRule {
+class PlayerBotMediumRule: FuzzyTaskBotRule
+{
     // MARK: Properties
 
-    override func grade() -> Float {
+    override func grade() -> Float
+    {
         guard let distance = snapshot.playerBotTarget?.distance else { return 0.0 }
         let oneThird = snapshot.proximityFactor / 3
         return 1 - (fabs(distance - oneThird) / oneThird)
@@ -112,10 +125,12 @@ class PlayerBotMediumRule: FuzzyTaskBotRule {
 }
 
 /// Asserts whether the `PlayerBot` is considered to be "far" from this `TaskBot`.
-class PlayerBotFarRule: FuzzyTaskBotRule {
+class PlayerBotFarRule: FuzzyTaskBotRule
+{
     // MARK: Properties
     
-    override func grade() -> Float {
+    override func grade() -> Float
+    {
         guard let distance = snapshot.playerBotTarget?.distance else { return 0.0 }
         let oneThird = snapshot.proximityFactor / 3
         return (distance - oneThird) / oneThird
@@ -129,10 +144,12 @@ class PlayerBotFarRule: FuzzyTaskBotRule {
 // MARK: TaskBot Proximity Rules
 
 /// Asserts whether the nearest "good" `TaskBot` is considered to be "near" to this `TaskBot`.
-class GoodTaskBotNearRule: FuzzyTaskBotRule {
+class GoodTaskBotNearRule: FuzzyTaskBotRule
+{
     // MARK: Properties
 
-    override func grade() -> Float {
+    override func grade() -> Float
+    {
         guard let distance = snapshot.nearestGoodTaskBotTarget?.distance else { return 0.0 }
         let oneThird = snapshot.proximityFactor / 3
         return (oneThird - distance) / oneThird
@@ -144,10 +161,12 @@ class GoodTaskBotNearRule: FuzzyTaskBotRule {
 }
 
 /// Asserts whether the nearest "good" `TaskBot` is considered to be at a "medium" distance from this `TaskBot`.
-class GoodTaskBotMediumRule: FuzzyTaskBotRule {
+class GoodTaskBotMediumRule: FuzzyTaskBotRule
+{
     // MARK: Properties
     
-    override func grade() -> Float {
+    override func grade() -> Float
+    {
         guard let distance = snapshot.nearestGoodTaskBotTarget?.distance else { return 0.0 }
         let oneThird = snapshot.proximityFactor / 3
         return 1 - (fabs(distance - oneThird) / oneThird)
@@ -159,10 +178,12 @@ class GoodTaskBotMediumRule: FuzzyTaskBotRule {
 }
 
 /// Asserts whether the nearest "good" `TaskBot` is considered to be "far" from this `TaskBot`.
-class GoodTaskBotFarRule: FuzzyTaskBotRule {
+class GoodTaskBotFarRule: FuzzyTaskBotRule
+{
     // MARK: Properties
     
-    override func grade() -> Float {
+    override func grade() -> Float
+    {
         guard let distance = snapshot.nearestGoodTaskBotTarget?.distance else { return 0.0 }
         let oneThird = snapshot.proximityFactor / 3
         return (distance - oneThird) / oneThird

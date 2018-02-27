@@ -9,45 +9,52 @@
 import SpriteKit
 import GameplayKit
 
-class GroundBotRotateToAttackState: GKState {
+class GroundBotRotateToAttackState: GKState
+{
     // MARK: Properties
     
     unowned var entity: GroundBot
     
     /// The `AnimationComponent` associated with the `entity`.
-    var animationComponent: AnimationComponent {
+    var animationComponent: AnimationComponent
+    {
         guard let animationComponent = entity.component(ofType: AnimationComponent.self) else { fatalError("A GroundBotRotateToAttackState's entity must have an AnimationComponent.") }
         return animationComponent
     }
     
     /// The `OrientationComponent` associated with the `entity`.
-    var orientationComponent: OrientationComponent {
+    var orientationComponent: OrientationComponent
+    {
         guard let orientationComponent = entity.component(ofType: OrientationComponent.self) else { fatalError("A GroundBotRotateToAttackState's entity must have an OrientationComponent.") }
         return orientationComponent
     }
 
     /// The `targetPosition` from the `entity`.
-    var targetPosition: float2 {
+    var targetPosition: float2
+    {
         guard let targetPosition = entity.targetPosition else { fatalError("A GroundBotRotateToAttackState's entity must have a targetLocation set.") }
         return targetPosition
     }
     
     // MARK: Initializers
     
-    required init(entity: GroundBot) {
+    required init(entity: GroundBot)
+    {
         self.entity = entity
     }
     
     // MARK: GPState Life Cycle
     
-    override func didEnter(from previousState: GKState?) {
+    override func didEnter(from previousState: GKState?)
+    {
         super.didEnter(from: previousState)
         
         // Request the "walk forward" animation for this `GroundBot`.
         animationComponent.requestedAnimationState = .walkForward
     }
     
-    override func update(deltaTime seconds: TimeInterval) {
+    override func update(deltaTime seconds: TimeInterval)
+    {
         super.update(deltaTime: seconds)
         
         // `orientationComponent` is a computed property. Declare a local version so we don't compute it multiple times.
@@ -58,12 +65,14 @@ class GroundBotRotateToAttackState: GKState {
         
         // Calculate the amount of rotation that should be applied during this update.
         var delta = CGFloat(seconds * GameplayConfiguration.GroundBot.preAttackRotationSpeed)
-        if angleDeltaToTarget < 0 {
+        if angleDeltaToTarget < 0
+        {
             delta *= -1
         }
 
         // Check if the `GroundBot` would reach the angle required to face the target during this update.
-        if abs(delta) >= abs(angleDeltaToTarget) {
+        if abs(delta) >= abs(angleDeltaToTarget)
+        {
             // Finish the rotation and enter `GroundBotPreAttackState`.
             orientationComponent.zRotation += angleDeltaToTarget
             stateMachine?.enter(GroundBotPreAttackState.self)
@@ -77,8 +86,10 @@ class GroundBotRotateToAttackState: GKState {
         animationComponent.requestedAnimationState = .walkForward
     }
     
-    override func isValidNextState(_ stateClass: AnyClass) -> Bool {
-        switch stateClass {
+    override func isValidNextState(_ stateClass: AnyClass) -> Bool
+    {
+        switch stateClass
+        {
             case is TaskBotAgentControlledState.Type, is GroundBotPreAttackState.Type, is TaskBotZappedState.Type:
                 return true
             
@@ -89,7 +100,8 @@ class GroundBotRotateToAttackState: GKState {
     
     // MARK: Convenience
     
-    func shortestAngleDeltaToTargetFromRotation(entityRotation: Float) -> CGFloat {
+    func shortestAngleDeltaToTargetFromRotation(entityRotation: Float) -> CGFloat
+    {
         // Determine the start and end points and the angle the `GroundBot` is facing.
         let groundBotPosition = entity.agent.position
         let targetPosition = self.targetPosition
@@ -109,10 +121,12 @@ class GroundBotRotateToAttackState: GKState {
         let angle = acos(dotProduct / translationVectorMagnitude)
         
         // Use the cross product to determine the direction of travel to face the target.
-        if crossProduct.z < 0 {
+        if crossProduct.z < 0
+        {
             return CGFloat(angle)
         }
-        else {
+        else
+        {
             return CGFloat(-angle)
         }
     }

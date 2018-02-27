@@ -9,7 +9,8 @@
 import SpriteKit
 import GameplayKit
 
-class RenderComponent: GKComponent {
+class RenderComponent: GKComponent
+{
     // MARK: Properties
     
     // The `RenderComponent` vends a node allowing an entity to be rendered in a scene.
@@ -17,11 +18,13 @@ class RenderComponent: GKComponent {
 
     // MARK: GKComponent
     
-    override func didAddToEntity() {
+    override func didAddToEntity()
+    {
         node.entity = entity
     }
     
-    override func willRemoveFromEntity() {
+    override func willRemoveFromEntity()
+    {
         node.entity = nil
     }
 }

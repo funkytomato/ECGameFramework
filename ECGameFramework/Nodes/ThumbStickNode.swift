@@ -9,7 +9,8 @@
 import SpriteKit
 
 /// Relay control events though `ThumbStickNodeDelegate`.
-protocol ThumbStickNodeDelegate: class {
+protocol ThumbStickNodeDelegate: class
+{
     /// Called when `touchPad` is moved. Values are normalized between [-1.0, 1.0].
     func thumbStickNode(thumbStickNode: ThumbStickNode, didUpdateXValue xValue: Float, yValue: Float)
     
@@ -18,7 +19,8 @@ protocol ThumbStickNodeDelegate: class {
 }
 
 /// Touch representation of a classic analog stick.
-class ThumbStickNode: SKSpriteNode {
+class ThumbStickNode: SKSpriteNode
+{
     // MARK: Properties 
     
     /// The actual thumb pad that moves with touch.
@@ -36,15 +38,18 @@ class ThumbStickNode: SKSpriteNode {
     let normalAlpha: CGFloat = 0.3
     let selectedAlpha: CGFloat = 0.5
     
-    override var alpha: CGFloat {
-        didSet {
+    override var alpha: CGFloat
+    {
+        didSet
+        {
             touchPad.alpha = alpha
         }
     }
     
     // MARK: Initialization
     
-    init(size: CGSize) {
+    init(size: CGSize)
+    {
         trackingDistance = size.width / 2
         
         let touchPadLength = size.width / 2.2
@@ -63,17 +68,20 @@ class ThumbStickNode: SKSpriteNode {
         addChild(touchPad)
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder)
+    {
         fatalError("init(coder:) has not been implemented")
     }
 
     // MARK: UIResponder
     
-    override var canBecomeFirstResponder: Bool {
+    override var canBecomeFirstResponder: Bool
+    {
         return true
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
+    {
         super.touchesBegan(touches, with: event)
         // Highlight that the control is being used by adjusting the alpha.
         alpha = selectedAlpha
@@ -82,11 +90,13 @@ class ThumbStickNode: SKSpriteNode {
         delegate?.thumbStickNode(thumbStickNode: self, isPressed: true)
     }
     
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?)
+    {
         super.touchesMoved(touches, with: event)
         
         // For each touch, calculate the movement of the touchPad.
-        for touch in touches {
+        for touch in touches
+        {
             let touchLocation = touch.location(in: self)
             
             var dx = touchLocation.x - center.x
@@ -100,7 +110,8 @@ class ThumbStickNode: SKSpriteNode {
                 create a unit vector and multiply by max displacement
                 (`trackingDistance`).
             */
-            if distance > trackingDistance {
+            if distance > trackingDistance
+            {
                 dx = (dx / distance) * trackingDistance
                 dy = (dy / distance) * trackingDistance
             }
@@ -115,7 +126,8 @@ class ThumbStickNode: SKSpriteNode {
         }
     }
     
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?)
+    {
         super.touchesEnded(touches, with: event)
         
         // If the touches set is empty, return immediately.
@@ -124,13 +136,15 @@ class ThumbStickNode: SKSpriteNode {
         resetTouchPad()
    }
     
-    override func touchesCancelled(_ touches: Set<UITouch>?, with event: UIEvent?) {
+    override func touchesCancelled(_ touches: Set<UITouch>?, with event: UIEvent?)
+    {
         super.touchesCancelled(touches!, with: event)
         resetTouchPad()
     }
     
     /// When touches end, reset the `touchPad` to the center of the control.
-    func resetTouchPad() {
+    func resetTouchPad()
+    {
         alpha = normalAlpha
         
         let restoreToCenter = SKAction.move(to: CGPoint.zero, duration: 0.2)

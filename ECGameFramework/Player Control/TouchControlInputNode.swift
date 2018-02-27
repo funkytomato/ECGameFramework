@@ -8,7 +8,8 @@
 
 import SpriteKit
 
-class TouchControlInputNode: SKSpriteNode, ThumbStickNodeDelegate, ControlInputSourceType {
+class TouchControlInputNode: SKSpriteNode, ThumbStickNodeDelegate, ControlInputSourceType
+{
     // MARK: Properties
     
     /// `ControlInputSourceType` delegates.
@@ -30,8 +31,10 @@ class TouchControlInputNode: SKSpriteNode, ThumbStickNodeDelegate, ControlInputS
     
     /// The width of the zone in the center of the screen where the touch controls cannot be placed.
     let centerDividerWidth: CGFloat
-    var hideThumbStickNodes: Bool = false {
-        didSet {
+    var hideThumbStickNodes: Bool = false
+    {
+        didSet
+        {
             leftThumbStickNode.isHidden = hideThumbStickNodes
             rightThumbStickNode.isHidden = hideThumbStickNodes
         }
@@ -43,7 +46,8 @@ class TouchControlInputNode: SKSpriteNode, ThumbStickNodeDelegate, ControlInputS
         `TouchControlInputNode` is intended as an overlay for the entire screen,
         therefore the `frame` is usually the scene's bounds or something equivalent.
     */
-    init(frame: CGRect, thumbStickNodeSize: CGSize) {
+    init(frame: CGRect, thumbStickNodeSize: CGSize)
+    {
         // An approximate width appropriate for different scene sizes.
         centerDividerWidth = frame.width / 4.5
         
@@ -77,37 +81,47 @@ class TouchControlInputNode: SKSpriteNode, ThumbStickNodeDelegate, ControlInputS
         isUserInteractionEnabled = true
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder)
+    {
         fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: ThumbStickNodeDelegate
     
-    func thumbStickNode(thumbStickNode: ThumbStickNode, didUpdateXValue xValue: Float, yValue: Float) {
+    func thumbStickNode(thumbStickNode: ThumbStickNode, didUpdateXValue xValue: Float, yValue: Float)
+    {
         // Determine which control this update is relevant to by comparing it to the references.
-        if thumbStickNode === leftThumbStickNode {
+        if thumbStickNode === leftThumbStickNode
+        {
             let displacement = float2(x: xValue, y: yValue)
             delegate?.controlInputSource(self, didUpdateDisplacement: displacement)
         }
-        else if thumbStickNode === rightThumbStickNode {
+        else if thumbStickNode === rightThumbStickNode
+        {
             let displacement = float2(x: xValue, y: yValue)
             
             // Rotate the character only if the `thumbStickNode` is sufficiently displaced.
-            if length(displacement) >= GameplayConfiguration.TouchControl.minimumRequiredThumbstickDisplacement {
+            if length(displacement) >= GameplayConfiguration.TouchControl.minimumRequiredThumbstickDisplacement
+            {
                 delegate?.controlInputSource(self, didUpdateAngularDisplacement: displacement)
             }
-            else {
+            else
+            {
                 delegate?.controlInputSource(self, didUpdateAngularDisplacement: float2())
             }
         }
     }
     
-    func thumbStickNode(thumbStickNode: ThumbStickNode, isPressed: Bool) {
-        if thumbStickNode === rightThumbStickNode {
-            if isPressed {
+    func thumbStickNode(thumbStickNode: ThumbStickNode, isPressed: Bool)
+    {
+        if thumbStickNode === rightThumbStickNode
+        {
+            if isPressed
+            {
                 delegate?.controlInputSourceDidBeginAttacking(self)
             }
-            else {
+            else
+            {
                 delegate?.controlInputSourceDidFinishAttacking(self)
             }
         }
@@ -115,16 +129,19 @@ class TouchControlInputNode: SKSpriteNode, ThumbStickNodeDelegate, ControlInputS
     
     // MARK: ControlInputSourceType
     
-    func resetControlState() {
+    func resetControlState()
+    {
         // Nothing to do here.
     }
     
     // MARK: UIResponder
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
+    {
         super.touchesBegan(touches, with: event)
         
-        for touch in touches {
+        for touch in touches
+        {
             let touchPoint = touch.location(in: self)
             
             /*
@@ -132,16 +149,19 @@ class TouchControlInputNode: SKSpriteNode, ThumbStickNodeDelegate, ControlInputS
                 the touch is in the center of the screen.
             */
             let touchIsInCenter = touchPoint.x < centerDividerWidth / 2 && touchPoint.x > -centerDividerWidth / 2
-            if hideThumbStickNodes || touchIsInCenter {
+            if hideThumbStickNodes || touchIsInCenter
+            {
                     continue
             }
             
-            if touchPoint.x < 0 {
+            if touchPoint.x < 0
+            {
                 leftControlTouches.formUnion([touch])
                 leftThumbStickNode.position = pointByCheckingControlOffset(suggestedPoint: touchPoint)
                 leftThumbStickNode.touchesBegan([touch], with: event)
             }
-            else {
+            else
+            {
                 rightControlTouches.formUnion([touch])
                 rightThumbStickNode.position = pointByCheckingControlOffset(suggestedPoint: touchPoint)
                 rightThumbStickNode.touchesBegan([touch], with: event)
@@ -149,7 +169,8 @@ class TouchControlInputNode: SKSpriteNode, ThumbStickNodeDelegate, ControlInputS
         }
     }
     
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?)
+    {
         super.touchesMoved(touches, with: event)
         /*
             If the touch pertains to a `thumbStickNode`, pass the
@@ -167,14 +188,17 @@ class TouchControlInputNode: SKSpriteNode, ThumbStickNodeDelegate, ControlInputS
         rightThumbStickNode.touchesMoved(movedRightTouches, with: event)
     }
     
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?)
+    {
         super.touchesEnded(touches, with: event)
         
-        for touch in touches {
+        for touch in touches
+        {
             let touchPoint = touch.location(in: self)
             
             /// Toggle pause when touching in the pause node.
-            if pauseButton === atPoint(touchPoint) {
+            if pauseButton === atPoint(touchPoint)
+            {
                 gameStateDelegate?.controlInputSourceDidTogglePauseState(self)
                 break
             }
@@ -189,7 +213,8 @@ class TouchControlInputNode: SKSpriteNode, ThumbStickNodeDelegate, ControlInputS
         rightControlTouches.subtract(endedRightTouches)
     }
     
-    override func touchesCancelled(_ touches: Set<UITouch>?, with event: UIEvent?) {
+    override func touchesCancelled(_ touches: Set<UITouch>?, with event: UIEvent?)
+    {
         super.touchesCancelled(touches!, with: event)
 
         leftThumbStickNode.resetTouchPad()
@@ -203,7 +228,8 @@ class TouchControlInputNode: SKSpriteNode, ThumbStickNodeDelegate, ControlInputS
     // MARK: Convenience Methods
     
     /// Calculates a point that keeps the `thumbStickNode` completely on screen.
-    func pointByCheckingControlOffset(suggestedPoint: CGPoint) -> CGPoint {
+    func pointByCheckingControlOffset(suggestedPoint: CGPoint) -> CGPoint
+    {
         // `leftThumbStickNode` is an arbitrary choice - both are the same size.
         let controlSize = leftThumbStickNode.size
         let sceneSize = scene!.size

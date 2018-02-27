@@ -9,7 +9,8 @@
 import UIKit
 import SpriteKit
 
-class GameViewController: UIViewController, SceneManagerDelegate {
+class GameViewController: UIViewController, SceneManagerDelegate
+{
     // MARK: Properties
     
     /// A placeholder logo view that is displayed before the home scene is loaded.
@@ -20,7 +21,8 @@ class GameViewController: UIViewController, SceneManagerDelegate {
 
     // MARK: View Life Cycle
     
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
 
         /*
@@ -43,13 +45,15 @@ class GameViewController: UIViewController, SceneManagerDelegate {
     }
     
     // Hide status bar during game play.
-    override var prefersStatusBarHidden: Bool {
+    override var prefersStatusBarHidden: Bool
+    {
         return true
     }
     
     // MARK: SceneManagerDelegate
     
-    func sceneManager(_ sceneManager: SceneManager, didTransitionTo scene: SKScene) {
+    func sceneManager(_ sceneManager: SceneManager, didTransitionTo scene: SKScene)
+    {
         // Fade out the app's initial loading `logoView` if it is visible.
         UIView.animate(withDuration: 0.2, delay: 0.0, options: [], animations: {
             self.logoView.alpha = 0.0

@@ -7,7 +7,8 @@
 */
 
 /// A type capable of loading and managing static resources.
-protocol ResourceLoadableType: class {
+protocol ResourceLoadableType: class
+{
     /// Indicates that static resources need to be loaded.
     static var resourcesNeedLoading: Bool { get }
     

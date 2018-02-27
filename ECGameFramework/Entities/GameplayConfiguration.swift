@@ -9,8 +9,10 @@
 import Foundation
 import CoreGraphics
 
-struct GameplayConfiguration {
-    struct Beam {
+struct GameplayConfiguration
+{
+    struct Beam
+    {
         /// The distance (in points) over which the beam can be fired.
         static let arcLength: CGFloat = 300.0
         
@@ -30,7 +32,8 @@ struct GameplayConfiguration {
         static let coolDownDuration: TimeInterval = 1.0
     }
 
-    struct PlayerBot {
+    struct PlayerBot
+    {
         /// The movement speed (in points per second) for the `PlayerBot`.
         static let movementSpeed: CGFloat = 210.0
 
@@ -74,7 +77,8 @@ struct GameplayConfiguration {
         static let appearDuration: TimeInterval = 0.50
     }
 
-    struct TaskBot {
+    struct TaskBot
+    {
         /// The length of time a `TaskBot` waits before re-evaluating its rules.
         static let rulesUpdateWaitDuration: TimeInterval = 1.0
 
@@ -91,7 +95,8 @@ struct GameplayConfiguration {
         static let maximumSpeedWhenBad: Float = 120.0
 
         /// A convenience function to return the max speed for a state.
-        static func maximumSpeedForIsGood(isGood: Bool) -> Float {
+        static func maximumSpeedForIsGood(isGood: Bool) -> Float
+        {
             return isGood ? maximumSpeedWhenGood : maximumSpeedWhenBad
         }
         
@@ -142,7 +147,8 @@ struct GameplayConfiguration {
         static let zappedStateDuration: TimeInterval = 0.75
     }
 
-    struct FlyingBot {
+    struct FlyingBot
+    {
         /// The maximum amount of charge a `FlyingBot` stores.
         static let maximumCharge = 100.0
         
@@ -165,7 +171,8 @@ struct GameplayConfiguration {
         static let beamTargetOffset = CGPoint(x: 0.0, y: 65.0)
     }
 
-    struct GroundBot {
+    struct GroundBot
+    {
         /// The maximum amount of charge a `GroundBot` stores.
         static let maximumCharge = 100.0
         
@@ -194,7 +201,8 @@ struct GameplayConfiguration {
         static let beamTargetOffset = CGPoint(x: 0.0, y: 40.0)
     }
     
-    struct Flocking {
+    struct Flocking
+    {
         /// Separation, alignment, and cohesion parameters for multiple `TaskBot`s.
         static let separationRadius: Float = 25.3
         static let separationAngle = Float (3 * M_PI_4)
@@ -211,7 +219,8 @@ struct GameplayConfiguration {
         static let agentSearchDistanceForFlocking: Float = 50.0
     }
     
-    struct TouchControl {
+    struct TouchControl
+    {
         /// The minimum distance a virtual thumbstick must move before it is considered to have been moved.
         static let minimumRequiredThumbstickDisplacement: Float = 0.35
         
@@ -222,7 +231,8 @@ struct GameplayConfiguration {
         static let idealRelativeControlSize: CGFloat = 0.15
     }
     
-    struct SceneManager {
+    struct SceneManager
+    {
         /// The duration of a transition between loaded scenes.
         static let transitionDuration: TimeInterval = 2.0
         
@@ -230,7 +240,8 @@ struct GameplayConfiguration {
         static let progressSceneTransitionDuration: TimeInterval = 0.5
     }
     
-    struct Timer {
+    struct Timer
+    {
         /// The name of the font to use for the timer.
         static let fontName = "DINCondensed-Bold"
         

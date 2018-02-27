@@ -9,7 +9,8 @@
 import SpriteKit
 //import GameplayKit
 
-struct ColliderType: OptionSet, Hashable, CustomDebugStringConvertible {
+struct ColliderType: OptionSet, Hashable, CustomDebugStringConvertible
+{
     // MARK: Static properties
     
     /// A dictionary to specify which `ColliderType`s should be notified of contacts with other `ColliderType`s.
@@ -30,14 +31,17 @@ struct ColliderType: OptionSet, Hashable, CustomDebugStringConvertible {
 
     // MARK: Hashable
     
-    var hashValue: Int {
+    var hashValue: Int
+    {
         return Int(rawValue)
     }
     
     // MARK: CustomDebugStringConvertible
     
-    var debugDescription: String {
-        switch self.rawValue {
+    var debugDescription: String
+    {
+        switch self.rawValue
+        {
             case ColliderType.Obstacle.rawValue:
                 return "ColliderType.Obstacle"
                 
@@ -55,12 +59,14 @@ struct ColliderType: OptionSet, Hashable, CustomDebugStringConvertible {
     // MARK: SpriteKit Physics Convenience
     
     /// A value that can be assigned to a 'SKPhysicsBody`'s `categoryMask` property.
-    var categoryMask: UInt32 {
+    var categoryMask: UInt32
+    {
         return rawValue
     }
     
     /// A value that can be assigned to a 'SKPhysicsBody`'s `collisionMask` property.
-    var collisionMask: UInt32 {
+    var collisionMask: UInt32
+    {
         // Combine all of the collision requests for this type using a bitwise or.
         let mask = ColliderType.definedCollisions[self]?.reduce(ColliderType()) { initial, colliderType in
             return initial.union(colliderType)
@@ -71,7 +77,8 @@ struct ColliderType: OptionSet, Hashable, CustomDebugStringConvertible {
     }
     
     /// A value that can be assigned to a 'SKPhysicsBody`'s `contactMask` property.
-    var contactMask: UInt32 {
+    var contactMask: UInt32
+    {
         // Combine all of the contact requests for this type using a bitwise or.
         let mask = ColliderType.requestedContactNotifications[self]?.reduce(ColliderType()) { initial, colliderType in
             return initial.union(colliderType)
@@ -87,8 +94,10 @@ struct ColliderType: OptionSet, Hashable, CustomDebugStringConvertible {
         Returns `true` if the `ContactNotifiableType` associated with this `ColliderType` should be
         notified of contact with the passed `ColliderType`.
     */
-    func notifyOnContactWith(_ colliderType: ColliderType) -> Bool {
-        if let requestedContacts = ColliderType.requestedContactNotifications[self] {
+    func notifyOnContactWith(_ colliderType: ColliderType) -> Bool
+    {
+        if let requestedContacts = ColliderType.requestedContactNotifications[self]
+        {
             return requestedContacts.contains(colliderType)
         }
         
