@@ -92,6 +92,23 @@ class TaskBotBehavior: GKBehavior
         return behavior
     }
     
+    
+    //Construct a behaviour to wander, avoiding obstacles along the way
+    static func behaviorAndWander(forAgent agent: GKAgent2D, inScene scene: LevelScene) -> GKBehavior
+    {
+        let behavior = TaskBotBehavior()
+        
+        
+        //Add basic goals to reach the TaskBot's maximum speed, avoid obstacles and wander
+        //behavior.addTargetSpeedGoal(speed: agent.maxSpeed)
+        //behavior.addAvoidObstaclesGoal(forScene: scene)
+        behavior.addWanderGoal(forScene: scene)
+        
+        // Return a tuple containing the new behavior, and the found path points for debug drawing.
+        return behavior
+    }
+    
+    
     // MARK: Goals
     
     /**
@@ -203,10 +220,18 @@ class TaskBotBehavior: GKBehavior
         return pathPoints
     }
     
+    
+    // Adds a goal to wander around thhe scene
+    private func addWanderGoal(forScene scene: LevelScene)
+    {
+        setWeight(100.0, for: GKGoal(toWander: 10))
+    }
+    
+    
     /// Adds a goal to avoid all polygon obstacles in the scene.
     private func addAvoidObstaclesGoal(forScene scene: LevelScene)
     {
-        setWeight(1.0, for: GKGoal(toAvoid: scene.polygonObstacles, maxPredictionTime: GameplayConfiguration.TaskBot.maxPredictionTimeForObstacleAvoidance))
+        setWeight(100.0, for: GKGoal(toAvoid: scene.polygonObstacles, maxPredictionTime: GameplayConfiguration.TaskBot.maxPredictionTimeForObstacleAvoidance))
     }
     
     /// Adds a goal to attain a target speed.
