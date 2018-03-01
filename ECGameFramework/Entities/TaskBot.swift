@@ -27,6 +27,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
 
         // Return to a given position on a patrol path.
         case returnToPositionOnPath(float2)
+        
+        // Wander the 'TaskBot' around the scene
+        case wander
     }
 
     // MARK: Properties
@@ -141,6 +144,13 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 radius = GameplayConfiguration.TaskBot.returnToPatrolPathRadius
                 (agentBehavior, debugPathPoints) = TaskBotBehavior.behaviorAndPathPoints(forAgent: agent, returningToPoint: position, pathRadius: radius, inScene: levelScene)
                 debugColor = SKColor.yellow
+            
+            case .wander:
+                radius = GameplayConfiguration.TaskBot.huntPathRadius
+                agentBehavior  = TaskBotBehavior.behaviorAndWander(forAgent: agent, inScene: levelScene)
+                debugColor = SKColor.cyan
+                debugPathPoints = [CGPoint(x:0,y:0)]
+            
         }
 
         if levelScene.debugDrawingEnabled
@@ -204,7 +214,8 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             there is no need for it to pathfind to the start of its path, and it can patrol immediately.
         */
         mandate = isGood ? .followGoodPatrolPath : .followBadPatrolPath
-
+        //mandate = isGood ? .wander : .wander
+        
         super.init()
 
         // Create a `TaskBotAgent` to represent this `TaskBot` in a steering physics simulation.
