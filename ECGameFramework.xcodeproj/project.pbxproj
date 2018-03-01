@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1852819E204896C100F614A1 /* RiotScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 1852819B204896C000F614A1 /* RiotScene.sks */; };
+		1852819F204896C100F614A1 /* RiotScene.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1852819C204896C000F614A1 /* RiotScene.xcassets */; };
+		185281A0204896C100F614A1 /* RiotScene.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1852819D204896C100F614A1 /* RiotScene.plist */; };
+		185281A22048A8A700F614A1 /* GreenMan.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 185281A12048A8A700F614A1 /* GreenMan.xcassets */; };
+		185281A52048ABCD00F614A1 /* ManBot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185281A42048ABCD00F614A1 /* ManBot.swift */; };
 		186F6E512040D1D1001EEF65 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186F6E502040D1D1001EEF65 /* AppDelegate.swift */; };
 		186F6E6C2040D1D1001EEF65 /* ECGameFrameworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186F6E6B2040D1D1001EEF65 /* ECGameFrameworkTests.swift */; };
 		186F6E772040D1D1001EEF65 /* ECGameFrameworkUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186F6E762040D1D1001EEF65 /* ECGameFrameworkUITests.swift */; };
@@ -150,6 +155,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1852819B204896C000F614A1 /* RiotScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = RiotScene.sks; sourceTree = "<group>"; };
+		1852819C204896C000F614A1 /* RiotScene.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = RiotScene.xcassets; sourceTree = "<group>"; };
+		1852819D204896C100F614A1 /* RiotScene.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = RiotScene.plist; sourceTree = "<group>"; };
+		185281A12048A8A700F614A1 /* GreenMan.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = GreenMan.xcassets; sourceTree = "<group>"; };
+		185281A42048ABCD00F614A1 /* ManBot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManBot.swift; sourceTree = "<group>"; };
 		186F6E4D2040D1D1001EEF65 /* ECGameFramework.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ECGameFramework.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		186F6E502040D1D1001EEF65 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		186F6E622040D1D1001EEF65 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -300,6 +310,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		185281A32048A8B900F614A1 /* GreenMan */ = {
+			isa = PBXGroup;
+			children = (
+				185281A12048A8A700F614A1 /* GreenMan.xcassets */,
+			);
+			path = GreenMan;
+			sourceTree = "<group>";
+		};
 		186F6E442040D1D1001EEF65 = {
 			isa = PBXGroup;
 			children = (
@@ -359,6 +377,16 @@
 				186F6E782040D1D1001EEF65 /* Info.plist */,
 			);
 			path = ECGameFrameworkUITests;
+			sourceTree = "<group>";
+		};
+		188048D620486150008437C5 /* RiotScene */ = {
+			isa = PBXGroup;
+			children = (
+				1852819D204896C100F614A1 /* RiotScene.plist */,
+				1852819B204896C000F614A1 /* RiotScene.sks */,
+				1852819C204896C000F614A1 /* RiotScene.xcassets */,
+			);
+			path = RiotScene;
 			sourceTree = "<group>";
 		};
 		18D0FAE8204462CA0098DF17 /* Level4 */ = {
@@ -438,6 +466,7 @@
 				18FCE9E62040EB9F009A5C0D /* PlayerBot.swift */,
 				18FCE9E72040EB9F009A5C0D /* TaskBot.swift */,
 				18FCE9E82040EB9F009A5C0D /* TaskBotAgent.swift */,
+				185281A42048ABCD00F614A1 /* ManBot.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -533,9 +562,11 @@
 		18FCEA112040EC3C009A5C0D /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				185281A32048A8B900F614A1 /* GreenMan */,
 				18FCEA122040EC3C009A5C0D /* ButtonFocusActions.sks */,
 				18FCEA132040EC3C009A5C0D /* EndScene.sks */,
 				18FCEA142040EC3C009A5C0D /* HomeScene.sks */,
+				188048D620486150008437C5 /* RiotScene */,
 				18FCEA152040EC3C009A5C0D /* Level1 */,
 				18FCEA192040EC3C009A5C0D /* Level2 */,
 				18FCEA1D2040EC3C009A5C0D /* Level3 */,
@@ -717,7 +748,9 @@
 			attributes = {
 				KnownAssetTags = (
 					Blue,
+					FlyingBot,
 					Green,
+					GroundBot,
 					Level1,
 					Level2,
 					Level3,
@@ -767,6 +800,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1852819E204896C100F614A1 /* RiotScene.sks in Resources */,
 				18FCEA8E2040EC40009A5C0D /* Scenery.xcassets in Resources */,
 				18FCEA7E2040EC40009A5C0D /* EndScene.sks in Resources */,
 				18FCEA7F2040EC40009A5C0D /* HomeScene.sks in Resources */,
@@ -784,9 +818,11 @@
 				18FCEA842040EC40009A5C0D /* Level2.sks in Resources */,
 				18FCEA8D2040EC40009A5C0D /* SceneConfiguration.plist in Resources */,
 				18FCEA852040EC40009A5C0D /* Level2.xcassets in Resources */,
+				1852819F204896C100F614A1 /* RiotScene.xcassets in Resources */,
 				186F6EA22040DC39001EEF65 /* Main.storyboard in Resources */,
 				18FCEA7A2040EC40009A5C0D /* BeamLine.sks in Resources */,
 				18FCEA7D2040EC40009A5C0D /* ButtonFocusActions.sks in Resources */,
+				185281A22048A8A700F614A1 /* GreenMan.xcassets in Resources */,
 				18FCEA7C2040EC40009A5C0D /* Teleport.fsh in Resources */,
 				18FCEA832040EC40009A5C0D /* Level2.plist in Resources */,
 				18FCEA912040EC40009A5C0D /* FlyingBotGoodAttackParticleEmitter.sks in Resources */,
@@ -796,6 +832,7 @@
 				18FCEA792040EC40009A5C0D /* Beam.xcassets in Resources */,
 				18FCEA8C2040EC40009A5C0D /* ProgressScene.sks in Resources */,
 				18D0FAEC204465140098DF17 /* Level4.plist in Resources */,
+				185281A0204896C100F614A1 /* RiotScene.plist in Resources */,
 				18FCEA942040EC40009A5C0D /* ReferenceScene.sks in Resources */,
 				18FCEA862040EC40009A5C0D /* Level3.plist in Resources */,
 				18FCEA7B2040EC40009A5C0D /* PlayerBot.xcassets in Resources */,
@@ -901,6 +938,7 @@
 				18FCE9D02040EB3C009A5C0D /* SceneOperation.swift in Sources */,
 				18FCE9CD2040EB3C009A5C0D /* SceneLoader.swift in Sources */,
 				18FCE9C82040EB3C009A5C0D /* SceneLoaderDownloadingResourcesState.swift in Sources */,
+				185281A52048ABCD00F614A1 /* ManBot.swift in Sources */,
 				18FCEA4A2040EC40009A5C0D /* HomeEndScene.swift in Sources */,
 				18FCEA752040EC40009A5C0D /* ShadowComponent.swift in Sources */,
 				18FCEA9E2040EC40009A5C0D /* Rules.swift in Sources */,
@@ -1065,7 +1103,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				ON_DEMAND_RESOURCES_INITIAL_INSTALL_TAGS = "Blue GroundBot Level 1";
-				PRODUCT_BUNDLE_IDENTIFIER = funkytomato.ECGameFramework;
+				PRODUCT_BUNDLE_IDENTIFIER = ECGameFramework;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1083,7 +1121,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				ON_DEMAND_RESOURCES_INITIAL_INSTALL_TAGS = "Blue GroundBot Level 1";
-				PRODUCT_BUNDLE_IDENTIFIER = funkytomato.ECGameFramework;
+				PRODUCT_BUNDLE_IDENTIFIER = ECGameFramework;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
