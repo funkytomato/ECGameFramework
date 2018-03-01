@@ -12,6 +12,18 @@
 		<key>sceneType</key>
 		<string>LevelScene</string>
 		<key>fileName</key>
+		<string>RiotScene</string>
+		<key>onDemandResourcesTags</key>
+		<array>
+			<string>Level1</string>
+			<string>GroundBot</string>
+			<string>Blue</string>
+		</array>
+	</dict>
+	<dict>
+		<key>sceneType</key>
+		<string>LevelScene</string>
+		<key>fileName</key>
 		<string>Level1</string>
 		<key>onDemandResourcesTags</key>
 		<array>
