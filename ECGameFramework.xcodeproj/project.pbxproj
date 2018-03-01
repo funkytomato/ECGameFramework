@@ -10,7 +10,7 @@
 		1852819E204896C100F614A1 /* RiotScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 1852819B204896C000F614A1 /* RiotScene.sks */; };
 		1852819F204896C100F614A1 /* RiotScene.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1852819C204896C000F614A1 /* RiotScene.xcassets */; };
 		185281A0204896C100F614A1 /* RiotScene.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1852819D204896C100F614A1 /* RiotScene.plist */; };
-		185281A22048A8A700F614A1 /* GreenMan.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 185281A12048A8A700F614A1 /* GreenMan.xcassets */; };
+		185281A22048A8A700F614A1 /* ManBot.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 185281A12048A8A700F614A1 /* ManBot.xcassets */; };
 		185281A52048ABCD00F614A1 /* ManBot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185281A42048ABCD00F614A1 /* ManBot.swift */; };
 		186F6E512040D1D1001EEF65 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186F6E502040D1D1001EEF65 /* AppDelegate.swift */; };
 		186F6E6C2040D1D1001EEF65 /* ECGameFrameworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186F6E6B2040D1D1001EEF65 /* ECGameFrameworkTests.swift */; };
@@ -27,6 +27,9 @@
 		18D0FAEC204465140098DF17 /* Level4.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18D0FAE9204462DF0098DF17 /* Level4.plist */; };
 		18D0FAED2044651D0098DF17 /* Level4.sks in Resources */ = {isa = PBXBuildFile; fileRef = 18D0FAEA204462DF0098DF17 /* Level4.sks */; };
 		18D0FAEE204465200098DF17 /* Level4.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18D0FAEB204462DF0098DF17 /* Level4.xcassets */; };
+		18D983B52048B3BF006D7A14 /* ManBotAttackState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D983B42048B3BF006D7A14 /* ManBotAttackState.swift */; };
+		18D983B72048B4BC006D7A14 /* ManBotPreAttackState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D983B62048B4BC006D7A14 /* ManBotPreAttackState.swift */; };
+		18D983B92048B507006D7A14 /* ManBotRotateToAttackState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D983B82048B507006D7A14 /* ManBotRotateToAttackState.swift */; };
 		18FCE9C42040EB3C009A5C0D /* LoadResourcesOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCE9B62040EB3B009A5C0D /* LoadResourcesOperation.swift */; };
 		18FCE9C52040EB3C009A5C0D /* LoadSceneOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCE9B72040EB3B009A5C0D /* LoadSceneOperation.swift */; };
 		18FCE9C62040EB3C009A5C0D /* ResourceLoadableType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCE9B82040EB3B009A5C0D /* ResourceLoadableType.swift */; };
@@ -158,7 +161,7 @@
 		1852819B204896C000F614A1 /* RiotScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = RiotScene.sks; sourceTree = "<group>"; };
 		1852819C204896C000F614A1 /* RiotScene.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = RiotScene.xcassets; sourceTree = "<group>"; };
 		1852819D204896C100F614A1 /* RiotScene.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = RiotScene.plist; sourceTree = "<group>"; };
-		185281A12048A8A700F614A1 /* GreenMan.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = GreenMan.xcassets; sourceTree = "<group>"; };
+		185281A12048A8A700F614A1 /* ManBot.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ManBot.xcassets; sourceTree = "<group>"; };
 		185281A42048ABCD00F614A1 /* ManBot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManBot.swift; sourceTree = "<group>"; };
 		186F6E4D2040D1D1001EEF65 /* ECGameFramework.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ECGameFramework.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		186F6E502040D1D1001EEF65 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -175,6 +178,9 @@
 		18D0FAE9204462DF0098DF17 /* Level4.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Level4.plist; sourceTree = "<group>"; };
 		18D0FAEA204462DF0098DF17 /* Level4.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level4.sks; sourceTree = "<group>"; };
 		18D0FAEB204462DF0098DF17 /* Level4.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Level4.xcassets; sourceTree = "<group>"; };
+		18D983B42048B3BF006D7A14 /* ManBotAttackState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManBotAttackState.swift; sourceTree = "<group>"; };
+		18D983B62048B4BC006D7A14 /* ManBotPreAttackState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManBotPreAttackState.swift; sourceTree = "<group>"; };
+		18D983B82048B507006D7A14 /* ManBotRotateToAttackState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManBotRotateToAttackState.swift; sourceTree = "<group>"; };
 		18FCE9B62040EB3B009A5C0D /* LoadResourcesOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadResourcesOperation.swift; sourceTree = "<group>"; };
 		18FCE9B72040EB3B009A5C0D /* LoadSceneOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadSceneOperation.swift; sourceTree = "<group>"; };
 		18FCE9B82040EB3B009A5C0D /* ResourceLoadableType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceLoadableType.swift; sourceTree = "<group>"; };
@@ -310,12 +316,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		185281A32048A8B900F614A1 /* GreenMan */ = {
+		185281A32048A8B900F614A1 /* ManBot */ = {
 			isa = PBXGroup;
 			children = (
-				185281A12048A8A700F614A1 /* GreenMan.xcassets */,
+				185281A12048A8A700F614A1 /* ManBot.xcassets */,
 			);
-			path = GreenMan;
+			path = ManBot;
 			sourceTree = "<group>";
 		};
 		186F6E442040D1D1001EEF65 = {
@@ -524,6 +530,9 @@
 				18FCE9FD2040EB9F009A5C0D /* GroundBotRotateToAttackState.swift */,
 				18FCE9FE2040EB9F009A5C0D /* TaskBotAgentControlledState.swift */,
 				18FCE9FF2040EB9F009A5C0D /* TaskBotZappedState.swift */,
+				18D983B62048B4BC006D7A14 /* ManBotPreAttackState.swift */,
+				18D983B42048B3BF006D7A14 /* ManBotAttackState.swift */,
+				18D983B82048B507006D7A14 /* ManBotRotateToAttackState.swift */,
 			);
 			path = "IntelligenceComponent States (TaskBot)";
 			sourceTree = "<group>";
@@ -562,7 +571,7 @@
 		18FCEA112040EC3C009A5C0D /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				185281A32048A8B900F614A1 /* GreenMan */,
+				185281A32048A8B900F614A1 /* ManBot */,
 				18FCEA122040EC3C009A5C0D /* ButtonFocusActions.sks */,
 				18FCEA132040EC3C009A5C0D /* EndScene.sks */,
 				18FCEA142040EC3C009A5C0D /* HomeScene.sks */,
@@ -822,7 +831,7 @@
 				186F6EA22040DC39001EEF65 /* Main.storyboard in Resources */,
 				18FCEA7A2040EC40009A5C0D /* BeamLine.sks in Resources */,
 				18FCEA7D2040EC40009A5C0D /* ButtonFocusActions.sks in Resources */,
-				185281A22048A8A700F614A1 /* GreenMan.xcassets in Resources */,
+				185281A22048A8A700F614A1 /* ManBot.xcassets in Resources */,
 				18FCEA7C2040EC40009A5C0D /* Teleport.fsh in Resources */,
 				18FCEA832040EC40009A5C0D /* Level2.plist in Resources */,
 				18FCEA912040EC40009A5C0D /* FlyingBotGoodAttackParticleEmitter.sks in Resources */,
@@ -875,11 +884,13 @@
 				18FCEA6A2040EC40009A5C0D /* GroundBotAttackState.swift in Sources */,
 				18FCEA722040EC40009A5C0D /* PhysicsComponent.swift in Sources */,
 				18FCEA9B2040EC40009A5C0D /* ThumbStickNode.swift in Sources */,
+				18D983B52048B3BF006D7A14 /* ManBotAttackState.swift in Sources */,
 				18FCEA632040EC40009A5C0D /* InputComponent.swift in Sources */,
 				18FCEAA22040EC40009A5C0D /* GameControllerInputSource.swift in Sources */,
 				18FCEA5F2040EC40009A5C0D /* BeamIdleState.swift in Sources */,
 				18FCEA662040EC40009A5C0D /* PlayerBotPlayerControlledState.swift in Sources */,
 				18FCE9C92040EB3C009A5C0D /* SceneLoaderInitialState.swift in Sources */,
+				18D983B92048B507006D7A14 /* ManBotRotateToAttackState.swift in Sources */,
 				18FCEA5A2040EC40009A5C0D /* TaskBot.swift in Sources */,
 				18FCEA9A2040EC40009A5C0D /* ChargeBar.swift in Sources */,
 				18FCEAA52040EC40009A5C0D /* TouchControlInputNode.swift in Sources */,
@@ -906,6 +917,7 @@
 				18FCEA482040EC40009A5C0D /* BaseScene+Focus.swift in Sources */,
 				18FCE9CC2040EB3C009A5C0D /* SceneLoaderResourcesReadyState.swift in Sources */,
 				18FCEA5C2040EC40009A5C0D /* AnimationComponent.swift in Sources */,
+				18D983B72048B4BC006D7A14 /* ManBotPreAttackState.swift in Sources */,
 				18FCEAA32040EC40009A5C0D /* GameInput.swift in Sources */,
 				18FCEA672040EC40009A5C0D /* PlayerBotRechargingState.swift in Sources */,
 				18FCEA762040EC40009A5C0D /* GeometryExtensions.swift in Sources */,
