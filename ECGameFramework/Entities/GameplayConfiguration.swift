@@ -105,7 +105,7 @@ struct GameplayConfiguration
             This ensures that the `TaskBot` can follow its patrol path more effectively.
         */
         /// The maximum acceleration (in points per second per second) for the `TaskBot`.
-        static let maximumAcceleration: Float = 300.0
+        static let maximumAcceleration: Float = 10.0
 
         /// The agent's mass.
         static let agentMass: Float = 0.25
@@ -138,7 +138,7 @@ struct GameplayConfiguration
         static let returnToPatrolPathRadius: Float = 20.0
         
         /// The buffer radius (in points) to add to polygon obstacles when calculating agent pathfinding.
-        static let pathfindingGraphBufferRadius: Float = 30.0
+        static let pathfindingGraphBufferRadius: Float = 25.0
         
         /// The duration of a `TaskBot`'s pre-attack state.
         static let preAttackStateDuration: TimeInterval = 0.8
