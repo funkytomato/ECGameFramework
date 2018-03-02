@@ -21,6 +21,7 @@ struct LevelConfiguration
         /// The different types of `TaskBot` that can exist in a level.
         enum Locomotion
         {
+            case man
             case ground
             case flying
         }
@@ -45,6 +46,9 @@ struct LevelConfiguration
         {
             switch botConfigurationInfo["locomotion"] as! String
             {
+                case "man":
+                    locomotion = .man
+                
                 case "ground":
                     locomotion = .ground
                     
