@@ -77,6 +77,9 @@ struct SceneMetadata
             loadableTypesForScene += tags.flatMap { tag in
                 switch tag
                 {
+                    case "ManBot":
+                        return ManBot.self
+                    
                     case "GroundBot":
                         return GroundBot.self
                         
