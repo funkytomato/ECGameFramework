@@ -16,7 +16,7 @@
 		<key>onDemandResourcesTags</key>
 		<array>
 			<string>Level1</string>
-			<string>GroundBot</string>
+			<string>ManBot</string>
 			<string>Blue</string>
 		</array>
 	</dict>
