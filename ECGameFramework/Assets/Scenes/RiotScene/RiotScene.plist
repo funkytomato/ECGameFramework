@@ -7,11 +7,14 @@
 		<dict>
 			<key>goodPathNodeNames</key>
 			<array>
-				<string>manBot1_point01</string>
+				<string>groundBot1_point01</string>
+				<string>groundBot1_point04</string>
+				<string>groundBot1_point02</string>
 			</array>
 			<key>badPathNodeNames</key>
 			<array>
-				<string>manBot1_point01</string>
+				<string>groundBot1_point03</string>
+				<string>groundBot1_point04</string>
 			</array>
 			<key>startsBad</key>
 			<false/>
@@ -19,6 +22,26 @@
 			<string>East</string>
 			<key>locomotion</key>
 			<string>man</string>
+		</dict>
+		<dict>
+			<key>goodPathNodeNames</key>
+			<array>
+				<string>groundBot1_point03</string>
+				<string>groundBot1_point01</string>
+				<string>groundBot1_point04</string>
+				<string>groundBot1_point02</string>
+			</array>
+			<key>badPathNodeNames</key>
+			<array>
+				<string>groundBot1_point03</string>
+				<string>groundBot1_point04</string>
+			</array>
+			<key>startsBad</key>
+			<true/>
+			<key>initialOrientation</key>
+			<string>East</string>
+			<key>locomotion</key>
+			<string>ground</string>
 		</dict>
 	</array>
 	<key>proximityFactor</key>
