@@ -567,7 +567,7 @@
 				18FCEA132040EC3C009A5C0D /* EndScene.sks */,
 				18FCEA142040EC3C009A5C0D /* HomeScene.sks */,
 				188048D620486150008437C5 /* RiotScene */,
-				18FCEA152040EC3C009A5C0D /* Level1Old */,
+				18FCEA152040EC3C009A5C0D /* Level1 */,
 				18FCEA192040EC3C009A5C0D /* Level2 */,
 				18FCEA1D2040EC3C009A5C0D /* Level3 */,
 				18D0FAE8204462CA0098DF17 /* Level4 */,
@@ -579,14 +579,14 @@
 			path = Scenes;
 			sourceTree = "<group>";
 		};
-		18FCEA152040EC3C009A5C0D /* Level1Old */ = {
+		18FCEA152040EC3C009A5C0D /* Level1 */ = {
 			isa = PBXGroup;
 			children = (
 				18FCEA162040EC3C009A5C0D /* Level1.plist */,
 				18FCEA172040EC3C009A5C0D /* Level1.sks */,
 				18FCEA182040EC3C009A5C0D /* Level1.xcassets */,
 			);
-			path = Level1Old;
+			path = Level1;
 			sourceTree = "<group>";
 		};
 		18FCEA192040EC3C009A5C0D /* Level2 */ = {
