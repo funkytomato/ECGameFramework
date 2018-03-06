@@ -59,6 +59,9 @@ struct Animation
         }
         let offsetToEnd = Array(textures[frameOffset..<textures.count])
         let startToBeforeOffset = textures[0..<frameOffset]
+        
+        print("\(offsetToEnd) \(startToBeforeOffset)")
+        
         return offsetToEnd + startToBeforeOffset
     }
 
@@ -149,7 +152,9 @@ class AnimationComponent: GKComponent
             `animation` variable's `frameOffset` property can be modified later in this method
             if we choose to offset the animation's start point from zero.
         */
-        guard let unwrappedAnimation = animations[animationState]?[compassDirection] else {
+ //       guard let unwrappedAnimation = animations[animationState]?[compassDirection] else {
+        //For prototype, use the same graphic (they are all the same)
+        guard let unwrappedAnimation = animations[animationState]?[.east] else {
             print("Unknown animation for state \(animationState.rawValue), compass direction \(compassDirection.rawValue).")
             return
         }
