@@ -56,7 +56,7 @@ struct LevelConfiguration
                     locomotion = .flying
                     
                 default:
-                    fatalError("Unknown locomotion found while parsing `taskBot` data")
+                    fatalError("Unknown locomotion found while parsing `taskBot` data :\(botConfigurationInfo)")
             }
             
             initialOrientation = CompassDirection(string: botConfigurationInfo["initialOrientation"] as! String)
