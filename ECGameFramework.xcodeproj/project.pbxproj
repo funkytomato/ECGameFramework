@@ -10,7 +10,6 @@
 		1852819E204896C100F614A1 /* RiotScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 1852819B204896C000F614A1 /* RiotScene.sks */; };
 		1852819F204896C100F614A1 /* RiotScene.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1852819C204896C000F614A1 /* RiotScene.xcassets */; };
 		185281A0204896C100F614A1 /* RiotScene.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1852819D204896C100F614A1 /* RiotScene.plist */; };
-		185281A22048A8A700F614A1 /* ManBot.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 185281A12048A8A700F614A1 /* ManBot.xcassets */; };
 		185281A52048ABCD00F614A1 /* ManBot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185281A42048ABCD00F614A1 /* ManBot.swift */; };
 		186F6E512040D1D1001EEF65 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186F6E502040D1D1001EEF65 /* AppDelegate.swift */; };
 		186F6E6C2040D1D1001EEF65 /* ECGameFrameworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186F6E6B2040D1D1001EEF65 /* ECGameFrameworkTests.swift */; };
@@ -24,6 +23,7 @@
 		186F6EA52040DC39001EEF65 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 186F6EA12040DC38001EEF65 /* LaunchScreen.storyboard */; };
 		186F6EA62040DC39001EEF65 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 186F6EA12040DC38001EEF65 /* LaunchScreen.storyboard */; };
 		186F6EA72040DC39001EEF65 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 186F6EA12040DC38001EEF65 /* LaunchScreen.storyboard */; };
+		189A62D6204EED8500568011 /* ManBot.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 189A62D5204EED8500568011 /* ManBot.xcassets */; };
 		18D0FAEC204465140098DF17 /* Level4.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18D0FAE9204462DF0098DF17 /* Level4.plist */; };
 		18D0FAED2044651D0098DF17 /* Level4.sks in Resources */ = {isa = PBXBuildFile; fileRef = 18D0FAEA204462DF0098DF17 /* Level4.sks */; };
 		18D0FAEE204465200098DF17 /* Level4.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18D0FAEB204462DF0098DF17 /* Level4.xcassets */; };
@@ -161,8 +161,7 @@
 		1852819B204896C000F614A1 /* RiotScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = RiotScene.sks; sourceTree = "<group>"; };
 		1852819C204896C000F614A1 /* RiotScene.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = RiotScene.xcassets; sourceTree = "<group>"; };
 		1852819D204896C100F614A1 /* RiotScene.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = RiotScene.plist; sourceTree = "<group>"; };
-		185281A12048A8A700F614A1 /* ManBot.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ManBot.xcassets; sourceTree = "<group>"; };
-		185281A42048ABCD00F614A1 /* ManBot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManBot.swift; sourceTree = "<group>"; };
+		185281A42048ABCD00F614A1 /* ManBot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManBot.swift; sourceTree = "<group>"; };
 		186F6E4D2040D1D1001EEF65 /* ECGameFramework.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ECGameFramework.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		186F6E502040D1D1001EEF65 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		186F6E622040D1D1001EEF65 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -175,12 +174,13 @@
 		186F6E9C2040DAF5001EEF65 /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		186F6EA02040DC36001EEF65 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		186F6EA12040DC38001EEF65 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		189A62D5204EED8500568011 /* ManBot.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ManBot.xcassets; sourceTree = "<group>"; };
 		18D0FAE9204462DF0098DF17 /* Level4.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Level4.plist; sourceTree = "<group>"; };
 		18D0FAEA204462DF0098DF17 /* Level4.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level4.sks; sourceTree = "<group>"; };
 		18D0FAEB204462DF0098DF17 /* Level4.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Level4.xcassets; sourceTree = "<group>"; };
-		18D983B42048B3BF006D7A14 /* ManBotAttackState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManBotAttackState.swift; sourceTree = "<group>"; };
-		18D983B62048B4BC006D7A14 /* ManBotPreAttackState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManBotPreAttackState.swift; sourceTree = "<group>"; };
-		18D983B82048B507006D7A14 /* ManBotRotateToAttackState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManBotRotateToAttackState.swift; sourceTree = "<group>"; };
+		18D983B42048B3BF006D7A14 /* ManBotAttackState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManBotAttackState.swift; sourceTree = "<group>"; };
+		18D983B62048B4BC006D7A14 /* ManBotPreAttackState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManBotPreAttackState.swift; sourceTree = "<group>"; };
+		18D983B82048B507006D7A14 /* ManBotRotateToAttackState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManBotRotateToAttackState.swift; sourceTree = "<group>"; };
 		18FCE9B62040EB3B009A5C0D /* LoadResourcesOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadResourcesOperation.swift; sourceTree = "<group>"; };
 		18FCE9B72040EB3B009A5C0D /* LoadSceneOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadSceneOperation.swift; sourceTree = "<group>"; };
 		18FCE9B82040EB3B009A5C0D /* ResourceLoadableType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceLoadableType.swift; sourceTree = "<group>"; };
@@ -316,14 +316,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		185281A32048A8B900F614A1 /* ManBot */ = {
-			isa = PBXGroup;
-			children = (
-				185281A12048A8A700F614A1 /* ManBot.xcassets */,
-			);
-			path = ManBot;
-			sourceTree = "<group>";
-		};
 		186F6E442040D1D1001EEF65 = {
 			isa = PBXGroup;
 			children = (
@@ -571,12 +563,11 @@
 		18FCEA112040EC3C009A5C0D /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				185281A32048A8B900F614A1 /* ManBot */,
 				18FCEA122040EC3C009A5C0D /* ButtonFocusActions.sks */,
 				18FCEA132040EC3C009A5C0D /* EndScene.sks */,
 				18FCEA142040EC3C009A5C0D /* HomeScene.sks */,
 				188048D620486150008437C5 /* RiotScene */,
-				18FCEA152040EC3C009A5C0D /* Level1 */,
+				18FCEA152040EC3C009A5C0D /* Level1Old */,
 				18FCEA192040EC3C009A5C0D /* Level2 */,
 				18FCEA1D2040EC3C009A5C0D /* Level3 */,
 				18D0FAE8204462CA0098DF17 /* Level4 */,
@@ -588,14 +579,14 @@
 			path = Scenes;
 			sourceTree = "<group>";
 		};
-		18FCEA152040EC3C009A5C0D /* Level1 */ = {
+		18FCEA152040EC3C009A5C0D /* Level1Old */ = {
 			isa = PBXGroup;
 			children = (
 				18FCEA162040EC3C009A5C0D /* Level1.plist */,
 				18FCEA172040EC3C009A5C0D /* Level1.sks */,
 				18FCEA182040EC3C009A5C0D /* Level1.xcassets */,
 			);
-			path = Level1;
+			path = Level1Old;
 			sourceTree = "<group>";
 		};
 		18FCEA192040EC3C009A5C0D /* Level2 */ = {
@@ -631,6 +622,7 @@
 		18FCEA282040EC3C009A5C0D /* TaskBot */ = {
 			isa = PBXGroup;
 			children = (
+				189A62D5204EED8500568011 /* ManBot.xcassets */,
 				18FCEA292040EC3C009A5C0D /* FlyingBot.xcassets */,
 				18FCEA2A2040EC3C009A5C0D /* FlyingBotBadAttackParticleEmitter.sks */,
 				18FCEA2B2040EC3C009A5C0D /* FlyingBotGoodAttackParticleEmitter.sks */,
@@ -763,6 +755,7 @@
 					Level1,
 					Level2,
 					Level3,
+					ManBot,
 				);
 				LastSwiftUpdateCheck = 0920;
 				LastUpgradeCheck = 0920;
@@ -820,6 +813,7 @@
 				18FCEA902040EC40009A5C0D /* FlyingBotBadAttackParticleEmitter.sks in Resources */,
 				18FCEA932040EC40009A5C0D /* ReferenceActions.sks in Resources */,
 				18FCEA8F2040EC40009A5C0D /* FlyingBot.xcassets in Resources */,
+				189A62D6204EED8500568011 /* ManBot.xcassets in Resources */,
 				18FCEA802040EC40009A5C0D /* Level1.plist in Resources */,
 				18FCEA922040EC40009A5C0D /* GroundBot.xcassets in Resources */,
 				18D0FAED2044651D0098DF17 /* Level4.sks in Resources */,
@@ -831,7 +825,6 @@
 				186F6EA22040DC39001EEF65 /* Main.storyboard in Resources */,
 				18FCEA7A2040EC40009A5C0D /* BeamLine.sks in Resources */,
 				18FCEA7D2040EC40009A5C0D /* ButtonFocusActions.sks in Resources */,
-				185281A22048A8A700F614A1 /* ManBot.xcassets in Resources */,
 				18FCEA7C2040EC40009A5C0D /* Teleport.fsh in Resources */,
 				18FCEA832040EC40009A5C0D /* Level2.plist in Resources */,
 				18FCEA912040EC40009A5C0D /* FlyingBotGoodAttackParticleEmitter.sks in Resources */,
@@ -1114,7 +1107,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				ON_DEMAND_RESOURCES_INITIAL_INSTALL_TAGS = "Blue GroundBot Level 1";
+				ON_DEMAND_RESOURCES_INITIAL_INSTALL_TAGS = "Blue GroundBot ManBot RiotScene";
 				PRODUCT_BUNDLE_IDENTIFIER = ECGameFramework;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
@@ -1132,7 +1125,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				ON_DEMAND_RESOURCES_INITIAL_INSTALL_TAGS = "Blue GroundBot Level 1";
+				ON_DEMAND_RESOURCES_INITIAL_INSTALL_TAGS = "Blue GroundBot ManBot RiotScene";
 				PRODUCT_BUNDLE_IDENTIFIER = ECGameFramework;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
