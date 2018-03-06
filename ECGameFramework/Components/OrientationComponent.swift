@@ -17,7 +17,7 @@ class OrientationComponent: GKComponent
     {
         didSet
         {
-            let twoPi = CGFloat(M_PI * 2)
+            let twoPi = CGFloat(Double.pi * 2)
             zRotation = (zRotation + twoPi).truncatingRemainder(dividingBy: twoPi)
         }
     }
