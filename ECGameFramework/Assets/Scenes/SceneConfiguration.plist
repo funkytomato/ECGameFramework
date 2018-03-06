@@ -16,20 +16,9 @@
 		<key>onDemandResourcesTags</key>
 		<array>
 			<string>Level1</string>
-			<string>ManBot</string>
 			<string>Blue</string>
-		</array>
-	</dict>
-	<dict>
-		<key>sceneType</key>
-		<string>LevelScene</string>
-		<key>fileName</key>
-		<string>Level1</string>
-		<key>onDemandResourcesTags</key>
-		<array>
-			<string>Level1</string>
 			<string>GroundBot</string>
-			<string>Blue</string>
+			<string>ManBot</string>
 		</array>
 	</dict>
 	<dict>
