@@ -26,10 +26,10 @@ class EmitterComponent: GKComponent
         node = SKEmitterNode(fileNamed: particleName)!
         
         defaultParticleBirthRate = Float(node.particleBirthRate)
-        node.position = CGPoint(x: 0, y: -60)
-        node.particleBirthRate = 10
-        node.particleLifetime = 100
-        node.zPosition = 1
+        node.position = CGPoint(x: 0, y: 0)
+        //node.particleBirthRate = 1
+        //node.particleLifetime = 10000
+        //node.zPosition = -1
         
         print((node.description))
         
