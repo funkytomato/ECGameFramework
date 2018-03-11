@@ -47,6 +47,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             guard let animationComponent = component(ofType: AnimationComponent.self) else { fatalError("TaskBots must have an animation component.") }
             guard let chargeComponent = component(ofType: ChargeComponent.self) else { fatalError("TaskBots must have a charge component.") }
 
+            
             // Update the `TaskBot`'s speed and acceleration to suit the new value of `isGood`.
             agent.maxSpeed = GameplayConfiguration.TaskBot.maximumSpeedForIsGood(isGood: isGood)
             agent.maxAcceleration = GameplayConfiguration.TaskBot.maximumAcceleration
@@ -250,6 +251,14 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         ])
         addComponent(rulesComponent)
         rulesComponent.delegate = self
+        
+        
+        if let emitterComponent = component(ofType: EmitterComponent.self)
+        {
+            emitterComponent.node.targetNode = renderComponent.node.scene
+        }
+        else { print("TaskBot does not have an emitter component.") }
+        
     }
     
     required init?(coder aDecoder: NSCoder)
@@ -280,6 +289,8 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
     {
         guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
         guard let orientationComponent = component(ofType: OrientationComponent.self) else { return }
+        guard let emitterComponent = component(ofType: EmitterComponent.self) else { return }
+
         
         if intelligenceComponent.stateMachine.currentState is TaskBotAgentControlledState
         {
@@ -305,6 +316,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             if newRotation.isNaN { return }
 
             orientationComponent.zRotation = CGFloat(newRotation)
+            print((renderComponent.node.scene?.description))
+            emitterComponent.node.targetNode = renderComponent.node.scene
+            
         }
         else
         {
@@ -502,6 +516,11 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
     {
         guard let orientationComponent = component(ofType: OrientationComponent.self) else { return }
         agent.rotation = Float(orientationComponent.zRotation)
+        
+        guard let spriteComponent = component(ofType: SpriteComponent.self) else { return }
+        spriteComponent.node.zRotation = orientationComponent.zRotation
+        
+        //print("zRotation:\(orientationComponent.zRotation)")
     }
     
     /// Sets the `TaskBot` node position to match the `GKAgent` position (minus an offset).
@@ -512,6 +531,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         
         let agentOffset = GameplayConfiguration.TaskBot.agentOffset
         renderComponent.node.position = CGPoint(x: agentPosition.x - agentOffset.x, y: agentPosition.y - agentOffset.y)
+        
+       // guard let emitterComponent = component(ofType: EmitterComponent.self) else { return }
+       // emitterComponent.node.position = renderComponent.node.position
     }
     
     // MARK: Debug Path Drawing
