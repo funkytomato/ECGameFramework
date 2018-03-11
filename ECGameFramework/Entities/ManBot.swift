@@ -17,8 +17,12 @@ class ManBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
 {
     // MARK: Static Properties
     
+    var texture = SKTexture()
+    
     /// The size to use for the `ManBot`s animation textures.
     static var textureSize = CGSize(width: 120.0, height: 120.0)
+    
+    /*
     
     /// The size to use for the `ManBot`'s shadow texture.
     static var shadowSize = CGSize(width: 90.0, height: 40.0)
@@ -28,6 +32,7 @@ class ManBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
         let shadowAtlas = SKTextureAtlas(named: "Shadows")
         return shadowAtlas.textureNamed("GroundBotShadow")
     }()
+ 
     
     /// The offset of the `ManBot`'s shadow from its center position.
     static var shadowOffset = CGPoint(x: 0.0, y: -40.0)
@@ -37,7 +42,9 @@ class ManBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
     
     /// The animations to use when a `ManBot` is in its "bad" state.
     static var badAnimations: [AnimationState: [CompassDirection: Animation]]?
-    
+ 
+ 
+ 
     // MARK: TaskBot Properties
     
     override var goodAnimations: [AnimationState: [CompassDirection: Animation]]
@@ -49,7 +56,8 @@ class ManBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
     {
         return ManBot.badAnimations!
     }
-    
+ */
+ 
     // MARK: ManBot Properties
     
     /// The position in the scene that the `ManBot` should target with its attack.
@@ -62,23 +70,27 @@ class ManBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
         super.init(isGood: isGood, goodPathPoints: goodPathPoints, badPathPoints: badPathPoints)
         
         // Determine initial animations and charge based on the initial state of the bot.
-        let initialAnimations: [AnimationState: [CompassDirection: Animation]]
+ //       let initialAnimations: [AnimationState: [CompassDirection: Animation]]
         let initialCharge: Double
         
         if isGood
         {
+            /*
             guard let goodAnimations = ManBot.goodAnimations else {
                 fatalError("Attempt to access ManBot.goodAnimations before they have been loaded.")
             }
             initialAnimations = goodAnimations
+ */
             initialCharge = 0.0
         }
         else
         {
+            /*
             guard let badAnimations = ManBot.badAnimations else {
                 fatalError("Attempt to access ManBot.badAnimations before they have been loaded.")
             }
             initialAnimations = badAnimations
+ */
             initialCharge = GameplayConfiguration.ManBot.maximumCharge
         }
         
@@ -86,17 +98,37 @@ class ManBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
         let renderComponent = RenderComponent()
         addComponent(renderComponent)
         
+    
         let orientationComponent = OrientationComponent()
         addComponent(orientationComponent)
+ 
         
         
+        if isGood
+        {
+            texture = SKTexture(imageNamed: "ManBot")
+        }
+        else
+        {
+            texture = SKTexture(imageNamed: "ManBotBad")
+            
+            
+        }
+        let spriteComponent = SpriteComponent(texture: texture, textureSize: ManBot.textureSize)
+        //let spriteComponent = SpriteComponent(texture: ManBot.texture, textureSize: ManBot.textureSize)
+        addComponent(spriteComponent)
+        
+
+        
+    /*
         let shadowComponent = ShadowComponent(texture: ManBot.shadowTexture, size: ManBot.shadowSize, offset: ManBot.shadowOffset)
         addComponent(shadowComponent)
  
  
         let animationComponent = AnimationComponent(textureSize: ManBot.textureSize, animations: initialAnimations)
         addComponent(animationComponent)
-        
+ */
+ 
         let intelligenceComponent = IntelligenceComponent(states: [
             TaskBotAgentControlledState(entity: self),
             ManBotRotateToAttackState(entity: self),
@@ -121,8 +153,23 @@ class ManBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
         renderComponent.node.physicsBody = physicsComponent.physicsBody
         
         // Connect the `RenderComponent` and `ShadowComponent` to the `AnimationComponent`.
+        renderComponent.node.addChild(spriteComponent.node)
+        //spriteComponent.emitter.targetNode = renderComponent.node.scene
+        
+        print("scene:\(renderComponent.node.scene?.description)")
+
+            let emitterComponent = EmitterComponent(particleName: "Trail.sks")
+            addComponent(emitterComponent)
+            
+            //emitterComponent.node.targetNode = renderComponent.node.scene
+            renderComponent.node.addChild(emitterComponent.node)
+
+        
+        
+        /*
         renderComponent.node.addChild(animationComponent.node)
         animationComponent.shadowNode = shadowComponent.node
+        */
         
         // Specify the offset for beam targeting.
         beamTargetOffset = GameplayConfiguration.ManBot.beamTargetOffset
@@ -207,7 +254,8 @@ class ManBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
     
     static var resourcesNeedLoading: Bool
     {
-        return goodAnimations == nil || badAnimations == nil
+ //       return goodAnimations == nil || badAnimations == nil
+        return false
     }
     
     static func loadResources(withCompletionHandler completionHandler: @escaping () -> ())
@@ -235,6 +283,7 @@ class ManBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
              This closure sets up all of the `ManBot` animations
              after the `ManBot` texture atlases have finished preloading.
              */
+            /*
             goodAnimations = [:]
             goodAnimations![.walkForward] = AnimationComponent.animationsFromAtlas(atlas: manBotAtlases[0], withImageIdentifier: "ManBotGoodWalk", forAnimationState: .walkForward)
             
@@ -242,7 +291,7 @@ class ManBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
             badAnimations![.walkForward] = AnimationComponent.animationsFromAtlas(atlas: manBotAtlases[1], withImageIdentifier: "ManBotBadWalk", forAnimationState: .walkForward)
             badAnimations![.attack] = AnimationComponent.animationsFromAtlas(atlas: manBotAtlases[2], withImageIdentifier: "ManBotAttack", forAnimationState: .attack, bodyActionName: "ZappedShake", shadowActionName: "ZappedShadowShake", repeatTexturesForever: false)
             badAnimations![.zapped] = AnimationComponent.animationsFromAtlas(atlas: manBotAtlases[3], withImageIdentifier: "ManBotZapped", forAnimationState: .zapped, bodyActionName: "ZappedShake", shadowActionName: "ZappedShadowShake")
-            
+            */
             // Invoke the passed `completionHandler` to indicate that loading has completed.
             completionHandler()
         }
@@ -250,8 +299,10 @@ class ManBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
     
     static func purgeResources()
     {
+        /*
         goodAnimations = nil
         badAnimations = nil
+ */
     }
 }
 
