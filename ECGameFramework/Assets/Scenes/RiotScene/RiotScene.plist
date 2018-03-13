@@ -19,7 +19,7 @@
 			<key>startsBad</key>
 			<false/>
 			<key>initialOrientation</key>
-			<string>North</string>
+			<string>East</string>
 			<key>locomotion</key>
 			<string>man</string>
 		</dict>
@@ -39,7 +39,7 @@
 			<key>startsBad</key>
 			<true/>
 			<key>initialOrientation</key>
-			<string>East</string>
+			<string>North</string>
 			<key>locomotion</key>
 			<string>man</string>
 		</dict>
