@@ -31,7 +31,7 @@ class EmitterComponent: GKComponent
         //node.particleLifetime = 10000
         //node.zPosition = -1
         
-        print((node.description))
+        //print((node.description))
         
         super.init()
     }
