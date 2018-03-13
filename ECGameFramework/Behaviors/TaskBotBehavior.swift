@@ -101,7 +101,7 @@ class TaskBotBehavior: GKBehavior
         
         //Add basic goals to reach the TaskBot's maximum speed, avoid obstacles and wander
         //behavior.addTargetSpeedGoal(speed: agent.maxSpeed)
-        //behavior.addAvoidObstaclesGoal(forScene: scene)
+        behavior.addAvoidObstaclesGoal(forScene: scene)
         behavior.addWanderGoal(forScene: scene)
         
         // Return a tuple containing the new behavior, and the found path points for debug drawing.
@@ -224,7 +224,7 @@ class TaskBotBehavior: GKBehavior
     // Adds a goal to wander around thhe scene
     private func addWanderGoal(forScene scene: LevelScene)
     {
-        setWeight(100.0, for: GKGoal(toWander: 10))
+        setWeight(60.0, for: GKGoal(toWander: 10))
     }
     
     
