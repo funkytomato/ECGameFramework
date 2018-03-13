@@ -82,7 +82,7 @@ class TaskBotAgentControlledState: GKState
     {
         switch stateClass
         {
-            case is FlyingBotPreAttackState.Type, is GroundBotRotateToAttackState.Type, is TaskBotZappedState.Type:
+        case is FlyingBotPreAttackState.Type, is GroundBotRotateToAttackState.Type, is TaskBotZappedState.Type, is ManBotRotateToAttackState.Type:
                 return true
                 
             default:
