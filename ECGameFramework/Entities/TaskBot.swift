@@ -147,7 +147,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 debugColor = SKColor.yellow
             
             case .wander:
-                radius = GameplayConfiguration.TaskBot.huntPathRadius
+                radius = GameplayConfiguration.TaskBot.wanderPathRadius
                 agentBehavior  = TaskBotBehavior.behaviorAndWander(forAgent: agent, inScene: levelScene)
                 debugColor = SKColor.cyan
                 debugPathPoints = [CGPoint(x:0,y:0)]
@@ -214,8 +214,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             Because a `TaskBot` is positioned at the appropriate path's start point when the level is created,
             there is no need for it to pathfind to the start of its path, and it can patrol immediately.
         */
-        mandate = isGood ? .followGoodPatrolPath : .followBadPatrolPath
-        //mandate = isGood ? .wander : .wander
+        //mandate = isGood ? .followGoodPatrolPath : .followBadPatrolPath
+        mandate = isGood ? .wander : .wander
+        mandate = !isGood ? .wander : .wander
         
         super.init()
 
@@ -292,6 +293,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         guard let emitterComponent = component(ofType: EmitterComponent.self) else { return }
 
         
+ //       print("intelligenceComponent.stateMachine.currentState:\(intelligenceComponent.stateMachine.currentState?.description)")
         if intelligenceComponent.stateMachine.currentState is TaskBotAgentControlledState
         {
             
@@ -316,7 +318,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             if newRotation.isNaN { return }
 
             orientationComponent.zRotation = CGFloat(newRotation)
-            print((renderComponent.node.scene?.description))
+            //print((renderComponent.node.scene?.description))
             emitterComponent.node.targetNode = renderComponent.node.scene
             
         }
@@ -531,9 +533,6 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         
         let agentOffset = GameplayConfiguration.TaskBot.agentOffset
         renderComponent.node.position = CGPoint(x: agentPosition.x - agentOffset.x, y: agentPosition.y - agentOffset.y)
-        
-       // guard let emitterComponent = component(ofType: EmitterComponent.self) else { return }
-       // emitterComponent.node.position = renderComponent.node.position
     }
     
     // MARK: Debug Path Drawing
