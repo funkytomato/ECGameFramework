@@ -134,6 +134,10 @@ struct GameplayConfiguration
         /// The radius of the path along which an agent travels when hunting.
         static let huntPathRadius: Float = 20.0
 
+        
+        /// The radius of the path along which an agent travels when wandering.
+        static let wanderPathRadius: Float = 20.0
+        
         /// The radius of the path along which an agent travels when returning to its patrol path.
         static let returnToPatrolPathRadius: Float = 20.0
         
