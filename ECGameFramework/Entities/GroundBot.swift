@@ -13,6 +13,8 @@ class GroundBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
 {
     // MARK: Static Properties
     
+    var texture = SKTexture()
+    
     /// The size to use for the `GroundBot`s animation textures.
     static var textureSize = CGSize(width: 120.0, height: 120.0)
     
@@ -68,6 +70,8 @@ class GroundBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
             }
             initialAnimations = goodAnimations
             initialCharge = 0.0
+            
+            texture = SKTexture(imageNamed: "ManBot")
         }
         else
         {
@@ -76,15 +80,22 @@ class GroundBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
             }
             initialAnimations = badAnimations
             initialCharge = GameplayConfiguration.GroundBot.maximumCharge
+            
+            texture = SKTexture(imageNamed: "ManBotBad")
         }
         
+        
         // Create components that define how the entity looks and behaves.
+        
         let renderComponent = RenderComponent()
         addComponent(renderComponent)
 
         let orientationComponent = OrientationComponent()
         addComponent(orientationComponent)
 
+        let spriteComponent = SpriteComponent(texture: texture, textureSize: GroundBot.textureSize)
+        addComponent(spriteComponent)
+        
         let shadowComponent = ShadowComponent(texture: GroundBot.shadowTexture, size: GroundBot.shadowSize, offset: GroundBot.shadowOffset)
         addComponent(shadowComponent)
         
@@ -113,7 +124,10 @@ class GroundBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
 
         // Connect the `PhysicsComponent` and the `RenderComponent`.
         renderComponent.node.physicsBody = physicsComponent.physicsBody
-
+        
+        //Connect the 'SpriteComponent' to the 'RenderComponent'
+        renderComponent.node.addChild(spriteComponent.node)
+        
         // Connect the `RenderComponent` and `ShadowComponent` to the `AnimationComponent`.
         renderComponent.node.addChild(animationComponent.node)
         animationComponent.shadowNode = shadowComponent.node
@@ -240,6 +254,8 @@ class GroundBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
             // Invoke the passed `completionHandler` to indicate that loading has completed.
             completionHandler()
         }
+        
+        print((goodAnimations?.description))
     }
     
     static func purgeResources()
