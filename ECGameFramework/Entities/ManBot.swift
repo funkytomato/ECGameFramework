@@ -80,6 +80,8 @@ class ManBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
             }
             initialAnimations = goodAnimations
             initialCharge = 0.0
+            
+            texture = SKTexture(imageNamed: "ManBot")
         }
         else
         {
@@ -89,28 +91,20 @@ class ManBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
             }
             initialAnimations = badAnimations
             initialCharge = GameplayConfiguration.ManBot.maximumCharge
+            
+            texture = SKTexture(imageNamed: "ManBotBad")
         }
         
+        
+        
         // Create components that define how the entity looks and behaves.
+        
         let renderComponent = RenderComponent()
         addComponent(renderComponent)
         
-    
         let orientationComponent = OrientationComponent()
         addComponent(orientationComponent)
- 
         
-        
-        if isGood
-        {
-            texture = SKTexture(imageNamed: "ManBot")
-        }
-        else
-        {
-            texture = SKTexture(imageNamed: "ManBotBad")
-            
-            
-        }
         let spriteComponent = SpriteComponent(texture: texture, textureSize: ManBot.textureSize)
         //let spriteComponent = SpriteComponent(texture: ManBot.texture, textureSize: ManBot.textureSize)
         addComponent(spriteComponent)
@@ -118,11 +112,9 @@ class ManBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
         let shadowComponent = ShadowComponent(texture: ManBot.shadowTexture, size: ManBot.shadowSize, offset: ManBot.shadowOffset)
         addComponent(shadowComponent)
  
- 
         let animationComponent = AnimationComponent(textureSize: ManBot.textureSize, animations: initialAnimations)
         addComponent(animationComponent)
 
- 
         let intelligenceComponent = IntelligenceComponent(states: [
             TaskBotAgentControlledState(entity: self),
             ManBotRotateToAttackState(entity: self),
@@ -150,7 +142,7 @@ class ManBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
         // Connect the 'SpriteComponent' to the 'RenderComponent'
         renderComponent.node.addChild(spriteComponent.node)
         
-        print("scene:\(String(describing: renderComponent.node.scene?.description))")
+        //print("scene:\(String(describing: renderComponent.node.scene?.description))")
 
         let emitterComponent = EmitterComponent(particleName: "Trail.sks")
         addComponent(emitterComponent)
@@ -284,6 +276,8 @@ class ManBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
             // Invoke the passed `completionHandler` to indicate that loading has completed.
             completionHandler()
         }
+        
+        print((goodAnimations?.description))
     }
     
     static func purgeResources()
