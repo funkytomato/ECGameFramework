@@ -6,36 +6,27 @@
     },
     {
       "idiom" : "iphone",
-      "filename" : "PlayerBotHit_10_03_100.png",
+      "filename" : "ManBot_Bad_100_02.png",
       "scale" : "2x"
     },
     {
       "idiom" : "iphone",
-      "filename" : "PlayerBotHit_10_03_180.png",
+      "filename" : "ManBot_Bad_180_02.png",
       "scale" : "3x"
     },
     {
       "idiom" : "ipad",
-      "filename" : "PlayerBotHit_10_03_120.png",
+      "filename" : "ManBot_Bad_120_02.png",
       "scale" : "1x"
     },
     {
       "idiom" : "ipad",
-      "filename" : "PlayerBotHit_10_03_240.png",
-      "scale" : "2x"
-    },
-    {
-      "idiom" : "tv",
-      "filename" : "PlayerBotHit_10_03_169.png",
-      "scale" : "1x"
-    },
-    {
-      "idiom" : "tv",
+      "filename" : "ManBot_Bad_288_02.png",
       "scale" : "2x"
     },
     {
       "idiom" : "mac",
-      "filename" : "PlayerBotHit_10_03_225.png",
+      "filename" : "ManBot_Bad_270_02.png",
       "scale" : "1x"
     },
     {
