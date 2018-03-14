@@ -167,13 +167,13 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
     }
     
     /// The animations to use when a `TaskBot` is in its "good" state.
-    var goodAnimations: [AnimationState: [CompassDirection: Animation]]
+    var goodAnimations: [AnimationState: Animation]
     {
         fatalError("goodAnimations must be overridden in subclasses")
     }
     
     /// The animations to use when a `TaskBot` is in its "bad" state.
-    var badAnimations: [AnimationState: [CompassDirection: Animation]]
+    var badAnimations: [AnimationState: Animation]
     {
         fatalError("badAnimations must be overridden in subclasses")
     }
@@ -519,8 +519,11 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         guard let orientationComponent = component(ofType: OrientationComponent.self) else { return }
         agent.rotation = Float(orientationComponent.zRotation)
         
-        guard let spriteComponent = component(ofType: SpriteComponent.self) else { return }
-        spriteComponent.node.zRotation = orientationComponent.zRotation
+        //guard let spriteComponent = component(ofType: SpriteComponent.self) else { return }
+        //spriteComponent.node.zRotation = orientationComponent.zRotation
+        
+        guard let animationComponent = component(ofType: AnimationComponent.self) else { return }
+        animationComponent.node.zRotation = orientationComponent.zRotation
         
         //print("zRotation:\(orientationComponent.zRotation)")
     }
