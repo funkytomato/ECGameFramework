@@ -23,7 +23,6 @@
 		186F6EA52040DC39001EEF65 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 186F6EA12040DC38001EEF65 /* LaunchScreen.storyboard */; };
 		186F6EA62040DC39001EEF65 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 186F6EA12040DC38001EEF65 /* LaunchScreen.storyboard */; };
 		186F6EA72040DC39001EEF65 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 186F6EA12040DC38001EEF65 /* LaunchScreen.storyboard */; };
-		189A62D6204EED8500568011 /* ManBot.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 189A62D5204EED8500568011 /* ManBot.xcassets */; };
 		18D0FAEC204465140098DF17 /* Level4.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18D0FAE9204462DF0098DF17 /* Level4.plist */; };
 		18D0FAED2044651D0098DF17 /* Level4.sks in Resources */ = {isa = PBXBuildFile; fileRef = 18D0FAEA204462DF0098DF17 /* Level4.sks */; };
 		18D0FAEE204465200098DF17 /* Level4.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18D0FAEB204462DF0098DF17 /* Level4.xcassets */; };
@@ -143,6 +142,7 @@
 		18FCEAA52040EC40009A5C0D /* TouchControlInputNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCEA432040EC3F009A5C0D /* TouchControlInputNode.swift */; };
 		18FCEAA62040EC40009A5C0D /* BaseScene+ScreenRecording.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCEA452040EC40009A5C0D /* BaseScene+ScreenRecording.swift */; };
 		18FCEAA72040EC40009A5C0D /* ButtonNodeResponderType+ScreenRecording.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCEA462040EC40009A5C0D /* ButtonNodeResponderType+ScreenRecording.swift */; };
+		C22B2B1520594D230001EC87 /* ManBot.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C22B2B1420594D230001EC87 /* ManBot.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -179,7 +179,6 @@
 		186F6E9C2040DAF5001EEF65 /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		186F6EA02040DC36001EEF65 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		186F6EA12040DC38001EEF65 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
-		189A62D5204EED8500568011 /* ManBot.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ManBot.xcassets; sourceTree = "<group>"; };
 		18D0FAE9204462DF0098DF17 /* Level4.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Level4.plist; sourceTree = "<group>"; };
 		18D0FAEA204462DF0098DF17 /* Level4.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level4.sks; sourceTree = "<group>"; };
 		18D0FAEB204462DF0098DF17 /* Level4.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Level4.xcassets; sourceTree = "<group>"; };
@@ -299,6 +298,7 @@
 		18FCEA432040EC3F009A5C0D /* TouchControlInputNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchControlInputNode.swift; sourceTree = "<group>"; };
 		18FCEA452040EC40009A5C0D /* BaseScene+ScreenRecording.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BaseScene+ScreenRecording.swift"; sourceTree = "<group>"; };
 		18FCEA462040EC40009A5C0D /* ButtonNodeResponderType+ScreenRecording.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ButtonNodeResponderType+ScreenRecording.swift"; sourceTree = "<group>"; };
+		C22B2B1420594D230001EC87 /* ManBot.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ManBot.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -637,7 +637,7 @@
 		18FCEA282040EC3C009A5C0D /* TaskBot */ = {
 			isa = PBXGroup;
 			children = (
-				189A62D5204EED8500568011 /* ManBot.xcassets */,
+				C22B2B1420594D230001EC87 /* ManBot.xcassets */,
 				18FCEA292040EC3C009A5C0D /* FlyingBot.xcassets */,
 				18FCEA2A2040EC3C009A5C0D /* FlyingBotBadAttackParticleEmitter.sks */,
 				18FCEA2B2040EC3C009A5C0D /* FlyingBotGoodAttackParticleEmitter.sks */,
@@ -829,7 +829,6 @@
 				18FCEA902040EC40009A5C0D /* FlyingBotBadAttackParticleEmitter.sks in Resources */,
 				18FCEA932040EC40009A5C0D /* ReferenceActions.sks in Resources */,
 				18FCEA8F2040EC40009A5C0D /* FlyingBot.xcassets in Resources */,
-				189A62D6204EED8500568011 /* ManBot.xcassets in Resources */,
 				18FCEA802040EC40009A5C0D /* Level1.plist in Resources */,
 				18FCEA922040EC40009A5C0D /* GroundBot.xcassets in Resources */,
 				18D0FAED2044651D0098DF17 /* Level4.sks in Resources */,
@@ -844,6 +843,7 @@
 				18FCEA7C2040EC40009A5C0D /* Teleport.fsh in Resources */,
 				18FCEA832040EC40009A5C0D /* Level2.plist in Resources */,
 				18F35DAF205427F200B686DA /* Assets.xcassets in Resources */,
+				C22B2B1520594D230001EC87 /* ManBot.xcassets in Resources */,
 				18FCEA912040EC40009A5C0D /* FlyingBotGoodAttackParticleEmitter.sks in Resources */,
 				18FCEA8A2040EC40009A5C0D /* PauseScene.sks in Resources */,
 				18FCEA782040EC40009A5C0D /* Assets.xcassets in Resources */,
