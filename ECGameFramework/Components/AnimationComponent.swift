@@ -34,9 +34,6 @@ struct Animation
     /// The animation state represented in this animation.
     let animationState: AnimationState
     
-    /// The direction the entity is facing during this animation.
-    let compassDirection: CompassDirection
-    
     /// One or more `SKTexture`s to animate as a cycle for this animation.
     let textures: [SKTexture]
     
@@ -111,7 +108,8 @@ class AnimationComponent: GKComponent
     var shadowNode: SKSpriteNode?
     
     /// The current set of animations for the component's entity.
-    var animations: [AnimationState: [CompassDirection: Animation]]
+    //var animations: [AnimationState: [CompassDirection: Animation]]
+    var animations: [AnimationState: Animation]
     
     /// The animation that is currently running.
     private(set) var currentAnimation: Animation?
@@ -121,7 +119,8 @@ class AnimationComponent: GKComponent
     
     // MARK: Initializers
 
-    init(textureSize: CGSize, animations: [AnimationState: [CompassDirection: Animation]])
+    //init(textureSize: CGSize, animations: [AnimationState: [CompassDirection: Animation]])
+    init(textureSize: CGSize, animations: [AnimationState: Animation])
     {
         node = SKSpriteNode(texture: nil, size: textureSize)
         self.animations = animations
@@ -134,16 +133,14 @@ class AnimationComponent: GKComponent
     }
     
     // MARK: Character Animation
-
-    private func runAnimationForAnimationState(animationState: AnimationState, compassDirection: CompassDirection, deltaTime: TimeInterval)
+    private func runAnimationForAnimationState(animationState: AnimationState, deltaTime: TimeInterval)
     {
         
         // Update the tracking of how long we have been animating.
         elapsedAnimationDuration += deltaTime
         
         // Check if we are already running this animation. There's no need to do anything if so.
-        if currentAnimation != nil && currentAnimation!.animationState == animationState && currentAnimation!.compassDirection == compassDirection { return }
-
+        if currentAnimation != nil && currentAnimation!.animationState == animationState { return }
         /*
             Retrieve a copy of the stored animation for the requested state and compass direction.
             `Animation` is a structure - i.e. a value type - so the `animation` variable below
@@ -152,10 +149,10 @@ class AnimationComponent: GKComponent
             `animation` variable's `frameOffset` property can be modified later in this method
             if we choose to offset the animation's start point from zero.
         */
- //       guard let unwrappedAnimation = animations[animationState]?[compassDirection] else {
+
         //For prototype, use the same graphic (they are all the same)
-        guard let unwrappedAnimation = animations[animationState]?[.east] else {
-            print("Unknown animation for state \(animationState.rawValue), compass direction \(compassDirection.rawValue).")
+        guard let unwrappedAnimation = animations[animationState] else {
+            print("Unknown animation for state \(animationState.rawValue)")
             return
         }
         var animation = unwrappedAnimation
@@ -263,21 +260,19 @@ class AnimationComponent: GKComponent
         // If an animation has been requested, run the animation.
         if let animationState = requestedAnimationState
         {
-            guard let orientationComponent = entity?.component(ofType: OrientationComponent.self) else { fatalError("An AnimationComponent's entity must have an OrientationComponent.") }
-            
-            runAnimationForAnimationState(animationState: animationState, compassDirection: orientationComponent.compassDirection, deltaTime: deltaTime)
+            runAnimationForAnimationState(animationState: animationState, deltaTime: deltaTime)
             requestedAnimationState = nil
         }
     }
     
     // MARK: Texture loading utilities
 
-    /// Returns the first texture in an atlas for a given `CompassDirection`.
-    class func firstTextureForOrientation(compassDirection: CompassDirection, inAtlas atlas: SKTextureAtlas, withImageIdentifier identifier: String) -> SKTexture
+    /// Returns the first texture in an atlas
+    class func firstTextureForOrientation(inAtlas atlas: SKTextureAtlas, withImageIdentifier identifier: String) -> SKTexture
     {
         // Filter for this facing direction, and sort the resulting texture names alphabetically.
         let textureNames = atlas.textureNames.filter {
-            $0.hasPrefix("\(identifier)_\(compassDirection.rawValue)_")
+             $0.hasPrefix("\(identifier)_")
         }.sorted()
         
         // Find and return the first texture for this direction.
@@ -305,7 +300,7 @@ class AnimationComponent: GKComponent
     }
 
     /// Creates an `Animation` from textures in an atlas and actions loaded from file.
-    class func animationsFromAtlas(atlas: SKTextureAtlas, withImageIdentifier identifier: String, forAnimationState animationState: AnimationState, bodyActionName: String? = nil, shadowActionName: String? = nil, repeatTexturesForever: Bool = true, playBackwards: Bool = false) -> [CompassDirection: Animation]
+    class func animationsFromAtlas(atlas: SKTextureAtlas, withImageIdentifier identifier: String, forAnimationState animationState: AnimationState, bodyActionName: String? = nil, shadowActionName: String? = nil, repeatTexturesForever: Bool = true, playBackwards: Bool = false) -> Animation
     {
         // Load a body action from an actions file if requested.
         let bodyAction: SKAction?
@@ -330,36 +325,31 @@ class AnimationComponent: GKComponent
         }
         
         /// A dictionary of animations with an entry for each compass direction.
-        var animations = [CompassDirection: Animation]()
+        //var animations = [CompassDirection: Animation]()
+        var animation : Animation
         
-        for compassDirection in CompassDirection.allDirections
-        {
-            
-            // Find all matching texture names, sorted alphabetically, and map them to an array of actual textures.
-            let textures = atlas.textureNames.filter {
-                $0.hasPrefix("\(identifier)_\(compassDirection.rawValue)_")
-            }.sorted {
-                playBackwards ? $0 > $1 : $0 < $1
-            }.map {
-                atlas.textureNamed($0)
-            }
-            
-            // Create a new `Animation` for these settings.
-            animations[compassDirection] = Animation(
-                animationState: animationState,
-                compassDirection: compassDirection,
-                textures: textures,
-                frameOffset: 0,
-                repeatTexturesForever: repeatTexturesForever,
-                bodyActionName: bodyActionName,
-                bodyAction: bodyAction,
-                shadowActionName: shadowActionName,
-                shadowAction: shadowAction
-            )
-            
+
+        // Find all matching texture names, sorted alphabetically, and map them to an array of actual textures.
+        let textures = atlas.textureNames.filter {
+            $0.hasPrefix("\(identifier)_")
+        }.sorted {
+            playBackwards ? $0 > $1 : $0 < $1
+        }.map {
+            atlas.textureNamed($0)
         }
         
-        return animations
+        
+        // Create a new `Animation` for these settings.
+        animation = Animation(
+            animationState: animationState,
+            textures: textures,
+            frameOffset: 0,
+            repeatTexturesForever: repeatTexturesForever,
+            bodyActionName: bodyActionName,
+            bodyAction: bodyAction,
+            shadowActionName: shadowActionName,
+            shadowAction: shadowAction)
+        
+        return animation
     }
-    
 }
