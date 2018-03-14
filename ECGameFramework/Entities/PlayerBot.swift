@@ -29,7 +29,7 @@ class PlayerBot: GKEntity, ChargeComponentDelegate, ResourceLoadableType
     static var shadowOffset = CGPoint(x: 0.0, y: -40.0)
     
     /// The animations to use for a `PlayerBot`.
-    static var animations: [AnimationState: [CompassDirection: Animation]]?
+    static var animations: [AnimationState: Animation]?
 
     /// Textures used by `PlayerBotAppearState` to show a `PlayerBot` appearing in the scene.
     static var appearTextures: [CompassDirection: SKTexture]?
@@ -198,7 +198,7 @@ class PlayerBot: GKEntity, ChargeComponentDelegate, ResourceLoadableType
             appearTextures = [:]
             for orientation in CompassDirection.allDirections
             {
-                appearTextures![orientation] = AnimationComponent.firstTextureForOrientation(compassDirection: orientation, inAtlas: playerBotAtlases[0], withImageIdentifier: "PlayerBotIdle")
+                appearTextures![orientation] = AnimationComponent.firstTextureForOrientation(inAtlas: playerBotAtlases[0], withImageIdentifier: "PlayerBotIdle")
             }
             
             // Set up all of the `PlayerBot`s animations.
