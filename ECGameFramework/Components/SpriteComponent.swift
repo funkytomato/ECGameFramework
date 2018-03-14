@@ -20,7 +20,8 @@ class SpriteComponent: GKComponent
     //MARK:- Initialisers
     init(texture: SKTexture, textureSize: CGSize)
     {
-        node = SKSpriteNode(texture: texture, size: textureSize)
+        //node = SKSpriteNode(texture: texture, size: textureSize)
+        node = SKSpriteNode(texture: nil, size: textureSize)
         super.init()
     }
     
