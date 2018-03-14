@@ -29,22 +29,22 @@ class GroundBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
     static var shadowOffset = CGPoint(x: 0.0, y: -40.0)
     
     /// The animations to use when a `GroundBot` is in its "good" state.
-    static var goodAnimations: [AnimationState: [CompassDirection: Animation]]?
+    static var goodAnimations: [AnimationState: Animation]?
     
     /// The animations to use when a `GroundBot` is in its "bad" state.
-    static var badAnimations: [AnimationState: [CompassDirection: Animation]]?
+    static var badAnimations: [AnimationState: Animation]?
     
     // MARK: TaskBot Properties
-    
-    override var goodAnimations: [AnimationState: [CompassDirection: Animation]]
+    override var goodAnimations: [AnimationState: Animation]
     {
         return GroundBot.goodAnimations!
     }
     
-    override var badAnimations: [AnimationState: [CompassDirection: Animation]]
+    override var badAnimations: [AnimationState: Animation]
     {
         return GroundBot.badAnimations!
     }
+    
     
     // MARK: GroundBot Properties
     
@@ -58,7 +58,7 @@ class GroundBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
         super.init(isGood: isGood, goodPathPoints: goodPathPoints, badPathPoints: badPathPoints)
         
         // Determine initial animations and charge based on the initial state of the bot.
-        let initialAnimations: [AnimationState: [CompassDirection: Animation]]
+        let initialAnimations: [AnimationState: Animation]
         let initialCharge: Double
 
         if isGood
