@@ -142,6 +142,7 @@
 		18FCEAA62040EC40009A5C0D /* BaseScene+ScreenRecording.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCEA452040EC40009A5C0D /* BaseScene+ScreenRecording.swift */; };
 		18FCEAA72040EC40009A5C0D /* ButtonNodeResponderType+ScreenRecording.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCEA462040EC40009A5C0D /* ButtonNodeResponderType+ScreenRecording.swift */; };
 		C22B2B1520594D230001EC87 /* ManBot.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C22B2B1420594D230001EC87 /* ManBot.xcassets */; };
+		C2BF96932059DB8F00AD7D0C /* PlayerBot.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2BF96922059DB8E00AD7D0C /* PlayerBot.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -297,6 +298,7 @@
 		18FCEA452040EC40009A5C0D /* BaseScene+ScreenRecording.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BaseScene+ScreenRecording.swift"; sourceTree = "<group>"; };
 		18FCEA462040EC40009A5C0D /* ButtonNodeResponderType+ScreenRecording.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ButtonNodeResponderType+ScreenRecording.swift"; sourceTree = "<group>"; };
 		C22B2B1420594D230001EC87 /* ManBot.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ManBot.xcassets; sourceTree = "<group>"; };
+		C2BF96922059DB8E00AD7D0C /* PlayerBot.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = PlayerBot.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -562,6 +564,7 @@
 		18FCEA0C2040EC3C009A5C0D /* PlayerBot */ = {
 			isa = PBXGroup;
 			children = (
+				C2BF96922059DB8E00AD7D0C /* PlayerBot.xcassets */,
 				18FCEA0D2040EC3C009A5C0D /* Beam.xcassets */,
 				18FCEA0E2040EC3C009A5C0D /* BeamLine.sks */,
 				18FCEA102040EC3C009A5C0D /* Teleport.fsh */,
@@ -836,6 +839,7 @@
 				1852819F204896C100F614A1 /* RiotScene.xcassets in Resources */,
 				186F6EA22040DC39001EEF65 /* Main.storyboard in Resources */,
 				18FCEA7A2040EC40009A5C0D /* BeamLine.sks in Resources */,
+				C2BF96932059DB8F00AD7D0C /* PlayerBot.xcassets in Resources */,
 				18FCEA7D2040EC40009A5C0D /* ButtonFocusActions.sks in Resources */,
 				18FCEA7C2040EC40009A5C0D /* Teleport.fsh in Resources */,
 				18FCEA832040EC40009A5C0D /* Level2.plist in Resources */,
