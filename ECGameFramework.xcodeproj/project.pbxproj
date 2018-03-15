@@ -142,7 +142,7 @@
 		18FCEAA62040EC40009A5C0D /* BaseScene+ScreenRecording.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCEA452040EC40009A5C0D /* BaseScene+ScreenRecording.swift */; };
 		18FCEAA72040EC40009A5C0D /* ButtonNodeResponderType+ScreenRecording.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCEA462040EC40009A5C0D /* ButtonNodeResponderType+ScreenRecording.swift */; };
 		C22B2B1520594D230001EC87 /* ManBot.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C22B2B1420594D230001EC87 /* ManBot.xcassets */; };
-		C2B1337D205A9AA400C87B71 /* PlayerBot2.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2B1337C205A9AA400C87B71 /* PlayerBot2.xcassets */; };
+		C2B1337D205A9AA400C87B71 /* PlayerBot.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2B1337C205A9AA400C87B71 /* PlayerBot.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -298,7 +298,7 @@
 		18FCEA452040EC40009A5C0D /* BaseScene+ScreenRecording.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BaseScene+ScreenRecording.swift"; sourceTree = "<group>"; };
 		18FCEA462040EC40009A5C0D /* ButtonNodeResponderType+ScreenRecording.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ButtonNodeResponderType+ScreenRecording.swift"; sourceTree = "<group>"; };
 		C22B2B1420594D230001EC87 /* ManBot.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ManBot.xcassets; sourceTree = "<group>"; };
-		C2B1337C205A9AA400C87B71 /* PlayerBot2.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = PlayerBot2.xcassets; sourceTree = "<group>"; };
+		C2B1337C205A9AA400C87B71 /* PlayerBot.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = PlayerBot.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -567,7 +567,7 @@
 				18FCEA0D2040EC3C009A5C0D /* Beam.xcassets */,
 				18FCEA0E2040EC3C009A5C0D /* BeamLine.sks */,
 				18FCEA102040EC3C009A5C0D /* Teleport.fsh */,
-				C2B1337C205A9AA400C87B71 /* PlayerBot2.xcassets */,
+				C2B1337C205A9AA400C87B71 /* PlayerBot.xcassets */,
 			);
 			path = PlayerBot;
 			sourceTree = "<group>";
@@ -858,7 +858,7 @@
 				18F35DB3205428B900B686DA /* circle.png in Resources */,
 				18FCEA822040EC40009A5C0D /* Level1.xcassets in Resources */,
 				186F6EA52040DC39001EEF65 /* LaunchScreen.storyboard in Resources */,
-				C2B1337D205A9AA400C87B71 /* PlayerBot2.xcassets in Resources */,
+				C2B1337D205A9AA400C87B71 /* PlayerBot.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
