@@ -14,7 +14,7 @@
 			<key>badPathNodeNames</key>
 			<array>
 				<string>groundBot1_point03</string>
-				<string>groundBot1_point04</string>
+				<string>groundBot1_point05</string>
 			</array>
 			<key>startsBad</key>
 			<false/>
@@ -26,7 +26,6 @@
 		<dict>
 			<key>goodPathNodeNames</key>
 			<array>
-				<string>groundBot1_point03</string>
 				<string>groundBot1_point01</string>
 				<string>groundBot1_point04</string>
 				<string>groundBot1_point02</string>
@@ -34,7 +33,7 @@
 			<key>badPathNodeNames</key>
 			<array>
 				<string>groundBot1_point03</string>
-				<string>groundBot1_point04</string>
+				<string>groundBot1_point05</string>
 			</array>
 			<key>startsBad</key>
 			<true/>
