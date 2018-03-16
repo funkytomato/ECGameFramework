@@ -228,6 +228,14 @@ class TaskBotBehavior: GKBehavior
     }
     
     
+    //Add a goal to seek
+    private func addSeekGoal(forScene scene: LevelScene, agent: GKAgent)
+    {
+        setWeight(100.0, for: GKGoal(toSeekAgent: agent))
+        print("addSeekGoal \(agent.description)")
+    }
+    
+    
     /// Adds a goal to avoid all polygon obstacles in the scene.
     private func addAvoidObstaclesGoal(forScene scene: LevelScene)
     {
