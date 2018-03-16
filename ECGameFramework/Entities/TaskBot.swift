@@ -214,9 +214,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             Because a `TaskBot` is positioned at the appropriate path's start point when the level is created,
             there is no need for it to pathfind to the start of its path, and it can patrol immediately.
         */
-        //mandate = isGood ? .followGoodPatrolPath : .followBadPatrolPath
-        mandate = isGood ? .wander : .wander
-        mandate = !isGood ? .wander : .wander
+        mandate = isGood ? .followGoodPatrolPath : .followBadPatrolPath
+        //mandate = isGood ? .wander : .wander
+        //mandate = !isGood ? .wander : .wander
         
         super.init()
 
