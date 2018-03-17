@@ -90,7 +90,7 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
   
     // MARK: Pathfinding Debug
     
-    var debugDrawingEnabled = false
+    var debugDrawingEnabled = true
     {
         didSet
         {
