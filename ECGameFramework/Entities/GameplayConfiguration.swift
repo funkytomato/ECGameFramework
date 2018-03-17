@@ -105,13 +105,15 @@ struct GameplayConfiguration
             This ensures that the `TaskBot` can follow its patrol path more effectively.
         */
         /// The maximum acceleration (in points per second per second) for the `TaskBot`.
-        static let maximumAcceleration: Float = 10.0
+        //static let maximumAcceleration: Float = 10.0
+        static let maximumAcceleration: Float = 25.0
 
         /// The agent's mass.
         static let agentMass: Float = 0.25
         
         /// The radius of the `TaskBot`'s physics body.
-        static var physicsBodyRadius: CGFloat = 35.0
+        //static var physicsBodyRadius: CGFloat = 35.0
+        static var physicsBodyRadius: CGFloat = 15.0
 
         /// The offset of the `TaskBot` physics body's center from the `TaskBot`'s center.
         static let physicsBodyOffset = CGPoint(x: 0.0, y: -25.0)
