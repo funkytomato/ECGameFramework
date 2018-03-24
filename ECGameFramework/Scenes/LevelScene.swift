@@ -90,7 +90,7 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
   
     // MARK: Pathfinding Debug
     
-    var debugDrawingEnabled = true
+    var debugDrawingEnabled = false
     {
         didSet
         {
@@ -242,6 +242,8 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
         // Start screen recording. See `LevelScene+ScreenRecording` for implementation.
         startScreenRecording()
         #endif
+        
+        debugDrawingEnabled = true
     }
     
     override func didChangeSize(_ oldSize: CGSize)
