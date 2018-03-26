@@ -148,10 +148,8 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             
             case .wander:
                 radius = GameplayConfiguration.TaskBot.wanderPathRadius
-                agentBehavior  = TaskBotBehavior.behaviorAndWander(forAgent: agent, inScene: levelScene)
-                debugColor = SKColor.cyan
-                debugPathPoints = [CGPoint(x:0,y:0)]
-            
+                (agentBehavior, debugPathPoints)  = TaskBotBehavior.behaviorAndWander(forAgent: agent, inScene: levelScene)
+                debugColor = SKColor.cyan            
         }
 
         if levelScene.debugDrawingEnabled
@@ -449,7 +447,8 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         else if huntTaskBot > huntPlayerBot
         {
             // The rules provided greater motivation to hunt the nearest good TaskBot. Ignore any motivation to hunt the PlayerBot.
-            mandate = .huntAgent(state.nearestGoodTaskBotTarget!.target.agent)
+            //mandate = .huntAgent(state.nearestGoodTaskBotTarget!.target.agent)
+            mandate = .wander
         }
         else
         {

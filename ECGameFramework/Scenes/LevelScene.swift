@@ -82,6 +82,7 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
   
     // MARK: Pathfinding
     
+    //let graph = GKMeshGraph(bufferRadius: GameplayConfiguration.TaskBot.pathfindingGraphBufferRadius, minCoordinate: float2(0.0,0.0), maxCoordinate: float2(1400.0,1000.0) )
     let graph = GKObstacleGraph(obstacles: [], bufferRadius: GameplayConfiguration.TaskBot.pathfindingGraphBufferRadius)
   
     lazy var obstacleSpriteNodes: [SKSpriteNode] = self["world/obstacles/*"] as! [SKSpriteNode]
@@ -90,7 +91,7 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
   
     // MARK: Pathfinding Debug
     
-    var debugDrawingEnabled = true
+    var debugDrawingEnabled = false
     {
         didSet
         {
@@ -147,8 +148,14 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
         // Load the level's configuration from the level data file.
         levelConfiguration = LevelConfiguration(fileName: sceneManager.currentSceneMetadata!.fileName)
 
+        //graph.triangulationMode = [.centers]
+        
+        
         // Set up the path finding graph with all polygon obstacles.
         graph.addObstacles(polygonObstacles)
+        
+        
+        //graph.triangulate()
         
         // Register for notifications about the app becoming inactive.
         registerForPauseNotifications()
@@ -242,6 +249,8 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
         // Start screen recording. See `LevelScene+ScreenRecording` for implementation.
         startScreenRecording()
         #endif
+        
+        debugDrawingEnabled = true
     }
     
     override func didChangeSize(_ oldSize: CGSize)
