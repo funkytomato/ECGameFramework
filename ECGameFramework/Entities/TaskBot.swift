@@ -125,6 +125,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         var debugPathShouldCycle = false
         let debugColor: SKColor
         
+        
         switch mandate
         {
             case .followGoodPatrolPath, .followBadPatrolPath:
@@ -132,6 +133,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 radius = GameplayConfiguration.TaskBot.patrolPathRadius
                 agentBehavior = TaskBotBehavior.behavior(forAgent: agent, patrollingPathWithPoints: pathPoints, pathRadius: radius, inScene: levelScene)
                 debugPathPoints = pathPoints
+                
                 // Patrol paths are always closed loops, so the debug drawing of the path should cycle back round to the start.
                 debugPathShouldCycle = true
                 debugColor = isGood ? SKColor.green : SKColor.purple
@@ -215,6 +217,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         mandate = isGood ? .followGoodPatrolPath : .followBadPatrolPath
         //mandate = isGood ? .wander : .wander
         //mandate = !isGood ? .wander : .wander
+        //mandate = .wander
         
         super.init()
 
@@ -443,12 +446,12 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             // The rules provided greater motivation to hunt the PlayerBot. Ignore any motivation to hunt the nearest good TaskBot.
             guard let playerBotAgent = state.playerBotTarget?.target.agent else { return }
             mandate = .huntAgent(playerBotAgent)
+            //mandate = .wander
         }
         else if huntTaskBot > huntPlayerBot
         {
             // The rules provided greater motivation to hunt the nearest good TaskBot. Ignore any motivation to hunt the PlayerBot.
-            //mandate = .huntAgent(state.nearestGoodTaskBotTarget!.target.agent)
-            mandate = .wander
+            mandate = .huntAgent(state.nearestGoodTaskBotTarget!.target.agent)
         }
         else
         {
@@ -462,6 +465,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                     // Send the `TaskBot` to the closest point on its "bad" patrol path.
                     let closestPointOnBadPath = closestPointOnPath(path: badPathPoints)
                     mandate = .returnToPositionOnPath(float2(closestPointOnBadPath))
+                    mandate = .wander
             }
         }
     }
