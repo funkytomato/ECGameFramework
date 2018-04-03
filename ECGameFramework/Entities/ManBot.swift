@@ -20,11 +20,11 @@ class ManBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
     var texture = SKTexture()
     
     /// The size to use for the `ManBot`s animation textures.
-    static var textureSize = CGSize(width: 120.0, height: 120.0)
+    static var textureSize = CGSize(width: 50.0, height: 50.0)
     
     
     /// The size to use for the `ManBot`'s shadow texture.
-    static var shadowSize = CGSize(width: 90.0, height: 40.0)
+    //static var shadowSize = CGSize(width: 50.0, height: 10.0)
     
     /// The actual texture to use for the `ManBot`'s shadow.
     static var shadowTexture: SKTexture = {
@@ -34,7 +34,7 @@ class ManBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
  
     
     /// The offset of the `ManBot`'s shadow from its center position.
-    static var shadowOffset = CGPoint(x: 0.0, y: -40.0)
+    //static var shadowOffset = CGPoint(x: 0.0, y: -40.0)
     
     /// The animations to use when a `ManBot` is in its "good" state.
     static var goodAnimations: [AnimationState: Animation]?
@@ -109,8 +109,8 @@ class ManBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
         //let spriteComponent = SpriteComponent(texture: ManBot.texture, textureSize: ManBot.textureSize)
         addComponent(spriteComponent)
     
-        let shadowComponent = ShadowComponent(texture: ManBot.shadowTexture, size: ManBot.shadowSize, offset: ManBot.shadowOffset)
-        addComponent(shadowComponent)
+        //let shadowComponent = ShadowComponent(texture: ManBot.shadowTexture, size: ManBot.shadowSize, offset: ManBot.shadowOffset)
+        //addComponent(shadowComponent)
  
         let animationComponent = AnimationComponent(textureSize: ManBot.textureSize, animations: initialAnimations)
         addComponent(animationComponent)
@@ -150,7 +150,7 @@ class ManBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
 
         // Connect the `RenderComponent` and `ShadowComponent` to the `AnimationComponent`.
         renderComponent.node.addChild(animationComponent.node)
-        animationComponent.shadowNode = shadowComponent.node
+        //animationComponent.shadowNode = shadowComponent.node
 
         
         // Specify the offset for beam targeting.
