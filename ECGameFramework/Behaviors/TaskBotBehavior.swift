@@ -39,6 +39,7 @@ class TaskBotBehavior: GKBehavior
         {
             print("behaviorAndPathPoints - agents are flocking \(agentsToFlockWith.description)")
             
+            
             // Add flocking goals for any nearby "bad" `TaskBot`s.
             let separationGoal = GKGoal(toSeparateFrom: agentsToFlockWith, maxDistance: GameplayConfiguration.Flocking.separationRadius, maxAngle: GameplayConfiguration.Flocking.separationAngle)
             behavior.setWeight(GameplayConfiguration.Flocking.separationWeight, for: separationGoal)
@@ -52,6 +53,9 @@ class TaskBotBehavior: GKBehavior
 
         // Add goals to follow a calculated path from the `TaskBot` to its target.
         let pathPoints = behavior.addGoalsToFollowPath(from: agent.position, to: target.position, pathRadius: pathRadius, inScene: scene)
+        
+        
+        print("targetPosition: \(target.position)")
         
         // Return a tuple containing the new behavior, and the found path points for debug drawing.
         return (behavior, pathPoints)
@@ -216,7 +220,7 @@ class TaskBotBehavior: GKBehavior
     private func addPointsToWander(from startPoint: float2, pathRadius: Float, inScene scene: LevelScene) -> [CGPoint]
     {
 
-        let endPoint = float2(2048.0,2048.0)
+        let endPoint = float2(140.0,45.0)
         guard let endNode = connectedNode(forPoint: endPoint, onObstacleGraphInScene: scene) else { return []  }
         
         scene.graph.connectUsingObstacles(node: endNode)
@@ -230,11 +234,13 @@ class TaskBotBehavior: GKBehavior
         // Remove the "start" and "end" nodes when exiting this scope.
         defer { scene.graph.remove([startNode, endNode]) }
         
-        let pathNodes = scene.graph.findPath(from: startNode, to: endNode) as! [GKGraphNode2D]
+        //let pathNodes = scene.graph.findPath(from: startNode, to: endNode) as! [GKGraphNode2D]
+        let pathNodes = [CGPoint()]
         
         // Convert the `GKGraphNode2D` nodes into `CGPoint`s for debug drawing.
-        let pathPoints = pathNodes.map { CGPoint($0.position) }
-        return pathPoints
+        //let pathPoints = pathNodes.map { CGPoint($0.position) }
+        //return pathPoints
+        return pathNodes
     }
     
     /// Pathfinds around obstacles to create a path between two points, and adds goals to follow that path.
@@ -272,7 +278,7 @@ class TaskBotBehavior: GKBehavior
     // Adds a goal to wander around thhe scene
     private func addWanderGoal(forScene scene: LevelScene)
     {
-        setWeight(60.0, for: GKGoal(toWander: 100))
+        setWeight(100.0, for: GKGoal(toWander: 100))
         print("addWanderGoal  scene: \(scene.description)")
     }
     
@@ -288,7 +294,7 @@ class TaskBotBehavior: GKBehavior
     /// Adds a goal to avoid all polygon obstacles in the scene.
     private func addAvoidObstaclesGoal(forScene scene: LevelScene)
     {
-        setWeight(100.0, for: GKGoal(toAvoid: scene.polygonObstacles, maxPredictionTime: GameplayConfiguration.TaskBot.maxPredictionTimeForObstacleAvoidance))
+        setWeight(1000.0, for: GKGoal(toAvoid: scene.polygonObstacles, maxPredictionTime: GameplayConfiguration.TaskBot.maxPredictionTimeForObstacleAvoidance))
         print("addAvoidObstaclesGoal  scene: \(scene.description)")
     }
     
