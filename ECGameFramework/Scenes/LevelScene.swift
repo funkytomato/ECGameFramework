@@ -53,6 +53,11 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
     {
         return childNode(withName: "world")!
     }
+    
+    var meatWagon: SKNode
+    {
+        return childNode(withName: "world/characters/meatwagon")!
+    }
 
     let playerBot = PlayerBot()
     var entities = Set<GKEntity>()
@@ -197,11 +202,18 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
             }
         }
         
+        
+        // Find the location of the meatwagon position.
+        //let charactersNode = childNode(withName: WorldLayer.characters.nodePath)!
+        let meatWagonCoordinate = meatWagon.position
+        print("meatWagon:\(meatWagonCoordinate.debugDescription)")
+        
+        
         // Iterate over the `TaskBot` configurations for this level, and create each `TaskBot`.
         for taskBotConfiguration in levelConfiguration.taskBotConfigurations
         {
             let taskBot: TaskBot
-
+            
             // Find the locations of the nodes that define the `TaskBot`'s "good" and "bad" patrol paths.
             let goodPathPoints = nodePointsFromNodeNames(nodeNames: taskBotConfiguration.goodPathNodeNames)
             let badPathPoints = nodePointsFromNodeNames(nodeNames: taskBotConfiguration.badPathNodeNames)
