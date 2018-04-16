@@ -1,0 +1,81 @@
+/*
+//
+//  BeingArrestedState.swift
+//  ECGameFramework
+//
+//  Created by Jason Fry on 10/04/2018.
+//  Copyright © 2018 Jason Fry. All rights reserved.
+//
+Abstract:
+The state `ManBot`s are in immediately prior to being arrested.
+This state has been created to allow for a struggle and resisting arrest
+
+*/
+
+import SpriteKit
+import GameplayKit
+
+class BeingArrestedState: GKState
+{
+    // MARK:- Properties
+    unowned var entity: ManBot
+    
+    //The amount of time the 'ManBot' has been in its "BeingArrested" state
+    var elapsedTime: TimeInterval = 0.0
+    
+    
+    /// The `AnimationComponent` associated with the `entity`.
+    var animationComponent: AnimationComponent
+    {
+        guard let animationComponent = entity.component(ofType: AnimationComponent.self) else { fatalError("A BeingArrestedState's entity must have an AnimationComponent.") }
+        return animationComponent
+    }
+    
+    //MARK:- Initializers
+    required init(entity: ManBot)
+    {
+        self.entity = entity
+    }
+    
+    
+    //MARK:- GKState Life Cycle
+    override func didEnter(from previousState: GKState?)
+    {
+        super.didEnter(from: previousState)
+        
+        //Reset the tracking of how long the 'ManBot' has been in a "BeingArrested" state
+        elapsedTime = 0.0
+        
+        //Request the "beingArrested animation for this state's 'ManBot'
+        animationComponent.requestedAnimationState = .idle
+        
+    }
+    
+    override func update(deltaTime seconds: TimeInterval)
+    {
+        super.update(deltaTime: seconds)
+        
+        elapsedTime += seconds
+        
+        /*
+         If the `ManBot` has been in its "beingArrested" state for long enough,
+         move to the arrested state.
+         */
+        if elapsedTime >= GameplayConfiguration.TaskBot.preAttackStateDuration
+        {
+            stateMachine?.enter(ArrestedState.self)
+        }
+    }
+    
+    override func isValidNextState(_ stateClass: AnyClass) -> Bool
+    {
+        switch stateClass
+        {
+        case is TaskBotAgentControlledState.Type, is ArrestedState.Type:
+            return true
+            
+        default:
+            return false
+        }
+    }
+}
