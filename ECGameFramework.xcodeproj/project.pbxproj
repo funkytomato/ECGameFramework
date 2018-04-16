@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		184B7631207D052200F959F7 /* BeingArrestedState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184B7630207D052200F959F7 /* BeingArrestedState.swift */; };
+		184B7633207D081D00F959F7 /* ArrestedState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184B7632207D081D00F959F7 /* ArrestedState.swift */; };
+		184B7635207D0CDA00F959F7 /* DetainedState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184B7634207D0CDA00F959F7 /* DetainedState.swift */; };
 		1852819E204896C100F614A1 /* RiotScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 1852819B204896C000F614A1 /* RiotScene.sks */; };
 		1852819F204896C100F614A1 /* RiotScene.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1852819C204896C000F614A1 /* RiotScene.xcassets */; };
 		185281A0204896C100F614A1 /* RiotScene.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1852819D204896C100F614A1 /* RiotScene.plist */; };
@@ -163,6 +166,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		184B7630207D052200F959F7 /* BeingArrestedState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeingArrestedState.swift; sourceTree = "<group>"; };
+		184B7632207D081D00F959F7 /* ArrestedState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrestedState.swift; sourceTree = "<group>"; };
+		184B7634207D0CDA00F959F7 /* DetainedState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetainedState.swift; sourceTree = "<group>"; };
 		1852819B204896C000F614A1 /* RiotScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = RiotScene.sks; sourceTree = "<group>"; };
 		1852819C204896C000F614A1 /* RiotScene.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = RiotScene.xcassets; sourceTree = "<group>"; };
 		1852819D204896C100F614A1 /* RiotScene.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = RiotScene.plist; sourceTree = "<group>"; };
@@ -537,6 +543,9 @@
 				18D983B62048B4BC006D7A14 /* ManBotPreAttackState.swift */,
 				18D983B42048B3BF006D7A14 /* ManBotAttackState.swift */,
 				18D983B82048B507006D7A14 /* ManBotRotateToAttackState.swift */,
+				184B7630207D052200F959F7 /* BeingArrestedState.swift */,
+				184B7632207D081D00F959F7 /* ArrestedState.swift */,
+				184B7634207D0CDA00F959F7 /* DetainedState.swift */,
 			);
 			path = "IntelligenceComponent States (TaskBot)";
 			sourceTree = "<group>";
@@ -896,6 +905,7 @@
 				18FCEA722040EC40009A5C0D /* PhysicsComponent.swift in Sources */,
 				18FCEA9B2040EC40009A5C0D /* ThumbStickNode.swift in Sources */,
 				18D983B52048B3BF006D7A14 /* ManBotAttackState.swift in Sources */,
+				184B7633207D081D00F959F7 /* ArrestedState.swift in Sources */,
 				18FCEA632040EC40009A5C0D /* InputComponent.swift in Sources */,
 				18FCEAA22040EC40009A5C0D /* GameControllerInputSource.swift in Sources */,
 				18FCEA5F2040EC40009A5C0D /* BeamIdleState.swift in Sources */,
@@ -909,10 +919,12 @@
 				18FCEA492040EC40009A5C0D /* BaseScene.swift in Sources */,
 				18FCEA512040EC40009A5C0D /* LevelScene+Debug.swift in Sources */,
 				18FCEA6F2040EC40009A5C0D /* IntelligenceComponent.swift in Sources */,
+				184B7635207D0CDA00F959F7 /* DetainedState.swift in Sources */,
 				18FCEA532040EC40009A5C0D /* LevelScene.swift in Sources */,
 				18FCEA592040EC40009A5C0D /* PlayerBot.swift in Sources */,
 				18FCEA6B2040EC40009A5C0D /* GroundBotPreAttackState.swift in Sources */,
 				186F6E9D2040DAF5001EEF65 /* GameViewController.swift in Sources */,
+				184B7631207D052200F959F7 /* BeingArrestedState.swift in Sources */,
 				18DF360F2052FBCD001F55DE /* SpriteComponent.swift in Sources */,
 				18FCEA552040EC40009A5C0D /* SceneOverlay.swift in Sources */,
 				18FCEAA72040EC40009A5C0D /* ButtonNodeResponderType+ScreenRecording.swift in Sources */,
