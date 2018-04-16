@@ -89,10 +89,10 @@ struct GameplayConfiguration
         static let thresholdProximityToPatrolPathStartPoint: Float = 50.0
         
         /// The maximum speed (in points per second) for the `TaskBot` when in its "good" state.
-        static let maximumSpeedWhenGood: Float = 250.0
+        static let maximumSpeedWhenGood: Float = 150.0
 
         /// The maximum speed (in points per second) for the `TaskBot` when in its "bad" state.
-        static let maximumSpeedWhenBad: Float = 120.0
+        static let maximumSpeedWhenBad: Float = 130.0
 
         /// A convenience function to return the max speed for a state.
         static func maximumSpeedForIsGood(isGood: Bool) -> Float
@@ -147,10 +147,16 @@ struct GameplayConfiguration
         static let pathfindingGraphBufferRadius: Float = 20.0
         
         /// The duration of a `TaskBot`'s pre-attack state.
-        static let preAttackStateDuration: TimeInterval = 0.8
+        static let preAttackStateDuration: TimeInterval = 0.3
         
         /// The duration of a `TaskBot`'s zapped state.
         static let zappedStateDuration: TimeInterval = 0.75
+        
+        /// The duration of a `TaskBot`'s arresting state.
+        static let arrestingStateDuration: TimeInterval = 0.8
+        
+        /// The duration of a `TaskBot`'s arrested state.
+        //static let arrestedStateDuration: TimeInterval = 0.8
     }
 
     struct FlyingBot
