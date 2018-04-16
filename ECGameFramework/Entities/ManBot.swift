@@ -120,7 +120,10 @@ class ManBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
             ManBotRotateToAttackState(entity: self),
             ManBotPreAttackState(entity: self),
             ManBotAttackState(entity: self),
-            TaskBotZappedState(entity: self)
+            TaskBotZappedState(entity: self),
+            BeingArrestedState(entity: self),
+            ArrestedState(entity: self),
+            DetainedState(entity: self)
             ])
         addComponent(intelligenceComponent)
         
@@ -168,11 +171,18 @@ class ManBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
     {
         super.contactWithEntityDidBegin(entity)
         
+        //If touching entity is attacking, start the arresting process
+        guard let attackState = entity.component(ofType: IntelligenceComponent.self)?.stateMachine.currentState as? ManBotAttackState else { return }
+        
         // Retrieve the current state from this `ManBot` as a `ManBotAttackState`.
-        guard let attackState = component(ofType: IntelligenceComponent.self)?.stateMachine.currentState as? ManBotAttackState else { return }
+        //guard let attackState = component(ofType: IntelligenceComponent.self)?.stateMachine.currentState as? ManBotAttackState else { return }
         
         // Use the `ManBotAttackState` to apply the appropriate damage to the contacted entity.
-        attackState.applyDamageToEntity(entity: entity)
+        //attackState.applyDamageToEntity(entity: entity)
+        
+        //Move state to being Arrested
+        guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
+        intelligenceComponent.stateMachine.enter(BeingArrestedState.self)
     }
     
     // MARK: RulesComponentDelegate
