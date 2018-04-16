@@ -80,9 +80,11 @@ class TaskBotAgentControlledState: GKState
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
     {
+        print("is ValidNextState stateClass:\(stateClass.description())")
+        
         switch stateClass
         {
-        case is FlyingBotPreAttackState.Type, is GroundBotRotateToAttackState.Type, is TaskBotZappedState.Type, is ManBotRotateToAttackState.Type:
+        case is FlyingBotPreAttackState.Type, is GroundBotRotateToAttackState.Type, is TaskBotZappedState.Type, is ManBotRotateToAttackState.Type, is BeingArrestedState.Type, is ArrestedState.Type, is DetainedState.Type:
                 return true
                 
             default:
