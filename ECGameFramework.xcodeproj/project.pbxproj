@@ -26,6 +26,11 @@
 		186F6EA52040DC39001EEF65 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 186F6EA12040DC38001EEF65 /* LaunchScreen.storyboard */; };
 		186F6EA62040DC39001EEF65 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 186F6EA12040DC38001EEF65 /* LaunchScreen.storyboard */; };
 		186F6EA72040DC39001EEF65 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 186F6EA12040DC38001EEF65 /* LaunchScreen.storyboard */; };
+		18C82A6020861FCA0046B746 /* ScaredState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C82A5F20861FCA0046B746 /* ScaredState.swift */; };
+		18C82A62208620520046B746 /* CalmState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C82A61208620520046B746 /* CalmState.swift */; };
+		18C82A642086207B0046B746 /* AngryState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C82A632086207B0046B746 /* AngryState.swift */; };
+		18C82A66208620A90046B746 /* ViolentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C82A65208620A90046B746 /* ViolentState.swift */; };
+		18C82A68208620C80046B746 /* SubduedState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C82A67208620C80046B746 /* SubduedState.swift */; };
 		18D0FAEC204465140098DF17 /* Level4.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18D0FAE9204462DF0098DF17 /* Level4.plist */; };
 		18D0FAED2044651D0098DF17 /* Level4.sks in Resources */ = {isa = PBXBuildFile; fileRef = 18D0FAEA204462DF0098DF17 /* Level4.sks */; };
 		18D0FAEE204465200098DF17 /* Level4.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18D0FAEB204462DF0098DF17 /* Level4.xcassets */; };
@@ -33,6 +38,8 @@
 		18D983B72048B4BC006D7A14 /* ManBotPreAttackState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D983B62048B4BC006D7A14 /* ManBotPreAttackState.swift */; };
 		18D983B92048B507006D7A14 /* ManBotRotateToAttackState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D983B82048B507006D7A14 /* ManBotRotateToAttackState.swift */; };
 		18DF360F2052FBCD001F55DE /* SpriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DF360E2052FBCC001F55DE /* SpriteComponent.swift */; };
+		18EA813220864631002B00EB /* HealthComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EA813120864631002B00EB /* HealthComponent.swift */; };
+		18EDA50F2084FB26005CB784 /* TemperamentComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EDA50E2084FB26005CB784 /* TemperamentComponent.swift */; };
 		18F35DAF205427F200B686DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18F35DAD205427F200B686DA /* Assets.xcassets */; };
 		18F35DB2205428B900B686DA /* Trail.sks in Resources */ = {isa = PBXBuildFile; fileRef = 18F35DB0205428B800B686DA /* Trail.sks */; };
 		18F35DB3205428B900B686DA /* circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F35DB1205428B900B686DA /* circle.png */; };
@@ -185,6 +192,11 @@
 		186F6E9C2040DAF5001EEF65 /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		186F6EA02040DC36001EEF65 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		186F6EA12040DC38001EEF65 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		18C82A5F20861FCA0046B746 /* ScaredState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaredState.swift; sourceTree = "<group>"; };
+		18C82A61208620520046B746 /* CalmState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalmState.swift; sourceTree = "<group>"; };
+		18C82A632086207B0046B746 /* AngryState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AngryState.swift; sourceTree = "<group>"; };
+		18C82A65208620A90046B746 /* ViolentState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViolentState.swift; sourceTree = "<group>"; };
+		18C82A67208620C80046B746 /* SubduedState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubduedState.swift; sourceTree = "<group>"; };
 		18D0FAE9204462DF0098DF17 /* Level4.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Level4.plist; sourceTree = "<group>"; };
 		18D0FAEA204462DF0098DF17 /* Level4.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level4.sks; sourceTree = "<group>"; };
 		18D0FAEB204462DF0098DF17 /* Level4.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Level4.xcassets; sourceTree = "<group>"; };
@@ -192,6 +204,8 @@
 		18D983B62048B4BC006D7A14 /* ManBotPreAttackState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManBotPreAttackState.swift; sourceTree = "<group>"; };
 		18D983B82048B507006D7A14 /* ManBotRotateToAttackState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManBotRotateToAttackState.swift; sourceTree = "<group>"; };
 		18DF360E2052FBCC001F55DE /* SpriteComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpriteComponent.swift; sourceTree = "<group>"; };
+		18EA813120864631002B00EB /* HealthComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthComponent.swift; sourceTree = "<group>"; };
+		18EDA50E2084FB26005CB784 /* TemperamentComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemperamentComponent.swift; sourceTree = "<group>"; };
 		18F35DAD205427F200B686DA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		18F35DB0205428B800B686DA /* Trail.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Trail.sks; sourceTree = "<group>"; };
 		18F35DB1205428B900B686DA /* circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circle.png; sourceTree = "<group>"; };
@@ -403,6 +417,18 @@
 			path = RiotScene;
 			sourceTree = "<group>";
 		};
+		18C82A5E20861F9C0046B746 /* TemperamentComponent States */ = {
+			isa = PBXGroup;
+			children = (
+				18C82A632086207B0046B746 /* AngryState.swift */,
+				18C82A61208620520046B746 /* CalmState.swift */,
+				18C82A5F20861FCA0046B746 /* ScaredState.swift */,
+				18C82A67208620C80046B746 /* SubduedState.swift */,
+				18C82A65208620A90046B746 /* ViolentState.swift */,
+			);
+			path = "TemperamentComponent States";
+			sourceTree = "<group>";
+		};
 		18D0FAE8204462CA0098DF17 /* Level4 */ = {
 			isa = PBXGroup;
 			children = (
@@ -505,6 +531,9 @@
 				18FCEA042040EB9F009A5C0D /* RenderComponent.swift */,
 				18FCEA052040EB9F009A5C0D /* RulesComponent.swift */,
 				18FCEA062040EB9F009A5C0D /* ShadowComponent.swift */,
+				18EDA50E2084FB26005CB784 /* TemperamentComponent.swift */,
+				18C82A5E20861F9C0046B746 /* TemperamentComponent States */,
+				18EA813120864631002B00EB /* HealthComponent.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -538,8 +567,8 @@
 				18FCE9FB2040EB9F009A5C0D /* GroundBotAttackState.swift */,
 				18FCE9FC2040EB9F009A5C0D /* GroundBotPreAttackState.swift */,
 				18FCE9FD2040EB9F009A5C0D /* GroundBotRotateToAttackState.swift */,
-				18FCE9FE2040EB9F009A5C0D /* TaskBotAgentControlledState.swift */,
 				18FCE9FF2040EB9F009A5C0D /* TaskBotZappedState.swift */,
+				18FCE9FE2040EB9F009A5C0D /* TaskBotAgentControlledState.swift */,
 				18D983B62048B4BC006D7A14 /* ManBotPreAttackState.swift */,
 				18D983B42048B3BF006D7A14 /* ManBotAttackState.swift */,
 				18D983B82048B507006D7A14 /* ManBotRotateToAttackState.swift */,
@@ -917,6 +946,7 @@
 				18FCEAA52040EC40009A5C0D /* TouchControlInputNode.swift in Sources */,
 				18FCEA732040EC40009A5C0D /* RenderComponent.swift in Sources */,
 				18FCEA492040EC40009A5C0D /* BaseScene.swift in Sources */,
+				18C82A68208620C80046B746 /* SubduedState.swift in Sources */,
 				18FCEA512040EC40009A5C0D /* LevelScene+Debug.swift in Sources */,
 				18FCEA6F2040EC40009A5C0D /* IntelligenceComponent.swift in Sources */,
 				184B7635207D0CDA00F959F7 /* DetainedState.swift in Sources */,
@@ -924,18 +954,22 @@
 				18FCEA592040EC40009A5C0D /* PlayerBot.swift in Sources */,
 				18FCEA6B2040EC40009A5C0D /* GroundBotPreAttackState.swift in Sources */,
 				186F6E9D2040DAF5001EEF65 /* GameViewController.swift in Sources */,
+				18EDA50F2084FB26005CB784 /* TemperamentComponent.swift in Sources */,
 				184B7631207D052200F959F7 /* BeingArrestedState.swift in Sources */,
 				18DF360F2052FBCD001F55DE /* SpriteComponent.swift in Sources */,
 				18FCEA552040EC40009A5C0D /* SceneOverlay.swift in Sources */,
 				18FCEAA72040EC40009A5C0D /* ButtonNodeResponderType+ScreenRecording.swift in Sources */,
 				18FCEA982040EC40009A5C0D /* BeamNode.swift in Sources */,
 				18FCEA682040EC40009A5C0D /* FlyingBotBlastState.swift in Sources */,
+				18C82A642086207B0046B746 /* AngryState.swift in Sources */,
 				18FCEA602040EC40009A5C0D /* BeamComponent.swift in Sources */,
 				186F6E512040D1D1001EEF65 /* AppDelegate.swift in Sources */,
 				18FCEA622040EC40009A5C0D /* CompassDirection.swift in Sources */,
 				18FCEA772040EC40009A5C0D /* TaskBotBehavior.swift in Sources */,
 				18FCEA6C2040EC40009A5C0D /* GroundBotRotateToAttackState.swift in Sources */,
+				18C82A6020861FCA0046B746 /* ScaredState.swift in Sources */,
 				18FCEA582040EC40009A5C0D /* GroundBot.swift in Sources */,
+				18C82A66208620A90046B746 /* ViolentState.swift in Sources */,
 				18FCEA5B2040EC40009A5C0D /* TaskBotAgent.swift in Sources */,
 				18FCE9C52040EB3C009A5C0D /* LoadSceneOperation.swift in Sources */,
 				18FCEA482040EC40009A5C0D /* BaseScene+Focus.swift in Sources */,
@@ -974,11 +1008,13 @@
 				18FCE9C72040EB3C009A5C0D /* SceneLoaderDownloadFailedState.swift in Sources */,
 				18FCE9D02040EB3C009A5C0D /* SceneOperation.swift in Sources */,
 				18FCE9CD2040EB3C009A5C0D /* SceneLoader.swift in Sources */,
+				18C82A62208620520046B746 /* CalmState.swift in Sources */,
 				18FCE9C82040EB3C009A5C0D /* SceneLoaderDownloadingResourcesState.swift in Sources */,
 				185281A52048ABCD00F614A1 /* ManBot.swift in Sources */,
 				18FCEA4A2040EC40009A5C0D /* HomeEndScene.swift in Sources */,
 				18FCEA752040EC40009A5C0D /* ShadowComponent.swift in Sources */,
 				18FCEA9E2040EC40009A5C0D /* Rules.swift in Sources */,
+				18EA813220864631002B00EB /* HealthComponent.swift in Sources */,
 				18FCE9CE2040EB3C009A5C0D /* SceneManager.swift in Sources */,
 				18FCE9C62040EB3C009A5C0D /* ResourceLoadableType.swift in Sources */,
 				18FCEA972040EC40009A5C0D /* ContactNotifiableType.swift in Sources */,
