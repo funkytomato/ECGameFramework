@@ -24,6 +24,14 @@ class SubduedState: GKState
     //The amount of time the 'ManBot' has been in its "Arrested" state
     var elapsedTime: TimeInterval = 0.0
 
+    
+    /// The `SpriteComponent` associated with the `entity`.
+    var spriteComponent: SpriteComponent
+    {
+        guard let spriteComponent = entity.component(ofType: SpriteComponent.self) else { fatalError("An entity's AngryState must have an AnimationComponent.") }
+        return spriteComponent
+    }
+    
     /// The `AnimationComponent` associated with the `entity`.
     var animationComponent: AnimationComponent
     {
@@ -54,14 +62,22 @@ class SubduedState: GKState
         elapsedTime = 0.0
         
         //Request the "beingArrested animation for this state's 'ManBot'
-        animationComponent.requestedAnimationState = .idle
+        //animationComponent.requestedAnimationState = .idle
         
+        //Change the colour of the sprite to show subdued
+        spriteComponent.changeColour(colour: SKColor.darkGray)
+        
+        
+        /*
         // Apply damage to any entities the `GroundBot` is already in contact with.
         let contactedBodies = physicsComponent.physicsBody.allContactedBodies()
         for contactedBody in contactedBodies
         {
             guard let entity = contactedBody.node?.entity else { continue }
+            
+            spriteComponent.changeColour(colour: SKColor.darkGray)
         }
+        */
     }
     
     override func update(deltaTime seconds: TimeInterval)
@@ -76,7 +92,7 @@ class SubduedState: GKState
     {
         switch stateClass
         {
-        case is ViolentState.Type, is SubduedState.Type:
+        case is CalmState.Type, is ScaredState.Type, is AngryState.Type, is SubduedState.Type, is ViolentState.Type:
             return true
             
         default:

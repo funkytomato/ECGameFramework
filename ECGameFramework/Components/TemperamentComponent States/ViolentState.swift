@@ -27,6 +27,13 @@ class ViolentState: GKState
     //The MeatWagon location
     let meatWagonCoordinate = float2(x: 0.0, y: 0.0)
     
+    /// The `SpriteComponent` associated with the `entity`.
+    var spriteComponent: SpriteComponent
+    {
+        guard let spriteComponent = entity.component(ofType: SpriteComponent.self) else { fatalError("An entity's AngryState must have an AnimationComponent.") }
+        return spriteComponent
+    }
+    
     
     /// The `AnimationComponent` associated with the `entity`.
     var animationComponent: AnimationComponent
@@ -58,14 +65,11 @@ class ViolentState: GKState
         elapsedTime = 0.0
         
         //Request the "beingArrested animation for this state's 'ManBot'
-        animationComponent.requestedAnimationState = .idle
+        //animationComponent.requestedAnimationState = .idle
         
-        // Apply damage to any entities the `GroundBot` is already in contact with.
-        let contactedBodies = physicsComponent.physicsBody.allContactedBodies()
-        for contactedBody in contactedBodies
-        {
-            guard let entity = contactedBody.node?.entity else { continue }
-        }
+        //Change the colour of the sprite to show violent
+        spriteComponent.changeColour(colour: SKColor.red)
+
     }
     
     override func update(deltaTime seconds: TimeInterval)
@@ -74,16 +78,13 @@ class ViolentState: GKState
         
         elapsedTime += seconds
         
-        /*
-         If the arrested manbot reaches the meatwagon pointer, move to detained state
-         */
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
     {
         switch stateClass
         {
-        case is TaskBotAgentControlledState.Type, is DetainedState.Type:
+        case is CalmState.Type, is ScaredState.Type, is AngryState.Type, is SubduedState.Type, is ViolentState.Type:
             return true
             
         default:
