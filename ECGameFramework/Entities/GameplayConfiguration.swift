@@ -153,10 +153,10 @@ struct GameplayConfiguration
         static let zappedStateDuration: TimeInterval = 0.75
         
         /// The duration of a `TaskBot`'s arresting state.
-        static let arrestingStateDuration: TimeInterval = 0.8
+        static let arrestingStateDuration: TimeInterval = 10
         
         /// The duration of a `TaskBot`'s arrested state.
-        //static let arrestedStateDuration: TimeInterval = 0.8
+        static let arrestedStateDuration: TimeInterval = 50
     }
 
     struct FlyingBot
