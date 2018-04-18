@@ -46,8 +46,12 @@ class BeingArrestedState: GKState
         //Reset the tracking of how long the 'ManBot' has been in a "BeingArrested" state
         elapsedTime = 0.0
         
+        
         //Request the "beingArrested animation for this state's 'ManBot'
-        animationComponent.requestedAnimationState = .idle
+        animationComponent.requestedAnimationState = .hit
+        
+        let temperamentComponent = entity.component(ofType: TemperamentComponent.self)
+        temperamentComponent?.increaseTemperament()
         
     }
     
@@ -61,7 +65,8 @@ class BeingArrestedState: GKState
          If the `ManBot` has been in its "beingArrested" state for long enough,
          move to the arrested state.
          */
-        if elapsedTime >= GameplayConfiguration.TaskBot.preAttackStateDuration
+        //if elapsedTime >= GameplayConfiguration.TaskBot.preAttackStateDuration
+        if elapsedTime >= GameplayConfiguration.TaskBot.arrestingStateDuration
         {
             stateMachine?.enter(ArrestedState.self)
         }
