@@ -487,6 +487,13 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
         {
             intelligenceComponent.enterInitialState()
         }
+        
+        // If the entity has an `TemperamentComponent`, enter its initial state.
+        if let temperamentComponent = entity.component(ofType: TemperamentComponent.self)
+        {
+            temperamentComponent.enterInitialState()
+        }
+        
     }
     
     func addNode(node: SKNode, toWorldLayer worldLayer: WorldLayer)
