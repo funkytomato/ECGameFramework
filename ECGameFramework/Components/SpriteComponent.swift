@@ -35,4 +35,10 @@ class SpriteComponent: GKComponent
     {
         super.update(deltaTime: deltaTime)
     }
+    
+    // Convenience methods
+    func changeColour(colour: SKColor)
+    {
+        node.color = colour
+    }
 }
