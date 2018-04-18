@@ -154,8 +154,13 @@ class ManBotAttackState: GKState
         }
         else if let taskBot = entity as? TaskBot, taskBot.isGood
         {
+            //Move state to being Arrested
+            guard let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self) else { return }
+            intelligenceComponent.stateMachine.enter(BeingArrestedState.self)
+            
+            
             // If the other entity is a good `TaskBot`, turn it bad.
-            taskBot.isGood = false
+            //taskBot.isGood = false
         }
     }
     
