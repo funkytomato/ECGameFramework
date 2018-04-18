@@ -127,6 +127,17 @@ class ManBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
             ])
         addComponent(intelligenceComponent)
         
+        
+        let temperamentComponent = TemperamentComponent(states: [
+            CalmState(entity: self),
+            ScaredState(entity: self),
+            AngryState(entity: self),
+            ViolentState(entity: self),
+            SubduedState(entity: self)
+            ])
+        addComponent(temperamentComponent)
+        
+        
         let physicsBody = SKPhysicsBody(circleOfRadius: GameplayConfiguration.TaskBot.physicsBodyRadius, center: GameplayConfiguration.TaskBot.physicsBodyOffset)
         let physicsComponent = PhysicsComponent(physicsBody: physicsBody, colliderType: .TaskBot)
         addComponent(physicsComponent)
@@ -156,6 +167,12 @@ class ManBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
         //animationComponent.shadowNode = shadowComponent.node
 
         
+        if !isGood
+        {
+            temperamentComponent.stateMachine.enter(ViolentState.self)
+        }
+        
+        
         // Specify the offset for beam targeting.
         beamTargetOffset = GameplayConfiguration.ManBot.beamTargetOffset
     }
@@ -174,15 +191,9 @@ class ManBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
         //If touching entity is attacking, start the arresting process
         guard let attackState = entity.component(ofType: IntelligenceComponent.self)?.stateMachine.currentState as? ManBotAttackState else { return }
         
-        // Retrieve the current state from this `ManBot` as a `ManBotAttackState`.
-        //guard let attackState = component(ofType: IntelligenceComponent.self)?.stateMachine.currentState as? ManBotAttackState else { return }
         
         // Use the `ManBotAttackState` to apply the appropriate damage to the contacted entity.
-        //attackState.applyDamageToEntity(entity: entity)
-        
-        //Move state to being Arrested
-        guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
-        intelligenceComponent.stateMachine.enter(BeingArrestedState.self)
+        attackState.applyDamageToEntity(entity: entity)
     }
     
     // MARK: RulesComponentDelegate
