@@ -29,6 +29,13 @@ class DetainedState: GKState
         return animationComponent
     }
     
+    /// The `TemperamentComponent` associated with the `entity`.
+    var temperamentComponent: TemperamentComponent
+    {
+        guard let temperamentComponent = entity.component(ofType: TemperamentComponent.self) else { fatalError("A BeingArrestedState's entity must have an TemperamentComponent.") }
+        return temperamentComponent
+    }
+    
     //MARK:- Initializers
     required init(entity: ManBot)
     {
@@ -45,7 +52,9 @@ class DetainedState: GKState
         elapsedTime = 0.0
         
         //Request the "beingArrested animation for this state's 'ManBot'
-        animationComponent.requestedAnimationState = .idle
+        animationComponent.requestedAnimationState = .inactive
+        
+        temperamentComponent.stateMachine.enter(SubduedState.self)
     }
     
     override func update(deltaTime seconds: TimeInterval)

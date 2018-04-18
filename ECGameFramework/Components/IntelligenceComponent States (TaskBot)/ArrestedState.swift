@@ -24,9 +24,6 @@ class ArrestedState: GKState
     //The amount of time the 'ManBot' has been in its "Arrested" state
     var elapsedTime: TimeInterval = 0.0
     
-    //The MeatWagon location
-    let meatWagonCoordinate = float2(x: 0.0, y: 0.0)
-    
     
     /// The `AnimationComponent` associated with the `entity`.
     var animationComponent: AnimationComponent
@@ -58,8 +55,11 @@ class ArrestedState: GKState
         elapsedTime = 0.0
         
         //Request the "beingArrested animation for this state's 'ManBot'
-        animationComponent.requestedAnimationState = .idle
+        animationComponent.requestedAnimationState = .zapped
         
+        applyCuffsToEntity(entity: self.entity)
+        
+        /*
         // Apply damage to any entities the `GroundBot` is already in contact with.
         let contactedBodies = physicsComponent.physicsBody.allContactedBodies()
         for contactedBody in contactedBodies
@@ -67,13 +67,7 @@ class ArrestedState: GKState
             guard let entity = contactedBody.node?.entity else { continue }
             applyCuffsToEntity(entity: entity)
         }
-        
-        // Find the location of the meatwagon position.
-        //let node = LevelScene.
-        
-        //Attach prisoner to policeman
-        
-        //Move to meatwagon
+ */
     }
     
     override func update(deltaTime seconds: TimeInterval)
@@ -85,6 +79,10 @@ class ArrestedState: GKState
         /*
         If the arrested manbot reaches the meatwagon pointer, move to detained state
         */
+        if elapsedTime >= GameplayConfiguration.TaskBot.arrestedStateDuration
+        {
+            stateMachine?.enter(DetainedState.self)
+        }
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
@@ -109,10 +107,23 @@ class ArrestedState: GKState
             // If the other entity is a `PlayerBot` that isn't powered down, reduce its charge.
             chargeComponent.loseCharge(chargeToLose: GameplayConfiguration.ManBot.chargeLossPerContact)
         }
+            /*
         else if let taskBot = entity as? TaskBot, taskBot.isGood
         {
+            temperamentComponent.stateMachine.enter(SubduedState.self)
+            
+            
             // If the other entity is a good `TaskBot`, turn it bad.
-            taskBot.isGood = false
+            //taskBot.isGood = false
+        }
+ */
+        else if let manBot = entity as? ManBot, manBot.isGood, let temperamentComponent = entity.component(ofType: TemperamentComponent.self)
+        {
+            temperamentComponent.stateMachine.enter(AngryState.self)
+            
+            
+            // If the other entity is a good `TaskBot`, turn it bad.
+            //taskBot.isGood = false
         }
     }
 }
