@@ -64,7 +64,7 @@ class ManBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
     
     // MARK: Initialization
     
-    required init(isGood: Bool, goodPathPoints: [CGPoint], badPathPoints: [CGPoint])
+    required init(temperament: String, isGood: Bool, goodPathPoints: [CGPoint], badPathPoints: [CGPoint])
     {
         super.init(isGood: isGood, goodPathPoints: goodPathPoints, badPathPoints: badPathPoints)
         
@@ -127,6 +127,26 @@ class ManBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
             ])
         addComponent(intelligenceComponent)
         
+        var initialState : GKState?
+        switch temperament
+        {
+        case "Scared":
+            initialState = ScaredState(entity: self) as? GKState
+            
+        case "Calm":
+            initialState = CalmState(entity: self) as? GKState
+            
+        case "Angry":
+            initialState = AngryState(entity: self) as? GKState
+            
+        case "Violent":
+            initialState = ViolentState(entity: self) as? GKState
+            
+        default:
+             initialState = CalmState(entity: self) as? GKState
+        }
+        
+        print("initialState :\(initialState.debugDescription)")
         
         let temperamentComponent = TemperamentComponent(states: [
             CalmState(entity: self),
@@ -134,8 +154,9 @@ class ManBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
             AngryState(entity: self),
             ViolentState(entity: self),
             SubduedState(entity: self)
-            ])
+            ], initialState: initialState!)
         addComponent(temperamentComponent)
+
         
         
         let physicsBody = SKPhysicsBody(circleOfRadius: GameplayConfiguration.TaskBot.physicsBodyRadius, center: GameplayConfiguration.TaskBot.physicsBodyOffset)
@@ -166,12 +187,13 @@ class ManBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
         renderComponent.node.addChild(animationComponent.node)
         //animationComponent.shadowNode = shadowComponent.node
 
-        
+ 
+        /*
         if !isGood
         {
             temperamentComponent.stateMachine.enter(ViolentState.self)
         }
-        
+        */
         
         // Specify the offset for beam targeting.
         beamTargetOffset = GameplayConfiguration.ManBot.beamTargetOffset
@@ -181,6 +203,11 @@ class ManBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
     {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    required init(isGood: Bool, goodPathPoints: [CGPoint], badPathPoints: [CGPoint]) {
+        fatalError("init(isGood:goodPathPoints:badPathPoints:) has not been implemented")
+    }
+
     
     // MARK: ContactableType
     
