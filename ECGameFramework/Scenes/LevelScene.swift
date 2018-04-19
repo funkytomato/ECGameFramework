@@ -228,7 +228,7 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
                     taskBot = GroundBot(isGood: !taskBotConfiguration.startsBad, goodPathPoints: goodPathPoints, badPathPoints: badPathPoints)
                     
                 case .man:
-                    taskBot = ManBot(isGood: !taskBotConfiguration.startsBad, goodPathPoints: goodPathPoints, badPathPoints: badPathPoints)
+                    taskBot = ManBot(temperament: taskBotConfiguration.temperament, isGood: !taskBotConfiguration.startsBad, goodPathPoints: goodPathPoints, badPathPoints: badPathPoints)
                 
             }
             
