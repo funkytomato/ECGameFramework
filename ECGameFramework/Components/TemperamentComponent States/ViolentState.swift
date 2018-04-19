@@ -19,7 +19,7 @@ import GameplayKit
 class ViolentState: GKState
 {
     // MARK:- Properties
-    unowned var entity: ManBot
+    unowned var entity: TaskBot
     
     //The amount of time the 'ManBot' has been in its "Arrested" state
     var elapsedTime: TimeInterval = 0.0
@@ -50,7 +50,7 @@ class ViolentState: GKState
     }
     
     //MARK:- Initializers
-    required init(entity: ManBot)
+    required init(entity: TaskBot)
     {
         self.entity = entity
     }
