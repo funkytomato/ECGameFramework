@@ -22,11 +22,17 @@ class TemperamentComponent: GKComponent
     
     // MARK: Initializers
     
-    init(states: [GKState])
+    init(states: [GKState], initialState: GKState)
     {
+        print("Initialising TemperamentComponent")
         stateMachine = GKStateMachine(states: states)
-        let firstState = states.first!
-        initialStateClass = type(of: firstState)
+        //let firstState = states.first!
+        //initialStateClass = type(of: firstState)
+        
+        initialStateClass = type(of: initialState)
+        
+        print("initialStateClass :\(initialStateClass.description())")
+        
         super.init()
     }
     
@@ -54,6 +60,28 @@ class TemperamentComponent: GKComponent
     /*
      Convenience functions
     */
+    
+    func setState(newState: String)
+    {
+        switch newState
+        {
+        case "Scared":
+            stateMachine.enter(ScaredState.self)
+            
+        case "Calm":
+            stateMachine.enter(CalmState.self)
+            
+        case "AngryState":
+            stateMachine.enter(AngryState.self)
+            
+        case "ViolentState":
+            stateMachine.enter(ViolentState.self)
+            
+        default:
+            stateMachine.enter(CalmState.self)
+        }
+        print("Setting the temperamentComponent to :\(newState)")
+    }
     
     /*
     Increase the temperament of the entity
