@@ -54,7 +54,7 @@ class ManBotRotateToAttackState: GKState
         super.didEnter(from: previousState)
         
         // Request the "walk forward" animation for this `ManBot`.
-        animationComponent.requestedAnimationState = .walkForward
+        animationComponent.requestedAnimationState = .idle
     }
     
     override func update(deltaTime seconds: TimeInterval)
@@ -87,7 +87,7 @@ class ManBotRotateToAttackState: GKState
         orientationComponent.zRotation += delta
         
         // The `ManBot` may have rotated into a new `FacingDirection`, so re-request the "walk forward" animation.
-        animationComponent.requestedAnimationState = .walkForward
+        animationComponent.requestedAnimationState = .idle
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
