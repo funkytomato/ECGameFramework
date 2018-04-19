@@ -40,6 +40,9 @@ struct LevelConfiguration
         /// Whether the bot should be in its "bad" state when the level begins.
         let startsBad: Bool
         
+        //The temperament of the taskbot when the level begins
+        let temperament: String
+        
         // MARK: Initialization
 
         init(botConfigurationInfo: [String: AnyObject])
@@ -63,6 +66,7 @@ struct LevelConfiguration
             goodPathNodeNames = botConfigurationInfo["goodPathNodeNames"] as! [String]
             badPathNodeNames = botConfigurationInfo["badPathNodeNames"] as! [String]
             startsBad = botConfigurationInfo["startsBad"] as! Bool
+            temperament = botConfigurationInfo["temperament"] as! String
         }
 
     }
