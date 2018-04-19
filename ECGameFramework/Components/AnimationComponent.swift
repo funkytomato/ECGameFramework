@@ -13,13 +13,26 @@ import GameplayKit
 enum AnimationState: String
 {
     case idle = "Idle"
-    case walkForward = "WalkForward"
-    case walkBackward = "WalkBackward"
     case preAttack = "PreAttack"
     case attack = "Attack"
+    case beingArrested = "BeingArrested"
+    case arresting = "Arresting"
+    case arrested = "Arrested"
+    case detained = "Detained"
+    case holdingPrisoner = "HoldingPrisoner"
+    case patrol = "Patrol"
     case zapped = "Zapped"
     case hit = "Hit"
     case inactive = "Inactive"
+    
+    case walkForward = "WalkForward"
+    case walkBackward = "WalkBackward"
+    
+    case angry = "Angry"
+    case calm = "Calm"
+    case scared = "Scared"
+    case unhappy = "Unhappy"
+    case violent = "Violent"
 }
 
 /**
