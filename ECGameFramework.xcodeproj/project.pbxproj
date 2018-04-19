@@ -26,6 +26,8 @@
 		186F6EA52040DC39001EEF65 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 186F6EA12040DC38001EEF65 /* LaunchScreen.storyboard */; };
 		186F6EA62040DC39001EEF65 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 186F6EA12040DC38001EEF65 /* LaunchScreen.storyboard */; };
 		186F6EA72040DC39001EEF65 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 186F6EA12040DC38001EEF65 /* LaunchScreen.storyboard */; };
+		1874890E20880FE000DAF14E /* Protestor.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1874890D20880FE000DAF14E /* Protestor.xcassets */; };
+		188359FF2087FCA90054111A /* PoliceBot.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 188359FE2087FCA90054111A /* PoliceBot.xcassets */; };
 		18C82A6020861FCA0046B746 /* ScaredState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C82A5F20861FCA0046B746 /* ScaredState.swift */; };
 		18C82A62208620520046B746 /* CalmState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C82A61208620520046B746 /* CalmState.swift */; };
 		18C82A642086207B0046B746 /* AngryState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C82A632086207B0046B746 /* AngryState.swift */; };
@@ -192,6 +194,8 @@
 		186F6E9C2040DAF5001EEF65 /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		186F6EA02040DC36001EEF65 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		186F6EA12040DC38001EEF65 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		1874890D20880FE000DAF14E /* Protestor.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Protestor.xcassets; sourceTree = "<group>"; };
+		188359FE2087FCA90054111A /* PoliceBot.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = PoliceBot.xcassets; sourceTree = "<group>"; };
 		18C82A5F20861FCA0046B746 /* ScaredState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaredState.swift; sourceTree = "<group>"; };
 		18C82A61208620520046B746 /* CalmState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalmState.swift; sourceTree = "<group>"; };
 		18C82A632086207B0046B746 /* AngryState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AngryState.swift; sourceTree = "<group>"; };
@@ -683,6 +687,8 @@
 				18FCEA2D2040EC3C009A5C0D /* ReferenceActions.sks */,
 				18FCEA2E2040EC3C009A5C0D /* ReferenceScene.sks */,
 				18FCEA2F2040EC3C009A5C0D /* spark.png */,
+				188359FE2087FCA90054111A /* PoliceBot.xcassets */,
+				1874890D20880FE000DAF14E /* Protestor.xcassets */,
 			);
 			path = TaskBot;
 			sourceTree = "<group>";
@@ -870,10 +876,12 @@
 				18FCEA802040EC40009A5C0D /* Level1.plist in Resources */,
 				18FCEA922040EC40009A5C0D /* GroundBot.xcassets in Resources */,
 				18D0FAED2044651D0098DF17 /* Level4.sks in Resources */,
+				188359FF2087FCA90054111A /* PoliceBot.xcassets in Resources */,
 				18FCEA8B2040EC40009A5C0D /* SuccessScene.sks in Resources */,
 				18FCEA842040EC40009A5C0D /* Level2.sks in Resources */,
 				18FCEA8D2040EC40009A5C0D /* SceneConfiguration.plist in Resources */,
 				18FCEA852040EC40009A5C0D /* Level2.xcassets in Resources */,
+				1874890E20880FE000DAF14E /* Protestor.xcassets in Resources */,
 				1852819F204896C100F614A1 /* RiotScene.xcassets in Resources */,
 				186F6EA22040DC39001EEF65 /* Main.storyboard in Resources */,
 				18FCEA7A2040EC40009A5C0D /* BeamLine.sks in Resources */,
