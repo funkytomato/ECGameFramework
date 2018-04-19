@@ -18,12 +18,17 @@ struct LevelConfiguration
     {
         // MARK: Properties
 
+        //The different
+        
+        
         /// The different types of `TaskBot` that can exist in a level.
         enum Locomotion
         {
             case man
             case ground
             case flying
+            case police
+            case protestor
         }
         
         let locomotion: Locomotion
@@ -57,6 +62,12 @@ struct LevelConfiguration
                     
                 case "flying":
                     locomotion = .flying
+                
+                case "police":
+                    locomotion = .police
+                
+                case "protestor":
+                    locomotion = .protestor
                     
                 default:
                     fatalError("Unknown locomotion found while parsing `taskBot` data :\(botConfigurationInfo)")
