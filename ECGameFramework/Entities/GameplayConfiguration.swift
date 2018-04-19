@@ -158,6 +158,19 @@ struct GameplayConfiguration
         /// The duration of a `TaskBot`'s arrested state.
         static let arrestedStateDuration: TimeInterval = 50
     }
+    
+    struct PoliceBot
+    {
+        static let maximumCharge = 100.0
+        
+        // The offset from the `GroundBot`'s position that should be used for beam targeting.
+        static let beamTargetOffset = CGPoint(x: 0.0, y: 40.0)
+        
+        static let delayBetweenAttacks = 0.5
+        
+        /// The maximum distance a `GroundBot` can be from a target before it attacks.
+        static let maximumAttackDistance: Float = 300.0
+    }
 
     struct FlyingBot
     {
