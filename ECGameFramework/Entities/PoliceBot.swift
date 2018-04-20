@@ -171,7 +171,6 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
         // Connect the `PhysicsComponent` and the `RenderComponent`.
         renderComponent.node.physicsBody = physicsComponent.physicsBody
         
-        
         // Connect the 'SpriteComponent' to the 'RenderComponent'
         renderComponent.node.addChild(spriteComponent.node)
         
@@ -296,7 +295,12 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
             "PoliceHit",
             "HoldingPrisoner",
             "PoliceIdle",
-            "PolicePatrol"
+            "PolicePatrol",
+            "AngryPolice",
+            "CalmPolice",
+            "ScaredPolice",
+            "UnhappyPolice",
+            "ViolentPolice"
         ]
         
         /*
@@ -321,6 +325,13 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
             goodAnimations![.idle] = AnimationComponent.animationsFromAtlas(atlas: PoliceBotAtlases[4], withImageIdentifier: "PoliceIdle", forAnimationState: .idle)
             goodAnimations![.patrol] = AnimationComponent.animationsFromAtlas(atlas: PoliceBotAtlases[5], withImageIdentifier: "PolicePatrol", forAnimationState: .patrol)
             goodAnimations![.walkForward] = AnimationComponent.animationsFromAtlas(atlas: PoliceBotAtlases[5], withImageIdentifier: "PolicePatrol", forAnimationState: .walkForward)
+            
+            //Temperament
+            goodAnimations![.angry] = AnimationComponent.animationsFromAtlas(atlas: PoliceBotAtlases[6], withImageIdentifier: "PoliceAngry", forAnimationState: .angry)
+            goodAnimations![.calm] = AnimationComponent.animationsFromAtlas(atlas: PoliceBotAtlases[7], withImageIdentifier: "PoliceCalm", forAnimationState: .calm)
+            goodAnimations![.scared] = AnimationComponent.animationsFromAtlas(atlas: PoliceBotAtlases[8], withImageIdentifier: "PoliceScared", forAnimationState: .scared)
+            goodAnimations![.unhappy] = AnimationComponent.animationsFromAtlas(atlas: PoliceBotAtlases[9], withImageIdentifier: "PoliceUnhappy", forAnimationState: .unhappy)
+            goodAnimations![.violent] = AnimationComponent.animationsFromAtlas(atlas: PoliceBotAtlases[10], withImageIdentifier: "PoliceViolent", forAnimationState: .violent)
             
             
             badAnimations = [:]
