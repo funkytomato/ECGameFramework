@@ -296,7 +296,8 @@ class ManBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
             "ManBotGoodWalk",
             "ManBotBadWalk",
             "ManBotAttack",
-            "ManBotZapped"
+            "ManBotZapped",
+            "ManBotIdle"
         ]
         
         /*
@@ -315,6 +316,7 @@ class ManBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
             
             goodAnimations = [:]
             goodAnimations![.walkForward] = AnimationComponent.animationsFromAtlas(atlas: manBotAtlases[0], withImageIdentifier: "ManBotGoodWalk", forAnimationState: .walkForward)
+            goodAnimations![.idle] = AnimationComponent.animationsFromAtlas(atlas: manBotAtlases[4], withImageIdentifier: "ManBotIdle", forAnimationState: .idle)
             
             badAnimations = [:]
             badAnimations![.walkForward] = AnimationComponent.animationsFromAtlas(atlas: manBotAtlases[1], withImageIdentifier: "ManBotBadWalk", forAnimationState: .walkForward)
