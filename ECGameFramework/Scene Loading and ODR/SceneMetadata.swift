@@ -86,6 +86,9 @@ struct SceneMetadata
                         
                     case "FlyingBot":
                         return FlyingBot.self
+                    
+                    case "PoliceBot":
+                        return PoliceBot.self
                         
                     default:
                         return nil
