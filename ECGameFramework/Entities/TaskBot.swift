@@ -299,7 +299,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         {
             
             // `TaskBot`s always move in a forward direction when they are agent-controlled.
-            component(ofType: AnimationComponent.self)?.requestedAnimationState = .walkForward
+            component(ofType: AnimationComponent.self)?.requestedAnimationState = .idle    //.walkForward
             
             // When the `TaskBot` is agent-controlled, the node position follows the agent position.
             updateNodePositionToMatchAgentPosition()
