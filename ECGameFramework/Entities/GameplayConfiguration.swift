@@ -161,15 +161,62 @@ struct GameplayConfiguration
     
     struct PoliceBot
     {
+        /// The maximum amount of charge a `GroundBot` stores.
         static let maximumCharge = 100.0
         
-        // The offset from the `GroundBot`'s position that should be used for beam targeting.
-        static let beamTargetOffset = CGPoint(x: 0.0, y: 40.0)
-        
-        static let delayBetweenAttacks = 0.5
+        /// The amount of charge a `PlayerBot` loses by a single `GroundBot` attack.
+        static let chargeLossPerContact = 25.0
         
         /// The maximum distance a `GroundBot` can be from a target before it attacks.
         static let maximumAttackDistance: Float = 300.0
+        
+        /// Proximity to the target after which the `GroundBot` attack should end.
+        static let attackEndProximity: Float = 7.0
+        
+        /// How fast the `GroundBot` rotates to face its target in radians per second.
+        static let preAttackRotationSpeed = Double.pi / 4
+        
+        /// How much faster the `GroundBot` can move when attacking.
+        static let movementSpeedMultiplierWhenAttacking: CGFloat = 2.5
+        
+        /// How much faster the `GroundBot` can rotate when attacking.
+        static let angularSpeedMultiplierWhenAttacking: CGFloat = 2.5
+        
+        /// The amount of time to wait between `GroundBot` attacks.
+        static let delayBetweenAttacks: TimeInterval = 2.0
+        
+        /// The offset from the `GroundBot`'s position that should be used for beam targeting.
+        static let beamTargetOffset = CGPoint(x: 0.0, y: 40.0)
+    }
+    
+    struct ProtestorBot
+    {
+        /// The maximum amount of charge a `GroundBot` stores.
+        static let maximumCharge = 100.0
+        
+        /// The amount of charge a `PlayerBot` loses by a single `GroundBot` attack.
+        static let chargeLossPerContact = 25.0
+        
+        /// The maximum distance a `GroundBot` can be from a target before it attacks.
+        static let maximumAttackDistance: Float = 300.0
+        
+        /// Proximity to the target after which the `GroundBot` attack should end.
+        static let attackEndProximity: Float = 7.0
+        
+        /// How fast the `GroundBot` rotates to face its target in radians per second.
+        static let preAttackRotationSpeed = Double.pi / 4
+        
+        /// How much faster the `GroundBot` can move when attacking.
+        static let movementSpeedMultiplierWhenAttacking: CGFloat = 2.5
+        
+        /// How much faster the `GroundBot` can rotate when attacking.
+        static let angularSpeedMultiplierWhenAttacking: CGFloat = 2.5
+        
+        /// The amount of time to wait between `GroundBot` attacks.
+        static let delayBetweenAttacks: TimeInterval = 2.0
+        
+        /// The offset from the `GroundBot`'s position that should be used for beam targeting.
+        static let beamTargetOffset = CGPoint(x: 0.0, y: 40.0)
     }
 
     struct FlyingBot
