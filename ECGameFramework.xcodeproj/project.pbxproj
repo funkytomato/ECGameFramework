@@ -11,6 +11,10 @@
 		181073692088E604001390EA /* PoliceBotRotateToAttackState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181073682088E604001390EA /* PoliceBotRotateToAttackState.swift */; };
 		1810736C2088E740001390EA /* PoliceBotAttackState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810736B2088E740001390EA /* PoliceBotAttackState.swift */; };
 		1810736E2088E75C001390EA /* PoliceBotPreAttackState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810736D2088E75C001390EA /* PoliceBotPreAttackState.swift */; };
+		184974B5208A440D00F7CEEB /* ProtestorBot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184974B4208A440D00F7CEEB /* ProtestorBot.swift */; };
+		184974B8208A54D300F7CEEB /* ProtestorBotRotateToAttackState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184974B7208A54D300F7CEEB /* ProtestorBotRotateToAttackState.swift */; };
+		184974BA208A557000F7CEEB /* ProtestorBotAttackState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184974B9208A557000F7CEEB /* ProtestorBotAttackState.swift */; };
+		184974BC208A55C600F7CEEB /* ProtestorBotPreAttackState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184974BB208A55C600F7CEEB /* ProtestorBotPreAttackState.swift */; };
 		184B7631207D052200F959F7 /* BeingArrestedState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184B7630207D052200F959F7 /* BeingArrestedState.swift */; };
 		184B7633207D081D00F959F7 /* ArrestedState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184B7632207D081D00F959F7 /* ArrestedState.swift */; };
 		184B7635207D0CDA00F959F7 /* DetainedState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184B7634207D0CDA00F959F7 /* DetainedState.swift */; };
@@ -52,7 +56,7 @@
 		18F35DB520542DA300B686DA /* EmitterComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F35DB420542DA300B686DA /* EmitterComponent.swift */; };
 		18F52203208927820070EB0C /* PoliceArrestState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F52202208927820070EB0C /* PoliceArrestState.swift */; };
 		18F52205208927E80070EB0C /* PoliceDetainState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F52204208927E80070EB0C /* PoliceDetainState.swift */; };
-		18F52207208928410070EB0C /* FleeState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F52206208928410070EB0C /* FleeState.swift */; };
+		18F52207208928410070EB0C /* TaskBotFleeState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F52206208928410070EB0C /* TaskBotFleeState.swift */; };
 		18FCE9C42040EB3C009A5C0D /* LoadResourcesOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCE9B62040EB3B009A5C0D /* LoadResourcesOperation.swift */; };
 		18FCE9C52040EB3C009A5C0D /* LoadSceneOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCE9B72040EB3B009A5C0D /* LoadSceneOperation.swift */; };
 		18FCE9C62040EB3C009A5C0D /* ResourceLoadableType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCE9B82040EB3B009A5C0D /* ResourceLoadableType.swift */; };
@@ -186,6 +190,10 @@
 		181073682088E604001390EA /* PoliceBotRotateToAttackState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoliceBotRotateToAttackState.swift; sourceTree = "<group>"; };
 		1810736B2088E740001390EA /* PoliceBotAttackState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoliceBotAttackState.swift; sourceTree = "<group>"; };
 		1810736D2088E75C001390EA /* PoliceBotPreAttackState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoliceBotPreAttackState.swift; sourceTree = "<group>"; };
+		184974B4208A440D00F7CEEB /* ProtestorBot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtestorBot.swift; sourceTree = "<group>"; };
+		184974B7208A54D300F7CEEB /* ProtestorBotRotateToAttackState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtestorBotRotateToAttackState.swift; sourceTree = "<group>"; };
+		184974B9208A557000F7CEEB /* ProtestorBotAttackState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtestorBotAttackState.swift; sourceTree = "<group>"; };
+		184974BB208A55C600F7CEEB /* ProtestorBotPreAttackState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtestorBotPreAttackState.swift; sourceTree = "<group>"; };
 		184B7630207D052200F959F7 /* BeingArrestedState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeingArrestedState.swift; sourceTree = "<group>"; };
 		184B7632207D081D00F959F7 /* ArrestedState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrestedState.swift; sourceTree = "<group>"; };
 		184B7634207D0CDA00F959F7 /* DetainedState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetainedState.swift; sourceTree = "<group>"; };
@@ -227,7 +235,7 @@
 		18F35DB420542DA300B686DA /* EmitterComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmitterComponent.swift; sourceTree = "<group>"; };
 		18F52202208927820070EB0C /* PoliceArrestState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoliceArrestState.swift; sourceTree = "<group>"; };
 		18F52204208927E80070EB0C /* PoliceDetainState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoliceDetainState.swift; sourceTree = "<group>"; };
-		18F52206208928410070EB0C /* FleeState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FleeState.swift; sourceTree = "<group>"; };
+		18F52206208928410070EB0C /* TaskBotFleeState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskBotFleeState.swift; sourceTree = "<group>"; };
 		18FCE9B62040EB3B009A5C0D /* LoadResourcesOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadResourcesOperation.swift; sourceTree = "<group>"; };
 		18FCE9B72040EB3B009A5C0D /* LoadSceneOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadSceneOperation.swift; sourceTree = "<group>"; };
 		18FCE9B82040EB3B009A5C0D /* ResourceLoadableType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResourceLoadableType.swift; sourceTree = "<group>"; };
@@ -364,7 +372,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		181073652088E538001390EA /* IntelligenceComponent (PoliceBot) */ = {
+		181073652088E538001390EA /* PoliceBot */ = {
 			isa = PBXGroup;
 			children = (
 				181073682088E604001390EA /* PoliceBotRotateToAttackState.swift */,
@@ -373,17 +381,63 @@
 				18F52202208927820070EB0C /* PoliceArrestState.swift */,
 				18F52204208927E80070EB0C /* PoliceDetainState.swift */,
 			);
-			path = "IntelligenceComponent (PoliceBot)";
+			path = PoliceBot;
 			sourceTree = "<group>";
 		};
-		1810736A2088E6D5001390EA /* IntelligenceComponent States (ManBot) */ = {
+		1810736A2088E6D5001390EA /* ManBot */ = {
 			isa = PBXGroup;
 			children = (
 				18D983B62048B4BC006D7A14 /* ManBotPreAttackState.swift */,
 				18D983B42048B3BF006D7A14 /* ManBotAttackState.swift */,
 				18D983B82048B507006D7A14 /* ManBotRotateToAttackState.swift */,
 			);
-			path = "IntelligenceComponent States (ManBot)";
+			path = ManBot;
+			sourceTree = "<group>";
+		};
+		181B1464208A8E3900B9580B /* Intelligence Component States */ = {
+			isa = PBXGroup;
+			children = (
+				18FCE9F32040EB9F009A5C0D /* PlayerBot */,
+				181073652088E538001390EA /* PoliceBot */,
+				184974B6208A548B00F7CEEB /* Protestor */,
+				1810736A2088E6D5001390EA /* ManBot */,
+				181B1465208A8EA900B9580B /* FlyingBot */,
+				181B1466208A8EFD00B9580B /* GroundBot */,
+				18FCE9F82040EB9F009A5C0D /* TaskBot */,
+			);
+			path = "Intelligence Component States";
+			sourceTree = "<group>";
+		};
+		181B1465208A8EA900B9580B /* FlyingBot */ = {
+			isa = PBXGroup;
+			children = (
+				18FCE9F92040EB9F009A5C0D /* FlyingBotBlastState.swift */,
+				18FCE9FA2040EB9F009A5C0D /* FlyingBotPreAttackState.swift */,
+			);
+			path = FlyingBot;
+			sourceTree = "<group>";
+		};
+		181B1466208A8EFD00B9580B /* GroundBot */ = {
+			isa = PBXGroup;
+			children = (
+				18FCE9FB2040EB9F009A5C0D /* GroundBotAttackState.swift */,
+				18FCE9FC2040EB9F009A5C0D /* GroundBotPreAttackState.swift */,
+				18FCE9FD2040EB9F009A5C0D /* GroundBotRotateToAttackState.swift */,
+			);
+			path = GroundBot;
+			sourceTree = "<group>";
+		};
+		184974B6208A548B00F7CEEB /* Protestor */ = {
+			isa = PBXGroup;
+			children = (
+				184B7630207D052200F959F7 /* BeingArrestedState.swift */,
+				184B7632207D081D00F959F7 /* ArrestedState.swift */,
+				184B7634207D0CDA00F959F7 /* DetainedState.swift */,
+				184974B7208A54D300F7CEEB /* ProtestorBotRotateToAttackState.swift */,
+				184974B9208A557000F7CEEB /* ProtestorBotAttackState.swift */,
+				184974BB208A55C600F7CEEB /* ProtestorBotPreAttackState.swift */,
+			);
+			path = Protestor;
 			sourceTree = "<group>";
 		};
 		186F6E442040D1D1001EEF65 = {
@@ -548,6 +602,7 @@
 				18FCE9E82040EB9F009A5C0D /* TaskBotAgent.swift */,
 				185281A42048ABCD00F614A1 /* ManBot.swift */,
 				181073632088E15B001390EA /* PoliceBot.swift */,
+				184974B4208A440D00F7CEEB /* ProtestorBot.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -563,10 +618,8 @@
 				18FCE9F12040EB9F009A5C0D /* CompassDirection.swift */,
 				18F35DB420542DA300B686DA /* EmitterComponent.swift */,
 				18FCE9F22040EB9F009A5C0D /* InputComponent.swift */,
-				18FCE9F32040EB9F009A5C0D /* IntelligenceComponent States (PlayerBot) */,
-				181073652088E538001390EA /* IntelligenceComponent (PoliceBot) */,
-				18FCE9F82040EB9F009A5C0D /* IntelligenceComponent States (TaskBot) */,
 				18FCEA002040EB9F009A5C0D /* IntelligenceComponent.swift */,
+				181B1464208A8E3900B9580B /* Intelligence Component States */,
 				18FCEA012040EB9F009A5C0D /* MovementComponent.swift */,
 				18FCEA022040EB9F009A5C0D /* OrientationComponent.swift */,
 				18FCEA032040EB9F009A5C0D /* PhysicsComponent.swift */,
@@ -590,7 +643,7 @@
 			path = "BeamComponent States";
 			sourceTree = "<group>";
 		};
-		18FCE9F32040EB9F009A5C0D /* IntelligenceComponent States (PlayerBot) */ = {
+		18FCE9F32040EB9F009A5C0D /* PlayerBot */ = {
 			isa = PBXGroup;
 			children = (
 				18FCE9F42040EB9F009A5C0D /* PlayerBotAppearState.swift */,
@@ -598,26 +651,17 @@
 				18FCE9F62040EB9F009A5C0D /* PlayerBotPlayerControlledState.swift */,
 				18FCE9F72040EB9F009A5C0D /* PlayerBotRechargingState.swift */,
 			);
-			path = "IntelligenceComponent States (PlayerBot)";
+			path = PlayerBot;
 			sourceTree = "<group>";
 		};
-		18FCE9F82040EB9F009A5C0D /* IntelligenceComponent States (TaskBot) */ = {
+		18FCE9F82040EB9F009A5C0D /* TaskBot */ = {
 			isa = PBXGroup;
 			children = (
-				18FCE9F92040EB9F009A5C0D /* FlyingBotBlastState.swift */,
-				18FCE9FA2040EB9F009A5C0D /* FlyingBotPreAttackState.swift */,
-				18FCE9FB2040EB9F009A5C0D /* GroundBotAttackState.swift */,
-				18FCE9FC2040EB9F009A5C0D /* GroundBotPreAttackState.swift */,
-				18FCE9FD2040EB9F009A5C0D /* GroundBotRotateToAttackState.swift */,
 				18FCE9FF2040EB9F009A5C0D /* TaskBotZappedState.swift */,
 				18FCE9FE2040EB9F009A5C0D /* TaskBotAgentControlledState.swift */,
-				1810736A2088E6D5001390EA /* IntelligenceComponent States (ManBot) */,
-				184B7630207D052200F959F7 /* BeingArrestedState.swift */,
-				184B7632207D081D00F959F7 /* ArrestedState.swift */,
-				184B7634207D0CDA00F959F7 /* DetainedState.swift */,
-				18F52206208928410070EB0C /* FleeState.swift */,
+				18F52206208928410070EB0C /* TaskBotFleeState.swift */,
 			);
-			path = "IntelligenceComponent States (TaskBot)";
+			path = TaskBot;
 			sourceTree = "<group>";
 		};
 		18FCEA072040EB9F009A5C0D /* Behaviors */ = {
@@ -856,7 +900,7 @@
 					ProtestorBot,
 				);
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Jason Fry";
 				TargetAttributes = {
 					186F6E4C2040D1D1001EEF65 = {
@@ -992,6 +1036,7 @@
 				18FCEA9A2040EC40009A5C0D /* ChargeBar.swift in Sources */,
 				18FCEAA52040EC40009A5C0D /* TouchControlInputNode.swift in Sources */,
 				18FCEA732040EC40009A5C0D /* RenderComponent.swift in Sources */,
+				184974B8208A54D300F7CEEB /* ProtestorBotRotateToAttackState.swift in Sources */,
 				18FCEA492040EC40009A5C0D /* BaseScene.swift in Sources */,
 				18C82A68208620C80046B746 /* SubduedState.swift in Sources */,
 				18FCEA512040EC40009A5C0D /* LevelScene+Debug.swift in Sources */,
@@ -1008,6 +1053,7 @@
 				18FCEAA72040EC40009A5C0D /* ButtonNodeResponderType+ScreenRecording.swift in Sources */,
 				18FCEA982040EC40009A5C0D /* BeamNode.swift in Sources */,
 				18FCEA682040EC40009A5C0D /* FlyingBotBlastState.swift in Sources */,
+				184974BC208A55C600F7CEEB /* ProtestorBotPreAttackState.swift in Sources */,
 				18C82A642086207B0046B746 /* AngryState.swift in Sources */,
 				18FCEA602040EC40009A5C0D /* BeamComponent.swift in Sources */,
 				18F52205208927E80070EB0C /* PoliceDetainState.swift in Sources */,
@@ -1015,7 +1061,8 @@
 				18FCEA622040EC40009A5C0D /* CompassDirection.swift in Sources */,
 				18FCEA772040EC40009A5C0D /* TaskBotBehavior.swift in Sources */,
 				18FCEA6C2040EC40009A5C0D /* GroundBotRotateToAttackState.swift in Sources */,
-				18F52207208928410070EB0C /* FleeState.swift in Sources */,
+				18F52207208928410070EB0C /* TaskBotFleeState.swift in Sources */,
+				184974B5208A440D00F7CEEB /* ProtestorBot.swift in Sources */,
 				18C82A6020861FCA0046B746 /* ScaredState.swift in Sources */,
 				18FCEA582040EC40009A5C0D /* GroundBot.swift in Sources */,
 				18C82A66208620A90046B746 /* ViolentState.swift in Sources */,
@@ -1040,6 +1087,7 @@
 				18FCEA472040EC40009A5C0D /* BaseScene+Buttons.swift in Sources */,
 				18F35DB520542DA300B686DA /* EmitterComponent.swift in Sources */,
 				18FCEAA12040EC40009A5C0D /* ControlInputSource.swift in Sources */,
+				184974BA208A557000F7CEEB /* ProtestorBotAttackState.swift in Sources */,
 				18FCEA742040EC40009A5C0D /* RulesComponent.swift in Sources */,
 				18FCEA4F2040EC40009A5C0D /* LevelScenePauseState.swift in Sources */,
 				18FCEAA62040EC40009A5C0D /* BaseScene+ScreenRecording.swift in Sources */,
@@ -1126,6 +1174,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -1133,6 +1182,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -1160,7 +1210,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1183,6 +1233,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -1190,6 +1241,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -1211,7 +1263,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -1229,7 +1281,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				ON_DEMAND_RESOURCES_INITIAL_INSTALL_TAGS = "Blue GroundBot ManBot RiotScene";
+				ON_DEMAND_RESOURCES_INITIAL_INSTALL_TAGS = "Blue PoliceBot ProtestorBot RiotScene";
 				PRODUCT_BUNDLE_IDENTIFIER = ECGameFramework;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
@@ -1247,7 +1299,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				ON_DEMAND_RESOURCES_INITIAL_INSTALL_TAGS = "Blue GroundBot ManBot RiotScene";
+				ON_DEMAND_RESOURCES_INITIAL_INSTALL_TAGS = "Blue PoliceBot ProtestorBot RiotScene";
 				PRODUCT_BUNDLE_IDENTIFIER = ECGameFramework;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
