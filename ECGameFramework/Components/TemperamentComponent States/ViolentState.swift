@@ -8,7 +8,7 @@
 //
 
 Abstract:
-The state `ManBot`s are in immediately after being arrested.
+The state `ProtestorBot`s are in immediately after being arrested.
 
 Remove all behavour from bot and attach to the arresting entity.
 */
@@ -21,7 +21,7 @@ class ViolentState: GKState
     // MARK:- Properties
     unowned var entity: TaskBot
     
-    //The amount of time the 'ManBot' has been in its "Arrested" state
+    //The amount of time the 'ProtestorBot' has been in its "Violent" state
     var elapsedTime: TimeInterval = 0.0
     
     //The MeatWagon location
@@ -30,7 +30,7 @@ class ViolentState: GKState
     /// The `SpriteComponent` associated with the `entity`.
     var spriteComponent: SpriteComponent
     {
-        guard let spriteComponent = entity.component(ofType: SpriteComponent.self) else { fatalError("An entity's AngryState must have an AnimationComponent.") }
+        guard let spriteComponent = entity.component(ofType: SpriteComponent.self) else { fatalError("An entity's ViolentState must have an AnimationComponent.") }
         return spriteComponent
     }
     
@@ -38,14 +38,14 @@ class ViolentState: GKState
     /// The `AnimationComponent` associated with the `entity`.
     var animationComponent: AnimationComponent
     {
-        guard let animationComponent = entity.component(ofType: AnimationComponent.self) else { fatalError("A BeingArrestedState's entity must have an AnimationComponent.") }
+        guard let animationComponent = entity.component(ofType: AnimationComponent.self) else { fatalError("An entity's ViolentState must have an AnimationComponent.") }
         return animationComponent
     }
     
     /// The `PhysicsComponent` associated with the `entity`.
     var physicsComponent: PhysicsComponent
     {
-        guard let physicsComponent = entity.component(ofType: PhysicsComponent.self) else { fatalError("A GroundBotAttackState's entity must have a PhysicsComponent.") }
+        guard let physicsComponent = entity.component(ofType: PhysicsComponent.self) else { fatalError("An entity's ViolentState must have a PhysicsComponent.") }
         return physicsComponent
     }
     
@@ -61,11 +61,11 @@ class ViolentState: GKState
     {
         super.didEnter(from: previousState)
         
-        //Reset the tracking of how long the 'ManBot' has been in "Arrested" state
+        //Reset the tracking of how long the 'ProtestorBot' has been in "Violent" state
         elapsedTime = 0.0
         
-        //Request the "beingArrested animation for this state's 'ManBot'
-        //animationComponent.requestedAnimationState = .idle
+        //Request the "beingArrested animation for this state's 'ProtestorBot'
+        //animationComponent.requestedAnimationState = .violent
         
         //Change the colour of the sprite to show violent
         spriteComponent.changeColour(colour: SKColor.red)
@@ -84,7 +84,7 @@ class ViolentState: GKState
     {
         switch stateClass
         {
-        case is CalmState.Type, is ScaredState.Type, is AngryState.Type, is SubduedState.Type, is ViolentState.Type:
+        case is ScaredState.Type, is AngryState.Type, is SubduedState.Type:
             return true
             
         default:

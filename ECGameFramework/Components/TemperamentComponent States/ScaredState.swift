@@ -57,11 +57,11 @@ class ScaredState: GKState
     {
         super.didEnter(from: previousState)
         
-        //Reset the tracking of how long the 'ManBot' has been in "Arrested" state
+        //Reset the tracking of how long the 'ManBot' has been in "Scared" state
         elapsedTime = 0.0
         
-        //Request the ScaredState animation for this state's 'ManBot'
-        //animationComponent.requestedAnimationState = .idle
+        //Request the ScaredState animation for this state's 'ProtestorBot'
+        //animationComponent.requestedAnimationState = .scared
         
         //Change the colour of the sprite to show calmness
         spriteComponent.changeColour(colour: SKColor.purple)
@@ -95,7 +95,7 @@ class ScaredState: GKState
     {
         switch stateClass
         {
-        case is CalmState.Type, is ScaredState.Type, is AngryState.Type, is SubduedState.Type, is ViolentState.Type:
+        case is CalmState.Type, is ScaredState.Type, is ViolentState.Type:
             return true
             
         default:

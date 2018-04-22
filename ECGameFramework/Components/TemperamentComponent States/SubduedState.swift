@@ -58,11 +58,11 @@ class SubduedState: GKState
     {
         super.didEnter(from: previousState)
         
-        //Reset the tracking of how long the 'ManBot' has been in "Arrested" state
+        //Reset the tracking of how long the 'ProtestorBot' has been in "Subdued" state
         elapsedTime = 0.0
         
         //Request the "beingArrested animation for this state's 'ManBot'
-        //animationComponent.requestedAnimationState = .idle
+        //animationComponent.requestedAnimationState = .calm
         
         //Change the colour of the sprite to show subdued
         spriteComponent.changeColour(colour: SKColor.darkGray)
@@ -92,7 +92,7 @@ class SubduedState: GKState
     {
         switch stateClass
         {
-        case is CalmState.Type, is ScaredState.Type, is AngryState.Type, is SubduedState.Type, is ViolentState.Type:
+        case is CalmState.Type:
             return true
             
         default:
