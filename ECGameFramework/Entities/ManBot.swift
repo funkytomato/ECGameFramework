@@ -121,9 +121,9 @@ class ManBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
             ManBotPreAttackState(entity: self),
             ManBotAttackState(entity: self),
             TaskBotZappedState(entity: self),
-            BeingArrestedState(entity: self),
-            ArrestedState(entity: self),
-            DetainedState(entity: self)
+//            BeingArrestedState(entity: self),
+//            ArrestedState(entity: self),
+//            DetainedState(entity: self)
             ])
         addComponent(intelligenceComponent)
         
