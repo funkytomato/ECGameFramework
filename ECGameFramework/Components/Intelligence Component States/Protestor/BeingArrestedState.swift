@@ -18,7 +18,7 @@ import GameplayKit
 class BeingArrestedState: GKState
 {
     // MARK:- Properties
-    unowned var entity: ManBot
+    unowned var entity: ProtestorBot
     
     //The amount of time the 'ManBot' has been in its "BeingArrested" state
     var elapsedTime: TimeInterval = 0.0
@@ -32,7 +32,7 @@ class BeingArrestedState: GKState
     }
     
     //MARK:- Initializers
-    required init(entity: ManBot)
+    required init(entity: ProtestorBot)
     {
         self.entity = entity
     }
@@ -47,8 +47,8 @@ class BeingArrestedState: GKState
         elapsedTime = 0.0
         
         
-        //Request the "beingArrested animation for this state's 'ManBot'
-        animationComponent.requestedAnimationState = .hit
+        //Request the "beingArrested animation for this state's 'ProtestorBot'
+        animationComponent.requestedAnimationState = .beingArrested
         
         let temperamentComponent = entity.component(ofType: TemperamentComponent.self)
         temperamentComponent?.increaseTemperament()

@@ -19,28 +19,28 @@ import GameplayKit
 class ArrestedState: GKState
 {
     // MARK:- Properties
-    unowned var entity: ManBot
+    unowned var entity: ProtestorBot
     
-    //The amount of time the 'ManBot' has been in its "Arrested" state
+    //The amount of time the 'ProtestorBot' has been in its "Arrested" state
     var elapsedTime: TimeInterval = 0.0
     
     
     /// The `AnimationComponent` associated with the `entity`.
     var animationComponent: AnimationComponent
     {
-        guard let animationComponent = entity.component(ofType: AnimationComponent.self) else { fatalError("A BeingArrestedState's entity must have an AnimationComponent.") }
+        guard let animationComponent = entity.component(ofType: AnimationComponent.self) else { fatalError("An ArrestedState's entity must have an AnimationComponent.") }
         return animationComponent
     }
     
     /// The `PhysicsComponent` associated with the `entity`.
     var physicsComponent: PhysicsComponent
     {
-        guard let physicsComponent = entity.component(ofType: PhysicsComponent.self) else { fatalError("A GroundBotAttackState's entity must have a PhysicsComponent.") }
+        guard let physicsComponent = entity.component(ofType: PhysicsComponent.self) else { fatalError("An ArrestedState's entity must have a PhysicsComponent.") }
         return physicsComponent
     }
     
     //MARK:- Initializers
-    required init(entity: ManBot)
+    required init(entity: ProtestorBot)
     {
         self.entity = entity
     }
@@ -55,7 +55,7 @@ class ArrestedState: GKState
         elapsedTime = 0.0
         
         //Request the "beingArrested animation for this state's 'ManBot'
-        animationComponent.requestedAnimationState = .zapped
+        animationComponent.requestedAnimationState = .arrested
         
         applyCuffsToEntity(entity: self.entity)
         
@@ -67,7 +67,7 @@ class ArrestedState: GKState
             guard let entity = contactedBody.node?.entity else { continue }
             applyCuffsToEntity(entity: entity)
         }
- */
+        */
     }
     
     override func update(deltaTime seconds: TimeInterval)
@@ -107,7 +107,7 @@ class ArrestedState: GKState
             // If the other entity is a `PlayerBot` that isn't powered down, reduce its charge.
             chargeComponent.loseCharge(chargeToLose: GameplayConfiguration.ManBot.chargeLossPerContact)
         }
-            /*
+        /*
         else if let taskBot = entity as? TaskBot, taskBot.isGood
         {
             temperamentComponent.stateMachine.enter(SubduedState.self)
@@ -116,11 +116,13 @@ class ArrestedState: GKState
             // If the other entity is a good `TaskBot`, turn it bad.
             //taskBot.isGood = false
         }
- */
-        else if let manBot = entity as? ManBot, manBot.isGood, let temperamentComponent = entity.component(ofType: TemperamentComponent.self)
+        */
+        else if let protestorBot = entity as? ProtestorBot, protestorBot.isGood, let temperamentComponent = entity.component(ofType: TemperamentComponent.self)
         {
             temperamentComponent.stateMachine.enter(AngryState.self)
             
+            //Stop Police chasing this protestor
+            protestorBot.isGood = false
             
             // If the other entity is a good `TaskBot`, turn it bad.
             //taskBot.isGood = false

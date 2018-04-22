@@ -1,25 +1,24 @@
 /*
-//
-//  FleeState.swift
+//  ProtestorBotAttackState.swift
 //  ECGameFramework
 //
-//  Created by Jason Fry on 19/04/2018.
+//  Created by Jason Fry on 20/04/2018.
 //  Copyright © 2018 Jason Fry. All rights reserved.
 //
 
 Abstract:
-The state of a `ManBot` when actively charging toward the `PlayerBot` or another `TaskBot`.
+The state of a `ProtestorBot` when actively charging toward the `PlayerBot` or another `TaskBot`.
 
 */
 
 import SpriteKit
 import GameplayKit
 
-class FleeState: GKState
+class ProtestorBotAttackState: GKState
 {
     // MARK: Properties
     
-    unowned var entity: PoliceBot
+    unowned var entity: ProtestorBot
     
     /// The distance to the current target on the previous update loop.
     var lastDistanceToTarget: Float = 0
@@ -27,27 +26,34 @@ class FleeState: GKState
     /// The `MovementComponent` associated with the `entity`.
     var movementComponent: MovementComponent
     {
-        guard let movementComponent = entity.component(ofType: MovementComponent.self) else { fatalError("A ManBotAttackState's entity must have a MovementComponent.") }
+        guard let movementComponent = entity.component(ofType: MovementComponent.self) else { fatalError("A ProtestorBotAttackState's entity must have a MovementComponent.") }
         return movementComponent
     }
     
     /// The `PhysicsComponent` associated with the `entity`.
     var physicsComponent: PhysicsComponent
     {
-        guard let physicsComponent = entity.component(ofType: PhysicsComponent.self) else { fatalError("A ManBotAttackState's entity must have a PhysicsComponent.") }
+        guard let physicsComponent = entity.component(ofType: PhysicsComponent.self) else { fatalError("A ProtestorBotAttackState's entity must have a PhysicsComponent.") }
         return physicsComponent
+    }
+    
+    /// The `PhysicsComponent` associated with the `entity`.
+    var intelligenceComponent: IntelligenceComponent
+    {
+        guard let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self) else { fatalError("A ProtestorBotAttackState's entity must have a IntelligenceComponent.") }
+        return intelligenceComponent
     }
     
     /// The `targetPosition` from the `entity`.
     var targetPosition: float2
     {
-        guard let targetPosition = entity.targetPosition else { fatalError("A ManBotRotateToAttackState's entity must have a targetPosition set.") }
+        guard let targetPosition = entity.targetPosition else { fatalError("A ProtestorBotRotateToAttackState's entity must have a targetPosition set.") }
         return targetPosition
     }
     
     // MARK: Initializers
     
-    required init(entity: PoliceBot)
+    required init(entity: ProtestorBot)
     {
         self.entity = entity
     }
@@ -80,8 +86,8 @@ class FleeState: GKState
         let movementComponent = self.movementComponent
         
         // Move the `ManBot` towards the target at an increased speed.
-        movementComponent.movementSpeed *= GameplayConfiguration.ManBot.movementSpeedMultiplierWhenAttacking
-        movementComponent.angularSpeed *= GameplayConfiguration.ManBot.angularSpeedMultiplierWhenAttacking
+        movementComponent.movementSpeed *= GameplayConfiguration.ProtestorBot.movementSpeedMultiplierWhenAttacking
+        movementComponent.angularSpeed *= GameplayConfiguration.ProtestorBot.angularSpeedMultiplierWhenAttacking
         
         movementComponent.nextTranslation = MovementKind(displacement: targetVector)
         movementComponent.nextRotation = nil
@@ -99,7 +105,7 @@ class FleeState: GKState
         let dy = targetPosition.y - entity.agent.position.y
         
         let currentDistanceToTarget = hypot(dx, dy)
-        if currentDistanceToTarget < GameplayConfiguration.ManBot.attackEndProximity
+        if currentDistanceToTarget < GameplayConfiguration.ProtestorBot.attackEndProximity
         {
             stateMachine?.enter(TaskBotAgentControlledState.self)
             return
@@ -108,7 +114,7 @@ class FleeState: GKState
         /*
          Leave the attack state if the `ManBot` has moved further away from
          its target because it has been knocked off course.
-         */
+        */
         if currentDistanceToTarget > lastDistanceToTarget
         {
             stateMachine?.enter(TaskBotAgentControlledState.self)
@@ -123,7 +129,7 @@ class FleeState: GKState
     {
         switch stateClass
         {
-        case is TaskBotAgentControlledState.Type, is TaskBotZappedState.Type:
+        case is TaskBotAgentControlledState.Type, is TaskBotZappedState.Type, is PoliceArrestState.Type:
             return true
             
         default:
@@ -138,11 +144,11 @@ class FleeState: GKState
         // `movementComponent` is a computed property. Declare a local version so we don't compute it multiple times.
         let movementComponent = self.movementComponent
         
-        // Stop the `ManBot`'s movement and restore its standard movement speed.
+        // Stop the `ProtestorBot`'s movement and restore its standard movement speed.
         movementComponent.nextRotation = nil
         movementComponent.nextTranslation = nil
-        movementComponent.movementSpeed /= GameplayConfiguration.ManBot.movementSpeedMultiplierWhenAttacking
-        movementComponent.angularSpeed /= GameplayConfiguration.ManBot.angularSpeedMultiplierWhenAttacking
+        movementComponent.movementSpeed /= GameplayConfiguration.ProtestorBot.movementSpeedMultiplierWhenAttacking
+        movementComponent.angularSpeed /= GameplayConfiguration.ProtestorBot.angularSpeedMultiplierWhenAttacking
     }
     
     // MARK: Convenience
@@ -156,14 +162,17 @@ class FleeState: GKState
         }
         else if let taskBot = entity as? TaskBot, taskBot.isGood
         {
+            //intelligenceComponent.stateMachine.enter(PoliceArrestState.self)
+            
             //Move state to being Arrested
-            guard let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self) else { return }
-            intelligenceComponent.stateMachine.enter(BeingArrestedState.self)
+            //guard let protestorIntelligenceComponent = entity.component(ofType: IntelligenceComponent.self) else { return }
             
             
+            //protestorIntelligenceComponent.stateMachine.enter(BeingArrestedState.self)
+            
+
             // If the other entity is a good `TaskBot`, turn it bad.
             //taskBot.isGood = false
         }
     }
-    
 }
