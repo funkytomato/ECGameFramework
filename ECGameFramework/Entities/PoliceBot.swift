@@ -213,11 +213,46 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
         super.contactWithEntityDidBegin(entity)
         
         //If touching entity is attacking, start the arresting process
-        guard let attackState = entity.component(ofType: IntelligenceComponent.self)?.stateMachine.currentState as? PoliceBotAttackState else { return }
+        print("PoliceBot currentState :\(entity.component(ofType: IntelligenceComponent.self)?.stateMachine.currentState.debugDescription)")
+        
+        //guard let temperamentState = entity.component(ofType: TemperamentComponent.self)?.stateMachine.currentState as? AngryState else { return }
+        
+        if let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self)?.stateMachine.currentState as? BeingArrestedState
+        {
+            intelligenceComponent.stateMachine?.enter(ArrestedState.self)
+        }
+        else { return }
         
         
+        
+        /*
+        if let attackState = entity.component(ofType: IntelligenceComponent.self)?.stateMachine.currentState as? PoliceBotAttackState
+        {
+            attackState.applyDamageToEntity(entity: entity)
+        }
+        else { return }
+        
+        
+        if let arrestingState = entity.component(ofType: IntelligenceComponent.self)?.stateMachine.currentState as? PoliceArrestState
+        {
+            arrestingState.applyDamageToEntity(entity: entity)
+        }
+        else { return }
+        
+        if let detainState = entity.component(ofType: IntelligenceComponent.self)?.stateMachine.currentState as? PoliceDetainState
+        {
+            detainState.applyDamageToEntity(entity: entity)
+        }
+        
+        if let beingArrestedState = entity.component(ofType: IntelligenceComponent.self)?.stateMachine.currentState as? BeingArrestedState
+        {
+            print("beingArrestedState :\(beingArrestedState.debugDescription)")
+        }
+ */
+ 
         // Use the `PoliceBotAttackState` to apply the appropriate damage to the contacted entity.
-        attackState.applyDamageToEntity(entity: entity)
+        
+        
     }
     
     // MARK: RulesComponentDelegate
