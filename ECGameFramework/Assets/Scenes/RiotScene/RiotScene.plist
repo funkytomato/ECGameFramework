@@ -6,7 +6,7 @@
 	<array>
 		<dict>
 			<key>temperament</key>
-			<string>Angry</string>
+			<string>Calm</string>
 			<key>goodPathNodeNames</key>
 			<array>
 				<string>groundBot1_point04</string>
@@ -24,7 +24,7 @@
 			<key>initialOrientation</key>
 			<string>South</string>
 			<key>locomotion</key>
-			<string>man</string>
+			<string>protestor</string>
 		</dict>
 		<dict>
 			<key>temperament</key>
