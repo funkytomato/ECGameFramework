@@ -1,6 +1,5 @@
 /*
-//
-//  PoliceArrestState.swift
+//  PoliceBotAttackState.swift
 //  ECGameFramework
 //
 //  Created by Jason Fry on 19/04/2018.
@@ -15,7 +14,7 @@ The state of a `ManBot` when actively charging toward the `PlayerBot` or another
 import SpriteKit
 import GameplayKit
 
-class PoliceArrestState: GKState
+class PoliceBotAttackState: GKState
 {
     // MARK: Properties
     
@@ -80,8 +79,8 @@ class PoliceArrestState: GKState
         let movementComponent = self.movementComponent
         
         // Move the `ManBot` towards the target at an increased speed.
-        movementComponent.movementSpeed *= GameplayConfiguration.ManBot.movementSpeedMultiplierWhenAttacking
-        movementComponent.angularSpeed *= GameplayConfiguration.ManBot.angularSpeedMultiplierWhenAttacking
+        movementComponent.movementSpeed *= GameplayConfiguration.PoliceBot.movementSpeedMultiplierWhenAttacking
+        movementComponent.angularSpeed *= GameplayConfiguration.PoliceBot.angularSpeedMultiplierWhenAttacking
         
         movementComponent.nextTranslation = MovementKind(displacement: targetVector)
         movementComponent.nextRotation = nil
@@ -99,14 +98,14 @@ class PoliceArrestState: GKState
         let dy = targetPosition.y - entity.agent.position.y
         
         let currentDistanceToTarget = hypot(dx, dy)
-        if currentDistanceToTarget < GameplayConfiguration.ManBot.attackEndProximity
+        if currentDistanceToTarget < GameplayConfiguration.PoliceBot.attackEndProximity
         {
             stateMachine?.enter(TaskBotAgentControlledState.self)
             return
         }
         
         /*
-         Leave the attack state if the `ManBot` has moved further away from
+         Leave the attack state if the `PoliceBot` has moved further away from
          its target because it has been knocked off course.
          */
         if currentDistanceToTarget > lastDistanceToTarget
@@ -141,24 +140,54 @@ class PoliceArrestState: GKState
         // Stop the `ManBot`'s movement and restore its standard movement speed.
         movementComponent.nextRotation = nil
         movementComponent.nextTranslation = nil
-        movementComponent.movementSpeed /= GameplayConfiguration.ManBot.movementSpeedMultiplierWhenAttacking
-        movementComponent.angularSpeed /= GameplayConfiguration.ManBot.angularSpeedMultiplierWhenAttacking
+        movementComponent.movementSpeed /= GameplayConfiguration.PoliceBot.movementSpeedMultiplierWhenAttacking
+        movementComponent.angularSpeed /= GameplayConfiguration.PoliceBot.angularSpeedMultiplierWhenAttacking
     }
     
     // MARK: Convenience
     
     func applyDamageToEntity(entity: GKEntity)
     {
+        print("entity: \(entity.debugDescription)")
+        
         if let playerBot = entity as? PlayerBot, let chargeComponent = playerBot.component(ofType: ChargeComponent.self), !playerBot.isPoweredDown
         {
             // If the other entity is a `PlayerBot` that isn't powered down, reduce its charge.
-            chargeComponent.loseCharge(chargeToLose: GameplayConfiguration.ManBot.chargeLossPerContact)
+            chargeComponent.loseCharge(chargeToLose: GameplayConfiguration.PoliceBot.chargeLossPerContact)
         }
-        else if let taskBot = entity as? TaskBot, taskBot.isGood
+        //else if let taskBot = entity as? TaskBot, taskBot.isGood
+            
+      //  HERE IS THE PROBLEM.  IT IS A MANBOT AND NOT A PROTESTORBOT!   WHAT THE FUCK IS GOING ON
+            
+        else if let protestorBot = entity as? ProtestorBot, protestorBot.isGood
         {
-            //Move state to being Arrested
+            //Move state to next
             guard let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self) else { return }
-            intelligenceComponent.stateMachine.enter(BeingArrestedState.self)
+           // guard let temperamentComponent = entity.component(ofType: TemperamentComponent.self) else { return }
+            
+            switch intelligenceComponent.stateMachine.currentState
+            {
+
+                
+                //Protestor is being arrested by the police, and is now arrested
+                case is BeingArrestedState:
+                    intelligenceComponent.stateMachine.enter(ArrestedState.self)
+                
+                //Protestor has been moved to the MeatWagon and is now detained
+                case is ArrestedState:
+                    intelligenceComponent.stateMachine.enter(ArrestedState.self)
+
+//                    temperamentComponent.stateMachine.enter(AngryState.self)
+                
+                //Protestor is freely moving around the scene when Police move in to arrest protestor
+                case is TaskBotAgentControlledState:
+                    intelligenceComponent.stateMachine.enter(BeingArrestedState.self)
+                
+                default:
+                    break
+            }
+            
+            
             
             
             // If the other entity is a good `TaskBot`, turn it bad.
@@ -167,3 +196,4 @@ class PoliceArrestState: GKState
     }
     
 }
+

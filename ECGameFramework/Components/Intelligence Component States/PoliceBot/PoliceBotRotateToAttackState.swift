@@ -36,7 +36,7 @@ class PoliceBotRotateToAttackState: GKState
     /// The `targetPosition` from the `entity`.
     var targetPosition: float2
     {
-        guard let targetPosition = entity.targetPosition else { fatalError("A ManBotRotateToAttackState's entity must have a targetLocation set.") }
+        guard let targetPosition = entity.targetPosition else { fatalError("A PoliceBotRotateToAttackState's entity must have a targetLocation set.") }
         return targetPosition
     }
     
@@ -53,7 +53,7 @@ class PoliceBotRotateToAttackState: GKState
     {
         super.didEnter(from: previousState)
         
-        // Request the "walk forward" animation for this `ManBot`.
+        // Request the "walk forward" animation for this `PoliceBot`.
         animationComponent.requestedAnimationState = .idle
     }
     
@@ -68,7 +68,7 @@ class PoliceBotRotateToAttackState: GKState
         let angleDeltaToTarget = shortestAngleDeltaToTargetFromRotation(entityRotation: Float(orientationComponent.zRotation))
         
         // Calculate the amount of rotation that should be applied during this update.
-        var delta = CGFloat(seconds * GameplayConfiguration.ManBot.preAttackRotationSpeed)
+        var delta = CGFloat(seconds * GameplayConfiguration.PoliceBot.preAttackRotationSpeed)
         if angleDeltaToTarget < 0
         {
             delta *= -1
@@ -77,9 +77,9 @@ class PoliceBotRotateToAttackState: GKState
         // Check if the `ManBot` would reach the angle required to face the target during this update.
         if abs(delta) >= abs(angleDeltaToTarget)
         {
-            // Finish the rotation and enter `ManBotPreAttackState`.
+            // Finish the rotation and enter `PoliceBotPreAttackState`.
             orientationComponent.zRotation += angleDeltaToTarget
-            stateMachine?.enter(ManBotPreAttackState.self)
+            stateMachine?.enter(PoliceBotPreAttackState.self)
             return
         }
         
@@ -94,7 +94,7 @@ class PoliceBotRotateToAttackState: GKState
     {
         switch stateClass
         {
-        case is TaskBotAgentControlledState.Type, is ManBotPreAttackState.Type, is TaskBotZappedState.Type:
+        case is TaskBotAgentControlledState.Type, is PoliceBotPreAttackState.Type, is TaskBotZappedState.Type:
             return true
             
         default:

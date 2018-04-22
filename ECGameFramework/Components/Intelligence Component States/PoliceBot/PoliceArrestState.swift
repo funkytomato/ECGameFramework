@@ -1,5 +1,6 @@
 /*
-//  PoliceBotAttackState.swift
+//
+//  PoliceArrestState.swift
 //  ECGameFramework
 //
 //  Created by Jason Fry on 19/04/2018.
@@ -14,7 +15,7 @@ The state of a `ManBot` when actively charging toward the `PlayerBot` or another
 import SpriteKit
 import GameplayKit
 
-class PoliceBotAttackState: GKState
+class PoliceArrestState: GKState
 {
     // MARK: Properties
     
@@ -26,21 +27,21 @@ class PoliceBotAttackState: GKState
     /// The `MovementComponent` associated with the `entity`.
     var movementComponent: MovementComponent
     {
-        guard let movementComponent = entity.component(ofType: MovementComponent.self) else { fatalError("A ManBotAttackState's entity must have a MovementComponent.") }
+        guard let movementComponent = entity.component(ofType: MovementComponent.self) else { fatalError("A PoliceBotAttackState's entity must have a MovementComponent.") }
         return movementComponent
     }
     
     /// The `PhysicsComponent` associated with the `entity`.
     var physicsComponent: PhysicsComponent
     {
-        guard let physicsComponent = entity.component(ofType: PhysicsComponent.self) else { fatalError("A ManBotAttackState's entity must have a PhysicsComponent.") }
+        guard let physicsComponent = entity.component(ofType: PhysicsComponent.self) else { fatalError("A PoliceBotAttackState's entity must have a PhysicsComponent.") }
         return physicsComponent
     }
     
     /// The `targetPosition` from the `entity`.
     var targetPosition: float2
     {
-        guard let targetPosition = entity.targetPosition else { fatalError("A ManBotRotateToAttackState's entity must have a targetPosition set.") }
+        guard let targetPosition = entity.targetPosition else { fatalError("A PoliceBotRotateToAttackState's entity must have a targetPosition set.") }
         return targetPosition
     }
     
@@ -79,8 +80,8 @@ class PoliceBotAttackState: GKState
         let movementComponent = self.movementComponent
         
         // Move the `ManBot` towards the target at an increased speed.
-        movementComponent.movementSpeed *= GameplayConfiguration.ManBot.movementSpeedMultiplierWhenAttacking
-        movementComponent.angularSpeed *= GameplayConfiguration.ManBot.angularSpeedMultiplierWhenAttacking
+        movementComponent.movementSpeed *= GameplayConfiguration.PoliceBot.movementSpeedMultiplierWhenAttacking
+        movementComponent.angularSpeed *= GameplayConfiguration.PoliceBot.angularSpeedMultiplierWhenAttacking
         
         movementComponent.nextTranslation = MovementKind(displacement: targetVector)
         movementComponent.nextRotation = nil
@@ -98,7 +99,7 @@ class PoliceBotAttackState: GKState
         let dy = targetPosition.y - entity.agent.position.y
         
         let currentDistanceToTarget = hypot(dx, dy)
-        if currentDistanceToTarget < GameplayConfiguration.ManBot.attackEndProximity
+        if currentDistanceToTarget < GameplayConfiguration.PoliceBot.attackEndProximity
         {
             stateMachine?.enter(TaskBotAgentControlledState.self)
             return
@@ -140,8 +141,8 @@ class PoliceBotAttackState: GKState
         // Stop the `ManBot`'s movement and restore its standard movement speed.
         movementComponent.nextRotation = nil
         movementComponent.nextTranslation = nil
-        movementComponent.movementSpeed /= GameplayConfiguration.ManBot.movementSpeedMultiplierWhenAttacking
-        movementComponent.angularSpeed /= GameplayConfiguration.ManBot.angularSpeedMultiplierWhenAttacking
+        movementComponent.movementSpeed /= GameplayConfiguration.PoliceBot.movementSpeedMultiplierWhenAttacking
+        movementComponent.angularSpeed /= GameplayConfiguration.PoliceBot.angularSpeedMultiplierWhenAttacking
     }
     
     // MARK: Convenience
@@ -151,7 +152,7 @@ class PoliceBotAttackState: GKState
         if let playerBot = entity as? PlayerBot, let chargeComponent = playerBot.component(ofType: ChargeComponent.self), !playerBot.isPoweredDown
         {
             // If the other entity is a `PlayerBot` that isn't powered down, reduce its charge.
-            chargeComponent.loseCharge(chargeToLose: GameplayConfiguration.ManBot.chargeLossPerContact)
+            chargeComponent.loseCharge(chargeToLose: GameplayConfiguration.PoliceBot.chargeLossPerContact)
         }
         else if let taskBot = entity as? TaskBot, taskBot.isGood
         {
@@ -166,4 +167,3 @@ class PoliceBotAttackState: GKState
     }
     
 }
-
