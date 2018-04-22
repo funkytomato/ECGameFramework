@@ -234,7 +234,7 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
                     taskBot = PoliceBot(temperament: taskBotConfiguration.temperament, isGood: !taskBotConfiguration.startsBad, goodPathPoints: goodPathPoints, badPathPoints: badPathPoints)
                 
                 case .protestor:
-                    taskBot = ManBot(temperament: taskBotConfiguration.temperament, isGood: !taskBotConfiguration.startsBad, goodPathPoints: goodPathPoints, badPathPoints: badPathPoints)
+                    taskBot = ProtestorBot(temperament: taskBotConfiguration.temperament, isGood: !taskBotConfiguration.startsBad, goodPathPoints: goodPathPoints, badPathPoints: badPathPoints)
             }
             
             // Set the `TaskBot`'s initial orientation so that it is facing the correct way.
