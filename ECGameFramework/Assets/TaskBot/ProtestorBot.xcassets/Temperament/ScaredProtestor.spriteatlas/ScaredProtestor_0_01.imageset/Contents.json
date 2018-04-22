@@ -6,27 +6,27 @@
     },
     {
       "idiom" : "iphone",
-      "filename" : "ManBot_Attack_100_01.png",
+      "filename" : "Protestor_Scared_100_01.png",
       "scale" : "2x"
     },
     {
       "idiom" : "iphone",
-      "filename" : "ManBot_Attack_180_01.png",
+      "filename" : "Protestor_Scared_180_01.png",
       "scale" : "3x"
     },
     {
       "idiom" : "ipad",
-      "filename" : "ManBot_Attack_120_01.png",
+      "filename" : "Protestor_Scared_120_01.png",
       "scale" : "1x"
     },
     {
       "idiom" : "ipad",
-      "filename" : "ManBot_Attack_288_01.png",
+      "filename" : "Protestor_Scared_288_01.png",
       "scale" : "2x"
     },
     {
       "idiom" : "mac",
-      "filename" : "ManBot_Attack_270_01.png",
+      "filename" : "Protestor_Scared_270_01.png",
       "scale" : "1x"
     },
     {
@@ -37,5 +37,10 @@
   "info" : {
     "version" : 1,
     "author" : "xcode"
+  },
+  "properties" : {
+    "on-demand-resource-tags" : [
+      "ProtestorBot"
+    ]
   }
 }
