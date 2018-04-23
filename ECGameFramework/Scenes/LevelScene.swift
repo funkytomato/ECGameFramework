@@ -693,5 +693,9 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
         // Add the `PlayerBot` to the scene and component systems.
         addEntity(entity: playerBot)
     }
-  
+    
+    func meatWagonLocation() -> float2
+    {
+        return float2(meatWagon.position)
+    }
 }
