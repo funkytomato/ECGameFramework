@@ -124,7 +124,7 @@ class ProtestorBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
             BeingArrestedState(entity: self),
             ArrestedState(entity: self),
             DetainedState(entity: self),
-        
+            ProtestorBotRechargingState(entity: self),
             TaskBotZappedState(entity: self)
             ])
         addComponent(intelligenceComponent)
