@@ -157,6 +157,12 @@ struct GameplayConfiguration
         
         /// The duration of a `TaskBot`'s arrested state.
         static let arrestedStateDuration: TimeInterval = 50
+        
+        // How close a taskbot should be aligned with another (arrested)
+        static let alignWithNeighbour: Float = 1.0
+        
+        // The alignment with neighbour angle
+        static let alignWithNeighbourAngle: Float = 1
     }
     
     struct PoliceBot
