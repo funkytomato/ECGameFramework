@@ -14,6 +14,54 @@ class TaskBotBehavior: GKBehavior
 {
     // MARK: Behavior factory methods
     
+    // Arrested behaviour, return the arrested protestor to the meatwagon in the custody of the arresting policeman
+    static func arrestedBehaviour(forAgent agent: GKAgent2D, huntingAgent target: GKAgent2D, pathRadius: Float, inScene scene: LevelScene) -> (behaviour: GKBehavior, pathPoints: [CGPoint])
+    {
+        print("behaviorAndPathPoints \(agent.description) hunting: \(target.description) scene: \(scene.description)")
+        
+        let behavior = TaskBotBehavior()
+        
+        // Add basic goals to reach the `TaskBot`'s maximum speed and avoid obstacles.
+        behavior.addTargetSpeedGoal(speed: agent.maxSpeed)
+        behavior.addAvoidObstaclesGoal(forScene: scene)
+        
+        // Find any nearby "police" TaskBots to flock with.
+        let agentsToFlockWith: [GKAgent2D] = scene.entities.flatMap { entity in
+            if let policeBot = entity as? PoliceBot, !policeBot.isGood && policeBot.agent !== agent && policeBot.distanceToAgent(otherAgent: agent) <= GameplayConfiguration.Flocking.agentSearchDistanceForArrest
+            {
+                return policeBot.agent
+            }
+            
+            return nil
+        }
+        
+        if !agentsToFlockWith.isEmpty
+        {
+            print("arrestedBehaviour - agents are flocking \(agentsToFlockWith.description)")
+            
+            
+            // Add flocking goals for any nearby "bad" `TaskBot`s.
+            //let separationGoal = GKGoal(toSeparateFrom: agentsToFlockWith, maxDistance: GameplayConfiguration.Flocking.separationRadius, maxAngle: GameplayConfiguration.Flocking.separationAngle)
+            //behavior.setWeight(GameplayConfiguration.Flocking.separationWeight, for: separationGoal)
+            
+            let alignmentGoal = GKGoal(toAlignWith: agentsToFlockWith, maxDistance: GameplayConfiguration.Flocking.alignmentRadius, maxAngle: GameplayConfiguration.Flocking.alignmentAngle)
+            behavior.setWeight(GameplayConfiguration.Flocking.alignmentWeight, for: alignmentGoal)
+            
+            let cohesionGoal = GKGoal(toCohereWith: agentsToFlockWith, maxDistance: GameplayConfiguration.Flocking.cohesionRadius, maxAngle: GameplayConfiguration.Flocking.cohesionAngle)
+            behavior.setWeight(GameplayConfiguration.Flocking.cohesionWeight, for: cohesionGoal)
+        }
+        
+        // Add goals to follow a calculated path from the `TaskBot` to its target.
+        let pathPoints = behavior.addGoalsToFollowPath(from: agent.position, to: scene.meatWagonLocation(), pathRadius: pathRadius, inScene: scene)
+        
+        
+        print("targetPosition: \(target.position)")
+        
+        // Return a tuple containing the new behavior, and the found path points for debug drawing.
+        return (behavior, pathPoints)
+    }
+    
+    
     /// Constructs a behavior to hunt a `TaskBot` or `PlayerBot` via a computed path.
     static func huntBehaviour(forAgent agent: GKAgent2D, huntingAgent target: GKAgent2D, pathRadius: Float, inScene scene: LevelScene) -> (behavior: GKBehavior, pathPoints: [CGPoint])
     {
@@ -282,17 +330,7 @@ class TaskBotBehavior: GKBehavior
         setWeight(100.0, for: GKGoal(toWander: 100))
         print("addWanderGoal  scene: \(scene.description)")
     }
-    
 
-    // Adds a goal to wander around thhe scene
-    private func addAlignWidthGoal(forScene scene: LevelScene, agent: GKAgent)
-    {
-        //public convenience init(toAlignWith agents: [GKAgent], maxDistance: Float, maxAngle: Float)
-
-        
-        setWeight(100.0, for: GKGoal(toAlignWith: [GKAgent], maxDistance: GameplayConfiguration.TaskBot.alignWithNeighbour, maxAngle: GameplayConfiguration.TaskBot.alignWithNeighbourAngle)
-        print("addAlignWidthGoal scene: \(scene.description)")
-    }
     
     //Add a goal to seek
     private func addSeekGoal(forScene scene: LevelScene, agent: GKAgent)
