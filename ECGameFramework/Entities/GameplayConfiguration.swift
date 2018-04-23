@@ -226,6 +226,12 @@ struct GameplayConfiguration
         
         /// The offset from the `GroundBot`'s position that should be used for beam targeting.
         static let beamTargetOffset = CGPoint(x: 0.0, y: 40.0)
+        
+        /// The length of time that it takes the `ProtestorBot` to recharge when deactivated.
+        static let rechargeDelayWhenInactive: TimeInterval = 2.0
+        
+        /// The amount of charge that the `ProtestorBot` gains per second when recharging.
+        static let rechargeAmountPerSecond = 10.0
     }
 
     struct FlyingBot
