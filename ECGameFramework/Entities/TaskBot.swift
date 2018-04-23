@@ -131,7 +131,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             case .followGoodPatrolPath, .followBadPatrolPath:
                 let pathPoints = isGood ? goodPathPoints : badPathPoints
                 radius = GameplayConfiguration.TaskBot.patrolPathRadius
-                agentBehavior = TaskBotBehavior.behavior(forAgent: agent, patrollingPathWithPoints: pathPoints, pathRadius: radius, inScene: levelScene)
+                agentBehavior = TaskBotBehavior.patrolBehaviour(forAgent: agent, patrollingPathWithPoints: pathPoints, pathRadius: radius, inScene: levelScene)
                 debugPathPoints = pathPoints
                 
                 // Patrol paths are always closed loops, so the debug drawing of the path should cycle back round to the start.
@@ -140,17 +140,17 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             
             case let .huntAgent(targetAgent):
                 radius = GameplayConfiguration.TaskBot.huntPathRadius
-                (agentBehavior, debugPathPoints) = TaskBotBehavior.behaviorAndPathPoints(forAgent: agent, huntingAgent: targetAgent, pathRadius: radius, inScene: levelScene)
+                (agentBehavior, debugPathPoints) = TaskBotBehavior.huntBehaviour(forAgent: agent, huntingAgent: targetAgent, pathRadius: radius, inScene: levelScene)
                 debugColor = SKColor.red
 
             case let .returnToPositionOnPath(position):
                 radius = GameplayConfiguration.TaskBot.returnToPatrolPathRadius
-                (agentBehavior, debugPathPoints) = TaskBotBehavior.behaviorAndPathPoints(forAgent: agent, returningToPoint: position, pathRadius: radius, inScene: levelScene)
+                (agentBehavior, debugPathPoints) = TaskBotBehavior.returnToPathBehaviour(forAgent: agent, returningToPoint: position, pathRadius: radius, inScene: levelScene)
                 debugColor = SKColor.yellow
             
             case .wander:
                 radius = GameplayConfiguration.TaskBot.wanderPathRadius
-                (agentBehavior, debugPathPoints)  = TaskBotBehavior.behaviorAndWander(forAgent: agent, inScene: levelScene)
+                (agentBehavior, debugPathPoints)  = TaskBotBehavior.wanderBehaviour(forAgent: agent, inScene: levelScene)
                 debugColor = SKColor.cyan            
         }
 
@@ -215,10 +215,6 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             there is no need for it to pathfind to the start of its path, and it can patrol immediately.
         */
         mandate = isGood ? .followGoodPatrolPath : .followBadPatrolPath
-        //mandate = isGood ? .wander : .wander
-        //mandate = !isGood ? .wander : .wander
-        //mandate = .wander
-        
         super.init()
 
         // Create a `TaskBotAgent` to represent this `TaskBot` in a steering physics simulation.
