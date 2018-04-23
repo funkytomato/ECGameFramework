@@ -58,12 +58,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ECGameFramework/Behaviors/TaskBotBehavior.swift"
-            timestampString = "542848321.026736"
+            timestampString = "546201280.5129319"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "227"
-            endingLineNumber = "227"
-            landmarkName = "addWanderGoal(forScene:)"
+            startingLineNumber = "275"
+            endingLineNumber = "275"
+            landmarkName = "connectedNode(forPoint:onObstacleGraphInScene:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
