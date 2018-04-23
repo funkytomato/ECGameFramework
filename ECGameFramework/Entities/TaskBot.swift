@@ -19,17 +19,29 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         // Hunt another agent (either a `PlayerBot` or a "good" `TaskBot`).
         case huntAgent(GKAgent2D)
 
+        
         // Follow the `TaskBot`'s "good" patrol path.
         case followGoodPatrolPath
 
+        
         // Follow the `TaskBot`'s "bad" patrol path.
         case followBadPatrolPath
 
+        
         // Return to a given position on a patrol path.
         case returnToPositionOnPath(float2)
         
+        
         // Wander the 'TaskBot' around the scene
         case wander
+        
+        
+        // Arrested behaviour, protestor in Police custody
+        case arrested(GKAgent2D)
+        
+        
+        // Take arrested prisoner to meatwagon
+        case lockupPrisoner
     }
 
     // MARK: Properties
@@ -128,6 +140,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         
         switch mandate
         {
+            
             case .followGoodPatrolPath, .followBadPatrolPath:
                 let pathPoints = isGood ? goodPathPoints : badPathPoints
                 radius = GameplayConfiguration.TaskBot.patrolPathRadius
@@ -151,7 +164,19 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             case .wander:
                 radius = GameplayConfiguration.TaskBot.wanderPathRadius
                 (agentBehavior, debugPathPoints)  = TaskBotBehavior.wanderBehaviour(forAgent: agent, inScene: levelScene)
-                debugColor = SKColor.cyan            
+                debugColor = SKColor.cyan
+            
+            //Protestor being moved to LockUp
+            case .arrested(targetAgent):
+                radius = GameplayConfiguration.TaskBot.wanderPathRadius
+                (agentBehavior, debugPathPoints) = TaskBotBehavior.arrestedBehaviour(forAgent: agent, huntingAgent: targetAgent, pathRadius: 25.0, inScene: SceneLoader)
+                debugColor = SKColor.white
+            
+            //PoliceBot taking prisoner to meatwagon
+            case .lockupPrisoner:
+                radius = GameplayConfiguration.TaskBot.lockupRadius
+                (agentBehavior, debugPathPoints) = TaskBotBehavior.returnToPathBehaviour(forAgent: agent, returningToPoint: levelScene.meatWagonLocation(), pathRadius: radius, inScene: levelScene)
+                debugColor = SKColor.brown
         }
 
         if levelScene.debugDrawingEnabled
