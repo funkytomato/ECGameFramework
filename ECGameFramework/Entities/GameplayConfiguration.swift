@@ -140,6 +140,9 @@ struct GameplayConfiguration
         /// The radius of the path along which an agent travels when wandering.
         static let wanderPathRadius: Float = 20.0
         
+        // The radius of meatwagon location
+        static let lockupRadius: Float = 25.0
+        
         /// The radius of the path along which an agent travels when returning to its patrol path.
         static let returnToPatrolPathRadius: Float = 20.0
         
@@ -325,6 +328,7 @@ struct GameplayConfiguration
         static let cohesionWeight: Float = 1.667
         
         static let agentSearchDistanceForFlocking: Float = 50.0
+        static let agentSearchDistanceForArrest: Float = 50.0
     }
     
     struct TouchControl
