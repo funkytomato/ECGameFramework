@@ -157,10 +157,12 @@ class PoliceBotAttackState: GKState
         }
         //else if let taskBot = entity as? TaskBot, taskBot.isGood
             
-      //  HERE IS THE PROBLEM.  IT IS A MANBOT AND NOT A PROTESTORBOT!   WHAT THE FUCK IS GOING ON
             
-        else if let protestorBot = entity as? ProtestorBot, protestorBot.isGood
+        else if let protestorBot = entity as? ProtestorBot, protestorBot.isGood, let chargeComponent = protestorBot.component(ofType: ChargeComponent.self), !protestorBot.isPoweredDown
         {
+            // If the other entity is a 'ProtestorBot' that is still alive, reduce its charge
+            chargeComponent.loseCharge(chargeToLose: GameplayConfiguration.ProtestorBot.chargeLossPerContact)
+            
             //Move state to next
             guard let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self) else { return }
            // guard let temperamentComponent = entity.component(ofType: TemperamentComponent.self) else { return }
@@ -170,18 +172,21 @@ class PoliceBotAttackState: GKState
 
                 
                 //Protestor is being arrested by the police, and is now arrested
-                case is BeingArrestedState:
-                    intelligenceComponent.stateMachine.enter(ArrestedState.self)
+                case is ProtestorBeingArrestedState:
+                    intelligenceComponent.stateMachine.enter(ProtestorArrestedState.self)
                 
                 //Protestor has been moved to the MeatWagon and is now detained
-                case is ArrestedState:
-                    intelligenceComponent.stateMachine.enter(ArrestedState.self)
+                case is ProtestorArrestedState:
+                    intelligenceComponent.stateMachine.enter(ProtestorArrestedState.self)
 
 //                    temperamentComponent.stateMachine.enter(AngryState.self)
                 
+                case is TaskBotZappedState:
+                    intelligenceComponent.stateMachine.enter(ProtestorBotHitState.self)
+                
                 //Protestor is freely moving around the scene when Police move in to arrest protestor
                 case is TaskBotAgentControlledState:
-                    intelligenceComponent.stateMachine.enter(BeingArrestedState.self)
+                    intelligenceComponent.stateMachine.enter(ProtestorBotHitState.self)
                 
                 default:
                     break
