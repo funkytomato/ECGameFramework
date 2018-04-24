@@ -1,6 +1,6 @@
 /*
 //
-//  DetainedState.swift
+//  ProtestorDetainedState.swift
 //  ECGameFramework
 //
 //  Created by Jason Fry on 10/04/2018.
@@ -13,7 +13,7 @@ The state `ProtestorBot`s are in immediately after reaching the meatwagon destin
 import SpriteKit
 import GameplayKit
 
-class DetainedState: GKState
+class ProtestorDetainedState: GKState
 {
     // MARK:- Properties
     unowned var entity: ProtestorBot
