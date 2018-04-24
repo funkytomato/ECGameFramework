@@ -1,6 +1,6 @@
 /*
 //
-//  BeingArrestedState.swift
+//  ProtestorBeingArrestedState.swift
 //  ECGameFramework
 //
 //  Created by Jason Fry on 10/04/2018.
@@ -15,7 +15,7 @@ This state has been created to allow for a struggle and resisting arrest
 import SpriteKit
 import GameplayKit
 
-class BeingArrestedState: GKState
+class ProtestorBeingArrestedState: GKState
 {
     // MARK:- Properties
     unowned var entity: ProtestorBot
@@ -27,7 +27,7 @@ class BeingArrestedState: GKState
     /// The `AnimationComponent` associated with the `entity`.
     var animationComponent: AnimationComponent
     {
-        guard let animationComponent = entity.component(ofType: AnimationComponent.self) else { fatalError("A BeingArrestedState's entity must have an AnimationComponent.") }
+        guard let animationComponent = entity.component(ofType: AnimationComponent.self) else { fatalError("A ProtestorBeingArrestedState's entity must have an AnimationComponent.") }
         return animationComponent
     }
     
@@ -50,8 +50,8 @@ class BeingArrestedState: GKState
         //Request the "beingArrested animation for this state's 'ProtestorBot'
         animationComponent.requestedAnimationState = .beingArrested
         
-        let temperamentComponent = entity.component(ofType: TemperamentComponent.self)
-        temperamentComponent?.increaseTemperament()
+  //      let temperamentComponent = entity.component(ofType: TemperamentComponent.self)
+  //      temperamentComponent?.increaseTemperament()
         
     }
     
@@ -68,7 +68,7 @@ class BeingArrestedState: GKState
         //if elapsedTime >= GameplayConfiguration.TaskBot.preAttackStateDuration
         if elapsedTime >= GameplayConfiguration.TaskBot.arrestingStateDuration
         {
-            stateMachine?.enter(ArrestedState.self)
+            stateMachine?.enter(ProtestorArrestedState.self)
         }
     }
     
@@ -76,7 +76,7 @@ class BeingArrestedState: GKState
     {
         switch stateClass
         {
-        case is TaskBotAgentControlledState.Type, is ArrestedState.Type:
+        case is TaskBotAgentControlledState.Type, is ProtestorArrestedState.Type:
             return true
             
         default:
