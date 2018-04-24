@@ -196,6 +196,15 @@ struct GameplayConfiguration
         
         /// The offset from the `GroundBot`'s position that should be used for beam targeting.
         static let beamTargetOffset = CGPoint(x: 0.0, y: 40.0)
+        
+        /// The length of time for which the `PlayerBot` remains in its "hit" state.
+        static let hitStateDuration: TimeInterval = 0.75
+        
+        /// The length of time that it takes the `PlayerBot` to recharge when deactivated.
+        static let rechargeDelayWhenInactive: TimeInterval = 2.0
+        
+        /// The amount of charge that the `PlayerBot` gains per second when recharging.
+        static let rechargeAmountPerSecond = 10.0
     }
     
     struct ProtestorBot
@@ -227,11 +236,15 @@ struct GameplayConfiguration
         /// The offset from the `GroundBot`'s position that should be used for beam targeting.
         static let beamTargetOffset = CGPoint(x: 0.0, y: 40.0)
         
+        /// The length of time for which the `PlayerBot` remains in its "hit" state.
+        static let hitStateDuration: TimeInterval = 0.75
+        
         /// The length of time that it takes the `ProtestorBot` to recharge when deactivated.
         static let rechargeDelayWhenInactive: TimeInterval = 2.0
         
         /// The amount of charge that the `ProtestorBot` gains per second when recharging.
         static let rechargeAmountPerSecond = 10.0
+        
     }
 
     struct FlyingBot
