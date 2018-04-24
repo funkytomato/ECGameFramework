@@ -33,6 +33,7 @@ class ProtestorBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
         return shadowAtlas.textureNamed("GroundBotShadow")
     }()
     
+    var isPoweredDown = false
     
     /// The offset of the `PoliceBot`'s shadow from its center position.
     //static var shadowOffset = CGPoint(x: 0.0, y: -40.0)
@@ -80,7 +81,7 @@ class ProtestorBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
                 fatalError("Attempt to access ProtestorBot.goodAnimations before they have been loaded.")
             }
             initialAnimations = goodAnimations
-            initialCharge = 0.0
+            initialCharge = 100.0
             
             texture = SKTexture(imageNamed: "ProtestorBot")
         }
@@ -95,8 +96,7 @@ class ProtestorBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
             
             texture = SKTexture(imageNamed: "ProtestorBotBad")
         }
-        
-        
+    
         
         // Create components that define how the entity looks and behaves.
         
@@ -106,14 +106,14 @@ class ProtestorBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
         let orientationComponent = OrientationComponent()
         addComponent(orientationComponent)
         
-        let spriteComponent = SpriteComponent(texture: texture, textureSize: PoliceBot.textureSize)
+        let spriteComponent = SpriteComponent(texture: texture, textureSize: ProtestorBot.textureSize)
         //let spriteComponent = SpriteComponent(texture: PoliceBot.texture, textureSize: PoliceBot.textureSize)
         addComponent(spriteComponent)
         
         //let shadowComponent = ShadowComponent(texture: PoliceBot.shadowTexture, size: PoliceBot.shadowSize, offset: PoliceBot.shadowOffset)
         //addComponent(shadowComponent)
         
-        let animationComponent = AnimationComponent(textureSize: PoliceBot.textureSize, animations: initialAnimations)
+        let animationComponent = AnimationComponent(textureSize: ProtestorBot.textureSize, animations: initialAnimations)
         addComponent(animationComponent)
         
         let intelligenceComponent = IntelligenceComponent(states: [
@@ -121,9 +121,9 @@ class ProtestorBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
             ProtestorBotRotateToAttackState(entity: self),
             ProtestorBotPreAttackState(entity: self),
             ProtestorBotAttackState(entity: self),
-            BeingArrestedState(entity: self),
-            ArrestedState(entity: self),
-            DetainedState(entity: self),
+            ProtestorBeingArrestedState(entity: self),
+            ProtestorArrestedState(entity: self),
+            ProtestorDetainedState(entity: self),
             ProtestorBotRechargingState(entity: self),
             TaskBotZappedState(entity: self)
             ])
@@ -217,11 +217,11 @@ class ProtestorBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
         super.contactWithEntityDidBegin(entity)
         
         //If touching entity is attacking, start the arresting process
-        guard let attackState = entity.component(ofType: IntelligenceComponent.self)?.stateMachine.currentState as? PoliceBotAttackState else { return }
+ //       guard let attackState = entity.component(ofType: IntelligenceComponent.self)?.stateMachine.currentState as? PoliceBotAttackState else { return }
         
         
         // Use the `PoliceBotAttackState` to apply the appropriate damage to the contacted entity.
-        attackState.applyDamageToEntity(entity: entity)
+ //       attackState.applyDamageToEntity(entity: entity)
     }
     
     // MARK: RulesComponentDelegate
@@ -242,15 +242,15 @@ class ProtestorBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
         guard let agentControlledState = intelligenceComponent.stateMachine.currentState as? TaskBotAgentControlledState else { return }
         
         // 1) Check if enough time has passed since the `PoliceBot`'s last attack.
-        guard agentControlledState.elapsedTime >= GameplayConfiguration.PoliceBot.delayBetweenAttacks else { return }
+        guard agentControlledState.elapsedTime >= GameplayConfiguration.ProtestorBot.delayBetweenAttacks else { return }
         
         // 2) Check if the current mandate is to hunt an agent.
         guard case let .huntAgent(targetAgent) = mandate else { return }
         
         // 3) Check if the target is within the `PoliceBot`'s attack range.
-        guard distanceToAgent(otherAgent: targetAgent) <= GameplayConfiguration.PoliceBot.maximumAttackDistance else { return }
+        guard distanceToAgent(otherAgent: targetAgent) <= GameplayConfiguration.ProtestorBot.maximumAttackDistance else { return }
         
-        // 4) Check if any walls or obstacles are between the `PoliceBot` and its hunt target position.
+        // 4) Check if any walls or obstacles are between the `ProtestorBot` and its hunt target position.
         var hasLineOfSight = true
         
         scene.physicsWorld.enumerateBodies(alongRayStart: CGPoint(agent.position), end: CGPoint(targetAgent.position)) { body, _, _, stop in
@@ -264,7 +264,7 @@ class ProtestorBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
         
         // The `ProtestorBot` is ready to attack the `targetAgent`'s current position.
         targetPosition = targetAgent.position
-        intelligenceComponent.stateMachine.enter(PoliceBotRotateToAttackState.self)
+        intelligenceComponent.stateMachine.enter(ProtestorBotRotateToAttackState.self)
     }
     
     // MARK: ChargeComponentDelegate
