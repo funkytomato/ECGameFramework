@@ -1,6 +1,6 @@
 /*
 //
-//  ArrestedState.swift
+//  ProtestorArrestedState.swift
 //  ECGameFramework
 //
 //  Created by Jason Fry on 10/04/2018.
@@ -16,7 +16,7 @@
 import SpriteKit
 import GameplayKit
 
-class ArrestedState: GKState
+class ProtestorArrestedState: GKState
 {
     // MARK:- Properties
     unowned var entity: ProtestorBot
@@ -28,7 +28,7 @@ class ArrestedState: GKState
     /// The `AnimationComponent` associated with the `entity`.
     var animationComponent: AnimationComponent
     {
-        guard let animationComponent = entity.component(ofType: AnimationComponent.self) else { fatalError("An ArrestedState's entity must have an AnimationComponent.") }
+        guard let animationComponent = entity.component(ofType: AnimationComponent.self) else { fatalError("An ProtestorArrestedState's entity must have an AnimationComponent.") }
         return animationComponent
     }
     
@@ -81,7 +81,7 @@ class ArrestedState: GKState
         */
         if elapsedTime >= GameplayConfiguration.TaskBot.arrestedStateDuration
         {
-            stateMachine?.enter(DetainedState.self)
+            stateMachine?.enter(ProtestorDetainedState.self)
         }
     }
     
@@ -89,7 +89,7 @@ class ArrestedState: GKState
     {
         switch stateClass
         {
-        case is TaskBotAgentControlledState.Type, is DetainedState.Type:
+        case is TaskBotAgentControlledState.Type, is ProtestorDetainedState.Type:
             return true
             
         default:
@@ -119,10 +119,11 @@ class ArrestedState: GKState
         */
         else if let protestorBot = entity as? ProtestorBot, protestorBot.isGood, let temperamentComponent = entity.component(ofType: TemperamentComponent.self)
         {
-            temperamentComponent.stateMachine.enter(AngryState.self)
+            temperamentComponent.stateMachine.enter(SubduedState.self)
+            //temperamentComponent.stateMachine.enter(AngryState.self)
             
             //Stop Police chasing this protestor
-            protestorBot.isGood = false
+            //protestorBot.isGood = false
             
             // If the other entity is a good `TaskBot`, turn it bad.
             //taskBot.isGood = false
