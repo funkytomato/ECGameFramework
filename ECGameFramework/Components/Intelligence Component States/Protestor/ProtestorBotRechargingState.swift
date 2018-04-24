@@ -55,6 +55,7 @@ class ProtestorBotRechargingState: GKState
         
         // Request the "inactive" animation for the `ProtestorBot`.
         animationComponent.requestedAnimationState = .inactive
+        
     }
     
     override func update(deltaTime seconds: TimeInterval)
@@ -69,7 +70,8 @@ class ProtestorBotRechargingState: GKState
          Do nothing if the `PlayerBot` hasn't been in this state long enough.
          */
         if elapsedTime < GameplayConfiguration.ProtestorBot.rechargeDelayWhenInactive { return }
-        
+      
+        /*
         // `chargeComponent` is a computed property. Declare a local version so we don't compute it multiple times.
         let chargeComponent = self.chargeComponent
         
@@ -83,6 +85,7 @@ class ProtestorBotRechargingState: GKState
             //entity.isPoweredDown = false
             stateMachine?.enter(TaskBotAgentControlledState.self)
         }
+ */
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
