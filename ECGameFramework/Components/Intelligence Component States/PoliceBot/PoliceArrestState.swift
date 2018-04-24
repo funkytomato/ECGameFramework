@@ -158,7 +158,7 @@ class PoliceArrestState: GKState
         {
             //Move state to being Arrested
             guard let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self) else { return }
-            intelligenceComponent.stateMachine.enter(BeingArrestedState.self)
+            intelligenceComponent.stateMachine.enter(ProtestorBeingArrestedState.self)
             
             
             // If the other entity is a good `TaskBot`, turn it bad.
