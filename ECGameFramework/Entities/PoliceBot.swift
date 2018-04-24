@@ -43,7 +43,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
     /// The animations to use when a `PoliceBot` is in its "bad" state.
     static var badAnimations: [AnimationState: Animation]?
     
-    
+    var isPoweredDown = false
     
     // MARK: TaskBot Properties
     
@@ -217,9 +217,14 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
         
         //guard let temperamentState = entity.component(ofType: TemperamentComponent.self)?.stateMachine.currentState as? AngryState else { return }
         
-        if let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self)?.stateMachine.currentState as? BeingArrestedState
+        if let attackState = self.component(ofType: IntelligenceComponent.self)?.stateMachine.currentState as? PoliceBotAttackState
         {
-            intelligenceComponent.stateMachine?.enter(ArrestedState.self)
+            attackState.applyDamageToEntity(entity: entity)
+        }
+        
+        if let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self)?.stateMachine.currentState as? ProtestorBeingArrestedState
+        {
+            intelligenceComponent.stateMachine?.enter(ProtestorArrestedState.self)
         }
         else { return }
         
