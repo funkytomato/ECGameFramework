@@ -27,7 +27,7 @@ class TaskBotBehavior: GKBehavior
         
         // Find any nearby "police" TaskBots to flock with.
         let agentsToFlockWith: [GKAgent2D] = scene.entities.flatMap { entity in
-            if let policeBot = entity as? PoliceBot, !policeBot.isGood && policeBot.agent !== agent && policeBot.distanceToAgent(otherAgent: agent) <= GameplayConfiguration.Flocking.agentSearchDistanceForArrest
+            if let policeBot = entity as? PoliceBot, !policeBot.isProtestor && policeBot.agent !== agent && policeBot.distanceToAgent(otherAgent: agent) <= GameplayConfiguration.Flocking.agentSearchDistanceForArrest
             {
                 return policeBot.agent
             }
@@ -75,7 +75,7 @@ class TaskBotBehavior: GKBehavior
 
         // Find any nearby "bad" TaskBots to flock with.
         let agentsToFlockWith: [GKAgent2D] = scene.entities.flatMap { entity in
-            if let taskBot = entity as? TaskBot, !taskBot.isGood && taskBot.agent !== agent && taskBot.distanceToAgent(otherAgent: agent) <= GameplayConfiguration.Flocking.agentSearchDistanceForFlocking
+            if let taskBot = entity as? TaskBot, !taskBot.isProtestor && taskBot.agent !== agent && taskBot.distanceToAgent(otherAgent: agent) <= GameplayConfiguration.Flocking.agentSearchDistanceForFlocking
             {
                 return taskBot.agent
             }

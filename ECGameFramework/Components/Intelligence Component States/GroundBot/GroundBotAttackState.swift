@@ -148,10 +148,10 @@ class GroundBotAttackState: GKState
             // If the other entity is a `PlayerBot` that isn't powered down, reduce its charge.
             chargeComponent.loseCharge(chargeToLose: GameplayConfiguration.GroundBot.chargeLossPerContact)
         }
-        else if let taskBot = entity as? TaskBot, taskBot.isGood
+        else if let taskBot = entity as? TaskBot, taskBot.isProtestor
         {
             // If the other entity is a good `TaskBot`, turn it bad.
-            taskBot.isGood = false
+            taskBot.isProtestor = false
         }
     }
     

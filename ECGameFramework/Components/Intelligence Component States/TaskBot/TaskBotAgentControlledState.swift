@@ -67,7 +67,7 @@ class TaskBotAgentControlledState: GKState
             // When a `TaskBot` is returning to its path patrol start, and gets near enough, it should start to patrol.
             if case let .returnToPositionOnPath(position) = entity.mandate, entity.distanceToPoint(otherPoint: position) <= GameplayConfiguration.TaskBot.thresholdProximityToPatrolPathStartPoint
             {
-                entity.mandate = entity.isGood ? .followGoodPatrolPath : .followBadPatrolPath
+                entity.mandate = entity.isProtestor ? .followGoodPatrolPath : .followBadPatrolPath
             }
             
             // Ensure the agent's behavior is the appropriate behavior for its current mandate.

@@ -117,7 +117,7 @@ class ProtestorArrestedState: GKState
             //taskBot.isGood = false
         }
         */
-        else if let protestorBot = entity as? ProtestorBot, protestorBot.isGood, let temperamentComponent = entity.component(ofType: TemperamentComponent.self)
+        else if let protestorBot = entity as? ProtestorBot, protestorBot.isProtestor, let temperamentComponent = entity.component(ofType: TemperamentComponent.self)
         {
             temperamentComponent.stateMachine.enter(SubduedState.self)
             //temperamentComponent.stateMachine.enter(AngryState.self)

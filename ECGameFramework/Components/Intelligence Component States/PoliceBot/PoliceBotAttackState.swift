@@ -158,7 +158,7 @@ class PoliceBotAttackState: GKState
         //else if let taskBot = entity as? TaskBot, taskBot.isGood
             
             
-        else if let protestorBot = entity as? ProtestorBot, protestorBot.isGood, let chargeComponent = protestorBot.component(ofType: ChargeComponent.self), !protestorBot.isPoweredDown
+        else if let protestorBot = entity as? ProtestorBot, protestorBot.isProtestor, let chargeComponent = protestorBot.component(ofType: ChargeComponent.self), !protestorBot.isPoweredDown
         {
             // If the other entity is a 'ProtestorBot' that is still alive, reduce its charge
             chargeComponent.loseCharge(chargeToLose: GameplayConfiguration.ProtestorBot.chargeLossPerContact)

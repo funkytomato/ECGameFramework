@@ -77,7 +77,7 @@ class FlyingBotBlastState: GKState
             We make a copy of the template emitter node to ensure that the emitter
             starts from a "zero" state with no existing particles.
         */
-        if entity.isGood
+        if entity.isProtestor
         {
             currentEmitterNode = templateGoodEmitterNode.copy() as? SKEmitterNode
         }
@@ -106,7 +106,7 @@ class FlyingBotBlastState: GKState
         else if elapsedTime < GameplayConfiguration.FlyingBot.blastEffectDuration
         {
             // Perform either a "good" or "bad" blast, based on the `TaskBot`'s current state.
-            if entity.isGood
+            if entity.isProtestor
             {
                 performGoodBlast()
             }
@@ -172,7 +172,7 @@ class FlyingBotBlastState: GKState
             guard let currentState = taskBot.component(ofType: IntelligenceComponent.self)?.stateMachine.currentState else { continue }
 
             // If the entity is a "bad" `TaskBot` that isn't currently attacking, turn it "good".
-            if taskBot.isGood { continue }
+            if taskBot.isProtestor { continue }
             
             switch currentState
             {
@@ -180,7 +180,7 @@ class FlyingBotBlastState: GKState
                     break
                 
                 default:
-                    taskBot.isGood = true
+                    taskBot.isProtestor = true
             }
         }
     }
@@ -202,10 +202,10 @@ class FlyingBotBlastState: GKState
                 // Decrease the charge of a `PlayerBot` if it is in range and not powered down.
                 chargeComponent.loseCharge(chargeToLose: chargeToLose)
             }
-            else if let taskBot = entity as? TaskBot, taskBot.isGood
+            else if let taskBot = entity as? TaskBot, taskBot.isProtestor
             {
                 // Turn a `TaskBot` "bad" if it is in range and "good".
-                taskBot.isGood = false
+                taskBot.isProtestor = false
             }
         }
     }
