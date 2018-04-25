@@ -24,12 +24,12 @@ class LevelStateSnapshot
 {
     // MARK: Properties
     
-    /// A dictionary whose keys are entities, and whose values are entity snapshots for those entities.
+    // A dictionary whose keys are entities, and whose values are entity snapshots for those entities.
     var entitySnapshots: [GKEntity: EntitySnapshot] = [:]
     
     // MARK: Initialization
 
-    /// Initializes a new `LevelStateSnapshot` representing all of the entities in a `LevelScene`.
+    // Initializes a new `LevelStateSnapshot` representing all of the entities in a `LevelScene`.
     init(scene: LevelScene)
     {
         
@@ -98,7 +98,7 @@ class LevelStateSnapshot
             guard let thisTaskBot = thisEntity as? TaskBot else { return workingArrays }
                 
             // Add this `TaskBot` to the appropriate working array based on whether it is "good" or not.
-            if thisTaskBot.isGood
+            if thisTaskBot.isProtestor
             {
                 return (workingArrays.goodBots + [thisTaskBot], workingArrays.badBots)
             }
@@ -166,7 +166,7 @@ class EntitySnapshot
             {
                 playerBotTarget = (target: target, distance: entityDistance.distance)
             }
-            else if let target = entityDistance.target as? TaskBot, nearestGoodTaskBotTarget == nil && target.isGood
+            else if let target = entityDistance.target as? TaskBot, nearestGoodTaskBotTarget == nil && target.isProtestor
             {
                 nearestGoodTaskBotTarget = (target: target, distance: entityDistance.distance)
             }
