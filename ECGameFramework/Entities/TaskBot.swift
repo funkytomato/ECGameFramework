@@ -47,12 +47,12 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
     // MARK: Properties
     
     /// Indicates whether or not the `TaskBot` is currently in a "good" (benevolent) or "bad" (adversarial) state.
-    var isGood: Bool
+    var isProtestor: Bool
     {
         didSet
         {
             // Do nothing if the value hasn't changed.
-            guard isGood != oldValue else { return }
+            guard isProtestor != oldValue else { return }
             
             // Get the components we will need to access in response to the value changing.
             guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { fatalError("TaskBots must have an intelligence component.") }
@@ -61,10 +61,10 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
 
             
             // Update the `TaskBot`'s speed and acceleration to suit the new value of `isGood`.
-            agent.maxSpeed = GameplayConfiguration.TaskBot.maximumSpeedForIsGood(isGood: isGood)
+            agent.maxSpeed = GameplayConfiguration.TaskBot.maximumSpeedForIsGood(isGood: isProtestor)
             agent.maxAcceleration = GameplayConfiguration.TaskBot.maximumAcceleration
 
-            if isGood
+            if isProtestor
             {
                 /*
                     The `TaskBot` just turned from "bad" to "good".
@@ -142,14 +142,14 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         {
             
             case .followGoodPatrolPath, .followBadPatrolPath:
-                let pathPoints = isGood ? goodPathPoints : badPathPoints
+                let pathPoints = isProtestor ? goodPathPoints : badPathPoints
                 radius = GameplayConfiguration.TaskBot.patrolPathRadius
                 agentBehavior = TaskBotBehavior.patrolBehaviour(forAgent: agent, patrollingPathWithPoints: pathPoints, pathRadius: radius, inScene: levelScene)
                 debugPathPoints = pathPoints
                 
                 // Patrol paths are always closed loops, so the debug drawing of the path should cycle back round to the start.
                 debugPathShouldCycle = true
-                debugColor = isGood ? SKColor.green : SKColor.purple
+                debugColor = isProtestor ? SKColor.green : SKColor.purple
             
             case let .huntAgent(targetAgent):
                 radius = GameplayConfiguration.TaskBot.huntPathRadius
@@ -228,7 +228,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
     required init(isGood: Bool, goodPathPoints: [CGPoint], badPathPoints: [CGPoint])
     {
         // Whether or not the `TaskBot` is "good" when first created.
-        self.isGood = isGood
+        self.isProtestor = isGood
 
         // The locations of the points that define the `TaskBot`'s "good" and "bad" patrol paths.
         self.goodPathPoints = goodPathPoints
