@@ -70,7 +70,7 @@ class LevelSceneActiveState: GKState
         let allTaskBotsAreGood = !levelScene.entities.contains { entity in
             if let taskBot = entity as? TaskBot
             {
-                return !taskBot.isGood
+                return !taskBot.isProtestor
             }
             
             return false
