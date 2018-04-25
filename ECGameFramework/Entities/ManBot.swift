@@ -272,9 +272,9 @@ class ManBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
     {
         guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
         
-        isGood = !chargeComponent.hasCharge
+        isProtestor = !chargeComponent.hasCharge
         
-        if !isGood
+        if !isProtestor
         {
             intelligenceComponent.stateMachine.enter(TaskBotZappedState.self)
         }
