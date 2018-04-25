@@ -245,7 +245,7 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
 
             // Set the `TaskBot`'s initial position.
             let taskBotNode = taskBot.renderComponent.node
-            taskBotNode.position = taskBot.isGood ? goodPathPoints.first! : badPathPoints.first!
+            taskBotNode.position = taskBot.isProtestor ? goodPathPoints.first! : badPathPoints.first!
             taskBot.updateAgentPositionToMatchNodePosition()
             
             // Add the `TaskBot` to the scene and the component systems.
