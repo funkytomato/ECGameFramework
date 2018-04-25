@@ -127,11 +127,11 @@ class FlyingBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
     {
         super.contactWithEntityDidBegin(entity)
         
-        guard !isGood else { return }
+        guard !isProtestor else { return }
 
         var shouldStartAttack = false
         
-        if let otherTaskBot = entity as? TaskBot, otherTaskBot.isGood
+        if let otherTaskBot = entity as? TaskBot, otherTaskBot.isProtestor
         {
             // Contact with good task bot will trigger an attack.
             shouldStartAttack = true
@@ -155,7 +155,7 @@ class FlyingBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
         guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
         
         intelligenceComponent.stateMachine.enter(TaskBotZappedState.self)
-        isGood = !chargeComponent.hasCharge
+        isProtestor = !chargeComponent.hasCharge
     }
     
     // MARK: ResourceLoadableType
