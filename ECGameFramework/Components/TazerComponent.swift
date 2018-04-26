@@ -1,6 +1,6 @@
 /*
 //
-//  WeaponComponent.swift
+//  TazerComponent.swift
 //  ECGameFramework
 //
 //  Created by Spaceman on 25/04/2018.
@@ -14,11 +14,11 @@ A `GKComponent` that supplies and manages the `TaskBot`'s weapon. The beam is us
 import SpriteKit
 import GameplayKit
 
-class WeaponComponent: GKComponent
+class TazerComponent: GKComponent
 {
     // MARK: Types
     
-    struct WeaponInfo
+    struct TazerInfo
     {
         /// The position of the antenna.
         let position: CGPoint
@@ -28,14 +28,14 @@ class WeaponComponent: GKComponent
         
         init(entity: GKEntity, weaponOffset: CGPoint)
         {
-            guard let renderComponent = entity.component(ofType: RenderComponent.self) else { fatalError("WeaponInfo must be created with an entity that has a RenderComponent") }
-            guard let orientationComponent = entity.component(ofType: OrientationComponent.self) else { fatalError("WeaponInfo must be created with an entity that has an OrientationComponent") }
+            guard let renderComponent = entity.component(ofType: RenderComponent.self) else { fatalError("TazerInfo must be created with an entity that has a RenderComponent") }
+            guard let orientationComponent = entity.component(ofType: OrientationComponent.self) else { fatalError("TazerInfo must be created with an entity that has an OrientationComponent") }
             
             position = CGPoint(x: renderComponent.node.position.x + weaponOffset.x, y: renderComponent.node.position.y + weaponOffset.y)
             rotation = Float(orientationComponent.zRotation)
         }
         
-        func angleTo(target: WeaponInfo) -> Float
+        func angleTo(target: TazerInfo) -> Float
         {
             // Create a vector that represents the translation to the target position.
             let translationVector = float2(x: Float(target.position.x - position.x), y: Float(target.position.y - position.y))
@@ -59,11 +59,11 @@ class WeaponComponent: GKComponent
     /// Set to `true` whenever the player is holding down the attack button.
     var isTriggered = false
     
-    let weaponNode = WeaponNode()
+    let tazerNode = TazerNode()
     
-    var taskBotWeapon: WeaponInfo
+    var taskBotWeapon: TazerInfo
     {
-        return WeaponInfo(entity: taskBot, weaponOffset: taskBot.weaponTargetOffset)
+        return TazerInfo(entity: taskBot, weaponOffset: taskBot.weaponTargetOffset)
     }
     
     /**
@@ -94,12 +94,12 @@ class WeaponComponent: GKComponent
         super.init()
         
         stateMachine = GKStateMachine(states: [
-            WeaponIdleState(weaponComponent: self),
-            WeaponFiringState(weaponComponent: self),
-            WeaponCoolingState(weaponComponent: self)
+            TazerIdleState(tazerComponent: self),
+            TazerFiringState(tazerComponent: self),
+            TazerCoolingState(tazerComponent: self)
             ])
         
-        stateMachine.enter(WeaponIdleState.self)
+        stateMachine.enter(TazerIdleState.self)
     }
     
     required init?(coder aDecoder: NSCoder)
@@ -110,7 +110,7 @@ class WeaponComponent: GKComponent
     deinit
     {
         // Remove the beam node from the scene.
-        weaponNode.removeFromParent()
+        tazerNode.removeFromParent()
     }
     
     // MARK: GKComponent Life Cycle
@@ -145,15 +145,15 @@ class WeaponComponent: GKComponent
             }
             
             // Filter out `TaskBot`s that are too far away.
-            if entityDistance.distance > Float(GameplayConfiguration.Weapon.arcLength)
+            if entityDistance.distance > Float(GameplayConfiguration.Tazer.arcLength)
             {
                 return false
             }
             
             // Filter out any `TaskBot` who's antenna is not within the beam's arc.
-            let taskBotWeapon = WeaponInfo(entity: taskBot, weaponOffset: taskBot.weaponTargetOffset)
+            let taskBotWeapon = TazerInfo(entity: taskBot, weaponOffset: taskBot.weaponTargetOffset)
             
-            let targetDistanceRatio = entityDistance.distance / Float(GameplayConfiguration.Weapon.arcLength)
+            let targetDistanceRatio = entityDistance.distance / Float(GameplayConfiguration.Tazer.arcLength)
             
             /*
              Determine the angle between the `taskBotAntenna` and the `taskBotAntenna`
@@ -163,7 +163,7 @@ class WeaponComponent: GKComponent
              get closer together.
              */
             let arcAngle = taskBotWeapon.angleTo(target: taskBotWeapon) * targetDistanceRatio
-            if arcAngle > Float(GameplayConfiguration.Weapon.maxArcAngle)
+            if arcAngle > Float(GameplayConfiguration.Tazer.maxArcAngle)
             {
                 return false
             }
