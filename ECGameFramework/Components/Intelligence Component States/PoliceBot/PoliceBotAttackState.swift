@@ -26,21 +26,21 @@ class PoliceBotAttackState: GKState
     /// The `MovementComponent` associated with the `entity`.
     var movementComponent: MovementComponent
     {
-        guard let movementComponent = entity.component(ofType: MovementComponent.self) else { fatalError("A ManBotAttackState's entity must have a MovementComponent.") }
+        guard let movementComponent = entity.component(ofType: MovementComponent.self) else { fatalError("A PoliceBotAttackState's entity must have a MovementComponent.") }
         return movementComponent
     }
     
     /// The `PhysicsComponent` associated with the `entity`.
     var physicsComponent: PhysicsComponent
     {
-        guard let physicsComponent = entity.component(ofType: PhysicsComponent.self) else { fatalError("A ManBotAttackState's entity must have a PhysicsComponent.") }
+        guard let physicsComponent = entity.component(ofType: PhysicsComponent.self) else { fatalError("A PoliceBotAttackState's entity must have a PhysicsComponent.") }
         return physicsComponent
     }
     
     /// The `targetPosition` from the `entity`.
     var targetPosition: float2
     {
-        guard let targetPosition = entity.targetPosition else { fatalError("A ManBotRotateToAttackState's entity must have a targetPosition set.") }
+        guard let targetPosition = entity.targetPosition else { fatalError("A PoliceBotRotateToAttackState's entity must have a targetPosition set.") }
         return targetPosition
     }
     
@@ -93,7 +93,7 @@ class PoliceBotAttackState: GKState
         // `targetPosition` is a computed property. Declare a local version so we don't compute it multiple times.
         let targetPosition = self.targetPosition
         
-        // Leave the attack state if the `ManBot` is close to its target.
+        // Leave the attack state if the `PoliceBot` is close to its target.
         let dx = targetPosition.x - entity.agent.position.x
         let dy = targetPosition.y - entity.agent.position.y
         
@@ -158,10 +158,10 @@ class PoliceBotAttackState: GKState
         //else if let taskBot = entity as? TaskBot, taskBot.isGood
             
             
-        else if let protestorBot = entity as? ProtestorBot, protestorBot.isProtestor, let chargeComponent = protestorBot.component(ofType: ChargeComponent.self), !protestorBot.isPoweredDown
+        else if let protestorBot = entity as? ProtestorBot, protestorBot.isProtestor, let healthComponent = protestorBot.component(ofType: HealthComponent.self)//, !protestorBot.isPoweredDown
         {
             // If the other entity is a 'ProtestorBot' that is still alive, reduce its charge
-            chargeComponent.loseCharge(chargeToLose: GameplayConfiguration.ProtestorBot.chargeLossPerContact)
+            healthComponent.loseHealth(healthToLose: GameplayConfiguration.PoliceBot.healthLossPerContact)
             
             //Move state to next
             guard let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self) else { return }
