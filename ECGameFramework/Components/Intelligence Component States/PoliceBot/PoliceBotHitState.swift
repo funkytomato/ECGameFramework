@@ -8,7 +8,7 @@
 //
 
 Abstract:
-A state used to represent the player when hit by a `TaskBot` attack.
+A state used to represent the PoliceBot when hit by a `TaskBot` attack.
 */
 
 import SpriteKit
@@ -29,6 +29,13 @@ class PoliceBotHitState: GKState
         guard let animationComponent = entity.component(ofType: AnimationComponent.self) else { fatalError("A PoliceBotHitState's entity must have an AnimationComponent.") }
         return animationComponent
     }
+    
+    var healthComponent: HealthComponent
+    {
+        guard let healthComponent = entity.component(ofType: HealthComponent.self) else { fatalError("A PoliceBotHitState's entity must have an HealthComponent.") }
+        return healthComponent
+    }
+    
     
     // MARK: Initializers
     
