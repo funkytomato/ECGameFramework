@@ -14,17 +14,17 @@ The state of the `TaskBot`'s weapon when not in use.
 import SpriteKit
 import GameplayKit
 
-class WeaponIdleState: GKState
+class TazerIdleState: GKState
 {
     // MARK: Properties
     
-    unowned var weaponComponent: WeaponComponent
+    unowned var tazerComponent: TazerComponent
     
     // MARK: Initializers
     
-    required init(weaponComponent: WeaponComponent)
+    required init(tazerComponent: TazerComponent)
     {
-        self.weaponComponent = weaponComponent
+        self.tazerComponent = tazerComponent
     }
     
     // MARK: GKState life cycle
@@ -33,15 +33,15 @@ class WeaponIdleState: GKState
     {
         super.update(deltaTime: seconds)
         
-        // If the beam has been triggered, enter `WeaponFiringState`.
-        if weaponComponent.isTriggered
+        // If the beam has been triggered, enter `TazorFiringState`.
+        if tazerComponent.isTriggered
         {
-            stateMachine?.enter(WeaponFiringState.self)
+            stateMachine?.enter(TazerFiringState.self)
         }
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
     {
-        return stateClass is WeaponFiringState.Type
+        return stateClass is TazerFiringState.Type
     }
 }
