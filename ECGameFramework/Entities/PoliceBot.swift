@@ -82,12 +82,12 @@ class PoliceBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
     
     // MARK: TaskBot Properties
     
-    override var goodAnimations: [AnimationState: Animation]
+    override var calmAnimations: [AnimationState: Animation]
     {
         return PoliceBot.goodAnimations!
     }
     
-    override var badAnimations: [AnimationState: Animation]
+    override var angryAnimations: [AnimationState: Animation]
     {
         return PoliceBot.badAnimations!
     }
