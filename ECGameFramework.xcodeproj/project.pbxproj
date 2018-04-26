@@ -170,6 +170,11 @@
 		18FCEAA72040EC40009A5C0D /* ButtonNodeResponderType+ScreenRecording.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCEA462040EC40009A5C0D /* ButtonNodeResponderType+ScreenRecording.swift */; };
 		C22B2B1520594D230001EC87 /* ManBot.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C22B2B1420594D230001EC87 /* ManBot.xcassets */; };
 		C2B1337D205A9AA400C87B71 /* PlayerBot.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2B1337C205A9AA400C87B71 /* PlayerBot.xcassets */; };
+		C2EB3494209127CA00DCF457 /* WeaponComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EB3493209127CA00DCF457 /* WeaponComponent.swift */; };
+		C2EB3497209129BD00DCF457 /* WeaponCoolingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EB3496209129BD00DCF457 /* WeaponCoolingState.swift */; };
+		C2EB349920912A9C00DCF457 /* WeaponFiringState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EB349820912A9C00DCF457 /* WeaponFiringState.swift */; };
+		C2EB349B20912C0A00DCF457 /* WeaponIdleState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EB349A20912C0A00DCF457 /* WeaponIdleState.swift */; };
+		C2EB349D20913D3800DCF457 /* WeaponNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EB349C20913D3800DCF457 /* WeaponNode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -353,6 +358,11 @@
 		18FCEA462040EC40009A5C0D /* ButtonNodeResponderType+ScreenRecording.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ButtonNodeResponderType+ScreenRecording.swift"; sourceTree = "<group>"; };
 		C22B2B1420594D230001EC87 /* ManBot.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ManBot.xcassets; sourceTree = "<group>"; };
 		C2B1337C205A9AA400C87B71 /* PlayerBot.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = PlayerBot.xcassets; sourceTree = "<group>"; };
+		C2EB3493209127CA00DCF457 /* WeaponComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeaponComponent.swift; sourceTree = "<group>"; };
+		C2EB3496209129BD00DCF457 /* WeaponCoolingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeaponCoolingState.swift; sourceTree = "<group>"; };
+		C2EB349820912A9C00DCF457 /* WeaponFiringState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeaponFiringState.swift; sourceTree = "<group>"; };
+		C2EB349A20912C0A00DCF457 /* WeaponIdleState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeaponIdleState.swift; sourceTree = "<group>"; };
+		C2EB349C20913D3800DCF457 /* WeaponNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeaponNode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -629,6 +639,7 @@
 				18FCE9F02040EB9F009A5C0D /* ChargeComponent.swift */,
 				18FCE9F12040EB9F009A5C0D /* CompassDirection.swift */,
 				18F35DB420542DA300B686DA /* EmitterComponent.swift */,
+				18EA813120864631002B00EB /* HealthComponent.swift */,
 				18FCE9F22040EB9F009A5C0D /* InputComponent.swift */,
 				18FCEA002040EB9F009A5C0D /* IntelligenceComponent.swift */,
 				181B1464208A8E3900B9580B /* Intelligence Component States */,
@@ -640,7 +651,8 @@
 				18FCEA062040EB9F009A5C0D /* ShadowComponent.swift */,
 				18EDA50E2084FB26005CB784 /* TemperamentComponent.swift */,
 				18C82A5E20861F9C0046B746 /* TemperamentComponent States */,
-				18EA813120864631002B00EB /* HealthComponent.swift */,
+				C2EB34952091294900DCF457 /* WeaponComponent */,
+				C2EB3493209127CA00DCF457 /* WeaponComponent.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -802,6 +814,7 @@
 				18FCEA352040EC3F009A5C0D /* ButtonNode.swift */,
 				18FCEA362040EC3F009A5C0D /* ChargeBar.swift */,
 				18FCEA372040EC3F009A5C0D /* ThumbStickNode.swift */,
+				C2EB349C20913D3800DCF457 /* WeaponNode.swift */,
 			);
 			path = Nodes;
 			sourceTree = "<group>";
@@ -835,6 +848,16 @@
 				18FCEA462040EC40009A5C0D /* ButtonNodeResponderType+ScreenRecording.swift */,
 			);
 			path = "Screen Recording";
+			sourceTree = "<group>";
+		};
+		C2EB34952091294900DCF457 /* WeaponComponent */ = {
+			isa = PBXGroup;
+			children = (
+				C2EB3496209129BD00DCF457 /* WeaponCoolingState.swift */,
+				C2EB349820912A9C00DCF457 /* WeaponFiringState.swift */,
+				C2EB349A20912C0A00DCF457 /* WeaponIdleState.swift */,
+			);
+			path = WeaponComponent;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1062,6 +1085,7 @@
 				186F6E9D2040DAF5001EEF65 /* GameViewController.swift in Sources */,
 				18EDA50F2084FB26005CB784 /* TemperamentComponent.swift in Sources */,
 				184B7631207D052200F959F7 /* ProtestorBeingArrestedState.swift in Sources */,
+				C2EB3494209127CA00DCF457 /* WeaponComponent.swift in Sources */,
 				18DF360F2052FBCD001F55DE /* SpriteComponent.swift in Sources */,
 				18FCEA552040EC40009A5C0D /* SceneOverlay.swift in Sources */,
 				18FCEAA72040EC40009A5C0D /* ButtonNodeResponderType+ScreenRecording.swift in Sources */,
@@ -1082,6 +1106,7 @@
 				18C82A66208620A90046B746 /* ViolentState.swift in Sources */,
 				18FCEA5B2040EC40009A5C0D /* TaskBotAgent.swift in Sources */,
 				18FCE9C52040EB3C009A5C0D /* LoadSceneOperation.swift in Sources */,
+				C2EB349D20913D3800DCF457 /* WeaponNode.swift in Sources */,
 				1810736C2088E740001390EA /* PoliceBotAttackState.swift in Sources */,
 				18FCEA482040EC40009A5C0D /* BaseScene+Focus.swift in Sources */,
 				18FCE9CC2040EB3C009A5C0D /* SceneLoaderResourcesReadyState.swift in Sources */,
@@ -1093,6 +1118,7 @@
 				181073692088E604001390EA /* PoliceBotRotateToAttackState.swift in Sources */,
 				18FCEA762040EC40009A5C0D /* GeometryExtensions.swift in Sources */,
 				18FCEA5E2040EC40009A5C0D /* BeamFiringState.swift in Sources */,
+				C2EB3497209129BD00DCF457 /* WeaponCoolingState.swift in Sources */,
 				18FCEA502040EC40009A5C0D /* LevelSceneSuccessState.swift in Sources */,
 				18FCEA692040EC40009A5C0D /* FlyingBotPreAttackState.swift in Sources */,
 				181073642088E15B001390EA /* PoliceBot.swift in Sources */,
@@ -1108,6 +1134,7 @@
 				18FCEA4F2040EC40009A5C0D /* LevelScenePauseState.swift in Sources */,
 				18FCEAA62040EC40009A5C0D /* BaseScene+ScreenRecording.swift in Sources */,
 				18FCEA652040EC40009A5C0D /* PlayerBotHitState.swift in Sources */,
+				C2EB349B20912C0A00DCF457 /* WeaponIdleState.swift in Sources */,
 				18FCEA542040EC40009A5C0D /* ProgressScene.swift in Sources */,
 				18FCE9C42040EB3C009A5C0D /* LoadResourcesOperation.swift in Sources */,
 				18FCEA562040EC40009A5C0D /* FlyingBot.swift in Sources */,
@@ -1134,6 +1161,7 @@
 				18FCEA9E2040EC40009A5C0D /* Rules.swift in Sources */,
 				18EA813220864631002B00EB /* HealthComponent.swift in Sources */,
 				18FCE9CE2040EB3C009A5C0D /* SceneManager.swift in Sources */,
+				C2EB349920912A9C00DCF457 /* WeaponFiringState.swift in Sources */,
 				18FCE9C62040EB3C009A5C0D /* ResourceLoadableType.swift in Sources */,
 				18FCEA972040EC40009A5C0D /* ContactNotifiableType.swift in Sources */,
 				18FCEA992040EC40009A5C0D /* ButtonNode.swift in Sources */,
