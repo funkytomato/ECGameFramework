@@ -57,7 +57,8 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             // Get the components we will need to access in response to the value changing.
             guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { fatalError("TaskBots must have an intelligence component.") }
             guard let animationComponent = component(ofType: AnimationComponent.self) else { fatalError("TaskBots must have an animation component.") }
-            guard let chargeComponent = component(ofType: ChargeComponent.self) else { fatalError("TaskBots must have a charge component.") }
+            //guard let chargeComponent = component(ofType: ChargeComponent.self) else { fatalError("TaskBots must have a charge component.") }
+            guard let healthComponent = component(ofType: HealthComponent.self) else { fatalError("TaskBots must have a health component.") }
 
             
             // Update the `TaskBot`'s speed and acceleration to suit the new value of `isGood`.
@@ -88,7 +89,8 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 animationComponent.animations = goodAnimations
                 
                 // Set the appropriate amount of charge.
-                chargeComponent.charge = 0.0
+                //chargeComponent.charge = 0.0
+                healthComponent.health = 0.0
             }
             else
             {
@@ -104,7 +106,8 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 animationComponent.animations = badAnimations
                 
                 // Set the appropriate amount of charge.
-                chargeComponent.charge = chargeComponent.maximumCharge
+                //chargeComponent.charge = chargeComponent.maximumCharge
+                healthComponent.health = healthComponent.maximumHealth
                 
                 // Enter the "zapped" state.
                 intelligenceComponent.stateMachine.enter(TaskBotZappedState.self)
