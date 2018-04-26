@@ -81,7 +81,7 @@ class PoliceBotRechargingState: GKState
         // If the `PlayerBot` is fully charged it can become player controlled again.
         if chargeComponent.isFullyCharged
         {
-            entity.isPoweredDown = false
+            entity.tazerPoweredDown = false
             stateMachine?.enter(TaskBotAgentControlledState.self)
         }
  
