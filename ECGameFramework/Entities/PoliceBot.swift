@@ -14,8 +14,40 @@ A ground-based `TaskBot` with a distance attack. This `GKEntity` subclass allows
 import SpriteKit
 import GameplayKit
 
-class PoliceBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
+class PoliceBot: TaskBot, ChargeComponentDelegate, HealthComponentDelegate, ResourceLoadableType
 {
+    // MARK: ChargeComponentDelegate
+    
+    func chargeComponentDidLoseCharge(chargeComponent: ChargeComponent)
+    {
+        guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
+        
+        isProtestor = !chargeComponent.hasCharge
+        
+        if !isProtestor
+        {
+            intelligenceComponent.stateMachine.enter(TaskBotZappedState.self)
+        }
+    }
+    
+    
+    // MARK: HealthComponentDelegate
+    func healthComponentDidLoseHealth(healthComponent: HealthComponent)
+    {
+        if let intelligenceComponent = component(ofType: IntelligenceComponent.self)
+        {
+            if !healthComponent.hasHealth
+            {
+                isAlive = false
+                intelligenceComponent.stateMachine.enter(PoliceBotRechargingState.self)
+            }
+            else
+            {
+                intelligenceComponent.stateMachine.enter(PoliceBotHitState.self)
+            }
+        }
+    }
+    
     // MARK: Static Properties
     
     var texture = SKTexture()
@@ -45,6 +77,8 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
     
     var isPoweredDown = false
     
+    var isAlive = true
+    
     // MARK: TaskBot Properties
     
     override var goodAnimations: [AnimationState: Animation]
@@ -72,6 +106,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
         // Determine initial animations and charge based on the initial state of the bot.
         let initialAnimations: [AnimationState: Animation]
         let initialCharge: Double
+        let initialHealth: Double
         
         if isGood
         {
@@ -81,6 +116,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
             }
             initialAnimations = goodAnimations
             initialCharge = 0.0
+            initialHealth = 0.0
             
             texture = SKTexture(imageNamed: "PoliceBot")
         }
@@ -92,6 +128,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
             }
             initialAnimations = badAnimations
             initialCharge = GameplayConfiguration.PoliceBot.maximumCharge
+            initialHealth = GameplayConfiguration.PoliceBot.maximumHealth
             
             texture = SKTexture(imageNamed: "PoliceBotBad")
         }
@@ -164,6 +201,16 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
         let chargeComponent = ChargeComponent(charge: initialCharge, maximumCharge: GameplayConfiguration.PoliceBot.maximumCharge)
         chargeComponent.delegate = self
         addComponent(chargeComponent)
+        
+        
+        let healthComponent = HealthComponent(health: initialHealth, maximumHealth: GameplayConfiguration.PoliceBot.maximumHealth)
+        healthComponent.delegate = self
+        addComponent(healthComponent)
+        
+        
+        let weaponComponent = WeaponComponent()
+        //weaponComponent.delegate = self
+        addComponent(weaponComponent)
         
         let movementComponent = MovementComponent()
         addComponent(movementComponent)
@@ -303,19 +350,8 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
         intelligenceComponent.stateMachine.enter(PoliceBotRotateToAttackState.self)
     }
     
-    // MARK: ChargeComponentDelegate
+
     
-    func chargeComponentDidLoseCharge(chargeComponent: ChargeComponent)
-    {
-        guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
-        
-        isProtestor = !chargeComponent.hasCharge
-        
-        if !isProtestor
-        {
-            intelligenceComponent.stateMachine.enter(TaskBotZappedState.self)
-        }
-    }
     
     // MARK: ResourceLoadableType
     
