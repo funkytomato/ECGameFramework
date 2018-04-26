@@ -13,7 +13,7 @@ An `SKNode` subclass used as a container for the visual components that make up 
 import SpriteKit
 import GameplayKit
 
-class WeaponNode: SKNode, ResourceLoadableType
+class TazerNode: SKNode, ResourceLoadableType
 {
     // MARK: Static properties
     
@@ -54,16 +54,16 @@ class WeaponNode: SKNode, ResourceLoadableType
     override init()
     {
         sourceNode = SKSpriteNode()
-        sourceNode.size = WeaponNode.dotTextureSize
+        sourceNode.size = TazerNode.dotTextureSize
         sourceNode.isHidden = true
         
         destinationNode = SKSpriteNode()
-        destinationNode.size = WeaponNode.dotTextureSize
+        destinationNode.size = TazerNode.dotTextureSize
         destinationNode.isHidden = true
         
         let arcPath = CGMutablePath.init()
         let center = CGPoint(x: 0.0, y: 0.0)
-        arcPath.addArc(center: center, radius: GameplayConfiguration.Weapon.arcLength, startAngle: GameplayConfiguration.Weapon.arcAngle * 0.5, endAngle: GameplayConfiguration.Weapon.arcAngle * -0.5, clockwise: true)
+        arcPath.addArc(center: center, radius: GameplayConfiguration.Tazer.arcLength, startAngle: GameplayConfiguration.Tazer.arcAngle * 0.5, endAngle: GameplayConfiguration.Tazer.arcAngle * -0.5, clockwise: true)
         arcPath.addLine(to: center)
         
         debugNode = SKShapeNode(path: arcPath)
@@ -102,7 +102,7 @@ class WeaponNode: SKNode, ResourceLoadableType
         
         switch state
         {
-        case is WeaponIdleState:
+        case is TazerIdleState:
             // Hide the source and destination nodes.
             sourceNode.isHidden = true
             destinationNode.isHidden = true
@@ -113,7 +113,7 @@ class WeaponNode: SKNode, ResourceLoadableType
             
             debugNode.isHidden = true
             
-        case is WeaponFiringState:
+        case is TazerFiringState:
             /*
              If there is no `lineNode`, create one from the template node.
              Adding a new copy of the template will ensure the actions are re-started when
@@ -121,7 +121,7 @@ class WeaponNode: SKNode, ResourceLoadableType
              */
             if lineNode == nil
             {
-                lineNode = WeaponNode.lineNodeTemplate.copy() as? SKSpriteNode
+                lineNode = TazerNode.lineNodeTemplate.copy() as? SKSpriteNode
                 lineNode!.isHidden = true
                 addChild(lineNode!)
             }
@@ -172,12 +172,12 @@ class WeaponNode: SKNode, ResourceLoadableType
                 // Only draw beam arc if there is a target.
                 if let target = target
                 {
-                    let distanceRatio = GameplayConfiguration.Weapon.arcLength / CGFloat(distance(source.agent.position, target.agent.position))
-                    let arcAngle = min(GameplayConfiguration.Weapon.arcAngle * distanceRatio, 1 / GameplayConfiguration.Weapon.maxArcAngle)
+                    let distanceRatio = GameplayConfiguration.Tazer.arcLength / CGFloat(distance(source.agent.position, target.agent.position))
+                    let arcAngle = min(GameplayConfiguration.Tazer.arcAngle * distanceRatio, 1 / GameplayConfiguration.Tazer.maxArcAngle)
                     
                     let center = CGPoint(x: 0, y: 0)
                     
-                    arcPath.addArc(center: center, radius: GameplayConfiguration.Weapon.arcLength, startAngle: arcAngle * 0.5, endAngle: -arcAngle * 0.5, clockwise: true)
+                    arcPath.addArc(center: center, radius: GameplayConfiguration.Tazer.arcLength, startAngle: arcAngle * 0.5, endAngle: -arcAngle * 0.5, clockwise: true)
                     arcPath.addLine(to: center)
                 }
                 debugNode.path = arcPath
@@ -185,7 +185,7 @@ class WeaponNode: SKNode, ResourceLoadableType
                 debugNode.zRotation = sourceOrientation.zRotation
             }
             
-        case is WeaponCoolingState:
+        case is TazerCoolingState:
             // Show the `sourceNode` with the "cooling" animation.
             sourceNode.isHidden = false
             animate(sourceNode, withAction: AnimationActions.cooling)
@@ -210,7 +210,7 @@ class WeaponNode: SKNode, ResourceLoadableType
     {
         if runningNodeAnimations[node] != action
         {
-            node.run(action, withKey: WeaponNode.animationActionKey)
+            node.run(action, withKey: TazerNode.animationActionKey)
             runningNodeAnimations[node] = action
         }
     }
@@ -253,7 +253,7 @@ class WeaponNode: SKNode, ResourceLoadableType
         
         // Scale the line's length.
         let beamLength = hypot(dx, dy)
-        lineNode.xScale = beamLength / WeaponNode.lineNodeTemplate.size.width
+        lineNode.xScale = beamLength / TazerNode.lineNodeTemplate.size.width
     }
     
     // MARK: ResourceLoadableType
