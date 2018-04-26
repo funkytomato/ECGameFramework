@@ -14,7 +14,8 @@ A ground-based `TaskBot` with a distance attack. This `GKEntity` subclass allows
 import SpriteKit
 import GameplayKit
 
-class ProtestorBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
+//class ProtestorBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
+class ProtestorBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
 {
     // MARK: Static Properties
     
@@ -34,6 +35,7 @@ class ProtestorBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
     }()
     
     var isPoweredDown = false
+    var isAlive = true
     
     /// The offset of the `PoliceBot`'s shadow from its center position.
     //static var shadowOffset = CGPoint(x: 0.0, y: -40.0)
@@ -73,6 +75,7 @@ class ProtestorBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
         // Determine initial animations and charge based on the initial state of the bot.
         let initialAnimations: [AnimationState: Animation]
         let initialCharge: Double
+        let initialHealth: Double
         
         if isGood
         {
@@ -82,6 +85,7 @@ class ProtestorBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
             }
             initialAnimations = goodAnimations
             initialCharge = 100.0
+            initialHealth = 100.0
             
             texture = SKTexture(imageNamed: "ProtestorBot")
         }
@@ -93,6 +97,7 @@ class ProtestorBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
             }
             initialAnimations = badAnimations
             initialCharge = GameplayConfiguration.ProtestorBot.maximumCharge
+            initialHealth = GameplayConfiguration.ProtestorBot.maximumHealth
             
             texture = SKTexture(imageNamed: "ProtestorBotBad")
         }
@@ -164,10 +169,14 @@ class ProtestorBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
         let physicsBody = SKPhysicsBody(circleOfRadius: GameplayConfiguration.TaskBot.physicsBodyRadius, center: GameplayConfiguration.TaskBot.physicsBodyOffset)
         let physicsComponent = PhysicsComponent(physicsBody: physicsBody, colliderType: .TaskBot)
         addComponent(physicsComponent)
-        
+/*
         let chargeComponent = ChargeComponent(charge: initialCharge, maximumCharge: GameplayConfiguration.ProtestorBot.maximumCharge, displaysChargeBar: true)
         chargeComponent.delegate = self
         addComponent(chargeComponent)
+  */
+        let healthComponent = HealthComponent(health: initialHealth, maximumHealth: GameplayConfiguration.ProtestorBot.maximumHealth, displaysHealthBar: true)
+        healthComponent.delegate = self
+        addComponent(healthComponent)
         
         let movementComponent = MovementComponent()
         addComponent(movementComponent)
@@ -274,6 +283,19 @@ class ProtestorBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
         guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
         
         isProtestor = !chargeComponent.hasCharge
+        
+        if !isProtestor
+        {
+            intelligenceComponent.stateMachine.enter(TaskBotZappedState.self)
+        }
+    }
+
+    
+    func healthComponentDidLoseHealth(healthComponent: HealthComponent)
+    {
+        guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
+        
+        isProtestor = !healthComponent.hasHealth
         
         if !isProtestor
         {
