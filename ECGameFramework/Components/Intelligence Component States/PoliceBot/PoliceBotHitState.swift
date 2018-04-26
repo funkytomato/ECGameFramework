@@ -60,7 +60,7 @@ class PoliceBotHitState: GKState
         // When the `PlayerBot` has been in this state for long enough, transition to the appropriate next state.
         if elapsedTime >= GameplayConfiguration.PoliceBot.hitStateDuration
         {
-            if entity.isPoweredDown
+            if entity.tazerPoweredDown
             {
                 stateMachine?.enter(PoliceBotRechargingState.self)
             }
