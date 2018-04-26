@@ -31,6 +31,30 @@ struct GameplayConfiguration
         /// The length of time that the beam takes to recharge when it is fully depleted.
         static let coolDownDuration: TimeInterval = 1.0
     }
+    
+    
+    struct Weapon
+    {
+        /// The distance (in points) over which the beam can be fired.
+        static let arcLength: CGFloat = 300.0
+        
+        /// The arc angle (in radians) within which the beam is effective.
+        static let arcAngle = CGFloat(45.0 * (Double.pi / 180.0))
+        
+        /// The maximum arc angle (in radians) after being adjusted for distance from target.
+        static let maxArcAngle = CGFloat(0.35)
+        
+        /// The maximum number of seconds for which the beam can be fired before recharging.
+        static let maximumFireDuration: TimeInterval = 2.0
+        
+        /// The amount of charge points the beam drains from `TaskBot`s per second.
+        static let damageLossPerSecond = 90.0
+        
+        /// The length of time that the beam takes to recharge when it is fully depleted.
+        static let coolDownDuration: TimeInterval = 1.0
+        
+        
+    }
 
     struct PlayerBot
     {
