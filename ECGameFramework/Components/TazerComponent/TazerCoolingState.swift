@@ -14,20 +14,20 @@ The state the beam enters when it overheats from being used for too long.
 import SpriteKit
 import GameplayKit
 
-class WeaponCoolingState: GKState
+class TazerCoolingState: GKState
 {
     // MARK: Properties
     
-    unowned var weaponComponent: WeaponComponent
+    unowned var tazerComponent: TazerComponent
     
     /// The amount of time the beam has been cooling down.
     var elapsedTime: TimeInterval = 0.0
     
     // MARK: Initializers
     
-    required init(weaponComponent: WeaponComponent)
+    required init(tazerComponent: TazerComponent)
     {
-        self.weaponComponent = weaponComponent
+        self.tazerComponent = tazerComponent
     }
     
     // MARK: GKState life cycle
@@ -46,9 +46,9 @@ class WeaponCoolingState: GKState
         elapsedTime += seconds
         
         // If the beam has spent long enough cooling down, enter `BeamIdleState`.
-        if elapsedTime >= GameplayConfiguration.Beam.coolDownDuration
+        if elapsedTime >= GameplayConfiguration.Tazer.coolDownDuration
         {
-            stateMachine?.enter(WeaponIdleState.self)
+            stateMachine?.enter(TazerIdleState.self)
         }
     }
     
@@ -56,7 +56,7 @@ class WeaponCoolingState: GKState
     {
         switch stateClass
         {
-        case is WeaponIdleState.Type, is WeaponFiringState.Type:
+        case is TazerIdleState.Type, is TazerFiringState.Type:
             return true
             
         default:
@@ -68,9 +68,9 @@ class WeaponCoolingState: GKState
     {
         super.willExit(to: nextState)
         
-        if let taskBot = weaponComponent.entity as? TaskBot
+        if let taskBot = tazerComponent.entity as? TaskBot
         {
-            weaponComponent.weaponNode.update(withWeaponState: nextState, source: taskBot)
+            tazerComponent.tazerNode.update(withWeaponState: nextState, source: taskBot)
         }
     }
 }
