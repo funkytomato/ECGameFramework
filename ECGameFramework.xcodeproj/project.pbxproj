@@ -649,10 +649,10 @@
 				18FCEA042040EB9F009A5C0D /* RenderComponent.swift */,
 				18FCEA052040EB9F009A5C0D /* RulesComponent.swift */,
 				18FCEA062040EB9F009A5C0D /* ShadowComponent.swift */,
-				18EDA50E2084FB26005CB784 /* TemperamentComponent.swift */,
-				18C82A5E20861F9C0046B746 /* TemperamentComponent States */,
 				C2EB34952091294900DCF457 /* TazerComponent */,
 				C2EB3493209127CA00DCF457 /* TazerComponent.swift */,
+				18EDA50E2084FB26005CB784 /* TemperamentComponent.swift */,
+				18C82A5E20861F9C0046B746 /* TemperamentComponent States */,
 			);
 			path = Components;
 			sourceTree = "<group>";
