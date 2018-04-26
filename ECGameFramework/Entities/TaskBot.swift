@@ -220,6 +220,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
     /// Used to determine the location on the `TaskBot` where contact with the debug beam occurs.
     var beamTargetOffset = CGPoint.zero
     
+    // uSed to determne the location on the 'TaskBot' where contact with the debug weapon occurs
+    var weaponTargetOffset = CGPoint.zero
+    
     /// Used to hang shapes representing the current path for the `TaskBot`.
     var debugNode = SKNode()
     
