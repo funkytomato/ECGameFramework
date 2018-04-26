@@ -50,12 +50,12 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
     
     // MARK: TaskBot Properties
     
-    override var goodAnimations: [AnimationState: Animation]
+    override var calmAnimations: [AnimationState: Animation]
     {
         return ProtestorBot.goodAnimations!
     }
     
-    override var badAnimations: [AnimationState: Animation]
+    override var angryAnimations: [AnimationState: Animation]
     {
         return ProtestorBot.badAnimations!
     }
@@ -277,7 +277,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
     }
     
     // MARK: ChargeComponentDelegate
-    
+/*
     func chargeComponentDidLoseCharge(chargeComponent: ChargeComponent)
     {
         guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
@@ -289,7 +289,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
             intelligenceComponent.stateMachine.enter(TaskBotZappedState.self)
         }
     }
-
+*/
     
     func healthComponentDidLoseHealth(healthComponent: HealthComponent)
     {
