@@ -239,6 +239,12 @@ struct GameplayConfiguration
     
     struct ProtestorBot
     {
+        /// The maximum amount of health a `GroundBot` stores.
+        static let maximumHealth = 100.0
+        
+        /// The amount of health a `PlayerBot` loses by a single `GroundBot` attack.
+        static let healthLossPerContact = 25.0
+        
         /// The maximum amount of charge a `GroundBot` stores.
         static let maximumCharge = 100.0
         
