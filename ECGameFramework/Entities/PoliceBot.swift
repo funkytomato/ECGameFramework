@@ -209,9 +209,10 @@ class PoliceBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
         healthComponent.delegate = self
         addComponent(healthComponent)
         
+        // `BeamComponent` implements the beam that a `PlayerBot` fires at "bad" `TaskBot`s.
+        let tazerComponent = TazerComponent()
+        addComponent(tazerComponent)
         
-        let weaponComponent = TazerComponent()
-        addComponent(weaponComponent)
         
         let movementComponent = MovementComponent()
         addComponent(movementComponent)
