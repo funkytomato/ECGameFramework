@@ -33,7 +33,7 @@ struct GameplayConfiguration
     }
     
     
-    struct Weapon
+    struct Tazer
     {
         /// The distance (in points) over which the beam can be fired.
         static let arcLength: CGFloat = 300.0
