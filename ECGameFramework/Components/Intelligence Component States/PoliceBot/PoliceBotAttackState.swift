@@ -165,6 +165,11 @@ class PoliceBotAttackState: GKState
             
             //Move state to next
             guard let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self) else { return }
+            intelligenceComponent.stateMachine.enter(ProtestorBotHitState.self)
+            
+/*
+            //Move state to next
+            guard let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self) else { return }
            // guard let temperamentComponent = entity.component(ofType: TemperamentComponent.self) else { return }
             
             switch intelligenceComponent.stateMachine.currentState
@@ -192,7 +197,7 @@ class PoliceBotAttackState: GKState
                     break
             }
             
-            
+        */
             
             
             // If the other entity is a good `TaskBot`, turn it bad.
