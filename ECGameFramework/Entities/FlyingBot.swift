@@ -37,13 +37,13 @@ class FlyingBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
     
     // MARK: TaskBot Properties
     
-    override var calmAnimations: [AnimationState: Animation]
+    override var goodAnimations: [AnimationState: Animation]
     {
         return FlyingBot.goodAnimations!
     }
     
 
-    override var angryAnimations: [AnimationState: Animation]
+    override var badAnimations: [AnimationState: Animation]
     {
         return FlyingBot.badAnimations!
     }
