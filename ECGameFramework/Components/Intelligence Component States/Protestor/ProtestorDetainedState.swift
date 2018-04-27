@@ -55,6 +55,7 @@ class ProtestorDetainedState: GKState
         animationComponent.requestedAnimationState = .detained
         
         temperamentComponent.stateMachine.enter(SubduedState.self)
+        entity.isActive = false
     }
     
     override func update(deltaTime seconds: TimeInterval)
