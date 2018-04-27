@@ -128,6 +128,7 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
         let agentSystem = GKComponentSystem(componentClass: TaskBotAgent.self)
         let animationSystem = GKComponentSystem(componentClass: AnimationComponent.self)
         let chargeSystem = GKComponentSystem(componentClass: ChargeComponent.self)
+        let healthSystem = GKComponentSystem(componentClass: HealthComponent.self)
         let intelligenceSystem = GKComponentSystem(componentClass: IntelligenceComponent.self)
         let movementSystem = GKComponentSystem(componentClass: MovementComponent.self)
         let beamSystem = GKComponentSystem(componentClass: BeamComponent.self)
@@ -480,6 +481,24 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
                 let xRange = SKRange(constantValue: GameplayConfiguration.PlayerBot.chargeBarOffset.x)
                 let yRange = SKRange(constantValue: GameplayConfiguration.PlayerBot.chargeBarOffset.y)
 
+                let constraint = SKConstraint.positionX(xRange, y: yRange)
+                constraint.referenceNode = renderNode
+                
+                chargeBar.constraints = [constraint]
+            }
+            
+            /*
+             If the entity has a `HealthComponent` with a `ChargeBar`, add the `ChargeBar`
+             to the scene. Constrain the `ChargeBar` to the `RenderComponent`'s node.
+             */
+            if let chargeBar = entity.component(ofType: HealthComponent.self)?.healthBar
+            {
+                addNode(node: chargeBar, toWorldLayer: .aboveCharacters)
+                
+                // Constrain the `ChargeBar`'s node position to the render node.
+                let xRange = SKRange(constantValue: GameplayConfiguration.PlayerBot.chargeBarOffset.x)
+                let yRange = SKRange(constantValue: GameplayConfiguration.PlayerBot.chargeBarOffset.y)
+                
                 let constraint = SKConstraint.positionX(xRange, y: yRange)
                 constraint.referenceNode = renderNode
                 
