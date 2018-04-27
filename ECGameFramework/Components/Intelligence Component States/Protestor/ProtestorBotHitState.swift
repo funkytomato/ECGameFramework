@@ -36,6 +36,12 @@ class ProtestorBotHitState: GKState
         return chargeComponent
     }
     
+    var healthComponent: HealthComponent
+    {
+        guard let healthComponent = entity.component(ofType: HealthComponent.self) else { fatalError("A ProtestorBotHitState's entity must have a HealthComponent")}
+        return healthComponent
+    }
+    
     var temperamentComponent: TemperamentComponent
     {
         guard let temperamentComponent = entity.component(ofType: TemperamentComponent.self) else { fatalError("A ProtestorBotHitState's entity must have a TemperamentComponent") }
@@ -69,7 +75,7 @@ class ProtestorBotHitState: GKState
         // Update the amount of time the `PlayerBot` has been in the "hit" state.
         elapsedTime += seconds
    
-        if chargeComponent.hasCharge
+        if healthComponent.hasHealth
         {
             temperamentComponent.increaseTemperament()
             stateMachine?.enter(TaskBotAgentControlledState.self)
