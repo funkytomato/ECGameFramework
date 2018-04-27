@@ -82,12 +82,12 @@ class PoliceBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
     
     // MARK: TaskBot Properties
     
-    override var calmAnimations: [AnimationState: Animation]
+    override var goodAnimations: [AnimationState: Animation]
     {
         return PoliceBot.goodAnimations!
     }
     
-    override var angryAnimations: [AnimationState: Animation]
+    override var badAnimations: [AnimationState: Animation]
     {
         return PoliceBot.badAnimations!
     }
@@ -270,13 +270,13 @@ class PoliceBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
         {
             attackState.applyDamageToEntity(entity: entity)
         }
-        
+        /*
         if let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self)?.stateMachine.currentState as? ProtestorBeingArrestedState
         {
             intelligenceComponent.stateMachine?.enter(ProtestorArrestedState.self)
         }
         else { return }
-        
+        */
         
         
         /*
