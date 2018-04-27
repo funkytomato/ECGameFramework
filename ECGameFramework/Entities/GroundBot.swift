@@ -37,12 +37,12 @@ class GroundBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
     static var badAnimations: [AnimationState: Animation]?
     
     // MARK: TaskBot Properties
-    override var calmAnimations: [AnimationState: Animation]
+    override var goodAnimations: [AnimationState: Animation]
     {
         return GroundBot.goodAnimations!
     }
     
-    override var angryAnimations: [AnimationState: Animation]
+    override var badAnimations: [AnimationState: Animation]
     {
         return GroundBot.badAnimations!
     }
