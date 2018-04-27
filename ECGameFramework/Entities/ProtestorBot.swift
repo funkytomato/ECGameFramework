@@ -36,6 +36,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
     
     var isPoweredDown = false
     var isAlive = true
+    var isActive = true
     
     /// The offset of the `PoliceBot`'s shadow from its center position.
     //static var shadowOffset = CGPoint(x: 0.0, y: -40.0)
