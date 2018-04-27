@@ -75,15 +75,28 @@ class ProtestorBotHitState: GKState
         // Update the amount of time the `PlayerBot` has been in the "hit" state.
         elapsedTime += seconds
    
-        if healthComponent.hasHealth
+        
+        if !healthComponent.hasHealth
+        {
+            temperamentComponent.stateMachine.enter(SubduedState.self)
+            stateMachine?.enter(TaskBotAgentControlledState.self)
+        }
+        else if healthComponent.health < 40.0
+        {
+            stateMachine?.enter(ProtestorBeingArrestedState.self)
+        }
+        
+        else
         {
             temperamentComponent.increaseTemperament()
             stateMachine?.enter(TaskBotAgentControlledState.self)
         }
-        else
-        {
-            stateMachine?.enter(ProtestorBeingArrestedState.self)
-        }
+
+        
+        
+        
+        
+        
         
         /*
         // When the `PlayerBot` has been in this state for long enough, transition to the appropriate next state.
