@@ -86,11 +86,11 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 }
                 
                 // Update the animation component to use the "good" animations.
-                animationComponent.animations = calmAnimations
+                animationComponent.animations = goodAnimations
                 
                 // Set the appropriate amount of charge.
                 //chargeComponent.charge = 0.0
-                healthComponent.health = 0.0
+                healthComponent.health = 100.0
             }
             else
             {
@@ -103,7 +103,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 mandate = .returnToPositionOnPath(float2(closestPointOnBadPath))
                 
                 // Update the animation component to use the "bad" animations.
-                animationComponent.animations = angryAnimations
+                animationComponent.animations = badAnimations
                 
                 // Set the appropriate amount of charge.
                 //chargeComponent.charge = chargeComponent.maximumCharge
@@ -195,13 +195,13 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
     }
     
     /// The animations to use when a `TaskBot` is in its "good" state.
-    var calmAnimations: [AnimationState: Animation]
+    var goodAnimations: [AnimationState: Animation]
     {
         fatalError("goodAnimations must be overridden in subclasses")
     }
     
     /// The animations to use when a `TaskBot` is in its "bad" state.
-    var angryAnimations: [AnimationState: Animation]
+    var badAnimations: [AnimationState: Animation]
     {
         fatalError("badAnimations must be overridden in subclasses")
     }
