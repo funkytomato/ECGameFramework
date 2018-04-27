@@ -50,12 +50,12 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
     
     // MARK: TaskBot Properties
     
-    override var calmAnimations: [AnimationState: Animation]
+    override var goodAnimations: [AnimationState: Animation]
     {
         return ProtestorBot.goodAnimations!
     }
     
-    override var angryAnimations: [AnimationState: Animation]
+    override var badAnimations: [AnimationState: Animation]
     {
         return ProtestorBot.badAnimations!
     }
@@ -74,7 +74,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
         
         // Determine initial animations and charge based on the initial state of the bot.
         let initialAnimations: [AnimationState: Animation]
-        let initialCharge: Double
+        //let initialCharge: Double
         let initialHealth: Double
         
         if isGood
@@ -84,7 +84,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
                 fatalError("Attempt to access ProtestorBot.goodAnimations before they have been loaded.")
             }
             initialAnimations = goodAnimations
-            initialCharge = 100.0
+          //  initialCharge = 100.0
             initialHealth = 100.0
             
             texture = SKTexture(imageNamed: "ProtestorBot")
@@ -96,7 +96,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
                 fatalError("Attempt to access ProtestorBot.badAnimations before they have been loaded.")
             }
             initialAnimations = badAnimations
-            initialCharge = GameplayConfiguration.ProtestorBot.maximumCharge
+         //   initialCharge = GameplayConfiguration.ProtestorBot.maximumCharge
             initialHealth = GameplayConfiguration.ProtestorBot.maximumHealth
             
             texture = SKTexture(imageNamed: "ProtestorBotBad")
@@ -112,7 +112,6 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
         addComponent(orientationComponent)
         
         let spriteComponent = SpriteComponent(texture: texture, textureSize: ProtestorBot.textureSize)
-        //let spriteComponent = SpriteComponent(texture: PoliceBot.texture, textureSize: PoliceBot.textureSize)
         addComponent(spriteComponent)
         
         //let shadowComponent = ShadowComponent(texture: PoliceBot.shadowTexture, size: PoliceBot.shadowSize, offset: PoliceBot.shadowOffset)
@@ -123,6 +122,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
         
         let intelligenceComponent = IntelligenceComponent(states: [
             TaskBotAgentControlledState(entity: self),
+            ProtestorBotHitState(entity: self),
             ProtestorBotRotateToAttackState(entity: self),
             ProtestorBotPreAttackState(entity: self),
             ProtestorBotAttackState(entity: self),
@@ -228,7 +228,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
         //If touching entity is attacking, start the arresting process
  //       guard let attackState = entity.component(ofType: IntelligenceComponent.self)?.stateMachine.currentState as? PoliceBotAttackState else { return }
         
-        
+            
         // Use the `PoliceBotAttackState` to apply the appropriate damage to the contacted entity.
  //       attackState.applyDamageToEntity(entity: entity)
     }
@@ -295,9 +295,9 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
     {
         guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
         
-        isProtestor = !healthComponent.hasHealth
-        
-        if !isProtestor
+        //isProtestor = !healthComponent.hasHealth
+        print("health:\(healthComponent.health.description)")
+        if healthComponent.hasHealth
         {
             intelligenceComponent.stateMachine.enter(TaskBotZappedState.self)
         }
