@@ -46,12 +46,12 @@ class ManBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
  
     // MARK: TaskBot Properties
     
-    override var calmAnimations: [AnimationState: Animation]
+    override var goodAnimations: [AnimationState: Animation]
     {
         return ManBot.goodAnimations!
     }
     
-    override var angryAnimations: [AnimationState: Animation]
+    override var badAnimations: [AnimationState: Animation]
     {
         return ManBot.badAnimations!
     }
