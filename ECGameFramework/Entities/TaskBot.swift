@@ -42,6 +42,10 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         
         // Take arrested prisoner to meatwagon
         case lockupPrisoner
+        
+        // Move away from the area quickly
+        case flee(GKAgent2D)
+
     }
 
     // MARK: Properties
@@ -180,6 +184,12 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 radius = GameplayConfiguration.TaskBot.lockupRadius
                 (agentBehavior, debugPathPoints) = TaskBotBehavior.returnToPathBehaviour(forAgent: agent, returningToPoint: levelScene.meatWagonLocation(), pathRadius: radius, inScene: levelScene)
                 debugColor = SKColor.brown
+            
+            case let .flee(targetAgent):
+                radius = GameplayConfiguration.TaskBot.fleePathRadius
+                (agentBehavior, debugPathPoints) = TaskBotBehavior.fleeBehaviour(forAgent: agent, fromAgent: targetAgent, inScene: levelScene)
+                debugColor = SKColor.brown
+            
         }
 
         if levelScene.debugDrawingEnabled
