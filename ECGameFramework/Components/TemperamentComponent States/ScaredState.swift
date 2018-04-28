@@ -67,17 +67,6 @@ class ScaredState: GKState
         spriteComponent.changeColour(colour: SKColor.purple)
         
         
-        
-        /*
-        // Apply damage to any entities the `GroundBot` is already in contact with.
-        let contactedBodies = physicsComponent.physicsBody.allContactedBodies()
-        for contactedBody in contactedBodies
-        {
-            guard let entity = contactedBody.node?.entity else { continue }
-            
-            spriteComponent.changeColour(colour: SKColor.cyan)
-        }
-        */
     }
     
     override func update(deltaTime seconds: TimeInterval)
