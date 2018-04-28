@@ -97,8 +97,8 @@ class LevelStateSnapshot
             // Try to cast this entity as a `TaskBot`, and skip this entity if the cast fails.
             guard let thisTaskBot = thisEntity as? TaskBot else { return workingArrays }
                 
-            // Add this `TaskBot` to the appropriate working array based on whether it is "good" or not.
-            if thisTaskBot.isProtestor
+            // Add this `TaskBot` to the appropriate working array based on whether it is "good" or not AND active
+            if thisTaskBot.isProtestor && thisTaskBot.isActive
             {
                 return (workingArrays.protestorBots + [thisTaskBot], workingArrays.policeBots)
             }
