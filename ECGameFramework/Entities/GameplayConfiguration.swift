@@ -163,6 +163,9 @@ struct GameplayConfiguration
         
         /// The radius of the path along which an agent travels when wandering.
         static let wanderPathRadius: Float = 20.0
+
+        /// The radius of the path along which an agent travels when fleeing.
+        static let fleePathRadius: Float = 100.0
         
         // The radius of meatwagon location
         static let lockupRadius: Float = 25.0
