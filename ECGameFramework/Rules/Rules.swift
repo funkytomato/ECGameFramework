@@ -49,6 +49,11 @@ enum Fact: String
     case protestorTaskBotNear = "ProtestorTaskBotNear"
     case protestorTaskBotMedium = "ProtestorTaskBotMedium"
     case protestorTaskBotFar = "ProtestorTaskBotFar"
+    
+    // Fuzzy rules pertaining to this `TaskBot`'s proximity to the nearest "Dangerous Protestor" `TaskBot`.
+    case dangerousProtestorTaskBotNear = "DangerousProtestorTaskBotNear"
+    case dangerousProtestorTaskBotMedium = "DangerousProtestorTaskBotMedium"
+    case dangerousProtestorTaskBotFar = "DangerousProtestorTaskBotFar"
 }
 
 /// Asserts whether the number of "bad" `TaskBot`s is considered "low".
@@ -205,4 +210,56 @@ class ProtestorTaskBotFarRule: FuzzyTaskBotRule
     // MARK: Initializers
     
     init() { super.init(fact: .protestorTaskBotFar) }
+}
+
+
+/// Asserts whether the nearest "Violent Protestor" `TaskBot` is considered to be "near" to this `TaskBot`.
+class DangerousProtestorTaskBotNearRule: FuzzyTaskBotRule
+{
+    // MARK: Properties
+    
+    override func grade() -> Float
+    {
+        guard let distance = snapshot.nearestDangerousProtestorTaskBotTarget?.distance else { return 0.0 }
+        let oneThird = snapshot.proximityFactor / 3
+        return (oneThird - distance) / oneThird
+    }
+    
+    // MARK: Initializers
+    
+    init() { super.init(fact: .dangerousProtestorTaskBotNear) }
+}
+
+/// Asserts whether the nearest "Violent Protestor" `TaskBot` is considered to be at a "medium" distance from this `TaskBot`.
+class DangerousProtestorTaskBotMediumRule: FuzzyTaskBotRule
+{
+    // MARK: Properties
+    
+    override func grade() -> Float
+    {
+        guard let distance = snapshot.nearestDangerousProtestorTaskBotTarget?.distance else { return 0.0 }
+        let oneThird = snapshot.proximityFactor / 3
+        return 1 - (fabs(distance - oneThird) / oneThird)
+    }
+    
+    // MARK: Initializers
+    
+    init() { super.init(fact: .dangerousProtestorTaskBotMedium) }
+}
+
+/// Asserts whether the nearest "Protestor" `TaskBot` is considered to be "far" from this `TaskBot`.
+class DangerousProtestorTaskBotFarRule: FuzzyTaskBotRule
+{
+    // MARK: Properties
+    
+    override func grade() -> Float
+    {
+        guard let distance = snapshot.nearestDangerousProtestorTaskBotTarget?.distance else { return 0.0 }
+        let oneThird = snapshot.proximityFactor / 3
+        return (distance - oneThird) / oneThird
+    }
+    
+    // MARK: Initializers
+    
+    init() { super.init(fact: .dangerousProtestorTaskBotFar) }
 }
