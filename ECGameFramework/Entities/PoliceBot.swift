@@ -156,6 +156,7 @@ class PoliceBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
         
         let intelligenceComponent = IntelligenceComponent(states: [
             TaskBotAgentControlledState(entity: self),
+            TaskBotFleeState(entity: self),
             PoliceBotRotateToAttackState(entity: self),
             PoliceBotPreAttackState(entity: self),
             PoliceBotAttackState(entity: self),

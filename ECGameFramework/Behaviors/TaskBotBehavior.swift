@@ -175,6 +175,27 @@ class TaskBotBehavior: GKBehavior
         return (behavior, pathPoints)
     }
     
+
+    //Construct a behaviour to flee from an agent, avoiding obstacles along the way
+    static func fleeBehaviour(forAgent agent: GKAgent2D, fromAgent fearSource: GKAgent2D, inScene scene: LevelScene) -> (behavior: GKBehavior, pathPoints: [CGPoint])
+    {
+        print("behaviorFlee agent:\(agent.description)  scene: \(scene.description)")
+        
+        let behavior = TaskBotBehavior()
+        
+        
+        //Add basic goals to reach the TaskBot's maximum speed, avoid obstacles and wander
+        behavior.addTargetSpeedGoal(speed: agent.maxSpeed)
+        behavior.addAvoidObstaclesGoal(forScene: scene)
+        behavior.addFleeGoal(forScene: scene, forAgent: fearSource)
+        
+        let pathPoints = behavior.addPointsToWander(from: agent.position, pathRadius: GameplayConfiguration.TaskBot.fleePathRadius, inScene: scene)
+        
+        
+        // Return a tuple containing the new behavior, and the found path points for debug drawing.
+        return (behavior, pathPoints)
+    }
+    
     
     // MARK: Pathfinding Methods
     
@@ -331,6 +352,13 @@ class TaskBotBehavior: GKBehavior
         print("addWanderGoal  scene: \(scene.description)")
     }
 
+    
+    // Adds a goal to flee around thhe scene
+    private func addFleeGoal(forScene scene: LevelScene, forAgent agent: GKAgent2D)
+    {
+        setWeight(100.0, for: GKGoal(toFleeAgent: agent))
+        print("addWanderGoal  scene: \(scene.description)")
+    }
     
     //Add a goal to seek
     private func addSeekGoal(forScene scene: LevelScene, agent: GKAgent)

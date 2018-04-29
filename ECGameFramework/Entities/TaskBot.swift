@@ -42,6 +42,10 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         
         // Take arrested prisoner to meatwagon
         case lockupPrisoner
+        
+        // Move away from the area quickly
+        case flee(GKAgent2D)
+
     }
 
     // MARK: Properties
@@ -115,6 +119,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         }
     }
     
+    var isActive: Bool
+    var isDangerous: Bool
+    
     /// The aim that the `TaskBot` is currently trying to achieve.
     var mandate: TaskBotMandate
     
@@ -180,6 +187,12 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 radius = GameplayConfiguration.TaskBot.lockupRadius
                 (agentBehavior, debugPathPoints) = TaskBotBehavior.returnToPathBehaviour(forAgent: agent, returningToPoint: levelScene.meatWagonLocation(), pathRadius: radius, inScene: levelScene)
                 debugColor = SKColor.brown
+            
+            case let .flee(targetAgent):
+                radius = GameplayConfiguration.TaskBot.fleePathRadius
+                (agentBehavior, debugPathPoints) = TaskBotBehavior.fleeBehaviour(forAgent: agent, fromAgent: targetAgent, inScene: levelScene)
+                debugColor = SKColor.brown
+            
         }
 
         if levelScene.debugDrawingEnabled
@@ -235,6 +248,8 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
     {
         // Whether or not the `TaskBot` is "good" when first created.
         self.isProtestor = isGood
+        self.isActive = true
+        self.isDangerous = false
 
         // The locations of the points that define the `TaskBot`'s "good" and "bad" patrol paths.
         self.goodPathPoints = goodPathPoints
@@ -271,12 +286,12 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             PlayerBotNearRule(),
             PlayerBotMediumRule(),
             PlayerBotFarRule(),
-            GoodTaskBotNearRule(),
-            GoodTaskBotMediumRule(),
-            GoodTaskBotFarRule(),
-            BadTaskBotPercentageLowRule(),
-            BadTaskBotPercentageMediumRule(),
-            BadTaskBotPercentageHighRule()
+            ProtestorTaskBotNearRule(),
+            ProtestorTaskBotMediumRule(),
+            ProtestorTaskBotFarRule(),
+            PoliceTaskBotPercentageLowRule(),
+            PoliceTaskBotPercentageMediumRule(),
+            PoliceTaskBotPercentageHighRule()
         ])
         addComponent(rulesComponent)
         rulesComponent.delegate = self
@@ -373,7 +388,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         let huntPlayerBotRaw = [
             // "Number of bad TaskBots is high" AND "Player is nearby".
             ruleSystem.minimumGrade(forFacts: [
-                Fact.badTaskBotPercentageHigh.rawValue as AnyObject,
+                Fact.policeTaskBotPercentageHigh.rawValue as AnyObject,
                 Fact.playerBotNear.rawValue as AnyObject
             ]),
             
@@ -384,7 +399,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             
             // "Number of bad `TaskBot`s is medium" AND "Player is nearby".
             ruleSystem.minimumGrade(forFacts: [
-                Fact.badTaskBotPercentageMedium.rawValue as AnyObject,
+                Fact.policeTaskBotPercentageMedium.rawValue as AnyObject,
                 Fact.playerBotNear.rawValue as AnyObject
             ]),
             /*
@@ -397,9 +412,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 AND "nearest good `TaskBot` is at medium proximity".
             */
             ruleSystem.minimumGrade(forFacts: [
-                Fact.badTaskBotPercentageHigh.rawValue as AnyObject,
+                Fact.policeTaskBotPercentageHigh.rawValue as AnyObject,
                 Fact.playerBotMedium.rawValue as AnyObject,
-                Fact.goodTaskBotMedium.rawValue as AnyObject
+                Fact.protestorTaskBotMedium.rawValue as AnyObject
             ]),
             /* 
                 There are already a lot of bad `TaskBot`s on the level, so even though
@@ -416,8 +431,8 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             
             // "Number of bad TaskBots is low" AND "Nearest good `TaskBot` is nearby".
             ruleSystem.minimumGrade(forFacts: [
-                Fact.badTaskBotPercentageLow.rawValue as AnyObject,
-                Fact.goodTaskBotNear.rawValue as AnyObject
+                Fact.policeTaskBotPercentageLow.rawValue as AnyObject,
+                Fact.protestorTaskBotNear.rawValue as AnyObject
             ]),
             /*
                 There are not many bad `TaskBot`s on the level, and a good `TaskBot`
@@ -426,8 +441,8 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
 
             // "Number of bad TaskBots is medium" AND "Nearest good TaskBot is nearby".
             ruleSystem.minimumGrade(forFacts: [
-                Fact.badTaskBotPercentageMedium.rawValue as AnyObject,
-                Fact.goodTaskBotNear.rawValue as AnyObject
+                Fact.policeTaskBotPercentageMedium.rawValue as AnyObject,
+                Fact.protestorTaskBotNear.rawValue as AnyObject
             ]),
             /* 
                 There are a reasonable number of `TaskBot`s on the level, but a good
@@ -439,9 +454,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 AND "Nearest good TaskBot is at medium proximity".
             */
             ruleSystem.minimumGrade(forFacts: [
-                Fact.badTaskBotPercentageLow.rawValue as AnyObject,
+                Fact.policeTaskBotPercentageLow.rawValue as AnyObject,
                 Fact.playerBotMedium.rawValue as AnyObject,
-                Fact.goodTaskBotMedium.rawValue as AnyObject
+                Fact.protestorTaskBotMedium.rawValue as AnyObject
             ]),
             /*
                 There are not many bad `TaskBot`s on the level, so even though both
@@ -454,9 +469,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 "Nearest good `TaskBot` is at medium proximity".
             */
             ruleSystem.minimumGrade(forFacts: [
-                Fact.badTaskBotPercentageMedium.rawValue as AnyObject,
+                Fact.policeTaskBotPercentageMedium.rawValue as AnyObject,
                 Fact.playerBotFar.rawValue as AnyObject,
-                Fact.goodTaskBotMedium.rawValue as AnyObject
+                Fact.protestorTaskBotMedium.rawValue as AnyObject
             ]),
             /*
                 There are a reasonable number of bad `TaskBot`s on the level, the
@@ -478,7 +493,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         else if huntTaskBot > huntPlayerBot
         {
             // The rules provided greater motivation to hunt the nearest good TaskBot. Ignore any motivation to hunt the PlayerBot.
-            mandate = .huntAgent(state.nearestGoodTaskBotTarget!.target.agent)
+            mandate = .huntAgent(state.nearestProtestorTaskBotTarget!.target.agent)
         }
         else
         {

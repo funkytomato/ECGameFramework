@@ -89,32 +89,36 @@ class LevelStateSnapshot
         }
         
         // Determine the number of "good" `TaskBot`s and "bad" `TaskBot`s in the scene.
-        let (goodTaskBots, badTaskBots) = scene.entities.reduce(([], []))
+        let (dangerousProtestorTaskBots, protestorTaskBots, policeTaskBots) = scene.entities.reduce(([], [], []))
         {
 
-            (workingArrays: (goodBots: [TaskBot], badBots: [TaskBot]), thisEntity: GKEntity) -> ([TaskBot], [TaskBot]) in
+            (workingArrays: (dangerousProtestorTaskBots: [TaskBot], protestorBots: [TaskBot], policeBots: [TaskBot]), thisEntity: GKEntity) -> ([TaskBot], [TaskBot], [TaskBot]) in
             
             // Try to cast this entity as a `TaskBot`, and skip this entity if the cast fails.
-            guard let thisTaskBot = thisEntity as? TaskBot else { return workingArrays }
+            guard let thisTaskbot = thisEntity as? TaskBot else { return workingArrays }
                 
-            // Add this `TaskBot` to the appropriate working array based on whether it is "good" or not.
-            if thisTaskBot.isProtestor
+            // Add this `TaskBot` to the appropriate working array based on whether it is violent, "good" or not AND active
+            if thisTaskbot.isProtestor && thisTaskbot.isActive && thisTaskbot.isDangerous
             {
-                return (workingArrays.goodBots + [thisTaskBot], workingArrays.badBots)
+                return (workingArrays.dangerousProtestorTaskBots + [thisTaskbot], workingArrays.protestorBots, workingArrays.policeBots)
+            }
+            else if thisTaskbot.isProtestor && thisTaskbot.isActive
+            {
+                return (workingArrays.dangerousProtestorTaskBots, workingArrays.protestorBots + [thisTaskbot], workingArrays.policeBots)
             }
             else
             {
-                return (workingArrays.goodBots, workingArrays.badBots + [thisTaskBot])
+                return (workingArrays.dangerousProtestorTaskBots, workingArrays.protestorBots, workingArrays.policeBots + [thisTaskbot])
             }
 
         }
         
-        let badBotPercentage = Float(badTaskBots.count) / Float(goodTaskBots.count + badTaskBots.count)
+        let policeBotPercentage = Float(policeTaskBots.count) / Float(dangerousProtestorTaskBots.count) + Float(protestorTaskBots.count + policeTaskBots.count)
         
         // Create and store an entity snapshot in the `entitySnapshots` dictionary for each entity.
         for entity in scene.entities
         {
-            let entitySnapshot = EntitySnapshot(badBotPercentage: badBotPercentage, proximityFactor: scene.levelConfiguration.proximityFactor, entityDistances: entityDistances[entity]!)
+            let entitySnapshot = EntitySnapshot(policeBotPercentage: policeBotPercentage, proximityFactor: scene.levelConfiguration.proximityFactor, entityDistances: entityDistances[entity]!)
             entitySnapshots[entity] = entitySnapshot
         }
 
@@ -127,7 +131,7 @@ class EntitySnapshot
     // MARK: Properties
     
     /// Percentage of `TaskBot`s in the level that are bad.
-    let badBotPercentage: Float
+    let policeBotPercentage: Float
     
     /// The factor used to normalize distances between characters for 'fuzzy' logic.
     let proximityFactor: Float
@@ -136,16 +140,19 @@ class EntitySnapshot
     let playerBotTarget: (target: PlayerBot, distance: Float)?
     
     /// The nearest "good" `TaskBot`.
-    let nearestGoodTaskBotTarget: (target: TaskBot, distance: Float)?
+    let nearestProtestorTaskBotTarget: (target: TaskBot, distance: Float)?
+ 
+    /// The nearest "Violent Protestor" `TaskBot`.
+    let nearestDangerousProtestorTaskBotTarget: (target: TaskBot, distance: Float)?
     
     /// A sorted array of distances from this entity to every other entity in the level.
     let entityDistances: [EntityDistance]
     
     // MARK: Initialization
     
-    init(badBotPercentage: Float, proximityFactor: Float, entityDistances: [EntityDistance])
+    init(policeBotPercentage: Float, proximityFactor: Float, entityDistances: [EntityDistance])
     {
-        self.badBotPercentage = badBotPercentage
+        self.policeBotPercentage = policeBotPercentage
         self.proximityFactor = proximityFactor
 
         // Sort the `entityDistances` array by distance (nearest first), and store the sorted version.
@@ -154,11 +161,12 @@ class EntitySnapshot
         }
         
         var playerBotTarget: (target: PlayerBot, distance: Float)?
-        var nearestGoodTaskBotTarget: (target: TaskBot, distance: Float)?
+        var nearestProtestorTaskBotTarget: (target: TaskBot, distance: Float)?
+        var nearestDangerousProtestorTaskBotTarget: (target: TaskBot, distance: Float)?
         
         /*
             Iterate over the sorted `entityDistances` array to find the `PlayerBot`
-            (if it is targetable) and the nearest "good" `TaskBot`.
+            (if it is targetable) and the nearest "Protestor" `TaskBot`.
         */
         for entityDistance in self.entityDistances
         {
@@ -166,19 +174,24 @@ class EntitySnapshot
             {
                 playerBotTarget = (target: target, distance: entityDistance.distance)
             }
-            else if let target = entityDistance.target as? TaskBot, nearestGoodTaskBotTarget == nil && target.isProtestor
+            else if let target = entityDistance.target as? TaskBot, nearestDangerousProtestorTaskBotTarget == nil && target.isDangerous
             {
-                nearestGoodTaskBotTarget = (target: target, distance: entityDistance.distance)
+                nearestDangerousProtestorTaskBotTarget = (target: target, distance: entityDistance.distance)
+            }
+            else if let target = entityDistance.target as? TaskBot, nearestProtestorTaskBotTarget == nil && target.isProtestor
+            {
+                nearestProtestorTaskBotTarget = (target: target, distance: entityDistance.distance)
             }
             
-            // Stop iterating over the array once we have found both the `PlayerBot` and the nearest good `TaskBot`.
-            if playerBotTarget != nil && nearestGoodTaskBotTarget != nil
+            // Stop iterating over the array once we have found both the `PlayerBot` and the nearest good `TaskBot` and the nearest dangerous 'TaskBot'
+            if playerBotTarget != nil && nearestProtestorTaskBotTarget != nil && nearestDangerousProtestorTaskBotTarget != nil
             {
                 break
             }
         }
         
         self.playerBotTarget = playerBotTarget
-        self.nearestGoodTaskBotTarget = nearestGoodTaskBotTarget
+        self.nearestProtestorTaskBotTarget = nearestProtestorTaskBotTarget
+        self.nearestDangerousProtestorTaskBotTarget = nearestDangerousProtestorTaskBotTarget
     }
 }

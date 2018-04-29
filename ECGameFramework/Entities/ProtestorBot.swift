@@ -123,6 +123,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
         
         let intelligenceComponent = IntelligenceComponent(states: [
             TaskBotAgentControlledState(entity: self),
+            TaskBotFleeState(entity: self),
             ProtestorBotHitState(entity: self),
             ProtestorBotRotateToAttackState(entity: self),
             ProtestorBotPreAttackState(entity: self),
