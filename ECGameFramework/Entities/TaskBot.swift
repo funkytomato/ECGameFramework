@@ -289,6 +289,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             ProtestorTaskBotNearRule(),
             ProtestorTaskBotMediumRule(),
             ProtestorTaskBotFarRule(),
+            DangerousProtestorTaskBotNearRule(),
+            DangerousProtestorTaskBotMediumRule(),
+            DangerousProtestorTaskBotFarRule(),
             PoliceTaskBotPercentageLowRule(),
             PoliceTaskBotPercentageMediumRule(),
             PoliceTaskBotPercentageHighRule()
