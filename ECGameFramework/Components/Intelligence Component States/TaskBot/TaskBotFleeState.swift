@@ -55,7 +55,7 @@ class TaskBotFleeState: GKState
         //Find the nearest dangerous Protestor or Violent Policeman.  They will be the source of the fear
         
         
-        entity.mandate = .flee(<#T##GKAgent2D#>)
+        //entity.mandate = .flee(<#T##GKAgent2D#>)
      }
     
     override func update(deltaTime seconds: TimeInterval)
