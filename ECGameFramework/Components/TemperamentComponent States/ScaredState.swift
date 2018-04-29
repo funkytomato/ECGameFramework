@@ -45,6 +45,13 @@ class ScaredState: GKState
         return physicsComponent
     }
     
+    /// The `IntelligenceComponent` associated with the `entity`.
+    var intelligenceComponent: IntelligenceComponent
+    {
+        guard let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self) else { fatalError("An entity's AngryState must have an IntelligenceComponent.") }
+        return intelligenceComponent
+    }
+    
     //MARK:- Initializers
     required init(entity: TaskBot)
     {
@@ -65,6 +72,8 @@ class ScaredState: GKState
         
         //Change the colour of the sprite to show calmness
         spriteComponent.changeColour(colour: SKColor.purple)
+        
+        intelligenceComponent.stateMachine.enter(TaskBotFleeState.self)
         
         
     }
