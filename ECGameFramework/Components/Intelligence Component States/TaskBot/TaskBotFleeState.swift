@@ -52,20 +52,30 @@ class TaskBotFleeState: GKState
     {
         super.didEnter(from: previousState)
         
+        //Find the nearest dangerous Protestor or Violent Policeman.  They will be the source of the fear
+        
+        
+        entity.mandate = .flee(<#T##GKAgent2D#>)
      }
     
     override func update(deltaTime seconds: TimeInterval)
     {
         super.update(deltaTime: seconds)
         
-        stateMachine?.enter(TaskBotAgentControlledState.self)
+        
+        
+        
+        stateMachine?.enter(TaskBotFleeState.self)
+        
+        //Only move to taskbotagent after moving far away from dangerous protestors or violent police
+        //stateMachine?.enter(TaskBotAgentControlledState.self)
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
     {
         switch stateClass
         {
-        case is TaskBotAgentControlledState.Type, is TaskBotZappedState.Type:
+        case is TaskBotAgentControlledState.Type, is TaskBotFleeState.Type, is TaskBotZappedState.Type:
             return true
             
         default:
@@ -89,23 +99,5 @@ class TaskBotFleeState: GKState
     
     // MARK: Convenience
     
-    func applyDamageToEntity(entity: GKEntity)
-    {
-        if let playerBot = entity as? PlayerBot, let chargeComponent = playerBot.component(ofType: ChargeComponent.self), !playerBot.isPoweredDown
-        {
-            // If the other entity is a `PlayerBot` that isn't powered down, reduce its charge.
-            chargeComponent.loseCharge(chargeToLose: GameplayConfiguration.ManBot.chargeLossPerContact)
-        }
-        else if let taskBot = entity as? TaskBot, taskBot.isProtestor
-        {
-            //Move state to being Arrested
-            guard let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self) else { return }
-            intelligenceComponent.stateMachine.enter(ProtestorBeingArrestedState.self)
-            
-            
-            // If the other entity is a good `TaskBot`, turn it bad.
-            //taskBot.isGood = false
-        }
-    }
     
 }
