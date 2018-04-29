@@ -70,6 +70,7 @@ class ViolentState: GKState
         //Change the colour of the sprite to show violent
         spriteComponent.changeColour(colour: SKColor.red)
 
+        entity.isDangerous = true
     }
     
     override func update(deltaTime seconds: TimeInterval)
