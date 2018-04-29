@@ -632,7 +632,6 @@
 		18FCE9E92040EB9F009A5C0D /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				18DF360E2052FBCC001F55DE /* SpriteComponent.swift */,
 				18FCE9EA2040EB9F009A5C0D /* AnimationComponent.swift */,
 				18FCE9EB2040EB9F009A5C0D /* BeamComponent States */,
 				18FCE9EF2040EB9F009A5C0D /* BeamComponent.swift */,
@@ -649,6 +648,7 @@
 				18FCEA042040EB9F009A5C0D /* RenderComponent.swift */,
 				18FCEA052040EB9F009A5C0D /* RulesComponent.swift */,
 				18FCEA062040EB9F009A5C0D /* ShadowComponent.swift */,
+				18DF360E2052FBCC001F55DE /* SpriteComponent.swift */,
 				C2EB34952091294900DCF457 /* TazerComponent */,
 				C2EB3493209127CA00DCF457 /* TazerComponent.swift */,
 				18EDA50E2084FB26005CB784 /* TemperamentComponent.swift */,
