@@ -89,31 +89,45 @@ class LevelStateSnapshot
         }
         
         // Determine the number of "good" `TaskBot`s and "bad" `TaskBot`s in the scene.
-        let (dangerousProtestorTaskBots, protestorTaskBots, policeTaskBots) = scene.entities.reduce(([], [], []))
+        let (dangerousProtestorTaskBots, protestorTaskBots, policeTaskBots, injuredTaskBots) = scene.entities.reduce(([], [], [], []))
         {
 
-            (workingArrays: (dangerousProtestorTaskBots: [TaskBot], protestorBots: [TaskBot], policeBots: [TaskBot]), thisEntity: GKEntity) -> ([TaskBot], [TaskBot], [TaskBot]) in
+            (workingArrays: (dangerousProtestorTaskBots: [TaskBot], protestorBots: [TaskBot], policeBots: [TaskBot], injuredBots: [TaskBot]), thisEntity: GKEntity) -> ([TaskBot], [TaskBot], [TaskBot], [TaskBot]) in
             
             // Try to cast this entity as a `TaskBot`, and skip this entity if the cast fails.
             guard let thisTaskbot = thisEntity as? TaskBot else { return workingArrays }
                 
             // Add this `TaskBot` to the appropriate working array based on whether it is violent, "good" or not AND active
+            
+            // The taskbot is a dangerous active protestor
             if thisTaskbot.isProtestor && thisTaskbot.isActive && thisTaskbot.isDangerous
             {
-                return (workingArrays.dangerousProtestorTaskBots + [thisTaskbot], workingArrays.protestorBots, workingArrays.policeBots)
+                return (workingArrays.dangerousProtestorTaskBots + [thisTaskbot], workingArrays.protestorBots, workingArrays.policeBots, workingArrays.injuredBots)
             }
+                
+            // The taskbot is an active protestor
             else if thisTaskbot.isProtestor && thisTaskbot.isActive
             {
-                return (workingArrays.dangerousProtestorTaskBots, workingArrays.protestorBots + [thisTaskbot], workingArrays.policeBots)
+                return (workingArrays.dangerousProtestorTaskBots, workingArrays.protestorBots + [thisTaskbot], workingArrays.policeBots, workingArrays.injuredBots)
             }
+                
+            // The taskbot has become incapacitated or injured
+            else if !thisTaskbot.isActive
+            {
+                return (workingArrays.dangerousProtestorTaskBots, workingArrays.protestorBots, workingArrays.policeBots, workingArrays.injuredBots + [thisTaskbot])
+            }
+                
+            // The taskbot is a policeman
             else
             {
-                return (workingArrays.dangerousProtestorTaskBots, workingArrays.protestorBots, workingArrays.policeBots + [thisTaskbot])
+                return (workingArrays.dangerousProtestorTaskBots, workingArrays.protestorBots, workingArrays.policeBots + [thisTaskbot], workingArrays.injuredBots)
             }
 
         }
         
-        let policeBotPercentage = Float(policeTaskBots.count) / Float(dangerousProtestorTaskBots.count) + Float(protestorTaskBots.count + policeTaskBots.count)
+        let policeBotPercentage = Float(policeTaskBots.count) / Float(protestorTaskBots.count + dangerousProtestorTaskBots.count + policeTaskBots.count)
+        //let policeBotPercentage = Float(policeTaskBots.count) / Float(protestorTaskBots.count + policeTaskBots.count)
+        print("policeBotPercentage:\(policeBotPercentage.description), policeTaskBots: \(policeTaskBots.count), protestorTaskBots: \(protestorTaskBots.count), dangerousProtestorTaskBots: \(dangerousProtestorTaskBots.count), injuredTaskBots: \(injuredTaskBots.count)")
         
         // Create and store an entity snapshot in the `entitySnapshots` dictionary for each entity.
         for entity in scene.entities
@@ -149,7 +163,6 @@ class EntitySnapshot
     let entityDistances: [EntityDistance]
     
     // MARK: Initialization
-    
     init(policeBotPercentage: Float, proximityFactor: Float, entityDistances: [EntityDistance])
     {
         self.policeBotPercentage = policeBotPercentage
