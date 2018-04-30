@@ -121,6 +121,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
     
     var isActive: Bool
     var isDangerous: Bool
+    var isScared: Bool
     
     /// The aim that the `TaskBot` is currently trying to achieve.
     var mandate: TaskBotMandate
@@ -248,8 +249,15 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
     {
         // Whether or not the `TaskBot` is "good" when first created.
         self.isProtestor = isGood
+        
+        // Whether or not the 'TaskBot' is active, = healthy and not arrested or detained
         self.isActive = true
+        
+        // Whether or not the 'TaskBot' is dangerous, e.g. it is Violent
         self.isDangerous = false
+        
+        // Whether or not the 'TaskBot' is scared
+        self.isScared = false
 
         // The locations of the points that define the `TaskBot`'s "good" and "bad" patrol paths.
         self.goodPathPoints = goodPathPoints
@@ -292,6 +300,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             DangerousProtestorTaskBotNearRule(),
             DangerousProtestorTaskBotMediumRule(),
             DangerousProtestorTaskBotFarRule(),
+            ScaredTaskBotNearRule(),
+            ScaredTaskBotMediumRule(),
+            ScaredTaskBotFarRule(),
             PoliceTaskBotPercentageLowRule(),
             PoliceTaskBotPercentageMediumRule(),
             PoliceTaskBotPercentageHighRule()
@@ -386,6 +397,13 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         let state = ruleSystem.state["snapshot"] as! EntitySnapshot
         
         // Adjust the `TaskBot`'s `mandate` based on the result of evaluating the rules.
+        
+        // A Series of situation in which we prefer to Flee from a 'TaskBot'
+        let fleeTaskBotRaw = [
+        
+            //Number of "Violent" Protestors 
+        ]
+        
         
         // A series of situations in which we prefer this `TaskBot` to hunt the player.
         let huntPlayerBotRaw = [
