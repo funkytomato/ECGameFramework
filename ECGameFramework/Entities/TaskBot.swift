@@ -179,7 +179,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             //Protestor being moved to LockUp
             case let .arrested(policeAgent):
                 radius = GameplayConfiguration.TaskBot.wanderPathRadius
-                (agentBehavior, debugPathPoints) = TaskBotBehavior.arrestedBehaviour(forAgent: agent, policeAgent: policeAgent, pathRadius: 25.0, inScene: levelScene)
+                (agentBehavior, debugPathPoints) = TaskBotBehavior.arrestedBehaviour(forAgent: agent, huntingAgent: policeAgent, pathRadius: 25.0, inScene: levelScene)
                 debugColor = SKColor.white
             
             //PoliceBot taking prisoner to meatwagon
