@@ -54,6 +54,11 @@ enum Fact: String
     case dangerousProtestorTaskBotNear = "DangerousProtestorTaskBotNear"
     case dangerousProtestorTaskBotMedium = "DangerousProtestorTaskBotMedium"
     case dangerousProtestorTaskBotFar = "DangerousProtestorTaskBotFar"
+    
+    // Fuzzy rules pertaining to this `TaskBot`'s proximity to the nearest "Scared Protestor" `TaskBot`.
+    case scaredTaskBotNear = "ScaredTaskBotNear"
+    case scaredTaskBotMedium = "ScaredTaskBotMedium"
+    case scaredTaskBotFar = "ScaredTaskBotFar"
 }
 
 /// Asserts whether the number of "bad" `TaskBot`s is considered "low".
@@ -262,4 +267,55 @@ class DangerousProtestorTaskBotFarRule: FuzzyTaskBotRule
     // MARK: Initializers
     
     init() { super.init(fact: .dangerousProtestorTaskBotFar) }
+}
+
+/// Asserts whether the nearest "Scared" `TaskBot` is considered to be "near" to this `TaskBot`.
+class ScaredTaskBotNearRule: FuzzyTaskBotRule
+{
+    // MARK: Properties
+    
+    override func grade() -> Float
+    {
+        guard let distance = snapshot.nearestScaredTaskBotTarget?.distance else { return 0.0 }
+        let oneThird = snapshot.proximityFactor / 3
+        return (oneThird - distance) / oneThird
+    }
+    
+    // MARK: Initializers
+    
+    init() { super.init(fact: .scaredTaskBotNear) }
+}
+
+/// Asserts whether the nearest "Scared" `TaskBot` is considered to be at a "medium" distance from this `TaskBot`.
+class ScaredTaskBotMediumRule: FuzzyTaskBotRule
+{
+    // MARK: Properties
+    
+    override func grade() -> Float
+    {
+        guard let distance = snapshot.nearestScaredTaskBotTarget?.distance else { return 0.0 }
+        let oneThird = snapshot.proximityFactor / 3
+        return 1 - (fabs(distance - oneThird) / oneThird)
+    }
+    
+    // MARK: Initializers
+    
+    init() { super.init(fact: .scaredTaskBotMedium) }
+}
+
+/// Asserts whether the nearest "Scared" `TaskBot` is considered to be "far" from this `TaskBot`.
+class ScaredTaskBotFarRule: FuzzyTaskBotRule
+{
+    // MARK: Properties
+    
+    override func grade() -> Float
+    {
+        guard let distance = snapshot.nearestScaredTaskBotTarget?.distance else { return 0.0 }
+        let oneThird = snapshot.proximityFactor / 3
+        return (distance - oneThird) / oneThird
+    }
+    
+    // MARK: Initializers
+    
+    init() { super.init(fact: .scaredTaskBotFar) }
 }
