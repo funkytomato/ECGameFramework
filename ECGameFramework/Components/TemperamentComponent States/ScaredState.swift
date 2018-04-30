@@ -73,7 +73,11 @@ class ScaredState: GKState
         //Change the colour of the sprite to show calmness
         spriteComponent.changeColour(colour: SKColor.purple)
         
-        intelligenceComponent.stateMachine.enter(TaskBotFleeState.self)
+        
+        //Set the entity is scared for pathfinding
+        entity.isScared = true
+        
+        //intelligenceComponent.stateMachine.enter(TaskBotFleeState.self)
         
         
     }
