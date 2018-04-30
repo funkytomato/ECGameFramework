@@ -67,6 +67,8 @@ class SubduedState: GKState
         //Change the colour of the sprite to show subdued
         spriteComponent.changeColour(colour: SKColor.darkGray)
         
+        //Taskbot is incapicitated
+        entity.isActive = false
         
         /*
         // Apply damage to any entities the `GroundBot` is already in contact with.
