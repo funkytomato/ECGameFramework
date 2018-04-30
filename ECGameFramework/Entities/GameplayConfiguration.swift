@@ -183,10 +183,10 @@ struct GameplayConfiguration
         static let zappedStateDuration: TimeInterval = 0.75
         
         /// The duration of a `TaskBot`'s arresting state.
-        static let arrestingStateDuration: TimeInterval = 10
+        static let arrestingStateDuration: TimeInterval = 2
         
         /// The duration of a `TaskBot`'s arrested state.
-        static let arrestedStateDuration: TimeInterval = 50
+        static let arrestedStateDuration: TimeInterval = 5
         
         // How close a taskbot should be aligned with another (arrested)
         static let alignWithNeighbour: Float = 1.0
