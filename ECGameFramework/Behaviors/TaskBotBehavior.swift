@@ -15,7 +15,7 @@ class TaskBotBehavior: GKBehavior
     // MARK: Behavior factory methods
     
     // Arrested behaviour, return the arrested protestor to the meatwagon in the custody of the arresting policeman
-    static func arrestedBehaviour(forAgent agent: GKAgent2D, policeAgent target: GKAgent2D, pathRadius: Float, inScene scene: LevelScene) -> (behaviour: GKBehavior, pathPoints: [CGPoint])
+    static func arrestedBehaviour(forAgent agent: GKAgent2D, huntingAgent target: GKAgent2D, pathRadius: Float, inScene scene: LevelScene) -> (behaviour: GKBehavior, pathPoints: [CGPoint])
     {
         print("behaviorAndPathPoints \(agent.description) hunting: \(target.description) scene: \(scene.description)")
         
