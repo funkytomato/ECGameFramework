@@ -199,13 +199,6 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
         //animationComponent.shadowNode = shadowComponent.node
         
         
-        /*
-         if !isGood
-         {
-         temperamentComponent.stateMachine.enter(ViolentState.self)
-         }
-         */
-        
         // Specify the offset for beam targeting.
         beamTargetOffset = GameplayConfiguration.PoliceBot.beamTargetOffset
     }
@@ -226,19 +219,57 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
     {
         super.contactWithEntityDidBegin(entity)
         
-        //If touching entity is attacking, start the arresting process
- //       guard let attackState = entity.component(ofType: IntelligenceComponent.self)?.stateMachine.currentState as? PoliceBotAttackState else { return }
-        
-            
-        // Use the `PoliceBotAttackState` to apply the appropriate damage to the contacted entity.
- //       attackState.applyDamageToEntity(entity: entity)
     }
     
     // MARK: RulesComponentDelegate
     
     override func rulesComponent(rulesComponent: RulesComponent, didFinishEvaluatingRuleSystem ruleSystem: GKRuleSystem)
     {
+
+
         super.rulesComponent(rulesComponent: rulesComponent, didFinishEvaluatingRuleSystem: ruleSystem)
+        
+
+        /*
+         A Protestor will flee a location if the following conditions are met:
+         1) Enough time has elapsed since the Protestor last did something (create delays between actions
+         2) The Protestor is scared
+         3) A Dangerous Protestor is nearby
+         4) Their is a high number of Dangerous Protestors nearby
+         5) Their is a high number of Police nearby
+        */
+        guard let scene = component(ofType: RenderComponent.self)?.node.scene else { return }
+        guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
+        guard let temperamentComponent = component(ofType: TemperamentComponent.self) else { return }
+        guard let agentControlledState = intelligenceComponent.stateMachine.currentState as? TaskBotAgentControlledState else { return }
+        
+        
+        // 1) Check enough thinking time has passed
+        guard agentControlledState.elapsedTime >= GameplayConfiguration.ProtestorBot.delayBetweenAttacks else { return }
+        
+        // 2) Check if the Protestor is Scared
+        guard let scared = temperamentComponent.stateMachine.currentState as? ScaredState else { return }
+        
+        // 3) Set the Protestor to Flee State
+        guard intelligenceComponent.stateMachine.enter(TaskBotFleeState.self) else { return }
+        
+        // 4) Check if the current mandate is to flee an agent.
+        guard case let .fleeAgent(targetAgent) = mandate else { return }
+        
+        print("targetAgent: \(targetAgent.description)")
+        
+        // The `ProtestorBot` is ready to flee to the current position.
+        targetPosition = targetAgent.position
+        intelligenceComponent.stateMachine.enter(TaskBotFleeState.self)
+        
+        //hunt()
+        
+        
+        
+    }
+    
+    func hunt()
+    {
         
         /*
          A `PoliceBot` will attack a location in the scene if the following conditions are met:
@@ -276,6 +307,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
         targetPosition = targetAgent.position
         intelligenceComponent.stateMachine.enter(ProtestorBotRotateToAttackState.self)
     }
+
     
     // MARK: ChargeComponentDelegate
 /*
