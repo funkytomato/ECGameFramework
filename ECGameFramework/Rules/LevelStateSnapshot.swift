@@ -166,6 +166,9 @@ class EntitySnapshot
     /// Distance to the `PlayerBot` if it is targetable.
     let playerBotTarget: (target: PlayerBot, distance: Float)?
     
+    /// The nearest "Police" `TaskBot`.
+    let nearestPoliceTaskBotTarget: (target: TaskBot, distance: Float)?
+    
     /// The nearest "good" `TaskBot`.
     let nearestProtestorTaskBotTarget: (target: TaskBot, distance: Float)?
  
@@ -191,6 +194,7 @@ class EntitySnapshot
         }
         
         var playerBotTarget: (target: PlayerBot, distance: Float)?
+        var nearestPoliceTaskBotTarget: (target: TaskBot, distance: Float)?
         var nearestProtestorTaskBotTarget: (target: TaskBot, distance: Float)?
         var nearestDangerousProtestorTaskBotTarget: (target: TaskBot, distance: Float)?
         var nearestScaredTaskBotTarget: (target: TaskBot, distance: Float)?
@@ -217,15 +221,20 @@ class EntitySnapshot
             {
                 nearestScaredTaskBotTarget = (target: target, distance: entityDistance.distance)
             }
+            else if let target = entityDistance.target as? TaskBot, nearestPoliceTaskBotTarget == nil && !target.isProtestor
+            {
+                nearestPoliceTaskBotTarget = (target: target, distance: entityDistance.distance)
+            }
             
             // Stop iterating over the array once we have found both the `PlayerBot` and the nearest good `TaskBot` and the nearest dangerous 'TaskBot'
-            if playerBotTarget != nil && nearestProtestorTaskBotTarget != nil && nearestDangerousProtestorTaskBotTarget != nil && nearestScaredTaskBotTarget != nil
+            if playerBotTarget != nil && nearestProtestorTaskBotTarget != nil && nearestDangerousProtestorTaskBotTarget != nil && nearestScaredTaskBotTarget != nil && nearestPoliceTaskBotTarget != nil
             {
                 break
             }
         }
         
         self.playerBotTarget = playerBotTarget
+        self.nearestPoliceTaskBotTarget = nearestPoliceTaskBotTarget
         self.nearestProtestorTaskBotTarget = nearestProtestorTaskBotTarget
         self.nearestDangerousProtestorTaskBotTarget = nearestDangerousProtestorTaskBotTarget
         self.nearestScaredTaskBotTarget = nearestScaredTaskBotTarget
