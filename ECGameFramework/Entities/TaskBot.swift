@@ -44,7 +44,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         case lockupPrisoner
         
         // Move away from the DangerousBot area quickly
-        case flee(GKAgent2D)
+        case fleeAgent(GKAgent2D)
 
     }
 
@@ -189,7 +189,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 (agentBehavior, debugPathPoints) = TaskBotBehavior.returnToPathBehaviour(forAgent: agent, returningToPoint: levelScene.meatWagonLocation(), pathRadius: radius, inScene: levelScene)
                 debugColor = SKColor.brown
             
-            case let .flee(policeAgent):
+            case let .fleeAgent(policeAgent):
                 radius = GameplayConfiguration.TaskBot.fleePathRadius
                 (agentBehavior, debugPathPoints) = TaskBotBehavior.fleeBehaviour(forAgent: agent, fromAgent: policeAgent, inScene: levelScene)
                 debugColor = SKColor.brown
@@ -305,7 +305,11 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             ScaredTaskBotFarRule(),
             PoliceTaskBotPercentageLowRule(),
             PoliceTaskBotPercentageMediumRule(),
-            PoliceTaskBotPercentageHighRule()
+            PoliceTaskBotPercentageHighRule(),
+            PoliceBotNearRule(),
+            PoliceBotMediumRule(),
+            PoliceBotFarRule()
+            
         ])
         addComponent(rulesComponent)
         rulesComponent.delegate = self
@@ -402,6 +406,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         let fleeTaskBotRaw = [
         
             // A "Dangerous" Taskbot is nearby AND "nearest Protestor is far away"
+          /*
             ruleSystem.minimumGrade(forFacts: [
                 Fact.dangerousTaskBotNear.rawValue as AnyObject,
                 Fact.protestorTaskBotFar.rawValue as AnyObject
@@ -423,7 +428,16 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             ruleSystem.minimumGrade(forFacts: [
                 Fact.dangerousTaskBotPercentageHigh.rawValue as AnyObject,
                 Fact.policeTaskBotPercentageMedium.rawValue as AnyObject
-            ])
+            ]),
+            */
+            
+            // "Police nearby" AND "Dangerous Protestors nearby"
+            ruleSystem.minimumGrade(forFacts: [
+                Fact.policeBotNear.rawValue as AnyObject,
+                Fact.policeBotMedium.rawValue as AnyObject,
+                Fact.policeBotFar.rawValue as AnyObject,
+                Fact.dangerousTaskBotNear.rawValue as AnyObject
+                ])
         ]
         
         
@@ -572,7 +586,12 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         
         
         //Set the flee mandate if scared
-        
+        if fleeDangerousTaskBot > 0.0
+        {
+            // The rules provided greated motivation to flee
+            guard let dangerousTaskBot = state.nearestDangerousProtestorTaskBotTarget?.target.agent else { return }
+            mandate = .fleeAgent(dangerousTaskBot)
+        }
         
         if huntPlayerBot >= huntTaskBot && huntPlayerBot > 0.0
         {
