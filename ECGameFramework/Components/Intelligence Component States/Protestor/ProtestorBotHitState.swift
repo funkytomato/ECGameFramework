@@ -88,8 +88,20 @@ class ProtestorBotHitState: GKState
         
         else
         {
-            temperamentComponent.increaseTemperament()
+            //temperamentComponent.increaseTemperament()
+            temperamentComponent.decreaseTemperament()
             stateMachine?.enter(TaskBotAgentControlledState.self)
+            
+            /*
+            if ((temperamentComponent.stateMachine.currentState as? ScaredState) != nil)
+            {
+                stateMachine?.enter(TaskBotFleeState.self)
+            }
+            else
+            {
+                stateMachine?.enter(TaskBotAgentControlledState.self)
+            }
+ */
         }
 
         
@@ -118,7 +130,7 @@ class ProtestorBotHitState: GKState
     {
         switch stateClass
         {
-        case is TaskBotAgentControlledState.Type, is ProtestorBeingArrestedState.Type:
+        case is TaskBotAgentControlledState.Type, is ProtestorBeingArrestedState.Type, is TaskBotFleeState.Type:
             return true
             
         default:
