@@ -76,7 +76,7 @@ class ProtestorBeingArrestedState: GKState
     {
         switch stateClass
         {
-        case is TaskBotAgentControlledState.Type, is ProtestorArrestedState.Type:
+        case is TaskBotAgentControlledState.Type, is ProtestorArrestedState.Type, is TaskBotFleeState.Type:
             return true
             
         default:
