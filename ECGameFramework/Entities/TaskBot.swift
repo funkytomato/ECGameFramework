@@ -401,8 +401,34 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         // A Series of situation in which we prefer to Flee from a 'TaskBot'
         let fleeTaskBotRaw = [
         
-            //Number of "Violent" Protestors 
+            // A "Dangerous" Taskbot is nearby AND "nearest Protestor is far away"
+            ruleSystem.minimumGrade(forFacts: [
+                Fact.dangerousTaskBotNear.rawValue as AnyObject,
+                Fact.protestorTaskBotFar.rawValue as AnyObject
+                ]),
+            
+            // A "Dangerous" Taskbot is nearby AND "Police presence is low"
+            ruleSystem.minimumGrade(forFacts: [
+                Fact.dangerousTaskBotNear.rawValue as AnyObject,
+                Fact.policeTaskBotPercentageLow.rawValue as AnyObject
+                ]),
+            
+            // "High percentage of Dangerous Taskbots" AND "High Percentage of Police"
+            ruleSystem.minimumGrade(forFacts: [
+                Fact.dangerousTaskBotPercentageHigh.rawValue as AnyObject,
+                Fact.policeTaskBotPercentageHigh.rawValue as AnyObject
+                ]),
+            
+            // "High percentage of Dangerous Taskbots" AND "Medium Percentage of Police"
+            ruleSystem.minimumGrade(forFacts: [
+                Fact.dangerousTaskBotPercentageHigh.rawValue as AnyObject,
+                Fact.policeTaskBotPercentageMedium.rawValue as AnyObject
+            ])
         ]
+        
+        
+        let fleeDangerousTaskBot = fleeTaskBotRaw.reduce(0.0, max)
+        print("fleeDangerousTaskBot: \(fleeDangerousTaskBot.description)")
         
         
         // A series of situations in which we prefer this `TaskBot` to hunt the player.
@@ -454,20 +480,20 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             // "Number Police TaskBots is low" AND "Nearest Dangerous Protestor 'TaskBot' is nearby"
             ruleSystem.minimumGrade(forFacts: [
                 Fact.policeTaskBotPercentageLow.rawValue as AnyObject,
-                Fact.dangerousProtestorTaskBotNear.rawValue as AnyObject
+                Fact.dangerousTaskBotNear.rawValue as AnyObject
                 ]),
             
             // "Number of Police TaskBots is medium" AND "Nearest Dangerous Protestor TaskBot is nearby"
             ruleSystem.minimumGrade(forFacts: [
                 Fact.policeTaskBotPercentageMedium.rawValue as AnyObject,
-                Fact.dangerousProtestorTaskBotNear.rawValue as AnyObject
+                Fact.dangerousTaskBotNear.rawValue as AnyObject
                 ]),
             
             // "Number of Police TaskBots is medium" AND "Player is at medium proximity" AND "Nearest Dangerous Protestor is at medium proximity"
             ruleSystem.minimumGrade(forFacts: [
                 Fact.policeTaskBotPercentageLow.rawValue as AnyObject,
                 Fact.playerBotMedium.rawValue as AnyObject,
-                Fact.dangerousProtestorTaskBotMedium.rawValue as AnyObject
+                Fact.dangerousTaskBotMedium.rawValue as AnyObject
                 ]),
             
             /*
@@ -477,13 +503,13 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             ruleSystem.minimumGrade(forFacts: [
                 Fact.policeTaskBotPercentageMedium.rawValue as AnyObject,
                 Fact.playerBotFar.rawValue as AnyObject,
-                Fact.dangerousProtestorTaskBotMedium.rawValue as AnyObject
+                Fact.dangerousTaskBotMedium.rawValue as AnyObject
                 ]),
         ]
         
         // Find the maximum of the minima from above.
         let huntDangerousProtestorBot = huntDangerousTaskBotRaw.reduce(0.0, max)
-        print("huntDangerousProtestorBot: \(huntDangerousProtestorBot.description)")
+        print("huntDangerousTaskBot: \(huntDangerousProtestorBot.description)")
         
         // A series of situations in which we prefer this `TaskBot` to hunt the nearest "Protestor" TaskBot.
         let huntTaskBotRaw = [
@@ -542,7 +568,10 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
 
         // Find the maximum of the minima from above.
         let huntTaskBot = huntTaskBotRaw.reduce(0.0, max)
-        print("huntPlayerBot: \(huntPlayerBot.description), huntTaskBot: \(huntTaskBot.description)")
+        print("huntPlayerBot: \(huntPlayerBot.description)")
+        
+        
+        //Set the flee mandate if scared
         
         
         if huntPlayerBot >= huntTaskBot && huntPlayerBot > 0.0
