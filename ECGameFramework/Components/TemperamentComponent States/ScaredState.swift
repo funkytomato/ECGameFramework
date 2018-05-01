@@ -77,8 +77,8 @@ class ScaredState: GKState
         //Set the entity is scared for pathfinding
         entity.isScared = true
         
-        //intelligenceComponent.stateMachine.enter(TaskBotFleeState.self)
-        
+        //intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
+        intelligenceComponent.stateMachine.enter(TaskBotFleeState.self)
         
     }
     
@@ -91,6 +91,11 @@ class ScaredState: GKState
         /*
         if entity has moved far away from angry people, then move back into CalmState
          */
+        if elapsedTime < 10 { return }
+        
+        stateMachine?.enter(CalmState.self)
+        
+        
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
