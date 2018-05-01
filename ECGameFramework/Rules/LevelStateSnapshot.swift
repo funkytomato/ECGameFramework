@@ -132,12 +132,17 @@ class LevelStateSnapshot
         }
         
         let policeBotPercentage = Float(policeTaskBots.count) / Float(protestorTaskBots.count + dangerousProtestorTaskBots.count + policeTaskBots.count)
-        print("policeBotPercentage:\(policeBotPercentage.description), policeTaskBots: \(policeTaskBots.count), protestorTaskBots: \(protestorTaskBots.count), dangerousProtestorTaskBots: \(dangerousProtestorTaskBots.count), injuredTaskBots: \(injuredTaskBots.count)")
+        let dangerousBotPercentage = Float(dangerousProtestorTaskBots.count) / Float(protestorTaskBots.count + dangerousProtestorTaskBots.count + injuredTaskBots.count + policeTaskBots.count)
+
+        print("policeBotPercentage:\(policeBotPercentage.description), dangerousBotPercentage: \(dangerousBotPercentage.description), policeTaskBots: \(policeTaskBots.count), protestorTaskBots: \(protestorTaskBots.count), dangerousProtestorTaskBots: \(dangerousProtestorTaskBots.count), injuredTaskBots: \(injuredTaskBots.count)")
+        
+        
+        
         
         // Create and store an entity snapshot in the `entitySnapshots` dictionary for each entity.
         for entity in scene.entities
         {
-            let entitySnapshot = EntitySnapshot(policeBotPercentage: policeBotPercentage, proximityFactor: scene.levelConfiguration.proximityFactor, entityDistances: entityDistances[entity]!)
+            let entitySnapshot = EntitySnapshot(policeBotPercentage: policeBotPercentage, dangerousBotPercentage: dangerousBotPercentage, proximityFactor: scene.levelConfiguration.proximityFactor, entityDistances: entityDistances[entity]!)
             entitySnapshots[entity] = entitySnapshot
         }
 
@@ -151,6 +156,9 @@ class EntitySnapshot
     
     /// Percentage of `TaskBot`s in the level that are bad.
     let policeBotPercentage: Float
+    
+    /// Percentage of `TaskBot`s in the level that are Dangerous.
+    let dangerousBotPercentage: Float
     
     /// The factor used to normalize distances between characters for 'fuzzy' logic.
     let proximityFactor: Float
@@ -171,9 +179,10 @@ class EntitySnapshot
     let entityDistances: [EntityDistance]
     
     // MARK: Initialization
-    init(policeBotPercentage: Float, proximityFactor: Float, entityDistances: [EntityDistance])
+    init(policeBotPercentage: Float, dangerousBotPercentage: Float, proximityFactor: Float, entityDistances: [EntityDistance])
     {
         self.policeBotPercentage = policeBotPercentage
+        self.dangerousBotPercentage = dangerousBotPercentage
         self.proximityFactor = proximityFactor
 
         // Sort the `entityDistances` array by distance (nearest first), and store the sorted version.
