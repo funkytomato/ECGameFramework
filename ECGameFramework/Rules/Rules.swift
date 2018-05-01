@@ -50,10 +50,15 @@ enum Fact: String
     case protestorTaskBotMedium = "ProtestorTaskBotMedium"
     case protestorTaskBotFar = "ProtestorTaskBotFar"
     
+    // Fuzzy rules pertaining to the proportion of "Dangerous" bots in the level.
+    case dangerousTaskBotPercentageLow = "DangerousTaskBotPercentageLow"
+    case dangerousTaskBotPercentageMedium = "DangerousTaskBotPercentageMedium"
+    case dangerousTaskBotPercentageHigh = "DangerousTaskBotPercentageHigh"
+    
     // Fuzzy rules pertaining to this `TaskBot`'s proximity to the nearest "Dangerous Protestor" `TaskBot`.
-    case dangerousProtestorTaskBotNear = "DangerousProtestorTaskBotNear"
-    case dangerousProtestorTaskBotMedium = "DangerousProtestorTaskBotMedium"
-    case dangerousProtestorTaskBotFar = "DangerousProtestorTaskBotFar"
+    case dangerousTaskBotNear = "DangerousProtestorTaskBotNear"
+    case dangerousTaskBotMedium = "DangerousProtestorTaskBotMedium"
+    case dangerousTaskBotFar = "DangerousProtestorTaskBotFar"
     
     // Fuzzy rules pertaining to this `TaskBot`'s proximity to the nearest "Scared Protestor" `TaskBot`.
     case scaredTaskBotNear = "ScaredTaskBotNear"
@@ -112,6 +117,64 @@ class PoliceTaskBotPercentageHighRule: FuzzyTaskBotRule
     
     init() { super.init(fact: .policeTaskBotPercentageHigh) }
 }
+
+
+/// Asserts whether the number of "bad" `TaskBot`s is considered "low".
+class DangerousTaskBotPercentageLowRule: FuzzyTaskBotRule
+{
+    // MARK: Properties
+    
+    override func grade() -> Float
+    {
+        return max(0.0, 1.0 - 3.0 * snapshot.dangerousBotPercentage)
+    }
+    
+    // MARK: Initializers
+    
+    init() { super.init(fact: .dangerousTaskBotPercentageLow) }
+}
+
+/// Asserts whether the number of "Dangerous" `TaskBot`s is considered "medium".
+class DangerousTaskBotPercentageMediumRule: FuzzyTaskBotRule
+{
+    // MARK: Properties
+    
+    override func grade() -> Float
+    {
+        if snapshot.dangerousBotPercentage <= 1.0 / 3.0
+        {
+            return min(1.0, 3.0 * snapshot.dangerousBotPercentage)
+        }
+        else
+        {
+            return max(0.0, 1.0 - (3.0 * snapshot.dangerousBotPercentage - 1.0))
+        }
+    }
+    
+    // MARK: Initializers
+    
+    init() { super.init(fact: .dangerousTaskBotPercentageMedium) }
+}
+
+/// Asserts whether the number of "Dangerous" `TaskBot`s is considered "high".
+class DangerousTaskBotPercentageHighRule: FuzzyTaskBotRule
+{
+    // MARK: Properties
+    
+    override func grade() -> Float
+    {
+        return min(1.0, max(0.0, (3.0 * snapshot.dangerousBotPercentage - 1)))
+    }
+    
+    // MARK: Initializers
+    
+    init() { super.init(fact: .dangerousTaskBotPercentageHigh) }
+}
+
+
+
+
+
 
 /// Asserts whether the `PlayerBot` is considered to be "near" to this `TaskBot`.
 class PlayerBotNearRule: FuzzyTaskBotRule
@@ -232,7 +295,7 @@ class DangerousProtestorTaskBotNearRule: FuzzyTaskBotRule
     
     // MARK: Initializers
     
-    init() { super.init(fact: .dangerousProtestorTaskBotNear) }
+    init() { super.init(fact: .dangerousTaskBotNear) }
 }
 
 /// Asserts whether the nearest "Violent Protestor" `TaskBot` is considered to be at a "medium" distance from this `TaskBot`.
@@ -249,7 +312,7 @@ class DangerousProtestorTaskBotMediumRule: FuzzyTaskBotRule
     
     // MARK: Initializers
     
-    init() { super.init(fact: .dangerousProtestorTaskBotMedium) }
+    init() { super.init(fact: .dangerousTaskBotMedium) }
 }
 
 /// Asserts whether the nearest "Protestor" `TaskBot` is considered to be "far" from this `TaskBot`.
@@ -266,7 +329,7 @@ class DangerousProtestorTaskBotFarRule: FuzzyTaskBotRule
     
     // MARK: Initializers
     
-    init() { super.init(fact: .dangerousProtestorTaskBotFar) }
+    init() { super.init(fact: .dangerousTaskBotFar) }
 }
 
 /// Asserts whether the nearest "Scared" `TaskBot` is considered to be "near" to this `TaskBot`.
