@@ -21,6 +21,9 @@ class TaskBotFleeState: GKState
     
     unowned var entity: TaskBot
     
+    //The amount of time the 'ManBot' has been in its "Arrested" state
+    var elapsedTime: TimeInterval = 0.0
+    
     /// The distance to the current target on the previous update loop.
     var lastDistanceToTarget: Float = 0
     
@@ -38,6 +41,13 @@ class TaskBotFleeState: GKState
         return physicsComponent
     }
     
+    /// The `IntelligenceComponent` associated with the `entity`.
+    var intelligenceComponent: IntelligenceComponent
+    {
+        guard let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self) else { fatalError("An entity's FleeState's must have an IntelligenceComponent.") }
+        return intelligenceComponent
+    }
+    
     
     // MARK: Initializers
     
@@ -52,23 +62,29 @@ class TaskBotFleeState: GKState
     {
         super.didEnter(from: previousState)
         
-        //Find the nearest dangerous Protestor or Violent Policeman.  They will be the source of the fear
         
+        //Reset the tracking of how long the 'ManBot' has been in "Scared" state
+        elapsedTime = 0.0
         
-        //entity.mandate = .flee(<#T##GKAgent2D#>)
-     }
+        //entity.mandate = .fleeAgent(<#T##GKAgent2D#>)
+        
+    }
     
     override func update(deltaTime seconds: TimeInterval)
     {
         super.update(deltaTime: seconds)
         
+        elapsedTime += seconds
         
-        
-        
-        stateMachine?.enter(TaskBotFleeState.self)
+        /*
+         if entity has moved far away from angry people, then move back into CalmState
+         */
+        if elapsedTime < 10 { return }
         
         //Only move to taskbotagent after moving far away from dangerous protestors or violent police
-        //stateMachine?.enter(TaskBotAgentControlledState.self)
+        stateMachine?.enter(CalmState.self)
+        intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
+        
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
