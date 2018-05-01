@@ -40,6 +40,11 @@ enum Fact: String
     case policeTaskBotPercentageMedium = "PoliceTaskBotPercentageMedium"
     case policeTaskBotPercentageHigh = "PoliceTaskBotPercentageHigh"
 
+    // Fuzzy rules pertaining to this `TaskBot`'s proximity to the `PoliceBot`.
+    case policeBotNear = "PoliceBotNear"
+    case policeBotMedium = "PoliceBotMedium"
+    case policeBotFar = "PoliceBotFar"
+    
     // Fuzzy rules pertaining to this `TaskBot`'s proximity to the `PlayerBot`.
     case playerBotNear = "PlayerBotNear"
     case playerBotMedium = "PlayerBotMedium"
@@ -116,6 +121,57 @@ class PoliceTaskBotPercentageHighRule: FuzzyTaskBotRule
     // MARK: Initializers
     
     init() { super.init(fact: .policeTaskBotPercentageHigh) }
+}
+
+/// Asserts whether the `PoliceBot` is considered to be "near" to this `TaskBot`.
+class PoliceBotNearRule: FuzzyTaskBotRule
+{
+    // MARK: Properties
+    
+    override func grade() -> Float
+    {
+        guard let distance = snapshot.nearestPoliceTaskBotTarget?.distance else { return 0.0 }
+        let oneThird = snapshot.proximityFactor / 3
+        return (oneThird - distance) / oneThird
+    }
+    
+    // MARK: Initializers
+    
+    init() { super.init(fact: .policeBotNear) }
+}
+
+/// Asserts whether the `PoliceBot` is considered to be at a "medium" distance from this `TaskBot`.
+class PoliceBotMediumRule: FuzzyTaskBotRule
+{
+    // MARK: Properties
+    
+    override func grade() -> Float
+    {
+        guard let distance = snapshot.nearestPoliceTaskBotTarget?.distance else { return 0.0 }
+        let oneThird = snapshot.proximityFactor / 3
+        return 1 - (fabs(distance - oneThird) / oneThird)
+    }
+    
+    // MARK: Initializers
+    
+    init() { super.init(fact: .policeBotMedium) }
+}
+
+/// Asserts whether the `PoliceBot` is considered to be "far" from this `TaskBot`.
+class PoliceBotFarRule: FuzzyTaskBotRule
+{
+    // MARK: Properties
+    
+    override func grade() -> Float
+    {
+        guard let distance = snapshot.nearestPoliceTaskBotTarget?.distance else { return 0.0 }
+        let oneThird = snapshot.proximityFactor / 3
+        return (distance - oneThird) / oneThird
+    }
+    
+    // MARK: Initializers
+    
+    init() { super.init(fact: .policeBotFar) }
 }
 
 
