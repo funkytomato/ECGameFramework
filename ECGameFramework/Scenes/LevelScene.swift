@@ -207,7 +207,7 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
         // Find the location of the meatwagon position.
         //let charactersNode = childNode(withName: WorldLayer.characters.nodePath)!
         let meatWagonCoordinate = meatWagon.position
-        print("meatWagon:\(meatWagonCoordinate.debugDescription)")
+        //print("meatWagon:\(meatWagonCoordinate.debugDescription)")
         
         
         // Iterate over the `TaskBot` configurations for this level, and create each `TaskBot`.
