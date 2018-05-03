@@ -78,7 +78,7 @@ class ScaredState: GKState
         entity.isScared = true
         
         //intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
-        intelligenceComponent.stateMachine.enter(TaskBotFleeState.self)
+        //intelligenceComponent.stateMachine.enter(TaskBotFleeState.self)
         
     }
     
@@ -91,7 +91,7 @@ class ScaredState: GKState
         /*
         if entity has moved far away from angry people, then move back into CalmState
          */
-        if elapsedTime < 10 { return }
+        if elapsedTime < 5 { return }
         
         stateMachine?.enter(CalmState.self)
         
@@ -102,7 +102,7 @@ class ScaredState: GKState
     {
         switch stateClass
         {
-        case is CalmState.Type, is ScaredState.Type, is ViolentState.Type:
+        case is CalmState.Type, is ViolentState.Type:
             return true
             
         default:
