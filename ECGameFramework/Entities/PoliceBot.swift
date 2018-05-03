@@ -183,7 +183,7 @@ class PoliceBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
             initialState = CalmState(entity: self) as? GKState
         }
         
-        print("initialState :\(initialState.debugDescription)")
+        //print("initialState :\(initialState.debugDescription)")
         
         let temperamentComponent = TemperamentComponent(states: [
             CalmState(entity: self),
@@ -263,7 +263,7 @@ class PoliceBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
         super.contactWithEntityDidBegin(entity)
         
         //If touching entity is attacking, start the arresting process
-        print("PoliceBot currentState :\(entity.component(ofType: IntelligenceComponent.self)?.stateMachine.currentState.debugDescription)")
+        //print("PoliceBot currentState :\(entity.component(ofType: IntelligenceComponent.self)?.stateMachine.currentState.debugDescription)")
         
         //guard let temperamentState = entity.component(ofType: TemperamentComponent.self)?.stateMachine.currentState as? AngryState else { return }
         
@@ -301,7 +301,7 @@ class PoliceBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
         
         if let beingArrestedState = entity.component(ofType: IntelligenceComponent.self)?.stateMachine.currentState as? BeingArrestedState
         {
-            print("beingArrestedState :\(beingArrestedState.debugDescription)")
+            //print("beingArrestedState :\(beingArrestedState.debugDescription)")
         }
  */
  
@@ -427,7 +427,7 @@ class PoliceBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
             completionHandler()
         }
         
-        print((goodAnimations?.description))
+        //print((goodAnimations?.description))
     }
     
     static func purgeResources()
