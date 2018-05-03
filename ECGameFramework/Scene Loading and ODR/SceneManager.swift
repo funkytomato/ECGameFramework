@@ -187,7 +187,7 @@ final class SceneManager
                 
         // Hold on to a reference to the currently requested scene's metadata.
         currentSceneMetadata = loader.sceneMetadata
-        print("current scene meta data to load:\(currentSceneMetadata.debugDescription)")
+        //print("current scene meta data to load:\(currentSceneMetadata.debugDescription)")
 
         // Ensure we present the scene on the main queue.
         DispatchQueue.main.async {
@@ -247,7 +247,7 @@ final class SceneManager
         {
             let resourceRequest = sceneLoaderForMetadata[sceneMetadata]!
             resourceRequest.downloadResourcesIfNecessary()
-            print("ResourceRequest:\(resourceRequest.sceneMetadata)")
+            //print("ResourceRequest:\(resourceRequest.sceneMetadata)")
         }
         
 
@@ -260,7 +260,7 @@ final class SceneManager
         {
             let resourceRequest = sceneLoaderForMetadata[sceneMetadata]!
             resourceRequest.purgeResources()
-            print("Purgingt:\(resourceRequest.sceneMetadata)")
+            //print("Purgingt:\(resourceRequest.sceneMetadata)")
         }
     }
     #endif
