@@ -80,7 +80,7 @@ class TaskBotAgentControlledState: GKState
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
     {
-        print("is ValidNextState stateClass:\(stateClass.description())")
+        //print("is ValidNextState stateClass:\(stateClass.description())")
         
         switch stateClass
         {
