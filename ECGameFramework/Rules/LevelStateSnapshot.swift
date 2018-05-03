@@ -134,7 +134,7 @@ class LevelStateSnapshot
         let policeBotPercentage = Float(policeTaskBots.count) / Float(protestorTaskBots.count + dangerousProtestorTaskBots.count + policeTaskBots.count)
         let dangerousBotPercentage = Float(dangerousProtestorTaskBots.count) / Float(protestorTaskBots.count + dangerousProtestorTaskBots.count + injuredTaskBots.count + policeTaskBots.count)
 
-        print("policeBotPercentage:\(policeBotPercentage.description), dangerousBotPercentage: \(dangerousBotPercentage.description), policeTaskBots: \(policeTaskBots.count), protestorTaskBots: \(protestorTaskBots.count), dangerousProtestorTaskBots: \(dangerousProtestorTaskBots.count), injuredTaskBots: \(injuredTaskBots.count)")
+        print("policeBotPercentage:\(policeBotPercentage.description), dangerousBotPercentage: \(dangerousBotPercentage.description), policeTaskBots: \(policeTaskBots.count), protestorTaskBots: \(protestorTaskBots.count), dangerousProtestorTaskBots: \(dangerousProtestorTaskBots.count), scaredBots: \(scaredTaskBots.count), injuredTaskBots: \(injuredTaskBots.count)")
         
         
         
