@@ -24,14 +24,14 @@ class TemperamentComponent: GKComponent
     
     init(states: [GKState], initialState: GKState)
     {
-        print("Initialising TemperamentComponent")
+        //print("Initialising TemperamentComponent")
         stateMachine = GKStateMachine(states: states)
         //let firstState = states.first!
         //initialStateClass = type(of: firstState)
         
         initialStateClass = type(of: initialState)
         
-        print("initialStateClass :\(initialStateClass.description())")
+        //print("initialStateClass :\(initialStateClass.description())")
         
         super.init()
     }
@@ -80,7 +80,7 @@ class TemperamentComponent: GKComponent
         default:
             stateMachine.enter(CalmState.self)
         }
-        print("Setting the temperamentComponent to :\(newState)")
+        //print("Setting the temperamentComponent to :\(newState)")
     }
     
     /*
@@ -89,7 +89,7 @@ class TemperamentComponent: GKComponent
     func increaseTemperament()
     {
         let currentTemperament = stateMachine.currentState
-        print("currentTemperament:\(currentTemperament.debugDescription)")
+        //print("currentTemperament:\(currentTemperament.debugDescription)")
         
         switch currentTemperament
         {
