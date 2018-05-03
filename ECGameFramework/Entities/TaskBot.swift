@@ -19,6 +19,8 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         // Hunt another agent (either a `PlayerBot` or a "good" `TaskBot`).
         case huntAgent(GKAgent2D)
 
+        //Crowd behaviour
+        case crowd()
         
         // Follow the `TaskBot`'s "good" patrol path.
         case followGoodPatrolPath
@@ -63,6 +65,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             guard let animationComponent = component(ofType: AnimationComponent.self) else { fatalError("TaskBots must have an animation component.") }
             //guard let chargeComponent = component(ofType: ChargeComponent.self) else { fatalError("TaskBots must have a charge component.") }
             guard let healthComponent = component(ofType: HealthComponent.self) else { fatalError("TaskBots must have a health component.") }
+            guard let temperamentComponent = component(ofType: TemperamentComponent.self) else { fatalError("TaskBots must have a temperament component")}
 
             
             // Update the `TaskBot`'s speed and acceleration to suit the new value of `isGood`.
@@ -162,6 +165,14 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 debugPathShouldCycle = true
                 debugColor = isProtestor ? SKColor.green : SKColor.purple
             
+            case .crowd:
+                radius = GameplayConfiguration.TaskBot.huntPathRadius
+                
+                let temperament = "Calm"
+                
+                (agentBehavior, debugPathPoints) = TaskBotBehavior.crowdBehaviour(forAgent: agent, pathRadius: radius, temperament: temperament, inScene: levelScene)
+                debugColor = SKColor.red
+            
             case let .huntAgent(policeAgent):
                 radius = GameplayConfiguration.TaskBot.huntPathRadius
                 (agentBehavior, debugPathPoints) = TaskBotBehavior.huntBehaviour(forAgent: agent, huntingAgent: policeAgent, pathRadius: radius, inScene: levelScene)
@@ -232,6 +243,13 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
     {
         guard let renderComponent = component(ofType: RenderComponent.self) else { fatalError("A TaskBot must have an RenderComponent.") }
         return renderComponent
+    }
+    
+    /// The `RenderComponent` associated with this `TaskBot`.
+    var temperamentComponent: TemperamentComponent
+    {
+        guard let temperamentComponent = component(ofType: TemperamentComponent.self) else { fatalError("A TaskBot must have an TemperamentComponent.") }
+        return temperamentComponent
     }
     
     /// Used to determine the location on the `TaskBot` where contact with the debug beam occurs.
@@ -433,16 +451,24 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             
             // "Police nearby" AND "Dangerous Protestors nearby"
             ruleSystem.minimumGrade(forFacts: [
-                Fact.policeBotNear.rawValue as AnyObject,
-                Fact.policeBotMedium.rawValue as AnyObject,
-                Fact.policeBotFar.rawValue as AnyObject,
-                Fact.dangerousTaskBotNear.rawValue as AnyObject
-                ])
+                Fact.policeBotNear.rawValue as AnyObject
+                ])/*,
+            
+            // "Police nearby" AND "Dangerous Protestors nearby"
+            ruleSystem.minimumGrade(forFacts: [
+                Fact.policeBotMedium.rawValue as AnyObject
+                ]),
+            
+            // "Police far away" AND "Dangerous Protestors nearby"
+            ruleSystem.minimumGrade(forFacts: [
+                Fact.policeBotFar.rawValue as AnyObject
+            ])
+ */
         ]
         
         
         let fleeDangerousTaskBot = fleeTaskBotRaw.reduce(0.0, max)
-        print("fleeDangerousTaskBot: \(fleeDangerousTaskBot.description)")
+        print("fleeDangerousTaskBot: \(fleeDangerousTaskBot.description), fleeTaskBotRaw: \(fleeTaskBotRaw.description) ")
         
         
         // A series of situations in which we prefer this `TaskBot` to hunt the player.
@@ -523,7 +549,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         
         // Find the maximum of the minima from above.
         let huntDangerousProtestorBot = huntDangerousTaskBotRaw.reduce(0.0, max)
-        print("huntDangerousTaskBot: \(huntDangerousProtestorBot.description)")
+        //print("huntDangerousTaskBot: \(huntDangerousProtestorBot.description)")
         
         // A series of situations in which we prefer this `TaskBot` to hunt the nearest "Protestor" TaskBot.
         let huntTaskBotRaw = [
@@ -582,18 +608,21 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
 
         // Find the maximum of the minima from above.
         let huntTaskBot = huntTaskBotRaw.reduce(0.0, max)
-        print("huntPlayerBot: \(huntPlayerBot.description)")
+        //print("huntPlayerBot: \(huntPlayerBot.description)")
         
+
+        print("fleeDangerousTaskBot: \(fleeDangerousTaskBot.description), fleeTaskBotRaw: \(fleeTaskBotRaw.description) ")
         
         //Set the flee mandate if scared
-        if fleeDangerousTaskBot > 0.0
+
+        if fleeDangerousTaskBot > 0.5
         {
             // The rules provided greated motivation to flee
-            guard let dangerousTaskBot = state.nearestDangerousProtestorTaskBotTarget?.target.agent else { return }
+            //guard let dangerousTaskBot = state.nearestDangerousProtestorTaskBotTarget?.target.agent else { return }
+            guard let dangerousTaskBot = state.nearestPoliceTaskBotTarget?.target.agent else { return }
             mandate = .fleeAgent(dangerousTaskBot)
         }
-        
-        if huntPlayerBot >= huntTaskBot && huntPlayerBot > 0.0
+        else if huntPlayerBot >= huntTaskBot && huntPlayerBot > 0.0
         {
             // The rules provided greater motivation to hunt the PlayerBot. Ignore any motivation to hunt the nearest good TaskBot.
             guard let playerBotAgent = state.playerBotTarget?.target.agent else { return }
@@ -615,6 +644,10 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             // The rules provided no motivation to hunt, so patrol in the "bad" state.
             switch mandate
             {
+                case .wander:
+                    mandate = .wander
+                    break;
+                
                 case .followBadPatrolPath:
                     // The `TaskBot` is already on its "bad" patrol path, so no update is needed.
                     break
