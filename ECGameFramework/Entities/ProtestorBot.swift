@@ -154,7 +154,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
             initialState = CalmState(entity: self) as? GKState
         }
         
-        print("initialState :\(initialState.debugDescription)")
+        //print("initialState :\(initialState.debugDescription)")
         
         let temperamentComponent = TemperamentComponent(states: [
             CalmState(entity: self),
@@ -248,19 +248,21 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
         guard agentControlledState.elapsedTime >= GameplayConfiguration.ProtestorBot.delayBetweenAttacks else { return }
         
         // 2) Check if the Protestor is Scared
-        guard let scared = temperamentComponent.stateMachine.currentState as? ScaredState else { return }
+        //guard let scared = temperamentComponent.stateMachine.currentState as? ScaredState else { return }
         
         // 3) Set the Protestor to Flee State
-        guard intelligenceComponent.stateMachine.enter(TaskBotFleeState.self) else { return }
+        //guard intelligenceComponent.stateMachine.enter(TaskBotFleeState.self) else { return }
+        
+        print("mandate \(mandate)")
         
         // 4) Check if the current mandate is to flee an agent.
         guard case let .fleeAgent(targetAgent) = mandate else { return }
         
-        print("targetAgent: \(targetAgent.description)")
+        //print("targetAgent: \(targetAgent.description)")
         
         // The `ProtestorBot` is ready to flee to the current position.
         targetPosition = targetAgent.position
-        intelligenceComponent.stateMachine.enter(TaskBotFleeState.self)
+        //intelligenceComponent.stateMachine.enter(TaskBotFleeState.self)
         
         //hunt()
         
@@ -329,7 +331,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
         guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
         
         //isProtestor = !healthComponent.hasHealth
-        print("health:\(healthComponent.health.description)")
+        //print("health:\(healthComponent.health.description)")
         if healthComponent.hasHealth
         {
             intelligenceComponent.stateMachine.enter(TaskBotZappedState.self)
@@ -407,7 +409,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
             completionHandler()
         }
         
-        print((goodAnimations?.description))
+        //print((goodAnimations?.description))
     }
     
     static func purgeResources()
