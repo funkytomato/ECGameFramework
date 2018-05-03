@@ -255,7 +255,7 @@ class GroundBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
             completionHandler()
         }
         
-        print((goodAnimations?.description))
+        //print((goodAnimations?.description))
     }
     
     static func purgeResources()
