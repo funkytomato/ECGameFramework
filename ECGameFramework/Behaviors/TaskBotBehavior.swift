@@ -17,7 +17,7 @@ class TaskBotBehavior: GKBehavior
     // Arrested behaviour, return the arrested protestor to the meatwagon in the custody of the arresting policeman
     static func arrestedBehaviour(forAgent agent: GKAgent2D, huntingAgent target: GKAgent2D, pathRadius: Float, inScene scene: LevelScene) -> (behaviour: GKBehavior, pathPoints: [CGPoint])
     {
-        print("behaviorAndPathPoints \(agent.description) hunting: \(target.description) scene: \(scene.description)")
+        //print("behaviorAndPathPoints \(agent.description) hunting: \(target.description) scene: \(scene.description)")
         
         let behavior = TaskBotBehavior()
         
@@ -37,7 +37,7 @@ class TaskBotBehavior: GKBehavior
         
         if !agentsToFlockWith.isEmpty
         {
-            print("arrestedBehaviour - agents are flocking \(agentsToFlockWith.description)")
+            //print("arrestedBehaviour - agents are flocking \(agentsToFlockWith.description)")
             
             
             // Add flocking goals for any nearby "bad" `TaskBot`s.
@@ -55,7 +55,55 @@ class TaskBotBehavior: GKBehavior
         let pathPoints = behavior.addGoalsToFollowPath(from: agent.position, to: scene.meatWagonLocation(), pathRadius: pathRadius, inScene: scene)
         
         
-        print("targetPosition: \(target.position)")
+        //print("targetPosition: \(target.position)")
+        
+        // Return a tuple containing the new behavior, and the found path points for debug drawing.
+        return (behavior, pathPoints)
+    }
+    
+    
+    // Crowd behaviour
+    static func crowdBehaviour(forAgent agent: GKAgent2D, pathRadius: Float, temperament: String, inScene scene: LevelScene) -> (behaviour: GKBehavior, pathPoints: [CGPoint])
+    {
+        //print("behaviorAndPathPoints \(agent.description) hunting: \(target.description) scene: \(scene.description)")
+        
+        let behavior = TaskBotBehavior()
+        
+        // Add basic goals to reach the `TaskBot`'s maximum speed and avoid obstacles.
+        behavior.addTargetSpeedGoal(speed: agent.maxSpeed)
+        behavior.addAvoidObstaclesGoal(forScene: scene)
+        
+        // Find any nearby "protestor" TaskBots to flock with.
+        let agentsToFlockWith: [GKAgent2D] = scene.entities.flatMap { entity in
+            if let taskBot = entity as? TaskBot, taskBot.isProtestor && taskBot.agent !== agent && taskBot.distanceToAgent(otherAgent: agent) <= GameplayConfiguration.Flocking.agentSearchDistanceForArrest
+            {
+                return taskBot.agent
+            }
+            
+            return nil
+        }
+        
+        if !agentsToFlockWith.isEmpty
+        {
+            //print("arrestedBehaviour - agents are flocking \(agentsToFlockWith.description)")
+            
+            
+            // Add flocking goals for any nearby "bad" `TaskBot`s.
+            //let separationGoal = GKGoal(toSeparateFrom: agentsToFlockWith, maxDistance: GameplayConfiguration.Flocking.separationRadius, maxAngle: GameplayConfiguration.Flocking.separationAngle)
+            //behavior.setWeight(GameplayConfiguration.Flocking.separationWeight, for: separationGoal)
+            
+            let alignmentGoal = GKGoal(toAlignWith: agentsToFlockWith, maxDistance: GameplayConfiguration.Flocking.alignmentRadius, maxAngle: GameplayConfiguration.Flocking.alignmentAngle)
+            behavior.setWeight(GameplayConfiguration.Flocking.alignmentWeight, for: alignmentGoal)
+            
+            let cohesionGoal = GKGoal(toCohereWith: agentsToFlockWith, maxDistance: GameplayConfiguration.Flocking.cohesionRadius, maxAngle: GameplayConfiguration.Flocking.cohesionAngle)
+            behavior.setWeight(GameplayConfiguration.Flocking.cohesionWeight, for: cohesionGoal)
+        }
+        
+        // Add goals to follow a calculated path from the `TaskBot` to its target.
+        let pathPoints = behavior.addGoalsToFollowPath(from: agent.position, to: scene.meatWagonLocation(), pathRadius: pathRadius, inScene: scene)
+        
+        
+        //print("targetPosition: \(target.position)")
         
         // Return a tuple containing the new behavior, and the found path points for debug drawing.
         return (behavior, pathPoints)
@@ -65,7 +113,7 @@ class TaskBotBehavior: GKBehavior
     /// Constructs a behavior to hunt a `TaskBot` or `PlayerBot` via a computed path.
     static func huntBehaviour(forAgent agent: GKAgent2D, huntingAgent target: GKAgent2D, pathRadius: Float, inScene scene: LevelScene) -> (behavior: GKBehavior, pathPoints: [CGPoint])
     {
-        print("behaviorAndPathPoints \(agent.description) hunting: \(target.description) scene: \(scene.description)")
+        //print("behaviorAndPathPoints \(agent.description) hunting: \(target.description) scene: \(scene.description)")
         
         let behavior = TaskBotBehavior()
         
@@ -85,7 +133,7 @@ class TaskBotBehavior: GKBehavior
         
         if !agentsToFlockWith.isEmpty
         {
-            print("behaviorAndPathPoints - agents are flocking \(agentsToFlockWith.description)")
+            //print("behaviorAndPathPoints - agents are flocking \(agentsToFlockWith.description)")
             
             
             // Add flocking goals for any nearby "bad" `TaskBot`s.
@@ -103,7 +151,7 @@ class TaskBotBehavior: GKBehavior
         let pathPoints = behavior.addGoalsToFollowPath(from: agent.position, to: target.position, pathRadius: pathRadius, inScene: scene)
         
         
-        print("targetPosition: \(target.position)")
+        //print("targetPosition: \(target.position)")
         
         // Return a tuple containing the new behavior, and the found path points for debug drawing.
         return (behavior, pathPoints)
@@ -112,7 +160,7 @@ class TaskBotBehavior: GKBehavior
     /// Constructs a behavior to return to the start of a `TaskBot` patrol path.
     static func returnToPathBehaviour(forAgent agent: GKAgent2D, returningToPoint endPoint: float2, pathRadius: Float, inScene scene: LevelScene) -> (behavior: GKBehavior, pathPoints: [CGPoint])
     {
-        print("behaviorAndPathPoints agent:\(agent.description) returning to: \(endPoint)  scene: \(scene.description)")
+        //print("behaviorAndPathPoints agent:\(agent.description) returning to: \(endPoint)  scene: \(scene.description)")
     
         
         let behavior = TaskBotBehavior()
@@ -134,7 +182,7 @@ class TaskBotBehavior: GKBehavior
     /// Constructs a behavior to patrol a path of points, avoiding obstacles along the way.
     static func patrolBehaviour(forAgent agent: GKAgent2D, patrollingPathWithPoints patrolPathPoints: [CGPoint], pathRadius: Float, inScene scene: LevelScene) -> GKBehavior
     {
-        print("behavior agent:\(agent.description) patrolling: \(patrolPathPoints.description)  scene: \(scene.description)")
+        //print("behavior agent:\(agent.description) patrolling: \(patrolPathPoints.description)  scene: \(scene.description)")
         
         let behavior = TaskBotBehavior()
         
@@ -158,7 +206,7 @@ class TaskBotBehavior: GKBehavior
     //Construct a behaviour to wander, avoiding obstacles along the way
     static func wanderBehaviour(forAgent agent: GKAgent2D, inScene scene: LevelScene) -> (behavior: GKBehavior, pathPoints: [CGPoint])
     {
-        print("behaviorAndWander agent:\(agent.description)  scene: \(scene.description)")
+        //print("behaviorAndWander agent:\(agent.description)  scene: \(scene.description)")
         
         let behavior = TaskBotBehavior()
         
@@ -179,7 +227,7 @@ class TaskBotBehavior: GKBehavior
     //Construct a behaviour to flee from an agent, avoiding obstacles along the way
     static func fleeBehaviour(forAgent agent: GKAgent2D, fromAgent fearSource: GKAgent2D, inScene scene: LevelScene) -> (behavior: GKBehavior, pathPoints: [CGPoint])
     {
-        print("behaviorFlee agent:\(agent.description)  scene: \(scene.description)")
+        //print("behaviorFlee agent:\(agent.description)  scene: \(scene.description)")
         
         let behavior = TaskBotBehavior()
         
@@ -205,7 +253,7 @@ class TaskBotBehavior: GKBehavior
     */
     private func extrudedObstaclesContaining(point: float2, inScene scene: LevelScene) -> [GKPolygonObstacle]
     {
-        print("extrudedObstaclesContaining point:\(point) scene: \(scene.description)")
+        //print("extrudedObstaclesContaining point:\(point) scene: \(scene.description)")
         
         /*
             Add a small fudge factor (+5) to the extrusion radius to make sure 
@@ -245,7 +293,7 @@ class TaskBotBehavior: GKBehavior
     */
     private func connectedNode(forPoint point: float2, onObstacleGraphInScene scene: LevelScene) -> GKGraphNode2D?
     {
-        print("connectedNode point:\(point) scene:\(scene.description)")
+        //print("connectedNode point:\(point) scene:\(scene.description)")
         
         // Create a graph node for this point.
         let pointNode = GKGraphNode2D(point: point)
@@ -295,7 +343,7 @@ class TaskBotBehavior: GKBehavior
         
         scene.graph.connectUsingObstacles(node: endNode)
         
-        print("addGoalsToWander startPoint: \(startPoint) endPoint: \(endNode.position)  scene: \(scene.description)")
+        //print("addGoalsToWander startPoint: \(startPoint) endPoint: \(endNode.position)  scene: \(scene.description)")
         
         
         //Convert the provided 'CGpoint' into nodes for the 'GKGraph'
@@ -317,7 +365,7 @@ class TaskBotBehavior: GKBehavior
     /// Pathfinds around obstacles to create a path between two points, and adds goals to follow that path.
     private func addGoalsToFollowPath(from startPoint: float2, to endPoint: float2, pathRadius: Float, inScene scene: LevelScene) -> [CGPoint]
     {
-        print("addGoalsToFollowPath startPoint: \(startPoint) endPoint: \(endPoint) scene: \(scene.description)")
+        //print("addGoalsToFollowPath startPoint: \(startPoint) endPoint: \(endPoint) scene: \(scene.description)")
         
         // Convert the provided `CGPoint`s into nodes for the `GPGraph`.
         guard let startNode = connectedNode(forPoint: startPoint, onObstacleGraphInScene: scene),
@@ -349,7 +397,7 @@ class TaskBotBehavior: GKBehavior
     private func addWanderGoal(forScene scene: LevelScene)
     {
         setWeight(100.0, for: GKGoal(toWander: 100))
-        print("addWanderGoal  scene: \(scene.description)")
+        //print("addWanderGoal  scene: \(scene.description)")
     }
 
     
@@ -357,14 +405,14 @@ class TaskBotBehavior: GKBehavior
     private func addFleeGoal(forScene scene: LevelScene, forAgent agent: GKAgent2D)
     {
         setWeight(100.0, for: GKGoal(toFleeAgent: agent))
-        print("addWanderGoal  scene: \(scene.description)")
+        //print("addWanderGoal  scene: \(scene.description)")
     }
     
     //Add a goal to seek
     private func addSeekGoal(forScene scene: LevelScene, agent: GKAgent)
     {
         setWeight(100.0, for: GKGoal(toSeekAgent: agent))
-        print("addSeekGoal \(agent.description)  scene: \(scene.description)")
+        //print("addSeekGoal \(agent.description)  scene: \(scene.description)")
     }
     
     
@@ -372,7 +420,7 @@ class TaskBotBehavior: GKBehavior
     private func addAvoidObstaclesGoal(forScene scene: LevelScene)
     {
         setWeight(1000.0, for: GKGoal(toAvoid: scene.polygonObstacles, maxPredictionTime: GameplayConfiguration.TaskBot.maxPredictionTimeForObstacleAvoidance))
-        print("addAvoidObstaclesGoal  scene: \(scene.description)")
+        //print("addAvoidObstaclesGoal  scene: \(scene.description)")
     }
     
     
@@ -380,7 +428,7 @@ class TaskBotBehavior: GKBehavior
     private func addTargetSpeedGoal(speed: Float)
     {
         setWeight(0.5, for: GKGoal(toReachTargetSpeed: speed))
-        print("addTargetSpeedGoal  speed: \(speed.description)")
+        //print("addTargetSpeedGoal  speed: \(speed.description)")
     }
     
     
@@ -393,6 +441,6 @@ class TaskBotBehavior: GKBehavior
         // The "stay on path" goal tries to keep the agent on the path within the path's radius.
         setWeight(1.0, for: GKGoal(toStayOn: path, maxPredictionTime: GameplayConfiguration.TaskBot.maxPredictionTimeWhenFollowingPath))
         
-        print("addFollowAndStayOnPathGoals \(path.description)")
+        //print("addFollowAndStayOnPathGoals \(path.description)")
     }
 }
