@@ -66,7 +66,7 @@ class TaskBotFleeState: GKState
         //Reset the tracking of how long the 'ManBot' has been in "Scared" state
         elapsedTime = 0.0
         
-        //entity.mandate = .fleeAgent(<#T##GKAgent2D#>)
+        //entity.mandate = .fleeAgent(<#T##GKAgent2D#>)   FRY set the mandate here?
         
     }
     
@@ -76,22 +76,15 @@ class TaskBotFleeState: GKState
         
         elapsedTime += seconds
         
-        /*
-         if entity has moved far away from angry people, then move back into CalmState
-         */
-        if elapsedTime < 10 { return }
-        
-        //Only move to taskbotagent after moving far away from dangerous protestors or violent police
-        stateMachine?.enter(CalmState.self)
         intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
-        
+
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
     {
         switch stateClass
         {
-        case is TaskBotAgentControlledState.Type, is TaskBotFleeState.Type, is TaskBotZappedState.Type:
+        case is TaskBotAgentControlledState.Type, is TaskBotZappedState.Type:
             return true
             
         default:
