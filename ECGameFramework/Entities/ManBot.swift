@@ -146,7 +146,7 @@ class ManBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
              initialState = CalmState(entity: self) as? GKState
         }
         
-        print("initialState :\(initialState.debugDescription)")
+        //print("initialState :\(initialState.debugDescription)")
         
         let temperamentComponent = TemperamentComponent(states: [
             CalmState(entity: self),
@@ -327,7 +327,7 @@ class ManBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
             completionHandler()
         }
         
-        print((goodAnimations?.description))
+        //print((goodAnimations?.description))
     }
     
     static func purgeResources()
