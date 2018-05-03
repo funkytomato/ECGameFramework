@@ -92,7 +92,7 @@ class ProtestorBotHitState: GKState
             temperamentComponent.decreaseTemperament()
             stateMachine?.enter(TaskBotAgentControlledState.self)
             
-            /*
+            
             if ((temperamentComponent.stateMachine.currentState as? ScaredState) != nil)
             {
                 stateMachine?.enter(TaskBotFleeState.self)
@@ -101,7 +101,7 @@ class ProtestorBotHitState: GKState
             {
                 stateMachine?.enter(TaskBotAgentControlledState.self)
             }
- */
+ 
         }
 
         
