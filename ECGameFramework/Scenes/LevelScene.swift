@@ -129,6 +129,7 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
         let animationSystem = GKComponentSystem(componentClass: AnimationComponent.self)
         let chargeSystem = GKComponentSystem(componentClass: ChargeComponent.self)
         let healthSystem = GKComponentSystem(componentClass: HealthComponent.self)
+        let resistanceSystem = GKComponentSystem(componentClass: ResistanceComponent.self)
         let intelligenceSystem = GKComponentSystem(componentClass: IntelligenceComponent.self)
         let movementSystem = GKComponentSystem(componentClass: MovementComponent.self)
         let beamSystem = GKComponentSystem(componentClass: BeamComponent.self)
@@ -503,6 +504,24 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
                 constraint.referenceNode = renderNode
                 
                 chargeBar.constraints = [constraint]
+            }
+            
+            /*
+             If the entity has a `ResistanceComponent` with a `ResistanceBar`, add the `ResistanceBar`
+             to the scene. Constrain the `ResistanceBar` to the `RenderComponent`'s node.
+             */
+            if let resistanceBar = entity.component(ofType: ResistanceComponent.self)?.resistanceBar
+            {
+                addNode(node: resistanceBar, toWorldLayer: .aboveCharacters)
+                
+                // Constrain the `ChargeBar`'s node position to the render node.
+                let xRange = SKRange(constantValue: GameplayConfiguration.PlayerBot.resistanceBarOffset.x)
+                let yRange = SKRange(constantValue: GameplayConfiguration.PlayerBot.resistanceBarOffset.y)
+                
+                let constraint = SKConstraint.positionX(xRange, y: yRange)
+                constraint.referenceNode = renderNode
+                
+                resistanceBar.constraints = [constraint]
             }
         }
         
