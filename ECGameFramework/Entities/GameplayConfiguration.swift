@@ -81,6 +81,9 @@ struct GameplayConfiguration
         
         /// The offset of the `PlayerBot`'s charge bar from its position.
         static let chargeBarOffset = CGPoint(x: 0.0, y: 65.0)
+
+        /// The offset of the `PlayerBot`'s resistance bar from its position.
+        static let resistanceBarOffset = CGPoint(x: 0.0, y: 45.0)
         
         /// The initial charge value for the `PlayerBot`'s health bar.
         static let initialCharge = 100.0
@@ -203,6 +206,10 @@ struct GameplayConfiguration
         /// The amount of health a `PlayerBot` loses by a single `GroundBot` attack.
         static let healthLossPerContact = 25.0
         
+        /// The amount of resistance a `PlayerBot` loses by a single `GroundBot` attack.
+        static let resistanceLossPerContact = 25.0
+    
+        
         /// The maximum amount of charge a `GroundBot` stores.
         static let maximumCharge = 100.0
         
@@ -244,6 +251,10 @@ struct GameplayConfiguration
     {
         /// The maximum amount of health a `GroundBot` stores.
         static let maximumHealth = 100.0
+        
+        /// The maximum amount of resistance a `GroundBot` stores.
+        static let maximumResistance = 100.0
+        
         
         /// The amount of health a `PlayerBot` loses by a single `GroundBot` attack.
         static let healthLossPerContact = 25.0
