@@ -15,7 +15,7 @@ import SpriteKit
 import GameplayKit
 
 //class ProtestorBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
-class ProtestorBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
+class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate, ResourceLoadableType
 {
     // MARK: Static Properties
     
@@ -66,6 +66,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
     /// The position in the scene that the `PoliceBot` should target with its attack.
     var targetPosition: float2?
     
+    var isPoweredDown: Bool = false
     // MARK: Initialization
     
     required init(temperament: String, isGood: Bool, goodPathPoints: [CGPoint], badPathPoints: [CGPoint])
@@ -74,7 +75,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
         
         // Determine initial animations and charge based on the initial state of the bot.
         let initialAnimations: [AnimationState: Animation]
-        //let initialCharge: Double
+        let initialResistance: Double
         let initialHealth: Double
         
         if isGood
@@ -84,7 +85,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
                 fatalError("Attempt to access ProtestorBot.goodAnimations before they have been loaded.")
             }
             initialAnimations = goodAnimations
-          //  initialCharge = 100.0
+            initialResistance = 100.0
             initialHealth = 100.0
             
             texture = SKTexture(imageNamed: "ProtestorBot")
@@ -96,7 +97,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
                 fatalError("Attempt to access ProtestorBot.badAnimations before they have been loaded.")
             }
             initialAnimations = badAnimations
-         //   initialCharge = GameplayConfiguration.ProtestorBot.maximumCharge
+            initialResistance = GameplayConfiguration.ProtestorBot.maximumResistance
             initialHealth = GameplayConfiguration.ProtestorBot.maximumHealth
             
             texture = SKTexture(imageNamed: "ProtestorBotBad")
@@ -178,6 +179,11 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
         let healthComponent = HealthComponent(health: initialHealth, maximumHealth: GameplayConfiguration.ProtestorBot.maximumHealth, displaysHealthBar: true)
         healthComponent.delegate = self
         addComponent(healthComponent)
+
+        let resistanceComponent = ResistanceComponent(resistance: initialResistance, maximumResistance: GameplayConfiguration.ProtestorBot.maximumResistance, displaysResistanceBar: true)
+        resistanceComponent.delegate = self
+        addComponent(resistanceComponent)
+        
         
         let movementComponent = MovementComponent()
         addComponent(movementComponent)
@@ -262,12 +268,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
         
         // The `ProtestorBot` is ready to flee to the current position.
         targetPosition = targetAgent.position
-        //intelligenceComponent.stateMachine.enter(TaskBotFleeState.self)
-        
-        //hunt()
-        
-        
-        
+        intelligenceComponent.stateMachine.enter(TaskBotFleeState.self)
     }
     
     func hunt()
@@ -311,20 +312,19 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
     }
 
     
-    // MARK: ChargeComponentDelegate
-/*
-    func chargeComponentDidLoseCharge(chargeComponent: ChargeComponent)
+    // MARK: ResistanceComponentDelegate
+    func resistanceComponentDidLoseResistance(resistanceComponent: ResistanceComponent)
     {
         guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
+        guard let resistanceComponent = component(ofType: ResistanceComponent.self) else { return }
         
-        isProtestor = !chargeComponent.hasCharge
-        
-        if !isProtestor
+        // If they are resisting, beat them up
+        if resistanceComponent.hasResistance
         {
-            intelligenceComponent.stateMachine.enter(TaskBotZappedState.self)
+            intelligenceComponent.stateMachine.enter(ProtestorBotHitState.self)
         }
     }
-*/
+
     
     func healthComponentDidLoseHealth(healthComponent: HealthComponent)
     {
