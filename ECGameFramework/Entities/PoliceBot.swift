@@ -160,6 +160,8 @@ class PoliceBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
             PoliceBotRotateToAttackState(entity: self),
             PoliceBotPreAttackState(entity: self),
             PoliceBotAttackState(entity: self),
+            PoliceArrestState(entity: self),
+            PoliceDetainState(entity: self),
             TaskBotZappedState(entity: self)
             ])
         addComponent(intelligenceComponent)
