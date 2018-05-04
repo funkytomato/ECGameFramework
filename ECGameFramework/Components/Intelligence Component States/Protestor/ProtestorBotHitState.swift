@@ -29,11 +29,18 @@ class ProtestorBotHitState: GKState
         guard let animationComponent = entity.component(ofType: AnimationComponent.self) else { fatalError("A ProtestorBotHitState's entity must have an AnimationComponent.") }
         return animationComponent
     }
-    
+    /*
     var chargeComponent: ChargeComponent
     {
         guard let chargeComponent = entity.component(ofType: ChargeComponent.self) else { fatalError("A ProtestorBotHitState's entity must have a ChargeComponent")}
         return chargeComponent
+    }
+    */
+    
+    var resistanceComponent: ResistanceComponent
+    {
+        guard let resistanceComponent = entity.component(ofType: ResistanceComponent.self) else { fatalError("A ProtestorBotHitState's entity must have a ResistanceComponent")}
+        return resistanceComponent
     }
     
     var healthComponent: HealthComponent
@@ -76,21 +83,16 @@ class ProtestorBotHitState: GKState
         elapsedTime += seconds
    
         
-        if !healthComponent.hasHealth
+        if !healthComponent.hasHealth || !resistanceComponent.hasResistance
         {
             temperamentComponent.stateMachine.enter(SubduedState.self)
             stateMachine?.enter(TaskBotAgentControlledState.self)
         }
-        else if healthComponent.health < 40.0
-        {
-            stateMachine?.enter(ProtestorBeingArrestedState.self)
-        }
-        
         else
         {
             //temperamentComponent.increaseTemperament()
             temperamentComponent.decreaseTemperament()
-            stateMachine?.enter(TaskBotAgentControlledState.self)
+//            stateMachine?.enter(TaskBotAgentControlledState.self)
             
             
             if ((temperamentComponent.stateMachine.currentState as? ScaredState) != nil)
@@ -105,13 +107,7 @@ class ProtestorBotHitState: GKState
         }
 
         
-        
-        
-        
-        
-        
-        /*
-        // When the `PlayerBot` has been in this state for long enough, transition to the appropriate next state.
+        // When the `ProtestorBot` has been in this state for long enough, transition to the appropriate next state.
         if elapsedTime >= GameplayConfiguration.ProtestorBot.hitStateDuration
         {
             if entity.isPoweredDown
@@ -123,7 +119,7 @@ class ProtestorBotHitState: GKState
                 stateMachine?.enter(TaskBotAgentControlledState.self)
             }
         }
- */
+ 
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
