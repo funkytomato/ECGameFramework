@@ -75,7 +75,7 @@ class ScaredState: GKState
         
         
         //Set the entity is scared for pathfinding
-        entity.isScared = true
+        //entity.isScared = true
         
         //intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
         //intelligenceComponent.stateMachine.enter(TaskBotFleeState.self)
