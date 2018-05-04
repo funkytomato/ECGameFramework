@@ -63,9 +63,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             // Get the components we will need to access in response to the value changing.
             guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { fatalError("TaskBots must have an intelligence component.") }
             guard let animationComponent = component(ofType: AnimationComponent.self) else { fatalError("TaskBots must have an animation component.") }
-            //guard let chargeComponent = component(ofType: ChargeComponent.self) else { fatalError("TaskBots must have a charge component.") }
+            guard let resistanceComponent = component(ofType: ResistanceComponent.self) else { fatalError("TaskBots must have a resistance component.") }
             guard let healthComponent = component(ofType: HealthComponent.self) else { fatalError("TaskBots must have a health component.") }
-            guard let temperamentComponent = component(ofType: TemperamentComponent.self) else { fatalError("TaskBots must have a temperament component")}
+            //guard let temperamentComponent = component(ofType: TemperamentComponent.self) else { fatalError("TaskBots must have a temperament component")}
 
             
             // Update the `TaskBot`'s speed and acceleration to suit the new value of `isGood`.
@@ -97,10 +97,12 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 
                 // Set the appropriate amount of charge.
                 //chargeComponent.charge = 0.0
+                resistanceComponent.resistance = 100.0
                 healthComponent.health = 100.0
             }
             else
             {
+                
                 /*
                     The `TaskBot` just turned from "good" to "bad".
                     Default to a `.ReturnToPositionOnPath` mandate for the closest point on its "bad" patrol path.
@@ -114,6 +116,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 
                 // Set the appropriate amount of charge.
                 //chargeComponent.charge = chargeComponent.maximumCharge
+                resistanceComponent.resistance = resistanceComponent.maximumResistance
                 healthComponent.health = healthComponent.maximumHealth
                 
                 // Enter the "zapped" state.
@@ -451,7 +454,8 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             
             // "Police nearby" AND "Dangerous Protestors nearby"
             ruleSystem.minimumGrade(forFacts: [
-                Fact.policeBotNear.rawValue as AnyObject
+                Fact.policeBotNear.rawValue as AnyObject,
+                Fact.dangerousTaskBotNear.rawValue as AnyObject
                 ])/*,
             
             // "Police nearby" AND "Dangerous Protestors nearby"
@@ -477,17 +481,17 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             ruleSystem.minimumGrade(forFacts: [
                 Fact.policeTaskBotPercentageHigh.rawValue as AnyObject,
                 Fact.playerBotNear.rawValue as AnyObject
-            ]),
+            ])
             
             /*
                 There are already a lot of Police `TaskBot`s on the level, and the
                 player is nearby, so hunt the player.
             */
-            
+/*
             // "Number of Police `TaskBot`s is medium" AND "Player is nearby".
             ruleSystem.minimumGrade(forFacts: [
-                Fact.policeTaskBotPercentageMedium.rawValue as AnyObject,
-                Fact.playerBotNear.rawValue as AnyObject
+  //              Fact.policeTaskBotPercentageMedium.rawValue as AnyObject//,
+ //               Fact.playerBotNear.rawValue as AnyObject
             ]),
             /*
                 There are already a reasonable number of Police `TaskBots` on the level,
@@ -499,20 +503,22 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 AND "nearest Protestor `TaskBot` is at medium proximity".
             */
             ruleSystem.minimumGrade(forFacts: [
-                Fact.policeTaskBotPercentageHigh.rawValue as AnyObject,
-                Fact.playerBotMedium.rawValue as AnyObject,
-                Fact.protestorTaskBotMedium.rawValue as AnyObject
+ //               Fact.policeTaskBotPercentageHigh.rawValue as AnyObject,
+ //               Fact.playerBotMedium.rawValue as AnyObject,
+ //               Fact.protestorTaskBotMedium.rawValue as AnyObject
             ]),
             /* 
                 There are already a lot of Police `TaskBot`s on the level, so even though
                 both the player and the nearest Protestor TaskBot are at medium proximity,
                 prefer the player for hunting.
             */
+ */
         ]
 
         // Find the maximum of the minima from above.
         let huntPlayerBot = huntPlayerBotRaw.reduce(0.0, max)
-
+        print("huntPlayerBot: \(huntPlayerBot.description), huntPlayerBotRaw: \(huntPlayerBotRaw.description) ")
+        
         
         // A series of situations in which we prefer this 'TaskBot' to hunt the nearest "Dangerous Protestor" TaskBot
         let huntDangerousTaskBotRaw = [
@@ -532,7 +538,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             // "Number of Police TaskBots is medium" AND "Player is at medium proximity" AND "Nearest Dangerous Protestor is at medium proximity"
             ruleSystem.minimumGrade(forFacts: [
                 Fact.policeTaskBotPercentageLow.rawValue as AnyObject,
-                Fact.playerBotMedium.rawValue as AnyObject,
+       //         Fact.playerBotMedium.rawValue as AnyObject,
                 Fact.dangerousTaskBotMedium.rawValue as AnyObject
                 ]),
             
@@ -542,14 +548,14 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
              */
             ruleSystem.minimumGrade(forFacts: [
                 Fact.policeTaskBotPercentageMedium.rawValue as AnyObject,
-                Fact.playerBotFar.rawValue as AnyObject,
+     //           Fact.playerBotFar.rawValue as AnyObject,
                 Fact.dangerousTaskBotMedium.rawValue as AnyObject
                 ]),
         ]
         
         // Find the maximum of the minima from above.
         let huntDangerousProtestorBot = huntDangerousTaskBotRaw.reduce(0.0, max)
-        //print("huntDangerousTaskBot: \(huntDangerousProtestorBot.description)")
+        print("huntDangerousTaskBot: \(huntDangerousProtestorBot.description), huntDangerousTaskBotRaw: \(huntDangerousTaskBotRaw.description) ")
         
         // A series of situations in which we prefer this `TaskBot` to hunt the nearest "Protestor" TaskBot.
         let huntTaskBotRaw = [
@@ -581,7 +587,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             */
             ruleSystem.minimumGrade(forFacts: [
                 Fact.policeTaskBotPercentageLow.rawValue as AnyObject,
-                Fact.playerBotMedium.rawValue as AnyObject,
+        //        Fact.playerBotMedium.rawValue as AnyObject,
                 Fact.protestorTaskBotMedium.rawValue as AnyObject
             ]),
             /*
@@ -596,7 +602,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             */
             ruleSystem.minimumGrade(forFacts: [
                 Fact.policeTaskBotPercentageMedium.rawValue as AnyObject,
-                Fact.playerBotFar.rawValue as AnyObject,
+       //         Fact.playerBotFar.rawValue as AnyObject,
                 Fact.protestorTaskBotMedium.rawValue as AnyObject
             ]),
             /*
@@ -608,7 +614,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
 
         // Find the maximum of the minima from above.
         let huntTaskBot = huntTaskBotRaw.reduce(0.0, max)
-        //print("huntPlayerBot: \(huntPlayerBot.description)")
+        print("huntTaskBot: \(huntTaskBot.description), huntTaskBotRaw: \(huntTaskBotRaw.description) ")
         
 
         print("fleeDangerousTaskBot: \(fleeDangerousTaskBot.description), fleeTaskBotRaw: \(fleeTaskBotRaw.description) ")
