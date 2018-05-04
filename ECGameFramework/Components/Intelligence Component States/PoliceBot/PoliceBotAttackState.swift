@@ -120,9 +120,11 @@ class PoliceBotAttackState: GKState
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
     {
+        print("stateClass :\(stateClass.description())")
+        
         switch stateClass
         {
-        case is TaskBotAgentControlledState.Type, is TaskBotZappedState.Type:
+        case is TaskBotAgentControlledState.Type, is TaskBotZappedState.Type, is PoliceArrestState.Type:
             return true
             
         default:
@@ -158,15 +160,66 @@ class PoliceBotAttackState: GKState
         //else if let taskBot = entity as? TaskBot, taskBot.isGood
             
             
-        else if let protestorBot = entity as? ProtestorBot, protestorBot.isProtestor, let healthComponent = protestorBot.component(ofType: HealthComponent.self)//, !protestorBot.isPoweredDown
+        else if let protestorBot = entity as? ProtestorBot, protestorBot.isProtestor, let healthComponent = protestorBot.component(ofType: HealthComponent.self)
         {
-            // If the other entity is a 'ProtestorBot' that is still alive, reduce its charge
+            guard let temperamentComponent = protestorBot.component(ofType: TemperamentComponent.self) else { return }
+            guard let resistanceComponent = protestorBot.component(ofType: ResistanceComponent.self) else { return }
+            guard let intelligenceComponent = protestorBot.component(ofType: IntelligenceComponent.self) else { return }
+            
+            //Hit them first
+            resistanceComponent.loseResistance(resistanceToLose: GameplayConfiguration.PoliceBot.resistanceLossPerContact)
             healthComponent.loseHealth(healthToLose: GameplayConfiguration.PoliceBot.healthLossPerContact)
             
+            //Have they been beaten into submission?
+            if !resistanceComponent.hasResistance
+            {
+                stateMachine?.enter(PoliceArrestState.self)
+                intelligenceComponent.stateMachine.enter(ProtestorBeingArrestedState.self)
+            }
+
+
+            
+
+            
+        
+
+/*
+            
+            // If the beam has a target with a charge component, drain charge from it.
+            if let resistanceComponent = protestorBot?.component(ofType: ResistanceComponent.self) {
+                let chargeToLose = GameplayConfiguration.Beam.chargeLossPerSecond * 1
+                resistanceComponent.loseCharge(chargeToLose: chargeToLose)
+            }
+  */
+//            guard (temperamentComponent?.stateMachine.currentState as? SubduedState) != nil else { healthComponent.loseHealth(healthToLose: GameplayConfiguration.PoliceBot.healthLossPerContact); return }
+            
+
+            
+            
+            /*
+            if
+            {
+                stateMachine?.enter(PoliceArrestState.self)
+            }
+            else
+            {
+                // If the other entity is a 'ProtestorBot' that is still alive, reduce its charge
+                healthComponent.loseHealth(healthToLose: GameplayConfiguration.PoliceBot.healthLossPerContact)
+            }
+            */
+
+          /*
             //Move state to next
             guard let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self) else { return }
-            intelligenceComponent.stateMachine.enter(ProtestorBotHitState.self)
-            
+            if healthComponent.health < 40.0
+            {
+                intelligenceComponent.stateMachine.enter(ProtestorBeingArrestedState.self)
+            }
+            else
+            {
+                intelligenceComponent.stateMachine.enter(ProtestorBotHitState.self)
+            }
+ */
 /*
             //Move state to next
             guard let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self) else { return }
