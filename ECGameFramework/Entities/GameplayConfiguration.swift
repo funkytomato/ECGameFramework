@@ -196,6 +196,15 @@ struct GameplayConfiguration
         
         // The alignment with neighbour angle
         static let alignWithNeighbourAngle: Float = 1
+        
+        
+        /// The duration of a `TaskBot`'s being scared state.
+        static let scaredStateDuration: TimeInterval = 5
+        
+        /// The duration of a `TaskBot`'s resistance cooldown state.
+        static let resistanceCooldownDuration: TimeInterval = 5
+        
+        
     }
     
     struct PoliceBot
