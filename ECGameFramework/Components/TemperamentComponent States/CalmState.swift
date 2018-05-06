@@ -66,6 +66,7 @@ class CalmState: GKState
         //Change the colour of the sprite to show calmness
         spriteComponent.changeColour(colour: SKColor.green)
         
+        entity.isScared = false
         
         /*
         // Apply damage to any entities the `GroundBot` is already in contact with.
