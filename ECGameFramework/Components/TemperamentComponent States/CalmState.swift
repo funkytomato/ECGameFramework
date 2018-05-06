@@ -66,19 +66,8 @@ class CalmState: GKState
         //Change the colour of the sprite to show calmness
         spriteComponent.changeColour(colour: SKColor.green)
         
-        entity.isScared = false
+        self.entity.isScared = false
         
-        /*
-        // Apply damage to any entities the `GroundBot` is already in contact with.
-        let contactedBodies = physicsComponent.physicsBody.allContactedBodies()
-        for contactedBody in contactedBodies
-        {
-            guard let entity = contactedBody.node?.entity else { continue }
-            
-            //If entities bump into each over, increase their temperament
-            spriteComponent.changeColour(colour: SKColor.green)
-        }
-        */
     }
     
     override func update(deltaTime seconds: TimeInterval)
