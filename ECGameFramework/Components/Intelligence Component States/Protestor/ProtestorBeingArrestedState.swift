@@ -31,6 +31,12 @@ class ProtestorBeingArrestedState: GKState
         return animationComponent
     }
     
+    var resistanceComponent: ResistanceComponent
+    {
+        guard let resistanceComponent = entity.component(ofType: ResistanceComponent.self) else { fatalError("A ResistanceComponent entity must have an AnimationComponent.") }
+        return resistanceComponent
+    }
+    
     //MARK:- Initializers
     required init(entity: ProtestorBot)
     {
@@ -53,6 +59,8 @@ class ProtestorBeingArrestedState: GKState
   //      let temperamentComponent = entity.component(ofType: TemperamentComponent.self)
   //      temperamentComponent?.increaseTemperament()
         
+        //resistanceComponent.isTriggered = true
+        //entity.isResistanceTriggered = true
     }
     
     override func update(deltaTime seconds: TimeInterval)
@@ -82,5 +90,12 @@ class ProtestorBeingArrestedState: GKState
         default:
             return false
         }
+    }
+    
+    override func willExit(to nextState: GKState)
+    {
+        super.willExit(to: nextState)
+        
+        //resistanceComponent.isTriggered = false
     }
 }
