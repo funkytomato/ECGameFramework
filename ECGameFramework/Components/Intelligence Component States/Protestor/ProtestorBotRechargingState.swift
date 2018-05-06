@@ -30,11 +30,11 @@ class ProtestorBotRechargingState: GKState
         return animationComponent
     }
     
-    /// The `ChargeComponent` associated with the `entity`.
-    var chargeComponent: ChargeComponent
+    /// The `ResistanceComponent` associated with the `entity`.
+    var resistanceComponent: ResistanceComponent
     {
-        guard let chargeComponent = entity.component(ofType: ChargeComponent.self) else { fatalError("A ProtestorBotRechargingState's entity must have a ChargeComponent.") }
-        return chargeComponent
+        guard let resistanceComponent = entity.component(ofType: ResistanceComponent.self) else { fatalError("A ProtestorBotRechargingState's entity must have a ResistanceComponent.") }
+        return resistanceComponent
     }
     
     // MARK: Initializers
@@ -66,26 +66,25 @@ class ProtestorBotRechargingState: GKState
         elapsedTime += seconds
         
         /**
-         There is a delay from when the `PlayerBot` enters this state to when it begins to recharge.
-         Do nothing if the `PlayerBot` hasn't been in this state long enough.
+         There is a delay from when the `TaskBot` enters this state to when it begins to recharge.
+         Do nothing if the `TaskBot` hasn't been in this state long enough.
          */
         if elapsedTime < GameplayConfiguration.ProtestorBot.rechargeDelayWhenInactive { return }
       
-        /*
-        // `chargeComponent` is a computed property. Declare a local version so we don't compute it multiple times.
-        let chargeComponent = self.chargeComponent
         
-        // Add charge to the `ProtestorBot`.
+        // `resistanceComponent` is a computed property. Declare a local version so we don't compute it multiple times.
+        let resistanceComponent = self.resistanceComponent
+        
+        // Add resistance to the `ProtestorBot`.
         let amountToRecharge = GameplayConfiguration.ProtestorBot.rechargeAmountPerSecond * seconds
-        chargeComponent.addCharge(chargeToAdd: amountToRecharge)
+        resistanceComponent.addResistance(resistanceToAdd: amountToRecharge)
         
         // If the `ProtestorBot` is fully charged it can become agent controlled again.
-        if chargeComponent.isFullyCharged
+        if resistanceComponent.isFullyResistanced
         {
             //entity.isPoweredDown = false
             stateMachine?.enter(TaskBotAgentControlledState.self)
         }
- */
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
