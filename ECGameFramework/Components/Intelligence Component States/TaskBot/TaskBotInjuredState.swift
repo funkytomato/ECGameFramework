@@ -77,6 +77,10 @@ class TaskBotInjuredState: GKState
         //Reset the tracking of how long the 'ManBot' has been in "Scared" state
         elapsedTime = 0.0
 
+        
+        entity.isActive = false
+        
+        entity.isScared = false
     }
     
     override func update(deltaTime seconds: TimeInterval)
