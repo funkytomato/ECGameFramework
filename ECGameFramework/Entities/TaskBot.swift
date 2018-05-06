@@ -174,7 +174,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 let temperament = "Calm"
                 
                 (agentBehavior, debugPathPoints) = TaskBotBehavior.crowdBehaviour(forAgent: agent, pathRadius: radius, temperament: temperament, inScene: levelScene)
-                debugColor = SKColor.red
+                debugColor = SKColor.orange
             
             case let .huntAgent(policeAgent):
                 radius = GameplayConfiguration.TaskBot.huntPathRadius
@@ -206,7 +206,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             case let .fleeAgent(policeAgent):
                 radius = GameplayConfiguration.TaskBot.fleePathRadius
                 (agentBehavior, debugPathPoints) = TaskBotBehavior.fleeBehaviour(forAgent: agent, fromAgent: policeAgent, inScene: levelScene)
-                debugColor = SKColor.brown
+                debugColor = SKColor.purple
             
         }
 
@@ -525,6 +525,8 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             // "Number Police TaskBots is low" AND "Dangerous Protestor 'TaskBot' is nearby" AND "Scared Protestor" is nearby
             ruleSystem.minimumGrade(forFacts: [
                 Fact.policeTaskBotPercentageLow.rawValue as AnyObject,
+                Fact.protestorTaskBotNear.rawValue as AnyObject,
+                Fact.protestorTaskBotMedium.rawValue as AnyObject,
                 Fact.dangerousTaskBotNear.rawValue as AnyObject,
                 Fact.scaredTaskBotNear.rawValue as AnyObject,
                 ]),
@@ -636,17 +638,22 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             mandate = .huntAgent(playerBotAgent)
             //mandate = .wander
         }
-        else if huntDangerousProtestorBot > huntTaskBot
+        else if isActive && huntDangerousProtestorBot > huntTaskBot
         {
             // The rules provided greater motivation to hunt the nearest Dangerous Protestor TaskBot. Ignore any motivation to hunt the PlayerBot.
             mandate = .huntAgent(state.nearestDangerousProtestorTaskBotTarget!.target.agent)
         }
-        else if huntTaskBot > huntPlayerBot
+        else if !isProtestor && isActive && huntTaskBot > huntPlayerBot
         {
             // The rules provided greater motivation to hunt the nearest good TaskBot. Ignore any motivation to hunt the PlayerBot.
             mandate = .huntAgent(state.nearestProtestorTaskBotTarget!.target.agent)
         }
-        else
+/*        else if huntTaskBot > huntPlayerBot
+        {
+            // The rules provided greater motivation to hunt the nearest good TaskBot. Ignore any motivation to hunt the PlayerBot.
+            mandate = .huntAgent(state.nearestProtestorTaskBotTarget!.target.agent)
+        }
+*/        else
         {
             // The rules provided no motivation to hunt, so patrol in the "bad" state.
             switch mandate
@@ -654,6 +661,10 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 case .wander:
                     mandate = .wander
                     break;
+                
+                case .followGoodPatrolPath:
+                    //The taskbot is already on its "good" patrol path, so no update is needed
+                    break
                 
                 case .followBadPatrolPath:
                     // The `TaskBot` is already on its "bad" patrol path, so no update is needed.
