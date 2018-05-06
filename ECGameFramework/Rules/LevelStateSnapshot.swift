@@ -102,7 +102,7 @@ class LevelStateSnapshot
             // The taskbot is active and scared
             if thisTaskbot.isActive && thisTaskbot.isScared
             {
-                return (workingArrays.scaredTaskBots + [thisTaskbot], workingArrays.dangerousProtestorTaskBots, workingArrays.protestorBots, workingArrays.policeBots, workingArrays.injuredBots)
+                return (workingArrays.scaredTaskBots + [thisTaskbot], workingArrays.dangerousProtestorTaskBots, workingArrays.protestorBots + [thisTaskbot], workingArrays.policeBots, workingArrays.injuredBots)
             }
             
             // The taskbot is a dangerous active protestor
