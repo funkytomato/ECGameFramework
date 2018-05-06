@@ -19,6 +19,7 @@ class ResistanceIdleState: GKState
     // MARK: Properties
     
     unowned var resistanceComponent: ResistanceComponent
+      
     
     // MARK: Initializers
     
@@ -26,6 +27,8 @@ class ResistanceIdleState: GKState
     {
         self.resistanceComponent = resistanceComponent
     }
+    
+
     
     // MARK: GKState life cycle
     
