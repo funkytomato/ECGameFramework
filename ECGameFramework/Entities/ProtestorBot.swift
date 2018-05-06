@@ -238,10 +238,10 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         
 
         
-        guard let resistanceComponent = entity.component(ofType: ResistanceComponent.self) else { return }
-        resistanceComponent.isTriggered = false
+        //guard let resistanceComponent = entity.component(ofType: ResistanceComponent.self) else { return }
+        //resistanceComponent.isTriggered = false
 
-        self.isResistanceTriggered = false
+        //self.isResistanceTriggered = false
     }
     
     // MARK: RulesComponentDelegate
