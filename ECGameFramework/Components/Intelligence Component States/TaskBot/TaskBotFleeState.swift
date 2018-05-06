@@ -73,9 +73,12 @@ class TaskBotFleeState: GKState
     {
         super.didEnter(from: previousState)
         
+        //self.entity.isScared = true
         
         //Reset the tracking of how long the 'ManBot' has been in "Scared" state
         elapsedTime = 0.0
+        
+//        temperamentComponent.stateMachine.enter(ScaredState.self)
     }
     
     override func update(deltaTime seconds: TimeInterval)
@@ -105,17 +108,6 @@ class TaskBotFleeState: GKState
     {
         super.willExit(to: nextState)
         
-        //entity.isScared = false
-        //temperamentComponent.stateMachine.enter(CalmState.self)
-        
-        // `movementComponent` is a computed property. Declare a local version so we don't compute it multiple times.
-        let movementComponent = self.movementComponent
-        
-        // Stop the `ManBot`'s movement and restore its standard movement speed.
-        movementComponent.nextRotation = nil
-        movementComponent.nextTranslation = nil
-        movementComponent.movementSpeed /= GameplayConfiguration.ManBot.movementSpeedMultiplierWhenAttacking
-        movementComponent.angularSpeed /= GameplayConfiguration.ManBot.angularSpeedMultiplierWhenAttacking
     }
     
     // MARK: Convenience
