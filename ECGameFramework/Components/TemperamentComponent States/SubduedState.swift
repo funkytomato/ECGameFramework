@@ -70,6 +70,8 @@ class SubduedState: GKState
         //Taskbot is incapicitated
         entity.isActive = false
         
+        entity.isScared = false
+        
         /*
         // Apply damage to any entities the `GroundBot` is already in contact with.
         let contactedBodies = physicsComponent.physicsBody.allContactedBodies()
