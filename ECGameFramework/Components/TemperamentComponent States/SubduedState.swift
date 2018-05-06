@@ -46,6 +46,14 @@ class SubduedState: GKState
         return physicsComponent
     }
     
+    /// The `IntelligenceComponent` associated with the `entity`.
+    var intelligenceComponent: IntelligenceComponent
+    {
+        guard let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self) else { fatalError("An entity's SubduedState must have a IntelligenceComponent.") }
+        return intelligenceComponent
+    }
+    
+    
     //MARK:- Initializers
     required init(entity: TaskBot)
     {
@@ -72,16 +80,8 @@ class SubduedState: GKState
         
         entity.isScared = false
         
-        /*
-        // Apply damage to any entities the `GroundBot` is already in contact with.
-        let contactedBodies = physicsComponent.physicsBody.allContactedBodies()
-        for contactedBody in contactedBodies
-        {
-            guard let entity = contactedBody.node?.entity else { continue }
-            
-            spriteComponent.changeColour(colour: SKColor.darkGray)
-        }
-        */
+        //intelligenceComponent.stateMachine.enter(<#T##stateClass: AnyClass##AnyClass#>)
+        
     }
     
     override func update(deltaTime seconds: TimeInterval)
