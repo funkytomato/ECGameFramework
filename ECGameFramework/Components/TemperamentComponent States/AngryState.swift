@@ -66,7 +66,7 @@ class AngryState: GKState
         //Change the colour of the sprite to show anger
         spriteComponent.changeColour(colour: SKColor.orange)
         
-        
+        entity.isScared = false
         
         
         
