@@ -73,6 +73,9 @@ class ProtestorBotHitState: GKState
         
         // Request the "hit" animation for this `PlayerBot`.
         animationComponent.requestedAnimationState = .hit
+        
+ //       resistanceComponent.isTriggered = true
+ //       entity.isResistanceTriggered = true
     }
     
     override func update(deltaTime seconds: TimeInterval)
@@ -106,7 +109,7 @@ class ProtestorBotHitState: GKState
  
         }
 
-        
+       /*
         // When the `ProtestorBot` has been in this state for long enough, transition to the appropriate next state.
         if elapsedTime >= GameplayConfiguration.ProtestorBot.hitStateDuration
         {
@@ -119,7 +122,7 @@ class ProtestorBotHitState: GKState
                 stateMachine?.enter(TaskBotAgentControlledState.self)
             }
         }
- 
+ */
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
@@ -132,5 +135,12 @@ class ProtestorBotHitState: GKState
         default:
             return false
         }
+    }
+    
+    override func willExit(to nextState: GKState)
+    {
+        super.willExit(to: nextState)
+        
+        //resistanceComponent.isTriggered = false
     }
 }
