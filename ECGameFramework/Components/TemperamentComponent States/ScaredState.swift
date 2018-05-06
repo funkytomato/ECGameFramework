@@ -23,6 +23,8 @@ class ScaredState: GKState
     //The amount of time the 'ManBot' has been in its "Arrested" state
     var elapsedTime: TimeInterval = 0.0
 
+    
+    
     /// The `SpriteComponent` associated with the `entity`.
     var spriteComponent: SpriteComponent
     {
@@ -30,27 +32,13 @@ class ScaredState: GKState
         return spriteComponent
     }
     
-    
     /// The `AnimationComponent` associated with the `entity`.
     var animationComponent: AnimationComponent
     {
         guard let animationComponent = entity.component(ofType: AnimationComponent.self) else { fatalError("An entity's ScaredState must have an AnimationComponent.") }
         return animationComponent
     }
-    
-    /// The `PhysicsComponent` associated with the `entity`.
-    var physicsComponent: PhysicsComponent
-    {
-        guard let physicsComponent = entity.component(ofType: PhysicsComponent.self) else { fatalError("An entity's ScaredState must have a PhysicsComponent.") }
-        return physicsComponent
-    }
-    
-    /// The `IntelligenceComponent` associated with the `entity`.
-    var intelligenceComponent: IntelligenceComponent
-    {
-        guard let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self) else { fatalError("An entity's AngryState must have an IntelligenceComponent.") }
-        return intelligenceComponent
-    }
+
     
     //MARK:- Initializers
     required init(entity: TaskBot)
@@ -68,7 +56,7 @@ class ScaredState: GKState
         elapsedTime = 0.0
         
         //Request the ScaredState animation for this state's 'ProtestorBot'
-        //animationComponent.requestedAnimationState = .scared
+        animationComponent.requestedAnimationState = .scared
         
         //Change the colour of the sprite to show calmness
         spriteComponent.changeColour(colour: SKColor.purple)
@@ -76,10 +64,6 @@ class ScaredState: GKState
         
         //Set the entity is scared for pathfinding
         entity.isScared = true
-        
-        //intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
-        //intelligenceComponent.stateMachine.enter(TaskBotFleeState.self)
-        
     }
     
     override func update(deltaTime seconds: TimeInterval)
@@ -88,21 +72,20 @@ class ScaredState: GKState
         
         elapsedTime += seconds
         
-        /*
-        if entity has moved far away from angry people, then move back into CalmState
-         */
-        if elapsedTime < 5 { return }
-        
-        stateMachine?.enter(CalmState.self)
-        
-        
+
+        // If the entity has spent long enough cooling down, enter `CalmState`.
+        if elapsedTime >= GameplayConfiguration.TaskBot.scaredStateDuration
+        {
+            stateMachine?.enter(CalmState.self)
+            entity.isScared = false
+        }
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
     {
         switch stateClass
         {
-        case is CalmState.Type, is ViolentState.Type:
+        case is CalmState.Type:
             return true
             
         default:
