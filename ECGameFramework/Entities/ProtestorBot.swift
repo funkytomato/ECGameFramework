@@ -67,6 +67,11 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
     var targetPosition: float2?
     
     var isPoweredDown: Bool = false
+    
+    //Is hit by another
+    var isResistanceTriggered: Bool = false
+    
+    
     // MARK: Initialization
     
     required init(temperament: String, isGood: Bool, goodPathPoints: [CGPoint], badPathPoints: [CGPoint])
@@ -227,6 +232,18 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         
     }
     
+    override func contactWithEntityDidEnd(_ entity: GKEntity)
+    {
+        super.contactWithEntityDidEnd(entity)
+        
+
+        
+        guard let resistanceComponent = entity.component(ofType: ResistanceComponent.self) else { return }
+        resistanceComponent.isTriggered = false
+
+        self.isResistanceTriggered = false
+    }
+    
     // MARK: RulesComponentDelegate
     
     override func rulesComponent(rulesComponent: RulesComponent, didFinishEvaluatingRuleSystem ruleSystem: GKRuleSystem)
@@ -268,7 +285,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         
         // The `ProtestorBot` is ready to flee to the current position.
         targetPosition = targetAgent.position
-        intelligenceComponent.stateMachine.enter(TaskBotFleeState.self)
+//        intelligenceComponent.stateMachine.enter(TaskBotFleeState.self)
     }
     
     func hunt()
@@ -318,10 +335,17 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
         guard let resistanceComponent = component(ofType: ResistanceComponent.self) else { return }
         
+        resistanceComponent.isTriggered = true
+        
         // If they are resisting, beat them up
         if resistanceComponent.hasResistance
         {
+
             intelligenceComponent.stateMachine.enter(ProtestorBotHitState.self)
+        }
+        else
+        {
+            intelligenceComponent.stateMachine.enter(ProtestorBeingArrestedState.self)
         }
     }
 
@@ -334,7 +358,13 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         //print("health:\(healthComponent.health.description)")
         if healthComponent.hasHealth
         {
-            intelligenceComponent.stateMachine.enter(TaskBotZappedState.self)
+         //   intelligenceComponent.stateMachine.enter(TaskBotZappedState.self)
+        }
+        else
+        {
+            intelligenceComponent.stateMachine.enter(PoliceDetainState.self)
+            self.isActive = false
+            self.isAlive = false
         }
     }
     
