@@ -52,7 +52,7 @@ class ProtestorDetainedState: GKState
         elapsedTime = 0.0
         
         //Request the "detained animation for this state's 'ProtestorBot'
-        animationComponent.requestedAnimationState = .detained
+        animationComponent.requestedAnimationState = .arrested
         
         temperamentComponent.stateMachine.enter(SubduedState.self)
         entity.isActive = false
