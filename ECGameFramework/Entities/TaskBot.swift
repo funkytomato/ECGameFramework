@@ -454,8 +454,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             
             // "Police nearby" AND "Dangerous Protestors nearby"
             ruleSystem.minimumGrade(forFacts: [
-                Fact.policeBotNear.rawValue as AnyObject,
-                Fact.dangerousTaskBotNear.rawValue as AnyObject
+                Fact.policeBotNear.rawValue as AnyObject
                 ])/*,
             
             // "Police nearby" AND "Dangerous Protestors nearby"
@@ -523,10 +522,11 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         // A series of situations in which we prefer this 'TaskBot' to hunt the nearest "Dangerous Protestor" TaskBot
         let huntDangerousTaskBotRaw = [
             
-            // "Number Police TaskBots is low" AND "Nearest Dangerous Protestor 'TaskBot' is nearby"
+            // "Number Police TaskBots is low" AND "Dangerous Protestor 'TaskBot' is nearby" AND "Scared Protestor" is nearby
             ruleSystem.minimumGrade(forFacts: [
                 Fact.policeTaskBotPercentageLow.rawValue as AnyObject,
-                Fact.dangerousTaskBotNear.rawValue as AnyObject
+                Fact.dangerousTaskBotNear.rawValue as AnyObject,
+                Fact.scaredTaskBotNear.rawValue as AnyObject,
                 ]),
             
             // "Number of Police TaskBots is medium" AND "Nearest Dangerous Protestor TaskBot is nearby"
@@ -561,10 +561,11 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         let huntTaskBotRaw = [
             
 
-            // "Number of Police TaskBots is low" AND "Nearest Protestor `TaskBot` is nearby".
+            // "Number of Police TaskBots is low" AND "Nearest Protestor `TaskBot` is nearby" AND "Scared Protestor" is nearby.
             ruleSystem.minimumGrade(forFacts: [
                 Fact.policeTaskBotPercentageLow.rawValue as AnyObject,
-                Fact.protestorTaskBotNear.rawValue as AnyObject
+                Fact.protestorTaskBotNear.rawValue as AnyObject,
+                Fact.scaredTaskBotNear.rawValue as AnyObject,
             ]),
             /*
                 There are not many Police `TaskBot`s on the level, and a Protestor `TaskBot`
@@ -621,7 +622,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         
         //Set the flee mandate if scared
 
-        if fleeDangerousTaskBot > 0.5
+        if self.isScared && fleeDangerousTaskBot > 0
         {
             // The rules provided greated motivation to flee
             //guard let dangerousTaskBot = state.nearestDangerousProtestorTaskBotTarget?.target.agent else { return }
@@ -661,7 +662,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                     // Send the `TaskBot` to the closest point on its "bad" patrol path.
                     let closestPointOnBadPath = closestPointOnPath(path: badPathPoints)
                     mandate = .returnToPositionOnPath(float2(closestPointOnBadPath))
-                    mandate = .wander
+                    //mandate = .wander
             }
         }
     }
