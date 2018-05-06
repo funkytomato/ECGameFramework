@@ -86,7 +86,7 @@ class TaskBotAgentControlledState: GKState
         {
         case is TaskBotZappedState.Type, is TaskBotAgentControlledState.Type, is TaskBotFleeState.Type, 
              is PoliceBotRotateToAttackState.Type, is PoliceBotAttackState.Type, is PoliceBotPreAttackState.Type, is PoliceArrestState.Type, is PoliceDetainState.Type,
-             is ProtestorBotPreAttackState.Type, is ProtestorBotRotateToAttackState.Type, is ProtestorBotAttackState.Type, is ProtestorBeingArrestedState.Type, is ProtestorArrestedState.Type, is ProtestorDetainedState.Type, is ProtestorBotHitState.Type:
+             is ProtestorBotPreAttackState.Type, is ProtestorBotRotateToAttackState.Type, is ProtestorBotAttackState.Type, is ProtestorBeingArrestedState.Type, is ProtestorArrestedState.Type, is ProtestorDetainedState.Type, is ProtestorBotHitState.Type, is ProtestorBotRechargingState.Type:
                 return true
                 
             default:
