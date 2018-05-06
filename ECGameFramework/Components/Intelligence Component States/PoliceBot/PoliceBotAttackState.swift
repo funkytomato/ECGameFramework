@@ -162,11 +162,12 @@ class PoliceBotAttackState: GKState
             
         else if let protestorBot = entity as? ProtestorBot, protestorBot.isProtestor, let healthComponent = protestorBot.component(ofType: HealthComponent.self)
         {
-            guard let temperamentComponent = protestorBot.component(ofType: TemperamentComponent.self) else { return }
+//            guard let temperamentComponent = protestorBot.component(ofType: TemperamentComponent.self) else { return }
             guard let resistanceComponent = protestorBot.component(ofType: ResistanceComponent.self) else { return }
             guard let intelligenceComponent = protestorBot.component(ofType: IntelligenceComponent.self) else { return }
             
             //Hit them first
+ //           intelligenceComponent.stateMachine.enter(ProtestorBotHitState.self)
             resistanceComponent.loseResistance(resistanceToLose: GameplayConfiguration.PoliceBot.resistanceLossPerContact)
             healthComponent.loseHealth(healthToLose: GameplayConfiguration.PoliceBot.healthLossPerContact)
             
