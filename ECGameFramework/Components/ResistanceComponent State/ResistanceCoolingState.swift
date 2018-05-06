@@ -46,7 +46,7 @@ class ResistanceCoolingState: GKState
         elapsedTime += seconds
         
         // If the beam has spent long enough cooling down, enter `BeamIdleState`.
-        if elapsedTime >= GameplayConfiguration.Beam.coolDownDuration
+        if elapsedTime >= GameplayConfiguration.TaskBot.resistanceCooldownDuration
         {
             stateMachine?.enter(ResistanceIdleState.self)
         }
