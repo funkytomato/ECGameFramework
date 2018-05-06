@@ -136,7 +136,7 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
         let rulesSystem = GKComponentSystem(componentClass: RulesComponent.self)
         
         // The systems will be updated in order. This order is explicitly defined to match assumptions made within components.
-        return [rulesSystem, intelligenceSystem, movementSystem, agentSystem, chargeSystem, beamSystem, animationSystem]
+        return [rulesSystem, intelligenceSystem, movementSystem, agentSystem, chargeSystem, beamSystem, resistanceSystem, animationSystem]
     }()
     
     // MARK: Initializers
