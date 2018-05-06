@@ -24,6 +24,9 @@ class ResistanceComponent: GKComponent
 {
     // MARK: Properties
     
+    // Set to true when being attacked
+    var isTriggered = false
+    
     var resistance: Double
     
     let maximumResistance: Double
@@ -57,6 +60,13 @@ class ResistanceComponent: GKComponent
     
     weak var delegate: ResistanceComponentDelegate?
     
+    /**
+     The state machine for this `ResistanceComponent`. Defined as an implicitly
+     unwrapped optional property, because it is created during initialization,
+     but cannot be created until after we have called super.init().
+     */
+    var stateMachine: GKStateMachine!
+    
     // MARK: Initializers
     
     init(resistance: Double, maximumResistance: Double, displaysResistanceBar: Bool = false)
@@ -77,11 +87,32 @@ class ResistanceComponent: GKComponent
         super.init()
         
         resistanceBar?.level = percentageResistance
+        
+        stateMachine = GKStateMachine(states : [
+            ResistanceIdleState(resistanceComponent: self),
+            ResistanceHitState(resistanceComponent: self),
+            ResistanceCoolingState(resistanceComponent: self)
+            ])
+        
+        stateMachine.enter(ResistanceIdleState.self)
     }
     
     required init?(coder aDecoder: NSCoder)
     {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit
+    {
+        // Remove the beam node from the scene.
+        //beamNode.removeFromParent()
+    }
+    
+    // MARK: GKComponent Life Cycle
+    
+    override func update(deltaTime seconds: TimeInterval)
+    {
+        stateMachine.update(deltaTime: seconds)
     }
     
     // MARK: Component actions
