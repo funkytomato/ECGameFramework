@@ -107,27 +107,9 @@ class ProtestorArrestedState: GKState
             // If the other entity is a `PlayerBot` that isn't powered down, reduce its charge.
             chargeComponent.loseCharge(chargeToLose: GameplayConfiguration.ManBot.chargeLossPerContact)
         }
-        /*
-        else if let taskBot = entity as? TaskBot, taskBot.isGood
-        {
-            temperamentComponent.stateMachine.enter(SubduedState.self)
-            
-            
-            // If the other entity is a good `TaskBot`, turn it bad.
-            //taskBot.isGood = false
-        }
-        */
         else if let protestorBot = entity as? ProtestorBot, protestorBot.isProtestor, let temperamentComponent = entity.component(ofType: TemperamentComponent.self)
         {
             temperamentComponent.stateMachine.enter(SubduedState.self)
-            //protestorBot.isActive = false
-            //temperamentComponent.stateMachine.enter(AngryState.self)
-            
-            //Stop Police chasing this protestor
-            //protestorBot.isGood = false
-            
-            // If the other entity is a good `TaskBot`, turn it bad.
-            //taskBot.isGood = false
         }
     }
 }
