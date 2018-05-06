@@ -101,6 +101,7 @@ class ResistanceHitState: GKState
              */
             stateMachine?.enter(ResistanceCoolingState.self)
         }
+            /*
         else if !resistanceComponent.isTriggered
         {
             // The beam is no longer being fired. Enter the `ResistanceIdleState`.
@@ -110,6 +111,7 @@ class ResistanceHitState: GKState
         {
    //         updateBeamNode(withDeltaTime: seconds)
         }
+ */
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
