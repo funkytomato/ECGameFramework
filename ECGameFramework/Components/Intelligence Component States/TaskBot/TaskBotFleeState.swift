@@ -47,7 +47,18 @@ class TaskBotFleeState: GKState
         guard let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self) else { fatalError("An entity's FleeState's must have an IntelligenceComponent.") }
         return intelligenceComponent
     }
+
+    var temperamentComponent: TemperamentComponent
+    {
+        guard let temperamentComponent = entity.component(ofType: TemperamentComponent.self) else { fatalError("An entity's FleeState's must have an TemperamentComponent.") }
+        return temperamentComponent
+    }
     
+    var resistanceComponent: ResistanceComponent
+    {
+        guard let resistanceComponent = entity.component(ofType: ResistanceComponent.self) else { fatalError("An entity's FleeState's must have an ResistanceComponent.") }
+        return resistanceComponent
+    }
     
     // MARK: Initializers
     
@@ -65,9 +76,6 @@ class TaskBotFleeState: GKState
         
         //Reset the tracking of how long the 'ManBot' has been in "Scared" state
         elapsedTime = 0.0
-        
-        //entity.mandate = .fleeAgent(<#T##GKAgent2D#>)   FRY set the mandate here?
-        
     }
     
     override func update(deltaTime seconds: TimeInterval)
@@ -75,8 +83,9 @@ class TaskBotFleeState: GKState
         super.update(deltaTime: seconds)
         
         elapsedTime += seconds
-        
-        intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
+       
+        //resistanceComponent.stateMachine.enter(ResistanceCoolingState.self)
+        stateMachine?.enter(TaskBotAgentControlledState.self)
 
     }
     
@@ -96,6 +105,9 @@ class TaskBotFleeState: GKState
     {
         super.willExit(to: nextState)
         
+        //entity.isScared = false
+        //temperamentComponent.stateMachine.enter(CalmState.self)
+        
         // `movementComponent` is a computed property. Declare a local version so we don't compute it multiple times.
         let movementComponent = self.movementComponent
         
@@ -107,6 +119,5 @@ class TaskBotFleeState: GKState
     }
     
     // MARK: Convenience
-    
     
 }
