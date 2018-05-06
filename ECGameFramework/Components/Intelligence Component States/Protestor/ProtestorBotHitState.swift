@@ -85,8 +85,11 @@ class ProtestorBotHitState: GKState
         // Update the amount of time the `PlayerBot` has been in the "hit" state.
         elapsedTime += seconds
    
-        
-        if !healthComponent.hasHealth || !resistanceComponent.hasResistance
+        if !healthComponent.hasHealth
+        {
+            stateMachine?.enter(TaskBotInjuredState.self)
+        }
+        else if !resistanceComponent.hasResistance
         {
             temperamentComponent.stateMachine.enter(SubduedState.self)
             stateMachine?.enter(TaskBotAgentControlledState.self)
@@ -129,7 +132,7 @@ class ProtestorBotHitState: GKState
     {
         switch stateClass
         {
-        case is TaskBotAgentControlledState.Type, is ProtestorBeingArrestedState.Type, is TaskBotFleeState.Type:
+        case is TaskBotAgentControlledState.Type, is ProtestorBeingArrestedState.Type, is TaskBotFleeState.Type, is TaskBotInjuredState.Type:
             return true
             
         default:
@@ -141,6 +144,8 @@ class ProtestorBotHitState: GKState
     {
         super.willExit(to: nextState)
         
-        //resistanceComponent.isTriggered = false
+        
+        //Allow entity to start recharging when not in contact with another entity
+        resistanceComponent.isTriggered = false
     }
 }
