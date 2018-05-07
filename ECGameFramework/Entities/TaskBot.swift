@@ -176,9 +176,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 (agentBehavior, debugPathPoints) = TaskBotBehavior.crowdBehaviour(forAgent: agent, pathRadius: radius, temperament: temperament, inScene: levelScene)
                 debugColor = SKColor.orange
             
-            case let .huntAgent(policeAgent):
+            case let .huntAgent(taskBot):
                 radius = GameplayConfiguration.TaskBot.huntPathRadius
-                (agentBehavior, debugPathPoints) = TaskBotBehavior.huntBehaviour(forAgent: agent, huntingAgent: policeAgent, pathRadius: radius, inScene: levelScene)
+                (agentBehavior, debugPathPoints) = TaskBotBehavior.huntBehaviour(forAgent: agent, huntingAgent: taskBot, pathRadius: radius, inScene: levelScene)
                 debugColor = SKColor.red
 
             case let .returnToPositionOnPath(position):
@@ -192,9 +192,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 debugColor = SKColor.cyan
             
             //Protestor being moved to LockUp
-            case let .arrested(policeAgent):
+            case let .arrested(taskBot):
                 radius = GameplayConfiguration.TaskBot.wanderPathRadius
-                (agentBehavior, debugPathPoints) = TaskBotBehavior.arrestedBehaviour(forAgent: agent, huntingAgent: policeAgent, pathRadius: 25.0, inScene: levelScene)
+                (agentBehavior, debugPathPoints) = TaskBotBehavior.arrestedBehaviour(forAgent: agent, huntingAgent: taskBot, pathRadius: 25.0, inScene: levelScene)
                 debugColor = SKColor.white
             
             //PoliceBot taking prisoner to meatwagon
@@ -203,9 +203,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 (agentBehavior, debugPathPoints) = TaskBotBehavior.returnToPathBehaviour(forAgent: agent, returningToPoint: levelScene.meatWagonLocation(), pathRadius: radius, inScene: levelScene)
                 debugColor = SKColor.brown
             
-            case let .fleeAgent(policeAgent):
+            case let .fleeAgent(taskBot):
                 radius = GameplayConfiguration.TaskBot.fleePathRadius
-                (agentBehavior, debugPathPoints) = TaskBotBehavior.fleeBehaviour(forAgent: agent, fromAgent: policeAgent, inScene: levelScene)
+                (agentBehavior, debugPathPoints) = TaskBotBehavior.fleeBehaviour(forAgent: agent, fromAgent: taskBot, inScene: levelScene)
                 debugColor = SKColor.purple
             
         }
