@@ -56,11 +56,7 @@ class ProtestorBeingArrestedState: GKState
         //Request the "beingArrested animation for this state's 'ProtestorBot'
         animationComponent.requestedAnimationState = .beingArrested
         
-  //      let temperamentComponent = entity.component(ofType: TemperamentComponent.self)
-  //      temperamentComponent?.increaseTemperament()
-        
-        //resistanceComponent.isTriggered = true
-        //entity.isResistanceTriggered = true
+
     }
     
     override func update(deltaTime seconds: TimeInterval)
@@ -95,7 +91,5 @@ class ProtestorBeingArrestedState: GKState
     override func willExit(to nextState: GKState)
     {
         super.willExit(to: nextState)
-        
-        //resistanceComponent.isTriggered = false
     }
 }
