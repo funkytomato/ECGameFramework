@@ -209,19 +209,19 @@ class EntitySnapshot
             {
                 playerBotTarget = (target: target, distance: entityDistance.distance)
             }
-            else if let target = entityDistance.target as? TaskBot, nearestDangerousProtestorTaskBotTarget == nil && target.isDangerous
+            else if let target = entityDistance.target as? TaskBot, nearestDangerousProtestorTaskBotTarget == nil && target.isDangerous && target.isActive
             {
                 nearestDangerousProtestorTaskBotTarget = (target: target, distance: entityDistance.distance)
             }
-            else if let target = entityDistance.target as? TaskBot, nearestProtestorTaskBotTarget == nil && target.isProtestor
+            else if let target = entityDistance.target as? TaskBot, nearestProtestorTaskBotTarget == nil && target.isProtestor && target.isActive
             {
                 nearestProtestorTaskBotTarget = (target: target, distance: entityDistance.distance)
             }
-            else if let target = entityDistance.target as? TaskBot, nearestScaredTaskBotTarget == nil && target.isProtestor
+            else if let target = entityDistance.target as? TaskBot, nearestScaredTaskBotTarget == nil && target.isProtestor && target.isActive
             {
                 nearestScaredTaskBotTarget = (target: target, distance: entityDistance.distance)
             }
-            else if let target = entityDistance.target as? TaskBot, nearestPoliceTaskBotTarget == nil && !target.isProtestor
+            else if let target = entityDistance.target as? TaskBot, nearestPoliceTaskBotTarget == nil && !target.isProtestor && target.isActive
             {
                 nearestPoliceTaskBotTarget = (target: target, distance: entityDistance.distance)
             }
