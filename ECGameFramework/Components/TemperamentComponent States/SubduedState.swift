@@ -75,7 +75,7 @@ class SubduedState: GKState
         //Change the colour of the sprite to show subdued
         spriteComponent.changeColour(colour: SKColor.darkGray)
         
-        //Taskbot is incapicitated
+        //Taskbot is incapacitated
         entity.isActive = false
         
         entity.isScared = false
