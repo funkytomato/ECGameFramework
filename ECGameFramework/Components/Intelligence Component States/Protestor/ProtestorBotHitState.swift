@@ -85,25 +85,38 @@ class ProtestorBotHitState: GKState
         // Update the amount of time the `PlayerBot` has been in the "hit" state.
         elapsedTime += seconds
    
+        //Is the Protestor dead?
         if !healthComponent.hasHealth
         {
             stateMachine?.enter(TaskBotInjuredState.self)
         }
+        // Has the Protestor's resistance been broken down?
         else if !resistanceComponent.hasResistance
         {
+            //The Protestor is subdued and knackered, arrest them
             temperamentComponent.stateMachine.enter(SubduedState.self)
-            stateMachine?.enter(TaskBotAgentControlledState.self)
+            //stateMachine?.enter(TaskBotAgentControlledState.self)
+            stateMachine?.enter(ProtestorBeingArrestedState.self)
         }
+        //Protestor hit, deciding whether to flee or attack
         else
         {
             //temperamentComponent.increaseTemperament()
             temperamentComponent.decreaseTemperament()
-//            stateMachine?.enter(TaskBotAgentControlledState.self)
             
             
+            // Decide what to do on the Protestor's current temperament
             if ((temperamentComponent.stateMachine.currentState as? ScaredState) != nil)
             {
+                // Protestor is scared and will attempt to flee from danger
                 stateMachine?.enter(TaskBotFleeState.self)
+            }
+            // Protestor is violent and will fight back
+            else if ((temperamentComponent.stateMachine.currentState as? ViolentState) != nil)
+            {
+                //Protestor will fight back with extreme prejudice
+                stateMachine?.enter(ProtestorBotRotateToAttackState.self)
+        
             }
             else
             {
