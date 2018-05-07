@@ -338,14 +338,15 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         
         resistanceComponent.isTriggered = true
         
-        // If they are resisting, beat them up
+        // Protestor is resisting
         if resistanceComponent.hasResistance
         {
-
+            // Beat them up
             intelligenceComponent.stateMachine.enter(ProtestorBotHitState.self)
         }
         else
         {
+            // Attempt to arrest the Protestor
             intelligenceComponent.stateMachine.enter(ProtestorBeingArrestedState.self)
         }
     }
@@ -357,15 +358,21 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         
         //isProtestor = !healthComponent.hasHealth
         //print("health:\(healthComponent.health.description)")
+        
+        // Check the on the health of the Protestor
         if healthComponent.hasHealth
         {
+            //Protestor is still alive
          //   intelligenceComponent.stateMachine.enter(TaskBotZappedState.self)
         }
         else
         {
-            intelligenceComponent.stateMachine.enter(PoliceDetainState.self)
-            self.isActive = false
-            self.isAlive = false
+            //Protestor is fucked, and no longer playable
+            
+            //intelligenceComponent.stateMachine.enter(PoliceDetainState.self)
+            intelligenceComponent.stateMachine.enter(TaskBotInjuredState.self)
+            //self.isActive = false
+            //self.isAlive = false
         }
     }
     
