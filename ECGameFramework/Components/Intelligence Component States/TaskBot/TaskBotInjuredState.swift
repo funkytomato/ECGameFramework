@@ -77,6 +77,7 @@ class TaskBotInjuredState: GKState
         //Reset the tracking of how long the 'ManBot' has been in "Scared" state
         elapsedTime = 0.0
 
+        temperamentComponent.stateMachine.enter(SubduedState.self)
         
         entity.isActive = false
         
