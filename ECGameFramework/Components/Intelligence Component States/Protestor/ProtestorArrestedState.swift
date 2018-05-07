@@ -59,6 +59,8 @@ class ProtestorArrestedState: GKState
         
         applyCuffsToEntity(entity: self.entity)
         
+        self.entity.isActive = false
+        
         /*
         // Apply damage to any entities the `GroundBot` is already in contact with.
         let contactedBodies = physicsComponent.physicsBody.allContactedBodies()
