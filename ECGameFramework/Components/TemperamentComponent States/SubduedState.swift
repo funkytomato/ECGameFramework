@@ -76,11 +76,11 @@ class SubduedState: GKState
         spriteComponent.changeColour(colour: SKColor.darkGray)
         
         //Taskbot is incapacitated
-        entity.isActive = false
+        //entity.isActive = false
         
         entity.isScared = false
         
-        //intelligenceComponent.stateMachine.enter(<#T##stateClass: AnyClass##AnyClass#>)
+        
         
     }
     
