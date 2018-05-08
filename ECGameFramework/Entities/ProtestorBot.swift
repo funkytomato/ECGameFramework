@@ -34,7 +34,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         return shadowAtlas.textureNamed("GroundBotShadow")
     }()
     
-//    var isPoweredDown = false
+
     var isAlive = true
     
     /// The offset of the `PoliceBot`'s shadow from its center position.
@@ -49,7 +49,6 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
     
     
     // MARK: TaskBot Properties
-    
     override var goodAnimations: [AnimationState: Animation]
     {
         return ProtestorBot.goodAnimations!
@@ -63,7 +62,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
     
     // MARK: ProtestorBot Properties
     
-    /// The position in the scene that the `PoliceBot` should target with its attack.
+    // The position in the scene that the `PoliceBot` should target with its attack.
     var targetPosition: float2?
     
     var isPoweredDown: Bool = false
@@ -73,7 +72,6 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
     
     
     // MARK: Initialization
-    
     required init(temperament: String, isGood: Bool, goodPathPoints: [CGPoint], badPathPoints: [CGPoint])
     {
         super.init(isGood: isGood, goodPathPoints: goodPathPoints, badPathPoints: badPathPoints)
@@ -360,19 +358,10 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         //print("health:\(healthComponent.health.description)")
         
         // Check the on the health of the Protestor
-        if healthComponent.hasHealth
-        {
-            //Protestor is still alive
-         //   intelligenceComponent.stateMachine.enter(TaskBotZappedState.self)
-        }
-        else
+        if !healthComponent.hasHealth
         {
             //Protestor is fucked, and no longer playable
-            
-            //intelligenceComponent.stateMachine.enter(PoliceDetainState.self)
             intelligenceComponent.stateMachine.enter(TaskBotInjuredState.self)
-            //self.isActive = false
-            //self.isAlive = false
         }
     }
     
