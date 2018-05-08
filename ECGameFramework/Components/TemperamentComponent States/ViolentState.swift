@@ -70,7 +70,7 @@ class ViolentState: GKState
         //Change the colour of the sprite to show violent
         spriteComponent.changeColour(colour: SKColor.red)
 
-        entity.isDangerous = true
+        entity.isViolent = true
         
         entity.isScared = false
     }
