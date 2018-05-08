@@ -36,6 +36,12 @@ class ProtestorBeingArrestedState: GKState
         guard let resistanceComponent = entity.component(ofType: ResistanceComponent.self) else { fatalError("A ResistanceComponent entity must have an AnimationComponent.") }
         return resistanceComponent
     }
+
+    var temperamentComponent: TemperamentComponent
+    {
+        guard let temperamentComponent = entity.component(ofType: TemperamentComponent.self) else { fatalError("A ResistanceComponent entity must have an TemperamentComponent.") }
+        return temperamentComponent
+    }
     
     //MARK:- Initializers
     required init(entity: ProtestorBot)
@@ -56,6 +62,10 @@ class ProtestorBeingArrestedState: GKState
         //Request the "beingArrested animation for this state's 'ProtestorBot'
         animationComponent.requestedAnimationState = .beingArrested
         
+        if ((temperamentComponent.stateMachine.currentState as? ViolentState) != nil)
+        {
+            self.entity.isDangerous = true
+        }
 
     }
     
