@@ -55,7 +55,7 @@ enum Fact: String
     case protestorTaskBotMedium = "ProtestorTaskBotMedium"
     case protestorTaskBotFar = "ProtestorTaskBotFar"
     
-    // Fuzzy rules pertaining to the proportion of "Dangerous" bots in the level.
+    // Fuzzy rules pertaining to the proportion of "Dangerous" bots in the level.  A dangerous taskbot is violent and attacking, either Police or Protestor
     case dangerousTaskBotPercentageLow = "DangerousTaskBotPercentageLow"
     case dangerousTaskBotPercentageMedium = "DangerousTaskBotPercentageMedium"
     case dangerousTaskBotPercentageHigh = "DangerousTaskBotPercentageHigh"
@@ -337,7 +337,7 @@ class ProtestorTaskBotFarRule: FuzzyTaskBotRule
 }
 
 
-/// Asserts whether the nearest "Violent Protestor" `TaskBot` is considered to be "near" to this `TaskBot`.
+/// Asserts whether the nearest "Dangerous" `TaskBot` is considered to be "near" to this `TaskBot`.
 class DangerousProtestorTaskBotNearRule: FuzzyTaskBotRule
 {
     // MARK: Properties
@@ -354,7 +354,7 @@ class DangerousProtestorTaskBotNearRule: FuzzyTaskBotRule
     init() { super.init(fact: .dangerousTaskBotNear) }
 }
 
-/// Asserts whether the nearest "Violent Protestor" `TaskBot` is considered to be at a "medium" distance from this `TaskBot`.
+/// Asserts whether the nearest "Dangerous" `TaskBot` is considered to be at a "medium" distance from this `TaskBot`.
 class DangerousProtestorTaskBotMediumRule: FuzzyTaskBotRule
 {
     // MARK: Properties
@@ -371,7 +371,7 @@ class DangerousProtestorTaskBotMediumRule: FuzzyTaskBotRule
     init() { super.init(fact: .dangerousTaskBotMedium) }
 }
 
-/// Asserts whether the nearest "Protestor" `TaskBot` is considered to be "far" from this `TaskBot`.
+/// Asserts whether the nearest "Dangerous" `TaskBot` is considered to be "far" from this `TaskBot`.
 class DangerousProtestorTaskBotFarRule: FuzzyTaskBotRule
 {
     // MARK: Properties
