@@ -89,52 +89,57 @@ class LevelStateSnapshot
         }
         
         // Determine the number of "scared", "dangerous, "protestor" `TaskBot`s and "Police" `TaskBot`s in the scene.
-        let (scaredTaskBots, dangerousProtestorTaskBots, protestorTaskBots, policeTaskBots, injuredTaskBots) = scene.entities.reduce(([], [], [], [], []))
+        let (scaredTaskBots, dangerousTaskBots, protestorTaskBots, policeTaskBots, injuredTaskBots) = scene.entities.reduce(([], [], [], [], []))
         {
 
-            (workingArrays: (scaredTaskBots: [TaskBot], dangerousProtestorTaskBots: [TaskBot], protestorBots: [TaskBot], policeBots: [TaskBot], injuredBots: [TaskBot]), thisEntity: GKEntity) -> ([TaskBot], [TaskBot], [TaskBot], [TaskBot], [TaskBot]) in
+            (workingArrays: (scaredTaskBots: [TaskBot], dangerousTaskBots: [TaskBot], protestorBots: [TaskBot], policeBots: [TaskBot], injuredBots: [TaskBot]), thisEntity: GKEntity) -> ([TaskBot], [TaskBot], [TaskBot], [TaskBot], [TaskBot]) in
             
             // Try to cast this entity as a `TaskBot`, and skip this entity if the cast fails.
             guard let thisTaskbot = thisEntity as? TaskBot else { return workingArrays }
                 
-            // Add this `TaskBot` to the appropriate working array based on whether it is violent, "good" or not AND active
+            // Add this `TaskBot` to the appropriate working array based on whether it is dangerous, scared, protestor or Police AND active
             
             // The taskbot is active and scared
             if thisTaskbot.isActive && thisTaskbot.isScared
             {
-                return (workingArrays.scaredTaskBots + [thisTaskbot], workingArrays.dangerousProtestorTaskBots, workingArrays.protestorBots + [thisTaskbot], workingArrays.policeBots, workingArrays.injuredBots)
+                return (workingArrays.scaredTaskBots + [thisTaskbot], workingArrays.dangerousTaskBots, workingArrays.protestorBots, workingArrays.policeBots, workingArrays.injuredBots)
             }
             
-            // The taskbot is a dangerous active protestor
-            else if thisTaskbot.isProtestor && thisTaskbot.isActive && thisTaskbot.isViolent
+            // The taskbot is active and dangerous
+            else if thisTaskbot.isActive && thisTaskbot.isDangerous
             {
-                return (workingArrays.scaredTaskBots, workingArrays.dangerousProtestorTaskBots + [thisTaskbot], workingArrays.protestorBots, workingArrays.policeBots, workingArrays.injuredBots)
+                return (workingArrays.scaredTaskBots, workingArrays.dangerousTaskBots + [thisTaskbot], workingArrays.protestorBots, workingArrays.policeBots, workingArrays.injuredBots)
             }
                 
             // The taskbot is an active protestor
             else if thisTaskbot.isProtestor && thisTaskbot.isActive
             {
-                return (workingArrays.scaredTaskBots, workingArrays.dangerousProtestorTaskBots, workingArrays.protestorBots + [thisTaskbot], workingArrays.policeBots, workingArrays.injuredBots)
+                return (workingArrays.scaredTaskBots, workingArrays.dangerousTaskBots, workingArrays.protestorBots + [thisTaskbot], workingArrays.policeBots, workingArrays.injuredBots)
             }
                 
             // The taskbot has become incapacitated or injured
             else if !thisTaskbot.isActive
             {
-                return (workingArrays.scaredTaskBots, workingArrays.dangerousProtestorTaskBots, workingArrays.protestorBots, workingArrays.policeBots, workingArrays.injuredBots + [thisTaskbot])
+                return (workingArrays.scaredTaskBots, workingArrays.dangerousTaskBots, workingArrays.protestorBots, workingArrays.policeBots, workingArrays.injuredBots + [thisTaskbot])
             }
                 
             // The taskbot is a policeman
+            else if !thisTaskbot.isProtestor
+            {
+                return (workingArrays.scaredTaskBots, workingArrays.dangerousTaskBots, workingArrays.protestorBots, workingArrays.policeBots + [thisTaskbot], workingArrays.injuredBots)
+            }
+            
             else
             {
-                return (workingArrays.scaredTaskBots, workingArrays.dangerousProtestorTaskBots, workingArrays.protestorBots, workingArrays.policeBots + [thisTaskbot], workingArrays.injuredBots)
+                return (workingArrays.scaredTaskBots, workingArrays.dangerousTaskBots, workingArrays.protestorBots, workingArrays.policeBots, workingArrays.injuredBots)
             }
 
         }
         
-        let policeBotPercentage = Float(policeTaskBots.count) / Float(protestorTaskBots.count + dangerousProtestorTaskBots.count + policeTaskBots.count)
-        let dangerousBotPercentage = Float(dangerousProtestorTaskBots.count) / Float(protestorTaskBots.count + dangerousProtestorTaskBots.count + injuredTaskBots.count + policeTaskBots.count)
+        let policeBotPercentage = Float(policeTaskBots.count) / Float(protestorTaskBots.count + dangerousTaskBots.count + policeTaskBots.count)
+        let dangerousBotPercentage = Float(dangerousTaskBots.count) / Float(protestorTaskBots.count + dangerousTaskBots.count + injuredTaskBots.count + policeTaskBots.count)
 
-        print("policeBotPercentage:\(policeBotPercentage.description), dangerousBotPercentage: \(dangerousBotPercentage.description), policeTaskBots: \(policeTaskBots.count), protestorTaskBots: \(protestorTaskBots.count), dangerousProtestorTaskBots: \(dangerousProtestorTaskBots.count), scaredBots: \(scaredTaskBots.count), injuredTaskBots: \(injuredTaskBots.count)")
+        print("policeBotPercentage:\(policeBotPercentage.description), dangerousBotPercentage: \(dangerousBotPercentage.description), policeTaskBots: \(policeTaskBots.count), protestorTaskBots: \(protestorTaskBots.count), dangerousTaskBots: \(dangerousTaskBots.count), scaredBots: \(scaredTaskBots.count), injuredTaskBots: \(injuredTaskBots.count)")
         
         
         
@@ -209,7 +214,7 @@ class EntitySnapshot
             {
                 playerBotTarget = (target: target, distance: entityDistance.distance)
             }
-            else if let target = entityDistance.target as? TaskBot, nearestDangerousProtestorTaskBotTarget == nil && target.isViolent && target.isActive
+            else if let target = entityDistance.target as? TaskBot, nearestDangerousProtestorTaskBotTarget == nil && target.isDangerous && target.isActive
             {
                 nearestDangerousProtestorTaskBotTarget = (target: target, distance: entityDistance.distance)
             }
