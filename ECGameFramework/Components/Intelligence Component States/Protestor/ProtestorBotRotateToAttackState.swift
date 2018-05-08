@@ -34,6 +34,13 @@ class ProtestorBotRotateToAttackState: GKState
         return orientationComponent
     }
     
+    /// The `TemperamentComponent` associated with the `entity`.
+    var temperamentComponent: TemperamentComponent
+    {
+        guard let temperamentComponent = entity.component(ofType: TemperamentComponent.self) else { fatalError("A ProtestorBotRotateToAttackState's entity must have an TemperamentComponent.") }
+        return temperamentComponent
+    }
+    
     /// The `targetPosition` from the `entity`.
     var targetPosition: float2
     {
@@ -56,6 +63,11 @@ class ProtestorBotRotateToAttackState: GKState
         
         // Request the "walk forward" animation for this `ProtestorBot`.
         animationComponent.requestedAnimationState = .idle
+        
+        if ((temperamentComponent.stateMachine.currentState as? ViolentState) != nil)
+        {
+            self.entity.isDangerous = true
+        }
     }
     
     override func update(deltaTime seconds: TimeInterval)
