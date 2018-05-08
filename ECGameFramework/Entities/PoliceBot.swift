@@ -76,7 +76,6 @@ class PoliceBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
     /// The animations to use when a `PoliceBot` is in its "bad" state.
     static var badAnimations: [AnimationState: Animation]?
     
-//    var isPoweredDown = false
     var tazerPoweredDown = false
     var isAlive = true
     
@@ -236,13 +235,6 @@ class PoliceBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
         renderComponent.node.addChild(animationComponent.node)
         //animationComponent.shadowNode = shadowComponent.node
         
-        
-        /*
-         if !isGood
-         {
-         temperamentComponent.stateMachine.enter(ViolentState.self)
-         }
-         */
         
         // Specify the offset for beam targeting.
         beamTargetOffset = GameplayConfiguration.PoliceBot.beamTargetOffset
