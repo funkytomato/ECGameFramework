@@ -127,8 +127,8 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
     // Is the taskbot still a playable bot?
     var isActive: Bool
     
-    //Is the taskbot violent and dangerous?
-    var isViolent: Bool
+    //Is the taskbot dangerous?  a Taskbot is dangerous if it is Violent and attacking
+    var isDangerous: Bool
     
     //Is the taskbot scared and likely to flee?
     var isScared: Bool
@@ -279,7 +279,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         self.isActive = true
         
         // Whether or not the 'TaskBot' is dangerous, e.g. it is Violent
-        self.isViolent = false
+        self.isDangerous = false
         
         // Whether or not the 'TaskBot' is scared
         self.isScared = false
@@ -643,7 +643,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         
 
         //TaskBot is Violent and Police are nearby, go fuck them up
-        if self.isViolent && attackPoliceBot > 0
+        if self.isDangerous && attackPoliceBot > 0
         {
             print("Attacking Police")
             guard let dangerousTaskBot = state.nearestPoliceTaskBotTarget?.target.agent else { return }
