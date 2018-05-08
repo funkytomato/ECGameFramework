@@ -106,7 +106,7 @@ class LevelStateSnapshot
             }
             
             // The taskbot is a dangerous active protestor
-            else if thisTaskbot.isProtestor && thisTaskbot.isActive && thisTaskbot.isDangerous
+            else if thisTaskbot.isProtestor && thisTaskbot.isActive && thisTaskbot.isViolent
             {
                 return (workingArrays.scaredTaskBots, workingArrays.dangerousProtestorTaskBots + [thisTaskbot], workingArrays.protestorBots, workingArrays.policeBots, workingArrays.injuredBots)
             }
@@ -209,7 +209,7 @@ class EntitySnapshot
             {
                 playerBotTarget = (target: target, distance: entityDistance.distance)
             }
-            else if let target = entityDistance.target as? TaskBot, nearestDangerousProtestorTaskBotTarget == nil && target.isDangerous && target.isActive
+            else if let target = entityDistance.target as? TaskBot, nearestDangerousProtestorTaskBotTarget == nil && target.isViolent && target.isActive
             {
                 nearestDangerousProtestorTaskBotTarget = (target: target, distance: entityDistance.distance)
             }
