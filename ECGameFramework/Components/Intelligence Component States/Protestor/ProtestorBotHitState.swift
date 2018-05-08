@@ -101,8 +101,23 @@ class ProtestorBotHitState: GKState
         //Protestor hit, deciding whether to flee or attack
         else
         {
-            //temperamentComponent.increaseTemperament()
-            temperamentComponent.decreaseTemperament()
+            
+            //Create a random number
+            let changeTemperament = GKMersenneTwisterRandomSource()
+            let val = changeTemperament.nextInt(upperBound: 10)
+            
+            print("changeTemperament: \(val)")
+            
+            
+            if val < 5
+            {
+                temperamentComponent.decreaseTemperament()
+            }
+            else
+            {
+                temperamentComponent.increaseTemperament()
+            }
+            
             
             
             // Decide what to do on the Protestor's current temperament
