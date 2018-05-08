@@ -65,7 +65,6 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             guard let animationComponent = component(ofType: AnimationComponent.self) else { fatalError("TaskBots must have an animation component.") }
             guard let resistanceComponent = component(ofType: ResistanceComponent.self) else { fatalError("TaskBots must have a resistance component.") }
             guard let healthComponent = component(ofType: HealthComponent.self) else { fatalError("TaskBots must have a health component.") }
-            //guard let temperamentComponent = component(ofType: TemperamentComponent.self) else { fatalError("TaskBots must have a temperament component")}
 
             
             // Update the `TaskBot`'s speed and acceleration to suit the new value of `isGood`.
@@ -125,8 +124,13 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         }
     }
     
+    // Is the taskbot still a playable bot?
     var isActive: Bool
-    var isDangerous: Bool
+    
+    //Is the taskbot violent and dangerous?
+    var isViolent: Bool
+    
+    //Is the taskbot scared and likely to flee?
     var isScared: Bool
     
     /// The aim that the `TaskBot` is currently trying to achieve.
@@ -275,7 +279,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         self.isActive = true
         
         // Whether or not the 'TaskBot' is dangerous, e.g. it is Violent
-        self.isDangerous = false
+        self.isViolent = false
         
         // Whether or not the 'TaskBot' is scared
         self.isScared = false
@@ -639,7 +643,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         
 
         //TaskBot is Violent and Police are nearby, go fuck them up
-        if self.isDangerous && attackPoliceBot > 0
+        if self.isViolent && attackPoliceBot > 0
         {
             print("Attacking Police")
             guard let dangerousTaskBot = state.nearestPoliceTaskBotTarget?.target.agent else { return }
