@@ -50,6 +50,9 @@ class TaskBotAgentControlledState: GKState
             let chargeToAdd = chargeComponent.maximumCharge - chargeComponent.charge
             chargeComponent.addCharge(chargeToAdd: chargeToAdd)
         }
+        
+        self.entity.isDangerous = false
+        
     }
     
     override func update(deltaTime seconds: TimeInterval)
