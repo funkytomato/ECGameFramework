@@ -77,8 +77,6 @@ class TaskBotFleeState: GKState
         
         //Reset the tracking of how long the 'ManBot' has been in "Scared" state
         elapsedTime = 0.0
-        
-//        temperamentComponent.stateMachine.enter(ScaredState.self)
     }
     
     override func update(deltaTime seconds: TimeInterval)
@@ -86,17 +84,18 @@ class TaskBotFleeState: GKState
         super.update(deltaTime: seconds)
         
         elapsedTime += seconds
-       
-        //resistanceComponent.stateMachine.enter(ResistanceCoolingState.self)
-        stateMachine?.enter(TaskBotAgentControlledState.self)
-
+        
+        if elapsedTime > 1
+        {
+            stateMachine?.enter(TaskBotAgentControlledState.self)
+        }
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
     {
         switch stateClass
         {
-        case is TaskBotAgentControlledState.Type, is TaskBotZappedState.Type:
+        case is TaskBotAgentControlledState.Type, is TaskBotZappedState.Type, is TaskBotFleeState.Type:
             return true
             
         default:
