@@ -48,6 +48,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         // Move away from the DangerousBot area quickly
         case fleeAgent(GKAgent2D)
 
+        
+        // Retaliate from attack
+        case retaliate(GKAgent2D)
     }
 
     // MARK: Properties
@@ -133,6 +136,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
     //Is the taskbot scared and likely to flee?
     var isScared: Bool
     
+    //Is the taskbot fighting back?
+    var isRetaliating: Bool
+    
     /// The aim that the `TaskBot` is currently trying to achieve.
     var mandate: TaskBotMandate
     
@@ -212,6 +218,10 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 (agentBehavior, debugPathPoints) = TaskBotBehavior.fleeBehaviour(forAgent: agent, fromAgent: taskBot, inScene: levelScene)
                 debugColor = SKColor.purple
             
+            case let .retaliate(taskBot):
+                radius = GameplayConfiguration.TaskBot.huntPathRadius
+                (agentBehavior, debugPathPoints) = TaskBotBehavior.retaliateBehaviour(forAgent: agent, huntingAgent: taskBot, pathRadius: radius, inScene: levelScene)
+                debugColor = SKColor.blue
         }
 
         if levelScene.debugDrawingEnabled
@@ -283,6 +293,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         
         // Whether or not the 'TaskBot' is scared
         self.isScared = false
+        
+        // Whether or not the taskbot is retaliating
+        self.isRetaliating = false
 
         // The locations of the points that define the `TaskBot`'s "good" and "bad" patrol paths.
         self.goodPathPoints = goodPathPoints
@@ -525,45 +538,32 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         
         
         // A series of situations in which we prefer this 'TaskBot' to hunt the nearest "Dangerous Protestor" TaskBot
-        let huntDangerousTaskBotRaw = [
+        // Police will only hunt dangerous if they have enough Police
+        let huntDangerousProtestorTaskBotRaw = [
             
-            // "Number Police TaskBots is low" AND "Dangerous Protestor 'TaskBot' is nearby" AND "Scared Protestor" is nearby
+            // "Number Police TaskBots is high" AND "Dangerous Protestor 'TaskBot' is nearby"
             ruleSystem.minimumGrade(forFacts: [
-                Fact.policeTaskBotPercentageLow.rawValue as AnyObject,
-               // Fact.protestorTaskBotNear.rawValue as AnyObject,
-               // Fact.protestorTaskBotMedium.rawValue as AnyObject,
+
+                Fact.policeTaskBotPercentageHigh.rawValue as AnyObject,
                 Fact.dangerousTaskBotNear.rawValue as AnyObject,
-               // Fact.scaredTaskBotNear.rawValue as AnyObject,
                 ]),
             
-            // "Number of Police TaskBots is medium" AND "Nearest Dangerous Protestor TaskBot is nearby"
+            // "Number of Police TaskBots is high" AND "Nearest Dangerous Protestor TaskBot is at medium distance"
             ruleSystem.minimumGrade(forFacts: [
-                Fact.policeTaskBotPercentageMedium.rawValue as AnyObject,
-                Fact.dangerousTaskBotNear.rawValue as AnyObject
-                ]),
-            
-            // "Number of Police TaskBots is medium" AND "Player is at medium proximity" AND "Nearest Dangerous Protestor is at medium proximity"
-            ruleSystem.minimumGrade(forFacts: [
-                Fact.policeTaskBotPercentageLow.rawValue as AnyObject,
-       //         Fact.playerBotMedium.rawValue as AnyObject,
+                Fact.policeTaskBotPercentageHigh.rawValue as AnyObject,
                 Fact.dangerousTaskBotMedium.rawValue as AnyObject
                 ]),
             
-            /*
-             "Number of Police `TaskBot`s is medium" AND "Player is far away" AND
-             "Nearest Dangerous Protestor `TaskBot` is at medium proximity".
-             */
+            // "Number of Police TaskBots is high" AND "Nearest Dangerous Protestor is at far away"
             ruleSystem.minimumGrade(forFacts: [
-                Fact.policeTaskBotPercentageMedium.rawValue as AnyObject,
-     //           Fact.playerBotFar.rawValue as AnyObject,
+                Fact.policeTaskBotPercentageHigh.rawValue as AnyObject,
                 Fact.dangerousTaskBotMedium.rawValue as AnyObject
                 ]),
         ]
         
         // Find the maximum of the minima from above.
-        let huntDangerousProtestorBot = huntDangerousTaskBotRaw.reduce(0.0, max)
-        print("huntDangerousTaskBot: \(huntDangerousProtestorBot.description), huntDangerousTaskBotRaw: \(huntDangerousTaskBotRaw.description) ")
-        
+        let huntDangerousProtestorBot = huntDangerousProtestorTaskBotRaw.reduce(0.0, max)
+        print("huntDangerousTaskBot: \(huntDangerousProtestorBot.description), huntDangerousTaskBotRaw: \(huntDangerousProtestorTaskBotRaw.description) ")
         
         
         // A series of situations in which we prefer this `TaskBot` to hunt the nearest "Protestor" TaskBot.
@@ -640,41 +640,42 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         print("attackPoliceBot: \(attackPoliceBot)")
         
         
+        // Taskbot is scared and a Dangerous or Police Bot is nearby, leg it
+        if self.isScared && fleeDangerousTaskBot > 0
+        {
+            print("Fleeing from dangerous or police")
+            
+            // The rules provided greated motivation to flee
+            guard let dangerousTaskBot = state.nearestDangerousTaskBotTarget?.target.agent else { return }
+            //guard let dangerousTaskBot = state.nearestPoliceTaskBotTarget?.target.agent else { return }
+            mandate = .fleeAgent(dangerousTaskBot)
+        }
         
+        // Protestor TaskBot has been attacked and is now retaliating
+        else if self.isRetaliating && self.isProtestor
+        {
+            print("Retaliating")
+            guard let targetTaskbot = state.nearestPoliceTaskBotTarget?.target.agent else { return }
+            mandate = .retaliate(targetTaskbot)
+        }
 
         //TaskBot is Violent and Police are nearby, go fuck them up
-        if self.isDangerous && attackPoliceBot > 0
+        else if self.isProtestor && self.isDangerous && attackPoliceBot > 0
         {
             print("Attacking Police")
             guard let dangerousTaskBot = state.nearestPoliceTaskBotTarget?.target.agent else { return }
             mandate = .huntAgent(dangerousTaskBot)
         }
-        // Taskbot is scared and a Dangerous or Police Bot is nearby, leg it
-        else if self.isScared && fleeDangerousTaskBot > 0
-        {
-            print("Fleeing from dangerous or police")
             
-            // The rules provided greated motivation to flee
-            //guard let dangerousTaskBot = state.nearestDangerousProtestorTaskBotTarget?.target.agent else { return }
-            guard let dangerousTaskBot = state.nearestPoliceTaskBotTarget?.target.agent else { return }
-            mandate = .fleeAgent(dangerousTaskBot)
-        }
-        // Criteria to hunt player is greater than hunting a taskbot
-        else if huntPlayerBot >= huntTaskBot && huntPlayerBot > 0.0
-        {
-            print("Hunt the player")
-            
-            // The rules provided greater motivation to hunt the PlayerBot. Ignore any motivation to hunt the nearest good TaskBot.
-            guard let playerBotAgent = state.playerBotTarget?.target.agent else { return }
-            mandate = .huntAgent(playerBotAgent) 
-        }
-        // TaskBot is active (alive) and a dangerous bot is nearby, attack it
-        else if isActive && huntDangerousProtestorBot > huntTaskBot
+        // TaskBot is Police and active (alive) and a dangerous bot is detected, attack it
+        else if !self.isProtestor && isActive && huntDangerousProtestorBot > huntTaskBot
         {
             print("Hunt the nearest dangerous bot")
             // The rules provided greater motivation to hunt the nearest Dangerous Protestor TaskBot. Ignore any motivation to hunt the PlayerBot.
-            mandate = .huntAgent(state.nearestDangerousProtestorTaskBotTarget!.target.agent)
+            mandate = .huntAgent(state.nearestDangerousTaskBotTarget!.target.agent)
         }
+        
+        // PROBABLY DELETE THIS LATER
         // An active PoliceBot is near a Protestor, attack them
         else if !isProtestor && isActive && huntTaskBot > huntPlayerBot
         {
@@ -683,12 +684,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             // The rules provided greater motivation to hunt the nearest good TaskBot. Ignore any motivation to hunt the PlayerBot.
             mandate = .huntAgent(state.nearestProtestorTaskBotTarget!.target.agent)
         }
-/*        else if huntTaskBot > huntPlayerBot
-        {
-            // The rules provided greater motivation to hunt the nearest good TaskBot. Ignore any motivation to hunt the PlayerBot.
-            mandate = .huntAgent(state.nearestProtestorTaskBotTarget!.target.agent)
-        }
-*/        else
+        else
         {
             // The rules provided no motivation to hunt, so patrol in the "bad" state.
             switch mandate
