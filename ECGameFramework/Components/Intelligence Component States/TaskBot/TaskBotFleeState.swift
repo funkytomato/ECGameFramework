@@ -85,10 +85,13 @@ class TaskBotFleeState: GKState
         
         elapsedTime += seconds
         
-        if elapsedTime > 1
+        stateMachine?.enter(TaskBotAgentControlledState.self)
+        
+/*        if elapsedTime > 1
         {
             stateMachine?.enter(TaskBotAgentControlledState.self)
         }
+ */
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
