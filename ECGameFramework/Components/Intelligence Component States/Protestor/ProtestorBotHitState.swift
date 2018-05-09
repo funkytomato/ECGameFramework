@@ -95,21 +95,20 @@ class ProtestorBotHitState: GKState
         {
             //The Protestor is subdued and knackered, arrest them
             temperamentComponent.stateMachine.enter(SubduedState.self)
-            //stateMachine?.enter(TaskBotAgentControlledState.self)
             stateMachine?.enter(ProtestorBeingArrestedState.self)
         }
         //Protestor hit, deciding whether to flee or attack
         else
         {
             
-            //Create a random number
+            //Create a random number to decide on action
             let changeTemperament = GKMersenneTwisterRandomSource()
             let val = changeTemperament.nextInt(upperBound: 10)
             
             print("changeTemperament: \(val)")
             
             
-            if val < 5
+            if val < 8
             {
                 temperamentComponent.decreaseTemperament()
             }
@@ -130,7 +129,9 @@ class ProtestorBotHitState: GKState
             else if ((temperamentComponent.stateMachine.currentState as? ViolentState) != nil)
             {
                 //Protestor will fight back with extreme prejudice
-                stateMachine?.enter(ProtestorBotRotateToAttackState.self)
+                //stateMachine?.enter(ProtestorBotRotateToAttackState.self)
+                self.entity.isRetaliating = true
+                stateMachine?.enter(TaskBotAgentControlledState.self)
         
             }
             else
@@ -160,7 +161,7 @@ class ProtestorBotHitState: GKState
     {
         switch stateClass
         {
-        case is TaskBotAgentControlledState.Type, is ProtestorBeingArrestedState.Type, is TaskBotFleeState.Type, is TaskBotInjuredState.Type:
+        case is TaskBotAgentControlledState.Type, is ProtestorBeingArrestedState.Type, is TaskBotFleeState.Type, is TaskBotInjuredState.Type, is ProtestorBotRotateToAttackState.Type:
             return true
             
         default:
