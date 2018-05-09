@@ -267,7 +267,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         
         
         // 1) Check enough thinking time has passed
-        guard agentControlledState.elapsedTime >= GameplayConfiguration.ProtestorBot.delayBetweenAttacks else { return }
+        //guard agentControlledState.elapsedTime >= GameplayConfiguration.ProtestorBot.delayBetweenAttacks else { return }
         
         // 2) Check if the Protestor is Scared
         //guard let scared = temperamentComponent.stateMachine.currentState as? ScaredState else { return }
@@ -277,14 +277,19 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         
         print("mandate \(mandate)")
         
-        // 4) Check if the current mandate is to flee an agent.
-        guard case let .fleeAgent(targetAgent) = mandate else { return }
-        
-        //print("targetAgent: \(targetAgent.description)")
-        
-        // The `ProtestorBot` is ready to flee to the current position.
-        targetPosition = targetAgent.position
-//        intelligenceComponent.stateMachine.enter(TaskBotFleeState.self)
+        switch mandate
+        {
+            case let .fleeAgent(targetAgent):
+               intelligenceComponent.stateMachine.enter(TaskBotFleeState.self)
+               targetPosition = targetAgent.position
+            
+            case let .retaliate(targetTaskbot):
+                intelligenceComponent.stateMachine.enter(ProtestorBotRotateToAttackState.self)
+                targetPosition = targetTaskbot.position
+            
+            default:
+                break
+        }
     }
     
     func hunt()
