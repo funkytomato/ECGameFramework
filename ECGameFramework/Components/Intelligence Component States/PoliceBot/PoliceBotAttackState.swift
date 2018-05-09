@@ -136,6 +136,9 @@ class PoliceBotAttackState: GKState
     {
         super.willExit(to: nextState)
         
+        //Make Police not dangerous again
+        self.entity.isDangerous = true
+        
         // `movementComponent` is a computed property. Declare a local version so we don't compute it multiple times.
         let movementComponent = self.movementComponent
         
