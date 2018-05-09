@@ -207,7 +207,7 @@ class PoliceBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
         addComponent(chargeComponent)
         */
         
-        let healthComponent = HealthComponent(health: initialHealth, maximumHealth: GameplayConfiguration.PoliceBot.maximumHealth)
+        let healthComponent = HealthComponent(health: initialHealth, maximumHealth: GameplayConfiguration.PoliceBot.maximumHealth, displaysHealthBar: true)
         healthComponent.delegate = self
         addComponent(healthComponent)
         
