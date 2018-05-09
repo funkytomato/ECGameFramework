@@ -178,7 +178,7 @@ class EntitySnapshot
     let nearestProtestorTaskBotTarget: (target: TaskBot, distance: Float)?
  
     /// The nearest "Violent Protestor" `TaskBot`.
-    let nearestDangerousProtestorTaskBotTarget: (target: TaskBot, distance: Float)?
+    let nearestDangerousTaskBotTarget: (target: TaskBot, distance: Float)?
     
     /// The nearest "Scared" `TaskBot`.
     let nearestScaredTaskBotTarget: (target: TaskBot, distance: Float)?
@@ -201,7 +201,7 @@ class EntitySnapshot
         var playerBotTarget: (target: PlayerBot, distance: Float)?
         var nearestPoliceTaskBotTarget: (target: TaskBot, distance: Float)?
         var nearestProtestorTaskBotTarget: (target: TaskBot, distance: Float)?
-        var nearestDangerousProtestorTaskBotTarget: (target: TaskBot, distance: Float)?
+        var nearestDangerousTaskBotTarget: (target: TaskBot, distance: Float)?
         var nearestScaredTaskBotTarget: (target: TaskBot, distance: Float)?
         
         /*
@@ -214,9 +214,9 @@ class EntitySnapshot
             {
                 playerBotTarget = (target: target, distance: entityDistance.distance)
             }
-            else if let target = entityDistance.target as? TaskBot, nearestDangerousProtestorTaskBotTarget == nil && target.isDangerous && target.isActive
+            else if let target = entityDistance.target as? TaskBot, nearestDangerousTaskBotTarget == nil && target.isDangerous && target.isActive
             {
-                nearestDangerousProtestorTaskBotTarget = (target: target, distance: entityDistance.distance)
+                nearestDangerousTaskBotTarget = (target: target, distance: entityDistance.distance)
             }
             else if let target = entityDistance.target as? TaskBot, nearestProtestorTaskBotTarget == nil && target.isProtestor && target.isActive
             {
@@ -232,7 +232,7 @@ class EntitySnapshot
             }
             
             // Stop iterating over the array once we have found both the `PlayerBot` and the nearest good `TaskBot` and the nearest dangerous 'TaskBot'
-            if playerBotTarget != nil && nearestProtestorTaskBotTarget != nil && nearestDangerousProtestorTaskBotTarget != nil && nearestScaredTaskBotTarget != nil && nearestPoliceTaskBotTarget != nil
+            if playerBotTarget != nil && nearestProtestorTaskBotTarget != nil && nearestDangerousTaskBotTarget != nil && nearestScaredTaskBotTarget != nil && nearestPoliceTaskBotTarget != nil
             {
                 break
             }
@@ -241,7 +241,7 @@ class EntitySnapshot
         self.playerBotTarget = playerBotTarget
         self.nearestPoliceTaskBotTarget = nearestPoliceTaskBotTarget
         self.nearestProtestorTaskBotTarget = nearestProtestorTaskBotTarget
-        self.nearestDangerousProtestorTaskBotTarget = nearestDangerousProtestorTaskBotTarget
+        self.nearestDangerousTaskBotTarget = nearestDangerousTaskBotTarget
         self.nearestScaredTaskBotTarget = nearestScaredTaskBotTarget
     }
 }
