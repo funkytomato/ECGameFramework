@@ -344,7 +344,7 @@ class DangerousProtestorTaskBotNearRule: FuzzyTaskBotRule
     
     override func grade() -> Float
     {
-        guard let distance = snapshot.nearestDangerousProtestorTaskBotTarget?.distance else { return 0.0 }
+        guard let distance = snapshot.nearestDangerousTaskBotTarget?.distance else { return 0.0 }
         let oneThird = snapshot.proximityFactor / 3
         return (oneThird - distance) / oneThird
     }
@@ -361,7 +361,7 @@ class DangerousProtestorTaskBotMediumRule: FuzzyTaskBotRule
     
     override func grade() -> Float
     {
-        guard let distance = snapshot.nearestDangerousProtestorTaskBotTarget?.distance else { return 0.0 }
+        guard let distance = snapshot.nearestDangerousTaskBotTarget?.distance else { return 0.0 }
         let oneThird = snapshot.proximityFactor / 3
         return 1 - (fabs(distance - oneThird) / oneThird)
     }
@@ -378,7 +378,7 @@ class DangerousProtestorTaskBotFarRule: FuzzyTaskBotRule
     
     override func grade() -> Float
     {
-        guard let distance = snapshot.nearestDangerousProtestorTaskBotTarget?.distance else { return 0.0 }
+        guard let distance = snapshot.nearestDangerousTaskBotTarget?.distance else { return 0.0 }
         let oneThird = snapshot.proximityFactor / 3
         return (distance - oneThird) / oneThird
     }
