@@ -93,7 +93,7 @@ class GroundBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
         let orientationComponent = OrientationComponent()
         addComponent(orientationComponent)
 
-        let spriteComponent = SpriteComponent(texture: texture, textureSize: GroundBot.textureSize)
+        let spriteComponent = SpriteComponent(entity: self, texture: texture, textureSize: GroundBot.textureSize)
         addComponent(spriteComponent)
         
         let shadowComponent = ShadowComponent(texture: GroundBot.shadowTexture, size: GroundBot.shadowSize, offset: GroundBot.shadowOffset)
