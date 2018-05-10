@@ -115,7 +115,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         let orientationComponent = OrientationComponent()
         addComponent(orientationComponent)
         
-        let spriteComponent = SpriteComponent(texture: texture, textureSize: ProtestorBot.textureSize)
+        let spriteComponent = SpriteComponent(entity: self, texture: texture, textureSize: ProtestorBot.textureSize)
         addComponent(spriteComponent)
         
         //let shadowComponent = ShadowComponent(texture: PoliceBot.shadowTexture, size: PoliceBot.shadowSize, offset: PoliceBot.shadowOffset)
@@ -440,5 +440,10 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
     {
         goodAnimations = nil
         badAnimations = nil
+    }
+    
+    override func entityTouched (touches: Set<UITouch>, withEvent event: UIEvent?)
+    {
+        print("ProtestorBot touched!!!")
     }
 }
