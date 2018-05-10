@@ -130,7 +130,10 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
     // Is the taskbot still a playable bot?
     var isActive: Bool
     
-    //Is the taskbot dangerous?  a Taskbot is dangerous if it is Violent and attacking
+    // Is the taskbot violent?  A violent taskbot will attack if provoked or not unprovoked
+    var isViolent: Bool
+    
+    //Is the taskbot dangerous?  a Taskbot is dangerous if it is attacking and is violent
     var isDangerous: Bool
     
     //Is the taskbot scared and likely to flee?
@@ -288,7 +291,10 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         // Whether or not the 'TaskBot' is active, = healthy and not arrested or detained
         self.isActive = true
         
-        // Whether or not the 'TaskBot' is dangerous, e.g. it is Violent
+        // Whether or not the 'TaskBot' is violent, e.g. will attack if provoked
+        self.isViolent = false
+        
+        // Whether or not the 'TaskBot' is dangerous, e.g. actively fighting with extreme violence
         self.isDangerous = false
         
         // Whether or not the 'TaskBot' is scared
@@ -631,7 +637,8 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         
             // Police TaskBot is nearby
             ruleSystem.minimumGrade(forFacts: [
-                Fact.policeBotNear.rawValue as AnyObject
+                Fact.policeBotNear.rawValue as AnyObject,
+                Fact.policeTaskBotPercentageLow.rawValue as AnyObject
                 ])
         ]
         
@@ -660,7 +667,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         }
 
         //TaskBot is Violent and Police are nearby, go fuck them up
-        else if self.isProtestor && self.isDangerous && attackPoliceBot > 0
+        else if self.isProtestor && self.isViolent && attackPoliceBot > 0
         {
             print("Attacking Police")
             guard let dangerousTaskBot = state.nearestPoliceTaskBotTarget?.target.agent else { return }
