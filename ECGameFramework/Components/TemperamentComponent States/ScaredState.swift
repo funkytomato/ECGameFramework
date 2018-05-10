@@ -64,6 +64,8 @@ class ScaredState: GKState
         
         //Set the entity is scared for pathfinding
         entity.isScared = true
+        
+        entity.isViolent = false
     }
     
     override func update(deltaTime seconds: TimeInterval)
