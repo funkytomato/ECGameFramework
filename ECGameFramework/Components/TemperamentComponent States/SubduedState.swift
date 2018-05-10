@@ -80,6 +80,7 @@ class SubduedState: GKState
         
         entity.isScared = false
         
+        entity.isViolent = false
         
         
     }
