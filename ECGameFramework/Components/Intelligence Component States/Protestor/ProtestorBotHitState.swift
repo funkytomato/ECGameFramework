@@ -73,9 +73,6 @@ class ProtestorBotHitState: GKState
         
         // Request the "hit" animation for this `PlayerBot`.
         animationComponent.requestedAnimationState = .hit
-        
- //       resistanceComponent.isTriggered = true
- //       entity.isResistanceTriggered = true
     }
     
     override func update(deltaTime seconds: TimeInterval)
@@ -85,18 +82,25 @@ class ProtestorBotHitState: GKState
         // Update the amount of time the `PlayerBot` has been in the "hit" state.
         elapsedTime += seconds
    
-        //Is the Protestor dead?
-        if !healthComponent.hasHealth
-        {
-            stateMachine?.enter(TaskBotInjuredState.self)
-        }
+
         // Has the Protestor's resistance been broken down?
-        else if !resistanceComponent.hasResistance
+        if !resistanceComponent.hasResistance
         {
-            //The Protestor is subdued and knackered, arrest them
-            temperamentComponent.stateMachine.enter(SubduedState.self)
-            stateMachine?.enter(ProtestorBeingArrestedState.self)
+            //Is the Protestor dead?
+            if !healthComponent.hasHealth
+            {
+                //The Protestor is injured or dead and out of the game
+                stateMachine?.enter(TaskBotInjuredState.self)
+            }
+            else
+            {
+                //The Protestor is subdued and knackered, arrest them
+                temperamentComponent.stateMachine.enter(SubduedState.self)
+                stateMachine?.enter(ProtestorBeingArrestedState.self)
+            }
         }
+            
+
         //Protestor hit, deciding whether to flee or attack
         else
         {
@@ -108,7 +112,7 @@ class ProtestorBotHitState: GKState
             print("changeTemperament: \(val)")
             
             
-            if val < 8
+            if val < 3
             {
                 temperamentComponent.decreaseTemperament()
             }
@@ -129,39 +133,23 @@ class ProtestorBotHitState: GKState
             else if ((temperamentComponent.stateMachine.currentState as? ViolentState) != nil)
             {
                 //Protestor will fight back with extreme prejudice
-                //stateMachine?.enter(ProtestorBotRotateToAttackState.self)
                 self.entity.isRetaliating = true
-                stateMachine?.enter(TaskBotAgentControlledState.self)
-        
             }
             else
             {
-                stateMachine?.enter(TaskBotAgentControlledState.self)
+                //Protestor is not going to fight back
+                self.entity.isRetaliating = false
             }
- 
+            
+            stateMachine?.enter(TaskBotAgentControlledState.self)
         }
-
-       /*
-        // When the `ProtestorBot` has been in this state for long enough, transition to the appropriate next state.
-        if elapsedTime >= GameplayConfiguration.ProtestorBot.hitStateDuration
-        {
-            if entity.isPoweredDown
-            {
-                stateMachine?.enter(ProtestorBotRechargingState.self)
-            }
-            else
-            {
-                stateMachine?.enter(TaskBotAgentControlledState.self)
-            }
-        }
- */
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
     {
         switch stateClass
         {
-        case is TaskBotAgentControlledState.Type, is ProtestorBeingArrestedState.Type, is TaskBotFleeState.Type, is TaskBotInjuredState.Type, is ProtestorBotRotateToAttackState.Type:
+        case is TaskBotAgentControlledState.Type, is ProtestorBeingArrestedState.Type, is TaskBotFleeState.Type, is TaskBotInjuredState.Type:
             return true
             
         default:
