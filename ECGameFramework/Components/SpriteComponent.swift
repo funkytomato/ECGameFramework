@@ -18,10 +18,12 @@ class SpriteComponent: GKComponent
 
     
     //MARK:- Initialisers
-    init(texture: SKTexture, textureSize: CGSize)
+    init(entity: GKEntity, texture: SKTexture, textureSize: CGSize)
     {
-        //node = SKSpriteNode(texture: texture, size: textureSize)
-        node = SKSpriteNode(texture: nil, size: textureSize)
+        node = EntityNode(texture: texture, size: textureSize)
+        node.entity = entity
+        
+        //node = SKSpriteNode(texture: nil, size: textureSize)
         super.init()
     }
     
