@@ -143,7 +143,7 @@ class PoliceBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
         let orientationComponent = OrientationComponent()
         addComponent(orientationComponent)
         
-        let spriteComponent = SpriteComponent(texture: texture, textureSize: PoliceBot.textureSize)
+        let spriteComponent = SpriteComponent(entity: self, texture: texture, textureSize: PoliceBot.textureSize)
         //let spriteComponent = SpriteComponent(texture: PoliceBot.texture, textureSize: PoliceBot.textureSize)
         addComponent(spriteComponent)
         
@@ -389,5 +389,10 @@ class PoliceBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
     {
         goodAnimations = nil
         badAnimations = nil
+    }
+    
+    override func entityTouched (touches: Set<UITouch>, withEvent event: UIEvent?)
+    {
+        print("PoliceBot touched!!!")
     }
 }
