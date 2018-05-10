@@ -160,105 +160,29 @@ class PoliceBotAttackState: GKState
             // If the other entity is a `PlayerBot` that isn't powered down, reduce its charge.
             chargeComponent.loseCharge(chargeToLose: GameplayConfiguration.PoliceBot.chargeLossPerContact)
         }
-        //else if let taskBot = entity as? TaskBot, taskBot.isGood
-            
             
         else if let protestorBot = entity as? ProtestorBot, protestorBot.isProtestor, let healthComponent = protestorBot.component(ofType: HealthComponent.self)
         {
-//            guard let temperamentComponent = protestorBot.component(ofType: TemperamentComponent.self) else { return }
             guard let resistanceComponent = protestorBot.component(ofType: ResistanceComponent.self) else { return }
             guard let intelligenceComponent = protestorBot.component(ofType: IntelligenceComponent.self) else { return }
             
             //Hit them first
- //           intelligenceComponent.stateMachine.enter(ProtestorBotHitState.self)
             resistanceComponent.loseResistance(resistanceToLose: GameplayConfiguration.PoliceBot.resistanceLossPerContact)
-            healthComponent.loseHealth(healthToLose: GameplayConfiguration.PoliceBot.healthLossPerContact)
+            
             
             //Have they been beaten into submission?
-            if !resistanceComponent.hasResistance
+            if resistanceComponent.percentageResistance < 80
             {
-                stateMachine?.enter(PoliceArrestState.self)
-                intelligenceComponent.stateMachine.enter(ProtestorBeingArrestedState.self)
-            }
-
-
-            
-
-            
-        
-
-/*
-            
-            // If the beam has a target with a charge component, drain charge from it.
-            if let resistanceComponent = protestorBot?.component(ofType: ResistanceComponent.self) {
-                let chargeToLose = GameplayConfiguration.Beam.chargeLossPerSecond * 1
-                resistanceComponent.loseCharge(chargeToLose: chargeToLose)
-            }
-  */
-//            guard (temperamentComponent?.stateMachine.currentState as? SubduedState) != nil else { healthComponent.loseHealth(healthToLose: GameplayConfiguration.PoliceBot.healthLossPerContact); return }
-            
-
-            
-            
-            /*
-            if
-            {
-                stateMachine?.enter(PoliceArrestState.self)
-            }
-            else
-            {
-                // If the other entity is a 'ProtestorBot' that is still alive, reduce its charge
+                // Their guard is down, apply damage
                 healthComponent.loseHealth(healthToLose: GameplayConfiguration.PoliceBot.healthLossPerContact)
+                
+                // They have low health, arrest them
+                if healthComponent.health < 50
+                {
+                    stateMachine?.enter(PoliceArrestState.self)
+                    intelligenceComponent.stateMachine.enter(ProtestorBeingArrestedState.self)
+                }
             }
-            */
-
-          /*
-            //Move state to next
-            guard let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self) else { return }
-            if healthComponent.health < 40.0
-            {
-                intelligenceComponent.stateMachine.enter(ProtestorBeingArrestedState.self)
-            }
-            else
-            {
-                intelligenceComponent.stateMachine.enter(ProtestorBotHitState.self)
-            }
- */
-/*
-            //Move state to next
-            guard let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self) else { return }
-           // guard let temperamentComponent = entity.component(ofType: TemperamentComponent.self) else { return }
-            
-            switch intelligenceComponent.stateMachine.currentState
-            {
-
-                
-                //Protestor is being arrested by the police, and is now arrested
-                case is ProtestorBeingArrestedState:
-                    intelligenceComponent.stateMachine.enter(ProtestorArrestedState.self)
-                
-                //Protestor has been moved to the MeatWagon and is now detained
-                case is ProtestorArrestedState:
-                    intelligenceComponent.stateMachine.enter(ProtestorArrestedState.self)
-
-//                    temperamentComponent.stateMachine.enter(AngryState.self)
-                
-                case is TaskBotZappedState:
-                    intelligenceComponent.stateMachine.enter(ProtestorBotHitState.self)
-                
-                //Protestor is freely moving around the scene when Police move in to arrest protestor
-                case is TaskBotAgentControlledState:
-                    intelligenceComponent.stateMachine.enter(ProtestorBotHitState.self)
-                
-                default:
-                    break
-            }
-            
-        */
-            
-            
-            // If the other entity is a good `TaskBot`, turn it bad.
-            //taskBot.isGood = false
         }
     }
     
