@@ -11,6 +11,8 @@ import GameplayKit
 
 class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentDelegate
 {
+
+    
     // MARK: Nested types
     
     /// Encapsulates a `TaskBot`'s current mandate, i.e. the aim that the `TaskBot` is setting out to achieve.
@@ -631,13 +633,24 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         print("huntTaskBot: \(huntTaskBot.description), huntTaskBotRaw: \(huntTaskBotRaw.description) ")
         
         
-        
-        
+        // A series of situations in which we prefer this `TaskBot` to hunt the nearest "Police" TaskBot.
         let attackPoliceBotRaw = [
         
-            // Police TaskBot is nearby
+            // Police TaskBot is nearby and their are not many Police
             ruleSystem.minimumGrade(forFacts: [
                 Fact.policeBotNear.rawValue as AnyObject,
+                Fact.policeTaskBotPercentageLow.rawValue as AnyObject
+                ]),
+            
+            // Police TaskBot is nearby and their are some Police
+            ruleSystem.minimumGrade(forFacts: [
+                Fact.policeBotNear.rawValue as AnyObject,
+                Fact.policeTaskBotPercentageMedium.rawValue as AnyObject
+                ]),
+            
+            // Police TaskBot is medium proximity and their are few Police
+            ruleSystem.minimumGrade(forFacts: [
+                Fact.policeBotMedium.rawValue as AnyObject,
                 Fact.policeTaskBotPercentageLow.rawValue as AnyObject
                 ])
         ]
@@ -654,7 +667,6 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             
             // The rules provided greated motivation to flee
             guard let dangerousTaskBot = state.nearestDangerousTaskBotTarget?.target.agent else { return }
-            //guard let dangerousTaskBot = state.nearestPoliceTaskBotTarget?.target.agent else { return }
             mandate = .fleeAgent(dangerousTaskBot)
         }
         
@@ -677,8 +689,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         // TaskBot is Police and active (alive) and a dangerous bot is detected, attack it
         else if !self.isProtestor && isActive && huntDangerousProtestorBot > huntTaskBot
         {
-            print("Hunt the nearest dangerous bot")
             // The rules provided greater motivation to hunt the nearest Dangerous Protestor TaskBot. Ignore any motivation to hunt the PlayerBot.
+            
+            print("Hunt the nearest dangerous bot")
             mandate = .huntAgent(state.nearestDangerousTaskBotTarget!.target.agent)
         }
         
@@ -764,12 +777,11 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
     /// Sets the `TaskBot` `GKAgent` rotation to match the `TaskBot`'s orientation.
     func updateAgentRotationToMatchTaskBotOrientation()
     {
+        //Ensure the agent's orientation and visible orientation are consistent
         guard let orientationComponent = component(ofType: OrientationComponent.self) else { return }
         agent.rotation = Float(orientationComponent.zRotation)
         
-        //guard let spriteComponent = component(ofType: SpriteComponent.self) else { return }
-        //spriteComponent.node.zRotation = orientationComponent.zRotation
-        
+        //Ensure animationComponent and Orientation are consistent
         guard let animationComponent = component(ofType: AnimationComponent.self) else { return }
         animationComponent.node.zRotation = orientationComponent.zRotation
         
@@ -849,5 +861,10 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             .PlayerBot,
             .TaskBot
         ]
+    }
+    
+    func entityTouched (touches: Set<UITouch>, withEvent event: UIEvent?)
+    {
+        print("TaskBot touched!!!")
     }
 }
