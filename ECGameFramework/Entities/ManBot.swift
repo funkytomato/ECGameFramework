@@ -105,7 +105,7 @@ class ManBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
         let orientationComponent = OrientationComponent()
         addComponent(orientationComponent)
         
-        let spriteComponent = SpriteComponent(texture: texture, textureSize: ManBot.textureSize)
+        let spriteComponent = SpriteComponent(entity: self, texture: texture, textureSize: ManBot.textureSize)
         //let spriteComponent = SpriteComponent(texture: ManBot.texture, textureSize: ManBot.textureSize)
         addComponent(spriteComponent)
     
@@ -187,13 +187,7 @@ class ManBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
         renderComponent.node.addChild(animationComponent.node)
         //animationComponent.shadowNode = shadowComponent.node
 
- 
-        /*
-        if !isGood
-        {
-            temperamentComponent.stateMachine.enter(ViolentState.self)
-        }
-        */
+
         
         // Specify the offset for beam targeting.
         beamTargetOffset = GameplayConfiguration.ManBot.beamTargetOffset
