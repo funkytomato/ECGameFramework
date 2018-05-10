@@ -25,31 +25,6 @@ class TaskBotBehavior: GKBehavior
         behavior.addTargetSpeedGoal(speed: agent.maxSpeed)
         behavior.addAvoidObstaclesGoal(forScene: scene)
         
-        // Find any nearby "police" TaskBots to flock with.
-        let agentsToFlockWith: [GKAgent2D] = scene.entities.flatMap { entity in
-            if let policeBot = entity as? PoliceBot, !policeBot.isProtestor && policeBot.agent !== agent && policeBot.distanceToAgent(otherAgent: agent) <= GameplayConfiguration.Flocking.agentSearchDistanceForArrest
-            {
-                return policeBot.agent
-            }
-            
-            return nil
-        }
-        
-        if !agentsToFlockWith.isEmpty
-        {
-            //print("arrestedBehaviour - agents are flocking \(agentsToFlockWith.description)")
-            
-            
-            // Add flocking goals for any nearby "bad" `TaskBot`s.
-            //let separationGoal = GKGoal(toSeparateFrom: agentsToFlockWith, maxDistance: GameplayConfiguration.Flocking.separationRadius, maxAngle: GameplayConfiguration.Flocking.separationAngle)
-            //behavior.setWeight(GameplayConfiguration.Flocking.separationWeight, for: separationGoal)
-            
-            let alignmentGoal = GKGoal(toAlignWith: agentsToFlockWith, maxDistance: GameplayConfiguration.Flocking.alignmentRadius, maxAngle: GameplayConfiguration.Flocking.alignmentAngle)
-            behavior.setWeight(GameplayConfiguration.Flocking.alignmentWeight, for: alignmentGoal)
-            
-            let cohesionGoal = GKGoal(toCohereWith: agentsToFlockWith, maxDistance: GameplayConfiguration.Flocking.cohesionRadius, maxAngle: GameplayConfiguration.Flocking.cohesionAngle)
-            behavior.setWeight(GameplayConfiguration.Flocking.cohesionWeight, for: cohesionGoal)
-        }
         
         // Add goals to follow a calculated path from the `TaskBot` to its target.
         let pathPoints = behavior.addGoalsToFollowPath(from: agent.position, to: scene.meatWagonLocation(), pathRadius: pathRadius, inScene: scene)
@@ -89,8 +64,8 @@ class TaskBotBehavior: GKBehavior
             
             
             // Add flocking goals for any nearby "bad" `TaskBot`s.
-            //let separationGoal = GKGoal(toSeparateFrom: agentsToFlockWith, maxDistance: GameplayConfiguration.Flocking.separationRadius, maxAngle: GameplayConfiguration.Flocking.separationAngle)
-            //behavior.setWeight(GameplayConfiguration.Flocking.separationWeight, for: separationGoal)
+            let separationGoal = GKGoal(toSeparateFrom: agentsToFlockWith, maxDistance: GameplayConfiguration.Flocking.separationRadius, maxAngle: GameplayConfiguration.Flocking.separationAngle)
+            behavior.setWeight(GameplayConfiguration.Flocking.separationWeight, for: separationGoal)
             
             let alignmentGoal = GKGoal(toAlignWith: agentsToFlockWith, maxDistance: GameplayConfiguration.Flocking.alignmentRadius, maxAngle: GameplayConfiguration.Flocking.alignmentAngle)
             behavior.setWeight(GameplayConfiguration.Flocking.alignmentWeight, for: alignmentGoal)
