@@ -228,19 +228,11 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
     override func contactWithEntityDidBegin(_ entity: GKEntity)
     {
         super.contactWithEntityDidBegin(entity)
-        
     }
     
     override func contactWithEntityDidEnd(_ entity: GKEntity)
     {
         super.contactWithEntityDidEnd(entity)
-        
-
-        
-        //guard let resistanceComponent = entity.component(ofType: ResistanceComponent.self) else { return }
-        //resistanceComponent.isTriggered = false
-
-        //self.isResistanceTriggered = false
     }
     
     // MARK: RulesComponentDelegate
