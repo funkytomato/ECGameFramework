@@ -64,6 +64,7 @@ class ProtestorBeingArrestedState: GKState
         
         if ((temperamentComponent.stateMachine.currentState as? ViolentState) != nil)
         {
+            self.entity.isRetaliating = true
             self.entity.isDangerous = true
         }
 
