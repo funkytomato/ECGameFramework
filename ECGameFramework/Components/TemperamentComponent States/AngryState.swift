@@ -68,7 +68,7 @@ class AngryState: GKState
         
         entity.isScared = false
         
-        
+        entity.isViolent = false
         
         
         
