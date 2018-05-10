@@ -216,7 +216,7 @@ struct GameplayConfiguration
         static let healthLossPerContact = 25.0
         
         /// The amount of resistance a `PlayerBot` loses by a single `GroundBot` attack.
-        static let resistanceLossPerContact = 25.0
+        static let resistanceLossPerContact = 10.0
     
         
         /// The maximum amount of charge a `GroundBot` stores.
@@ -232,7 +232,8 @@ struct GameplayConfiguration
         static let attackEndProximity: Float = 7.0
         
         /// How fast the `GroundBot` rotates to face its target in radians per second.
-        static let preAttackRotationSpeed = Double.pi / 4
+        //static let preAttackRotationSpeed = Double.pi / 4
+        static let preAttackRotationSpeed = Double.pi / 8
         
         /// How much faster the `GroundBot` can move when attacking.
         static let movementSpeedMultiplierWhenAttacking: CGFloat = 2.5
