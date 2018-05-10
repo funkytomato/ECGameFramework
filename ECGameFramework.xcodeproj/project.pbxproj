@@ -174,6 +174,7 @@
 		18FCEAA52040EC40009A5C0D /* TouchControlInputNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCEA432040EC3F009A5C0D /* TouchControlInputNode.swift */; };
 		18FCEAA62040EC40009A5C0D /* BaseScene+ScreenRecording.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCEA452040EC40009A5C0D /* BaseScene+ScreenRecording.swift */; };
 		18FCEAA72040EC40009A5C0D /* ButtonNodeResponderType+ScreenRecording.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCEA462040EC40009A5C0D /* ButtonNodeResponderType+ScreenRecording.swift */; };
+		18FE532D20A4C943007AD9BC /* EntityNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FE532C20A4C943007AD9BC /* EntityNode.swift */; };
 		C22B2B1520594D230001EC87 /* ManBot.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C22B2B1420594D230001EC87 /* ManBot.xcassets */; };
 		C2B1337D205A9AA400C87B71 /* PlayerBot.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2B1337C205A9AA400C87B71 /* PlayerBot.xcassets */; };
 		C2EB3494209127CA00DCF457 /* TazerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EB3493209127CA00DCF457 /* TazerComponent.swift */; };
@@ -368,6 +369,7 @@
 		18FCEA432040EC3F009A5C0D /* TouchControlInputNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchControlInputNode.swift; sourceTree = "<group>"; };
 		18FCEA452040EC40009A5C0D /* BaseScene+ScreenRecording.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BaseScene+ScreenRecording.swift"; sourceTree = "<group>"; };
 		18FCEA462040EC40009A5C0D /* ButtonNodeResponderType+ScreenRecording.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ButtonNodeResponderType+ScreenRecording.swift"; sourceTree = "<group>"; };
+		18FE532C20A4C943007AD9BC /* EntityNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityNode.swift; sourceTree = "<group>"; };
 		C22B2B1420594D230001EC87 /* ManBot.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ManBot.xcassets; sourceTree = "<group>"; };
 		C2B1337C205A9AA400C87B71 /* PlayerBot.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = PlayerBot.xcassets; sourceTree = "<group>"; };
 		C2EB3493209127CA00DCF457 /* TazerComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TazerComponent.swift; sourceTree = "<group>"; };
@@ -647,6 +649,7 @@
 				185281A42048ABCD00F614A1 /* ManBot.swift */,
 				181073632088E15B001390EA /* PoliceBot.swift */,
 				184974B4208A440D00F7CEEB /* ProtestorBot.swift */,
+				18FE532C20A4C943007AD9BC /* EntityNode.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -1195,6 +1198,7 @@
 				C2EB349920912A9C00DCF457 /* TazerFiringState.swift in Sources */,
 				18FCE9C62040EB3C009A5C0D /* ResourceLoadableType.swift in Sources */,
 				185960FA209E7F6000F6972E /* ResistanceIdleState.swift in Sources */,
+				18FE532D20A4C943007AD9BC /* EntityNode.swift in Sources */,
 				18FCEA972040EC40009A5C0D /* ContactNotifiableType.swift in Sources */,
 				18FCEA992040EC40009A5C0D /* ButtonNode.swift in Sources */,
 				18FCEA572040EC40009A5C0D /* GameplayConfiguration.swift in Sources */,
