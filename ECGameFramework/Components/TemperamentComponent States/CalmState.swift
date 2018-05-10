@@ -68,6 +68,8 @@ class CalmState: GKState
         
         self.entity.isScared = false
         
+        entity.isViolent = false
+        
     }
     
     override func update(deltaTime seconds: TimeInterval)
