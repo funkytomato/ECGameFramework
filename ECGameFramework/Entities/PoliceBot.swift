@@ -147,6 +147,7 @@ class PoliceBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
         //let spriteComponent = SpriteComponent(texture: PoliceBot.texture, textureSize: PoliceBot.textureSize)
         addComponent(spriteComponent)
         
+        
         //let shadowComponent = ShadowComponent(texture: PoliceBot.shadowTexture, size: PoliceBot.shadowSize, offset: PoliceBot.shadowOffset)
         //addComponent(shadowComponent)
         
