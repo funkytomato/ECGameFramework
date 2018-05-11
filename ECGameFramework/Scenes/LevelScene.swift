@@ -453,6 +453,12 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
         {
             addNode(node: renderNode, toWorldLayer: .characters)
 
+        /*
+            if let spriteNode = entity.component(ofType: SpriteComponent.self)?.node
+            {
+                addNode(node: spriteNode, toWorldLayer: .characters)
+            }
+          */
             /* 
                 If the entity has a `ShadowComponent`, add its shadow node to the scene.
                 Constrain the `ShadowComponent`'s node to the `RenderComponent`'s node.
@@ -542,6 +548,9 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
     
     func addNode(node: SKNode, toWorldLayer worldLayer: WorldLayer)
     {
+        print("node :\(node.debugDescription)")
+        print("node entity:\(node.entity.debugDescription)")
+        
         let worldLayerNode = worldLayerNodes[worldLayer]!
         
         worldLayerNode.addChild(node)
@@ -736,5 +745,10 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
     func meatWagonLocation() -> float2
     {
         return float2(meatWagon.position)
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
+    {
+        print ("touchesBegan")
     }
 }
