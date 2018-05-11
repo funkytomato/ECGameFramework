@@ -151,10 +151,14 @@ class TouchControlInputNode: SKSpriteNode, ThumbStickNodeDelegate, ControlInputS
             for node in touchedNodes
             {
                 
-                print(node.userData)
-                if((node.userData?["entity"]) != nil)
+                //print(node.userData)
+                print("node: \(node.description)")
+                print("node.entity: \(node.entity?.description)")
+                //if((node.userData?["entity"]) != nil)
+                if (node.entity != nil)
                 {
-                    let entity = node.userData!["entity"] as! GKEntity
+                    //let entity = node.userData!["entity"] as! GKEntity
+                    let entity = node.entity as! GKEntity
                     entity.component(ofType: TouchableComponent.self)?.callFunction()
                 }
             }
