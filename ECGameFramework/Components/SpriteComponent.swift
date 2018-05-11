@@ -16,14 +16,14 @@ class SpriteComponent: GKComponent
     //The SpriteNode
     let node : SKSpriteNode
 
+
     
     //MARK:- Initialisers
     init(entity: GKEntity, texture: SKTexture, textureSize: CGSize)
     {
-        //node = EntityNode(texture: texture, size: textureSize)
-        //node.entity = entity
         
         node = SKSpriteNode(texture: nil, size: textureSize)
+        node.entity = entity
         super.init()
     }
     
@@ -51,5 +51,8 @@ class SpriteComponent: GKComponent
         self.node.userData?.setObject(self.entity!, forKey: "entity" as NSCopying)
     }
     
- //   func entityTouched (touches: Set<UITouch>, withEvent event: UIEvent?) {}
+    func entityTouched (touches: Set<UITouch>, withEvent event: UIEvent?)
+    {
+        print("SpriteComponent entityTouched!!!")
+    }
 }
