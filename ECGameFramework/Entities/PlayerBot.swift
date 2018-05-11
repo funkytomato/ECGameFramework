@@ -97,6 +97,8 @@ class PlayerBot: GKEntity, ChargeComponentDelegate, ResourceLoadableType
         let inputComponent = InputComponent()
         addComponent(inputComponent)
 
+        
+        
         // `PhysicsComponent` provides the `PlayerBot`'s physics body and collision masks.
         let physicsComponent = PhysicsComponent(physicsBody: SKPhysicsBody(circleOfRadius: GameplayConfiguration.PlayerBot.physicsBodyRadius, center: GameplayConfiguration.PlayerBot.physicsBodyOffset), colliderType: .PlayerBot)
         addComponent(physicsComponent)
@@ -242,5 +244,10 @@ class PlayerBot: GKEntity, ChargeComponentDelegate, ResourceLoadableType
         
         let agentOffset = GameplayConfiguration.PlayerBot.agentOffset
         agent.position = float2(x: Float(renderComponent.node.position.x + agentOffset.x), y: Float(renderComponent.node.position.y + agentOffset.y))
+    }
+    
+    func handleTouch()
+    {
+        print("I am Protestor")
     }
 }
