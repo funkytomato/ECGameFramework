@@ -20,10 +20,10 @@ class SpriteComponent: GKComponent
     //MARK:- Initialisers
     init(entity: GKEntity, texture: SKTexture, textureSize: CGSize)
     {
-        node = EntityNode(texture: texture, size: textureSize)
-        node.entity = entity
+        //node = EntityNode(texture: texture, size: textureSize)
+        //node.entity = entity
         
-        //node = SKSpriteNode(texture: nil, size: textureSize)
+        node = SKSpriteNode(texture: nil, size: textureSize)
         super.init()
     }
     
@@ -45,5 +45,11 @@ class SpriteComponent: GKComponent
         node.color = colour
     }
     
-    func entityTouched (touches: Set<UITouch>, withEvent event: UIEvent?) {}
+    func addToNodeKey()
+    {
+        self.node.userData = NSMutableDictionary()
+        self.node.userData?.setObject(self.entity!, forKey: "entity" as NSCopying)
+    }
+    
+ //   func entityTouched (touches: Set<UITouch>, withEvent event: UIEvent?) {}
 }
