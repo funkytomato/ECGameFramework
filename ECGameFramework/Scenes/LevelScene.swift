@@ -263,8 +263,9 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
             Set up iOS touch controls. The player's `nativeControlInputSource`
             is added to the scene by the `BaseSceneTouchEventForwarding` extension.
         */
-        addTouchInputToScene()
-        touchControlInputNode.hideThumbStickNodes = sceneManager.gameInput.isGameControllerConnected
+        // FRY
+        //addTouchInputToScene()
+        //touchControlInputNode.hideThumbStickNodes = sceneManager.gameInput.isGameControllerConnected
             
         // Start screen recording. See `LevelScene+ScreenRecording` for implementation.
         startScreenRecording()
@@ -750,5 +751,29 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
     {
         print ("touchesBegan")
+        
+        for touch in touches
+        {
+            let touchPoint = touch.location(in: self)
+            
+            //Trying to make taskbots touchable
+            
+            let touchedNodes = self.nodes(at: touchPoint)
+            for node in touchedNodes
+            {
+                
+                //print(node.userData)
+                print("node: \(node.description)")
+                print("node.entity: \(node.entity?.description)")
+                
+                //if((node.userData?["entity"]) != nil)
+                if (node.entity != nil)
+                {
+                    //let entity = node.userData!["entity"] as! GKEntity
+                    let entity = node.entity as! GKEntity
+                    entity.component(ofType: TouchableComponent.self)?.callFunction()
+                }
+            }
+        }
     }
 }
