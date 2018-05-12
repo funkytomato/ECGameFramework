@@ -144,25 +144,7 @@ class TouchControlInputNode: SKSpriteNode, ThumbStickNodeDelegate, ControlInputS
         for touch in touches
         {
             let touchPoint = touch.location(in: self)
-            
-            //Trying to make taskbots touchable
-            
-            let touchedNodes = self.nodes(at: touchPoint)
-            for node in touchedNodes
-            {
                 
-                //print(node.userData)
-                print("node: \(node.description)")
-                print("node.entity: \(node.entity?.description)")
-                //if((node.userData?["entity"]) != nil)
-                if (node.entity != nil)
-                {
-                    //let entity = node.userData!["entity"] as! GKEntity
-                    let entity = node.entity as! GKEntity
-                    entity.component(ofType: TouchableComponent.self)?.callFunction()
-                }
-            }
-            
             /*
                 Ignore touches if the thumb stick controls are hidden, or if
                 the touch is in the center of the screen.
