@@ -220,6 +220,34 @@ class TaskBotBehavior: GKBehavior
     }
     
     
+    // Constructs a behaviour to move the agent along a path
+    static func moveBehaviour(forAgent agent: GKAgent2D, pathPoints: [CGPoint], pathRadius: Float, inScene scene: LevelScene) -> (behavior: GKBehavior, pathPoints: [CGPoint])
+    {
+        let behavior = TaskBotBehavior()
+        
+        //Add basic goals to reach the TaskBot's maximum speed, avoid obstacles, etc...
+        behavior.addTargetSpeedGoal(speed: agent.maxSpeed)
+        behavior.addAvoidObstaclesGoal(forScene: scene)
+        
+       //let pathPoints = behavior.addPlayerPathGoal(forScene: scene, agent: agent, path: path)
+
+
+        // Convert the patrol path to an array of `float2`s.
+        let pathVectorPoints = pathPoints.map { float2($0) }
+        
+        // Create a cyclical (closed) `GKPath` from the provided path points with the requested path radius.
+        let path = GKPath(points: pathVectorPoints, radius: pathRadius, cyclical: false)
+        
+        // Add "follow path" and "stay on path" goals for this path.
+        behavior.addFollowAndStayOnPathGoals(for: path)
+
+        
+
+        // Return a tuple containing the new behavior, and the found path points for debug drawing.
+        return (behavior, pathPoints)
+    }
+    
+    
     /// Constructs a behavior to retaliate a `TaskBot` attack
     static func retaliateBehaviour(forAgent agent: GKAgent2D, huntingAgent target: GKAgent2D, pathRadius: Float, inScene scene: LevelScene) -> (behavior: GKBehavior, pathPoints: [CGPoint])
     {
@@ -438,6 +466,12 @@ class TaskBotBehavior: GKBehavior
         //print("addSeekGoal \(agent.description)  scene: \(scene.description)")
     }
     
+    //Add a goal to follow a path
+    private func addPlayerPathGoal(forScene scene: LevelScene, agent: GKAgent, path: GKPath)
+    {
+        setWeight(100.0, for: GKGoal(toStayOn: path, maxPredictionTime: 10))
+        //print("addSeekGoal \(agent.description)  scene: \(scene.description)")
+    }
     
     // Adds a goal to avoid all polygon obstacles in the scene.
     private func addAvoidObstaclesGoal(forScene scene: LevelScene)
