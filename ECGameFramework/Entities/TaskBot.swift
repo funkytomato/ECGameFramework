@@ -12,12 +12,16 @@ import GameplayKit
 class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentDelegate
 {
 
+    var playerPathPoints: [float2] = []
     
     // MARK: Nested types
     
     /// Encapsulates a `TaskBot`'s current mandate, i.e. the aim that the `TaskBot` is setting out to achieve.
     enum TaskBotMandate
     {
+        // Player instructed TaskBot to move to a location
+        case playerMovedTaskBot(CGPoint)
+        
         // Hunt another agent (either a `PlayerBot` or a "good" `TaskBot`).
         case huntAgent(GKAgent2D)
 
@@ -172,6 +176,11 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         
         switch mandate
         {
+            case let .playerMovedTaskBot(pathPoints):
+                radius = GameplayConfiguration.TaskBot.patrolPathRadius
+                (agentBehavior, debugPathPoints) = TaskBotBehavior.moveBehaviour(forAgent: agent, pathPoints: [pathPoints], pathRadius: radius, inScene: levelScene)
+                debugColor = SKColor.green
+            
             
             case .followGoodPatrolPath, .followBadPatrolPath:
                 let pathPoints = isProtestor ? goodPathPoints : badPathPoints
