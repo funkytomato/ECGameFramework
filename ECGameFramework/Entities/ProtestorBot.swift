@@ -125,7 +125,8 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         let touchableComponent = TouchableComponent()
         {
             print("function of SpriteComponent")
-            self.handleTouch()
+            self.handleTouch(path: self.playerPathPoints)
+        
         }
         addComponent(touchableComponent)
         
@@ -455,9 +456,9 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         badAnimations = nil
     }
     
-    func handleTouch()
+    func handleTouch(path: [float2])
     {
-        print("I am Protestor")
+        print("I am Protestor \(path)")
     }
 }
 
