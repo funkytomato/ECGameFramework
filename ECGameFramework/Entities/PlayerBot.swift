@@ -248,6 +248,6 @@ class PlayerBot: GKEntity, ChargeComponentDelegate, ResourceLoadableType
     
     func handleTouch()
     {
-        print("I am Protestor")
+        print("I am Player")
     }
 }
