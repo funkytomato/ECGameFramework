@@ -754,26 +754,76 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
         
         for touch in touches
         {
-            let touchPoint = touch.location(in: self)
             
-            //Trying to make taskbots touchable
+            let touchLocation = touch.location(in: self)
+            let touchedNodes = self.nodes(at: touchLocation)
             
-            let touchedNodes = self.nodes(at: touchPoint)
             for node in touchedNodes
             {
-                
-                //print(node.userData)
+
                 print("node: \(node.description)")
                 print("node.entity: \(node.entity?.description)")
                 
-                //if((node.userData?["entity"]) != nil)
                 if (node.entity != nil)
                 {
-                    //let entity = node.userData!["entity"] as! GKEntity
                     let entity = node.entity as! GKEntity
-                    entity.component(ofType: TouchableComponent.self)?.callFunction()
+                    
+                    guard let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self) else { return }
+                    intelligenceComponent.stateMachine.enter(TaskBotPlayerControlledState.self)
+                    
+                    //moveTaskbot(entity: entity, location: touchLocation)
+                    //entity.component(ofType: TouchableComponent.self)?.callFunction()
                 }
             }
         }
+    }
+    
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?)
+    {
+        super.touchesMoved(touches, with: event)
+ 
+        for touch in touches
+        {
+            let touchLocation = touch.location(in: self)
+            let touchedNodes = self.nodes(at: touchLocation)
+            
+            for node in touchedNodes
+            {
+
+                if (node.entity != nil)
+                {
+                    let entity = node.entity as! GKEntity
+                    moveTaskbot(entity: entity, location: touchLocation)
+                    //entity.component(ofType: TouchableComponent.self)?.callFunction()
+                }
+            }
+        }
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?)
+    {
+        for touch in touches
+        {
+            let touchLocation = touch.location(in: self)
+            let touchedNodes = self.nodes(at: touchLocation)
+            
+            for node in touchedNodes
+            {
+                if node.entity != nil
+                {
+                    let entity = node.entity as! GKEntity
+                    
+                    guard let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self) else { return }
+                    intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
+                }
+            }
+        }
+    }
+    
+    func moveTaskbot(entity: GKEntity, location: CGPoint)
+    {
+        entity.component(ofType: RenderComponent.self)?.node.position.x = (location.x)
+        entity.component(ofType: RenderComponent.self)?.node.position.y = (location.y)
     }
 }
