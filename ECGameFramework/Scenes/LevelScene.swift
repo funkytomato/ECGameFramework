@@ -49,6 +49,9 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
     /// Stores a reference to the root nodes for each world layer in the scene.
     var worldLayerNodes = [WorldLayer: SKNode]()
     
+    //Stores an array of path points when the player draws a path on the screen
+    var playerPathPoints: [float2] = []
+    
     var worldNode: SKNode
     {
         return childNode(withName: "world")!
@@ -748,9 +751,14 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
         return float2(meatWagon.position)
     }
     
+
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
     {
         print ("touchesBegan")
+        
+        //Delete the existing path
+        playerPathPoints.removeAll()
         
         for touch in touches
         {
@@ -779,6 +787,7 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
     }
     
     
+    
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?)
     {
         super.touchesMoved(touches, with: event)
@@ -794,8 +803,8 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
                 if (node.entity != nil)
                 {
                     let entity = node.entity as! GKEntity
-                    moveTaskbot(entity: entity, location: touchLocation)
-                    //entity.component(ofType: TouchableComponent.self)?.callFunction()
+                    
+                    recordPlayerPath(location: touchLocation)
                 }
             }
         }
@@ -813,17 +822,33 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
                 if node.entity != nil
                 {
                     let entity = node.entity as! GKEntity
-                    
-                    guard let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self) else { return }
-                    intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
+                    moveTaskbot(entity: entity)
                 }
             }
         }
     }
     
-    func moveTaskbot(entity: GKEntity, location: CGPoint)
+    
+    func recordPlayerPath(location: CGPoint)
     {
-        entity.component(ofType: RenderComponent.self)?.node.position.x = (location.x)
-        entity.component(ofType: RenderComponent.self)?.node.position.y = (location.y)
+        playerPathPoints.append(float2(Float(location.x), Float(location.y)))
+    }
+    
+    
+    func moveTaskbot(entity: GKEntity)
+    {
+        
+        print("playerPathPoints: \(playerPathPoints.description)")
+        
+        guard let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self) else { return }
+        intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
+        
+        guard let touchableComponent = entity.component(ofType: TouchableComponent.self) else { return }
+        touchableComponent.setPath(path: playerPathPoints)
+        
+        entity.component(ofType: TouchableComponent.self)?.callFunction()
+        
+        //entity.component(ofType: RenderComponent.self)?.node.position.x = (location.x)
+        //entity.component(ofType: RenderComponent.self)?.node.position.y = (location.y)
     }
 }
