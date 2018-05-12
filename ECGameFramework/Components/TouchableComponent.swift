@@ -25,7 +25,13 @@ class TouchableComponent: GKComponent
         fatalError("init(coder:) has not been implemented")
     }
     
-    func callFunction() {
+    func setPath(path: [float2])
+    {
+        self.entityTouched()
+    }
+    
+    func callFunction()
+    {
         self.entityTouched()
     }
 }
