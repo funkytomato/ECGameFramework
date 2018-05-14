@@ -752,6 +752,8 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
     }
     
 
+    //var activeEntity: GKEntity?
+    var activeEntity: TaskBot?
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
     {
@@ -774,13 +776,20 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
                 
                 if (node.entity != nil)
                 {
-                    let entity = node.entity as! GKEntity
+                    let touchedEntity = node.entity as! GKEntity
+                    if let myEntity = touchedEntity as? TaskBot
+                    {
+                        //myEntity.entityTouched(touches: touches, withEvent: event)
+                        myEntity.touchesBegan(touches, with: event, scene: self)
+                        activeEntity = myEntity
+                    }
+
                     
-                    guard let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self) else { return }
-                    intelligenceComponent.stateMachine.enter(TaskBotPlayerControlledState.self)
+//                    guard let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self) else { return }
+//                    intelligenceComponent.stateMachine.enter(TaskBotPlayerControlledState.self)
                     
                     //moveTaskbot(entity: entity, location: touchLocation)
-                    //entity.component(ofType: TouchableComponent.self)?.callFunction()
+//                    entity.component(ofType: TouchableComponent.self)?.callFunction()
                 }
             }
         }
@@ -800,12 +809,22 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
             for node in touchedNodes
             {
 
-                if (node.entity != nil)
-                {
-                    let entity = node.entity as! GKEntity
+                print("node: \(node.description)")
+                print("node.entity: \(node.entity?.description)")
                     
-                    recordPlayerPath(location: touchLocation)
+                
+                recordPlayerPath(location: touchLocation)
+
+                activeEntity?.touchesMoved(touches, with: event, scene: self)
+                
+                /*
+                let touchedEntity = node.entity as! GKEntity
+                if let myEntity = touchedEntity as? ProtestorBot
+                {
+                    //myEntity.entityTouched(touches: touches, withEvent: event)
+                    myEntity.touchesMoved(touches, with: event, scene: self)
                 }
+                */
             }
         }
     }
@@ -817,36 +836,49 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
             let touchLocation = touch.location(in: self)
             let touchedNodes = self.nodes(at: touchLocation)
             
+            //moveTaskbot()
             for node in touchedNodes
             {
-                if node.entity != nil
+                /*
+                let touchedEntity = node.entity as! GKEntity
+                if let myEntity = touchedEntity as? ProtestorBot
                 {
-                    let entity = node.entity as! GKEntity
-                    moveTaskbot(entity: entity)
+                    //myEntity.entityTouched(touches: touches, withEvent: event)
+                    myEntity.touchesEnded(touches, with: event, scene: self)
                 }
+ */
             }
+            
+            activeEntity?.touchesEnded(touches, with: event, scene: self)
         }
+        
+        // Their is not selected entity anymore, we are moving it!
+        activeEntity = nil
     }
     
     
     func recordPlayerPath(location: CGPoint)
     {
+        //Reduce the number of recorded path points
         playerPathPoints.append(float2(Float(location.x), Float(location.y)))
     }
     
     
-    func moveTaskbot(entity: GKEntity)
+    func moveTaskbot()
     {
         
         print("playerPathPoints: \(playerPathPoints.description)")
+
         
-        guard let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self) else { return }
+        guard let intelligenceComponent = activeEntity?.component(ofType: IntelligenceComponent.self) else { return }
         intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
         
-        guard let touchableComponent = entity.component(ofType: TouchableComponent.self) else { return }
+        guard let touchableComponent = activeEntity?.component(ofType: TouchableComponent.self) else { return }
         touchableComponent.setPath(path: playerPathPoints)
         
-        entity.component(ofType: TouchableComponent.self)?.callFunction()
+       // activeEntity?.component(ofType: TouchableComponent.self)?.callFunction()
+        activeEntity?.component(ofType: TouchableComponent.self)?.setPath(path: playerPathPoints)
+        
         
         //entity.component(ofType: RenderComponent.self)?.node.position.x = (location.x)
         //entity.component(ofType: RenderComponent.self)?.node.position.y = (location.y)
