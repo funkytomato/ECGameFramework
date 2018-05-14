@@ -50,7 +50,8 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
     var worldLayerNodes = [WorldLayer: SKNode]()
     
     //Stores an array of path points when the player draws a path on the screen
-    var playerPathPoints: [float2] = []
+    //var playerPathPoints: [float2] = []
+    var playerPathPoints: [CGPoint] = []
     
     var worldNode: SKNode
     {
@@ -783,13 +784,6 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
                         myEntity.touchesBegan(touches, with: event, scene: self)
                         activeEntity = myEntity
                     }
-
-                    
-//                    guard let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self) else { return }
-//                    intelligenceComponent.stateMachine.enter(TaskBotPlayerControlledState.self)
-                    
-                    //moveTaskbot(entity: entity, location: touchLocation)
-//                    entity.component(ofType: TouchableComponent.self)?.callFunction()
                 }
             }
         }
@@ -860,7 +854,8 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
     func recordPlayerPath(location: CGPoint)
     {
         //Reduce the number of recorded path points
-        playerPathPoints.append(float2(Float(location.x), Float(location.y)))
+        //playerPathPoints.append(float2(Float(location.x), Float(location.y)))
+        playerPathPoints.append(location)
     }
     
     
@@ -869,7 +864,7 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
         
         print("playerPathPoints: \(playerPathPoints.description)")
 
-        
+        /*
         guard let intelligenceComponent = activeEntity?.component(ofType: IntelligenceComponent.self) else { return }
         intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
         
@@ -878,7 +873,7 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
         
        // activeEntity?.component(ofType: TouchableComponent.self)?.callFunction()
         activeEntity?.component(ofType: TouchableComponent.self)?.setPath(path: playerPathPoints)
-        
+        */
         
         //entity.component(ofType: RenderComponent.self)?.node.position.x = (location.x)
         //entity.component(ofType: RenderComponent.self)?.node.position.y = (location.y)
