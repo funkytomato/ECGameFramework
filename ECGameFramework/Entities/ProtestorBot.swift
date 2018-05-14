@@ -17,12 +17,19 @@ import GameplayKit
 //class ProtestorBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
 class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate, ResourceLoadableType
 {
+    
+
+    
     // MARK: Static Properties
     
     var texture = SKTexture()
     
     /// The size to use for the `PoliceBot`s animation textures.
     static var textureSize = CGSize(width: 50.0, height: 50.0)
+    
+    
+    //Stores an array of path points when the player draws a path on the screen
+    //var playerPathPoints: [float2] = []
     
     
     /// The size to use for the `PoliceBot`'s shadow texture.
@@ -37,13 +44,13 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
 
     var isAlive = true
     
-    /// The offset of the `PoliceBot`'s shadow from its center position.
-    //static var shadowOffset = CGPoint(x: 0.0, y: -40.0)
+    // The offset of the `PoliceBot`'s shadow from its center position.
+    // static var shadowOffset = CGPoint(x: 0.0, y: -40.0)
     
-    /// The animations to use when a `PoliceBot` is in its "good" state.
+    // The animations to use when a `PoliceBot` is in its "good" state.
     static var goodAnimations: [AnimationState: Animation]?
     
-    /// The animations to use when a `PoliceBot` is in its "bad" state.
+    // The animations to use when a `PoliceBot` is in its "bad" state.
     static var badAnimations: [AnimationState: Animation]?
     
     
@@ -65,9 +72,10 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
     // The position in the scene that the `PoliceBot` should target with its attack.
     var targetPosition: float2?
     
+    
     var isPoweredDown: Bool = false
     
-    //Is hit by another
+    // Is hit by another
     var isResistanceTriggered: Bool = false
     
     
@@ -122,14 +130,19 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         addComponent(spriteComponent)
         spriteComponent.addToNodeKey()
         
+        /*
         let touchableComponent = TouchableComponent()
         {
             print("function of SpriteComponent")
-            self.handleTouch(path: self.playerPathPoints)
+            self.callFunction()
+            //self.handleTouch(path: self.playerPathPoints)
+            //self.entityTouched(touches: touches, withEvent: event)
+           // self.handleTouch(Set<UITouch>, with: UIEvent?)
         
         }
+ 
         addComponent(touchableComponent)
-        
+        */
         
         //let shadowComponent = ShadowComponent(texture: PoliceBot.shadowTexture, size: PoliceBot.shadowSize, offset: PoliceBot.shadowOffset)
         //addComponent(shadowComponent)
@@ -221,7 +234,6 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         // Connect the `RenderComponent` and `ShadowComponent` to the `AnimationComponent`.
         renderComponent.node.addChild(animationComponent.node)
         //animationComponent.shadowNode = shadowComponent.node
-        
         
         // Specify the offset for beam targeting.
         beamTargetOffset = GameplayConfiguration.PoliceBot.beamTargetOffset
@@ -365,9 +377,6 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
     {
         guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
         
-        //isProtestor = !healthComponent.hasHealth
-        //print("health:\(healthComponent.health.description)")
-        
         // Check the on the health of the Protestor
         if !healthComponent.hasHealth
         {
@@ -456,9 +465,19 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         badAnimations = nil
     }
     
+    override func entityTouched(touches: Set<UITouch>, withEvent event: UIEvent?)
+    {
+        print("I am Protestor")
+    }
+    
+    
+    //func handleTouch(_ touches: Set<UITouch>, with event: UIEvent?)
     func handleTouch(path: [float2])
     {
-        print("I am Protestor \(path)")
+        //Set the path for the entity to travel
+        
+       // print("I am Protestor \(path)")
+        print("I am Protestor")
     }
 }
 
