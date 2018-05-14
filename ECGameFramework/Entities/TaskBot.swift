@@ -876,4 +876,55 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
     {
         print("TaskBot touched!!!")
     }
+    
+    func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?, scene: LevelScene)
+    {
+        
+        print ("touchesBegan")
+        
+        //Delete the existing path
+        //playerPathPoints.removeAll()
+        
+        for touch in touches
+        {
+            
+            let touchLocation = touch.location(in: scene)
+            let touchedNodes = scene.nodes(at: touchLocation)
+            
+            for node in touchedNodes
+            {
+                print("node: \(node.description)")
+                print("node.entity: \(node.entity?.description)")
+            }
+        }
+    }
+    
+    func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?, scene: LevelScene)
+    {
+        //super.touchesMoved(touches, with: event)
+        
+        for touch in touches
+        {
+ 
+            let touchLocation = touch.location(in: scene)
+            let touchedNodes = scene.nodes(at: touchLocation)
+            
+            for node in touchedNodes
+            {
+                print("node: \(node.description)")
+                print("node.entity: \(node.entity?.description)")
+            }
+        }
+    }
+    
+    func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?, scene: LevelScene)
+    {
+        for touch in touches
+        {
+            
+            let touchLocation = touch.location(in: scene)
+            let touchedNodes = scene.nodes(at: touchLocation)
+            
+        }
+    }
 }
