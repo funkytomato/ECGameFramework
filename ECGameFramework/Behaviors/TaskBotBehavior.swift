@@ -231,6 +231,7 @@ class TaskBotBehavior: GKBehavior
         
        //let pathPoints = behavior.addPlayerPathGoal(forScene: scene, agent: agent, path: path)
 
+        print("moveBehaviour pathPoints: \(pathPoints)")
 
         // Convert the patrol path to an array of `float2`s.
         let pathVectorPoints = pathPoints.map { float2($0) }
@@ -241,7 +242,6 @@ class TaskBotBehavior: GKBehavior
         // Add "follow path" and "stay on path" goals for this path.
         behavior.addFollowAndStayOnPathGoals(for: path)
 
-        
 
         // Return a tuple containing the new behavior, and the found path points for debug drawing.
         return (behavior, pathPoints)
