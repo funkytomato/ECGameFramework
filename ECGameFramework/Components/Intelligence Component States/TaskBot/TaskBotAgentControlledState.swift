@@ -66,12 +66,33 @@ class TaskBotAgentControlledState: GKState
         // Check if enough time has passed since the last behavior update, and update the behavior if so.
         if timeSinceBehaviorUpdate >= GameplayConfiguration.TaskBot.behaviorUpdateWaitDuration
         {
+            
+            // When a `TaskBot` is moving along player path
+            if case .playerMovedTaskBot = entity.mandate
+            {
+                print(entity.playerPathPoints.description)
+                let lastPos = entity.playerPathPoints.last
+
+                
+                // When a `TaskBot` is nearing path patrol end, and gets near enough, it should start to wander.
+                if case .playerMovedTaskBot = entity.mandate, entity.distanceToPoint(otherPoint: float2(lastPos!)) <= GameplayConfiguration.TaskBot.thresholdProximityToPatrolPathStartPoint
+                {
+                    entity.mandate = .wander
+                }
+                else
+                {
+                    entity.mandate = .playerMovedTaskBot
+                }
+ 
+            }
 
             // When a `TaskBot` is returning to its path patrol start, and gets near enough, it should start to patrol.
-            if case let .returnToPositionOnPath(position) = entity.mandate, entity.distanceToPoint(otherPoint: position) <= GameplayConfiguration.TaskBot.thresholdProximityToPatrolPathStartPoint
+            else if case let .returnToPositionOnPath(position) = entity.mandate, entity.distanceToPoint(otherPoint: position) <= GameplayConfiguration.TaskBot.thresholdProximityToPatrolPathStartPoint
             {
                 entity.mandate = entity.isProtestor ? .followGoodPatrolPath : .followBadPatrolPath
             }
+            
+            print("Current behaviour mandate: \(entity.mandate)")
             
             // Ensure the agent's behavior is the appropriate behavior for its current mandate.
             entity.agent.behavior = entity.behaviorForCurrentMandate
