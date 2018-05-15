@@ -12,6 +12,8 @@ import SpriteKit
 class TouchableComponent: GKComponent
 {
     
+    var touchControlSpriteNode: TouchControlSpriteNode?
+
     var entityTouched: ()->Void;
     
     init(f:@escaping () -> Void)
@@ -20,14 +22,26 @@ class TouchableComponent: GKComponent
         
         super.init()
     }
+
+    /*
+    override init()
+    {
+        touchControlSpriteNode = TouchControlSpriteNode(size: CGSize(width: 120, height: 120))
+        
+        super.init()
+    }
+    */
     
-    required init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder)
+    {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    
     func setPath(path: [float2])
     {
-        self.entityTouched()
+//        self.entityTouched()
     }
     
     func callFunction()
