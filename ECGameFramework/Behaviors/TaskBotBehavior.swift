@@ -155,7 +155,7 @@ class TaskBotBehavior: GKBehavior
     }
     
     /// Constructs a behavior to patrol a path of points, avoiding obstacles along the way.
-    static func patrolBehaviour(forAgent agent: GKAgent2D, patrollingPathWithPoints patrolPathPoints: [CGPoint], pathRadius: Float, inScene scene: LevelScene) -> GKBehavior
+    static func patrolBehaviour(forAgent agent: GKAgent2D, patrollingPathWithPoints patrolPathPoints: [CGPoint], pathRadius: Float, inScene scene: LevelScene, cyclical: Bool) -> GKBehavior
     {
         //print("behavior agent:\(agent.description) patrolling: \(patrolPathPoints.description)  scene: \(scene.description)")
         
@@ -169,7 +169,7 @@ class TaskBotBehavior: GKBehavior
         let pathVectorPoints = patrolPathPoints.map { float2($0) }
         
         // Create a cyclical (closed) `GKPath` from the provided path points with the requested path radius.
-        let path = GKPath(points: pathVectorPoints, radius: pathRadius, cyclical: true)
+        let path = GKPath(points: pathVectorPoints, radius: pathRadius, cyclical: cyclical)
 
         // Add "follow path" and "stay on path" goals for this path.
         behavior.addFollowAndStayOnPathGoals(for: path)
