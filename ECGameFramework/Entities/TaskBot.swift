@@ -12,9 +12,6 @@ import GameplayKit
 class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentDelegate
 {
 
-    //var playerPathPoints: [float2] = []
-
-    
     // MARK: Nested types
     
     /// Encapsulates a `TaskBot`'s current mandate, i.e. the aim that the `TaskBot` is setting out to achieve.
@@ -57,7 +54,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         case fleeAgent(GKAgent2D)
 
         
-        // Retaliate from attack
+        // Retaliate against attack
         case retaliate(GKAgent2D)
     }
 
@@ -153,16 +150,16 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
     /// The aim that the `TaskBot` is currently trying to achieve.
     var mandate: TaskBotMandate
     
-    // The points for th epath that the player has created for a TaskBot to follow
+    // The points for the path that the player has created for a TaskBot to follow
     var playerPathPoints: [CGPoint] = []
     
-    /// The points for the path that the `TaskBot` should patrol when "good" and not hunting.
+    // The points for the path that the `TaskBot` should patrol when "good" and not hunting.
     var goodPathPoints: [CGPoint]
 
-    /// The points for the path that the `TaskBot` should patrol when "bad" and not hunting.
+    // The points for the path that the `TaskBot` should patrol when "bad" and not hunting.
     var badPathPoints: [CGPoint]
 
-    /// The appropriate `GKBehavior` for the `TaskBot`, based on its current `mandate`.
+    // The appropriate `GKBehavior` for the `TaskBot`, based on its current `mandate`.
     var behaviorForCurrentMandate: GKBehavior
     {
         // Return an empty behavior if this `TaskBot` is not yet in a `LevelScene`.
@@ -182,15 +179,20 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         switch mandate
         {
             case .playerMovedTaskBot:
+                let pathPoints = self.playerPathPoints
                 radius = GameplayConfiguration.TaskBot.patrolPathRadius
-                (agentBehavior, debugPathPoints) = TaskBotBehavior.moveBehaviour(forAgent: agent, pathPoints: playerPathPoints, pathRadius: radius, inScene: levelScene)
-                debugColor = SKColor.green
+                agentBehavior = TaskBotBehavior.patrolBehaviour(forAgent: agent, patrollingPathWithPoints: pathPoints, pathRadius: radius, inScene: levelScene, cyclical: false)
+                debugPathPoints = pathPoints
+
+            
+                debugPathShouldCycle = true
+                debugColor = SKColor.white
             
             
             case .followGoodPatrolPath, .followBadPatrolPath:
                 let pathPoints = isProtestor ? goodPathPoints : badPathPoints
                 radius = GameplayConfiguration.TaskBot.patrolPathRadius
-                agentBehavior = TaskBotBehavior.patrolBehaviour(forAgent: agent, patrollingPathWithPoints: pathPoints, pathRadius: radius, inScene: levelScene)
+                agentBehavior = TaskBotBehavior.patrolBehaviour(forAgent: agent, patrollingPathWithPoints: pathPoints, pathRadius: radius, inScene: levelScene, cyclical: true)
                 debugPathPoints = pathPoints
                 
                 // Patrol paths are always closed loops, so the debug drawing of the path should cycle back round to the start.
@@ -729,6 +731,11 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 
                 case .playerMovedTaskBot:
                     // The taskbot is already on the player designated path, so no update is needed
+                    
+                    //Highlight the touched entity
+                    guard let spriteComponent = self.component(ofType: SpriteComponent.self) else { return }
+                    spriteComponent.changeColour(colour: .white)
+                    
                     break
                 
                 case .followGoodPatrolPath:
@@ -896,6 +903,8 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         //Delete the existing path
         playerPathPoints.removeAll()
         
+
+        /*
         for touch in touches
         {
             
@@ -907,8 +916,8 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 print("node: \(node.description)")
                 print("node.entity: \(node.entity?.description)")
             }
- 
         }
+ */
     }
     
     func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?, scene: LevelScene)
@@ -923,25 +932,30 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             
             recordPlayerPath(location: touchLocation)
             
+            /*
             for node in touchedNodes
             {
                 print("node: \(node.description)")
                 print("node.entity: \(node.entity?.description)")
             }
-
+*/
         }
     }
     
     func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?, scene: LevelScene)
     {
+        /*
         for touch in touches
         {
             
             let touchLocation = touch.location(in: scene)
             let touchedNodes = scene.nodes(at: touchLocation)
             
-            moveTaskbot()
+
         }
+        */
+        
+        moveTaskbot()
     }
     
     func recordPlayerPath(location: CGPoint)
@@ -956,11 +970,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         
         print("playerPathPoints: \(playerPathPoints.description)")
         
-        
-        mandate = .playerMovedTaskBot
-        
-        
         //Set the mandate to move along path
-        
+        mandate = .playerMovedTaskBot
     }
 }
