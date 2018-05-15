@@ -16,12 +16,12 @@ class SpriteComponent: GKComponent
     //The SpriteNode
     let node : SKSpriteNode
 
-
+    var oldColour: SKColor
     
     //MARK:- Initialisers
     init(entity: GKEntity, texture: SKTexture, textureSize: CGSize)
     {
-        
+        oldColour = .clear
         node = SKSpriteNode(texture: nil, size: textureSize)
         node.entity = entity
         super.init()
@@ -42,17 +42,26 @@ class SpriteComponent: GKComponent
     // Convenience methods
     func changeColour(colour: SKColor)
     {
+        oldColour = node.color
         node.color = colour
     }
     
+    func revertColour()
+    {
+        node.color = oldColour
+    }
+
+    
+    /*
     func addToNodeKey()
     {
         self.node.userData = NSMutableDictionary()
         self.node.userData?.setObject(self.entity!, forKey: "entity" as NSCopying)
     }
-    
+    */
     func entityTouched (touches: Set<UITouch>, withEvent event: UIEvent?)
     {
         print("SpriteComponent entityTouched!!!")
+    
     }
 }
