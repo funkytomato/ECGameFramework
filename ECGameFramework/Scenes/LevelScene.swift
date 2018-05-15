@@ -793,7 +793,7 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?)
     {
-        super.touchesMoved(touches, with: event)
+ //       super.touchesMoved(touches, with: event)
  
         for touch in touches
         {
@@ -846,7 +846,7 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
             activeEntity?.touchesEnded(touches, with: event, scene: self)
         }
         
-        // Their is not selected entity anymore, we are moving it!
+        // The entity is not selected anymore, as it's path has been set
         activeEntity = nil
     }
     
@@ -858,7 +858,7 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
         playerPathPoints.append(location)
     }
     
-    
+    /*
     func moveTaskbot()
     {
         
@@ -878,4 +878,5 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
         //entity.component(ofType: RenderComponent.self)?.node.position.x = (location.x)
         //entity.component(ofType: RenderComponent.self)?.node.position.y = (location.y)
     }
+    */
 }
