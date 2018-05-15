@@ -28,10 +28,6 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
     static var textureSize = CGSize(width: 50.0, height: 50.0)
     
     
-    //Stores an array of path points when the player draws a path on the screen
-    //var playerPathPoints: [float2] = []
-    
-    
     /// The size to use for the `PoliceBot`'s shadow texture.
     //static var shadowSize = CGSize(width: 50.0, height: 10.0)
     
@@ -42,20 +38,19 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
     }()
     
 
-    var isAlive = true
     
     // The offset of the `PoliceBot`'s shadow from its center position.
     // static var shadowOffset = CGPoint(x: 0.0, y: -40.0)
     
-    // The animations to use when a `PoliceBot` is in its "good" state.
+    // MARK: TaskBot Animation Properties
+    
+    // The animations to use when a `ProtestorBot` is in its "good" state.
     static var goodAnimations: [AnimationState: Animation]?
     
-    // The animations to use when a `PoliceBot` is in its "bad" state.
+    // The animations to use when a `ProtestorBot` is in its "bad" state.
     static var badAnimations: [AnimationState: Animation]?
     
     
-    
-    // MARK: TaskBot Properties
     override var goodAnimations: [AnimationState: Animation]
     {
         return ProtestorBot.goodAnimations!
@@ -71,12 +66,6 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
     
     // The position in the scene that the `PoliceBot` should target with its attack.
     var targetPosition: float2?
-    
-    
-    var isPoweredDown: Bool = false
-    
-    // Is hit by another
-    var isResistanceTriggered: Bool = false
     
     
     // MARK: Initialization
@@ -123,26 +112,10 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         let orientationComponent = OrientationComponent()
         addComponent(orientationComponent)
         
-        let inputComponent = InputComponent()
-        addComponent(inputComponent)
         
         let spriteComponent = SpriteComponent(entity: self, texture: texture, textureSize: ProtestorBot.textureSize)
         addComponent(spriteComponent)
-        spriteComponent.addToNodeKey()
-        
-        /*
-        let touchableComponent = TouchableComponent()
-        {
-            print("function of SpriteComponent")
-            self.callFunction()
-            //self.handleTouch(path: self.playerPathPoints)
-            //self.entityTouched(touches: touches, withEvent: event)
-           // self.handleTouch(Set<UITouch>, with: UIEvent?)
-        
-        }
- 
-        addComponent(touchableComponent)
-        */
+
         
         //let shadowComponent = ShadowComponent(texture: PoliceBot.shadowTexture, size: PoliceBot.shadowSize, offset: PoliceBot.shadowOffset)
         //addComponent(shadowComponent)
@@ -215,7 +188,6 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         resistanceComponent.delegate = self
         addComponent(resistanceComponent)
         
-        
         let movementComponent = MovementComponent()
         addComponent(movementComponent)
         
@@ -278,10 +250,10 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
          4) Their is a high number of Dangerous Protestors nearby
          5) Their is a high number of Police nearby
         */
-        guard let scene = component(ofType: RenderComponent.self)?.node.scene else { return }
+        //guard let scene = component(ofType: RenderComponent.self)?.node.scene else { return }
         guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
-        guard let temperamentComponent = component(ofType: TemperamentComponent.self) else { return }
-        guard let agentControlledState = intelligenceComponent.stateMachine.currentState as? TaskBotAgentControlledState else { return }
+        //guard let temperamentComponent = component(ofType: TemperamentComponent.self) else { return }
+        //guard let agentControlledState = intelligenceComponent.stateMachine.currentState as? TaskBotAgentControlledState else { return }
         
         
         // 1) Check enough thinking time has passed
@@ -351,7 +323,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
     }
 
     
-    // MARK: ResistanceComponentDelegate
+    // MARK: Resistance Component Delegate
     func resistanceComponentDidLoseResistance(resistanceComponent: ResistanceComponent)
     {
         guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
@@ -372,7 +344,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         }
     }
 
-    
+    // MARK: Health Component Delegate
     func healthComponentDidLoseHealth(healthComponent: HealthComponent)
     {
         guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
@@ -463,21 +435,6 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
     {
         goodAnimations = nil
         badAnimations = nil
-    }
-    
-    override func entityTouched(touches: Set<UITouch>, withEvent event: UIEvent?)
-    {
-        print("I am Protestor")
-    }
-    
-    
-    //func handleTouch(_ touches: Set<UITouch>, with event: UIEvent?)
-    func handleTouch(path: [float2])
-    {
-        //Set the path for the entity to travel
-        
-       // print("I am Protestor \(path)")
-        print("I am Protestor")
     }
 }
 
