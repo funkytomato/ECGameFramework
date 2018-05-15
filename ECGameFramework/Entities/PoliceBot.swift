@@ -391,7 +391,7 @@ class PoliceBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
         goodAnimations = nil
         badAnimations = nil
     }
-    
+ 
     override func entityTouched (touches: Set<UITouch>, withEvent event: UIEvent?)
     {
         print("PoliceBot touched!!!")
