@@ -131,17 +131,17 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
     lazy var componentSystems: [GKComponentSystem] = {
         let agentSystem = GKComponentSystem(componentClass: TaskBotAgent.self)
         let animationSystem = GKComponentSystem(componentClass: AnimationComponent.self)
-        let chargeSystem = GKComponentSystem(componentClass: ChargeComponent.self)
-        let healthSystem = GKComponentSystem(componentClass: HealthComponent.self)
-        let resistanceSystem = GKComponentSystem(componentClass: ResistanceComponent.self)
+        //let chargeSystem = GKComponentSystem(componentClass: ChargeComponent.self)
+        //let healthSystem = GKComponentSystem(componentClass: HealthComponent.self)
+        //let resistanceSystem = GKComponentSystem(componentClass: ResistanceComponent.self)
         let intelligenceSystem = GKComponentSystem(componentClass: IntelligenceComponent.self)
         let movementSystem = GKComponentSystem(componentClass: MovementComponent.self)
-        let beamSystem = GKComponentSystem(componentClass: BeamComponent.self)
+        //let beamSystem = GKComponentSystem(componentClass: BeamComponent.self)
         let temperamentSystem = GKComponentSystem(componentClass: TemperamentComponent.self)
         let rulesSystem = GKComponentSystem(componentClass: RulesComponent.self)
         
         // The systems will be updated in order. This order is explicitly defined to match assumptions made within components.
-        return [rulesSystem, intelligenceSystem, movementSystem, agentSystem, chargeSystem, beamSystem, resistanceSystem, temperamentSystem, animationSystem]
+        return [rulesSystem, intelligenceSystem, movementSystem, agentSystem,/* chargeSystem, beamSystem, resistanceSystem,*/ temperamentSystem, animationSystem]
     }()
     
     // MARK: Initializers
@@ -504,9 +504,9 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
              If the entity has a `HealthComponent` with a `ChargeBar`, add the `ChargeBar`
              to the scene. Constrain the `ChargeBar` to the `RenderComponent`'s node.
              */
-            if let chargeBar = entity.component(ofType: HealthComponent.self)?.healthBar
+            if let healthBar = entity.component(ofType: HealthComponent.self)?.healthBar
             {
-                addNode(node: chargeBar, toWorldLayer: .aboveCharacters)
+                addNode(node: healthBar, toWorldLayer: .aboveCharacters)
                 
                 // Constrain the `ChargeBar`'s node position to the render node.
                 let xRange = SKRange(constantValue: GameplayConfiguration.PlayerBot.chargeBarOffset.x)
@@ -515,7 +515,7 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
                 let constraint = SKConstraint.positionX(xRange, y: yRange)
                 constraint.referenceNode = renderNode
                 
-                chargeBar.constraints = [constraint]
+                healthBar.constraints = [constraint]
             }
             
             /*
@@ -793,7 +793,7 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?)
     {
- //       super.touchesMoved(touches, with: event)
+        super.touchesMoved(touches, with: event)
  
         for touch in touches
         {
@@ -805,20 +805,8 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
 
                 print("node: \(node.description)")
                 print("node.entity: \(node.entity?.description)")
-                    
                 
-                recordPlayerPath(location: touchLocation)
-
                 activeEntity?.touchesMoved(touches, with: event, scene: self)
-                
-                /*
-                let touchedEntity = node.entity as! GKEntity
-                if let myEntity = touchedEntity as? ProtestorBot
-                {
-                    //myEntity.entityTouched(touches: touches, withEvent: event)
-                    myEntity.touchesMoved(touches, with: event, scene: self)
-                }
-                */
             }
         }
     }
@@ -830,19 +818,6 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
             let touchLocation = touch.location(in: self)
             let touchedNodes = self.nodes(at: touchLocation)
             
-            //moveTaskbot()
-            for node in touchedNodes
-            {
-                /*
-                let touchedEntity = node.entity as! GKEntity
-                if let myEntity = touchedEntity as? ProtestorBot
-                {
-                    //myEntity.entityTouched(touches: touches, withEvent: event)
-                    myEntity.touchesEnded(touches, with: event, scene: self)
-                }
- */
-            }
-            
             activeEntity?.touchesEnded(touches, with: event, scene: self)
         }
         
@@ -850,33 +825,11 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
         activeEntity = nil
     }
     
-    
+ /*
     func recordPlayerPath(location: CGPoint)
     {
         //Reduce the number of recorded path points
-        //playerPathPoints.append(float2(Float(location.x), Float(location.y)))
         playerPathPoints.append(location)
     }
-    
-    /*
-    func moveTaskbot()
-    {
-        
-        print("playerPathPoints: \(playerPathPoints.description)")
-
-        /*
-        guard let intelligenceComponent = activeEntity?.component(ofType: IntelligenceComponent.self) else { return }
-        intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
-        
-        guard let touchableComponent = activeEntity?.component(ofType: TouchableComponent.self) else { return }
-        touchableComponent.setPath(path: playerPathPoints)
-        
-       // activeEntity?.component(ofType: TouchableComponent.self)?.callFunction()
-        activeEntity?.component(ofType: TouchableComponent.self)?.setPath(path: playerPathPoints)
-        */
-        
-        //entity.component(ofType: RenderComponent.self)?.node.position.x = (location.x)
-        //entity.component(ofType: RenderComponent.self)?.node.position.y = (location.y)
-    }
-    */
+ */
 }
