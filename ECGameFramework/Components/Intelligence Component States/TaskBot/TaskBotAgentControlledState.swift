@@ -15,10 +15,10 @@ class TaskBotAgentControlledState: GKState
     
     unowned var entity: TaskBot
     
-    /// The amount of time that has passed since the `TaskBot` became agent-controlled.
+    // The amount of time that has passed since the `TaskBot` became agent-controlled.
     var elapsedTime: TimeInterval = 0.0
     
-    /// The amount of time that has passed since the `TaskBot` last determined an appropriate behavior.
+    // The amount of time that has passed since the `TaskBot` last determined an appropriate behavior.
     var timeSinceBehaviorUpdate: TimeInterval = 0.0
     
     // MARK: Initializers
@@ -70,12 +70,14 @@ class TaskBotAgentControlledState: GKState
             // When a `TaskBot` is moving along player path
             if case .playerMovedTaskBot = entity.mandate
             {
-                print(entity.playerPathPoints.description)
-                let lastPos = entity.playerPathPoints.last
+                // print(entity.playerPathPoints.description)
+                
+                // Ensure we have a last position to check against, else dropout
+                guard let lastPos = entity.playerPathPoints.last else { return }
 
                 
                 // When a `TaskBot` is nearing path patrol end, and gets near enough, it should start to wander.
-                if case .playerMovedTaskBot = entity.mandate, entity.distanceToPoint(otherPoint: float2(lastPos!)) <= GameplayConfiguration.TaskBot.thresholdProximityToPatrolPathStartPoint
+                if case .playerMovedTaskBot = entity.mandate, entity.distanceToPoint(otherPoint: float2(lastPos)) <= GameplayConfiguration.TaskBot.thresholdProximityToPatrolPathStartPoint
                 {
                     entity.mandate = .wander
                 }
