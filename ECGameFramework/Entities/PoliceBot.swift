@@ -228,10 +228,12 @@ class PoliceBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
         
         //print("scene:\(String(describing: renderComponent.node.scene?.description))")
         
+        /*
         let emitterComponent = EmitterComponent(particleName: "Trail.sks")
         addComponent(emitterComponent)
         renderComponent.node.addChild(emitterComponent.node)
-        
+ */
+ 
         // Connect the `RenderComponent` and `ShadowComponent` to the `AnimationComponent`.
         renderComponent.node.addChild(animationComponent.node)
         //animationComponent.shadowNode = shadowComponent.node
