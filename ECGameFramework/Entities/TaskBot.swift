@@ -12,6 +12,7 @@ import GameplayKit
 class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentDelegate
 {
 
+    
     // MARK: Nested types
     
     /// Encapsulates a `TaskBot`'s current mandate, i.e. the aim that the `TaskBot` is setting out to achieve.
@@ -132,6 +133,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         }
     }
     
+    
+    var oldColour: SKColor
+    
     // Is the taskbot still a playable bot?
     var isActive: Bool
     
@@ -181,10 +185,8 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             case .playerMovedTaskBot:
                 let pathPoints = self.playerPathPoints
                 radius = GameplayConfiguration.TaskBot.patrolPathRadius
-                agentBehavior = TaskBotBehavior.patrolBehaviour(forAgent: agent, patrollingPathWithPoints: pathPoints, pathRadius: radius, inScene: levelScene, cyclical: false)
-                debugPathPoints = pathPoints
-
-            
+                (agentBehavior, debugPathPoints) = TaskBotBehavior.moveBehaviour(forAgent: agent, pathPoints: pathPoints, pathRadius: radius, inScene: levelScene)
+                
                 debugPathShouldCycle = true
                 debugColor = SKColor.white
             
@@ -200,10 +202,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 debugColor = isProtestor ? SKColor.green : SKColor.purple
             
             case .crowd:
-                radius = GameplayConfiguration.TaskBot.huntPathRadius
-                
+                // Who will crowd with who, only calm people for now
                 let temperament = "Calm"
-                
+                radius = GameplayConfiguration.TaskBot.huntPathRadius
                 (agentBehavior, debugPathPoints) = TaskBotBehavior.crowdBehaviour(forAgent: agent, pathRadius: radius, temperament: temperament, inScene: levelScene)
                 debugColor = SKColor.orange
             
@@ -222,13 +223,13 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 (agentBehavior, debugPathPoints)  = TaskBotBehavior.wanderBehaviour(forAgent: agent, inScene: levelScene)
                 debugColor = SKColor.cyan
             
-            //Protestor being moved to LockUp
+            // Protestor being moved to LockUp
             case let .arrested(taskBot):
                 radius = GameplayConfiguration.TaskBot.wanderPathRadius
                 (agentBehavior, debugPathPoints) = TaskBotBehavior.arrestedBehaviour(forAgent: agent, huntingAgent: taskBot, pathRadius: 25.0, inScene: levelScene)
                 debugColor = SKColor.white
             
-            //PoliceBot taking prisoner to meatwagon
+            // PoliceBot taking prisoner to meatwagon
             case .lockupPrisoner:
                 radius = GameplayConfiguration.TaskBot.lockupRadius
                 (agentBehavior, debugPathPoints) = TaskBotBehavior.returnToPathBehaviour(forAgent: agent, returningToPoint: levelScene.meatWagonLocation(), pathRadius: radius, inScene: levelScene)
@@ -303,6 +304,11 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
     
     required init(isGood: Bool, goodPathPoints: [CGPoint], badPathPoints: [CGPoint])
     {
+        //Initialise for capturing touch movement
+        self.gestureStartPoint = CGPoint.init()
+        
+        self.oldColour = SKColor.clear
+        
         // Whether or not the `TaskBot` is "good" when first created.
         self.isProtestor = isGood
         
@@ -376,13 +382,13 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         addComponent(rulesComponent)
         rulesComponent.delegate = self
         
-        
+        /*
         if let emitterComponent = component(ofType: EmitterComponent.self)
         {
             emitterComponent.node.targetNode = renderComponent.node.scene
         }
         else { print("TaskBot does not have an emitter component.") }
-        
+        */
     }
     
     required init?(coder aDecoder: NSCoder)
@@ -413,7 +419,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
     {
         guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
         guard let orientationComponent = component(ofType: OrientationComponent.self) else { return }
-        guard let emitterComponent = component(ofType: EmitterComponent.self) else { return }
+        //guard let emitterComponent = component(ofType: EmitterComponent.self) else { return }
 
         
  //       print("intelligenceComponent.stateMachine.currentState:\(intelligenceComponent.stateMachine.currentState?.description)")
@@ -442,7 +448,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
 
             orientationComponent.zRotation = CGFloat(newRotation)
             //print((renderComponent.node.scene?.description))
-            emitterComponent.node.targetNode = renderComponent.node.scene
+            //emitterComponent.node.targetNode = renderComponent.node.scene
             
         }
         else
@@ -722,19 +728,17 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         }
         else
         {
-            // The rules provided no motivation to hunt, so patrol in the "bad" state.
+            // The rules provided no motivation to hunt, retaliate or flee
             switch mandate
             {
                 case .wander:
-                    mandate = .wander
+                    // The taskbot is already wandering, so no update is needed
+                    //mandate = .wander
+                    
                     break;
                 
                 case .playerMovedTaskBot:
                     // The taskbot is already on the player designated path, so no update is needed
-                    
-                    //Highlight the touched entity
-                    guard let spriteComponent = self.component(ofType: SpriteComponent.self) else { return }
-                    spriteComponent.changeColour(colour: .white)
                     
                     break
                 
@@ -815,7 +819,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         //print("zRotation:\(orientationComponent.zRotation)")
     }
     
-    /// Sets the `TaskBot` node position to match the `GKAgent` position (minus an offset).
+    // Sets the `TaskBot` node position to match the `GKAgent` position (minus an offset).
     func updateNodePositionToMatchAgentPosition()
     {
         // `agent` is a computed property. Declare a local version of its property so we don't compute it multiple times.
@@ -826,7 +830,6 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
     }
     
     // MARK: Debug Path Drawing
-    
     func drawDebugPath(path: [CGPoint], cycle: Bool, color: SKColor, radius: Float)
     {
         guard path.count > 1 else { return }
@@ -895,82 +898,71 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         print("TaskBot touched!!!")
     }
     
+    //@property (nonatomic) CGPoint gestureStartPoint;
+    var gestureStartPoint: CGPoint
+    
     func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?, scene: LevelScene)
     {
-        
         print ("touchesBegan")
         
         //Delete the existing path
         playerPathPoints.removeAll()
         
-
-        /*
         for touch in touches
         {
-            
             let touchLocation = touch.location(in: scene)
-            let touchedNodes = scene.nodes(at: touchLocation)
             
-            for node in touchedNodes
-            {
-                print("node: \(node.description)")
-                print("node.entity: \(node.entity?.description)")
-            }
+            //Getting the position of the touch
+            self.gestureStartPoint = touchLocation
         }
- */
     }
+
     
     func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?, scene: LevelScene)
     {
-        //super.touchesMoved(touches, with: event)
-        
         for touch in touches
         {
- 
+            //Get the current position of the user's finger
             let touchLocation = touch.location(in: scene)
-            let touchedNodes = scene.nodes(at: touchLocation)
             
-            recordPlayerPath(location: touchLocation)
             
-            /*
-            for node in touchedNodes
+            
+            //Calculate how far the user’s finger has moved both horizontally and vertically from its starting position
+            //fabsf returns absolute value of float
+            let deltaX = fabsf(Float(self.gestureStartPoint.x - touchLocation.x));
+            let deltaY = fabsf(Float(self.gestureStartPoint.y - touchLocation.y));
+            
+            //check to see if the user has moved far enough in one direction
+            //without having moved too far in the other to constitute a swipe.
+            
+            let kMinimumGestureLength: Float = 10.0
+            let kMaximumVariance: Float = 50.0
+            
+            if (deltaX >= kMinimumGestureLength && deltaY <= kMaximumVariance)
             {
-                print("node: \(node.description)")
-                print("node.entity: \(node.entity?.description)")
+                //Horizontal swipe detected
+                
+                recordPlayerPath(location: touchLocation)
             }
-*/
+            else if (deltaY >= kMinimumGestureLength && deltaX <= kMaximumVariance)
+            {
+                //Vertical swipe detected
+                recordPlayerPath(location: touchLocation)
+            }
+            
+            self.gestureStartPoint = touchLocation
+            
+            //recordPlayerPath(location: touchLocation)
         }
     }
     
-    func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?, scene: LevelScene)
-    {
-        /*
-        for touch in touches
-        {
-            
-            let touchLocation = touch.location(in: scene)
-            let touchedNodes = scene.nodes(at: touchLocation)
-            
-
-        }
-        */
-        
-        moveTaskbot()
-    }
+    func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?, scene: LevelScene) {}
     
     func recordPlayerPath(location: CGPoint)
     {
         //Reduce the number of recorded path points
-        //playerPathPoints.append(float2(Float(location.x), Float(location.y)))
         playerPathPoints.append(location)
-    }
-    
-    func moveTaskbot()
-    {
         
-        print("playerPathPoints: \(playerPathPoints.description)")
-        
-        //Set the mandate to move along path
-        mandate = .playerMovedTaskBot
+        print("playerPathPoints: \(playerPathPoints.count)")
     }
 }
