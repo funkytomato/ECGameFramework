@@ -198,10 +198,12 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         renderComponent.node.addChild(spriteComponent.node)
         
         //print("scene:\(String(describing: renderComponent.node.scene?.description))")
-        
+       
+        /*
         let emitterComponent = EmitterComponent(particleName: "Trail.sks")
         addComponent(emitterComponent)
         renderComponent.node.addChild(emitterComponent.node)
+        */
         
         // Connect the `RenderComponent` and `ShadowComponent` to the `AnimationComponent`.
         renderComponent.node.addChild(animationComponent.node)
@@ -435,6 +437,27 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
     {
         goodAnimations = nil
         badAnimations = nil
+    }
+    
+    func moveTaskbot()
+    {
+        //Set the mandate to move along path
+        mandate = .playerMovedTaskBot
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?, scene: LevelScene)
+    {
+        super.touchesBegan(touches, with: event, scene: scene)
+    }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?, scene: LevelScene)
+    {
+        super.touchesMoved(touches, with: event, scene: scene)
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?, scene: LevelScene)
+    {
+        moveTaskbot()
     }
 }
 
