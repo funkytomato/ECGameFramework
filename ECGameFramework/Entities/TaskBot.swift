@@ -182,6 +182,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         
         switch mandate
         {
+            // Player has created a path for the TaskBot to follow
             case .playerMovedTaskBot:
                 let pathPoints = self.playerPathPoints
                 radius = GameplayConfiguration.TaskBot.patrolPathRadius
@@ -190,7 +191,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 debugPathShouldCycle = true
                 debugColor = SKColor.white
             
+                //startAnimation()
             
+            // TaskBots will follow either a good or bad patrol path
             case .followGoodPatrolPath, .followBadPatrolPath:
                 let pathPoints = isProtestor ? goodPathPoints : badPathPoints
                 radius = GameplayConfiguration.TaskBot.patrolPathRadius
@@ -201,6 +204,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 debugPathShouldCycle = true
                 debugColor = isProtestor ? SKColor.green : SKColor.purple
             
+            // Protestors will crowd together if of the same temperament
             case .crowd:
                 // Who will crowd with who, only calm people for now
                 let temperament = "Calm"
@@ -208,16 +212,19 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 (agentBehavior, debugPathPoints) = TaskBotBehavior.crowdBehaviour(forAgent: agent, pathRadius: radius, temperament: temperament, inScene: levelScene)
                 debugColor = SKColor.orange
             
+            // TaskBot is hunting another TaskBot
             case let .huntAgent(taskBot):
                 radius = GameplayConfiguration.TaskBot.huntPathRadius
                 (agentBehavior, debugPathPoints) = TaskBotBehavior.huntBehaviour(forAgent: agent, huntingAgent: taskBot, pathRadius: radius, inScene: levelScene)
                 debugColor = SKColor.red
 
+            // Return TaskBot to a position on a path
             case let .returnToPositionOnPath(position):
                 radius = GameplayConfiguration.TaskBot.returnToPatrolPathRadius
                 (agentBehavior, debugPathPoints) = TaskBotBehavior.returnToPathBehaviour(forAgent: agent, returningToPoint: position, pathRadius: radius, inScene: levelScene)
                 debugColor = SKColor.yellow
             
+            // TaskBot is wandering around the scene
             case .wander:
                 radius = GameplayConfiguration.TaskBot.wanderPathRadius
                 (agentBehavior, debugPathPoints)  = TaskBotBehavior.wanderBehaviour(forAgent: agent, inScene: levelScene)
@@ -235,11 +242,13 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 (agentBehavior, debugPathPoints) = TaskBotBehavior.returnToPathBehaviour(forAgent: agent, returningToPoint: levelScene.meatWagonLocation(), pathRadius: radius, inScene: levelScene)
                 debugColor = SKColor.brown
             
+            // TaskBot is scared and running away
             case let .fleeAgent(taskBot):
                 radius = GameplayConfiguration.TaskBot.fleePathRadius
                 (agentBehavior, debugPathPoints) = TaskBotBehavior.fleeBehaviour(forAgent: agent, fromAgent: taskBot, inScene: levelScene)
                 debugColor = SKColor.purple
             
+            // TaskBot is violent and being attacked, fight back
             case let .retaliate(taskBot):
                 radius = GameplayConfiguration.TaskBot.huntPathRadius
                 (agentBehavior, debugPathPoints) = TaskBotBehavior.retaliateBehaviour(forAgent: agent, huntingAgent: taskBot, pathRadius: radius, inScene: levelScene)
@@ -473,54 +482,17 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         // A Series of situation in which we prefer to Flee from a 'TaskBot'
         let fleeTaskBotRaw = [
         
-            // A "Dangerous" Taskbot is nearby AND "nearest Protestor is far away"
-          /*
-            ruleSystem.minimumGrade(forFacts: [
-                Fact.dangerousTaskBotNear.rawValue as AnyObject,
-                Fact.protestorTaskBotFar.rawValue as AnyObject
-                ]),
-            
-            // A "Dangerous" Taskbot is nearby AND "Police presence is low"
-            ruleSystem.minimumGrade(forFacts: [
-                Fact.dangerousTaskBotNear.rawValue as AnyObject,
-                Fact.policeTaskBotPercentageLow.rawValue as AnyObject
-                ]),
-            
-            // "High percentage of Dangerous Taskbots" AND "High Percentage of Police"
-            ruleSystem.minimumGrade(forFacts: [
-                Fact.dangerousTaskBotPercentageHigh.rawValue as AnyObject,
-                Fact.policeTaskBotPercentageHigh.rawValue as AnyObject
-                ]),
-            
-            // "High percentage of Dangerous Taskbots" AND "Medium Percentage of Police"
-            ruleSystem.minimumGrade(forFacts: [
-                Fact.dangerousTaskBotPercentageHigh.rawValue as AnyObject,
-                Fact.policeTaskBotPercentageMedium.rawValue as AnyObject
-            ]),
-            */
-            
             // "Police nearby" AND "Dangerous Protestors nearby"
             ruleSystem.minimumGrade(forFacts: [
-                Fact.policeBotNear.rawValue as AnyObject
-                ])/*,
-            
-            // "Police nearby" AND "Dangerous Protestors nearby"
-            ruleSystem.minimumGrade(forFacts: [
-                Fact.policeBotMedium.rawValue as AnyObject
-                ]),
-            
-            // "Police far away" AND "Dangerous Protestors nearby"
-            ruleSystem.minimumGrade(forFacts: [
-                Fact.policeBotFar.rawValue as AnyObject
-            ])
- */
+                Fact.policeBotNear.rawValue as AnyObject,
+                Fact.dangerousTaskBotNear.rawValue as AnyObject
+                ])
         ]
         
         
         let fleeDangerousTaskBot = fleeTaskBotRaw.reduce(0.0, max)
         print("fleeDangerousTaskBot: \(fleeDangerousTaskBot.description), fleeTaskBotRaw: \(fleeTaskBotRaw.description) ")
       
-        
         
         // A series of situations in which we prefer this `TaskBot` to hunt the player.
         let huntPlayerBotRaw = [
@@ -529,37 +501,6 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 Fact.policeTaskBotPercentageHigh.rawValue as AnyObject,
                 Fact.playerBotNear.rawValue as AnyObject
             ])
-            
-            /*
-                There are already a lot of Police `TaskBot`s on the level, and the
-                player is nearby, so hunt the player.
-            */
-/*
-            // "Number of Police `TaskBot`s is medium" AND "Player is nearby".
-            ruleSystem.minimumGrade(forFacts: [
-  //              Fact.policeTaskBotPercentageMedium.rawValue as AnyObject//,
- //               Fact.playerBotNear.rawValue as AnyObject
-            ]),
-            /*
-                There are already a reasonable number of Police `TaskBots` on the level,
-                and the player is nearby, so hunt the player.
-            */
-            
-            /*
-                "Number of Police TaskBots is high" AND "Player is at medium proximity"
-                AND "nearest Protestor `TaskBot` is at medium proximity".
-            */
-            ruleSystem.minimumGrade(forFacts: [
- //               Fact.policeTaskBotPercentageHigh.rawValue as AnyObject,
- //               Fact.playerBotMedium.rawValue as AnyObject,
- //               Fact.protestorTaskBotMedium.rawValue as AnyObject
-            ]),
-            /* 
-                There are already a lot of Police `TaskBot`s on the level, so even though
-                both the player and the nearest Protestor TaskBot are at medium proximity,
-                prefer the player for hunting.
-            */
- */
         ]
 
         // Find the maximum of the minima from above.
@@ -733,13 +674,10 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             {
                 case .wander:
                     // The taskbot is already wandering, so no update is needed
-                    //mandate = .wander
-                    
                     break;
                 
                 case .playerMovedTaskBot:
                     // The taskbot is already on the player designated path, so no update is needed
-                    
                     break
                 
                 case .followGoodPatrolPath:
@@ -877,7 +815,6 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
     }
     
     // MARK: Shared Assets
-    
     class func loadSharedAssets()
     {
         ColliderType.definedCollisions[.TaskBot] = [
@@ -925,8 +862,6 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             //Get the current position of the user's finger
             let touchLocation = touch.location(in: scene)
             
-            
-            
             //Calculate how far the user’s finger has moved both horizontally and vertically from its starting position
             //fabsf returns absolute value of float
             let deltaX = fabsf(Float(self.gestureStartPoint.x - touchLocation.x));
@@ -936,7 +871,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             //without having moved too far in the other to constitute a swipe.
             
             let kMinimumGestureLength: Float = 10.0
-            let kMaximumVariance: Float = 50.0
+            let kMaximumVariance: Float = 100.0
             
             if (deltaX >= kMinimumGestureLength && deltaY <= kMaximumVariance)
             {
@@ -964,5 +899,28 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         playerPathPoints.append(location)
         
         print("playerPathPoints: \(playerPathPoints.count)")
+    }
+    
+    func startAnimation()
+    {
+        let expandAction = SKAction.scale(to: 1.5, duration: 0.33)
+        let contractAction = SKAction.scale(to: 0.7, duration: 0.33)
+        let pulsateAction = SKAction.repeatForever(
+            SKAction.sequence([expandAction, contractAction]))
+        
+        guard let animationComponent = self.component(ofType: AnimationComponent.self) else { return }
+        animationComponent.node.run(pulsateAction)
+        
+        //guard let spriteComponent = self.component(ofType: SpriteComponent.self) else { return }
+        //spriteComponent.node.run(pulsateAction)
+    }
+    
+    func stopAnimation()
+    {
+        guard let animationComponent = self.component(ofType: AnimationComponent.self) else { return }
+        animationComponent.node.removeAllActions()
+        
+        //guard let spriteComponent = self.component(ofType: SpriteComponent.self) else { return }
+        //spriteComponent.node.removeAllActions()
     }
 }
