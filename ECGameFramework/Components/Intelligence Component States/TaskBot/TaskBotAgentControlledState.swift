@@ -80,6 +80,7 @@ class TaskBotAgentControlledState: GKState
                 if case .playerMovedTaskBot = entity.mandate, entity.distanceToPoint(otherPoint: float2(lastPos)) <= GameplayConfiguration.TaskBot.thresholdProximityToPatrolPathStartPoint
                 {
                     entity.mandate = .wander
+                    entity.stopAnimation()
                 }
                 else
                 {
