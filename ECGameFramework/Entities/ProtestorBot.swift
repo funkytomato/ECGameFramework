@@ -18,20 +18,18 @@ import GameplayKit
 class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate, ResourceLoadableType
 {
     
-
-    
     // MARK: Static Properties
     
     var texture = SKTexture()
     
-    /// The size to use for the `PoliceBot`s animation textures.
+    // The size to use for the `PoliceBot`s animation textures.
     static var textureSize = CGSize(width: 50.0, height: 50.0)
     
     
-    /// The size to use for the `PoliceBot`'s shadow texture.
-    //static var shadowSize = CGSize(width: 50.0, height: 10.0)
+    // The size to use for the `PoliceBot`'s shadow texture.
+    // static var shadowSize = CGSize(width: 50.0, height: 10.0)
     
-    /// The actual texture to use for the `PoliceBot`'s shadow.
+    // The actual texture to use for the `PoliceBot`'s shadow.
     static var shadowTexture: SKTexture = {
         let shadowAtlas = SKTextureAtlas(named: "Shadows")
         return shadowAtlas.textureNamed("GroundBotShadow")
@@ -283,46 +281,6 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
                 break
         }
     }
-    
-    func hunt()
-    {
-        
-        /*
-         A `PoliceBot` will attack a location in the scene if the following conditions are met:
-         1) Enough time has elapsed since the `PoliceBot` last attacked a target.
-         2) The `PoliceBot` is hunting a target.
-         3) The target is within the `PoliceBot`'s attack range.
-         4) There is no scenery between the `PoliceBot` and the target.
-         */
-        guard let scene = component(ofType: RenderComponent.self)?.node.scene else { return }
-        guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
-        guard let agentControlledState = intelligenceComponent.stateMachine.currentState as? TaskBotAgentControlledState else { return }
-        
-        // 1) Check if enough time has passed since the `PoliceBot`'s last attack.
-        guard agentControlledState.elapsedTime >= GameplayConfiguration.ProtestorBot.delayBetweenAttacks else { return }
-        
-        // 2) Check if the current mandate is to hunt an agent.
-        guard case let .huntAgent(targetAgent) = mandate else { return }
-        
-        // 3) Check if the target is within the `PoliceBot`'s attack range.
-        guard distanceToAgent(otherAgent: targetAgent) <= GameplayConfiguration.ProtestorBot.maximumAttackDistance else { return }
-        
-        // 4) Check if any walls or obstacles are between the `ProtestorBot` and its hunt target position.
-        var hasLineOfSight = true
-        
-        scene.physicsWorld.enumerateBodies(alongRayStart: CGPoint(agent.position), end: CGPoint(targetAgent.position)) { body, _, _, stop in
-            if ColliderType(rawValue: body.categoryBitMask).contains(.Obstacle) {
-                hasLineOfSight = false
-                stop.pointee = true
-            }
-        }
-        
-        if !hasLineOfSight { return }
-        
-        // The `ProtestorBot` is ready to attack the `targetAgent`'s current position.
-        targetPosition = targetAgent.position
-        intelligenceComponent.stateMachine.enter(ProtestorBotRotateToAttackState.self)
-    }
 
     
     // MARK: Resistance Component Delegate
@@ -443,6 +401,10 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
     {
         //Set the mandate to move along path
         mandate = .playerMovedTaskBot
+        
+        startAnimation()
+        
+        print("playerpathPoints: \(playerPathPoints.count)")
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?, scene: LevelScene)
