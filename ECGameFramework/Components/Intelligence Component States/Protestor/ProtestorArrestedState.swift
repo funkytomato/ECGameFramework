@@ -61,15 +61,7 @@ class ProtestorArrestedState: GKState
         
         self.entity.isActive = false
         
-        /*
-        // Apply damage to any entities the `GroundBot` is already in contact with.
-        let contactedBodies = physicsComponent.physicsBody.allContactedBodies()
-        for contactedBody in contactedBodies
-        {
-            guard let entity = contactedBody.node?.entity else { continue }
-            applyCuffsToEntity(entity: entity)
-        }
-        */
+        self.entity.isArrested = true
     }
     
     override func update(deltaTime seconds: TimeInterval)
@@ -78,13 +70,20 @@ class ProtestorArrestedState: GKState
         
         elapsedTime += seconds
         
+        
+        
         /*
+        Move the Protestor to the meatwagon
         If the arrested manbot reaches the meatwagon pointer, move to detained state
         */
+        
+ /*
+         we are now moving the protestor using lockup mandate, when close proximity set to detained
         if elapsedTime >= GameplayConfiguration.TaskBot.arrestedStateDuration
         {
             stateMachine?.enter(ProtestorDetainedState.self)
         }
+ */
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
