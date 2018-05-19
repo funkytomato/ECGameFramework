@@ -148,6 +148,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
     //Is the taskbot scared and likely to flee?
     var isScared: Bool
     
+    // Is the taskbot arrested?
+    var isArrested: Bool
+    
     //Is the taskbot fighting back?
     var isRetaliating: Bool
     
@@ -335,6 +338,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         
         // Whether or not the taskbot is retaliating
         self.isRetaliating = false
+        
+        // Whether or not the protestor is arrested
+        self.isArrested = false
 
         // The locations of the points that define the `TaskBot`'s "good" and "bad" patrol paths.
         self.goodPathPoints = goodPathPoints
@@ -623,8 +629,16 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         print("attackPoliceBot: \(attackPoliceBot)")
         
         
+        // Protestor is arrested and should be moved to the meatwagaon
+        if self.isArrested
+        {
+            print("Moving prisoner to meatwagon")
+            
+            mandate = .lockupPrisoner
+        }
+        
         // Taskbot is scared and a Dangerous or Police Bot is nearby, leg it
-        if self.isScared && fleeDangerousTaskBot > 0
+        else if self.isScared && fleeDangerousTaskBot > 0
         {
             print("Fleeing from dangerous or police")
             
