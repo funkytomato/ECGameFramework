@@ -166,18 +166,6 @@ class ProtestorBotAttackState: GKState
             healthComponent.loseHealth(healthToLose: GameplayConfiguration.ManBot.chargeLossPerContact)
             
             self.entity.isRetaliating = false
-            
-            //intelligenceComponent.stateMachine.enter(PoliceArrestState.self)
-            
-            //Move state to being Arrested
-            //guard let protestorIntelligenceComponent = entity.component(ofType: IntelligenceComponent.self) else { return }
-            
-            
-            //protestorIntelligenceComponent.stateMachine.enter(BeingArrestedState.self)
-            
-
-            // If the other entity is a good `TaskBot`, turn it bad.
-            //taskBot.isGood = false
         }
     }
 }
