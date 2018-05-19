@@ -62,6 +62,8 @@ class ProtestorDetainedState: GKState
     {
         super.update(deltaTime: seconds)
         
+        
+        
         elapsedTime += seconds
         
         /*
@@ -73,8 +75,8 @@ class ProtestorDetainedState: GKState
     {
         switch stateClass
         {
-        case is TaskBotAgentControlledState.Type:
-            return true
+//        case is TaskBotAgentControlledState.Type:
+//            return true
             
         default:
             return false
