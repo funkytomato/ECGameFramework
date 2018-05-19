@@ -204,6 +204,8 @@ struct GameplayConfiguration
         /// The duration of a `TaskBot`'s resistance cooldown state.
         static let resistanceCooldownDuration: TimeInterval = 5
         
+        /// How close a `TaskBot` has to be to meatwagon point in order to be locked up
+        static let thresholdProximityToMeatwagonPoint: Float = 50.0
         
     }
     
