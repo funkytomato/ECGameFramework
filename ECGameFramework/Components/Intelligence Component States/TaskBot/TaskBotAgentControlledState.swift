@@ -18,6 +18,8 @@ class TaskBotAgentControlledState: GKState
     // The amount of time that has passed since the `TaskBot` became agent-controlled.
     var elapsedTime: TimeInterval = 0.0
     
+    var destination: float2 = [0.0,0.0]
+    
     // The amount of time that has passed since the `TaskBot` last determined an appropriate behavior.
     var timeSinceBehaviorUpdate: TimeInterval = 0.0
     
@@ -53,6 +55,9 @@ class TaskBotAgentControlledState: GKState
         
         self.entity.isDangerous = false
         
+        guard let renderComponent = entity.component(ofType: RenderComponent.self) else { return }
+        let scene = renderComponent.node.scene as? LevelScene
+        self.destination = (scene?.meatWagonLocation())!
     }
     
     override func update(deltaTime seconds: TimeInterval)
@@ -67,47 +72,58 @@ class TaskBotAgentControlledState: GKState
         if timeSinceBehaviorUpdate >= GameplayConfiguration.TaskBot.behaviorUpdateWaitDuration
         {
             
-            guard let renderComponent = entity.component(ofType: RenderComponent.self) else { return }
-            let scene = renderComponent.node.scene as? LevelScene
-            let destination = scene?.meatWagonLocation()
-            print("destination: \(destination?.debugDescription)")
-            
-            // When a `TaskBot` is moving along player path
-            if case .playerMovedTaskBot = entity.mandate
-            {
-                // print(entity.playerPathPoints.description)
-                
-                // Ensure we have a last position to check against, else dropout
-                guard let lastPos = entity.playerPathPoints.last else { return }
 
-                
-                // When a `TaskBot` is nearing path patrol end, and gets near enough, it should start to wander.
-                if case .playerMovedTaskBot = entity.mandate, entity.distanceToPoint(otherPoint: float2(lastPos)) <= GameplayConfiguration.TaskBot.thresholdProximityToPatrolPathStartPoint
-                {
-                    entity.mandate = .wander
-                    entity.stopAnimation()
-                }
-                
-                else
-                {
-                    entity.mandate = .playerMovedTaskBot
-                }
-            }
 
-            // When a `TaskBot` is close to the meatwagon, it should be removed from game
-            else if case .lockupPrisoner = entity.mandate, entity.distanceToPoint(otherPoint: destination!) <= GameplayConfiguration.TaskBot.thresholdProximityToMeatwagonPoint
+            
+            let mandate = entity.mandate
+            
+            switch mandate
             {
-                guard let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self) else { return }
-                intelligenceComponent.stateMachine.enter(ProtestorDetainedState.self)
-            }
+                // When a `TaskBot` is moving along player path
+                case .playerMovedTaskBot:
+                    // print(entity.playerPathPoints.description)
+                    
+                    // Ensure we have a last position to check against, else dropout
+                    guard let lastPos = entity.playerPathPoints.last else { return }
+                    
+                    
+                    // When a `TaskBot` is nearing path patrol end, and gets near enough, it should start to wander.
+                    if case .playerMovedTaskBot = entity.mandate, entity.distanceToPoint(otherPoint: float2(lastPos)) <= GameplayConfiguration.TaskBot.thresholdProximityToPatrolPathStartPoint
+                    {
+                        entity.mandate = .wander
+                        entity.stopAnimation()
+                    }
+                        
+                    else
+                    {
+                        entity.mandate = .playerMovedTaskBot
+                    }
+                    break
                 
+                // When a `TaskBot` is close to the meatwagon, it should be removed from game
+                case .lockupPrisoner:
+                    
+                    if entity.distanceToPoint(otherPoint: destination) <= GameplayConfiguration.TaskBot.thresholdProximityToMeatwagonPoint
+                    {
+                        guard let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self) else { return }
+                        intelligenceComponent.stateMachine.enter(ProtestorDetainedState.self)
+                    }
                 
-            // When a `TaskBot` is returning to its path patrol start, and gets near enough, it should start to patrol.
-            else if case let .returnToPositionOnPath(position) = entity.mandate, entity.distanceToPoint(otherPoint: position) <= GameplayConfiguration.TaskBot.thresholdProximityToPatrolPathStartPoint
-            {
-                entity.mandate = entity.isProtestor ? .followGoodPatrolPath : .followBadPatrolPath
+                    break
+                
+                // When a `TaskBot` is returning to its path patrol start, and gets near enough, it should start to patrol.
+                case let .returnToPositionOnPath(position):
+                    if entity.distanceToPoint(otherPoint: position) <= GameplayConfiguration.TaskBot.thresholdProximityToPatrolPathStartPoint
+                    {
+                        entity.mandate = entity.isProtestor ? .followGoodPatrolPath : .followBadPatrolPath
+                    }
+                    break
+                
+                default:
+                    break
             }
             
+
             print("Current behaviour mandate: \(entity.mandate)")
             
             // Ensure the agent's behavior is the appropriate behavior for its current mandate.
