@@ -67,6 +67,11 @@ class TaskBotAgentControlledState: GKState
         if timeSinceBehaviorUpdate >= GameplayConfiguration.TaskBot.behaviorUpdateWaitDuration
         {
             
+            guard let renderComponent = entity.component(ofType: RenderComponent.self) else { return }
+            let scene = renderComponent.node.scene as? LevelScene
+            let destination = scene?.meatWagonLocation()
+            print("destination: \(destination?.debugDescription)")
+            
             // When a `TaskBot` is moving along player path
             if case .playerMovedTaskBot = entity.mandate
             {
@@ -82,13 +87,21 @@ class TaskBotAgentControlledState: GKState
                     entity.mandate = .wander
                     entity.stopAnimation()
                 }
+                
                 else
                 {
                     entity.mandate = .playerMovedTaskBot
                 }
- 
             }
 
+            // When a `TaskBot` is close to the meatwagon, it should be removed from game
+            else if case .lockupPrisoner = entity.mandate, entity.distanceToPoint(otherPoint: destination!) <= GameplayConfiguration.TaskBot.thresholdProximityToMeatwagonPoint
+            {
+                guard let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self) else { return }
+                intelligenceComponent.stateMachine.enter(ProtestorDetainedState.self)
+            }
+                
+                
             // When a `TaskBot` is returning to its path patrol start, and gets near enough, it should start to patrol.
             else if case let .returnToPositionOnPath(position) = entity.mandate, entity.distanceToPoint(otherPoint: position) <= GameplayConfiguration.TaskBot.thresholdProximityToPatrolPathStartPoint
             {
