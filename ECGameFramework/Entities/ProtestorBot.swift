@@ -269,6 +269,9 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         
         switch mandate
         {
+            case .lockupPrisoner:
+                intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
+            
             case let .fleeAgent(targetAgent):
                intelligenceComponent.stateMachine.enter(TaskBotFleeState.self)
                targetPosition = targetAgent.position
