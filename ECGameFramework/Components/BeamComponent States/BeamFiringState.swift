@@ -152,7 +152,7 @@ class BeamFiringState: GKState
         beamComponent.beamNode.update(withBeamState: self, source: playerBot, target: target)
         
         // If the current target has been turned good, deactivate the beam and move to the idle state.
-        if let currentTarget = target, currentTarget.isProtestor
+        if let currentTarget = target, currentTarget.isGood
         {
             beamComponent.isTriggered = false
             stateMachine?.enter(BeamIdleState.self)
