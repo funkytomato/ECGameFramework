@@ -115,7 +115,7 @@ class TaskBotAgentControlledState: GKState
                 case let .returnToPositionOnPath(position):
                     if entity.distanceToPoint(otherPoint: position) <= GameplayConfiguration.TaskBot.thresholdProximityToPatrolPathStartPoint
                     {
-                        entity.mandate = entity.isProtestor ? .followGoodPatrolPath : .followBadPatrolPath
+                        entity.mandate = entity.isGood ? .followGoodPatrolPath : .followBadPatrolPath
                     }
                     break
                 

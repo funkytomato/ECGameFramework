@@ -157,7 +157,7 @@ class TazerFiringState: GKState
         tazerComponent.tazerNode.update(withWeaponState: self, source: taskBot, target: target)
         
         // If the current target has been turned good, deactivate the weapon and move to the idle state.
-        if let currentTarget = target, currentTarget.isProtestor
+        if let currentTarget = target, currentTarget.isGood
         {
             tazerComponent.isTriggered = false
             stateMachine?.enter(TazerIdleState.self)

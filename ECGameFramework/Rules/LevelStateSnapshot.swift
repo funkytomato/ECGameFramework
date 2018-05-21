@@ -112,7 +112,7 @@ class LevelStateSnapshot
             }
                 
             // The taskbot is an active protestor
-            else if thisTaskbot.isProtestor && thisTaskbot.isActive
+            else if thisTaskbot.isGood && thisTaskbot.isActive
             {
                 return (workingArrays.scaredTaskBots, workingArrays.dangerousTaskBots, workingArrays.protestorBots + [thisTaskbot], workingArrays.policeBots, workingArrays.injuredBots)
             }
@@ -124,7 +124,7 @@ class LevelStateSnapshot
             }
                 
             // The taskbot is a policeman
-            else if !thisTaskbot.isProtestor
+            else if !thisTaskbot.isGood
             {
                 return (workingArrays.scaredTaskBots, workingArrays.dangerousTaskBots, workingArrays.protestorBots, workingArrays.policeBots + [thisTaskbot], workingArrays.injuredBots)
             }
@@ -218,15 +218,15 @@ class EntitySnapshot
             {
                 nearestDangerousTaskBotTarget = (target: target, distance: entityDistance.distance)
             }
-            else if let target = entityDistance.target as? TaskBot, nearestProtestorTaskBotTarget == nil && target.isProtestor && target.isActive
+            else if let target = entityDistance.target as? TaskBot, nearestProtestorTaskBotTarget == nil && target.isGood && target.isActive
             {
                 nearestProtestorTaskBotTarget = (target: target, distance: entityDistance.distance)
             }
-            else if let target = entityDistance.target as? TaskBot, nearestScaredTaskBotTarget == nil && target.isProtestor && target.isActive
+            else if let target = entityDistance.target as? TaskBot, nearestScaredTaskBotTarget == nil && target.isGood && target.isActive
             {
                 nearestScaredTaskBotTarget = (target: target, distance: entityDistance.distance)
             }
-            else if let target = entityDistance.target as? TaskBot, nearestPoliceTaskBotTarget == nil && !target.isProtestor && target.isActive
+            else if let target = entityDistance.target as? TaskBot, nearestPoliceTaskBotTarget == nil && !target.isGood && target.isActive
             {
                 nearestPoliceTaskBotTarget = (target: target, distance: entityDistance.distance)
             }

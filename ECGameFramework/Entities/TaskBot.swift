@@ -62,12 +62,12 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
     // MARK: Properties
     
     /// Indicates whether or not the `TaskBot` is currently in a "good" (benevolent) or "bad" (adversarial) state.
-    var isProtestor: Bool
+    var isGood: Bool
     {
         didSet
         {
             // Do nothing if the value hasn't changed.
-            guard isProtestor != oldValue else { return }
+            guard isGood != oldValue else { return }
             
             // Get the components we will need to access in response to the value changing.
             guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { fatalError("TaskBots must have an intelligence component.") }
@@ -77,10 +77,10 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
 
             
             // Update the `TaskBot`'s speed and acceleration to suit the new value of `isGood`.
-            agent.maxSpeed = GameplayConfiguration.TaskBot.maximumSpeedForIsGood(isGood: isProtestor)
+            agent.maxSpeed = GameplayConfiguration.TaskBot.maximumSpeedForIsGood(isGood: isGood)
             agent.maxAcceleration = GameplayConfiguration.TaskBot.maximumAcceleration
 
-            if isProtestor
+            if isGood
             {
                 /*
                     The `TaskBot` just turned from "bad" to "good".
@@ -198,14 +198,14 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             
             // TaskBots will follow either a good or bad patrol path
             case .followGoodPatrolPath, .followBadPatrolPath:
-                let pathPoints = isProtestor ? goodPathPoints : badPathPoints
+                let pathPoints = isGood ? goodPathPoints : badPathPoints
                 radius = GameplayConfiguration.TaskBot.patrolPathRadius
                 agentBehavior = TaskBotBehavior.patrolBehaviour(forAgent: agent, patrollingPathWithPoints: pathPoints, pathRadius: radius, inScene: levelScene, cyclical: true)
                 debugPathPoints = pathPoints
                 
                 // Patrol paths are always closed loops, so the debug drawing of the path should cycle back round to the start.
                 debugPathShouldCycle = true
-                debugColor = isProtestor ? SKColor.green : SKColor.purple
+                debugColor = isGood ? SKColor.green : SKColor.purple
             
             // Protestors will crowd together if of the same temperament
             case .crowd:
@@ -322,7 +322,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         self.oldColour = SKColor.clear
         
         // Whether or not the `TaskBot` is "good" when first created.
-        self.isProtestor = isGood
+        self.isGood = isGood
         
         // Whether or not the 'TaskBot' is active, = healthy and not arrested or detained
         self.isActive = true
@@ -648,7 +648,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         }
         
         // Protestor TaskBot has been attacked and is now retaliating
-        else if self.isRetaliating && self.isProtestor
+        else if self.isRetaliating && self.isGood
         {
             print("Retaliating")
             guard let targetTaskbot = state.nearestPoliceTaskBotTarget?.target.agent else { return }
@@ -656,7 +656,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         }
 
         //TaskBot is Violent and Police are nearby, go fuck them up
-        else if self.isProtestor && self.isViolent && attackPoliceBot > 0
+        else if self.isGood && self.isViolent && attackPoliceBot > 0
         {
             print("Attacking Police")
             guard let dangerousTaskBot = state.nearestPoliceTaskBotTarget?.target.agent else { return }
@@ -664,7 +664,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         }
             
         // TaskBot is Police and active (alive) and a dangerous bot is detected, attack it
-        else if !self.isProtestor && isActive && huntDangerousProtestorBot > huntTaskBot
+        else if !self.isGood && isActive && huntDangerousProtestorBot > huntTaskBot
         {
             // The rules provided greater motivation to hunt the nearest Dangerous Protestor TaskBot. Ignore any motivation to hunt the PlayerBot.
             
@@ -674,7 +674,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         
         // PROBABLY DELETE THIS LATER
         // An active PoliceBot is near a Protestor, attack them
-        else if !isProtestor && isActive && huntTaskBot > huntPlayerBot
+        else if !isGood && isActive && huntTaskBot > huntPlayerBot
         {
             print("Hunt the nearest Protestor: \(state.nearestProtestorTaskBotTarget!.target.agent.debugDescription)")
             
