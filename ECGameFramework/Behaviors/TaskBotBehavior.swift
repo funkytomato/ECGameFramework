@@ -50,7 +50,7 @@ class TaskBotBehavior: GKBehavior
         
         // Find any nearby "protestor" TaskBots to flock with.
         let agentsToFlockWith: [GKAgent2D] = scene.entities.flatMap { entity in
-            if let taskBot = entity as? TaskBot, taskBot.isProtestor && taskBot.agent !== agent && taskBot.distanceToAgent(otherAgent: agent) <= GameplayConfiguration.Flocking.agentSearchDistanceForArrest
+            if let taskBot = entity as? TaskBot, taskBot.isGood && taskBot.agent !== agent && taskBot.distanceToAgent(otherAgent: agent) <= GameplayConfiguration.Flocking.agentSearchDistanceForArrest
             {
                 return taskBot.agent
             }
@@ -98,7 +98,7 @@ class TaskBotBehavior: GKBehavior
 
         // Find any nearby "bad" TaskBots to flock with.
         let agentsToFlockWith: [GKAgent2D] = scene.entities.flatMap { entity in
-            if let taskBot = entity as? TaskBot, !taskBot.isProtestor && taskBot.agent !== agent && taskBot.distanceToAgent(otherAgent: agent) <= GameplayConfiguration.Flocking.agentSearchDistanceForFlocking
+            if let taskBot = entity as? TaskBot, !taskBot.isGood && taskBot.agent !== agent && taskBot.distanceToAgent(otherAgent: agent) <= GameplayConfiguration.Flocking.agentSearchDistanceForFlocking
             {
                 return taskBot.agent
             }
@@ -257,7 +257,7 @@ class TaskBotBehavior: GKBehavior
         
         // Find any nearby "dangerous" protestor TaskBots to flock with.
         let agentsToFlockWith: [GKAgent2D] = scene.entities.flatMap { entity in
-            if let taskBot = entity as? TaskBot, taskBot.isProtestor && taskBot.isDangerous && taskBot.agent !== agent && taskBot.distanceToAgent(otherAgent: agent) <= GameplayConfiguration.Flocking.agentSearchDistanceForFlocking
+            if let taskBot = entity as? TaskBot, taskBot.isGood && taskBot.isDangerous && taskBot.agent !== agent && taskBot.distanceToAgent(otherAgent: agent) <= GameplayConfiguration.Flocking.agentSearchDistanceForFlocking
             {
                 return taskBot.agent
             }
