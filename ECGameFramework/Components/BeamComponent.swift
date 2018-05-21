@@ -134,7 +134,7 @@ class BeamComponent: GKComponent
             
             // Filter out entities that aren't "bad" `TaskBot`s with a `RenderComponent`.
             guard let taskBotNode = taskBot.component(ofType: RenderComponent.self)?.node else { return false }
-            if taskBot.isProtestor
+            if taskBot.isGood
             {
                 return false
             }
