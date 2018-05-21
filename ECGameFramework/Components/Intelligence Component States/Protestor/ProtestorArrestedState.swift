@@ -108,7 +108,7 @@ class ProtestorArrestedState: GKState
             // If the other entity is a `PlayerBot` that isn't powered down, reduce its charge.
             chargeComponent.loseCharge(chargeToLose: GameplayConfiguration.ManBot.chargeLossPerContact)
         }
-        else if let protestorBot = entity as? ProtestorBot, protestorBot.isProtestor, let temperamentComponent = entity.component(ofType: TemperamentComponent.self)
+        else if let protestorBot = entity as? ProtestorBot, protestorBot.isGood, let temperamentComponent = entity.component(ofType: TemperamentComponent.self)
         {
             temperamentComponent.stateMachine.enter(SubduedState.self)
         }

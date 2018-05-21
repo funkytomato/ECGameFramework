@@ -153,7 +153,7 @@ class PoliceDetainState: GKState
             // If the other entity is a `PlayerBot` that isn't powered down, reduce its charge.
             chargeComponent.loseCharge(chargeToLose: GameplayConfiguration.ManBot.chargeLossPerContact)
         }
-        else if let taskBot = entity as? TaskBot, taskBot.isProtestor
+        else if let taskBot = entity as? TaskBot, taskBot.isGood
         {
             //Move state to being Arrested
             guard let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self) else { return }

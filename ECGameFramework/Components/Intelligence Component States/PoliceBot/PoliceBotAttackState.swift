@@ -161,7 +161,7 @@ class PoliceBotAttackState: GKState
             chargeComponent.loseCharge(chargeToLose: GameplayConfiguration.PoliceBot.chargeLossPerContact)
         }
             
-        else if let protestorBot = entity as? ProtestorBot, protestorBot.isProtestor, let healthComponent = protestorBot.component(ofType: HealthComponent.self)
+        else if let protestorBot = entity as? ProtestorBot, protestorBot.isGood, let healthComponent = protestorBot.component(ofType: HealthComponent.self)
         {
             guard let resistanceComponent = protestorBot.component(ofType: ResistanceComponent.self) else { return }
             guard let intelligenceComponent = protestorBot.component(ofType: IntelligenceComponent.self) else { return }
