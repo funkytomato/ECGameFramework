@@ -80,7 +80,7 @@ class TaskBotInjuredState: GKState
         temperamentComponent.stateMachine.enter(SubduedState.self)
         
         entity.isActive = false
-        
+        entity.isInjured = true
         entity.isScared = false
     }
     
