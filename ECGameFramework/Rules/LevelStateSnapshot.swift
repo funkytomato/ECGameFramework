@@ -117,25 +117,25 @@ class LevelStateSnapshot
             }
                 
             // The taskbot is an active protestor
-            else if thisTaskbot.isGood && thisTaskbot.isActive
+            else if thisTaskbot.isProtestor && thisTaskbot.isActive
             {
                 return (workingArrays.criminalTaskBots, workingArrays.scaredTaskBots, workingArrays.dangerousTaskBots, workingArrays.protestorBots + [thisTaskbot], workingArrays.policeBots, workingArrays.injuredBots)
             }
                 
             // The taskbot has become incapacitated or injured
-            else if !thisTaskbot.isActive
+            else if thisTaskbot.isInjured && !thisTaskbot.isActive
             {
                 return (workingArrays.criminalTaskBots, workingArrays.scaredTaskBots, workingArrays.dangerousTaskBots, workingArrays.protestorBots, workingArrays.policeBots, workingArrays.injuredBots + [thisTaskbot])
             }
                 
             // The taskbot is a policeman
-            else if !thisTaskbot.isGood // && isPolice
+            else if thisTaskbot.isPolice // && isPolice
             {
                 return (workingArrays.criminalTaskBots, workingArrays.scaredTaskBots, workingArrays.dangerousTaskBots, workingArrays.protestorBots, workingArrays.policeBots + [thisTaskbot], workingArrays.injuredBots)
             }
             
             // The taskbot is a Criminal
-            else if !thisTaskbot.isGood // && isCriminal
+            else if thisTaskbot.isCriminal // && isCriminal
             {
                 return (workingArrays.criminalTaskBots  + [thisTaskbot], workingArrays.scaredTaskBots, workingArrays.dangerousTaskBots, workingArrays.protestorBots, workingArrays.policeBots, workingArrays.injuredBots)
             }
@@ -255,23 +255,23 @@ class EntitySnapshot
             {
                 nearestDangerousTaskBotTarget = (target: target, distance: entityDistance.distance)
             }
-            else if let target = entityDistance.target as? TaskBot, nearestProtestorTaskBotTarget == nil && target.isGood && target.isActive
+            else if let target = entityDistance.target as? TaskBot, nearestProtestorTaskBotTarget == nil && target.isProtestor && target.isActive
             {
                 nearestProtestorTaskBotTarget = (target: target, distance: entityDistance.distance)
             }
-            else if let target = entityDistance.target as? TaskBot, nearestScaredTaskBotTarget == nil && target.isGood && target.isActive
+            else if let target = entityDistance.target as? TaskBot, nearestScaredTaskBotTarget == nil && target.isProtestor && target.isScared && target.isActive
             {
                 nearestScaredTaskBotTarget = (target: target, distance: entityDistance.distance)
             }
-            else if let target = entityDistance.target as? TaskBot, nearestPoliceTaskBotTarget == nil && !target.isGood && target.isActive
+            else if let target = entityDistance.target as? TaskBot, nearestPoliceTaskBotTarget == nil && target.isPolice && target.isActive
             {
                 nearestPoliceTaskBotTarget = (target: target, distance: entityDistance.distance)
             }
-            else if let target = entityDistance.target as? TaskBot, nearestCriminalTaskBotTarget == nil && !target.isGood && target.isActive // && isCriminal (isBad gets confused with PoliceBot
+            else if let target = entityDistance.target as? TaskBot, nearestCriminalTaskBotTarget == nil && target.isCriminal && target.isActive // && isCriminal (isBad gets confused with PoliceBot
             {
                 nearestCriminalTaskBotTarget = (target: target, distance: entityDistance.distance)
             }
-            else if let target = entityDistance.target as? TaskBot, nearestInjuredTaskBotTarget == nil && target.isGood && !target.isActive // && isCriminal (isBad gets confused with PoliceBot
+            else if let target = entityDistance.target as? TaskBot, nearestInjuredTaskBotTarget == nil && target.isInjured && !target.isActive // && isCriminal (isBad gets confused with PoliceBot
             {
                 nearestInjuredTaskBotTarget = (target: target, distance: entityDistance.distance)
             }
