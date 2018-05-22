@@ -79,7 +79,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         // TaskBot is Protestor
         if isGood
         {
-            
+            self.isProtestor = true
             self.isCriminal = false
             
             guard let goodAnimations = ProtestorBot.goodAnimations else {
@@ -95,8 +95,8 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         // TaskBot is a criminal
         else
         {
-            //Protestor will do criminal activities
-            self.isCriminal = true
+            self.isProtestor = true
+            self.isCriminal = true              //Protestor will do criminal activities
             
             guard let badAnimations = ProtestorBot.badAnimations else {
                 fatalError("Attempt to access ProtestorBot.badAnimations before they have been loaded.")
