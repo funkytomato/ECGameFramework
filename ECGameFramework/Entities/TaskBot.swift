@@ -154,6 +154,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
     //Is the taskbot fighting back?
     var isRetaliating: Bool
     
+    //Is the taskbot criminal?
+    var isCriminal: Bool
+    
     /// The aim that the `TaskBot` is currently trying to achieve.
     var mandate: TaskBotMandate
     
@@ -341,6 +344,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         
         // Whether or not the protestor is arrested
         self.isArrested = false
+        
+        // Whether or not the protestor is criminal
+        self.isCriminal = false
 
         // The locations of the points that define the `TaskBot`'s "good" and "bad" patrol paths.
         self.goodPathPoints = goodPathPoints
@@ -391,8 +397,19 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             PoliceTaskBotPercentageHighRule(),
             PoliceBotNearRule(),
             PoliceBotMediumRule(),
-            PoliceBotFarRule()
-            
+            PoliceBotFarRule(),
+            CriminalTaskBotPercentageLowRule(),
+            CriminalTaskBotPercentageMediumRule(),
+            CriminalTaskBotPercentageHighRule(),
+            CriminalTaskBotNearRule(),
+            CriminalTaskBotMediumRule(),
+            CriminalTaskBotFarRule(),
+            InjuredTaskBotPercentageLowRule(),
+            InjuredTaskBotPercentageMediumRule(),
+            InjuredTaskBotPercentageHighRule(),
+            InjuredTaskBotNearRule(),
+            InjuredTaskBotMediumRule(),
+            InjuredTaskBotFarRule()
         ])
         addComponent(rulesComponent)
         rulesComponent.delegate = self
