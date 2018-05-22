@@ -76,8 +76,10 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         let initialResistance: Double
         let initialHealth: Double
         
+        // TaskBot is Protestor
         if isGood
         {
+            
             self.isCriminal = false
             
             guard let goodAnimations = ProtestorBot.goodAnimations else {
@@ -89,6 +91,8 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             
             texture = SKTexture(imageNamed: "ProtestorBot")
         }
+            
+        // TaskBot is a criminal
         else
         {
             //Protestor will do criminal activities
