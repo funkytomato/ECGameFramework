@@ -39,7 +39,6 @@ class PoliceBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
         {
             if !healthComponent.hasHealth
             {
-                isAlive = false
                 intelligenceComponent.stateMachine.enter(PoliceBotRechargingState.self)
             }
             else
@@ -77,7 +76,7 @@ class PoliceBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
     static var badAnimations: [AnimationState: Animation]?
     
     var tazerPoweredDown = false
-    var isAlive = true
+
     
     // MARK: TaskBot Properties
     
@@ -103,6 +102,9 @@ class PoliceBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
     {
         super.init(isGood: isGood, goodPathPoints: goodPathPoints, badPathPoints: badPathPoints)
         
+        //TaskBot is Police
+        self.isPolice = true
+        
         // Determine initial animations and charge based on the initial state of the bot.
         let initialAnimations: [AnimationState: Animation]
 //        let initialCharge: Double
@@ -110,8 +112,7 @@ class PoliceBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
         
         if isGood
         {
-            self.isCriminal = false
-            
+
             guard let goodAnimations = PoliceBot.goodAnimations else {
                 fatalError("Attempt to access PoliceBot.goodAnimations before they have been loaded.")
             }
@@ -123,7 +124,7 @@ class PoliceBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
         }
         else
         {
-            self.isCriminal = false
+
             
             guard let badAnimations = PoliceBot.badAnimations else {
                 fatalError("Attempt to access PoliceBot.badAnimations before they have been loaded.")
