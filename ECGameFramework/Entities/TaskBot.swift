@@ -157,6 +157,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
     //Is the taskbot criminal?
     var isCriminal: Bool
     
+    //Is the taskbot police?
+    var isPolice: Bool
+    
     /// The aim that the `TaskBot` is currently trying to achieve.
     var mandate: TaskBotMandate
     
@@ -347,6 +350,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         
         // Whether or not the protestor is criminal
         self.isCriminal = false
+        
+        // Whether or not the taskbot is Police
+        self.isPolice = false
 
         // The locations of the points that define the `TaskBot`'s "good" and "bad" patrol paths.
         self.goodPathPoints = goodPathPoints
@@ -893,7 +899,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             //Get the current position of the user's finger
             let touchLocation = touch.location(in: scene)
             
-            //Calculate how far the user’s finger has moved both horizontally and vertically from its starting position
+            //Calculate how far the user’s finger has moved both horizontally and vertically from previous position
             //fabsf returns absolute value of float
             let deltaX = fabsf(Float(self.gestureStartPoint.x - touchLocation.x));
             let deltaY = fabsf(Float(self.gestureStartPoint.y - touchLocation.y));
@@ -916,9 +922,8 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 recordPlayerPath(location: touchLocation)
             }
             
+            //Set the previous position to current position
             self.gestureStartPoint = touchLocation
-            
-            //recordPlayerPath(location: touchLocation)
         }
     }
     
