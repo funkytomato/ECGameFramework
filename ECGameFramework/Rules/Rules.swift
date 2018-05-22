@@ -69,6 +69,26 @@ enum Fact: String
     case scaredTaskBotNear = "ScaredTaskBotNear"
     case scaredTaskBotMedium = "ScaredTaskBotMedium"
     case scaredTaskBotFar = "ScaredTaskBotFar"
+
+    // Fuzzy rules pertaining to the proportion of "Criminal" bots in the level.
+    case criminalTaskBotPercentageLow = "CriminalTaskBotPercentageLow"
+    case criminalTaskBotPercentageMedium = "CriminalTaskBotPercentageMedium"
+    case criminalTaskBotPercentageHigh = "CriminalTaskBotPercentageHigh"
+    
+    // Fuzzy rules pertaining to this `TaskBot`'s proximity to the nearest "Criminal" `TaskBot`.
+    case criminalTaskBotNear = "CriminalTaskBotNear"
+    case criminalTaskBotMedium = "CriminalTaskBotMedium"
+    case criminalTaskBotFar = "CriminalTaskBotFar"
+    
+    // Fuzzy rules pertaining to the proportion of "Injured" bots in the level.
+    case injuredTaskBotPercentageLow = "InjuredTaskBotPercentageLow"
+    case injuredTaskBotPercentageMedium = "InjuredTaskBotPercentageMedium"
+    case injuredTaskBotPercentageHigh = "InjuredTaskBotPercentageHigh"
+    
+    // Fuzzy rules pertaining to this `TaskBot`'s proximity to the nearest "Injured" `TaskBot`.
+    case injuredTaskBotNear = "InjuredTaskBotNear"
+    case injuredTaskBotMedium = "InjuredTaskBotMedium"
+    case injuredTaskBotFar = "InjuredTaskBotFar"
 }
 
 /// Asserts whether the number of "bad" `TaskBot`s is considered "low".
@@ -437,4 +457,106 @@ class ScaredTaskBotFarRule: FuzzyTaskBotRule
     // MARK: Initializers
     
     init() { super.init(fact: .scaredTaskBotFar) }
+}
+
+/// Asserts whether the nearest "Criminal" `TaskBot` is considered to be "near" to this `TaskBot`.
+class CriminalTaskBotNearRule: FuzzyTaskBotRule
+{
+    // MARK: Properties
+    
+    override func grade() -> Float
+    {
+        guard let distance = snapshot.nearestCriminalTaskBotTarget?.distance else { return 0.0 }
+        let oneThird = snapshot.proximityFactor / 3
+        return (oneThird - distance) / oneThird
+    }
+    
+    // MARK: Initializers
+    
+    init() { super.init(fact: .criminalTaskBotNear) }
+}
+
+/// Asserts whether the nearest "Criminal" `TaskBot` is considered to be at a "medium" distance from this `TaskBot`.
+class CriminalTaskBotMediumRule: FuzzyTaskBotRule
+{
+    // MARK: Properties
+    
+    override func grade() -> Float
+    {
+        guard let distance = snapshot.nearestCriminalTaskBotTarget?.distance else { return 0.0 }
+        let oneThird = snapshot.proximityFactor / 3
+        return 1 - (fabs(distance - oneThird) / oneThird)
+    }
+    
+    // MARK: Initializers
+    
+    init() { super.init(fact: .criminalTaskBotMedium) }
+}
+
+/// Asserts whether the nearest "Criminal" `TaskBot` is considered to be "far" from this `TaskBot`.
+class CriminalTaskBotFarRule: FuzzyTaskBotRule
+{
+    // MARK: Properties
+    
+    override func grade() -> Float
+    {
+        guard let distance = snapshot.nearestCriminalTaskBotTarget?.distance else { return 0.0 }
+        let oneThird = snapshot.proximityFactor / 3
+        return (distance - oneThird) / oneThird
+    }
+    
+    // MARK: Initializers
+    
+    init() { super.init(fact: .criminalTaskBotFar) }
+}
+
+/// Asserts whether the nearest "Injured" `TaskBot` is considered to be "near" to this `TaskBot`.
+class InjuredTaskBotNearRule: FuzzyTaskBotRule
+{
+    // MARK: Properties
+    
+    override func grade() -> Float
+    {
+        guard let distance = snapshot.nearestInjuredTaskBotTarget?.distance else { return 0.0 }
+        let oneThird = snapshot.proximityFactor / 3
+        return (oneThird - distance) / oneThird
+    }
+    
+    // MARK: Initializers
+    
+    init() { super.init(fact: .injuredTaskBotNear) }
+}
+
+/// Asserts whether the nearest "Injured" `TaskBot` is considered to be at a "medium" distance from this `TaskBot`.
+class InjuredTaskBotMediumRule: FuzzyTaskBotRule
+{
+    // MARK: Properties
+    
+    override func grade() -> Float
+    {
+        guard let distance = snapshot.nearestInjuredTaskBotTarget?.distance else { return 0.0 }
+        let oneThird = snapshot.proximityFactor / 3
+        return 1 - (fabs(distance - oneThird) / oneThird)
+    }
+    
+    // MARK: Initializers
+    
+    init() { super.init(fact: .injuredTaskBotMedium) }
+}
+
+/// Asserts whether the nearest "Injured" `TaskBot` is considered to be "far" from this `TaskBot`.
+class InjuredTaskBotFarRule: FuzzyTaskBotRule
+{
+    // MARK: Properties
+    
+    override func grade() -> Float
+    {
+        guard let distance = snapshot.nearestInjuredTaskBotTarget?.distance else { return 0.0 }
+        let oneThird = snapshot.proximityFactor / 3
+        return (distance - oneThird) / oneThird
+    }
+    
+    // MARK: Initializers
+    
+    init() { super.init(fact: .injuredTaskBotFar) }
 }
