@@ -110,6 +110,7 @@ class PoliceBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
         
         if isGood
         {
+            self.isCriminal = false
             
             guard let goodAnimations = PoliceBot.goodAnimations else {
                 fatalError("Attempt to access PoliceBot.goodAnimations before they have been loaded.")
@@ -122,6 +123,7 @@ class PoliceBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
         }
         else
         {
+            self.isCriminal = false
             
             guard let badAnimations = PoliceBot.badAnimations else {
                 fatalError("Attempt to access PoliceBot.badAnimations before they have been loaded.")
