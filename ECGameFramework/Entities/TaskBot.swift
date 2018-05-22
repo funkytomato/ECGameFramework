@@ -153,9 +153,15 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
     
     //Is the taskbot fighting back?
     var isRetaliating: Bool
+
+    //Is the taskbot protestor?
+    var isProtestor: Bool
     
     //Is the taskbot criminal?
     var isCriminal: Bool
+    
+    //Is the taskbot injured?
+    var isInjured: Bool
     
     //Is the taskbot police?
     var isPolice: Bool
@@ -350,10 +356,16 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         
         // Whether or not the protestor is criminal
         self.isCriminal = false
+
+        // Whether or not the taskbot is protestor
+        self.isProtestor = false
         
         // Whether or not the taskbot is Police
         self.isPolice = false
 
+        // Whether or not the taskbot is Injured
+        self.isInjured = false
+        
         // The locations of the points that define the `TaskBot`'s "good" and "bad" patrol paths.
         self.goodPathPoints = goodPathPoints
         self.badPathPoints = badPathPoints
@@ -460,7 +472,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         //guard let emitterComponent = component(ofType: EmitterComponent.self) else { return }
 
         
- //       print("intelligenceComponent.stateMachine.currentState:\(intelligenceComponent.stateMachine.currentState?.description)")
+        print("entity: \(self.agent.debugDescription)  intelligenceComponent.stateMachine.currentState:\(intelligenceComponent.stateMachine.currentState?.description)")
         if intelligenceComponent.stateMachine.currentState is TaskBotAgentControlledState
         {
             
