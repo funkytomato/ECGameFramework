@@ -459,6 +459,58 @@ class ScaredTaskBotFarRule: FuzzyTaskBotRule
     init() { super.init(fact: .scaredTaskBotFar) }
 }
 
+/// Asserts whether the number of "criminal" `TaskBot`s is considered "low".
+class CriminalTaskBotPercentageLowRule: FuzzyTaskBotRule
+{
+    // MARK: Properties
+    
+    override func grade() -> Float
+    {
+        return max(0.0, 1.0 - 3.0 * snapshot.criminalBotPercentage)
+    }
+    
+    // MARK: Initializers
+    
+    init() { super.init(fact: .criminalTaskBotPercentageLow) }
+}
+
+/// Asserts whether the number of "Criminal" `TaskBot`s is considered "medium".
+class CriminalTaskBotPercentageMediumRule: FuzzyTaskBotRule
+{
+    // MARK: Properties
+    
+    override func grade() -> Float
+    {
+        if snapshot.criminalBotPercentage <= 1.0 / 3.0
+        {
+            return min(1.0, 3.0 * snapshot.criminalBotPercentage)
+        }
+        else
+        {
+            return max(0.0, 1.0 - (3.0 * snapshot.criminalBotPercentage - 1.0))
+        }
+    }
+    
+    // MARK: Initializers
+    
+    init() { super.init(fact: .criminalTaskBotPercentageMedium) }
+}
+
+/// Asserts whether the number of "Criminal" `TaskBot`s is considered "high".
+class CriminalTaskBotPercentageHighRule: FuzzyTaskBotRule
+{
+    // MARK: Properties
+    
+    override func grade() -> Float
+    {
+        return min(1.0, max(0.0, (3.0 * snapshot.criminalBotPercentage - 1)))
+    }
+    
+    // MARK: Initializers
+    
+    init() { super.init(fact: .criminalTaskBotPercentageHigh) }
+}
+
 /// Asserts whether the nearest "Criminal" `TaskBot` is considered to be "near" to this `TaskBot`.
 class CriminalTaskBotNearRule: FuzzyTaskBotRule
 {
@@ -509,6 +561,59 @@ class CriminalTaskBotFarRule: FuzzyTaskBotRule
     
     init() { super.init(fact: .criminalTaskBotFar) }
 }
+
+/// Asserts whether the number of "Injured" `TaskBot`s is considered "low".
+class InjuredTaskBotPercentageLowRule: FuzzyTaskBotRule
+{
+    // MARK: Properties
+    
+    override func grade() -> Float
+    {
+        return max(0.0, 1.0 - 3.0 * snapshot.injuredBotPercentage)
+    }
+    
+    // MARK: Initializers
+    
+    init() { super.init(fact: .injuredTaskBotPercentageLow) }
+}
+
+/// Asserts whether the number of "Injured" `TaskBot`s is considered "medium".
+class InjuredTaskBotPercentageMediumRule: FuzzyTaskBotRule
+{
+    // MARK: Properties
+    
+    override func grade() -> Float
+    {
+        if snapshot.injuredBotPercentage <= 1.0 / 3.0
+        {
+            return min(1.0, 3.0 * snapshot.injuredBotPercentage)
+        }
+        else
+        {
+            return max(0.0, 1.0 - (3.0 * snapshot.injuredBotPercentage - 1.0))
+        }
+    }
+    
+    // MARK: Initializers
+    
+    init() { super.init(fact: .injuredTaskBotPercentageMedium) }
+}
+
+/// Asserts whether the number of "Injured" `TaskBot`s is considered "high".
+class InjuredTaskBotPercentageHighRule: FuzzyTaskBotRule
+{
+    // MARK: Properties
+    
+    override func grade() -> Float
+    {
+        return min(1.0, max(0.0, (3.0 * snapshot.injuredBotPercentage - 1)))
+    }
+    
+    // MARK: Initializers
+    
+    init() { super.init(fact: .injuredTaskBotPercentageHigh) }
+}
+
 
 /// Asserts whether the nearest "Injured" `TaskBot` is considered to be "near" to this `TaskBot`.
 class InjuredTaskBotNearRule: FuzzyTaskBotRule
