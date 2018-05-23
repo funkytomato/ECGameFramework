@@ -79,7 +79,7 @@ class LevelSceneActiveState: GKState
         if allTaskBotsAreGood
         {
             // If all the TaskBots are good, the player has completed the level.
-            stateMachine?.enter(LevelSceneSuccessState.self)
+            //stateMachine?.enter(LevelSceneSuccessState.self)
         }
         else if timeRemaining <= 0.0
         {
