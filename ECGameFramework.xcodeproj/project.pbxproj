@@ -178,6 +178,10 @@
 		18FCEAA62040EC40009A5C0D /* BaseScene+ScreenRecording.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCEA452040EC40009A5C0D /* BaseScene+ScreenRecording.swift */; };
 		18FCEAA72040EC40009A5C0D /* ButtonNodeResponderType+ScreenRecording.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCEA462040EC40009A5C0D /* ButtonNodeResponderType+ScreenRecording.swift */; };
 		C22B2B1520594D230001EC87 /* ManBot.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C22B2B1420594D230001EC87 /* ManBot.xcassets */; };
+		C23337C520B5CD8C00A79CD5 /* CriminalBot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23337C420B5CD8C00A79CD5 /* CriminalBot.swift */; };
+		C28F12D520B5B49B00EB3FC0 /* LootState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28F12D420B5B49B00EB3FC0 /* LootState.swift */; };
+		C28F12D720B5B52500EB3FC0 /* SellWaresState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28F12D620B5B52500EB3FC0 /* SellWaresState.swift */; };
+		C28F12D920B5B5D000EB3FC0 /* VandaliseState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28F12D820B5B5D000EB3FC0 /* VandaliseState.swift */; };
 		C2B1337D205A9AA400C87B71 /* PlayerBot.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2B1337C205A9AA400C87B71 /* PlayerBot.xcassets */; };
 		C2EB3494209127CA00DCF457 /* TazerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EB3493209127CA00DCF457 /* TazerComponent.swift */; };
 		C2EB3497209129BD00DCF457 /* TazerCoolingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EB3496209129BD00DCF457 /* TazerCoolingState.swift */; };
@@ -375,6 +379,10 @@
 		18FCEA452040EC40009A5C0D /* BaseScene+ScreenRecording.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BaseScene+ScreenRecording.swift"; sourceTree = "<group>"; };
 		18FCEA462040EC40009A5C0D /* ButtonNodeResponderType+ScreenRecording.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ButtonNodeResponderType+ScreenRecording.swift"; sourceTree = "<group>"; };
 		C22B2B1420594D230001EC87 /* ManBot.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ManBot.xcassets; sourceTree = "<group>"; };
+		C23337C420B5CD8C00A79CD5 /* CriminalBot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CriminalBot.swift; sourceTree = "<group>"; };
+		C28F12D420B5B49B00EB3FC0 /* LootState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LootState.swift; sourceTree = "<group>"; };
+		C28F12D620B5B52500EB3FC0 /* SellWaresState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellWaresState.swift; sourceTree = "<group>"; };
+		C28F12D820B5B5D000EB3FC0 /* VandaliseState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VandaliseState.swift; sourceTree = "<group>"; };
 		C2B1337C205A9AA400C87B71 /* PlayerBot.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = PlayerBot.xcassets; sourceTree = "<group>"; };
 		C2EB3493209127CA00DCF457 /* TazerComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TazerComponent.swift; sourceTree = "<group>"; };
 		C2EB3496209129BD00DCF457 /* TazerCoolingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TazerCoolingState.swift; sourceTree = "<group>"; };
@@ -476,6 +484,9 @@
 				184974BB208A55C600F7CEEB /* ProtestorBotPreAttackState.swift */,
 				1878B6CA208E5F9400FC5FDA /* ProtestorBotRechargingState.swift */,
 				18DE88D3208F4E8100732803 /* ProtestorBotHitState.swift */,
+				C28F12D420B5B49B00EB3FC0 /* LootState.swift */,
+				C28F12D620B5B52500EB3FC0 /* SellWaresState.swift */,
+				C28F12D820B5B5D000EB3FC0 /* VandaliseState.swift */,
 			);
 			path = Protestor;
 			sourceTree = "<group>";
@@ -653,6 +664,7 @@
 				185281A42048ABCD00F614A1 /* ManBot.swift */,
 				181073632088E15B001390EA /* PoliceBot.swift */,
 				184974B4208A440D00F7CEEB /* ProtestorBot.swift */,
+				C23337C420B5CD8C00A79CD5 /* CriminalBot.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -1093,6 +1105,7 @@
 				18FCEA6D2040EC40009A5C0D /* TaskBotAgentControlledState.swift in Sources */,
 				18FCEA6A2040EC40009A5C0D /* GroundBotAttackState.swift in Sources */,
 				18FCEA722040EC40009A5C0D /* PhysicsComponent.swift in Sources */,
+				C28F12D920B5B5D000EB3FC0 /* VandaliseState.swift in Sources */,
 				18FCEA9B2040EC40009A5C0D /* ThumbStickNode.swift in Sources */,
 				18D983B52048B3BF006D7A14 /* ManBotAttackState.swift in Sources */,
 				184B7633207D081D00F959F7 /* ProtestorArrestedState.swift in Sources */,
@@ -1110,6 +1123,7 @@
 				18FCEA492040EC40009A5C0D /* BaseScene.swift in Sources */,
 				18C82A68208620C80046B746 /* SubduedState.swift in Sources */,
 				18FCEA512040EC40009A5C0D /* LevelScene+Debug.swift in Sources */,
+				C28F12D720B5B52500EB3FC0 /* SellWaresState.swift in Sources */,
 				18C8C08F208F380E002FA9C0 /* PoliceBotHitState.swift in Sources */,
 				18FCEA6F2040EC40009A5C0D /* IntelligenceComponent.swift in Sources */,
 				184B7635207D0CDA00F959F7 /* ProtestorDetainedState.swift in Sources */,
@@ -1161,6 +1175,7 @@
 				18FCEA5E2040EC40009A5C0D /* BeamFiringState.swift in Sources */,
 				C2EB3497209129BD00DCF457 /* TazerCoolingState.swift in Sources */,
 				18FCEA502040EC40009A5C0D /* LevelSceneSuccessState.swift in Sources */,
+				C23337C520B5CD8C00A79CD5 /* CriminalBot.swift in Sources */,
 				18FCEA692040EC40009A5C0D /* FlyingBotPreAttackState.swift in Sources */,
 				181073642088E15B001390EA /* PoliceBot.swift in Sources */,
 				18F52203208927820070EB0C /* PoliceArrestState.swift in Sources */,
@@ -1179,6 +1194,7 @@
 				18FCEA652040EC40009A5C0D /* PlayerBotHitState.swift in Sources */,
 				C2EB349B20912C0A00DCF457 /* TazerIdleState.swift in Sources */,
 				18FCEA542040EC40009A5C0D /* ProgressScene.swift in Sources */,
+				C28F12D520B5B49B00EB3FC0 /* LootState.swift in Sources */,
 				18FCE9C42040EB3C009A5C0D /* LoadResourcesOperation.swift in Sources */,
 				18FCEA562040EC40009A5C0D /* FlyingBot.swift in Sources */,
 				18FCEA702040EC40009A5C0D /* MovementComponent.swift in Sources */,
