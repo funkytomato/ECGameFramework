@@ -57,6 +57,15 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         
         // Retaliate against attack
         case retaliate(GKAgent2D)
+        
+        // Sell wares
+        case sellWares
+        
+        // Vandalise
+        case vandalise(float2)
+        
+        // Loot
+        case loot(float2)
     }
 
     // MARK: Properties
@@ -268,6 +277,24 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 radius = GameplayConfiguration.TaskBot.huntPathRadius
                 (agentBehavior, debugPathPoints) = TaskBotBehavior.retaliateBehaviour(forAgent: agent, huntingAgent: taskBot, pathRadius: radius, inScene: levelScene)
                 debugColor = SKColor.blue
+            
+            case .sellWares:
+                print("SellWares")
+                radius = GameplayConfiguration.TaskBot.wanderPathRadius
+                (agentBehavior, debugPathPoints)  = TaskBotBehavior.wanderBehaviour(forAgent: agent, inScene: levelScene)
+                debugColor = SKColor.yellow
+            
+            case let .vandalise(position):
+                print("Vandalise")
+                radius = GameplayConfiguration.TaskBot.returnToPatrolPathRadius
+                (agentBehavior, debugPathPoints) = TaskBotBehavior.returnToPathBehaviour(forAgent: agent, returningToPoint: position, pathRadius: radius, inScene: levelScene)
+                debugColor = SKColor.yellow
+            
+            case let .loot(position):
+                print("Loot")
+                radius = GameplayConfiguration.TaskBot.returnToPatrolPathRadius
+                (agentBehavior, debugPathPoints) = TaskBotBehavior.returnToPathBehaviour(forAgent: agent, returningToPoint: position, pathRadius: radius, inScene: levelScene)
+                debugColor = SKColor.yellow
         }
 
         if levelScene.debugDrawingEnabled
@@ -375,7 +402,8 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             Because a `TaskBot` is positioned at the appropriate path's start point when the level is created,
             there is no need for it to pathfind to the start of its path, and it can patrol immediately.
         */
-        mandate = isGood ? .followGoodPatrolPath : .followBadPatrolPath
+        mandate = isGood ? .followGoodPatrolPath : .followGoodPatrolPath
+        
         super.init()
 
         // Create a `TaskBotAgent` to represent this `TaskBot` in a steering physics simulation.
@@ -683,7 +711,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         }
         
         // Protestor TaskBot has been attacked and is now retaliating
-        else if self.isRetaliating && self.isGood
+        else if self.isRetaliating && self.isProtestor
         {
             print("Retaliating")
             guard let targetTaskbot = state.nearestPoliceTaskBotTarget?.target.agent else { return }
@@ -691,7 +719,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         }
 
         //TaskBot is Violent and Police are nearby, go fuck them up
-        else if self.isGood && self.isViolent && attackPoliceBot > 0
+        else if self.isProtestor && self.isViolent && attackPoliceBot > 0
         {
             print("Attacking Police")
             guard let dangerousTaskBot = state.nearestPoliceTaskBotTarget?.target.agent else { return }
@@ -699,7 +727,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         }
             
         // TaskBot is Police and active (alive) and a dangerous bot is detected, attack it
-        else if !self.isGood && isActive && huntDangerousProtestorBot > huntTaskBot
+        else if self.isPolice && isActive && huntDangerousProtestorBot > huntTaskBot
         {
             // The rules provided greater motivation to hunt the nearest Dangerous Protestor TaskBot. Ignore any motivation to hunt the PlayerBot.
             
@@ -709,7 +737,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         
         // PROBABLY DELETE THIS LATER
         // An active PoliceBot is near a Protestor, attack them
-        else if !isGood && isActive && huntTaskBot > huntPlayerBot
+        else if self.isPolice && self.isActive && huntTaskBot > huntPlayerBot
         {
             print("Hunt the nearest Protestor: \(state.nearestProtestorTaskBotTarget!.target.agent.debugDescription)")
             
