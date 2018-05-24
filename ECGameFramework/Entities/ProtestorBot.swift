@@ -271,44 +271,22 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         
         print("mandate \(mandate)")
         
-        if self.isProtestor
+
+        switch mandate
         {
-            switch mandate
-            {
-                case .lockupPrisoner:
-                    intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
-                
-                case let .fleeAgent(targetAgent):
-                   intelligenceComponent.stateMachine.enter(TaskBotFleeState.self)
-                   targetPosition = targetAgent.position
-                
-                case let .retaliate(targetTaskbot):
-                    intelligenceComponent.stateMachine.enter(ProtestorBotRotateToAttackState.self)
-                    targetPosition = targetTaskbot.position
-                
-                default:
-                    break
-            }
-        }
-        else if self.isCriminal
-        {
-            switch mandate
-            {
-                case .sellWares:
-                    print("Sell Wares")
-                    intelligenceComponent.stateMachine.enter(SellWaresState.self)
-                
-                case let .vandalise(targetPosition):
-                    print("Vandalise")
-                    intelligenceComponent.stateMachine.enter(VandaliseState.self)
-                
-                case let .loot(targetPosition):
-                    print("Loot")
-                    intelligenceComponent.stateMachine.enter(LootState.self)
-                
-                default:
-                    break
-            }
+            case .lockupPrisoner:
+                intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
+            
+            case let .fleeAgent(targetAgent):
+               intelligenceComponent.stateMachine.enter(TaskBotFleeState.self)
+               targetPosition = targetAgent.position
+            
+            case let .retaliate(targetTaskbot):
+                intelligenceComponent.stateMachine.enter(ProtestorBotRotateToAttackState.self)
+                targetPosition = targetTaskbot.position
+            
+            default:
+                break
         }
     }
 
