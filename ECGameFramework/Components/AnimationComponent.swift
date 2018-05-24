@@ -33,6 +33,10 @@ enum AnimationState: String
     case scared = "Scared"
     case unhappy = "Unhappy"
     case violent = "Violent"
+    
+    case looting = "Looting"
+    case vandalising = "Vandalising"
+    case sellingWares = "SellingWares"
 }
 
 /**
