@@ -308,6 +308,56 @@ struct GameplayConfiguration
         static let rechargeAmountPerSecond = 10.0
         
     }
+    
+    struct CriminalBot
+    {
+        /// The maximum amount of health a `GroundBot` stores.
+        static let maximumHealth = 100.0
+        
+        /// The maximum amount of resistance a `GroundBot` stores.
+        static let maximumResistance = 100.0
+        
+        
+        /// The amount of health a `PlayerBot` loses by a single `GroundBot` attack.
+        static let healthLossPerContact = 25.0
+        
+        /// The maximum amount of charge a `GroundBot` stores.
+        static let maximumCharge = 100.0
+        
+        /// The amount of charge a `PlayerBot` loses by a single `GroundBot` attack.
+        static let chargeLossPerContact = 25.0
+        
+        /// The maximum distance a `GroundBot` can be from a target before it attacks.
+        static let maximumAttackDistance: Float = 300.0
+        
+        /// Proximity to the target after which the `GroundBot` attack should end.
+        static let attackEndProximity: Float = 7.0
+        
+        /// How fast the `GroundBot` rotates to face its target in radians per second.
+        static let preAttackRotationSpeed = Double.pi / 4
+        
+        /// How much faster the `GroundBot` can move when attacking.
+        static let movementSpeedMultiplierWhenAttacking: CGFloat = 2.5
+        
+        /// How much faster the `GroundBot` can rotate when attacking.
+        static let angularSpeedMultiplierWhenAttacking: CGFloat = 2.5
+        
+        /// The amount of time to wait between `GroundBot` attacks.
+        static let delayBetweenAttacks: TimeInterval = 2.0
+        
+        /// The offset from the `GroundBot`'s position that should be used for beam targeting.
+        static let beamTargetOffset = CGPoint(x: 0.0, y: 40.0)
+        
+        /// The length of time for which the `PlayerBot` remains in its "hit" state.
+        static let hitStateDuration: TimeInterval = 0.75
+        
+        /// The length of time that it takes the `ProtestorBot` to recharge when deactivated.
+        static let rechargeDelayWhenInactive: TimeInterval = 2.0
+        
+        /// The amount of charge that the `ProtestorBot` gains per second when recharging.
+        static let rechargeAmountPerSecond = 10.0
+        
+    }
 
     struct FlyingBot
     {
