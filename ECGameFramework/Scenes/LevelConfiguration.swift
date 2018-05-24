@@ -29,6 +29,7 @@ struct LevelConfiguration
             case flying
             case police
             case protestor
+            case criminal
         }
         
         let botType: BotType
@@ -68,6 +69,9 @@ struct LevelConfiguration
                 
                 case "protestor":
                     botType = .protestor
+                
+                case "criminal":
+                    botType = .criminal
                     
                 default:
                     fatalError("Unknown botType found while parsing `taskBot` data :\(botConfigurationInfo)")
