@@ -63,6 +63,7 @@
 		18DF360F2052FBCD001F55DE /* SpriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DF360E2052FBCC001F55DE /* SpriteComponent.swift */; };
 		18EA813220864631002B00EB /* HealthComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EA813120864631002B00EB /* HealthComponent.swift */; };
 		18EDA50F2084FB26005CB784 /* TemperamentComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EDA50E2084FB26005CB784 /* TemperamentComponent.swift */; };
+		18EE1B5F20B70B2C00828BF6 /* CriminalBot.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18EE1B5E20B70B2C00828BF6 /* CriminalBot.xcassets */; };
 		18F35DAF205427F200B686DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18F35DAD205427F200B686DA /* Assets.xcassets */; };
 		18F35DB2205428B900B686DA /* Trail.sks in Resources */ = {isa = PBXBuildFile; fileRef = 18F35DB0205428B800B686DA /* Trail.sks */; };
 		18F35DB3205428B900B686DA /* circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F35DB1205428B900B686DA /* circle.png */; };
@@ -264,6 +265,7 @@
 		18DF360E2052FBCC001F55DE /* SpriteComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpriteComponent.swift; sourceTree = "<group>"; };
 		18EA813120864631002B00EB /* HealthComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthComponent.swift; sourceTree = "<group>"; };
 		18EDA50E2084FB26005CB784 /* TemperamentComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemperamentComponent.swift; sourceTree = "<group>"; };
+		18EE1B5E20B70B2C00828BF6 /* CriminalBot.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CriminalBot.xcassets; sourceTree = "<group>"; };
 		18F35DAD205427F200B686DA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		18F35DB0205428B800B686DA /* Trail.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Trail.sks; sourceTree = "<group>"; };
 		18F35DB1205428B900B686DA /* circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circle.png; sourceTree = "<group>"; };
@@ -839,6 +841,7 @@
 				18FCEA2F2040EC3C009A5C0D /* spark.png */,
 				188359FE2087FCA90054111A /* PoliceBot.xcassets */,
 				1874890D20880FE000DAF14E /* ProtestorBot.xcassets */,
+				18EE1B5E20B70B2C00828BF6 /* CriminalBot.xcassets */,
 			);
 			path = TaskBot;
 			sourceTree = "<group>";
@@ -971,6 +974,7 @@
 			attributes = {
 				KnownAssetTags = (
 					Blue,
+					CriminalBot,
 					FlyingBot,
 					Green,
 					GroundBot,
@@ -1028,6 +1032,7 @@
 			files = (
 				18F35DB2205428B900B686DA /* Trail.sks in Resources */,
 				1852819E204896C100F614A1 /* RiotScene.sks in Resources */,
+				18EE1B5F20B70B2C00828BF6 /* CriminalBot.xcassets in Resources */,
 				18FCEA8E2040EC40009A5C0D /* Scenery.xcassets in Resources */,
 				18FCEA7E2040EC40009A5C0D /* EndScene.sks in Resources */,
 				18FCEA7F2040EC40009A5C0D /* HomeScene.sks in Resources */,
@@ -1388,7 +1393,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				ON_DEMAND_RESOURCES_INITIAL_INSTALL_TAGS = "Blue PoliceBot ProtestorBot RiotScene";
+				ON_DEMAND_RESOURCES_INITIAL_INSTALL_TAGS = "Blue PoliceBot ProtestorBot CriminalBot RiotScene";
 				PRODUCT_BUNDLE_IDENTIFIER = ECGameFramework;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1408,7 +1413,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				ON_DEMAND_RESOURCES_INITIAL_INSTALL_TAGS = "Blue PoliceBot ProtestorBot RiotScene";
+				ON_DEMAND_RESOURCES_INITIAL_INSTALL_TAGS = "Blue PoliceBot ProtestorBot CriminalBot RiotScene";
 				PRODUCT_BUNDLE_IDENTIFIER = ECGameFramework;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
