@@ -76,11 +76,11 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
         let initialResistance: Double
         let initialHealth: Double
         
-        // TaskBot is Protestor
+        self.isCriminal = true
+        
+        // Good TaskBot
         if isGood
         {
-            self.isCriminal = true
-            
             guard let goodAnimations = CriminalBot.goodAnimations else {
                 fatalError("Attempt to access ProtestorBot.goodAnimations before they have been loaded.")
             }
@@ -88,14 +88,12 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
             initialResistance = 100.0
             initialHealth = 100.0
             
-            texture = SKTexture(imageNamed: "CrimnalBot")
+            texture = SKTexture(imageNamed: "CriminalBot")
         }
             
-            // TaskBot is a criminal
+        //Bad Taskbot
         else
         {
-            self.isCriminal = true
-            
             guard let badAnimations = CriminalBot.badAnimations else {
                 fatalError("Attempt to access ProtestorBot.badAnimations before they have been loaded.")
             }
@@ -236,7 +234,27 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
     {
         super.rulesComponent(rulesComponent: rulesComponent, didFinishEvaluatingRuleSystem: ruleSystem)
         
+        
+        guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
+        
         //Criminal Rules
+        switch mandate
+        {
+            case .sellWares:
+                print("Sell Wares")
+                intelligenceComponent.stateMachine.enter(SellWaresState.self)
+            
+            case let .vandalise(targetPosition):
+                print("Vandalise")
+                intelligenceComponent.stateMachine.enter(VandaliseState.self)
+            
+            case let .loot(targetPosition):
+                print("Loot")
+                intelligenceComponent.stateMachine.enter(LootState.self)
+            
+            default:
+                break
+        }
     }
     
     
@@ -372,5 +390,3 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
         moveTaskbot()
     }
 }
-
-
