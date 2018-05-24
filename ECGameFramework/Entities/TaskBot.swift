@@ -54,9 +54,11 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         // Move away from the DangerousBot area quickly
         case fleeAgent(GKAgent2D)
 
-        
         // Retaliate against attack
         case retaliate(GKAgent2D)
+
+        // Incite trouble
+        case incite
         
         // Sell wares
         case sellWares
@@ -277,19 +279,29 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 radius = GameplayConfiguration.TaskBot.huntPathRadius
                 (agentBehavior, debugPathPoints) = TaskBotBehavior.retaliateBehaviour(forAgent: agent, huntingAgent: taskBot, pathRadius: radius, inScene: levelScene)
                 debugColor = SKColor.blue
+
+            // TaskBot is a criminal and is inciting the crowd
+            case .incite:
+                print("Incite")
+                radius = GameplayConfiguration.TaskBot.wanderPathRadius
+                (agentBehavior, debugPathPoints)  = TaskBotBehavior.wanderBehaviour(forAgent: agent, inScene: levelScene)
+                debugColor = SKColor.yellow
             
+            // TaskBot is a criminal and is selling their wares
             case .sellWares:
                 print("SellWares")
                 radius = GameplayConfiguration.TaskBot.wanderPathRadius
                 (agentBehavior, debugPathPoints)  = TaskBotBehavior.wanderBehaviour(forAgent: agent, inScene: levelScene)
                 debugColor = SKColor.yellow
             
+            //TaskBot is a criminal and is vandalising
             case let .vandalise(position):
                 print("Vandalise")
                 radius = GameplayConfiguration.TaskBot.returnToPatrolPathRadius
                 (agentBehavior, debugPathPoints) = TaskBotBehavior.returnToPathBehaviour(forAgent: agent, returningToPoint: position, pathRadius: radius, inScene: levelScene)
                 debugColor = SKColor.yellow
             
+            //TaskBot is a criminal and is looting a building
             case let .loot(position):
                 print("Loot")
                 radius = GameplayConfiguration.TaskBot.returnToPatrolPathRadius
