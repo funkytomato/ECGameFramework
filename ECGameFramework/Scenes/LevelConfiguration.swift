@@ -22,7 +22,7 @@ struct LevelConfiguration
         
         
         /// The different types of `TaskBot` that can exist in a level.
-        enum Locomotion
+        enum BotType
         {
             case man
             case ground
@@ -31,7 +31,7 @@ struct LevelConfiguration
             case protestor
         }
         
-        let locomotion: Locomotion
+        let botType: BotType
         
         /// The initial orientation of this `TaskBot` when the level is first loaded.
         let initialOrientation: CompassDirection
@@ -52,25 +52,25 @@ struct LevelConfiguration
 
         init(botConfigurationInfo: [String: AnyObject])
         {
-            switch botConfigurationInfo["locomotion"] as! String
+            switch botConfigurationInfo["botType"] as! String
             {
                 case "man":
-                    locomotion = .man
+                    botType = .man
                 
                 case "ground":
-                    locomotion = .ground
+                    botType = .ground
                     
                 case "flying":
-                    locomotion = .flying
+                    botType = .flying
                 
                 case "police":
-                    locomotion = .police
+                    botType = .police
                 
                 case "protestor":
-                    locomotion = .protestor
+                    botType = .protestor
                     
                 default:
-                    fatalError("Unknown locomotion found while parsing `taskBot` data :\(botConfigurationInfo)")
+                    fatalError("Unknown botType found while parsing `taskBot` data :\(botConfigurationInfo)")
             }
             
             initialOrientation = CompassDirection(string: botConfigurationInfo["initialOrientation"] as! String)

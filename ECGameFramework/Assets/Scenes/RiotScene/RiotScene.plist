@@ -24,7 +24,7 @@
 			<false/>
 			<key>initialOrientation</key>
 			<string>South</string>
-			<key>locomotion</key>
+			<key>botType</key>
 			<string>protestor</string>
 		</dict>
 		<dict>
@@ -47,7 +47,7 @@
 			<true/>
 			<key>initialOrientation</key>
 			<string>South</string>
-			<key>locomotion</key>
+			<key>botType</key>
 			<string>police</string>
 		</dict>
 	</array>

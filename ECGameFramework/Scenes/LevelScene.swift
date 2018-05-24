@@ -226,7 +226,7 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
             let badPathPoints = nodePointsFromNodeNames(nodeNames: taskBotConfiguration.badPathNodeNames)
             
             // Create the appropriate type `TaskBot` (ground or flying).
-            switch taskBotConfiguration.locomotion
+            switch taskBotConfiguration.botType
             {
                 case .flying:
                     taskBot = FlyingBot(isGood: !taskBotConfiguration.startsBad, goodPathPoints: goodPathPoints, badPathPoints: badPathPoints)

@@ -11,7 +11,7 @@
 	<key>taskBotConfigurations</key>
 	<array>
 		<dict>
-			<key>locomotion</key>
+			<key>botType</key>
 			<string>ground</string>
 			<key>initialOrientation</key>
 			<string>East</string>
@@ -33,7 +33,7 @@
 			</array>
 		</dict>
 		<dict>
-			<key>locomotion</key>
+			<key>botType</key>
 			<string>ground</string>
 			<key>initialOrientation</key>
 			<string>West</string>
@@ -55,7 +55,7 @@
 			</array>
 		</dict>
 		<dict>
-			<key>locomotion</key>
+			<key>botType</key>
 			<string>ground</string>
 			<key>initialOrientation</key>
 			<string>NorthEast</string>
@@ -75,7 +75,7 @@
 			</array>
 		</dict>
 		<dict>
-			<key>locomotion</key>
+			<key>botType</key>
 			<string>ground</string>
 			<key>initialOrientation</key>
 			<string>North</string>
@@ -97,7 +97,7 @@
 			</array>
 		</dict>
 		<dict>
-			<key>locomotion</key>
+			<key>botType</key>
 			<string>ground</string>
 			<key>initialOrientation</key>
 			<string>East</string>
@@ -119,7 +119,7 @@
 			</array>
 		</dict>
 		<dict>
-			<key>locomotion</key>
+			<key>botType</key>
 			<string>ground</string>
 			<key>initialOrientation</key>
 			<string>West</string>
