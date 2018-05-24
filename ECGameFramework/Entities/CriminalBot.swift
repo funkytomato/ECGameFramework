@@ -240,6 +240,10 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
         //Criminal Rules
         switch mandate
         {
+            case .incite:
+                print("Incite trouble")
+                intelligenceComponent.stateMachine.enter(InciteState.self)
+            
             case .sellWares:
                 print("Sell Wares")
                 intelligenceComponent.stateMachine.enter(SellWaresState.self)
