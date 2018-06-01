@@ -512,7 +512,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         //guard let emitterComponent = component(ofType: EmitterComponent.self) else { return }
 
         
-        print("entity: \(self.agent.debugDescription)  intelligenceComponent.stateMachine.currentState:\(intelligenceComponent.stateMachine.currentState?.description)")
+        print("entity: \(self.agent.debugDescription)  intelligenceComponent.stateMachine.currentState:\(String(describing: intelligenceComponent.stateMachine.currentState?.description))")
         if intelligenceComponent.stateMachine.currentState is TaskBotAgentControlledState
         {
             

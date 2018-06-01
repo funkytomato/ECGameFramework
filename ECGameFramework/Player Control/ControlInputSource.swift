@@ -91,10 +91,10 @@ protocol ControlInputSourceDelegate: class
 protocol ControlInputSourceType: class
 {
     /// A delegate that receives information about actions that apply to the `PlayerBot`.
-    weak var delegate: ControlInputSourceDelegate? { get set }
+    var delegate: ControlInputSourceDelegate? { get set }
     
     /// A delegate that receives information about actions that apply to the game as a whole.
-    weak var gameStateDelegate: ControlInputSourceGameStateDelegate? { get set }
+    var gameStateDelegate: ControlInputSourceGameStateDelegate? { get set }
     
     var allowsStrafing: Bool { get }
     

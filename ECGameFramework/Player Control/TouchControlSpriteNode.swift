@@ -64,12 +64,13 @@ class TouchControlSpriteNode: SKSpriteNode, ControlInputSourceType
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
     {
         super.touchesBegan(touches, with: event)
-        
+ /*
         for touch in touches
         {
             let touchPoint = touch.location(in: self)
             
          }
+ */
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?)
@@ -82,11 +83,13 @@ class TouchControlSpriteNode: SKSpriteNode, ControlInputSourceType
     {
         super.touchesEnded(touches, with: event)
         
+        /*
         for touch in touches
         {
             let touchPoint = touch.location(in: self)
             
         }
+ */
     }
     
     override func touchesCancelled(_ touches: Set<UITouch>?, with event: UIEvent?)

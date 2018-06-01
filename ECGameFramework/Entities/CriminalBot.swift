@@ -137,19 +137,19 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
         switch temperament
         {
         case "Scared":
-            initialState = ScaredState(entity: self) as? GKState
+            initialState = ScaredState(entity: self)// as? GKState
             
         case "Calm":
-            initialState = CalmState(entity: self) as? GKState
+            initialState = CalmState(entity: self)// as? GKState
             
         case "Angry":
-            initialState = AngryState(entity: self) as? GKState
+            initialState = AngryState(entity: self)// as? GKState
             
         case "Violent":
-            initialState = ViolentState(entity: self) as? GKState
+            initialState = ViolentState(entity: self)// as? GKState
             
         default:
-            initialState = CalmState(entity: self) as? GKState
+            initialState = CalmState(entity: self)// as? GKState
         }
         
         //print("initialState :\(initialState.debugDescription)")

@@ -47,7 +47,7 @@ final class GameInput
         // Return a non-optional array of `ControlInputSourceType`s.
         let sources: [ControlInputSourceType?] = [nativeControlInputSource, secondaryControlInputSource]
         
-        return sources.flatMap { return $0 as ControlInputSourceType? }
+        return sources.compactMap { return $0 as ControlInputSourceType? }
     }
 
     weak var delegate: GameInputDelegate?

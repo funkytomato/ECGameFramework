@@ -477,7 +477,7 @@ struct GameplayConfiguration
     struct SceneManager
     {
         /// The duration of a transition between loaded scenes.
-        static let transitionDuration: TimeInterval = 2.0
+        static let transitionDuration: TimeInterval = 1.0
         
         /// The duration of a transition from the progress scene to its loaded scene.
         static let progressSceneTransitionDuration: TimeInterval = 0.5

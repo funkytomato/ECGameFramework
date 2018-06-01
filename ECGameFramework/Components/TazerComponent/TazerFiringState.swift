@@ -74,8 +74,8 @@ class TazerFiringState: GKState
              */
             tazerComponent.tazerNode.zPosition = -1.0
             
-            let aboveCharactersNode = scene.worldLayerNodes[.aboveCharacters]!
-            aboveCharactersNode.addChild(tazerComponent.tazerNode)
+            let aboveCharactersNode = scene.worldLayerNodes[.aboveCharacters]
+            aboveCharactersNode?.addChild(tazerComponent.tazerNode)
             
             // Constrain the `weaponNode` to the antenna position on the `PlayerBot`'s node.
             let xRange = SKRange(constantValue: taskBot.weaponTargetOffset.x)

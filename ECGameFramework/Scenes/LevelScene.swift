@@ -212,7 +212,7 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
         
         // Find the location of the meatwagon position.
         //let charactersNode = childNode(withName: WorldLayer.characters.nodePath)!
-        let meatWagonCoordinate = meatWagon.position
+        //let meatWagonCoordinate = meatWagon.position
         //print("meatWagon:\(meatWagonCoordinate.debugDescription)")
         
         
@@ -353,8 +353,8 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
         
         // Sort the entities in the scene by ascending y-position.
         let ySortedEntities = entities.sorted {
-            let nodeA = $0.0.component(ofType: RenderComponent.self)!.node
-            let nodeB = $0.1.component(ofType: RenderComponent.self)!.node
+            let nodeA = $0.component(ofType: RenderComponent.self)!.node
+            let nodeB = $1.component(ofType: RenderComponent.self)!.node
             
             return nodeA.position.y > nodeB.position.y
         }
@@ -776,11 +776,12 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
             {
 
                 print("node: \(node.description)")
-                print("node.entity: \(node.entity?.description)")
+                print("node.entity: \(String(describing: node.entity?.description))")
                 
                 if (node.entity != nil)
                 {
-                    let touchedEntity = node.entity as! GKEntity
+                    //let touchedEntity = node.entity as! GKEntity
+                    let touchedEntity = node.entity
                     if let myEntity = touchedEntity as? TaskBot
                     {
                         //myEntity.entityTouched(touches: touches, withEvent: event)
@@ -807,7 +808,7 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
             {
 
                 print("node: \(node.description)")
-                print("node.entity: \(node.entity?.description)")
+                print("node.entity: \(String(describing: node.entity?.description))")
                 
                 activeEntity?.touchesMoved(touches, with: event, scene: self)
             }
@@ -816,10 +817,10 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?)
     {
-        for touch in touches
+        for _ in touches
         {
-            let touchLocation = touch.location(in: self)
-            let touchedNodes = self.nodes(at: touchLocation)
+            //let touchLocation = touch.location(in: self)
+            //let touchedNodes = self.nodes(at: touchLocation)
             
             activeEntity?.touchesEnded(touches, with: event, scene: self)
         }

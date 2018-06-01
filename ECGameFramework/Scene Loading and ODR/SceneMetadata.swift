@@ -75,7 +75,7 @@ struct SceneMetadata
                 The tags are also used to determine which enemies need their resources
                 to be preloaded for a `LevelScene`.
             */
-            loadableTypesForScene += tags.flatMap { tag in
+            loadableTypesForScene += tags.compactMap { tag in
                 switch tag
                 {
                     case "ManBot":
@@ -118,7 +118,7 @@ struct SceneMetadata
         
         // Set up the `loadableTypes` to be prepared when the scene is requested.
         loadableTypes = loadableTypesForScene
-        //print("loadableTypes to load:\(loadableTypes)")
+        print("loadableTypes to load:\(loadableTypes)")
     }
 }
 

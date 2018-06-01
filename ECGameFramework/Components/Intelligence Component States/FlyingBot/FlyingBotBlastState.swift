@@ -148,7 +148,7 @@ class FlyingBotBlastState: GKState
         guard let entitySnapshot = level.entitySnapshotForEntity(entity: entity) else { return [] }
         
         // Convert the array of `EntityDistance`s to an array of `GKEntity`s where the distance to the entity is within the blast radius.
-        let entitiesInRange: [GKEntity] = entitySnapshot.entityDistances.flatMap {
+        let entitiesInRange: [GKEntity] = entitySnapshot.entityDistances.compactMap {
             if $0.distance <= GameplayConfiguration.FlyingBot.blastRadius
             {
                 return $0.target
@@ -163,7 +163,7 @@ class FlyingBotBlastState: GKState
     func performGoodBlast()
     {
         // Filter and map the entities inside the blast radius to an array of `TaskBot`s.
-        let taskBotsInRange = entitiesInRange().flatMap { $0 as? TaskBot }
+        let taskBotsInRange = entitiesInRange().compactMap { $0 as? TaskBot }
         
         // Iterate through the `TaskBot`s in range.
         for taskBot in taskBotsInRange

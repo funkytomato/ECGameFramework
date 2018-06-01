@@ -173,19 +173,24 @@ class PoliceBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
         switch temperament
         {
         case "Scared":
-            initialState = ScaredState(entity: self) as? GKState
+            //initialState = ScaredState(entity: self) as? GKState
+            initialState = ScaredState(entity: self)
             
         case "Calm":
-            initialState = CalmState(entity: self) as? GKState
+            //initialState = CalmState(entity: self) as? GKState
+            initialState = CalmState(entity: self)
             
         case "Angry":
-            initialState = AngryState(entity: self) as? GKState
+            //initialState = AngryState(entity: self) as? GKState
+            initialState = AngryState(entity: self)
             
         case "Violent":
-            initialState = ViolentState(entity: self) as? GKState
+            //initialState = ViolentState(entity: self) as? GKState
+            initialState = ViolentState(entity: self)
             
         default:
-            initialState = CalmState(entity: self) as? GKState
+            //initialState = CalmState(entity: self) as? GKState
+            initialState = CalmState(entity: self)
         }
         
         //print("initialState :\(initialState.debugDescription)")

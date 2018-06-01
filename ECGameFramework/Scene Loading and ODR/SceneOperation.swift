@@ -34,7 +34,7 @@ class SceneOperation: Operation
     // MARK: Properties
     
     /// Marking `state` as dynamic allows this property to be key-value observed.
-    dynamic var state = State.ready
+    @objc dynamic var state = State.ready
     
     // MARK: NSOperation
     
