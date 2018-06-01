@@ -17,6 +17,7 @@ extension CGPoint
     /// Initialize with a `float2` type.
     init(_ point: float2)
     {
+        self.init()
         x = CGFloat(point.x)
         y = CGFloat(point.y)
     }
@@ -38,7 +39,8 @@ extension float2
     Extend `float2` to declare conformance to the `Equatable` protocol.
     The conformance to the protocol is provided by the `==` operator function below.
 */
-extension float2:Equatable {}
+//extension float2:Equatable {}
+extension float2 {}
 
 /// An equality operator function to determine if two `float2`s are the same.
 public func ==(lhs: float2, rhs: float2) -> Bool
