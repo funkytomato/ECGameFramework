@@ -49,7 +49,7 @@ class TaskBotBehavior: GKBehavior
         behavior.addAvoidObstaclesGoal(forScene: scene)
         
         // Find any nearby "protestor" TaskBots to flock with.
-        let agentsToFlockWith: [GKAgent2D] = scene.entities.flatMap { entity in
+        let agentsToFlockWith: [GKAgent2D] = scene.entities.compactMap { entity in
             if let taskBot = entity as? TaskBot, taskBot.isGood && taskBot.agent !== agent && taskBot.distanceToAgent(otherAgent: agent) <= GameplayConfiguration.Flocking.agentSearchDistanceForArrest
             {
                 return taskBot.agent
@@ -97,7 +97,7 @@ class TaskBotBehavior: GKBehavior
         behavior.addAvoidObstaclesGoal(forScene: scene)
 
         // Find any nearby "bad" TaskBots to flock with.
-        let agentsToFlockWith: [GKAgent2D] = scene.entities.flatMap { entity in
+        let agentsToFlockWith: [GKAgent2D] = scene.entities.compactMap { entity in
             if let taskBot = entity as? TaskBot, !taskBot.isGood && taskBot.agent !== agent && taskBot.distanceToAgent(otherAgent: agent) <= GameplayConfiguration.Flocking.agentSearchDistanceForFlocking
             {
                 return taskBot.agent
@@ -256,7 +256,7 @@ class TaskBotBehavior: GKBehavior
         behavior.addAvoidObstaclesGoal(forScene: scene)
         
         // Find any nearby "dangerous" protestor TaskBots to flock with.
-        let agentsToFlockWith: [GKAgent2D] = scene.entities.flatMap { entity in
+        let agentsToFlockWith: [GKAgent2D] = scene.entities.compactMap { entity in
             if let taskBot = entity as? TaskBot, taskBot.isGood && taskBot.isDangerous && taskBot.agent !== agent && taskBot.distanceToAgent(otherAgent: agent) <= GameplayConfiguration.Flocking.agentSearchDistanceForFlocking
             {
                 return taskBot.agent
@@ -367,8 +367,8 @@ class TaskBotBehavior: GKBehavior
                 Connect this node to the graph ignoring the buffer radius of any
                 obstacles that the point is currently intersecting.
             */
-            //scene.graph.connectUsingObstacles(node: pointNode, ignoringBufferRadiusOf: intersectingObstacles)
-            scene.graph.connectUsingObstacles(node: pointNode)
+            scene.graph.connectUsingObstacles(node: pointNode, ignoringBufferRadiusOf: intersectingObstacles)
+            //scene.graph.connectUsingObstacles(node: pointNode)
         
             // If still no connection could be made, return `nil`.
             if pointNode.connectedNodes.isEmpty
