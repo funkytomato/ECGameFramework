@@ -486,6 +486,10 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        print("Deallocating TaskBot")
+    }
+    
     // MARK: GKAgentDelegate
     
     func agentWillUpdate(_: GKAgent)
@@ -512,7 +516,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         //guard let emitterComponent = component(ofType: EmitterComponent.self) else { return }
 
         
-        print("entity: \(self.agent.debugDescription)  intelligenceComponent.stateMachine.currentState:\(String(describing: intelligenceComponent.stateMachine.currentState?.description))")
+        //print("entity: \(self.agent.debugDescription)  intelligenceComponent.stateMachine.currentState:\(String(describing: intelligenceComponent.stateMachine.currentState?.description))")
         if intelligenceComponent.stateMachine.currentState is TaskBotAgentControlledState
         {
             
@@ -572,7 +576,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         
         
         let fleeDangerousTaskBot = fleeTaskBotRaw.reduce(0.0, max)
-        print("fleeDangerousTaskBot: \(fleeDangerousTaskBot.description), fleeTaskBotRaw: \(fleeTaskBotRaw.description) ")
+        //print("fleeDangerousTaskBot: \(fleeDangerousTaskBot.description), fleeTaskBotRaw: \(fleeTaskBotRaw.description) ")
       
         
         // A series of situations in which we prefer this `TaskBot` to hunt the player.
@@ -586,7 +590,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
 
         // Find the maximum of the minima from above.
         let huntPlayerBot = huntPlayerBotRaw.reduce(0.0, max)
-        print("huntPlayerBot: \(huntPlayerBot.description), huntPlayerBotRaw: \(huntPlayerBotRaw.description) ")
+        //print("huntPlayerBot: \(huntPlayerBot.description), huntPlayerBotRaw: \(huntPlayerBotRaw.description) ")
         
         
         // A series of situations in which we prefer this 'TaskBot' to hunt the nearest "Dangerous Protestor" TaskBot
@@ -615,7 +619,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         
         // Find the maximum of the minima from above.
         let huntDangerousProtestorBot = huntDangerousProtestorTaskBotRaw.reduce(0.0, max)
-        print("huntDangerousTaskBot: \(huntDangerousProtestorBot.description), huntDangerousTaskBotRaw: \(huntDangerousProtestorTaskBotRaw.description) ")
+        //print("huntDangerousTaskBot: \(huntDangerousProtestorBot.description), huntDangerousTaskBotRaw: \(huntDangerousProtestorTaskBotRaw.description) ")
         
         
         // A series of situations in which we prefer this `TaskBot` to hunt the nearest "Protestor" TaskBot.
@@ -674,7 +678,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
 
         // Find the maximum of the minima from above.
         let huntTaskBot = huntTaskBotRaw.reduce(0.0, max)
-        print("huntTaskBot: \(huntTaskBot.description), huntTaskBotRaw: \(huntTaskBotRaw.description) ")
+        //print("huntTaskBot: \(huntTaskBot.description), huntTaskBotRaw: \(huntTaskBotRaw.description) ")
         
         
         // A series of situations in which we prefer this `TaskBot` to hunt the nearest "Police" TaskBot.
@@ -701,13 +705,13 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         
         //Find the maximum of the minum from above
         let attackPoliceBot = attackPoliceBotRaw.reduce(0.0, max)
-        print("attackPoliceBot: \(attackPoliceBot)")
+        //print("attackPoliceBot: \(attackPoliceBot)")
         
         
         // Protestor is arrested and should be moved to the meatwagaon
         if self.isArrested
         {
-            print("Moving prisoner to meatwagon")
+            //print("Moving prisoner to meatwagon")
             
             mandate = .lockupPrisoner
         }
@@ -715,7 +719,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         // Taskbot is scared and a Dangerous or Police Bot is nearby, leg it
         else if self.isScared && fleeDangerousTaskBot > 0
         {
-            print("Fleeing from dangerous or police")
+            //print("Fleeing from dangerous or police")
             
             // The rules provided greated motivation to flee
             guard let dangerousTaskBot = state.nearestDangerousTaskBotTarget?.target.agent else { return }
@@ -725,7 +729,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         // Protestor TaskBot has been attacked and is now retaliating
         else if self.isRetaliating && self.isProtestor
         {
-            print("Retaliating")
+            //print("Retaliating")
             guard let targetTaskbot = state.nearestPoliceTaskBotTarget?.target.agent else { return }
             mandate = .retaliate(targetTaskbot)
         }
@@ -733,7 +737,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         //TaskBot is Violent and Police are nearby, go fuck them up
         else if self.isProtestor && self.isViolent && attackPoliceBot > 0
         {
-            print("Attacking Police")
+            //print("Attacking Police")
             guard let dangerousTaskBot = state.nearestPoliceTaskBotTarget?.target.agent else { return }
             mandate = .huntAgent(dangerousTaskBot)
         }
@@ -743,7 +747,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         {
             // The rules provided greater motivation to hunt the nearest Dangerous Protestor TaskBot. Ignore any motivation to hunt the PlayerBot.
             
-            print("Hunt the nearest dangerous bot")
+            //print("Hunt the nearest dangerous bot")
             mandate = .huntAgent(state.nearestDangerousTaskBotTarget!.target.agent)
         }
         
@@ -751,7 +755,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         // An active PoliceBot is near a Protestor, attack them
         else if self.isPolice && self.isActive && huntTaskBot > huntPlayerBot
         {
-            print("Hunt the nearest Protestor: \(state.nearestProtestorTaskBotTarget!.target.agent.debugDescription)")
+            //print("Hunt the nearest Protestor: \(state.nearestProtestorTaskBotTarget!.target.agent.debugDescription)")
             
             // The rules provided greater motivation to hunt the nearest good TaskBot. Ignore any motivation to hunt the PlayerBot.
             mandate = .huntAgent(state.nearestProtestorTaskBotTarget!.target.agent)
@@ -781,7 +785,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                     // Send the `TaskBot` to the closest point on its "bad" patrol path.
                     let closestPointOnBadPath = closestPointOnPath(path: badPathPoints)
                     mandate = .returnToPositionOnPath(float2(closestPointOnBadPath))
-                    print("entity: \(self.debugDescription)")
+                    //print("entity: \(self.debugDescription)")
             }
         }
     }
@@ -929,7 +933,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
     
     func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?, scene: LevelScene)
     {
-        print ("touchesBegan")
+        //print ("touchesBegan")
         
         //Delete the existing path
         playerPathPoints.removeAll()
@@ -986,7 +990,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         //Reduce the number of recorded path points
         playerPathPoints.append(location)
         
-        print("playerPathPoints: \(playerPathPoints.count)")
+        //print("playerPathPoints: \(playerPathPoints.count)")
     }
     
     func startAnimation()

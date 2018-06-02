@@ -30,4 +30,8 @@ class PhysicsComponent: GKComponent
     {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    deinit {
+        print("Deallocating PhysicsComponent")
+    }
 }

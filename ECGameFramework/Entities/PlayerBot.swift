@@ -144,6 +144,11 @@ class PlayerBot: GKEntity, ChargeComponentDelegate, ResourceLoadableType
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        print("Deallocating PlayerBot")
+    }
+    
+    
     // MARK: Charge component delegate
     
     func chargeComponentDidLoseCharge(chargeComponent: ChargeComponent)

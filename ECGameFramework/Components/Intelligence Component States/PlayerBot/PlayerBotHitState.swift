@@ -32,6 +32,10 @@ class PlayerBotHitState: GKState
         self.entity = entity
     }
     
+    deinit {
+        print("Deallocating PlayerBotHitState")
+    }
+    
     // MARK: GKState Life Cycle
     
     override func didEnter(from previousState: GKState?)

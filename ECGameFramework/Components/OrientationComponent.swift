@@ -34,4 +34,8 @@ class OrientationComponent: GKComponent
             zRotation = newValue.zRotation
         }
     }
+    
+    deinit {
+        print("Deallocatin OrientationComponent")
+    }
 }

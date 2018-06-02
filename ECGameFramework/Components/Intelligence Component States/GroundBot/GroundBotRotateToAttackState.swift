@@ -43,6 +43,11 @@ class GroundBotRotateToAttackState: GKState
         self.entity = entity
     }
     
+    
+    deinit {
+        print("Deallocating GroundBotRotateToAttackState")
+    }
+    
     // MARK: GPState Life Cycle
     
     override func didEnter(from previousState: GKState?)

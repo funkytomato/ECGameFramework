@@ -33,6 +33,11 @@ class GameControllerInputSource: ControlInputSourceType
         registerRotationEvents()
     }
     
+    
+    deinit {
+        print("Deallocating GameControllerInputSource")
+    }
+    
     // MARK: Gamepad Registration Methods
     
     private func registerPauseEvent()

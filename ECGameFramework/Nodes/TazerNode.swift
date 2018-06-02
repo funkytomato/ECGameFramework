@@ -84,6 +84,11 @@ class TazerNode: SKNode, ResourceLoadableType
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        print("Deallocating TazerNode")
+    }
+    
+    
     // MARK: Actions
     
     func update(withWeaponState state: GKState, source: TaskBot, target: TaskBot? = nil)

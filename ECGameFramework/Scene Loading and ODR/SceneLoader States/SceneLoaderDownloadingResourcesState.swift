@@ -24,6 +24,10 @@ class SceneLoaderDownloadingResourcesState: GKState
         self.sceneLoader = sceneLoader
     }
     
+    deinit {
+        print("Deallocating SceneLoaderDownloadingResourcesState")
+    }
+    
     // MARK: GKState Life Cycle
     
     override func didEnter(from previousState: GKState?)

@@ -44,6 +44,10 @@ class ProtestorBotRechargingState: GKState
         self.entity = entity
     }
     
+    deinit {
+        print("Deallocating ProtestorBotRechargingState")
+    }
+    
     // MARK: GKState life cycle
     
     override func didEnter(from previousState: GKState?)

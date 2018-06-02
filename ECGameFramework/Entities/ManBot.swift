@@ -203,6 +203,10 @@ class ManBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
     }
 
     
+    deinit {
+        print("Deallocating ManBot")
+    }
+    
     // MARK: ContactableType
     
     override func contactWithEntityDidBegin(_ entity: GKEntity)

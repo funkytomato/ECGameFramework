@@ -25,6 +25,10 @@ class BeamCoolingState: GKState
         self.beamComponent = beamComponent
     }
     
+    deinit {
+        print("Deallocating BeamCoolingSate")
+    }
+    
     // MARK: GKState life cycle
     
     override func didEnter(from previousState: GKState?)

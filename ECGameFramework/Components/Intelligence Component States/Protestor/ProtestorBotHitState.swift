@@ -62,6 +62,10 @@ class ProtestorBotHitState: GKState
         self.entity = entity
     }
     
+    deinit {
+        print("Deallocating ProtestorBotHitState")
+    }
+    
     // MARK: GKState Life Cycle
     
     override func didEnter(from previousState: GKState?)
@@ -109,7 +113,7 @@ class ProtestorBotHitState: GKState
             let changeTemperament = GKMersenneTwisterRandomSource()
             let val = changeTemperament.nextInt(upperBound: 10)
             
-            print("changeTemperament: \(val)")
+            //print("changeTemperament: \(val)")
             
             
             if val < 3

@@ -87,6 +87,11 @@ class TouchControlInputNode: SKSpriteNode, ThumbStickNodeDelegate, ControlInputS
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    deinit {
+        print("Deallocating TouchControlInputNode")
+    }
+    
     // MARK: ThumbStickNodeDelegate
     
     func thumbStickNode(thumbStickNode: ThumbStickNode, didUpdateXValue xValue: Float, yValue: Float)

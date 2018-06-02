@@ -47,6 +47,10 @@ class ScaredState: GKState
     }
     
     
+    deinit {
+        print("Deallocating ScaredState")
+    }
+    
     //MARK:- GKState Life Cycle
     override func didEnter(from previousState: GKState?)
     {

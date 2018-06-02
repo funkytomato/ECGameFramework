@@ -30,6 +30,11 @@ class TaskBotAgentControlledState: GKState
         self.entity = entity
     }
     
+    
+    deinit {
+        print("Deallocating TaskBotAgentControlledState")
+    }
+    
     // MARK: GKState Life Cycle
     
     override func didEnter(from previousState: GKState?)
@@ -124,7 +129,7 @@ class TaskBotAgentControlledState: GKState
             }
             
 
-            print("Current behaviour mandate: \(entity.mandate)")
+            //print("Current behaviour mandate: \(entity.mandate)")
             
             // Ensure the agent's behavior is the appropriate behavior for its current mandate.
             entity.agent.behavior = entity.behaviorForCurrentMandate

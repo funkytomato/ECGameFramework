@@ -60,6 +60,9 @@ class SubduedState: GKState
         self.entity = entity
     }
     
+    deinit {
+        print("Deallocating SubduedState")
+    }
     
     //MARK:- GKState Life Cycle
     override func didEnter(from previousState: GKState?)

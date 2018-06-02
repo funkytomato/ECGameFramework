@@ -79,6 +79,10 @@ class ChargeComponent: GKComponent
         fatalError("init(coder:) has not been implemented")
     }
 
+    deinit {
+        print("Deallocating ChargeComponent")
+    }
+    
     // MARK: Component actions
     
     func loseCharge(chargeToLose: Double)

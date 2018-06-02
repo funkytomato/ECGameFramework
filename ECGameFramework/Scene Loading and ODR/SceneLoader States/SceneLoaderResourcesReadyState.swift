@@ -21,6 +21,10 @@ class SceneLoaderResourcesReadyState: GKState
         self.sceneLoader = sceneLoader
     }
     
+    deinit {
+        print("Deallocating SceneLoaderResourcesReaddyState")
+    }
+    
     // MARK: GKState Life Cycle
     
     override func didEnter(from previousState: GKState?)

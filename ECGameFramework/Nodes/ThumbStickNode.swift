@@ -73,6 +73,11 @@ class ThumbStickNode: SKSpriteNode
         fatalError("init(coder:) has not been implemented")
     }
 
+    
+    deinit {
+        print("Deallocating ThumbStickNode")
+    }
+    
     // MARK: UIResponder
     
     override var canBecomeFirstResponder: Bool

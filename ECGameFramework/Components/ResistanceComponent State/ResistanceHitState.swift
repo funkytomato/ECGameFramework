@@ -42,6 +42,10 @@ class ResistanceHitState: GKState
         self.resistanceComponent = resistanceComponent
     }
     
+    deinit {
+        print("Deallocating ResistanceHitState")
+    }
+    
     // MARK: GKState life cycle
     
     override func didEnter(from previousState: GKState?)

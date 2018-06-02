@@ -27,6 +27,10 @@ class TazerIdleState: GKState
         self.tazerComponent = tazerComponent
     }
     
+    deinit {
+        print("Deallocating TazerIdleState")
+    }
+    
     // MARK: GKState life cycle
     
     override func update(deltaTime seconds: TimeInterval)

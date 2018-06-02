@@ -51,6 +51,10 @@ class PoliceBotAttackState: GKState
         self.entity = entity
     }
     
+    deinit {
+        print("Deallocating PoliceBotAtackState")
+    }
+    
     // MARK: GKState Life Cycle
     
     override func didEnter(from previousState: GKState?)
@@ -120,7 +124,7 @@ class PoliceBotAttackState: GKState
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
     {
-        print("stateClass :\(stateClass.description())")
+        //print("stateClass :\(stateClass.description())")
         
         switch stateClass
         {

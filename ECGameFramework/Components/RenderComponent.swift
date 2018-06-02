@@ -16,6 +16,11 @@ class RenderComponent: GKComponent
     // The `RenderComponent` vends a node allowing an entity to be rendered in a scene.
     let node = SKNode()
 
+    deinit {
+        print("Deallocating RenderComponent")
+    }
+    
+    
     // MARK: GKComponent
     
     override func didAddToEntity()

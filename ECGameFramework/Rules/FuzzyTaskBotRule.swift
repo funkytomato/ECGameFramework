@@ -30,6 +30,11 @@ class FuzzyTaskBotRule: GKRule
         salience = Int.max
     }
     
+    
+    deinit {
+        print("Deallocating FuzzyTaskbotRule")
+    }
+    
     // MARK: GPRule Overrides
     
     override func evaluatePredicate(in system: GKRuleSystem) -> Bool

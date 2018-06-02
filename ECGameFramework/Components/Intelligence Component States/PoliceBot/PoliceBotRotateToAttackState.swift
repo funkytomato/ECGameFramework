@@ -47,6 +47,10 @@ class PoliceBotRotateToAttackState: GKState
         self.entity = entity
     }
     
+    deinit {
+        print("Deallocating PoliceBotToRotateAttackState")
+    }
+    
     // MARK: GPState Life Cycle
     
     override func didEnter(from previousState: GKState?)

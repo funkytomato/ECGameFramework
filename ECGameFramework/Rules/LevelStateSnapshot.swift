@@ -154,7 +154,7 @@ class LevelStateSnapshot
         let injuredBotPercentage = Float(injuredTaskBots.count) / Float(protestorTaskBots.count + dangerousTaskBots.count + injuredTaskBots.count + policeTaskBots.count + criminalTaskBots.count)
         
 
-        print("policeBotPercentage:\(policeBotPercentage.description), protestorBotPercentage: \(protestorBotPercentage.description), criminalBotPercentage: \(criminalBotPercentage.description), dangerousBotPercentage: \(dangerousBotPercentage.description), injuredBotPercentage: \(injuredBotPercentage.description), policeTaskBots: \(policeTaskBots.count), protestorTaskBots: \(protestorTaskBots.count), dangerousTaskBots: \(dangerousTaskBots.count), scaredBots: \(scaredTaskBots.count), injuredTaskBots: \(injuredTaskBots.count)")
+        //print("policeBotPercentage:\(policeBotPercentage.description), protestorBotPercentage: \(protestorBotPercentage.description), criminalBotPercentage: \(criminalBotPercentage.description), dangerousBotPercentage: \(dangerousBotPercentage.description), injuredBotPercentage: \(injuredBotPercentage.description), policeTaskBots: \(policeTaskBots.count), protestorTaskBots: \(protestorTaskBots.count), dangerousTaskBots: \(dangerousTaskBots.count), scaredBots: \(scaredTaskBots.count), injuredTaskBots: \(injuredTaskBots.count)")
         
         
         
@@ -166,6 +166,10 @@ class LevelStateSnapshot
             entitySnapshots[entity] = entitySnapshot
         }
 
+    }
+    
+    deinit {
+        print("Deallocating LevelStateSnapShot")
     }
     
 }

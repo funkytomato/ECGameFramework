@@ -36,6 +36,10 @@ class EmitterComponent: GKComponent
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        print("Deallocating EmitterComponent")
+    }
+    
     override func update(deltaTime: TimeInterval)
     {
         super.update(deltaTime: deltaTime)

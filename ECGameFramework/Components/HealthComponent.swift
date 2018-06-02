@@ -85,6 +85,10 @@ class HealthComponent: GKComponent
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        print("Deallocating HealthComponent")
+    }
+    
     // MARK: Component actions
     
     func loseHealth(healthToLose: Double)

@@ -18,6 +18,10 @@ class LevelScenePauseState: LevelSceneOverlayState
         return "PauseScene"
     }
     
+    deinit {
+        print("Deallocating LevelScenePauseState")
+    }
+    
     // MARK: GKState Life Cycle
     
     override func didEnter(from previousState: GKState?)

@@ -104,6 +104,7 @@ class BeamComponent: GKComponent
     
     deinit
     {
+        print("Deallocating BeamComponent")
         // Remove the beam node from the scene.
         beamNode.removeFromParent()
     }

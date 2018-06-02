@@ -104,6 +104,10 @@ class PoliceTaskBotPercentageLowRule: FuzzyTaskBotRule
     // MARK: Initializers
     
     init() { super.init(fact: .policeTaskBotPercentageLow) }
+    
+    deinit {
+        print("Deallocating PoliceTaskBotPercentageLowRule")
+    }
 }
 
 /// Asserts whether the number of "Police" `TaskBot`s is considered "medium".
@@ -126,6 +130,10 @@ class PoliceTaskBotPercentageMediumRule: FuzzyTaskBotRule
     // MARK: Initializers
     
     init() { super.init(fact: .policeTaskBotPercentageMedium) }
+    
+    deinit {
+        print("Deallocating PoliceTaskBotPercentageMediumRule")
+    }
 }
 
 /// Asserts whether the number of "bad" `TaskBot`s is considered "high".
@@ -141,6 +149,10 @@ class PoliceTaskBotPercentageHighRule: FuzzyTaskBotRule
     // MARK: Initializers
     
     init() { super.init(fact: .policeTaskBotPercentageHigh) }
+    
+    deinit {
+        print("Deallocating PoliceTaskBotPercentageHighRule")
+    }
 }
 
 /// Asserts whether the `PoliceBot` is considered to be "near" to this `TaskBot`.
@@ -158,6 +170,10 @@ class PoliceBotNearRule: FuzzyTaskBotRule
     // MARK: Initializers
     
     init() { super.init(fact: .policeBotNear) }
+    
+    deinit {
+        print("Deallocating PoliceBotNearRule")
+    }
 }
 
 /// Asserts whether the `PoliceBot` is considered to be at a "medium" distance from this `TaskBot`.
@@ -175,6 +191,10 @@ class PoliceBotMediumRule: FuzzyTaskBotRule
     // MARK: Initializers
     
     init() { super.init(fact: .policeBotMedium) }
+    
+    deinit {
+        print("Deallocating PoliceBotMediumRule")
+    }
 }
 
 /// Asserts whether the `PoliceBot` is considered to be "far" from this `TaskBot`.
@@ -192,6 +212,10 @@ class PoliceBotFarRule: FuzzyTaskBotRule
     // MARK: Initializers
     
     init() { super.init(fact: .policeBotFar) }
+    
+    deinit {
+        print("Deallocating PoliceBotFarRule")
+    }
 }
 
 
@@ -208,6 +232,10 @@ class DangerousTaskBotPercentageLowRule: FuzzyTaskBotRule
     // MARK: Initializers
     
     init() { super.init(fact: .dangerousTaskBotPercentageLow) }
+    
+    deinit {
+        print("Deallocating DangerousTaskBotPercentageLowRule")
+    }
 }
 
 /// Asserts whether the number of "Dangerous" `TaskBot`s is considered "medium".
@@ -230,6 +258,10 @@ class DangerousTaskBotPercentageMediumRule: FuzzyTaskBotRule
     // MARK: Initializers
     
     init() { super.init(fact: .dangerousTaskBotPercentageMedium) }
+    
+    deinit {
+        print("Deallocating DangerousTaskBotPercentageMediumRule")
+    }
 }
 
 /// Asserts whether the number of "Dangerous" `TaskBot`s is considered "high".
@@ -245,6 +277,10 @@ class DangerousTaskBotPercentageHighRule: FuzzyTaskBotRule
     // MARK: Initializers
     
     init() { super.init(fact: .dangerousTaskBotPercentageHigh) }
+    
+    deinit {
+        print("Deallocating DangerousTaskBotPercentageHighRule")
+    }
 }
 
 
@@ -267,6 +303,10 @@ class PlayerBotNearRule: FuzzyTaskBotRule
     // MARK: Initializers
     
     init() { super.init(fact: .playerBotNear) }
+    
+    deinit {
+        print("Deallocating PlayerBotNearRule")
+    }
 }
 
 /// Asserts whether the `PlayerBot` is considered to be at a "medium" distance from this `TaskBot`.
@@ -284,6 +324,10 @@ class PlayerBotMediumRule: FuzzyTaskBotRule
     // MARK: Initializers
     
     init() { super.init(fact: .playerBotMedium) }
+    
+    deinit {
+        print("Deallocating PlayerBotMediumRule")
+    }
 }
 
 /// Asserts whether the `PlayerBot` is considered to be "far" from this `TaskBot`.
@@ -301,6 +345,10 @@ class PlayerBotFarRule: FuzzyTaskBotRule
     // MARK: Initializers
     
     init() { super.init(fact: .playerBotFar) }
+    
+    deinit {
+        print("Deallocating PlayerBotfarRule")
+    }
 }
 
 // MARK: TaskBot Proximity Rules
@@ -320,6 +368,10 @@ class ProtestorTaskBotNearRule: FuzzyTaskBotRule
     // MARK: Initializers
     
     init() { super.init(fact: .protestorTaskBotNear) }
+    
+    deinit {
+        print("Deallocating ProtestorTaskBotNearRule")
+    }
 }
 
 /// Asserts whether the nearest "Protestor" `TaskBot` is considered to be at a "medium" distance from this `TaskBot`.
@@ -337,6 +389,10 @@ class ProtestorTaskBotMediumRule: FuzzyTaskBotRule
     // MARK: Initializers
     
     init() { super.init(fact: .protestorTaskBotMedium) }
+    
+    deinit {
+        print("Deallocating ProtestorTaskBotMediumRule")
+    }
 }
 
 /// Asserts whether the nearest "Protestor" `TaskBot` is considered to be "far" from this `TaskBot`.
@@ -354,6 +410,10 @@ class ProtestorTaskBotFarRule: FuzzyTaskBotRule
     // MARK: Initializers
     
     init() { super.init(fact: .protestorTaskBotFar) }
+    
+    deinit {
+        print("Deallocating ProtestorTaskBotFarRule")
+    }
 }
 
 
@@ -372,6 +432,10 @@ class DangerousProtestorTaskBotNearRule: FuzzyTaskBotRule
     // MARK: Initializers
     
     init() { super.init(fact: .dangerousTaskBotNear) }
+    
+    deinit {
+        print("Deallocating DangerousProtestorTaskBotNearRule")
+    }
 }
 
 /// Asserts whether the nearest "Dangerous" `TaskBot` is considered to be at a "medium" distance from this `TaskBot`.
@@ -389,6 +453,10 @@ class DangerousProtestorTaskBotMediumRule: FuzzyTaskBotRule
     // MARK: Initializers
     
     init() { super.init(fact: .dangerousTaskBotMedium) }
+    
+    deinit {
+        print("Deallocating DangerousProtestorTaskBotMediumRule")
+    }
 }
 
 /// Asserts whether the nearest "Dangerous" `TaskBot` is considered to be "far" from this `TaskBot`.
@@ -406,6 +474,10 @@ class DangerousProtestorTaskBotFarRule: FuzzyTaskBotRule
     // MARK: Initializers
     
     init() { super.init(fact: .dangerousTaskBotFar) }
+    
+    deinit {
+        print("Deallocating DangerousProtestorTaskBotFarRule")
+    }
 }
 
 /// Asserts whether the nearest "Scared" `TaskBot` is considered to be "near" to this `TaskBot`.
@@ -423,6 +495,10 @@ class ScaredTaskBotNearRule: FuzzyTaskBotRule
     // MARK: Initializers
     
     init() { super.init(fact: .scaredTaskBotNear) }
+    
+    deinit {
+        print("Deallocating ScaredTaskBotNearRule")
+    }
 }
 
 /// Asserts whether the nearest "Scared" `TaskBot` is considered to be at a "medium" distance from this `TaskBot`.
@@ -440,6 +516,10 @@ class ScaredTaskBotMediumRule: FuzzyTaskBotRule
     // MARK: Initializers
     
     init() { super.init(fact: .scaredTaskBotMedium) }
+    
+    deinit {
+        print("Deallocating ScaredTaskBotMediumRule")
+    }
 }
 
 /// Asserts whether the nearest "Scared" `TaskBot` is considered to be "far" from this `TaskBot`.
@@ -457,6 +537,10 @@ class ScaredTaskBotFarRule: FuzzyTaskBotRule
     // MARK: Initializers
     
     init() { super.init(fact: .scaredTaskBotFar) }
+    
+    deinit {
+        print("Deallocating ScaredTaskBotFarRule")
+    }
 }
 
 /// Asserts whether the number of "criminal" `TaskBot`s is considered "low".
@@ -472,6 +556,10 @@ class CriminalTaskBotPercentageLowRule: FuzzyTaskBotRule
     // MARK: Initializers
     
     init() { super.init(fact: .criminalTaskBotPercentageLow) }
+    
+    deinit {
+        print("Deallocating CriminalTaskBotPercentageLowRule")
+    }
 }
 
 /// Asserts whether the number of "Criminal" `TaskBot`s is considered "medium".
@@ -494,6 +582,10 @@ class CriminalTaskBotPercentageMediumRule: FuzzyTaskBotRule
     // MARK: Initializers
     
     init() { super.init(fact: .criminalTaskBotPercentageMedium) }
+    
+    deinit {
+        print("Deallocating CriminalTaskBotPercentageMediumRule")
+    }
 }
 
 /// Asserts whether the number of "Criminal" `TaskBot`s is considered "high".
@@ -509,6 +601,10 @@ class CriminalTaskBotPercentageHighRule: FuzzyTaskBotRule
     // MARK: Initializers
     
     init() { super.init(fact: .criminalTaskBotPercentageHigh) }
+    
+    deinit {
+        print("Deallocating CriminalTaskBotPercentageHighRule")
+    }
 }
 
 /// Asserts whether the nearest "Criminal" `TaskBot` is considered to be "near" to this `TaskBot`.
@@ -526,6 +622,10 @@ class CriminalTaskBotNearRule: FuzzyTaskBotRule
     // MARK: Initializers
     
     init() { super.init(fact: .criminalTaskBotNear) }
+    
+    deinit {
+        print("Deallocating CriminalTaskBotNearRule")
+    }
 }
 
 /// Asserts whether the nearest "Criminal" `TaskBot` is considered to be at a "medium" distance from this `TaskBot`.
@@ -543,6 +643,10 @@ class CriminalTaskBotMediumRule: FuzzyTaskBotRule
     // MARK: Initializers
     
     init() { super.init(fact: .criminalTaskBotMedium) }
+    
+    deinit {
+        print("Deallocating CriminalTaskBotMediumRule")
+    }
 }
 
 /// Asserts whether the nearest "Criminal" `TaskBot` is considered to be "far" from this `TaskBot`.
@@ -560,6 +664,10 @@ class CriminalTaskBotFarRule: FuzzyTaskBotRule
     // MARK: Initializers
     
     init() { super.init(fact: .criminalTaskBotFar) }
+    
+    deinit {
+        print("Deallocating CriminalTaskBotFarRule")
+    }
 }
 
 /// Asserts whether the number of "Injured" `TaskBot`s is considered "low".
@@ -575,6 +683,10 @@ class InjuredTaskBotPercentageLowRule: FuzzyTaskBotRule
     // MARK: Initializers
     
     init() { super.init(fact: .injuredTaskBotPercentageLow) }
+    
+    deinit {
+        print("Deallocating InjuredTaskBotPercentageLowRule")
+    }
 }
 
 /// Asserts whether the number of "Injured" `TaskBot`s is considered "medium".
@@ -597,6 +709,10 @@ class InjuredTaskBotPercentageMediumRule: FuzzyTaskBotRule
     // MARK: Initializers
     
     init() { super.init(fact: .injuredTaskBotPercentageMedium) }
+    
+    deinit {
+        print("Deallocating InjuredTaskBotPercentageMediumRule")
+    }
 }
 
 /// Asserts whether the number of "Injured" `TaskBot`s is considered "high".
@@ -612,6 +728,10 @@ class InjuredTaskBotPercentageHighRule: FuzzyTaskBotRule
     // MARK: Initializers
     
     init() { super.init(fact: .injuredTaskBotPercentageHigh) }
+    
+    deinit {
+        print("Deallocating InjuredTaskBotPercentageHighRule")
+    }
 }
 
 
@@ -630,6 +750,10 @@ class InjuredTaskBotNearRule: FuzzyTaskBotRule
     // MARK: Initializers
     
     init() { super.init(fact: .injuredTaskBotNear) }
+    
+    deinit {
+        print("Deallocating InjuredTaskBotNearRule")
+    }
 }
 
 /// Asserts whether the nearest "Injured" `TaskBot` is considered to be at a "medium" distance from this `TaskBot`.
@@ -647,6 +771,11 @@ class InjuredTaskBotMediumRule: FuzzyTaskBotRule
     // MARK: Initializers
     
     init() { super.init(fact: .injuredTaskBotMedium) }
+    
+    deinit {
+        print("Deallocating InjuredTaskBotMediumRule")
+    }
+    
 }
 
 /// Asserts whether the nearest "Injured" `TaskBot` is considered to be "far" from this `TaskBot`.
@@ -664,4 +793,8 @@ class InjuredTaskBotFarRule: FuzzyTaskBotRule
     // MARK: Initializers
     
     init() { super.init(fact: .injuredTaskBotFar) }
+    
+    deinit {
+        print("Deallocating InjuredTaskBotFarRule")
+    }
 }

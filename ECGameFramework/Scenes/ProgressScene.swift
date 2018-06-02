@@ -61,6 +61,7 @@ class ProgressScene: BaseScene
         }
     }
     
+    
     /// A registered observer object for `SceneLoaderDownloadFailedNotification`s.
     private var downloadFailedObserver: AnyObject?
     
@@ -110,6 +111,8 @@ class ProgressScene: BaseScene
     
     deinit
     {
+        print("Deallocating ProgressScene")
+        
         // Unregister as an observer of 'SceneLoaderDownloadFailedNotification' notifications.
         if let downloadFailedObserver = downloadFailedObserver
         {

@@ -45,6 +45,10 @@ class InciteState: GKState
     }
     
     
+    deinit {
+        print("Deallocating InciteState")
+    }
+    
     //MARK:- GKState Life Cycle
     override func didEnter(from previousState: GKState?)
     {

@@ -54,6 +54,10 @@ class SceneLoaderPreparingResourcesState: GKState
         operationQueue.qualityOfService = .utility
     }
     
+    deinit {
+        print("Deallocating SceneLoaderPreparingState")
+    }
+    
     // MARK: GKState Life Cycle
     
     override func didEnter(from previousState: GKState?)

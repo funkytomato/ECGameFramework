@@ -216,6 +216,10 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
     }
     
     
+    deinit {
+        print("Deallocating CriminalBot")
+    }
+    
     // MARK: ContactableType
     
     override func contactWithEntityDidBegin(_ entity: GKEntity)
@@ -376,7 +380,7 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
         
         startAnimation()
         
-        print("playerpathPoints: \(playerPathPoints.count)")
+        //print("playerpathPoints: \(playerPathPoints.count)")
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?, scene: LevelScene)

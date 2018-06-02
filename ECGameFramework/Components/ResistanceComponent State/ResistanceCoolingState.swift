@@ -30,6 +30,10 @@ class ResistanceCoolingState: GKState
         self.resistanceComponent = resistanceComponent
     }
     
+    deinit {
+        print("Deallocating ResistanceCoolingState")
+    }
+    
     // MARK: GKState life cycle
     
     override func didEnter(from previousState: GKState?)

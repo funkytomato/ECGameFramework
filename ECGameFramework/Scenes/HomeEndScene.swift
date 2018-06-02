@@ -37,6 +37,8 @@ class HomeEndScene: BaseScene
     
     deinit
     {
+        print("Deallocating HomeEndScene")
+        
         // Deregister for scene loader notifications.
         for observer in sceneLoaderNotificationObservers
         {

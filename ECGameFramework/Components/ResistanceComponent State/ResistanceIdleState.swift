@@ -28,7 +28,9 @@ class ResistanceIdleState: GKState
         self.resistanceComponent = resistanceComponent
     }
     
-
+    deinit {
+        print("Deallocating ResistanceIdleState")
+    }
     
     // MARK: GKState life cycle
     

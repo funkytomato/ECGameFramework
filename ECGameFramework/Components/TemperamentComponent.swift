@@ -41,6 +41,10 @@ class TemperamentComponent: GKComponent
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        print("Deallocating TemperamentComponent")
+    }
+    
     // MARK: GKComponent Life Cycle
     
     override func update(deltaTime seconds: TimeInterval)

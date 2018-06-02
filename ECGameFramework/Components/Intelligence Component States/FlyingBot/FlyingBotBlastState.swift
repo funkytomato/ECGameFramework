@@ -63,6 +63,10 @@ class FlyingBotBlastState: GKState
         templateBadEmitterNode.position = GameplayConfiguration.FlyingBot.blastEmitterOffset
     }
     
+    deinit {
+        print("Deallocating FlyingBotBlastState")
+    }
+    
     // MARK: GKState Life Cycle
     
     override func didEnter(from previousState: GKState?)

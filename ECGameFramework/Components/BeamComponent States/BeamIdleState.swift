@@ -22,6 +22,10 @@ class BeamIdleState: GKState
         self.beamComponent = beamComponent
     }
     
+    deinit {
+        print("Deallocating BeamIdleState")
+    }
+    
     // MARK: GKState life cycle
     
     override func update(deltaTime seconds: TimeInterval)

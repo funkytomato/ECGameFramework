@@ -40,6 +40,10 @@ class LevelSceneOverlayState: GKState
             levelPreviewNode.texture = SKTexture(imageNamed: levelScene.levelConfiguration.fileName)
         }
     }
+    
+    deinit {
+        print("Deallocating LevelSceneOverlayState")
+    }
 
     // MARK: GKState Life Cycle
 

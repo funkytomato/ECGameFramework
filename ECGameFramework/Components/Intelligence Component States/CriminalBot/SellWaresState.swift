@@ -42,6 +42,9 @@ class SellWaresState: GKState
         self.entity = entity
     }
     
+    deinit {
+        print("Deallocating SellWareState")
+    }
     
     //MARK:- GKState Life Cycle
     override func didEnter(from previousState: GKState?)

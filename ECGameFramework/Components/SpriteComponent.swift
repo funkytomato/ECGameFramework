@@ -28,6 +28,10 @@ class SpriteComponent: GKComponent
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        print("Deallocating SpriteComponent")
+    }
+    
     // MARK:- GKComponent
     
     override func update(deltaTime: TimeInterval)
@@ -39,7 +43,7 @@ class SpriteComponent: GKComponent
     // Convenience methods
     func changeColour(colour: SKColor)
     {
-        print("colour: \(colour.description)")
+        //print("colour: \(colour.description)")
         node.color = colour
     }
     

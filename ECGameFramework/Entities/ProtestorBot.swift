@@ -230,6 +230,10 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
     }
     
     
+    deinit {
+        print("Deallocating ProtestorBot")
+    }
+    
     // MARK: ContactableType
     
     override func contactWithEntityDidBegin(_ entity: GKEntity)
@@ -274,7 +278,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         // 3) Set the Protestor to Flee State
         //guard intelligenceComponent.stateMachine.enter(TaskBotFleeState.self) else { return }
         
-        print("mandate \(mandate)")
+        //print("mandate \(mandate)")
         
 
         switch mandate

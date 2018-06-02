@@ -42,6 +42,10 @@ class SceneOverlay
         nativeContentSize = contentNode.size
     }
     
+    deinit {
+        print("Deallocating SceneOverlay")
+    }
+    
     func updateScale()
     {
         guard let viewSize = backgroundNode.scene?.view?.frame.size else {

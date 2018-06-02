@@ -32,6 +32,10 @@ class LoadSceneOperation: SceneOperation, ProgressReporting
         super.init()
     }
     
+    deinit {
+        print("Deallocating LoadSceneOperation")
+    }
+    
     // MARK: NSOperation
     
     override func start()

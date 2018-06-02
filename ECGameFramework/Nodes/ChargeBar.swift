@@ -70,4 +70,8 @@ class ChargeBar: SKSpriteNode
     {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    deinit {
+        print("Deallocating ChargeBar")
+    }
 }

@@ -21,6 +21,10 @@ class SceneLoaderInitialState: GKState
         self.sceneLoader = sceneLoader
     }
     
+    deinit {
+        print("Deallocating SceneLoaderInitialState")
+    }
+    
     // MARK: GKState Life Cycle
     
     override func didEnter(from previousState: GKState?)

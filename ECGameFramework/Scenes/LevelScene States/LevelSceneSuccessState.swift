@@ -18,6 +18,11 @@ class LevelSceneSuccessState: LevelSceneOverlayState
         return "SuccessScene"
     }
     
+    
+    deinit {
+        print("Deallocating LevelSceneSuccessState")
+    }
+    
     // MARK: GKState Life Cycle
     
     override func didEnter(from previousState: GKState?)

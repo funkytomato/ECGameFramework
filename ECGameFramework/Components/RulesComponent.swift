@@ -45,6 +45,11 @@ class RulesComponent: GKComponent
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        print("Deallocating RulesComponent")
+    }
+    
+    
     // MARK: GKComponent Life Cycle
     
     override func update(deltaTime seconds: TimeInterval)

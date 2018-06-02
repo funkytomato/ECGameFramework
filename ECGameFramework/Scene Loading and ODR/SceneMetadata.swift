@@ -118,7 +118,7 @@ struct SceneMetadata
         
         // Set up the `loadableTypes` to be prepared when the scene is requested.
         loadableTypes = loadableTypesForScene
-        print("loadableTypes to load:\(loadableTypes)")
+        //print("loadableTypes to load:\(loadableTypes)")
     }
 }
 

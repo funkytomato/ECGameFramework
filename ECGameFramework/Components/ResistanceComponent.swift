@@ -104,6 +104,8 @@ class ResistanceComponent: GKComponent
     
     deinit
     {
+        print("Deallocating ResistanceComponent")
+        
         // Remove the beam node from the scene.
         //beamNode.removeFromParent()
     }

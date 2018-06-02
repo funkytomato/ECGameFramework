@@ -118,4 +118,8 @@ class InputComponent: GKComponent, ControlInputSourceDelegate
             beamComponent.isTriggered = state.beamIsTriggered
         }
     }
+    
+    deinit {
+        print("Dealocating InputComponent")
+    }
 }

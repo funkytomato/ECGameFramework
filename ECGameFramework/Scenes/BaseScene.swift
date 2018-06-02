@@ -84,6 +84,11 @@ class BaseScene: SKScene, GameInputDelegate, ControlInputSourceGameStateDelegate
     /// A reference to the scene manager for scene progression.
     weak var sceneManager: SceneManager!
     
+    
+    deinit {
+        print("Deallocating BaseScene")
+    }
+    
     // MARK: SKScene Life Cycle
     
     override func didMove(to view: SKView)

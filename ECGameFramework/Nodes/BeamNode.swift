@@ -80,6 +80,10 @@ class BeamNode: SKNode, ResourceLoadableType
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        print("Deallocating BeamNode")
+    }
+    
     // MARK: Actions
     
     func update(withBeamState state: GKState, source: PlayerBot, target: TaskBot? = nil)

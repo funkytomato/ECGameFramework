@@ -121,6 +121,10 @@ class FlyingBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        print("Deallocating FlyingBot")
+    }
+    
     // MARK: ContactableType
 
     override func contactWithEntityDidBegin(_ entity: GKEntity)

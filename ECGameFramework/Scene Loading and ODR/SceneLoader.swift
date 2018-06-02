@@ -146,6 +146,11 @@ class SceneLoader
         stateMachine.enter(SceneLoaderInitialState.self)
     }
     
+    
+    deinit {
+        print("Deallocating SceneLoader")
+    }
+    
     #if os(iOS) || os(tvOS)
     /**
         Moves the state machine to the appropriate state when a request is made to

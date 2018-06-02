@@ -30,6 +30,10 @@ class TazerCoolingState: GKState
         self.tazerComponent = tazerComponent
     }
     
+    deinit {
+        print("Deallocating TazerCoolingState")
+    }
+    
     // MARK: GKState life cycle
     
     override func didEnter(from previousState: GKState?)

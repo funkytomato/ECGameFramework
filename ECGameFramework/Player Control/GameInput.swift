@@ -84,6 +84,7 @@ final class GameInput
     }
     #endif
 
+    
     /// Register for `GCGameController` pairing notifications.
     func registerForGameControllerNotifications()
     {
@@ -93,6 +94,8 @@ final class GameInput
     
     deinit
     {
+        print("Deallocating GameInput")
+        
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.GCControllerDidConnect, object: nil)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.GCControllerDidDisconnect, object: nil)
     }

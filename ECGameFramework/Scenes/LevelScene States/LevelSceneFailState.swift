@@ -18,6 +18,11 @@ class LevelSceneFailState: LevelSceneOverlayState
         return "FailScene"
     }
 
+    
+    deinit {
+        print("Deallocating LevelSceneFailState")
+    }
+    
     // MARK: GKState Life Cycle
     
     override func didEnter(from previousState: GKState?)

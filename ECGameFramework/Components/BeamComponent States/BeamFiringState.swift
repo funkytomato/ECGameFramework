@@ -42,6 +42,10 @@ class BeamFiringState: GKState
         self.beamComponent = beamComponent
     }
     
+    deinit {
+        print("Deallocating BeamFiringState")
+    }
+    
     // MARK: GKState life cycle
     
     override func didEnter(from previousState: GKState?)

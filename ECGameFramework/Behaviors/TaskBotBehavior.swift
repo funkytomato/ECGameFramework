@@ -247,7 +247,7 @@ class TaskBotBehavior: GKBehavior
     /// Constructs a behavior to retaliate a `TaskBot` attack
     static func retaliateBehaviour(forAgent agent: GKAgent2D, huntingAgent target: GKAgent2D, pathRadius: Float, inScene scene: LevelScene) -> (behavior: GKBehavior, pathPoints: [CGPoint])
     {
-        print("retaliateBehaviour \(agent.description) target: \(target.description) scene: \(scene.description)")
+        //print("retaliateBehaviour \(agent.description) target: \(target.description) scene: \(scene.description)")
         
         let behavior = TaskBotBehavior()
         
@@ -490,5 +490,10 @@ class TaskBotBehavior: GKBehavior
         setWeight(1.0, for: GKGoal(toStayOn: path, maxPredictionTime: GameplayConfiguration.TaskBot.maxPredictionTimeWhenFollowingPath))
         
         //print("addFollowAndStayOnPathGoals \(path.description)")
+    }
+    
+    deinit
+    {
+        print("Deallocating TaskBotBehavior")
     }
 }

@@ -52,6 +52,10 @@ class CalmState: GKState
     }
     
     
+    deinit {
+        print("Deallocating CalmState")
+    }
+    
     //MARK:- GKState Life Cycle
     override func didEnter(from previousState: GKState?)
     {

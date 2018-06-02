@@ -32,6 +32,11 @@ class TaskBotZappedState: GKState
         self.entity = entity
     }
     
+    
+    deinit {
+        print("Deallocating TaskBotZappedState")
+    }
+    
     // MARK: GKState Life Cycle
     
     override func didEnter(from previousState: GKState?)

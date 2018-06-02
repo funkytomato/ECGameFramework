@@ -74,7 +74,7 @@ struct Animation
         let offsetToEnd = Array(textures[frameOffset..<textures.count])
         let startToBeforeOffset = textures[0..<frameOffset]
         
-        print("\(offsetToEnd) \(startToBeforeOffset)")
+        //print("\(offsetToEnd) \(startToBeforeOffset)")
         
         return offsetToEnd + startToBeforeOffset
     }
@@ -147,6 +147,11 @@ class AnimationComponent: GKComponent
     required init?(coder aDecoder: NSCoder)
     {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    deinit
+    {
+        print("Deallocating AnimationComponent")
     }
     
     // MARK: Character Animation

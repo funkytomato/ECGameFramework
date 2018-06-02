@@ -148,6 +148,8 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
     
     deinit
     {
+        print("Deallocating LevelScene")
+        
         unregisterForPauseNotifications()
     }
 
@@ -556,8 +558,8 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
     
     func addNode(node: SKNode, toWorldLayer worldLayer: WorldLayer)
     {
-        print("node :\(node.debugDescription)")
-        print("node entity:\(node.entity.debugDescription)")
+        //print("node :\(node.debugDescription)")
+        //print("node entity:\(node.entity.debugDescription)")
         
         let worldLayerNode = worldLayerNodes[worldLayer]!
         
@@ -761,7 +763,7 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
     {
-        print ("touchesBegan")
+        //print ("touchesBegan")
         
         //Delete the existing path
         playerPathPoints.removeAll()
@@ -775,8 +777,8 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
             for node in touchedNodes
             {
 
-                print("node: \(node.description)")
-                print("node.entity: \(String(describing: node.entity?.description))")
+                //print("node: \(node.description)")
+                //print("node.entity: \(String(describing: node.entity?.description))")
                 
                 if (node.entity != nil)
                 {
@@ -807,8 +809,8 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
             for node in touchedNodes
             {
 
-                print("node: \(node.description)")
-                print("node.entity: \(String(describing: node.entity?.description))")
+                //print("node: \(node.description)")
+                //print("node.entity: \(String(describing: node.entity?.description))")
                 
                 activeEntity?.touchesMoved(touches, with: event, scene: self)
             }

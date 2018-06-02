@@ -141,6 +141,10 @@ class GroundBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        print("Deallocating GroundBot")
+    }
+    
     // MARK: ContactableType
     
     override func contactWithEntityDidBegin(_ entity: GKEntity)

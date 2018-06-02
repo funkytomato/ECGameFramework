@@ -37,7 +37,9 @@ class TouchableComponent: GKComponent
         fatalError("init(coder:) has not been implemented")
     }
     
-    
+    deinit {
+        print("Deallocating TouchableComponent")
+    }
     
     func setPath(path: [float2])
     {

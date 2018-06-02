@@ -50,6 +50,10 @@ class ProtestorBeingArrestedState: GKState
     }
     
     
+    deinit {
+        print("Deallocating ProtestorBeingArrestedState")
+    }
+    
     //MARK:- GKState Life Cycle
     override func didEnter(from previousState: GKState?)
     {

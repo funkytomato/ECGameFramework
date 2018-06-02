@@ -30,7 +30,7 @@ class AngryState: GKState
         guard let spriteComponent = entity.component(ofType: SpriteComponent.self) else { fatalError("An entity's AngryState must have an AnimationComponent.") }
         return spriteComponent
     }
-    
+/*
     /// The `AnimationComponent` associated with the `entity`.
     var animationComponent: AnimationComponent
     {
@@ -44,11 +44,15 @@ class AngryState: GKState
         guard let physicsComponent = entity.component(ofType: PhysicsComponent.self) else { fatalError("An entity's AngryState must have a PhysicsComponent.") }
         return physicsComponent
     }
-    
+  */
     //MARK:- Initializers
     required init(entity: TaskBot)
     {
         self.entity = entity
+    }
+    
+    deinit {
+        print("Deallocating AngryState")
     }
     
     

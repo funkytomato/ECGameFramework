@@ -21,6 +21,10 @@ class SceneLoaderDownloadFailedState: GKState
         self.sceneLoader = sceneLoader
     }
     
+    deinit {
+        print("Deallocating SceneLoaderDownloadFailedState")
+    }
+    
     // MARK: GKState Life Cycle
     
     override func didEnter(from previousState: GKState?)

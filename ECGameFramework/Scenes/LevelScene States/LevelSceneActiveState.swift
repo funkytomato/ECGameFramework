@@ -47,6 +47,11 @@ class LevelSceneActiveState: GKState
         timeRemaining = levelScene.levelConfiguration.timeLimit
     }
     
+    deinit {
+        print("Deallocating LevelSceneActiveState")
+    }
+    
+    
     // MARK: GKState Life Cycle
     
     override func didEnter(from previousState: GKState?)

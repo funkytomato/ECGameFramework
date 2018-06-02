@@ -37,6 +37,10 @@ class ManBotPreAttackState: GKState
         self.entity = entity
     }
     
+    deinit {
+        print("Deallocating ManBotPreAttackState")
+    }
+    
     // MARK: GPState Life Cycle
     
     override func didEnter(from previousState: GKState?)

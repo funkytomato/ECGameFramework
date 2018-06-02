@@ -101,6 +101,11 @@ class MovementComponent: GKComponent
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    deinit {
+        print("Deallocating MovementComponent")
+    }
+    
     // MARK: GKComponent Life Cycle
     
     override func update(deltaTime: TimeInterval)

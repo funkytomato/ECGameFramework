@@ -261,6 +261,10 @@ class PoliceBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
     }
     
     
+    deinit {
+        print("Deallocating PoliceBot")
+    }
+    
     // MARK: ContactableType
     
     override func contactWithEntityDidBegin(_ entity: GKEntity)

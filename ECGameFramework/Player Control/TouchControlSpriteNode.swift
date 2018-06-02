@@ -51,6 +51,9 @@ class TouchControlSpriteNode: SKSpriteNode, ControlInputSourceType
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        print("Deallocating TouchControlSpriteNode")
+    }
     
     // MARK: ControlInputSourceType
     

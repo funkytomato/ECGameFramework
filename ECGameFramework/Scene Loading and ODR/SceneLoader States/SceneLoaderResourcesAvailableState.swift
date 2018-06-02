@@ -21,6 +21,10 @@ class SceneLoaderResourcesAvailableState: GKState
         self.sceneLoader = sceneLoader
     }
     
+    deinit {
+        print("Deallocating SceneLoaderResourcesState")
+    }
+    
     // MARK: GKState Life Cycle
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool

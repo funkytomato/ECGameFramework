@@ -182,6 +182,10 @@ class ButtonNode: SKSpriteNode
         isUserInteractionEnabled = true
     }
     
+    deinit {
+        print("Deallocating ButtonNode")
+    }
+    
     override func copy(with zone: NSZone? = nil) -> Any
     {
         let newButton = super.copy(with: zone) as! ButtonNode
