@@ -50,7 +50,6 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
     var worldLayerNodes = [WorldLayer: SKNode]()
     
     //Stores an array of path points when the player draws a path on the screen
-    //var playerPathPoints: [float2] = []
     var playerPathPoints: [CGPoint] = []
     
     var worldNode: SKNode
@@ -247,6 +246,7 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
                 
                 case .criminal:
                     taskBot = CriminalBot(temperament: taskBotConfiguration.temperament, isGood: !taskBotConfiguration.startsBad, goodPathPoints: goodPathPoints, badPathPoints: badPathPoints)
+                
             }
             
             // Set the `TaskBot`'s initial orientation so that it is facing the correct way.
@@ -273,8 +273,8 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
             is added to the scene by the `BaseSceneTouchEventForwarding` extension.
         */
         // FRY
-        //addTouchInputToScene()
-        //touchControlInputNode.hideThumbStickNodes = sceneManager.gameInput.isGameControllerConnected
+        addTouchInputToScene()
+        touchControlInputNode.hideThumbStickNodes = sceneManager.gameInput.isGameControllerConnected
             
         // Start screen recording. See `LevelScene+ScreenRecording` for implementation.
         startScreenRecording()
