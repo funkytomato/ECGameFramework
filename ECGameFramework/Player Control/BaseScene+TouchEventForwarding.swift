@@ -43,7 +43,8 @@ extension BaseScene
                 Assign a `zPosition` that is above in-game elements, but below the top
                 layer where buttons are added.
             */
-            touchControlInputNode.zPosition = WorldLayer.top.rawValue - CGFloat(1.0)
+            //touchControlInputNode.zPosition = WorldLayer.top.rawValue - CGFloat(1.0)
+            touchControlInputNode.zPosition = WorldLayer.characters.rawValue - CGFloat(1.0)
             
             // Add the control node to the camera node so the controls remain stationary as the camera moves.
             camera.addChild(touchControlInputNode)
