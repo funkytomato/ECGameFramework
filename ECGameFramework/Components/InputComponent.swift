@@ -106,6 +106,8 @@ class InputComponent: GKComponent, ControlInputSourceDelegate
     
     func applyInputState(state: InputState)
     {
+        print("entity\(String(describing: entity?.description))")
+        
         if let movementComponent = entity?.component(ofType: MovementComponent.self)
         {
             movementComponent.allowsStrafing = state.allowsStrafing
