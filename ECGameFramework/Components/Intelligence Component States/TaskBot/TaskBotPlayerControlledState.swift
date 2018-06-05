@@ -59,7 +59,7 @@ class TaskBotPlayerControlledState: GKState
         super.didEnter(from: previousState)
         
         // Turn on controller input for the `PlayerBot` when entering the player-controlled state.
-        //inputComponent.isEnabled = true
+        inputComponent.isEnabled = true
     }
     
     override func update(deltaTime seconds: TimeInterval)
