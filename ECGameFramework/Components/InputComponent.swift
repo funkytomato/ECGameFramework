@@ -106,7 +106,7 @@ class InputComponent: GKComponent, ControlInputSourceDelegate
     
     func applyInputState(state: InputState)
     {
-        print("entity\(String(describing: entity?.description))")
+        print("InputComponent entity\(String(describing: entity?.description))")
         
         if let movementComponent = entity?.component(ofType: MovementComponent.self)
         {
