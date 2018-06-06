@@ -578,7 +578,12 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
         */
         for controlInputSource in gameInput.controlInputSources
         {
+            //This ensures the control input source is from the PlayerBot Input controls, and thus move the player
             controlInputSource.delegate = playerBot.component(ofType: InputComponent.self)
+            
+            //How do I get a pointer to the CriminalBots?
+            
+            
         }
         
         #if os(iOS)
