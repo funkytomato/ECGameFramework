@@ -27,7 +27,7 @@ class ChargeBar: SKSpriteNode
         static let backgroundColor = SKColor.black
         
         /// The charge level node color.
-        static let chargeLevelColor = SKColor.green
+        static let chargeLevelColor = SKColor.blue
     }
     
     // MARK: Properties
