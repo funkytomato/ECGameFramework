@@ -126,7 +126,6 @@ final class GameInput
     }
     
     // MARK: GCGameController Notification Handling
-    
     @objc func handleControllerDidConnectNotification(notification: NSNotification)
     {
         let connectedGameController = notification.object as! GCController
