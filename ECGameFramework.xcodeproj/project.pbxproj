@@ -666,16 +666,16 @@
 		18FCE9E22040EB9F009A5C0D /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				C23337C420B5CD8C00A79CD5 /* CriminalBot.swift */,
 				18FCE9E32040EB9F009A5C0D /* FlyingBot.swift */,
 				18FCE9E42040EB9F009A5C0D /* GameplayConfiguration.swift */,
 				18FCE9E52040EB9F009A5C0D /* GroundBot.swift */,
-				18FCE9E62040EB9F009A5C0D /* PlayerBot.swift */,
-				18FCE9E72040EB9F009A5C0D /* TaskBot.swift */,
-				18FCE9E82040EB9F009A5C0D /* TaskBotAgent.swift */,
 				185281A42048ABCD00F614A1 /* ManBot.swift */,
+				18FCE9E62040EB9F009A5C0D /* PlayerBot.swift */,
 				181073632088E15B001390EA /* PoliceBot.swift */,
 				184974B4208A440D00F7CEEB /* ProtestorBot.swift */,
-				C23337C420B5CD8C00A79CD5 /* CriminalBot.swift */,
+				18FCE9E72040EB9F009A5C0D /* TaskBot.swift */,
+				18FCE9E82040EB9F009A5C0D /* TaskBotAgent.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -869,10 +869,10 @@
 				18FCEA342040EC3F009A5C0D /* BeamNode.swift */,
 				18FCEA352040EC3F009A5C0D /* ButtonNode.swift */,
 				18FCEA362040EC3F009A5C0D /* ChargeBar.swift */,
-				18FCEA372040EC3F009A5C0D /* ThumbStickNode.swift */,
-				C2EB349C20913D3800DCF457 /* TazerNode.swift */,
-				1823608E209BA32A00E71EB6 /* ResistanceBar.swift */,
 				18F07E3F20CAB30F00CA94CF /* HealthBar.swift */,
+				1823608E209BA32A00E71EB6 /* ResistanceBar.swift */,
+				C2EB349C20913D3800DCF457 /* TazerNode.swift */,
+				18FCEA372040EC3F009A5C0D /* ThumbStickNode.swift */,
 			);
 			path = Nodes;
 			sourceTree = "<group>";
