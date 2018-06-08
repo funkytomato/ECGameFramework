@@ -11,7 +11,10 @@ import GameplayKit
 
 class PlayerBot: GKEntity, HealthComponentDelegate, ResistanceComponentDelegate, ChargeComponentDelegate, ResourceLoadableType
 {
-    func healthComponentDidLoseHealth(healthComponent: HealthComponent) {
+    
+    // MARK: Component delegates
+    func healthComponentDidLoseHealth(healthComponent: HealthComponent)
+    {
         guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
         
         // Check the on the health of the Criminal
@@ -22,7 +25,8 @@ class PlayerBot: GKEntity, HealthComponentDelegate, ResistanceComponentDelegate,
         }
     }
     
-    func resistanceComponentDidLoseResistance(resistanceComponent: ResistanceComponent) {
+    func resistanceComponentDidLoseResistance(resistanceComponent: ResistanceComponent)
+    {
         guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
         guard let resistanceComponent = component(ofType: ResistanceComponent.self) else { return }
         
@@ -38,6 +42,23 @@ class PlayerBot: GKEntity, HealthComponentDelegate, ResistanceComponentDelegate,
         {
             // Attempt to arrest the Criminal
             intelligenceComponent.stateMachine.enter(ProtestorBeingArrestedState.self)
+        }
+    }
+    
+
+    func chargeComponentDidLoseCharge(chargeComponent: ChargeComponent)
+    {
+        if let intelligenceComponent = component(ofType: IntelligenceComponent.self)
+        {
+            if !chargeComponent.hasCharge
+            {
+                isPoweredDown = true
+                intelligenceComponent.stateMachine.enter(PlayerBotRechargingState.self)
+            }
+            else
+            {
+                intelligenceComponent.stateMachine.enter(PlayerBotHitState.self)
+            }
         }
     }
     
@@ -226,23 +247,7 @@ class PlayerBot: GKEntity, HealthComponentDelegate, ResistanceComponentDelegate,
     }
     
     
-    // MARK: Charge component delegate
-    
-    func chargeComponentDidLoseCharge(chargeComponent: ChargeComponent)
-    {
-        if let intelligenceComponent = component(ofType: IntelligenceComponent.self)
-        {
-            if !chargeComponent.hasCharge
-            {
-                isPoweredDown = true
-                intelligenceComponent.stateMachine.enter(PlayerBotRechargingState.self)
-            }
-            else
-            {
-                intelligenceComponent.stateMachine.enter(PlayerBotHitState.self)
-            }
-        }
-    }
+
     
     // MARK: ResourceLoadableType
     
