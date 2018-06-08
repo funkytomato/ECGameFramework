@@ -54,7 +54,7 @@ class HealthComponent: GKComponent
      is added to the scene when the component's entity is added to a `LevelScene`
      via `addEntity(_:)`.
      */
-    let healthBar: ChargeBar?
+    let healthBar: HealthBar?
     
     weak var delegate: HealthComponentDelegate?
     
@@ -68,7 +68,7 @@ class HealthComponent: GKComponent
         // Create a `ChargeBar` if this `ChargeComponent` should display one.
         if displaysHealthBar
         {
-            healthBar = ChargeBar()
+            healthBar = HealthBar()
         }
         else
         {
