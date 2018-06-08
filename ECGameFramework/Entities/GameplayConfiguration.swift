@@ -78,6 +78,9 @@ struct GameplayConfiguration
         
         /// The offset of the `PlayerBot`'s antenna
         static let antennaOffset = CGPoint(x: 0.0, y: 50.0)
+
+        /// The offset of the `PlayerBot`'s charge bar from its position.
+        static let healthBarOffset = CGPoint(x: 0.0, y: 55.0)
         
         /// The offset of the `PlayerBot`'s charge bar from its position.
         static let chargeBarOffset = CGPoint(x: 0.0, y: 65.0)
@@ -216,6 +219,9 @@ struct GameplayConfiguration
         
         /// The amount of health a `PlayerBot` loses by a single `GroundBot` attack.
         static let healthLossPerContact = 25.0
+        
+        /// The maximum amount of health a `GroundBot` stores.
+        static let maximumResistance = 100.0
         
         /// The amount of resistance a `PlayerBot` loses by a single `GroundBot` attack.
         static let resistanceLossPerContact = 10.0
