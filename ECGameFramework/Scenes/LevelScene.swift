@@ -514,8 +514,8 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
                 addNode(node: healthBar, toWorldLayer: .aboveCharacters)
                 
                 // Constrain the `ChargeBar`'s node position to the render node.
-                let xRange = SKRange(constantValue: GameplayConfiguration.PlayerBot.chargeBarOffset.x)
-                let yRange = SKRange(constantValue: GameplayConfiguration.PlayerBot.chargeBarOffset.y)
+                let xRange = SKRange(constantValue: GameplayConfiguration.PlayerBot.healthBarOffset.x)
+                let yRange = SKRange(constantValue: GameplayConfiguration.PlayerBot.healthBarOffset.y)
                 
                 let constraint = SKConstraint.positionX(xRange, y: yRange)
                 constraint.referenceNode = renderNode
