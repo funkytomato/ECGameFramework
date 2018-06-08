@@ -15,7 +15,7 @@ import SpriteKit
 import GameplayKit
 
 
-class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate, ResourceLoadableType
+class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate, ChargeComponentDelegate, ResourceLoadableType
 {
     
     // MARK: Static Properties
@@ -75,6 +75,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         let initialAnimations: [AnimationState: Animation]
         let initialResistance: Double
         let initialHealth: Double
+        let initialCharge: Double
         
         self.isProtestor = true
         
@@ -87,6 +88,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             initialAnimations = goodAnimations
             initialResistance = 100.0
             initialHealth = 100.0
+            initialCharge = 100.0
             
             texture = SKTexture(imageNamed: "ProtestorBot")
         }
@@ -101,6 +103,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             initialAnimations = badAnimations
             initialResistance = GameplayConfiguration.ProtestorBot.maximumResistance
             initialHealth = GameplayConfiguration.ProtestorBot.maximumHealth
+            initialCharge = GameplayConfiguration.ProtestorBot.maximumCharge
             
             texture = SKTexture(imageNamed: "ProtestorBotBad")
         }
@@ -182,11 +185,11 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         let physicsBody = SKPhysicsBody(circleOfRadius: GameplayConfiguration.TaskBot.physicsBodyRadius, center: GameplayConfiguration.TaskBot.physicsBodyOffset)
         let physicsComponent = PhysicsComponent(physicsBody: physicsBody, colliderType: .TaskBot)
         addComponent(physicsComponent)
-/*
+
         let chargeComponent = ChargeComponent(charge: initialCharge, maximumCharge: GameplayConfiguration.ProtestorBot.maximumCharge, displaysChargeBar: true)
         chargeComponent.delegate = self
         addComponent(chargeComponent)
-  */
+  
         let healthComponent = HealthComponent(health: initialHealth, maximumHealth: GameplayConfiguration.ProtestorBot.maximumHealth, displaysHealthBar: true)
         healthComponent.delegate = self
         addComponent(healthComponent)
@@ -299,6 +302,17 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         }
     }
 
+    func chargeComponentDidLoseCharge(chargeComponent: ChargeComponent)
+    {
+        guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
+        
+        isGood = !chargeComponent.hasCharge
+        
+        if !isGood
+        {
+            intelligenceComponent.stateMachine.enter(TaskBotZappedState.self)
+        }
+    }
     
     // MARK: Resistance Component Delegate
     func resistanceComponentDidLoseResistance(resistanceComponent: ResistanceComponent)
