@@ -85,7 +85,8 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             guard let animationComponent = component(ofType: AnimationComponent.self) else { fatalError("TaskBots must have an animation component.") }
             guard let resistanceComponent = component(ofType: ResistanceComponent.self) else { fatalError("TaskBots must have a resistance component.") }
             guard let healthComponent = component(ofType: HealthComponent.self) else { fatalError("TaskBots must have a health component.") }
-
+            guard let chargeComponent = component(ofType: ChargeComponent.self) else { fatalError("TaskBots must have a charge component.") }
+            
             
             // Update the `TaskBot`'s speed and acceleration to suit the new value of `isGood`.
             agent.maxSpeed = GameplayConfiguration.TaskBot.maximumSpeedForIsGood(isGood: isGood)
@@ -115,7 +116,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 animationComponent.animations = goodAnimations
                 
                 // Set the appropriate amount of charge.
-                //chargeComponent.charge = 0.0
+                chargeComponent.charge = 100.0
                 resistanceComponent.resistance = 100.0
                 healthComponent.health = 100.0
             }
