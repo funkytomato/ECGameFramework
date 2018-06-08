@@ -9,8 +9,38 @@
 import SpriteKit
 import GameplayKit
 
-class PlayerBot: GKEntity, ChargeComponentDelegate, ResourceLoadableType
+class PlayerBot: GKEntity, HealthComponentDelegate, ResistanceComponentDelegate, ChargeComponentDelegate, ResourceLoadableType
 {
+    func healthComponentDidLoseHealth(healthComponent: HealthComponent) {
+        guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
+        
+        // Check the on the health of the Criminal
+        if !healthComponent.hasHealth
+        {
+            //Criminal is fucked, and no longer playable
+            intelligenceComponent.stateMachine.enter(TaskBotInjuredState.self)
+        }
+    }
+    
+    func resistanceComponentDidLoseResistance(resistanceComponent: ResistanceComponent) {
+        guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
+        guard let resistanceComponent = component(ofType: ResistanceComponent.self) else { return }
+        
+        resistanceComponent.isTriggered = true
+        
+        // Criminal is resisting
+        if resistanceComponent.hasResistance
+        {
+            // Beat them up
+            intelligenceComponent.stateMachine.enter(ProtestorBotHitState.self)
+        }
+        else
+        {
+            // Attempt to arrest the Criminal
+            intelligenceComponent.stateMachine.enter(ProtestorBeingArrestedState.self)
+        }
+    }
+    
     // MARK: Static properties
     
     /// The size to use for the `PlayerBot`s animation textures.
@@ -75,10 +105,15 @@ class PlayerBot: GKEntity, ChargeComponentDelegate, ResourceLoadableType
     
     override init()
     {
+        let initialHealth: Double = GameplayConfiguration.ProtestorBot.maximumHealth
+        let initialResistance: Double = GameplayConfiguration.ProtestorBot.maximumResistance
+
         agent = GKAgent2D()
         agent.radius = GameplayConfiguration.PlayerBot.agentRadius
         
         super.init()
+        
+
         
         /*
             Add the `RenderComponent` before creating the `IntelligenceComponent` states,
@@ -115,6 +150,14 @@ class PlayerBot: GKEntity, ChargeComponentDelegate, ResourceLoadableType
         chargeComponent.delegate = self
         addComponent(chargeComponent)
         
+        let healthComponent = HealthComponent(health: initialHealth, maximumHealth: GameplayConfiguration.CriminalBot.maximumHealth, displaysHealthBar: true)
+        healthComponent.delegate = self
+        addComponent(healthComponent)
+        
+        let resistanceComponent = ResistanceComponent(resistance: initialResistance, maximumResistance: GameplayConfiguration.CriminalBot.maximumResistance, displaysResistanceBar: true)
+        resistanceComponent.delegate = self
+        addComponent(resistanceComponent)
+        
         // `AnimationComponent` tracks and vends the animations for different entity states and directions.
         guard let animations = PlayerBot.animations else {
             fatalError("Attempt to access PlayerBot.animations before they have been loaded.")
@@ -137,6 +180,40 @@ class PlayerBot: GKEntity, ChargeComponentDelegate, ResourceLoadableType
             PlayerBotRechargingState(entity: self)
         ])
         addComponent(intelligenceComponent)
+        
+        /*
+           FRY States are initialised for TaskBot currently
+         
+        var initialState : GKState?
+        switch temperament
+        {
+        case "Scared":
+            initialState = ScaredState(entity: self)// as? GKState
+            
+        case "Calm":
+            initialState = CalmState(entity: self)// as? GKState
+            
+        case "Angry":
+            initialState = AngryState(entity: self)// as? GKState
+            
+        case "Violent":
+            initialState = ViolentState(entity: self)// as? GKState
+            
+        default:
+            initialState = CalmState(entity: self)// as? GKState
+        }
+        
+        //print("initialState :\(initialState.debugDescription)")
+        
+        let temperamentComponent = TemperamentComponent(states: [
+            CalmState(entity: self),
+            ScaredState(entity: self),
+            AngryState(entity: self),
+            ViolentState(entity: self),
+            SubduedState(entity: self)
+            ], initialState: initialState!)
+        addComponent(temperamentComponent)
+        */
     }
     
     required init?(coder aDecoder: NSCoder)
