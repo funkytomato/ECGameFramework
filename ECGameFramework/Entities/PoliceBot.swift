@@ -15,10 +15,31 @@ import SpriteKit
 import GameplayKit
 
 //class PoliceBot: TaskBot, ChargeComponentDelegate, HealthComponentDelegate, ResourceLoadableType
-class PoliceBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
+class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, HealthComponentDelegate, ResourceLoadableType
 {
+    
+    // MARK: Resistance Component Delegate
+    func resistanceComponentDidLoseResistance(resistanceComponent: ResistanceComponent)
+    {
+        guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
+        guard let resistanceComponent = component(ofType: ResistanceComponent.self) else { return }
+        
+        resistanceComponent.isTriggered = true
+        
+        // Criminal is resisting
+        if resistanceComponent.hasResistance
+        {
+            // Beat them up
+            intelligenceComponent.stateMachine.enter(ProtestorBotHitState.self)
+        }
+        else
+        {
+            // Attempt to arrest the Criminal
+            intelligenceComponent.stateMachine.enter(ProtestorBeingArrestedState.self)
+        }
+    }
+    
     // MARK: ChargeComponentDelegate
-    /*
     func chargeComponentDidLoseCharge(chargeComponent: ChargeComponent)
     {
         guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
@@ -30,7 +51,7 @@ class PoliceBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
             intelligenceComponent.stateMachine.enter(TaskBotZappedState.self)
         }
     }
-    */
+    
     
     // MARK: HealthComponentDelegate
     func healthComponentDidLoseHealth(healthComponent: HealthComponent)
@@ -107,8 +128,9 @@ class PoliceBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
         
         // Determine initial animations and charge based on the initial state of the bot.
         let initialAnimations: [AnimationState: Animation]
-//        let initialCharge: Double
+        let initialCharge: Double
         let initialHealth: Double
+        let initialResistance: Double
         
         if isGood
         {
@@ -117,8 +139,9 @@ class PoliceBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
                 fatalError("Attempt to access PoliceBot.goodAnimations before they have been loaded.")
             }
             initialAnimations = goodAnimations
-//            initialCharge = 0.0
-            initialHealth = 0.0
+            initialCharge = 100.0
+            initialHealth = 100.0
+            initialResistance = 100.0
             
             texture = SKTexture(imageNamed: "PoliceBot")
         }
@@ -130,8 +153,9 @@ class PoliceBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
                 fatalError("Attempt to access PoliceBot.badAnimations before they have been loaded.")
             }
             initialAnimations = badAnimations
- //           initialCharge = GameplayConfiguration.PoliceBot.maximumCharge
+            initialCharge = GameplayConfiguration.PoliceBot.maximumCharge
             initialHealth = GameplayConfiguration.PoliceBot.maximumHealth
+            initialResistance = GameplayConfiguration.PoliceBot.maximumResistance
             
             texture = SKTexture(imageNamed: "PoliceBotBad")
         }
@@ -210,15 +234,18 @@ class PoliceBot: TaskBot, HealthComponentDelegate, ResourceLoadableType
         let physicsComponent = PhysicsComponent(physicsBody: physicsBody, colliderType: .TaskBot)
         addComponent(physicsComponent)
         
-        /*
-        let chargeComponent = ChargeComponent(charge: initialCharge, maximumCharge: GameplayConfiguration.PoliceBot.maximumCharge)
+        
+        let chargeComponent = ChargeComponent(charge: initialCharge, maximumCharge: GameplayConfiguration.PoliceBot.maximumCharge, displaysChargeBar: true)
         chargeComponent.delegate = self
         addComponent(chargeComponent)
-        */
         
         let healthComponent = HealthComponent(health: initialHealth, maximumHealth: GameplayConfiguration.PoliceBot.maximumHealth, displaysHealthBar: true)
         healthComponent.delegate = self
         addComponent(healthComponent)
+        
+        let resistanceComponent = ResistanceComponent(resistance: initialResistance, maximumResistance: GameplayConfiguration.PoliceBot.maximumResistance, displaysResistanceBar: true)
+        resistanceComponent.delegate = self
+        addComponent(resistanceComponent)
         
         // `BeamComponent` implements the beam that a `PlayerBot` fires at "bad" `TaskBot`s.
         let tazerComponent = TazerComponent()
