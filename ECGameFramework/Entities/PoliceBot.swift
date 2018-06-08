@@ -163,7 +163,6 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
         
         
         // Create components that define how the entity looks and behaves.
-        
         let renderComponent = RenderComponent()
         addComponent(renderComponent)
         
