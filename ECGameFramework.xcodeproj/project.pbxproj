@@ -178,6 +178,7 @@
 		18FCEAA52040EC40009A5C0D /* TouchControlInputNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCEA432040EC3F009A5C0D /* TouchControlInputNode.swift */; };
 		18FCEAA62040EC40009A5C0D /* BaseScene+ScreenRecording.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCEA452040EC40009A5C0D /* BaseScene+ScreenRecording.swift */; };
 		18FCEAA72040EC40009A5C0D /* ButtonNodeResponderType+ScreenRecording.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCEA462040EC40009A5C0D /* ButtonNodeResponderType+ScreenRecording.swift */; };
+		18FCF8CD20CB0AB5000C1B63 /* InciteNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FCF8CC20CB0AB5000C1B63 /* InciteNode.swift */; };
 		C22B2B1520594D230001EC87 /* ManBot.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C22B2B1420594D230001EC87 /* ManBot.xcassets */; };
 		C23337C520B5CD8C00A79CD5 /* CriminalBot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23337C420B5CD8C00A79CD5 /* CriminalBot.swift */; };
 		C28F12D520B5B49B00EB3FC0 /* LootState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28F12D420B5B49B00EB3FC0 /* LootState.swift */; };
@@ -380,6 +381,7 @@
 		18FCEA432040EC3F009A5C0D /* TouchControlInputNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchControlInputNode.swift; sourceTree = "<group>"; };
 		18FCEA452040EC40009A5C0D /* BaseScene+ScreenRecording.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BaseScene+ScreenRecording.swift"; sourceTree = "<group>"; };
 		18FCEA462040EC40009A5C0D /* ButtonNodeResponderType+ScreenRecording.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ButtonNodeResponderType+ScreenRecording.swift"; sourceTree = "<group>"; };
+		18FCF8CC20CB0AB5000C1B63 /* InciteNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InciteNode.swift; sourceTree = "<group>"; };
 		C22B2B1420594D230001EC87 /* ManBot.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ManBot.xcassets; sourceTree = "<group>"; };
 		C23337C420B5CD8C00A79CD5 /* CriminalBot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CriminalBot.swift; sourceTree = "<group>"; };
 		C28F12D420B5B49B00EB3FC0 /* LootState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LootState.swift; sourceTree = "<group>"; };
@@ -873,6 +875,7 @@
 				1823608E209BA32A00E71EB6 /* ResistanceBar.swift */,
 				C2EB349C20913D3800DCF457 /* TazerNode.swift */,
 				18FCEA372040EC3F009A5C0D /* ThumbStickNode.swift */,
+				18FCF8CC20CB0AB5000C1B63 /* InciteNode.swift */,
 			);
 			path = Nodes;
 			sourceTree = "<group>";
@@ -1203,6 +1206,7 @@
 				1823608D209BA1D000E71EB6 /* ResistanceComponent.swift in Sources */,
 				185960F8209E7DFB00F6972E /* ResistanceHitState.swift in Sources */,
 				18C8C091208F38DE002FA9C0 /* PoliceBotRechargingState.swift in Sources */,
+				18FCF8CD20CB0AB5000C1B63 /* InciteNode.swift in Sources */,
 				18FCEA4F2040EC40009A5C0D /* LevelScenePauseState.swift in Sources */,
 				18FCEAA62040EC40009A5C0D /* BaseScene+ScreenRecording.swift in Sources */,
 				18FCEA652040EC40009A5C0D /* PlayerBotHitState.swift in Sources */,
