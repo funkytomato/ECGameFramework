@@ -28,6 +28,8 @@
 		185960F6209E7D0800F6972E /* ResistanceCoolingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185960F5209E7D0800F6972E /* ResistanceCoolingState.swift */; };
 		185960F8209E7DFB00F6972E /* ResistanceHitState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185960F7209E7DFB00F6972E /* ResistanceHitState.swift */; };
 		185960FA209E7F6000F6972E /* ResistanceIdleState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185960F9209E7F6000F6972E /* ResistanceIdleState.swift */; };
+		1859B2C020CBE8F900F3E687 /* RespectComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1859B2BF20CBE8F900F3E687 /* RespectComponent.swift */; };
+		1859B2C220CBEABE00F3E687 /* RespectBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1859B2C120CBEABE00F3E687 /* RespectBar.swift */; };
 		186F6E512040D1D1001EEF65 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186F6E502040D1D1001EEF65 /* AppDelegate.swift */; };
 		186F6E6C2040D1D1001EEF65 /* ECGameFrameworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186F6E6B2040D1D1001EEF65 /* ECGameFrameworkTests.swift */; };
 		186F6E772040D1D1001EEF65 /* ECGameFrameworkUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186F6E762040D1D1001EEF65 /* ECGameFrameworkUITests.swift */; };
@@ -235,6 +237,8 @@
 		185960F5209E7D0800F6972E /* ResistanceCoolingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResistanceCoolingState.swift; sourceTree = "<group>"; };
 		185960F7209E7DFB00F6972E /* ResistanceHitState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResistanceHitState.swift; sourceTree = "<group>"; };
 		185960F9209E7F6000F6972E /* ResistanceIdleState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResistanceIdleState.swift; sourceTree = "<group>"; };
+		1859B2BF20CBE8F900F3E687 /* RespectComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RespectComponent.swift; sourceTree = "<group>"; };
+		1859B2C120CBEABE00F3E687 /* RespectBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RespectBar.swift; sourceTree = "<group>"; };
 		186F6E4D2040D1D1001EEF65 /* ECGameFramework.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ECGameFramework.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		186F6E502040D1D1001EEF65 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		186F6E622040D1D1001EEF65 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -718,6 +722,7 @@
 				C2EB3493209127CA00DCF457 /* TazerComponent.swift */,
 				18EDA50E2084FB26005CB784 /* TemperamentComponent.swift */,
 				18C82A5E20861F9C0046B746 /* TemperamentComponent States */,
+				1859B2BF20CBE8F900F3E687 /* RespectComponent.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -886,6 +891,7 @@
 				C2EB349C20913D3800DCF457 /* TazerNode.swift */,
 				18FCEA372040EC3F009A5C0D /* ThumbStickNode.swift */,
 				18FCF8CC20CB0AB5000C1B63 /* InciteNode.swift */,
+				1859B2C120CBEABE00F3E687 /* RespectBar.swift */,
 			);
 			path = Nodes;
 			sourceTree = "<group>";
@@ -1206,6 +1212,7 @@
 				1823608F209BA32A00E71EB6 /* ResistanceBar.swift in Sources */,
 				18FCE9CC2040EB3C009A5C0D /* SceneLoaderResourcesReadyState.swift in Sources */,
 				18FCEA5C2040EC40009A5C0D /* AnimationComponent.swift in Sources */,
+				1859B2C220CBEABE00F3E687 /* RespectBar.swift in Sources */,
 				18D983B72048B4BC006D7A14 /* ManBotPreAttackState.swift in Sources */,
 				18DE88D4208F4E8100732803 /* ProtestorBotHitState.swift in Sources */,
 				18FCEAA32040EC40009A5C0D /* GameInput.swift in Sources */,
@@ -1221,6 +1228,7 @@
 				181073642088E15B001390EA /* PoliceBot.swift in Sources */,
 				18F52203208927820070EB0C /* PoliceArrestState.swift in Sources */,
 				18FCEA9C2040EC40009A5C0D /* FuzzyTaskBotRule.swift in Sources */,
+				1859B2C020CBE8F900F3E687 /* RespectComponent.swift in Sources */,
 				18FCEA4B2040EC40009A5C0D /* LevelConfiguration.swift in Sources */,
 				18FCEA472040EC40009A5C0D /* BaseScene+Buttons.swift in Sources */,
 				18F35DB520542DA300B686DA /* EmitterComponent.swift in Sources */,
