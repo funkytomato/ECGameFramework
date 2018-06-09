@@ -56,7 +56,7 @@ class ResistanceComponent: GKComponent
      is added to the scene when the component's entity is added to a `LevelScene`
      via `addEntity(_:)`.
      */
-    let resistanceBar: ResistanceBar?
+    let resistanceBar: ColourBar?
     
     weak var delegate: ResistanceComponentDelegate?
     
@@ -77,7 +77,7 @@ class ResistanceComponent: GKComponent
         // Create a `ResistanceBar` if this `ResistanceComponent` should display one.
         if displaysResistanceBar
         {
-            resistanceBar = ResistanceBar()
+            resistanceBar = ColourBar(levelColour: GameplayConfiguration.ResistanceBar.foregroundLevelColour)
         }
         else
         {
