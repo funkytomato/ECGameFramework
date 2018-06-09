@@ -9,58 +9,10 @@
 import SpriteKit
 import GameplayKit
 
-class PlayerBot: GKEntity, HealthComponentDelegate, ResistanceComponentDelegate, ChargeComponentDelegate, ResourceLoadableType
+class PlayerBot: GKEntity, HealthComponentDelegate, ResistanceComponentDelegate, ChargeComponentDelegate, RespectComponentDelegate, ObeisanceComponentDelegate, ResourceLoadableType
 {
     
-    // MARK: Component delegates
-    func healthComponentDidLoseHealth(healthComponent: HealthComponent)
-    {
-        guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
-        
-        // Check the on the health of the Criminal
-        if !healthComponent.hasHealth
-        {
-            //Criminal is fucked, and no longer playable
-            intelligenceComponent.stateMachine.enter(TaskBotInjuredState.self)
-        }
-    }
-    
-    func resistanceComponentDidLoseResistance(resistanceComponent: ResistanceComponent)
-    {
-        guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
-        guard let resistanceComponent = component(ofType: ResistanceComponent.self) else { return }
-        
-        resistanceComponent.isTriggered = true
-        
-        // Criminal is resisting
-        if resistanceComponent.hasResistance
-        {
-            // Beat them up
-            intelligenceComponent.stateMachine.enter(ProtestorBotHitState.self)
-        }
-        else
-        {
-            // Attempt to arrest the Criminal
-            intelligenceComponent.stateMachine.enter(ProtestorBeingArrestedState.self)
-        }
-    }
-    
 
-    func chargeComponentDidLoseCharge(chargeComponent: ChargeComponent)
-    {
-        if let intelligenceComponent = component(ofType: IntelligenceComponent.self)
-        {
-            if !chargeComponent.hasCharge
-            {
-                isPoweredDown = true
-                intelligenceComponent.stateMachine.enter(PlayerBotRechargingState.self)
-            }
-            else
-            {
-                intelligenceComponent.stateMachine.enter(PlayerBotHitState.self)
-            }
-        }
-    }
     
     // MARK: Static properties
     
@@ -128,6 +80,8 @@ class PlayerBot: GKEntity, HealthComponentDelegate, ResistanceComponentDelegate,
     {
         let initialHealth: Double = GameplayConfiguration.ProtestorBot.maximumHealth
         let initialResistance: Double = GameplayConfiguration.ProtestorBot.maximumResistance
+        let initialRespect: Double = GameplayConfiguration.ProtestorBot.maximumRespect
+        let initialObeisance: Double = GameplayConfiguration.ProtestorBot.maximumObesiance
 
         agent = GKAgent2D()
         agent.radius = GameplayConfiguration.PlayerBot.agentRadius
@@ -178,6 +132,14 @@ class PlayerBot: GKEntity, HealthComponentDelegate, ResistanceComponentDelegate,
         let resistanceComponent = ResistanceComponent(resistance: initialResistance, maximumResistance: GameplayConfiguration.CriminalBot.maximumResistance, displaysResistanceBar: true)
         resistanceComponent.delegate = self
         addComponent(resistanceComponent)
+        
+        let respectComponent = RespectComponent(respect: initialRespect, maximumRespect: GameplayConfiguration.CriminalBot.maximumRespect, displaysRespectBar: true)
+        respectComponent.delegate = self
+        addComponent(respectComponent)
+        
+        let obesianceComponent = ObeisanceComponent(obeisance: initialObeisance, maximumObeisance: GameplayConfiguration.CriminalBot.maximumObeisance, displaysObeisanceBar: true)
+        obesianceComponent.delegate = self
+        addComponent(obesianceComponent)
         
         // `AnimationComponent` tracks and vends the animations for different entity states and directions.
         guard let animations = PlayerBot.animations else {
@@ -336,5 +298,73 @@ class PlayerBot: GKEntity, HealthComponentDelegate, ResistanceComponentDelegate,
     func handleTouch()
     {
         print("I am Player")
+    }
+    
+    // MARK: Component delegates
+    func healthComponentDidLoseHealth(healthComponent: HealthComponent)
+    {
+        guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
+        
+        // Check the on the health of the Criminal
+        if !healthComponent.hasHealth
+        {
+            //Criminal is fucked, and no longer playable
+            intelligenceComponent.stateMachine.enter(TaskBotInjuredState.self)
+        }
+    }
+    
+    func resistanceComponentDidLoseResistance(resistanceComponent: ResistanceComponent)
+    {
+        guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
+        guard let resistanceComponent = component(ofType: ResistanceComponent.self) else { return }
+        
+        resistanceComponent.isTriggered = true
+        
+        // Criminal is resisting
+        if resistanceComponent.hasResistance
+        {
+            // Beat them up
+            intelligenceComponent.stateMachine.enter(ProtestorBotHitState.self)
+        }
+        else
+        {
+            // Attempt to arrest the Criminal
+            intelligenceComponent.stateMachine.enter(ProtestorBeingArrestedState.self)
+        }
+    }
+    
+    
+    func chargeComponentDidLoseCharge(chargeComponent: ChargeComponent)
+    {
+        if let intelligenceComponent = component(ofType: IntelligenceComponent.self)
+        {
+            if !chargeComponent.hasCharge
+            {
+                isPoweredDown = true
+                intelligenceComponent.stateMachine.enter(PlayerBotRechargingState.self)
+            }
+            else
+            {
+                intelligenceComponent.stateMachine.enter(PlayerBotHitState.self)
+            }
+        }
+    }
+    
+    func respectComponentDidLoseRespect(respectComponent: RespectComponent)
+    {
+        guard let respectComponent = component(ofType: RespectComponent.self) else { return }
+        
+        
+    }
+    
+    func respectComponentDidGainRespect(respectComponent: RespectComponent)
+    {
+        guard let respectComponent = component(ofType: RespectComponent.self) else { return }
+        
+    }
+    
+    func obeisanceComponentDidLoseObeisance(obeisanceComponent: ObeisanceComponent)
+    {
+        guard let obeisanceComponent = component(ofType: ObeisanceComponent.self) else { return }
     }
 }
