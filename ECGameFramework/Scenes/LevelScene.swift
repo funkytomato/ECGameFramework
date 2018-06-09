@@ -130,17 +130,19 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
     lazy var componentSystems: [GKComponentSystem] = {
         let agentSystem = GKComponentSystem(componentClass: TaskBotAgent.self)
         let animationSystem = GKComponentSystem(componentClass: AnimationComponent.self)
-        //let chargeSystem = GKComponentSystem(componentClass: ChargeComponent.self)
-        //let healthSystem = GKComponentSystem(componentClass: HealthComponent.self)
-        //let resistanceSystem = GKComponentSystem(componentClass: ResistanceComponent.self)
+        let chargeSystem = GKComponentSystem(componentClass: ChargeComponent.self)
+        let healthSystem = GKComponentSystem(componentClass: HealthComponent.self)
+        let resistanceSystem = GKComponentSystem(componentClass: ResistanceComponent.self)
+        let respectSystem = GKComponentSystem(componentClass: RespectComponent.self)
+        let obeisanceSystem = GKComponentSystem(componentClass: ObeisanceComponent.self)
         let intelligenceSystem = GKComponentSystem(componentClass: IntelligenceComponent.self)
         let movementSystem = GKComponentSystem(componentClass: MovementComponent.self)
-        //let beamSystem = GKComponentSystem(componentClass: BeamComponent.self)
+        let beamSystem = GKComponentSystem(componentClass: BeamComponent.self)
         let temperamentSystem = GKComponentSystem(componentClass: TemperamentComponent.self)
         let rulesSystem = GKComponentSystem(componentClass: RulesComponent.self)
         
         // The systems will be updated in order. This order is explicitly defined to match assumptions made within components.
-        return [rulesSystem, intelligenceSystem, movementSystem, agentSystem,/* chargeSystem, beamSystem, resistanceSystem,*/ temperamentSystem, animationSystem]
+        return [rulesSystem, intelligenceSystem, movementSystem, agentSystem, chargeSystem, beamSystem, healthSystem, resistanceSystem, respectSystem, obeisanceSystem, temperamentSystem, animationSystem]
     }()
     
     // MARK: Initializers
@@ -496,8 +498,8 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
                 addNode(node: chargeBar, toWorldLayer: .aboveCharacters)
                 
                 // Constrain the `ChargeBar`'s node position to the render node.
-                let xRange = SKRange(constantValue: GameplayConfiguration.PlayerBot.chargeBarOffset.x)
-                let yRange = SKRange(constantValue: GameplayConfiguration.PlayerBot.chargeBarOffset.y)
+                let xRange = SKRange(constantValue: GameplayConfiguration.ChargeBar.chargeBarOffset.x)
+                let yRange = SKRange(constantValue: GameplayConfiguration.ChargeBar.chargeBarOffset.y)
 
                 let constraint = SKConstraint.positionX(xRange, y: yRange)
                 constraint.referenceNode = renderNode
@@ -514,8 +516,8 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
                 addNode(node: healthBar, toWorldLayer: .aboveCharacters)
                 
                 // Constrain the `ChargeBar`'s node position to the render node.
-                let xRange = SKRange(constantValue: GameplayConfiguration.PlayerBot.healthBarOffset.x)
-                let yRange = SKRange(constantValue: GameplayConfiguration.PlayerBot.healthBarOffset.y)
+                let xRange = SKRange(constantValue: GameplayConfiguration.HealthBar.healthBarOffset.x)
+                let yRange = SKRange(constantValue: GameplayConfiguration.HealthBar.healthBarOffset.y)
                 
                 let constraint = SKConstraint.positionX(xRange, y: yRange)
                 constraint.referenceNode = renderNode
@@ -532,13 +534,49 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
                 addNode(node: resistanceBar, toWorldLayer: .aboveCharacters)
                 
                 // Constrain the `ChargeBar`'s node position to the render node.
-                let xRange = SKRange(constantValue: GameplayConfiguration.PlayerBot.resistanceBarOffset.x)
-                let yRange = SKRange(constantValue: GameplayConfiguration.PlayerBot.resistanceBarOffset.y)
+                let xRange = SKRange(constantValue: GameplayConfiguration.ResistanceBar.resistanceBarOffset.x)
+                let yRange = SKRange(constantValue: GameplayConfiguration.ResistanceBar.resistanceBarOffset.y)
                 
                 let constraint = SKConstraint.positionX(xRange, y: yRange)
                 constraint.referenceNode = renderNode
                 
                 resistanceBar.constraints = [constraint]
+            }
+            
+            /*
+             If the entity has a `RespectComponent` with a `RespectBar`, add the `RespectBar`
+             to the scene. Constrain the `RespectBar` to the `RenderComponent`'s node.
+             */
+            if let respectBar = entity.component(ofType: RespectComponent.self)?.respectBar
+            {
+                addNode(node: respectBar, toWorldLayer: .aboveCharacters)
+                
+                // Constrain the `ChargeBar`'s node position to the render node.
+                let xRange = SKRange(constantValue: GameplayConfiguration.RespectBar.respectBarOffset.x)
+                let yRange = SKRange(constantValue: GameplayConfiguration.RespectBar.respectBarOffset.y)
+                
+                let constraint = SKConstraint.positionX(xRange, y: yRange)
+                constraint.referenceNode = renderNode
+                
+                respectBar.constraints = [constraint]
+            }
+            
+            /*
+             If the entity has a `ObeisanceComponent` with a `ObeisanceBar`, add the `ObeisanceBar`
+             to the scene. Constrain the `RespectBar` to the `RenderComponent`'s node.
+             */
+            if let obeisanceBar = entity.component(ofType: ObeisanceComponent.self)?.obeisanceBar
+            {
+                addNode(node: obeisanceBar, toWorldLayer: .aboveCharacters)
+                
+                // Constrain the `ChargeBar`'s node position to the render node.
+                let xRange = SKRange(constantValue: GameplayConfiguration.ObeisanceBar.obeisanceBarOffset.x)
+                let yRange = SKRange(constantValue: GameplayConfiguration.ObeisanceBar.obeisanceBarOffset.y)
+                
+                let constraint = SKConstraint.positionX(xRange, y: yRange)
+                constraint.referenceNode = renderNode
+                
+                obeisanceBar.constraints = [constraint]
             }
         }
         
