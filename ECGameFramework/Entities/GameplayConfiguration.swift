@@ -8,9 +8,79 @@
 
 import Foundation
 import CoreGraphics
+import SpriteKit  //need for colour setting
 
 struct GameplayConfiguration
 {
+    
+    struct ColourBar
+    {
+        // The size of the complete bar (back and level indicator).
+        static let size = CGSize(width: 74.0, height: 10.0)
+        
+        // The size of the colored level bar.
+        static let levelNodeSize = CGSize(width: 70.0, height: 6.0)
+        
+        /// The duration used for actions to update the level indicator.
+        static let levelUpdateDuration = TimeInterval(0.1)
+        
+        // The background color.
+        static let backgroundColour = SKColor.black
+        
+        // The charge level node color.
+        static let foregroundLevelColour = SKColor.green
+        
+    }
+    
+    
+    struct ChargeBar
+    {
+        // The charge level node color.
+        static let foregroundLevelColour = SKColor.blue
+        
+        // The offset of the Entity's charge bar from its position.
+        static let chargeBarOffset = CGPoint(x: 0.0, y: 95.0)
+    }
+
+    
+    struct HealthBar
+    {
+        // The charge level node color.
+        static let foregroundLevelColour = SKColor.green
+        
+        // The offset of the Entity's charge bar from its position.
+        static let healthBarOffset = CGPoint(x: 0.0, y: 85.0)
+    }
+    
+    
+    struct ResistanceBar
+    {
+        // The charge level node color.
+        static let foregroundLevelColour = SKColor.red
+        
+        // The offset of the Entity's resistance bar from its position.
+        static let resistanceBarOffset = CGPoint(x: 0.0, y: 75.0)
+    }
+    
+    
+    struct RespectBar
+    {
+        // The charge level node color.
+        static let foregroundLevelColour = SKColor.yellow
+        
+        // The offset of the Entity's respect bar from its position.
+        static let respectBarOffset = CGPoint(x: 0.0, y: 65.0)
+    }
+    
+    struct ObeisanceBar
+    {
+        // The charge level node color.
+        static let foregroundLevelColour = SKColor.brown
+        
+        // The offset of the Entity's respect bar from its position.
+        static let obeisanceBarOffset = CGPoint(x: 0.0, y: 55.0)
+    }
+    
     struct Beam
     {
         /// The distance (in points) over which the beam can be fired.
@@ -32,6 +102,7 @@ struct GameplayConfiguration
         static let coolDownDuration: TimeInterval = 1.0
     }
 
+    
     struct Incite
     {
         /// The distance (in points) over which the beam can be fired.
@@ -99,6 +170,7 @@ struct GameplayConfiguration
         /// The offset of the `PlayerBot`'s antenna
         static let antennaOffset = CGPoint(x: 0.0, y: 50.0)
 
+        /*
         /// The offset of the `PlayerBot`'s charge bar from its position.
         static let healthBarOffset = CGPoint(x: 0.0, y: 55.0)
         
@@ -107,7 +179,8 @@ struct GameplayConfiguration
 
         /// The offset of the `PlayerBot`'s resistance bar from its position.
         static let resistanceBarOffset = CGPoint(x: 0.0, y: 45.0)
-        
+ */
+ 
         /// The initial charge value for the `PlayerBot`'s health bar.
         static let initialCharge = 100.0
 
@@ -292,6 +365,12 @@ struct GameplayConfiguration
         
         /// The maximum amount of resistance a `GroundBot` stores.
         static let maximumResistance = 100.0
+        
+        /// The maximum amount of respect a `GroundBot` stores.
+        static let maximumRespect = 100.0
+        
+        /// The maximum amount of obesiance a `GroundBot` stores.
+        static let maximumObesiance = 100.0
         
         
         /// The amount of health a `PlayerBot` loses by a single `GroundBot` attack.
