@@ -6,8 +6,8 @@
 //  Created by Jason Fry on 09/06/2018.
 //  Copyright © 2018 Jason Fry. All rights reserved.
 //
-Abstract:
-A `GKComponent` that tracks the "charge" (or "health") of a `PlayerBot` or `TaskBot`. For a `PlayerBot`, "charge" indicates how much power the `PlayerBot` has left before it must recharge (during which time the `PlayerBot` is inactive). For a `TaskBot`, "charge" indicates whether the `TaskBot` is "good" or "bad".
+    Abstract:
+    A `GKComponent` that tracks the "charge" (or "health") of a `PlayerBot` or `TaskBot`. For a `PlayerBot`, "charge" indicates how much power the `PlayerBot` has left before it must recharge (during which time the `PlayerBot` is inactive). For a `TaskBot`, "charge" indicates whether the `TaskBot` is "good" or "bad".
 */
 
 import SpriteKit
@@ -56,7 +56,7 @@ class RespectComponent: GKComponent
      is added to the scene when the component's entity is added to a `LevelScene`
      via `addEntity(_:)`.
      */
-    let respectBar: RespectBar?
+    let respectBar: ColourBar?
     
     weak var delegate: RespectComponentDelegate?
     
@@ -70,7 +70,7 @@ class RespectComponent: GKComponent
         // Create a `RespectBar` if this `RespectComponent` should display one.
         if displaysRespectBar
         {
-            respectBar = RespectBar()
+            respectBar = ColourBar(levelColour: GameplayConfiguration.RespectBar.foregroundLevelColour)
         }
         else
         {
