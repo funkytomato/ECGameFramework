@@ -15,19 +15,9 @@ import SpriteKit
 import GameplayKit
 
 
-class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate, ChargeComponentDelegate, ResourceLoadableType
+class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate, ChargeComponentDelegate, RespectComponentDelegate, ObeisanceComponentDelegate, ResourceLoadableType
 {
-    func chargeComponentDidLoseCharge(chargeComponent: ChargeComponent)
-    {
-        guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
-        
-        isGood = !chargeComponent.hasCharge
-        
-        if !isGood
-        {
-            intelligenceComponent.stateMachine.enter(TaskBotZappedState.self)
-        }
-    }
+
     
     
     // MARK: Static Properties
@@ -87,6 +77,8 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
         let initialResistance: Double
         let initialHealth: Double
         let initialCharge: Double
+        let initialRespect: Double
+        let initialObeisance: Double
         
         self.isCriminal = true
         
@@ -100,6 +92,8 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
             initialResistance = 100.0
             initialHealth = 100.0
             initialCharge = 100.0
+            initialRespect = 100.0
+            initialObeisance = 100.0
             texture = SKTexture(imageNamed: "CriminalBot")
         }
             
@@ -110,9 +104,11 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
                 fatalError("Attempt to access ProtestorBot.badAnimations before they have been loaded.")
             }
             initialAnimations = badAnimations
-            initialResistance = GameplayConfiguration.ProtestorBot.maximumResistance
-            initialHealth = GameplayConfiguration.ProtestorBot.maximumHealth
-            initialCharge = GameplayConfiguration.ProtestorBot.maximumCharge
+            initialResistance = GameplayConfiguration.CriminalBot.maximumResistance
+            initialHealth = GameplayConfiguration.CriminalBot.maximumHealth
+            initialCharge = GameplayConfiguration.CriminalBot.maximumCharge
+            initialRespect = GameplayConfiguration.CriminalBot.maximumRespect
+            initialObeisance = GameplayConfiguration.CriminalBot.maximumObeisance
             
             texture = SKTexture(imageNamed: "CriminalBotBad")
         }
@@ -193,6 +189,14 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
         let resistanceComponent = ResistanceComponent(resistance: initialResistance, maximumResistance: GameplayConfiguration.CriminalBot.maximumResistance, displaysResistanceBar: true)
         resistanceComponent.delegate = self
         addComponent(resistanceComponent)
+        
+        let respectComponent = RespectComponent(respect: initialRespect, maximumRespect: GameplayConfiguration.CriminalBot.maximumRespect, displaysRespectBar: true)
+        respectComponent.delegate = self
+        addComponent(respectComponent)
+        
+        let obesianceComponent = ObeisanceComponent(obeisance: initialObeisance, maximumObeisance: GameplayConfiguration.CriminalBot.maximumObeisance, displaysObeisanceBar: true)
+        obesianceComponent.delegate = self
+        addComponent(obesianceComponent)
         
         let movementComponent = MovementComponent()
         addComponent(movementComponent)
@@ -278,6 +282,17 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
         }
     }
     
+    func chargeComponentDidLoseCharge(chargeComponent: ChargeComponent)
+    {
+        guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
+        
+        isGood = !chargeComponent.hasCharge
+        
+        if !isGood
+        {
+            intelligenceComponent.stateMachine.enter(TaskBotZappedState.self)
+        }
+    }
     
     // MARK: Resistance Component Delegate
     func resistanceComponentDidLoseResistance(resistanceComponent: ResistanceComponent)
@@ -311,6 +326,24 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
             //Criminal is fucked, and no longer playable
             intelligenceComponent.stateMachine.enter(TaskBotInjuredState.self)
         }
+    }
+    
+    func respectComponentDidLoseRespect(respectComponent: RespectComponent)
+    {
+        guard let respectComponent = component(ofType: RespectComponent.self) else { return }
+        
+        
+    }
+    
+    func respectComponentDidGainRespect(respectComponent: RespectComponent)
+    {
+        guard let respectComponent = component(ofType: RespectComponent.self) else { return }
+        
+    }
+    
+    func obeisanceComponentDidLoseObeisance(obeisanceComponent: ObeisanceComponent)
+    {
+        guard let obeisanceComponent = component(ofType: ObeisanceComponent.self) else { return }
     }
     
     // MARK: ResourceLoadableType
