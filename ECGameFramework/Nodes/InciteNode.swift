@@ -31,8 +31,8 @@ class InciteNode: SKNode, ResourceLoadableType
     static let animationActionKey = "Animation"
     
     static let lineNodeTemplate: SKSpriteNode = {
-        let templateScene = SKScene(fileNamed: "InciteLine.sks")!
-        return templateScene.childNode(withName: "InciteLine") as! SKSpriteNode
+        let templateScene = SKScene(fileNamed: "BeamLine.sks")!
+        return templateScene.childNode(withName: "BeamLine") as! SKSpriteNode
     }()
     
     // MARK: Properties
@@ -106,105 +106,105 @@ class InciteNode: SKNode, ResourceLoadableType
         
         switch state
         {
-        case is InciteIdleState:
-            // Hide the source and destination nodes.
-            sourceNode.isHidden = true
-            destinationNode.isHidden = true
-            
-            // Remove the `lineNode` from the scene.
-            lineNode?.removeFromParent()
-            lineNode = nil
-            
-            debugNode.isHidden = true
-            
-        case is InciteActiveState:
-            /*
-             If there is no `lineNode`, create one from the template node.
-             Adding a new copy of the template will ensure the actions are re-started when
-             the Incite starts being fired.
-             */
-            if lineNode == nil
-            {
-                lineNode = InciteNode.lineNodeTemplate.copy() as? SKSpriteNode
-                lineNode!.isHidden = true
-                addChild(lineNode!)
-            }
-            
-            if let target = target
-            {
-                // Show the `sourceNode` with the its firing animation.
-                sourceNode.isHidden = false
-                animate(sourceNode, withAction: AnimationActions.source)
-                
-                // Show the `destinationNode` with its animation.
-                destinationNode.isHidden = false
-                animate(destinationNode, withAction: AnimationActions.destination)
-                
-                // Position the `lineNode` and make sure it's visible.
-                positionLineNode(from: source, to: target)
-                lineNode?.isHidden = false
-            }
-            else
-            {
-                // Show the `sourceNode` with the its untargeted animation.
-                sourceNode.isHidden = false
-                animate(sourceNode, withAction: AnimationActions.untargetedSource)
-                
-                // Hide the `destinationNode` and `lineNode`.
+            case is InciteIdleState:
+                // Hide the source and destination nodes.
+                sourceNode.isHidden = true
                 destinationNode.isHidden = true
-                lineNode?.isHidden = true
-            }
+                
+                // Remove the `lineNode` from the scene.
+                lineNode?.removeFromParent()
+                lineNode = nil
+                
+                debugNode.isHidden = true
             
-            // Update the debug node if debug drawing is enabled.
-            debugNode.isHidden = !debugDrawingEnabled
-            
-            if debugDrawingEnabled
-            {
-                guard let sourceOrientation = source.component(ofType: OrientationComponent.self) else {
-                    fatalError("InciteNodees must be associated with entities that have an orientation node")
+            case is InciteActiveState:
+                /*
+                 If there is no `lineNode`, create one from the template node.
+                 Adding a new copy of the template will ensure the actions are re-started when
+                 the Incite starts being fired.
+                 */
+                if lineNode == nil
+                {
+                    lineNode = InciteNode.lineNodeTemplate.copy() as? SKSpriteNode
+                    lineNode!.isHidden = true
+                    addChild(lineNode!)
                 }
                 
-                /*
-                 Update the `debugNode` with an arc based off the
-                 ratio of the distance from the source to the target.
-                 
-                 This allows for easier aiming the closer the source is to
-                 the target.
-                 */
-                let arcPath = CGMutablePath.init()
-                
-                // Only draw Incite arc if there is a target.
                 if let target = target
                 {
-                    let distanceRatio = GameplayConfiguration.Incite.arcLength / CGFloat(distance(source.agent.position, target.agent.position))
-                    let arcAngle = min(GameplayConfiguration.Incite.arcAngle * distanceRatio, 1 / GameplayConfiguration.Incite.maxArcAngle)
+                    // Show the `sourceNode` with the its firing animation.
+                    sourceNode.isHidden = false
+                    animate(sourceNode, withAction: AnimationActions.source)
                     
-                    let center = CGPoint(x: 0, y: 0)
+                    // Show the `destinationNode` with its animation.
+                    destinationNode.isHidden = false
+                    animate(destinationNode, withAction: AnimationActions.destination)
                     
-                    arcPath.addArc(center: center, radius: GameplayConfiguration.Incite.arcLength, startAngle: arcAngle * 0.5, endAngle: -arcAngle * 0.5, clockwise: true)
-                    arcPath.addLine(to: center)
+                    // Position the `lineNode` and make sure it's visible.
+                    positionLineNode(from: source, to: target)
+                    lineNode?.isHidden = false
                 }
-                debugNode.path = arcPath
+                else
+                {
+                    // Show the `sourceNode` with the its untargeted animation.
+                    sourceNode.isHidden = false
+                    animate(sourceNode, withAction: AnimationActions.untargetedSource)
+                    
+                    // Hide the `destinationNode` and `lineNode`.
+                    destinationNode.isHidden = true
+                    lineNode?.isHidden = true
+                }
                 
-                debugNode.zRotation = sourceOrientation.zRotation
-            }
+                // Update the debug node if debug drawing is enabled.
+                debugNode.isHidden = !debugDrawingEnabled
+                
+                if debugDrawingEnabled
+                {
+                    guard let sourceOrientation = source.component(ofType: OrientationComponent.self) else {
+                        fatalError("InciteNodees must be associated with entities that have an orientation node")
+                    }
+                    
+                    /*
+                     Update the `debugNode` with an arc based off the
+                     ratio of the distance from the source to the target.
+                     
+                     This allows for easier aiming the closer the source is to
+                     the target.
+                     */
+                    let arcPath = CGMutablePath.init()
+                    
+                    // Only draw Incite arc if there is a target.
+                    if let target = target
+                    {
+                        let distanceRatio = GameplayConfiguration.Incite.arcLength / CGFloat(distance(source.agent.position, target.agent.position))
+                        let arcAngle = min(GameplayConfiguration.Incite.arcAngle * distanceRatio, 1 / GameplayConfiguration.Incite.maxArcAngle)
+                        
+                        let center = CGPoint(x: 0, y: 0)
+                        
+                        arcPath.addArc(center: center, radius: GameplayConfiguration.Incite.arcLength, startAngle: arcAngle * 0.5, endAngle: -arcAngle * 0.5, clockwise: true)
+                        arcPath.addLine(to: center)
+                    }
+                    debugNode.path = arcPath
+                    
+                    debugNode.zRotation = sourceOrientation.zRotation
+                }
             
-        case is InciteCoolingState:
-            // Show the `sourceNode` with the "cooling" animation.
-            sourceNode.isHidden = false
-            animate(sourceNode, withAction: AnimationActions.cooling)
+            case is InciteCoolingState:
+                // Show the `sourceNode` with the "cooling" animation.
+                sourceNode.isHidden = false
+                animate(sourceNode, withAction: AnimationActions.cooling)
+                
+                // Hide the `destinationNode`.
+                destinationNode.isHidden = true
+                
+                // Remove the `lineNode` from the scene.
+                lineNode?.removeFromParent()
+                lineNode = nil
+                
+                debugNode.isHidden = true
             
-            // Hide the `destinationNode`.
-            destinationNode.isHidden = true
-            
-            // Remove the `lineNode` from the scene.
-            lineNode?.removeFromParent()
-            lineNode = nil
-            
-            debugNode.isHidden = true
-            
-        default:
-            break
+            default:
+                break
         }
     }
     
@@ -242,8 +242,8 @@ class InciteNode: SKNode, ResourceLoadableType
             }
             
             var position = convert(node.position, from: nodeParent)
-            position.x += target.BeamTargetOffset.x
-            position.y += target.InciteTargetOffset.y
+            position.x += target.beamTargetOffset.x
+            position.y += target.beamTargetOffset.y
             
             return position
         }()
