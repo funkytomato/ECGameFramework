@@ -48,7 +48,7 @@ class ChargeComponent: GKComponent
         is added to the scene when the component's entity is added to a `LevelScene`
         via `addEntity(_:)`.
     */
-    let chargeBar: ChargeBar?
+    let chargeBar: ColourBar?
 
     weak var delegate: ChargeComponentDelegate?
 
@@ -62,7 +62,7 @@ class ChargeComponent: GKComponent
         // Create a `ChargeBar` if this `ChargeComponent` should display one.
         if displaysChargeBar
         {
-            chargeBar = ChargeBar()
+            chargeBar = ColourBar(levelColour: GameplayConfiguration.ChargeBar.foregroundLevelColour)
         }
         else
         {
