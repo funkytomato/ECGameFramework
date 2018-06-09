@@ -15,8 +15,9 @@ import SpriteKit
 import GameplayKit
 
 
-class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate, ChargeComponentDelegate, ResourceLoadableType
+class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate, ChargeComponentDelegate, RespectComponentDelegate, ObeisanceComponentDelegate, ResourceLoadableType
 {
+
     
     // MARK: Static Properties
     
@@ -76,6 +77,8 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         let initialResistance: Double
         let initialHealth: Double
         let initialCharge: Double
+        let initialRespect: Double
+        let initialObeisance: Double
         
         self.isProtestor = true
         
@@ -89,6 +92,8 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             initialResistance = 100.0
             initialHealth = 100.0
             initialCharge = 100.0
+            initialRespect = 100.0
+            initialObeisance = 100.0
             
             texture = SKTexture(imageNamed: "ProtestorBot")
         }
@@ -104,6 +109,8 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             initialResistance = GameplayConfiguration.ProtestorBot.maximumResistance
             initialHealth = GameplayConfiguration.ProtestorBot.maximumHealth
             initialCharge = GameplayConfiguration.ProtestorBot.maximumCharge
+            initialRespect = GameplayConfiguration.ProtestorBot.maximumRespect
+            initialObeisance = GameplayConfiguration.ProtestorBot.maximumObesiance
             
             texture = SKTexture(imageNamed: "ProtestorBotBad")
         }
@@ -197,6 +204,14 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         let resistanceComponent = ResistanceComponent(resistance: initialResistance, maximumResistance: GameplayConfiguration.ProtestorBot.maximumResistance, displaysResistanceBar: true)
         resistanceComponent.delegate = self
         addComponent(resistanceComponent)
+        
+        let respectComponent = RespectComponent(respect: initialRespect, maximumRespect: GameplayConfiguration.ProtestorBot.maximumRespect, displaysRespectBar: true)
+        respectComponent.delegate = self
+        addComponent(respectComponent)
+        
+        let obesianceComponent = ObeisanceComponent(obeisance: initialObeisance, maximumObeisance: GameplayConfiguration.ProtestorBot.maximumObesiance, displaysObeisanceBar: true)
+        obesianceComponent.delegate = self
+        addComponent(obesianceComponent)
         
         let movementComponent = MovementComponent()
         addComponent(movementComponent)
@@ -347,6 +362,25 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             intelligenceComponent.stateMachine.enter(TaskBotInjuredState.self)
         }
     }
+    
+    func respectComponentDidLoseRespect(respectComponent: RespectComponent)
+    {
+        guard let respectComponent = component(ofType: RespectComponent.self) else { return }
+        
+
+    }
+    
+    func respectComponentDidGainRespect(respectComponent: RespectComponent)
+    {
+        guard let respectComponent = component(ofType: RespectComponent.self) else { return }
+
+    }
+    
+    func obeisanceComponentDidLoseObeisance(obeisanceComponent: ObeisanceComponent)
+    {
+        guard let obeisanceComponent = component(ofType: ObeisanceComponent.self) else { return }
+    }
+    
     
     // MARK: ResourceLoadableType
     
