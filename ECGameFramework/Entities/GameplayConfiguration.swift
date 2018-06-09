@@ -428,6 +428,12 @@ struct GameplayConfiguration
         
         /// The maximum amount of charge a `GroundBot` stores.
         static let maximumCharge = 100.0
+
+        /// The maximum amount of respect a `GroundBot` stores.
+        static let maximumRespect = 100.0
+
+        /// The maximum amount of obeisance a `GroundBot` stores.
+        static let maximumObeisance = 100.0
         
         /// The amount of charge a `PlayerBot` loses by a single `GroundBot` attack.
         static let chargeLossPerContact = 25.0
