@@ -185,6 +185,10 @@
 		C28F12D720B5B52500EB3FC0 /* SellWaresState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28F12D620B5B52500EB3FC0 /* SellWaresState.swift */; };
 		C28F12D920B5B5D000EB3FC0 /* VandaliseState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28F12D820B5B5D000EB3FC0 /* VandaliseState.swift */; };
 		C2B1337D205A9AA400C87B71 /* PlayerBot.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2B1337C205A9AA400C87B71 /* PlayerBot.xcassets */; };
+		C2D1BAF420CB4D6600400BB3 /* InciteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D1BAF320CB4D6600400BB3 /* InciteComponent.swift */; };
+		C2D1BAF720CB4F5600400BB3 /* InciteCoolingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D1BAF620CB4F5600400BB3 /* InciteCoolingState.swift */; };
+		C2D1BAF920CB501A00400BB3 /* InciteActiveState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D1BAF820CB501A00400BB3 /* InciteActiveState.swift */; };
+		C2D1BAFB20CB549800400BB3 /* InciteIdleState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2D1BAFA20CB549800400BB3 /* InciteIdleState.swift */; };
 		C2EB3494209127CA00DCF457 /* TazerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EB3493209127CA00DCF457 /* TazerComponent.swift */; };
 		C2EB3497209129BD00DCF457 /* TazerCoolingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EB3496209129BD00DCF457 /* TazerCoolingState.swift */; };
 		C2EB349920912A9C00DCF457 /* TazerFiringState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EB349820912A9C00DCF457 /* TazerFiringState.swift */; };
@@ -388,6 +392,10 @@
 		C28F12D620B5B52500EB3FC0 /* SellWaresState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellWaresState.swift; sourceTree = "<group>"; };
 		C28F12D820B5B5D000EB3FC0 /* VandaliseState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VandaliseState.swift; sourceTree = "<group>"; };
 		C2B1337C205A9AA400C87B71 /* PlayerBot.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = PlayerBot.xcassets; sourceTree = "<group>"; };
+		C2D1BAF320CB4D6600400BB3 /* InciteComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InciteComponent.swift; sourceTree = "<group>"; };
+		C2D1BAF620CB4F5600400BB3 /* InciteCoolingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InciteCoolingState.swift; sourceTree = "<group>"; };
+		C2D1BAF820CB501A00400BB3 /* InciteActiveState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InciteActiveState.swift; sourceTree = "<group>"; };
+		C2D1BAFA20CB549800400BB3 /* InciteIdleState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InciteIdleState.swift; sourceTree = "<group>"; };
 		C2EB3493209127CA00DCF457 /* TazerComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TazerComponent.swift; sourceTree = "<group>"; };
 		C2EB3496209129BD00DCF457 /* TazerCoolingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TazerCoolingState.swift; sourceTree = "<group>"; };
 		C2EB349820912A9C00DCF457 /* TazerFiringState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TazerFiringState.swift; sourceTree = "<group>"; };
@@ -685,6 +693,8 @@
 		18FCE9E92040EB9F009A5C0D /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				C2D1BAF320CB4D6600400BB3 /* InciteComponent.swift */,
+				C2D1BAF520CB4F1300400BB3 /* InciteComponent */,
 				18FCE9EA2040EB9F009A5C0D /* AnimationComponent.swift */,
 				18FCE9EB2040EB9F009A5C0D /* BeamComponent States */,
 				18FCE9EF2040EB9F009A5C0D /* BeamComponent.swift */,
@@ -911,6 +921,17 @@
 			path = "Screen Recording";
 			sourceTree = "<group>";
 		};
+		C2D1BAF520CB4F1300400BB3 /* InciteComponent */ = {
+			isa = PBXGroup;
+			children = (
+				C2D1BAF620CB4F5600400BB3 /* InciteCoolingState.swift */,
+				C2D1BAF820CB501A00400BB3 /* InciteActiveState.swift */,
+				C2D1BAFA20CB549800400BB3 /* InciteIdleState.swift */,
+			);
+			name = InciteComponent;
+			path = "New Group";
+			sourceTree = "<group>";
+		};
 		C2EB34952091294900DCF457 /* TazerComponent */ = {
 			isa = PBXGroup;
 			children = (
@@ -1116,6 +1137,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				18FCEA4E2040EC40009A5C0D /* LevelSceneOverlayState.swift in Sources */,
+				C2D1BAFB20CB549800400BB3 /* InciteIdleState.swift in Sources */,
 				18FCEA962040EC40009A5C0D /* ColliderType.swift in Sources */,
 				18FCEA6E2040EC40009A5C0D /* TaskBotZappedState.swift in Sources */,
 				18FCEA522040EC40009A5C0D /* LevelScene+Pause.swift in Sources */,
@@ -1152,6 +1174,7 @@
 				18F07E4020CAB30F00CA94CF /* HealthBar.swift in Sources */,
 				18EDA50F2084FB26005CB784 /* TemperamentComponent.swift in Sources */,
 				18EE1B6220B74A5400828BF6 /* InciteState.swift in Sources */,
+				C2D1BAF420CB4D6600400BB3 /* InciteComponent.swift in Sources */,
 				184B7631207D052200F959F7 /* ProtestorBeingArrestedState.swift in Sources */,
 				18C3A24F209FB4110072BC28 /* TaskBotInjuredState.swift in Sources */,
 				C2EB3494209127CA00DCF457 /* TazerComponent.swift in Sources */,
@@ -1194,6 +1217,7 @@
 				18FCEA502040EC40009A5C0D /* LevelSceneSuccessState.swift in Sources */,
 				C23337C520B5CD8C00A79CD5 /* CriminalBot.swift in Sources */,
 				18FCEA692040EC40009A5C0D /* FlyingBotPreAttackState.swift in Sources */,
+				C2D1BAF920CB501A00400BB3 /* InciteActiveState.swift in Sources */,
 				181073642088E15B001390EA /* PoliceBot.swift in Sources */,
 				18F52203208927820070EB0C /* PoliceArrestState.swift in Sources */,
 				18FCEA9C2040EC40009A5C0D /* FuzzyTaskBotRule.swift in Sources */,
@@ -1233,6 +1257,7 @@
 				18C82A62208620520046B746 /* CalmState.swift in Sources */,
 				18FCE9C82040EB3C009A5C0D /* SceneLoaderDownloadingResourcesState.swift in Sources */,
 				185281A52048ABCD00F614A1 /* ManBot.swift in Sources */,
+				C2D1BAF720CB4F5600400BB3 /* InciteCoolingState.swift in Sources */,
 				18FCEA4A2040EC40009A5C0D /* HomeEndScene.swift in Sources */,
 				18FCEA752040EC40009A5C0D /* ShadowComponent.swift in Sources */,
 				18FCEA9E2040EC40009A5C0D /* Rules.swift in Sources */,
