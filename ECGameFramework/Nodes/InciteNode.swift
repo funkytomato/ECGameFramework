@@ -117,7 +117,7 @@ class InciteNode: SKNode, ResourceLoadableType
             
             debugNode.isHidden = true
             
-        case is InciteFiringState:
+        case is InciteActiveState:
             /*
              If there is no `lineNode`, create one from the template node.
              Adding a new copy of the template will ensure the actions are re-started when
@@ -242,7 +242,7 @@ class InciteNode: SKNode, ResourceLoadableType
             }
             
             var position = convert(node.position, from: nodeParent)
-            position.x += target.InciteTargetOffset.x
+            position.x += target.BeamTargetOffset.x
             position.y += target.InciteTargetOffset.y
             
             return position
