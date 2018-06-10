@@ -111,7 +111,7 @@ class MovementComponent: GKComponent
     override func update(deltaTime: TimeInterval)
     {
         
-        print("MovementComponent entity:\(String(describing: entity?.description))")
+        //print("MovementComponent entity:\(String(describing: entity?.description))")
         
         super.update(deltaTime: deltaTime)
 
