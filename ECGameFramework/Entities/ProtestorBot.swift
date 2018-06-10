@@ -89,11 +89,11 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
                 fatalError("Attempt to access ProtestorBot.goodAnimations before they have been loaded.")
             }
             initialAnimations = goodAnimations
-            initialResistance = 100.0
-            initialHealth = 100.0
-            initialCharge = 100.0
-            initialRespect = 100.0
-            initialObeisance = 100.0
+            initialResistance = 100.0       //Red bar
+            initialHealth = 100.0           //Green bar
+            initialCharge = 50.0           //Blue bar
+            initialRespect = 50.0       //Yellow bar
+            initialObeisance = 100.0      //Brown bar
             
             texture = SKTexture(imageNamed: "ProtestorBot")
         }
