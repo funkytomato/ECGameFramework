@@ -169,7 +169,7 @@ class LevelStateSnapshot
     }
     
     deinit {
-        print("Deallocating LevelStateSnapShot")
+        //print("Deallocating LevelStateSnapShot")
     }
     
 }
