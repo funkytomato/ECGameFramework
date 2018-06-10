@@ -115,6 +115,8 @@ class ObeisanceComponent: GKComponent
         newObeisance = min(maximumObeisance, newObeisance)
         newObeisance = max(0.0, newObeisance)
         
+        print("newObeiscance: \(newObeisance.debugDescription)  obeisance: \(obeisance.debugDescription)")
+        
         // Check if the new charge is greater than the current charge.
         if newObeisance > obeisance
         {
