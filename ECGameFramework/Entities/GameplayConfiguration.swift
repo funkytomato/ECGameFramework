@@ -185,7 +185,19 @@ struct GameplayConfiguration
         static let initialCharge = 100.0
 
         /// The maximum charge value for the `PlayerBot`'s health bar.
+        static let maximumHealth = 100.0
+        
+        /// The maximum charge value for the `PlayerBot`'s health bar.
         static let maximumCharge = 100.0
+        
+        /// The maximum amount of respect a `GroundBot` stores.
+        static let maximumResistance = 100.0
+        
+        /// The maximum amount of respect a `GroundBot` stores.
+        static let maximumRespect = 100.0
+        
+        /// The maximum amount of obeisance a `GroundBot` stores.
+        static let maximumObeisance = 100.0
         
         /// The length of time for which the `PlayerBot` remains in its "hit" state.
         static let hitStateDuration: TimeInterval = 0.75
@@ -372,6 +384,9 @@ struct GameplayConfiguration
         /// The maximum amount of obesiance a `GroundBot` stores.
         static let maximumObesiance = 100.0
         
+        /// The amount of obeisance a `PlayerBot` loses by a single `GroundBot` attack.
+        static let obeisanceLossPerCycle = 1.0
+        
         
         /// The amount of health a `PlayerBot` loses by a single `GroundBot` attack.
         static let healthLossPerContact = 25.0
@@ -434,6 +449,9 @@ struct GameplayConfiguration
 
         /// The maximum amount of obeisance a `GroundBot` stores.
         static let maximumObeisance = 100.0
+        
+        /// The amount of charge a `PlayerBot` loses by a single `GroundBot` attack.
+        static let obeisanceLossPerCycle = 1.0
         
         /// The amount of charge a `PlayerBot` loses by a single `GroundBot` attack.
         static let chargeLossPerContact = 25.0
