@@ -36,6 +36,13 @@ class ProtestorBotRechargingState: GKState
         guard let resistanceComponent = entity.component(ofType: ResistanceComponent.self) else { fatalError("A ProtestorBotRechargingState's entity must have a ResistanceComponent.") }
         return resistanceComponent
     }
+
+    /// The `ObeisanceComponent` associated with the `entity`.
+    var obeisanceComponent: ObeisanceComponent
+    {
+        guard let obeisanceComponent = entity.component(ofType: ObeisanceComponent.self) else { fatalError("A ProtestorBotRechargingState's entity must have a ObeisanceComponent.") }
+        return obeisanceComponent
+    }
     
     // MARK: Initializers
     
@@ -76,11 +83,26 @@ class ProtestorBotRechargingState: GKState
         if elapsedTime < GameplayConfiguration.ProtestorBot.rechargeDelayWhenInactive { return }
       
         
+        // `ObeisanceComponent` is a computed property. Declare a local version so we don't compute it multiple times.
+        let obeisanceComponent = self.obeisanceComponent
+        
+        // Add resistance to the `ProtestorBot`.
+        var amountToRecharge = GameplayConfiguration.ProtestorBot.rechargeAmountPerSecond * seconds
+        obeisanceComponent.addObeisance(obeisanceToAdd: amountToRecharge)
+        
+        // If the `ProtestorBot` is fully charged it can become agent controlled again.
+        if obeisanceComponent.hasFullObeisance
+        {
+            //entity.isPoweredDown = false
+            stateMachine?.enter(TaskBotAgentControlledState.self)
+        }
+        
+        
         // `resistanceComponent` is a computed property. Declare a local version so we don't compute it multiple times.
         let resistanceComponent = self.resistanceComponent
         
         // Add resistance to the `ProtestorBot`.
-        let amountToRecharge = GameplayConfiguration.ProtestorBot.rechargeAmountPerSecond * seconds
+        amountToRecharge = GameplayConfiguration.ProtestorBot.rechargeAmountPerSecond * seconds
         resistanceComponent.addResistance(resistanceToAdd: amountToRecharge)
         
         // If the `ProtestorBot` is fully charged it can become agent controlled again.
