@@ -73,11 +73,22 @@ class TaskBotAgentControlledState: GKState
         timeSinceBehaviorUpdate += seconds
         elapsedTime += seconds
         
+        
+
+        
         // Check if enough time has passed since the last behavior update, and update the behavior if so.
         if timeSinceBehaviorUpdate >= GameplayConfiguration.TaskBot.behaviorUpdateWaitDuration
         {
             
-
+            //Gradually decrease the obeisance
+            if let obeisanceComponent = entity.component(ofType: ObeisanceComponent.self), obeisanceComponent.hasObeisance
+            {
+                let obeisanceToLose = GameplayConfiguration.ProtestorBot.obeisanceLossPerCycle
+                
+                print("ObeisanceToLose: \(obeisanceToLose.debugDescription)")
+                
+                obeisanceComponent.loseObeisance(obeisanceToLose: obeisanceToLose)
+            }
 
             
             let mandate = entity.mandate
