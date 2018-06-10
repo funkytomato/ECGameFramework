@@ -125,19 +125,19 @@ class PlayerBot: GKEntity, HealthComponentDelegate, ResistanceComponentDelegate,
         chargeComponent.delegate = self
         addComponent(chargeComponent)
         
-        let healthComponent = HealthComponent(health: initialHealth, maximumHealth: GameplayConfiguration.CriminalBot.maximumHealth, displaysHealthBar: true)
+        let healthComponent = HealthComponent(health: initialHealth, maximumHealth: GameplayConfiguration.PlayerBot.maximumHealth, displaysHealthBar: true)
         healthComponent.delegate = self
         addComponent(healthComponent)
         
-        let resistanceComponent = ResistanceComponent(resistance: initialResistance, maximumResistance: GameplayConfiguration.CriminalBot.maximumResistance, displaysResistanceBar: true)
+        let resistanceComponent = ResistanceComponent(resistance: initialResistance, maximumResistance: GameplayConfiguration.PlayerBot.maximumResistance, displaysResistanceBar: true)
         resistanceComponent.delegate = self
         addComponent(resistanceComponent)
         
-        let respectComponent = RespectComponent(respect: initialRespect, maximumRespect: GameplayConfiguration.CriminalBot.maximumRespect, displaysRespectBar: true)
+        let respectComponent = RespectComponent(respect: initialRespect, maximumRespect: GameplayConfiguration.PlayerBot.maximumRespect, displaysRespectBar: true)
         respectComponent.delegate = self
         addComponent(respectComponent)
         
-        let obesianceComponent = ObeisanceComponent(obeisance: initialObeisance, maximumObeisance: GameplayConfiguration.CriminalBot.maximumObeisance, displaysObeisanceBar: true)
+        let obesianceComponent = ObeisanceComponent(obeisance: initialObeisance, maximumObeisance: GameplayConfiguration.PlayerBot.maximumObeisance, displaysObeisanceBar: true)
         obesianceComponent.delegate = self
         addComponent(obesianceComponent)
         
