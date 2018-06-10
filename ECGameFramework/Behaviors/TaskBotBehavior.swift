@@ -494,6 +494,6 @@ class TaskBotBehavior: GKBehavior
     
     deinit
     {
-        print("Deallocating TaskBotBehavior")
+        //print("Deallocating TaskBotBehavior")
     }
 }
