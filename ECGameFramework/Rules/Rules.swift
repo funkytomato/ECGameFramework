@@ -55,6 +55,16 @@ enum Fact: String
     case protestorTaskBotMedium = "ProtestorTaskBotMedium"
     case protestorTaskBotFar = "ProtestorTaskBotFar"
     
+    // Fuzzy rules pertaining to the proportion of "Subservient" bots in the level.
+    case subservientTaskBotPercentageLow = "SubservientTaskBotPercentageLow"
+    case subservientTaskBotPercentageMedium = "SubservientTaskBotPercentageMedium"
+    case subservientTaskBotPercentageHigh = "SubservientTaskBotPercentageHigh"
+    
+    // Fuzzy rules pertaining to this `TaskBot`'s proximity to the nearest "Subservient" `TaskBot`.
+    case subservientTaskBotNear = "SubservientTaskBotNear"
+    case subservientTaskBotMedium = "SubservientTaskBotMedium"
+    case subservientTaskBotFar = "SubservientTaskBotFar"
+    
     // Fuzzy rules pertaining to the proportion of "Dangerous" bots in the level.  A dangerous taskbot is violent and attacking, either Police or Protestor
     case dangerousTaskBotPercentageLow = "DangerousTaskBotPercentageLow"
     case dangerousTaskBotPercentageMedium = "DangerousTaskBotPercentageMedium"
@@ -353,6 +363,7 @@ class PlayerBotFarRule: FuzzyTaskBotRule
 
 // MARK: TaskBot Proximity Rules
 
+
 /// Asserts whether the nearest "Protestor" `TaskBot` is considered to be "near" to this `TaskBot`.
 class ProtestorTaskBotNearRule: FuzzyTaskBotRule
 {
@@ -415,6 +426,137 @@ class ProtestorTaskBotFarRule: FuzzyTaskBotRule
         print("Deallocating ProtestorTaskBotFarRule")
     }
 }
+
+
+/// Asserts whether the number of "Subservient" `TaskBot`s is considered "low".
+class SubservientTaskBotPercentageLowRule: FuzzyTaskBotRule
+{
+    // MARK: Properties
+    
+    override func grade() -> Float
+    {
+        return max(0.0, 1.0 - 3.0 * snapshot.subservientBotPercentage)
+    }
+    
+    // MARK: Initializers
+    
+    init() { super.init(fact: .subservientTaskBotPercentageLow) }
+    
+    deinit {
+        print("Deallocating SubservientTaskBotPercentageLowRule")
+    }
+}
+
+/// Asserts whether the number of "Subservient" `TaskBot`s is considered "medium".
+class SubservientTaskBotPercentageMediumRule: FuzzyTaskBotRule
+{
+    // MARK: Properties
+    
+    override func grade() -> Float
+    {
+        if snapshot.subservientBotPercentage <= 1.0 / 3.0
+        {
+            return min(1.0, 3.0 * snapshot.subservientBotPercentage)
+        }
+        else
+        {
+            return max(0.0, 1.0 - (3.0 * snapshot.subservientBotPercentage - 1.0))
+        }
+    }
+    
+    // MARK: Initializers
+    
+    init() { super.init(fact: .subservientTaskBotPercentageMedium) }
+    
+    deinit {
+        print("Deallocating SubservientTaskBotPercentageMediumRule")
+    }
+}
+
+/// Asserts whether the number of "Subservient" `TaskBot`s is considered "high".
+class SubservientTaskBotPercentageHighRule: FuzzyTaskBotRule
+{
+    // MARK: Properties
+    
+    override func grade() -> Float
+    {
+        return min(1.0, max(0.0, (3.0 * snapshot.subservientBotPercentage - 1)))
+    }
+    
+    // MARK: Initializers
+    
+    init() { super.init(fact: .subservientTaskBotPercentageHigh) }
+    
+    deinit {
+        print("Deallocating SubservientTaskBotPercentageHighRule")
+    }
+}
+
+
+/// Asserts whether the nearest "Subservient Protestor" `TaskBot` is considered to be "near" to this `TaskBot`.
+class SubservientTaskBotNearRule: FuzzyTaskBotRule
+{
+    // MARK: Properties
+    
+    override func grade() -> Float
+    {
+        guard let distance = snapshot.nearestSubservientTaskBotTarget?.distance else { return 0.0 }
+        let oneThird = snapshot.proximityFactor / 3
+        return (oneThird - distance) / oneThird
+    }
+    
+    // MARK: Initializers
+    
+    init() { super.init(fact: .subservientTaskBotNear) }
+    
+    deinit {
+        print("Deallocating ProtestorTaskBotNearRule")
+    }
+}
+
+/// Asserts whether the nearest "Subservient Protestor" `TaskBot` is considered to be at a "medium" distance from this `TaskBot`.
+class SubservientTaskBotMediumRule: FuzzyTaskBotRule
+{
+    // MARK: Properties
+    
+    override func grade() -> Float
+    {
+        guard let distance = snapshot.nearestSubservientTaskBotTarget?.distance else { return 0.0 }
+        let oneThird = snapshot.proximityFactor / 3
+        return 1 - (fabs(distance - oneThird) / oneThird)
+    }
+    
+    // MARK: Initializers
+    
+    init() { super.init(fact: .subservientTaskBotMedium) }
+    
+    deinit {
+        print("Deallocating SubservientTaskBotMediumRule")
+    }
+}
+
+/// Asserts whether the nearest "Subservient Protestor" `TaskBot` is considered to be "far" from this `TaskBot`.
+class SubservientTaskBotFarRule: FuzzyTaskBotRule
+{
+    // MARK: Properties
+    
+    override func grade() -> Float
+    {
+        guard let distance = snapshot.nearestSubservientTaskBotTarget?.distance else { return 0.0 }
+        let oneThird = snapshot.proximityFactor / 3
+        return (distance - oneThird) / oneThird
+    }
+    
+    // MARK: Initializers
+    
+    init() { super.init(fact: .subservientTaskBotFar) }
+    
+    deinit {
+        print("Deallocating SubservientTaskBotFarRule")
+    }
+}
+
+
 
 
 /// Asserts whether the nearest "Dangerous" `TaskBot` is considered to be "near" to this `TaskBot`.
