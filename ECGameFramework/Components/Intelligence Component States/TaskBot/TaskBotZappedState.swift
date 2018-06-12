@@ -69,8 +69,10 @@ class TaskBotZappedState: GKState
             If the `TaskBot` has become "good" or has been in the current state long enough,
             re-enter `TaskBotAgentControlledState`.
         */
-        if entity.isGood || elapsedTime >= GameplayConfiguration.TaskBot.zappedStateDuration {
+        if entity.isGood || elapsedTime >= GameplayConfiguration.TaskBot.zappedStateDuration
+        {
             stateMachine?.enter(TaskBotAgentControlledState.self)
+            entity.isGood = true
         }
     }
     
@@ -87,7 +89,7 @@ class TaskBotZappedState: GKState
                 elapsedTime = 0.0
                 return false
             
-        case is TaskBotAgentControlledState.Type, is ProtestorBotHitState.Type, is TaskBotFleeState.Type, is InciteState.Type:
+        case is TaskBotAgentControlledState.Type, is ProtestorBotHitState.Type, is TaskBotFleeState.Type:
                 return true
                 
             default:
