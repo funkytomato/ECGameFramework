@@ -136,12 +136,12 @@ class BeamComponent: GKComponent
             // Filter out entities that aren't "bad" `TaskBot`s with a `RenderComponent`.
             guard let taskBotNode = taskBot.component(ofType: RenderComponent.self)?.node else { return false }
        
-            /*
-            if !taskBot.isGood  //FRY change to filter PoliceBots out
+            // if !taskBot.isGood
+            if taskBot.isPolice  //FRY change to filter PoliceBots out
             {
                 return false
             }
- */
+ 
  
             // Filter out `TaskBot`s that are too far away.
             if entityDistance.distance > Float(GameplayConfiguration.Beam.arcLength)
