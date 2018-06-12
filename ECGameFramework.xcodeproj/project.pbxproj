@@ -64,7 +64,7 @@
 		18EA813220864631002B00EB /* HealthComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EA813120864631002B00EB /* HealthComponent.swift */; };
 		18EDA50F2084FB26005CB784 /* TemperamentComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EDA50E2084FB26005CB784 /* TemperamentComponent.swift */; };
 		18EE1B5F20B70B2C00828BF6 /* CriminalBot.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18EE1B5E20B70B2C00828BF6 /* CriminalBot.xcassets */; };
-		18EE1B6220B74A5400828BF6 /* InciteState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EE1B6120B74A5400828BF6 /* InciteState.swift */; };
+		18F1455B20D0173D002DC88D /* InciteState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F1455A20D0173D002DC88D /* InciteState.swift */; };
 		18F35DAF205427F200B686DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18F35DAD205427F200B686DA /* Assets.xcassets */; };
 		18F35DB2205428B900B686DA /* Trail.sks in Resources */ = {isa = PBXBuildFile; fileRef = 18F35DB0205428B800B686DA /* Trail.sks */; };
 		18F35DB3205428B900B686DA /* circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 18F35DB1205428B900B686DA /* circle.png */; };
@@ -271,7 +271,7 @@
 		18EA813120864631002B00EB /* HealthComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthComponent.swift; sourceTree = "<group>"; };
 		18EDA50E2084FB26005CB784 /* TemperamentComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemperamentComponent.swift; sourceTree = "<group>"; };
 		18EE1B5E20B70B2C00828BF6 /* CriminalBot.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CriminalBot.xcassets; sourceTree = "<group>"; };
-		18EE1B6120B74A5400828BF6 /* InciteState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InciteState.swift; sourceTree = "<group>"; };
+		18F1455A20D0173D002DC88D /* InciteState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InciteState.swift; sourceTree = "<group>"; };
 		18F35DAD205427F200B686DA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		18F35DB0205428B800B686DA /* Trail.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Trail.sks; sourceTree = "<group>"; };
 		18F35DB1205428B900B686DA /* circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circle.png; sourceTree = "<group>"; };
@@ -489,6 +489,7 @@
 		184974B6208A548B00F7CEEB /* Protestor */ = {
 			isa = PBXGroup;
 			children = (
+				18F1455A20D0173D002DC88D /* InciteState.swift */,
 				184B7630207D052200F959F7 /* ProtestorBeingArrestedState.swift */,
 				184B7632207D081D00F959F7 /* ProtestorArrestedState.swift */,
 				184B7634207D0CDA00F959F7 /* ProtestorDetainedState.swift */,
@@ -610,7 +611,6 @@
 				C28F12D420B5B49B00EB3FC0 /* LootState.swift */,
 				C28F12D620B5B52500EB3FC0 /* SellWaresState.swift */,
 				C28F12D820B5B5D000EB3FC0 /* VandaliseState.swift */,
-				18EE1B6120B74A5400828BF6 /* InciteState.swift */,
 			);
 			path = CriminalBot;
 			sourceTree = "<group>";
@@ -712,6 +712,7 @@
 				1823608C209BA1D000E71EB6 /* ResistanceComponent.swift */,
 				185960F4209E7BCC00F6972E /* ResistanceComponent State */,
 				18FCEA042040EB9F009A5C0D /* RenderComponent.swift */,
+				1859B2BF20CBE8F900F3E687 /* RespectComponent.swift */,
 				18FCEA052040EB9F009A5C0D /* RulesComponent.swift */,
 				18FCEA062040EB9F009A5C0D /* ShadowComponent.swift */,
 				18DF360E2052FBCC001F55DE /* SpriteComponent.swift */,
@@ -719,7 +720,6 @@
 				C2EB3493209127CA00DCF457 /* TazerComponent.swift */,
 				18EDA50E2084FB26005CB784 /* TemperamentComponent.swift */,
 				18C82A5E20861F9C0046B746 /* TemperamentComponent States */,
-				1859B2BF20CBE8F900F3E687 /* RespectComponent.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1171,7 +1171,6 @@
 				18FCEA6B2040EC40009A5C0D /* GroundBotPreAttackState.swift in Sources */,
 				186F6E9D2040DAF5001EEF65 /* GameViewController.swift in Sources */,
 				18EDA50F2084FB26005CB784 /* TemperamentComponent.swift in Sources */,
-				18EE1B6220B74A5400828BF6 /* InciteState.swift in Sources */,
 				C2D1BAF420CB4D6600400BB3 /* InciteComponent.swift in Sources */,
 				184B7631207D052200F959F7 /* ProtestorBeingArrestedState.swift in Sources */,
 				18C3A24F209FB4110072BC28 /* TaskBotInjuredState.swift in Sources */,
@@ -1214,6 +1213,7 @@
 				18FCEA502040EC40009A5C0D /* LevelSceneSuccessState.swift in Sources */,
 				C23337C520B5CD8C00A79CD5 /* CriminalBot.swift in Sources */,
 				18FCEA692040EC40009A5C0D /* FlyingBotPreAttackState.swift in Sources */,
+				18F1455B20D0173D002DC88D /* InciteState.swift in Sources */,
 				C2D1BAF920CB501A00400BB3 /* InciteActiveState.swift in Sources */,
 				181073642088E15B001390EA /* PoliceBot.swift in Sources */,
 				18F52203208927820070EB0C /* PoliceArrestState.swift in Sources */,
