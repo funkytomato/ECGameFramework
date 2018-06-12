@@ -45,6 +45,8 @@ class TaskBotAgentControlledState: GKState
         timeSinceBehaviorUpdate = 0.0
         elapsedTime = 0.0
         
+        print("entity behaviour: \(entity.behaviorForCurrentMandate.debugDescription)")
+        
         // Ensure that the agent's behavior is the appropriate behavior for its current mandate.
         entity.agent.behavior = entity.behaviorForCurrentMandate
         
@@ -135,12 +137,18 @@ class TaskBotAgentControlledState: GKState
                     }
                     break
                 
+                case .incite:
+                    //guard let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self) else { return }
+                    //intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
+                    entity.mandate = .wander
+                    break
+                
                 default:
                     break
             }
             
 
-            //print("Current behaviour mandate: \(entity.mandate)")
+            print("Current behaviour mandate: \(entity.mandate)")
             
             // Ensure the agent's behavior is the appropriate behavior for its current mandate.
             entity.agent.behavior = entity.behaviorForCurrentMandate
@@ -158,7 +166,7 @@ class TaskBotAgentControlledState: GKState
         {
         case is TaskBotZappedState.Type, is TaskBotAgentControlledState.Type, is TaskBotPlayerControlledState.Type, is TaskBotFleeState.Type, is TaskBotInjuredState.Type,
              is PoliceBotRotateToAttackState.Type, is PoliceBotAttackState.Type, is PoliceBotPreAttackState.Type, is PoliceArrestState.Type, is PoliceDetainState.Type,
-             is ProtestorBotPreAttackState.Type, is ProtestorBotRotateToAttackState.Type, is ProtestorBotAttackState.Type, is ProtestorBeingArrestedState.Type, is ProtestorArrestedState.Type, is ProtestorDetainedState.Type, is ProtestorBotHitState.Type, is ProtestorBotRechargingState.Type:
+             is ProtestorBotPreAttackState.Type, is ProtestorBotRotateToAttackState.Type, is ProtestorBotAttackState.Type, is ProtestorBeingArrestedState.Type, is ProtestorArrestedState.Type, is ProtestorDetainedState.Type, is ProtestorBotHitState.Type, is ProtestorBotRechargingState.Type, is InciteState.Type:
                 return true
                 
             default:
