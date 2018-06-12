@@ -17,10 +17,20 @@ protocol ObeisanceComponentDelegate: class
 {
     // Called whenever a `ObeisanceComponent` loses charge through a call to `loseObeisance`
     func obeisanceComponentDidLoseObeisance(obeisanceComponent: ObeisanceComponent)
+    
+    // Called whenever a `ObeisanceComponent` gains charge through a call to `gainObeisance`
+    func obeisanceComponentDidGainObeisance(obeisanceComponent: ObeisanceComponent)
 }
 
 class ObeisanceComponent: GKComponent
 {
+    /**
+     The state machine for this `ObeisanceComponent`. Defined as an implicitly
+     unwrapped optional property, because it is created during initialization,
+     but cannot be created until after we have called super.init().
+     */
+    var stateMachine: GKStateMachine!
+    
     // MARK: Properties
     
     var obeisance: Double
@@ -98,6 +108,8 @@ class ObeisanceComponent: GKComponent
         newObeisance = min(maximumObeisance, newObeisance)
         newObeisance = max(0.0, newObeisance)
         
+       print("newObeiscance: \(newObeisance.debugDescription)  obeisance: \(obeisance.debugDescription)")
+        
         // Check if the new charge is less than the current charge.
         if newObeisance < obeisance
         {
@@ -122,6 +134,7 @@ class ObeisanceComponent: GKComponent
         {
             obeisance = newObeisance
             obeisanceBar?.level = percentageObeisance
+            delegate?.obeisanceComponentDidGainObeisance(obeisanceComponent: self)
         }
     }
 }
