@@ -87,7 +87,7 @@ class TaskBotZappedState: GKState
                 elapsedTime = 0.0
                 return false
             
-        case is TaskBotAgentControlledState.Type, is ProtestorBotHitState.Type, is TaskBotFleeState.Type:
+        case is TaskBotAgentControlledState.Type, is ProtestorBotHitState.Type, is TaskBotFleeState.Type, is InciteState.Type:
                 return true
                 
             default:
