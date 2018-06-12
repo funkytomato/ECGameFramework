@@ -18,7 +18,7 @@ import GameplayKit
 class InciteState: GKState
 {
     // MARK:- Properties
-    unowned var entity: CriminalBot
+    unowned var entity: ProtestorBot
     
     // The amount of time the 'ManBot' has been in its "Detained" state
     var elapsedTime: TimeInterval = 0.0
@@ -39,7 +39,7 @@ class InciteState: GKState
     }
     
     //MARK:- Initializers
-    required init(entity: CriminalBot)
+    required init(entity: ProtestorBot)
     {
         self.entity = entity
     }
@@ -81,7 +81,8 @@ class InciteState: GKState
     {
         switch stateClass
         {
-            case is TaskBotAgentControlledState.Type:
+            
+            case is TaskBotAgentControlledState.Type, is InciteState.Type:
                 return true
             
             default:
