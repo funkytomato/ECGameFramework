@@ -298,7 +298,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 print("Incite")
                 radius = GameplayConfiguration.TaskBot.wanderPathRadius
                 (agentBehavior, debugPathPoints)  = TaskBotBehavior.wanderBehaviour(forAgent: agent, inScene: levelScene)
-                debugColor = SKColor.yellow
+                debugColor = SKColor.gray
             
             // TaskBot is a criminal and is selling their wares
             case .sellWares:
@@ -786,7 +786,8 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         }
             
         // TaskBot is Police and active (alive) and a dangerous bot is detected, attack it
-        else if self.isPolice && isActive && huntDangerousProtestorBot > huntTaskBot
+        //else if self.isPolice && isActive && huntDangerousProtestorBot > huntTaskBot
+        else if self.isPolice && isActive && huntDangerousProtestorBot > 0.0
         {
             // The rules provided greater motivation to hunt the nearest Dangerous Protestor TaskBot. Ignore any motivation to hunt the PlayerBot.
             
