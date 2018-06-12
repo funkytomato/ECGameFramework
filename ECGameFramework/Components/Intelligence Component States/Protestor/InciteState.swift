@@ -27,16 +27,31 @@ class InciteState: GKState
     /// The `AnimationComponent` associated with the `entity`.
     var animationComponent: AnimationComponent
     {
-        guard let animationComponent = entity.component(ofType: AnimationComponent.self) else { fatalError("A LootState's entity must have an AnimationComponent.") }
+        guard let animationComponent = entity.component(ofType: AnimationComponent.self) else { fatalError("A InciteState's entity must have an AnimationComponent.") }
         return animationComponent
     }
     
     /// The `TemperamentComponent` associated with the `entity`.
     var temperamentComponent: TemperamentComponent
     {
-        guard let temperamentComponent = entity.component(ofType: TemperamentComponent.self) else { fatalError("A LootState's entity must have an TemperamentComponent.") }
+        guard let temperamentComponent = entity.component(ofType: TemperamentComponent.self) else { fatalError("A InciteState's entity must have an TemperamentComponent.") }
         return temperamentComponent
     }
+ 
+    /// The `TemperamentComponent` associated with the `entity`.
+    var intelligenceComponent: IntelligenceComponent
+    {
+        guard let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self) else { fatalError("A InciteState's entity must have an IntelligenceComponent.") }
+        return intelligenceComponent
+    }
+    
+    /// The `TemperamentComponent` associated with the `entity`.
+    var inciteComponent: InciteComponent
+    {
+        guard let inciteComponent = entity.component(ofType: InciteComponent.self) else { fatalError("A InciteState's entity must have an InciteComponent.") }
+        return inciteComponent
+    }
+    
     
     //MARK:- Initializers
     required init(entity: ProtestorBot)
@@ -52,6 +67,9 @@ class InciteState: GKState
     //MARK:- GKState Life Cycle
     override func didEnter(from previousState: GKState?)
     {
+        
+        print("InciteState entered")
+        
         super.didEnter(from: previousState)
         
         //Reset the tracking of how long the 'ManBot' has been in "Detained" state
@@ -59,6 +77,11 @@ class InciteState: GKState
         
         //Request the "detained animation for this state's 'ProtestorBot'
         animationComponent.requestedAnimationState = .arrested
+        
+        
+        //Set the InciteComponent to on
+        inciteComponent.isTriggered = true
+        inciteComponent.stateMachine.enter(InciteActiveState.self)
         
         //temperamentComponent.stateMachine.enter(SubduedState.self)
         //entity.isActive = false
@@ -68,7 +91,7 @@ class InciteState: GKState
     {
         super.update(deltaTime: seconds)
         
-        
+        intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
         
         elapsedTime += seconds
         
