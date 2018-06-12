@@ -175,6 +175,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
     //Is the taskbot protestor?
     var isProtestor: Bool
     
+    //Is the taskbot Subservient?
+    var isSubservient: Bool
+    
     //Is the taskbot criminal?
     var isCriminal: Bool
     
@@ -211,6 +214,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         let debugPathPoints: [CGPoint]
         var debugPathShouldCycle = false
         let debugColor: SKColor
+        
+        
+        print("behaviour mandate: \(mandate)")
         
         
         switch mandate
@@ -406,6 +412,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         // Whether or not the taskbot is protestor
         self.isProtestor = false
         
+        //Whether or not the taskbot is Subservient to the Player
+        self.isSubservient = false
+        
         // Whether or not the taskbot is Police
         self.isPolice = false
 
@@ -451,6 +460,12 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             ProtestorTaskBotNearRule(),
             ProtestorTaskBotMediumRule(),
             ProtestorTaskBotFarRule(),
+            SubservientTaskBotPercentageLowRule(),
+            SubservientTaskBotPercentageMediumRule(),
+            SubservientTaskBotPercentageHighRule(),
+            SubservientTaskBotNearRule(),
+            SubservientTaskBotMediumRule(),
+            SubservientTaskBotFarRule(),
             DangerousProtestorTaskBotNearRule(),
             DangerousProtestorTaskBotMediumRule(),
             DangerousProtestorTaskBotFarRule(),
@@ -570,6 +585,19 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         let state = ruleSystem.state["snapshot"] as! EntitySnapshot
         
         // Adjust the `TaskBot`'s `mandate` based on the result of evaluating the rules.
+        
+        //A series of situation in which we prefer to Incite other Protestors
+        let inciteTaskBotRaw = [
+        
+            //Protestors are nearby
+            ruleSystem.minimumGrade(forFacts: [
+                Fact.protestorTaskBotNear.rawValue as AnyObject,
+                Fact.policeBotFar.rawValue as AnyObject
+                ])
+        ]
+        
+        let inciteTaskBot = inciteTaskBotRaw.reduce(0.0, max)
+        
         
         // A Series of situation in which we prefer to Flee from a 'TaskBot'
         let fleeTaskBotRaw = [
@@ -733,6 +761,14 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             mandate = .fleeAgent(dangerousTaskBot)
         }
         
+        //Protestor is subvervient and protestors are nearby
+        else if self.isSubservient && inciteTaskBot > 0
+        {
+            print("Inciting others")
+            mandate = .incite
+        }
+        
+            
         // Protestor TaskBot has been attacked and is now retaliating
         else if self.isRetaliating && self.isProtestor
         {
@@ -740,7 +776,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             guard let targetTaskbot = state.nearestPoliceTaskBotTarget?.target.agent else { return }
             mandate = .retaliate(targetTaskbot)
         }
-
+            
         //TaskBot is Violent and Police are nearby, go fuck them up
         else if self.isProtestor && self.isViolent && attackPoliceBot > 0
         {
