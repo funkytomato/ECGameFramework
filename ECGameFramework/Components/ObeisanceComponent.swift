@@ -85,6 +85,7 @@ class ObeisanceComponent: GKComponent
         }
         
         super.init()
+
         
         obeisanceBar?.level = percentageObeisance
     }
@@ -124,8 +125,8 @@ class ObeisanceComponent: GKComponent
         var newObeisance = obeisance + obeisanceToAdd
         
         // Clamp the new value to the valid range.
-        newObeisance = min(maximumObeisance, newObeisance)
-        newObeisance = max(0.0, newObeisance)
+        //newObeisance = min(maximumObeisance, newObeisance)
+        //newObeisance = max(0.0, newObeisance)
         
         print("newObeiscance: \(newObeisance.debugDescription)  obeisance: \(obeisance.debugDescription)")
         
