@@ -19,6 +19,8 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
 {
 
     
+
+    
     
     // MARK: Static Properties
     
@@ -344,6 +346,21 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
     func obeisanceComponentDidLoseObeisance(obeisanceComponent: ObeisanceComponent)
     {
         guard let obeisanceComponent = component(ofType: ObeisanceComponent.self) else { return }
+        
+        if !obeisanceComponent.hasObeisance
+        {
+            print("Player has lost their obeisance")
+        }
+    }
+    
+    func obeisanceComponentDidGainObeisance(obeisanceComponent: ObeisanceComponent)
+    {
+        guard let obeisanceComponent = component(ofType: ObeisanceComponent.self) else { return }
+        
+        if obeisanceComponent.hasFullObeisance
+        {
+            print("Player has full obeisance")
+        }
     }
     
     // MARK: ResourceLoadableType
