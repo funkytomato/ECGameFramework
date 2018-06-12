@@ -149,7 +149,8 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             ProtestorArrestedState(entity: self),
             ProtestorDetainedState(entity: self),
             ProtestorBotRechargingState(entity: self),
-            TaskBotZappedState(entity: self)
+            TaskBotZappedState(entity: self),
+            InciteState(entity: self)
             ])
         addComponent(intelligenceComponent)
         
@@ -214,6 +215,10 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         obesianceComponent.delegate = self
         addComponent(obesianceComponent)
         
+        let inciteComponent = InciteComponent()
+        addComponent(inciteComponent)
+        
+        
         let movementComponent = MovementComponent()
         addComponent(movementComponent)
         
@@ -258,11 +263,36 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
     override func contactWithEntityDidBegin(_ entity: GKEntity)
     {
         super.contactWithEntityDidBegin(entity)
+        
+        
+        // If the Protestor is inciting, influence Protestors on contact
+        // Raise their temperament
+        guard let inciteComponent = component(ofType: InciteComponent.self) else { return }
+        if inciteComponent.isTriggered
+        {
+            guard let protestorTarget = entity as? ProtestorBot else { return }
+            guard let protestorTargetObeisanceComponent = protestorTarget.component(ofType: ObeisanceComponent.self) else { return }
+            protestorTargetObeisanceComponent.addObeisance(obeisanceToAdd: 10.0)
+            
+            print("Increased the obeisance of the touching Protestor")
+        }
     }
     
     override func contactWithEntityDidEnd(_ entity: GKEntity)
     {
         super.contactWithEntityDidEnd(entity)
+        
+        // If the Protestor is inciting, influence Protestors on contact
+        // Raise their temperament
+        guard let inciteComponent = component(ofType: InciteComponent.self) else { return }
+        if inciteComponent.isTriggered
+        {
+            guard let protestorTarget = entity as? ProtestorBot else { return }
+            guard let protestorTargetTemperamentComponent = protestorTarget.component(ofType: TemperamentComponent.self) else { return }
+            protestorTargetTemperamentComponent.increaseTemperament()
+            
+            print("Raised temperament of touching Protestor")
+        }
     }
     
     // MARK: RulesComponentDelegate
@@ -297,12 +327,13 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         // 3) Set the Protestor to Flee State
         //guard intelligenceComponent.stateMachine.enter(TaskBotFleeState.self) else { return }
         
-        print("mandate \(mandate)")
-        print("state: \(intelligenceComponent.stateMachine.currentState.debugDescription)")
+        //print("mandate \(mandate)")
+        //print("state: \(intelligenceComponent.stateMachine.currentState.debugDescription)")
 
         switch mandate
         {
             case .incite:
+                print("mandate \(mandate)")
                 intelligenceComponent.stateMachine.enter(InciteState.self)
             
             case .lockupPrisoner:
@@ -324,9 +355,9 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
     func chargeComponentDidLoseCharge(chargeComponent: ChargeComponent)
     {
         guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
-        
+
+        //Freeze Protestor for a bit and then carry on
         isGood = !chargeComponent.hasCharge
-        
         if !isGood
         {
             intelligenceComponent.stateMachine.enter(TaskBotZappedState.self)
@@ -393,6 +424,11 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             
             //Protestor is no longer subservient to the player
             self.isSubservient = false
+            
+            //Ensure InciteComponent is idle and switched off
+//            guard let inciteComponent = component(ofType: InciteComponent.self) else { return }
+//            inciteComponent.stateMachine.enter(InciteIdleState.self)
+//            inciteComponent.isTriggered = false
         }
     }
 
@@ -404,12 +440,18 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         
         //Player has gained enough influence (obeisance) over the protestor,
         //and so the protesor should start to incite too
-        if obeisanceComponent.obeisance > 80.0
+        if obeisanceComponent.obeisance > 80
         {
             self.isSubservient = true
+            print("Protestor has beoome subservient")
             
-            guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
-            intelligenceComponent.stateMachine.enter(InciteState.self)
+//            guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
+//            intelligenceComponent.stateMachine.enter(InciteState.self)
+            
+            //Ensure Protestor is inciting
+//            guard let inciteComponent = component(ofType: InciteComponent.self) else { return }
+//            inciteComponent.stateMachine.enter(InciteActiveState.self)
+//            inciteComponent.isTriggered = true
         }
     }
     
