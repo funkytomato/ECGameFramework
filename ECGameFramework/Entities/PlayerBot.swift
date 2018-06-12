@@ -11,6 +11,8 @@ import GameplayKit
 
 class PlayerBot: GKEntity, HealthComponentDelegate, ResistanceComponentDelegate, ChargeComponentDelegate, RespectComponentDelegate, ObeisanceComponentDelegate, ResourceLoadableType
 {
+
+    
     
 
     
@@ -363,8 +365,25 @@ class PlayerBot: GKEntity, HealthComponentDelegate, ResistanceComponentDelegate,
         
     }
     
+    
     func obeisanceComponentDidLoseObeisance(obeisanceComponent: ObeisanceComponent)
     {
         guard let obeisanceComponent = component(ofType: ObeisanceComponent.self) else { return }
+        
+        if !obeisanceComponent.hasObeisance
+        {
+            print("Player has lost their obeisance")
+        }
     }
+    
+    func obeisanceComponentDidGainObeisance(obeisanceComponent: ObeisanceComponent)
+    {
+        guard let obeisanceComponent = component(ofType: ObeisanceComponent.self) else { return }
+        
+        if obeisanceComponent.hasFullObeisance
+        {
+            print("Player has full obeisance")
+        }
+    }
+
 }
