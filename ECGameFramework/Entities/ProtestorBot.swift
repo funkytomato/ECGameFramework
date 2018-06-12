@@ -1,3 +1,4 @@
+
 /*
 //
 //  ProtestorBot.swift
@@ -296,11 +297,14 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         // 3) Set the Protestor to Flee State
         //guard intelligenceComponent.stateMachine.enter(TaskBotFleeState.self) else { return }
         
-        //print("mandate \(mandate)")
-        
+        print("mandate \(mandate)")
+        print("state: \(intelligenceComponent.stateMachine.currentState.debugDescription)")
 
         switch mandate
         {
+            case .incite:
+                intelligenceComponent.stateMachine.enter(InciteState.self)
+            
             case .lockupPrisoner:
                 intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
             
@@ -379,8 +383,35 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
     func obeisanceComponentDidLoseObeisance(obeisanceComponent: ObeisanceComponent)
     {
         guard let obeisanceComponent = component(ofType: ObeisanceComponent.self) else { return }
+        
+        // When their is no more obeisance the protestor will be free to wander away
+        if !obeisanceComponent.hasObeisance
+        {
+            
+            guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
+            intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
+            
+            //Protestor is no longer subservient to the player
+            self.isSubservient = false
+        }
     }
-    
+
+    func obeisanceComponentDidGainObeisance(obeisanceComponent: ObeisanceComponent)
+    {
+        guard let obeisanceComponent = component(ofType: ObeisanceComponent.self) else { return }
+        
+        print("\(obeisanceComponent.obeisance)")
+        
+        //Player has gained enough influence (obeisance) over the protestor,
+        //and so the protesor should start to incite too
+        if obeisanceComponent.obeisance > 80.0
+        {
+            self.isSubservient = true
+            
+            guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
+            intelligenceComponent.stateMachine.enter(InciteState.self)
+        }
+    }
     
     // MARK: ResourceLoadableType
     
