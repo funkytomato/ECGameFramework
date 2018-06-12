@@ -70,11 +70,6 @@ class InciteCoolingState: GKState
     override func willExit(to nextState: GKState)
     {
         super.willExit(to: nextState)
-        
-        if let playerBot = inciteComponent.entity as? PlayerBot
-        {
-            inciteComponent.inciteNode.update(withInciteState: nextState, source: playerBot)
-        }
     }
 }
 

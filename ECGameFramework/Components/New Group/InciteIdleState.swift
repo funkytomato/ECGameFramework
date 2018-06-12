@@ -37,6 +37,7 @@ class InciteIdleState: GKState
     {
         super.update(deltaTime: seconds)
         
+        
         // If the beam has been triggered, enter `InciteActiveState`.
         if inciteComponent.isTriggered
         {
