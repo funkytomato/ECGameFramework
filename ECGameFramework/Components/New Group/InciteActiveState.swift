@@ -40,6 +40,8 @@ class InciteActiveState: GKState
     
     override func didEnter(from previousState: GKState?)
     {
+        print("InciteActiveState entered")
+        
         super.didEnter(from: previousState)
         
         // Reset the "amount of time firing" tracker when we enter the "firing" state.
