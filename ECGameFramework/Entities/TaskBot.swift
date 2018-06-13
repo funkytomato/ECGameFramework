@@ -723,19 +723,19 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             ruleSystem.minimumGrade(forFacts: [
                 Fact.policeBotNear.rawValue as AnyObject,
                 Fact.policeTaskBotPercentageLow.rawValue as AnyObject
-                ]),
+                ])
             
             // Police TaskBot is nearby and their are some Police
-            ruleSystem.minimumGrade(forFacts: [
-                Fact.policeBotNear.rawValue as AnyObject,
-                Fact.policeTaskBotPercentageMedium.rawValue as AnyObject
-                ]),
+//            ruleSystem.minimumGrade(forFacts: [
+//                Fact.policeBotNear.rawValue as AnyObject,
+//                Fact.policeTaskBotPercentageMedium.rawValue as AnyObject
+//                ])
             
             // Police TaskBot is medium proximity and their are few Police
-            ruleSystem.minimumGrade(forFacts: [
-                Fact.policeBotMedium.rawValue as AnyObject,
-                Fact.policeTaskBotPercentageLow.rawValue as AnyObject
-                ])
+//            ruleSystem.minimumGrade(forFacts: [
+//                Fact.policeBotMedium.rawValue as AnyObject,
+//                Fact.policeTaskBotPercentageLow.rawValue as AnyObject
+//                ])
         ]
         
         //Find the maximum of the minum from above
@@ -761,13 +761,6 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             mandate = .fleeAgent(dangerousTaskBot)
         }
         
-        //Protestor is subvervient and protestors are nearby
-        else if self.isSubservient && inciteTaskBot > 0
-        {
-            print("Inciting others")
-            mandate = .incite
-        }
-        
             
         // Protestor TaskBot has been attacked and is now retaliating
         else if self.isRetaliating && self.isProtestor
@@ -775,6 +768,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             //print("Retaliating")
             guard let targetTaskbot = state.nearestPoliceTaskBotTarget?.target.agent else { return }
             mandate = .retaliate(targetTaskbot)
+            self.isSubservient = false
         }
             
         //TaskBot is Violent and Police are nearby, go fuck them up
@@ -784,15 +778,23 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             guard let dangerousTaskBot = state.nearestPoliceTaskBotTarget?.target.agent else { return }
             mandate = .huntAgent(dangerousTaskBot)
         }
+         
+        //Protestor is subvervient and protestors are nearby
+        else if self.isSubservient && inciteTaskBot > 0
+        {
+            print("Inciting others")
+            mandate = .incite
+        }
             
         // TaskBot is Police and active (alive) and a dangerous bot is detected, attack it
-        //else if self.isPolice && isActive && huntDangerousProtestorBot > huntTaskBot
-        else if self.isPolice && isActive && huntDangerousProtestorBot > 0.0
+        else if self.isPolice && isActive && huntDangerousProtestorBot > huntTaskBot
+       // else if self.isPolice && isActive && huntDangerousProtestorBot > 0.0
         {
             // The rules provided greater motivation to hunt the nearest Dangerous Protestor TaskBot. Ignore any motivation to hunt the PlayerBot.
             
             //print("Hunt the nearest dangerous bot")
-            mandate = .huntAgent(state.nearestDangerousTaskBotTarget!.target.agent)
+            guard let dangerousTaskBot = state.nearestPoliceTaskBotTarget?.target.agent else { return }
+            mandate = .huntAgent(dangerousTaskBot)
         }
         
         // PROBABLY DELETE THIS LATER
@@ -800,7 +802,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         else if self.isPolice && self.isActive && huntTaskBot > huntPlayerBot
         {
             //print("Hunt the nearest Protestor: \(state.nearestProtestorTaskBotTarget!.target.agent.debugDescription)")
-            
+
             // The rules provided greater motivation to hunt the nearest good TaskBot. Ignore any motivation to hunt the PlayerBot.
             mandate = .huntAgent(state.nearestProtestorTaskBotTarget!.target.agent)
         }
