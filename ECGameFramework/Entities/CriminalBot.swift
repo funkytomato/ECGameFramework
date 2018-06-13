@@ -382,6 +382,8 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
             "CriminalSellingWares",
             "CriminalHit",
             "CriminalAttack",
+            "CriminalInciting",
+            "CriminalZapped",
             
             "AngryProtestor",
             "CalmProtestor",
@@ -396,7 +398,7 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
          */
         SKTextureAtlas.preloadTextureAtlasesNamed(CriminalBotAtlasNames) { error, CriminalBotAtlases in
             if let error = error {
-                fatalError("One or more texture atlases could not be found: \(error)")
+                fatalError("Criminal could not not load One or more texture atlases could not be found: \(error)")
             }
             
             /*
@@ -411,7 +413,8 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
             goodAnimations![.sellingWares] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[3], withImageIdentifier: "CriminalSellingWares", forAnimationState: .sellingWares)
             goodAnimations![.hit] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[4], withImageIdentifier: "CriminalHit", forAnimationState: .hit)
             goodAnimations![.attack] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[5], withImageIdentifier: "CriminalAttack", forAnimationState: .attack)
-    
+            goodAnimations![.inciting] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[6], withImageIdentifier: "CriminalInciting", forAnimationState: .inciting)
+            goodAnimations![.zapped] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[7], withImageIdentifier: "CriminalZapped", forAnimationState: .zapped)
             
             
             badAnimations = [:]
