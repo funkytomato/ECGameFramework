@@ -384,7 +384,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
          */
         SKTextureAtlas.preloadTextureAtlasesNamed(PoliceBotAtlasNames) { error, PoliceBotAtlases in
             if let error = error {
-                fatalError("One or more texture atlases could not be found: \(error)")
+                fatalError("Police can not load One or more texture atlases could not be found: \(error)")
             }
             
             /*
