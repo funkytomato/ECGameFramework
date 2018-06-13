@@ -17,8 +17,15 @@ import GameplayKit
 class InciteActiveState: GKState
 {
     // MARK: Properties
-    
     unowned var inciteComponent: InciteComponent
+    
+    
+    /// The `RenderComponent' for this component's 'entity'.
+    var animationComponent: AnimationComponent
+    {
+        guard let animationComponent = inciteComponent.entity?.component(ofType: AnimationComponent.self) else { fatalError("A InciteComponent's entity must have a AnimationComponent") }
+        return animationComponent
+    }
     
     
     /// The amount of time the beam has been in its "firing" state.
@@ -40,18 +47,24 @@ class InciteActiveState: GKState
     
     override func didEnter(from previousState: GKState?)
     {
-        print("InciteActiveState entered")
+        print("InciteActiveState entered: \(inciteComponent.entity.debugDescription)")
         
         super.didEnter(from: previousState)
         
         // Reset the "amount of time firing" tracker when we enter the "firing" state.
         elapsedTime = 0.0
         
+        
+        animationComponent.requestedAnimationState = .inciting
     }
     
     override func update(deltaTime seconds: TimeInterval)
     {
         super.update(deltaTime: seconds)
+        
+        print(animationComponent.requestedAnimationState.debugDescription)
+        
+        animationComponent.requestedAnimationState = .inciting
         
         // Update the "amount of time firing" tracker.
         elapsedTime += seconds
@@ -85,6 +98,8 @@ class InciteActiveState: GKState
     
     override func willExit(to nextState: GKState)
     {
+ //       animationComponent.requestedAnimationState = .idle
+        
         super.willExit(to: nextState)
     }
 }
