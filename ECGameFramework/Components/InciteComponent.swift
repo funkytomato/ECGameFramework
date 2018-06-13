@@ -41,6 +41,13 @@ class InciteComponent: GKComponent
         return renderComponent
     }
     
+    /// The `RenderComponent' for this component's 'entity'.
+    var animationComponent: AnimationComponent
+    {
+        guard let animationComponent = entity?.component(ofType: AnimationComponent.self) else { fatalError("A InciteComponent's entity must have a AnimationComponent") }
+        return animationComponent
+    }
+    
     // MARK: Initializers
     
     override init()
@@ -67,9 +74,15 @@ class InciteComponent: GKComponent
     }
     
     // MARK: GKComponent Life Cycle
+
+    
     
     override func update(deltaTime seconds: TimeInterval)
     {
+        guard (stateMachine.currentState as? InciteActiveState) != nil else { return }
+        
+        animationComponent.requestedAnimationState = .inciting
+        
         stateMachine.update(deltaTime: seconds)
     }
     
