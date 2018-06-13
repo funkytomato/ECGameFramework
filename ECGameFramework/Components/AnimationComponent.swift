@@ -24,6 +24,7 @@ enum AnimationState: String
     case zapped = "Zapped"
     case hit = "Hit"
     case inactive = "Inactive"
+    case inciting = "Inciting"
     
     case walkForward = "WalkForward"
     case walkBackward = "WalkBackward"
