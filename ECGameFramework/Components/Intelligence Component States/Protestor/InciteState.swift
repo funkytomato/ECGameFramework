@@ -76,7 +76,7 @@ class InciteState: GKState
         elapsedTime = 0.0
         
         //Request the "detained animation for this state's 'ProtestorBot'
-        animationComponent.requestedAnimationState = .arrested
+        //animationComponent.requestedAnimationState = .inciting
         
         
         //Set the InciteComponent to on
@@ -105,12 +105,19 @@ class InciteState: GKState
         switch stateClass
         {
             
-            case is TaskBotAgentControlledState.Type, is InciteState.Type:
+            case is TaskBotAgentControlledState.Type, is InciteState.Type, is ProtestorBotRotateToAttackState.Type:
                 return true
             
             default:
                 return false
         }
+    }
+    
+    override func willExit(to nextState: GKState)
+    {
+        super.willExit(to: nextState)
+        
+        //inciteComponent.isTriggered = false
     }
 }
 
