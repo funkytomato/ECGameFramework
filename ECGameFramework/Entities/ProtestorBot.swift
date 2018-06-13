@@ -328,7 +328,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         //guard intelligenceComponent.stateMachine.enter(TaskBotFleeState.self) else { return }
         
         //print("mandate \(mandate)")
-        //print("state: \(intelligenceComponent.stateMachine.currentState.debugDescription)")
+        print("state: \(intelligenceComponent.stateMachine.currentState.debugDescription)")
 
         switch mandate
         {
@@ -426,9 +426,9 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             self.isSubservient = false
             
             //Ensure InciteComponent is idle and switched off
-//            guard let inciteComponent = component(ofType: InciteComponent.self) else { return }
-//            inciteComponent.stateMachine.enter(InciteIdleState.self)
-//            inciteComponent.isTriggered = false
+            guard let inciteComponent = component(ofType: InciteComponent.self) else { return }
+            inciteComponent.stateMachine.enter(InciteIdleState.self)
+            inciteComponent.isTriggered = false
         }
     }
 
@@ -474,12 +474,14 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             "ProtestorAttack",
             "ProtestorHit",
             "ProtestorIdle",
+            "ProtestorInciting",
+            "ProtestorZapped"
             
-            "AngryProtestor",
-            "CalmProtestor",
-            "ScaredProtestor",
-            "UnhappyProtestor",
-            "ViolentProtestor"
+//            "AngryProtestor",
+//            "CalmProtestor",
+//            "ScaredProtestor",
+//            "UnhappyProtestor",
+//            "ViolentProtestor"
         ]
         
         /*
@@ -488,7 +490,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
          */
         SKTextureAtlas.preloadTextureAtlasesNamed(ProtestorBotAtlasNames) { error, ProtestorBotAtlases in
             if let error = error {
-                fatalError("One or more texture atlases could not be found: \(error)")
+                fatalError("Protestor One or more texture atlases could not be found: \(error)")
             }
             
             /*
@@ -498,29 +500,51 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             
             goodAnimations = [:]
             goodAnimations![.beingArrested] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[0], withImageIdentifier: "ProtestorBeingArrested", forAnimationState: .beingArrested)
+            
             goodAnimations![.arrested] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[1], withImageIdentifier: "ProtestorArrested", forAnimationState: .arrested)
+            
+//            goodAnimations![.arrested] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[1], withImageIdentifier: "ProtestorArrested", forAnimationState: .arrested, bodyActionName: "ZappedShake", shadowActionName: "ZappedShadowShake", repeatTexturesForever: false)
+            
             goodAnimations![.detained] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[2], withImageIdentifier: "ProtestorDetained", forAnimationState: .detained)
+            
             goodAnimations![.attack] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[3], withImageIdentifier: "ProtestorAttack", forAnimationState: .attack)
+            
             goodAnimations![.hit] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[4], withImageIdentifier: "ProtestorHit", forAnimationState: .hit)
+            
+
+            
             goodAnimations![.idle] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[5], withImageIdentifier: "ProtestorIdle", forAnimationState: .idle)
             
-            //Temperament
-            goodAnimations![.angry] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[6], withImageIdentifier: "AngryProtestor", forAnimationState: .angry)
-            goodAnimations![.calm] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[7], withImageIdentifier: "CalmProtestor", forAnimationState: .calm)
-            goodAnimations![.scared] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[8], withImageIdentifier: "ScaredProtestor", forAnimationState: .scared)
-            goodAnimations![.unhappy] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[9], withImageIdentifier: "UnhappyProtestor", forAnimationState: .unhappy)
-            goodAnimations![.violent] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[10], withImageIdentifier: "ViolentProtestor", forAnimationState: .violent)
+            goodAnimations![.inciting] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[6], withImageIdentifier: "ProtestorInciting", forAnimationState: .inciting)
             
+            goodAnimations![.zapped] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[7], withImageIdentifier: "ProtestorZapped", forAnimationState: .zapped)
+            
+            
+            //Temperament
+//            goodAnimations![.angry] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[8], withImageIdentifier: "AngryProtestor", forAnimationState: .angry)
+//            goodAnimations![.calm] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[9], withImageIdentifier: "CalmProtestor", forAnimationState: .calm)
+//            goodAnimations![.scared] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[10], withImageIdentifier: "ScaredProtestor", forAnimationState: .scared)
+//            goodAnimations![.unhappy] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[11], withImageIdentifier: "UnhappyProtestor", forAnimationState: .unhappy)
+//            goodAnimations![.violent] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[12], withImageIdentifier: "ViolentProtestor", forAnimationState: .violent)
+            
+
             
             badAnimations = [:]
             badAnimations![.beingArrested] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[0], withImageIdentifier: "ProtestorBeingArrested", forAnimationState: .beingArrested)
             badAnimations![.attack] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[3], withImageIdentifier: "ProtestorAttack", forAnimationState: .attack)
             badAnimations![.hit] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[4], withImageIdentifier: "ProtestorHit", forAnimationState: .hit, bodyActionName: "ZappedShake", shadowActionName: "ZappedShadowShake", repeatTexturesForever: false)
+            
             badAnimations![.arrested] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[1], withImageIdentifier: "ProtestorArrested", forAnimationState: .arrested, bodyActionName: "ZappedShake", shadowActionName: "ZappedShadowShake", repeatTexturesForever: false)
+            
             badAnimations![.idle] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[5], withImageIdentifier: "ProtestorIdle", forAnimationState: .idle)
+            
             badAnimations![.patrol] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[5], withImageIdentifier: "ProtestorPatrol", forAnimationState: .patrol)
+            
             badAnimations![.walkForward] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[5], withImageIdentifier: "ProtestorPatrol", forAnimationState: .walkForward)
             
+            badAnimations![.inciting] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[6], withImageIdentifier: "ProtestorInciting", forAnimationState: .inciting)
+            
+            badAnimations![.zapped] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[7], withImageIdentifier: "ProtestorZapped", forAnimationState: .zapped)
             
             // Invoke the passed `completionHandler` to indicate that loading has completed.
             completionHandler()
