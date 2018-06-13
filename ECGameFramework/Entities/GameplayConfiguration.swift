@@ -336,7 +336,7 @@ struct GameplayConfiguration
         static let maximumCharge = 100.0
         
         /// The amount of charge a `PlayerBot` loses by a single `GroundBot` attack.
-        static let chargeLossPerContact = 25.0
+        static let chargeLossPerContact = 5.0
         
         /// The maximum distance a `GroundBot` can be from a target before it attacks.
         static let maximumAttackDistance: Float = 300.0
@@ -355,7 +355,7 @@ struct GameplayConfiguration
         static let angularSpeedMultiplierWhenAttacking: CGFloat = 2.5
         
         /// The amount of time to wait between `GroundBot` attacks.
-        static let delayBetweenAttacks: TimeInterval = 2.0
+        static let delayBetweenAttacks: TimeInterval = 1.0
         
         /// The offset from the `GroundBot`'s position that should be used for beam targeting.
         static let beamTargetOffset = CGPoint(x: 0.0, y: 40.0)
