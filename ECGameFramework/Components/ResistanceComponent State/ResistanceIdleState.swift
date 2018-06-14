@@ -34,6 +34,11 @@ class ResistanceIdleState: GKState
     
     // MARK: GKState life cycle
     
+    override func didEnter(from previousState: GKState?)
+    {
+        super.didEnter(from: previousState)
+    }
+    
     override func update(deltaTime seconds: TimeInterval)
     {
         super.update(deltaTime: seconds)
