@@ -34,6 +34,13 @@ class TaskBotInjuredState: GKState
         return movementComponent
     }
     
+    /// The `MovementComponent` associated with the `entity`.
+    var animationComponent: AnimationComponent
+    {
+        guard let animationComponent = entity.component(ofType: AnimationComponent.self) else { fatalError("A TaskBot FleeState's entity must have a AnimationComponent.") }
+        return animationComponent
+    }
+    
     /// The `PhysicsComponent` associated with the `entity`.
     var physicsComponent: PhysicsComponent
     {
@@ -81,6 +88,8 @@ class TaskBotInjuredState: GKState
         //Reset the tracking of how long the 'ManBot' has been in "Scared" state
         elapsedTime = 0.0
 
+        animationComponent.requestedAnimationState = .injured
+        
         temperamentComponent.stateMachine.enter(SubduedState.self)
         
         entity.isActive = false
@@ -91,16 +100,19 @@ class TaskBotInjuredState: GKState
     override func update(deltaTime seconds: TimeInterval)
     {
         super.update(deltaTime: seconds)
+
+
         
         elapsedTime += seconds
+        
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
     {
         switch stateClass
         {
-        case is TaskBotZappedState.Type:
-            return true
+//        case is TaskBotZappedState.Type:
+//            return true
             
         default:
             return false
