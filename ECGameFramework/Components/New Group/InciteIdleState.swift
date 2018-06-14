@@ -20,6 +20,13 @@ class InciteIdleState: GKState
     
     unowned var inciteComponent: InciteComponent
     
+    
+    
+    /// The amount of time the beam has been in its "firing" state.
+    var elapsedTime: TimeInterval = 0.0
+
+    
+    
     // MARK: Initializers
     
     required init(inciteComponent: InciteComponent)
@@ -32,6 +39,16 @@ class InciteIdleState: GKState
     }
     
     // MARK: GKState life cycle
+    
+    override func didEnter(from previousState: GKState?)
+    {
+        print("InciteIdleState entered: \(inciteComponent.entity.debugDescription)")
+        
+        super.didEnter(from: previousState)
+        
+        // Reset the "amount of time firing" tracker when we enter the "firing" state.
+        elapsedTime = 0.0 
+    }
     
     override func update(deltaTime seconds: TimeInterval)
     {
