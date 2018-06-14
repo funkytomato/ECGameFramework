@@ -81,7 +81,7 @@ class InciteState: GKState
         
         //Set the InciteComponent to on
         inciteComponent.isTriggered = true
-        inciteComponent.stateMachine.enter(InciteActiveState.self)
+        inciteComponent.stateMachine.enter(InciteIdleState.self)
         
         //temperamentComponent.stateMachine.enter(SubduedState.self)
         //entity.isActive = false
