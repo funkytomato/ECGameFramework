@@ -415,6 +415,7 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
             goodAnimations![.attack] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[5], withImageIdentifier: "CriminalAttack", forAnimationState: .attack)
             goodAnimations![.inciting] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[6], withImageIdentifier: "CriminalInciting", forAnimationState: .inciting)
             goodAnimations![.zapped] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[7], withImageIdentifier: "CriminalZapped", forAnimationState: .zapped)
+            goodAnimations![.injured] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[8], withImageIdentifier: "CriminalInjured", forAnimationState: .injured)
             
             
             badAnimations = [:]
@@ -424,7 +425,9 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
             badAnimations![.sellingWares] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[3], withImageIdentifier: "SellingWares", forAnimationState: .sellingWares)
             badAnimations![.hit] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[4], withImageIdentifier: "Hit", forAnimationState: .hit)
             badAnimations![.attack] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[5], withImageIdentifier: "Attack", forAnimationState: .attack)
-            
+            badAnimations![.inciting] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[6], withImageIdentifier: "CriminalInciting", forAnimationState: .inciting)
+            badAnimations![.zapped] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[7], withImageIdentifier: "CriminalZapped", forAnimationState: .zapped)
+            badAnimations![.injured] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[8], withImageIdentifier: "CriminalInjured", forAnimationState: .injured)
             
             // Invoke the passed `completionHandler` to indicate that loading has completed.
             completionHandler()
