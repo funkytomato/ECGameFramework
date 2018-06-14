@@ -327,7 +327,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         // 3) Set the Protestor to Flee State
         //guard intelligenceComponent.stateMachine.enter(TaskBotFleeState.self) else { return }
         
-        //print("mandate \(mandate)")
+        print("mandate \(mandate)")
         print("state: \(intelligenceComponent.stateMachine.currentState.debugDescription)")
 
         switch mandate
@@ -335,6 +335,10 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             case .incite:
                 print("mandate \(mandate)")
                 intelligenceComponent.stateMachine.enter(InciteState.self)
+
+            case let .huntAgent(targetAgent):
+                intelligenceComponent.stateMachine.enter(ProtestorBotRotateToAttackState.self)
+                targetPosition = targetAgent.position
             
             case .lockupPrisoner:
                 intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
@@ -391,7 +395,8 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
         
         // Check the on the health of the Protestor
-        if !healthComponent.hasHealth
+        //if !healthComponent.hasHealth
+        if healthComponent.health < 50.0
         {
             //Protestor is fucked, and no longer playable
             intelligenceComponent.stateMachine.enter(TaskBotInjuredState.self)
@@ -475,7 +480,8 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             "ProtestorHit",
             "ProtestorIdle",
             "ProtestorInciting",
-            "ProtestorZapped"
+            "ProtestorZapped",
+            "ProtestorInjured"
             
 //            "AngryProtestor",
 //            "CalmProtestor",
@@ -519,6 +525,8 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             
             goodAnimations![.zapped] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[7], withImageIdentifier: "ProtestorZapped", forAnimationState: .zapped)
             
+            goodAnimations![.injured] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[8], withImageIdentifier: "ProtestorInjured", forAnimationState: .injured)
+
             
             //Temperament
 //            goodAnimations![.angry] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[8], withImageIdentifier: "AngryProtestor", forAnimationState: .angry)
@@ -545,6 +553,8 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             badAnimations![.inciting] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[6], withImageIdentifier: "ProtestorInciting", forAnimationState: .inciting)
             
             badAnimations![.zapped] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[7], withImageIdentifier: "ProtestorZapped", forAnimationState: .zapped)
+            
+            badAnimations![.injured] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[8], withImageIdentifier: "ProtestorInjured", forAnimationState: .injured)
             
             // Invoke the passed `completionHandler` to indicate that loading has completed.
             completionHandler()
