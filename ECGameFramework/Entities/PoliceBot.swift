@@ -30,12 +30,13 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
         if resistanceComponent.hasResistance
         {
             // Beat them up
-            intelligenceComponent.stateMachine.enter(ProtestorBotHitState.self)
+            //intelligenceComponent.stateMachine.enter(ProtestorBotHitState.self)
+            intelligenceComponent.stateMachine.enter(PoliceBotAttackState.self)
         }
         else
         {
             // Attempt to arrest the Criminal
-            intelligenceComponent.stateMachine.enter(ProtestorBeingArrestedState.self)
+            intelligenceComponent.stateMachine.enter(PoliceArrestState.self)
         }
     }
     
@@ -56,14 +57,14 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
     // MARK: HealthComponentDelegate
     func healthComponentDidLoseHealth(healthComponent: HealthComponent)
     {
+        guard let resistanceComponent = component(ofType: ResistanceComponent.self) else { return }
+        guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
         
-        if let intelligenceComponent = component(ofType: IntelligenceComponent.self)
+        //Police has no more shield, take damage
+        if !resistanceComponent.isFullyResistanced
         {
-  //          guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
-            print("current State: \(intelligenceComponent.stateMachine.currentState)")
-
-            
-            if !healthComponent.hasHealth
+            //if !healthComponent.hasHealth
+            if healthComponent.health < 20.0
             {
                 //intelligenceComponent.stateMachine.enter(PoliceBotRechargingState.self)
                 intelligenceComponent.stateMachine.enter(TaskBotInjuredState.self)
