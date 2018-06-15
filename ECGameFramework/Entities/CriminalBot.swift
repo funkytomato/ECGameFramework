@@ -384,6 +384,7 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
             "CriminalAttack",
             "CriminalInciting",
             "CriminalZapped",
+            "CriminalPatrol",
             
             "AngryProtestor",
             "CalmProtestor",
@@ -416,6 +417,7 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
             goodAnimations![.inciting] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[6], withImageIdentifier: "CriminalInciting", forAnimationState: .inciting)
             goodAnimations![.zapped] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[7], withImageIdentifier: "CriminalZapped", forAnimationState: .zapped)
             goodAnimations![.injured] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[8], withImageIdentifier: "CriminalInjured", forAnimationState: .injured)
+            goodAnimations![.patrol] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[9], withImageIdentifier: "CriminalPatrol", forAnimationState: .patrol)
             
             
             badAnimations = [:]
@@ -428,6 +430,7 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
             badAnimations![.inciting] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[6], withImageIdentifier: "CriminalInciting", forAnimationState: .inciting)
             badAnimations![.zapped] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[7], withImageIdentifier: "CriminalZapped", forAnimationState: .zapped)
             badAnimations![.injured] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[8], withImageIdentifier: "CriminalInjured", forAnimationState: .injured)
+            badAnimations![.patrol] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[9], withImageIdentifier: "CriminalPatrol", forAnimationState: .patrol)
             
             // Invoke the passed `completionHandler` to indicate that loading has completed.
             completionHandler()
