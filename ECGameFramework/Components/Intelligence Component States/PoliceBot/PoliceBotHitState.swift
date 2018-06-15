@@ -35,7 +35,18 @@ class PoliceBotHitState: GKState
         guard let healthComponent = entity.component(ofType: HealthComponent.self) else { fatalError("A PoliceBotHitState's entity must have an HealthComponent.") }
         return healthComponent
     }
+
+    var intelligenceComponent: IntelligenceComponent
+    {
+        guard let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self) else { fatalError("A PoliceBotHitState's entity must have an IntelligenceComponent.") }
+        return intelligenceComponent
+    }
     
+    var resistanceComponent: ResistanceComponent
+    {
+        guard let resistanceComponent = entity.component(ofType: ResistanceComponent.self) else { fatalError("A ProtestorBotHitState's entity must have a ResistanceComponent")}
+        return resistanceComponent
+    }
     
     // MARK: Initializers
     
@@ -68,19 +79,44 @@ class PoliceBotHitState: GKState
         
         // Update the amount of time the `PlayerBot` has been in the "hit" state.
         elapsedTime += seconds
+
         
-        // When the `PlayerBot` has been in this state for long enough, transition to the appropriate next state.
-        if elapsedTime >= GameplayConfiguration.PoliceBot.hitStateDuration
+        // Has the Protestor's resistance been broken down?
+        if !resistanceComponent.hasResistance
         {
-            if entity.tazerPoweredDown
+            //Is the Protestor dead?
+            if !healthComponent.hasHealth
             {
-                stateMachine?.enter(PoliceBotRechargingState.self)
+                //The Protestor is injured or dead and out of the game
+                stateMachine?.enter(TaskBotInjuredState.self)
+            }
+            else if healthComponent.health < 50.0
+            {
+                //The Police is scared and will flee
+                entity.isScared = true
+                stateMachine?.enter(TaskBotFleeState.self)
             }
             else
             {
-                stateMachine?.enter(TaskBotAgentControlledState.self)
+                //The Protestor is subdued and knackered, arrest them
+                //temperamentComponent.stateMachine.enter(SubduedState.self)
+                stateMachine?.enter(PoliceArrestState.self)
             }
         }
+        
+        
+        // When the `PlayerBot` has been in this state for long enough, transition to the appropriate next state.
+//        if elapsedTime >= GameplayConfiguration.PoliceBot.hitStateDuration
+//        {
+//            if entity.tazerPoweredDown
+//            {
+//                stateMachine?.enter(PoliceBotRechargingState.self)
+//            }
+//            else
+//            {
+//                stateMachine?.enter(TaskBotAgentControlledState.self)
+//            }
+//        }
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
