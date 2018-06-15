@@ -141,7 +141,7 @@ class PoliceBotAttackState: GKState
         super.willExit(to: nextState)
         
         //Make Police not dangerous again
-        self.entity.isDangerous = true
+        //self.entity.isDangerous = true
         
         // `movementComponent` is a computed property. Declare a local version so we don't compute it multiple times.
         let movementComponent = self.movementComponent
@@ -165,27 +165,28 @@ class PoliceBotAttackState: GKState
             chargeComponent.loseCharge(chargeToLose: GameplayConfiguration.PoliceBot.chargeLossPerContact)
         }
             
-        else if let protestorBot = entity as? ProtestorBot, protestorBot.isGood, let healthComponent = protestorBot.component(ofType: HealthComponent.self)
+        else if let protestorBot = entity as? ProtestorBot, protestorBot.isGood,
+            let resistanceComponent = protestorBot.component(ofType: ResistanceComponent.self),
+            let healthComponent = protestorBot.component(ofType: HealthComponent.self),
+            let intelligenceComponent = protestorBot.component(ofType: IntelligenceComponent.self)
         {
-            guard let resistanceComponent = protestorBot.component(ofType: ResistanceComponent.self) else { return }
-            guard let intelligenceComponent = protestorBot.component(ofType: IntelligenceComponent.self) else { return }
+            //guard let resistanceComponent = protestorBot.component(ofType: ResistanceComponent.self) else { return }
+            //guard let intelligenceComponent = protestorBot.component(ofType: IntelligenceComponent.self) else { return }
             
             //Hit them first
             resistanceComponent.loseResistance(resistanceToLose: GameplayConfiguration.PoliceBot.resistanceLossPerContact)
             
             
             //Have they been beaten into submission?
-            if resistanceComponent.percentageResistance < 80
+            if resistanceComponent.resistance < 25
+            {
+                stateMachine?.enter(PoliceArrestState.self)
+                intelligenceComponent.stateMachine.enter(ProtestorBeingArrestedState.self)
+            }
+            else if resistanceComponent.percentageResistance < 80
             {
                 // Their guard is down, apply damage
                 healthComponent.loseHealth(healthToLose: GameplayConfiguration.PoliceBot.healthLossPerContact)
-                
-                // They have low health, arrest them
-                if healthComponent.health < 50
-                {
-                    stateMachine?.enter(PoliceArrestState.self)
-                    intelligenceComponent.stateMachine.enter(ProtestorBeingArrestedState.self)
-                }
             }
         }
     }
