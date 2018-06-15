@@ -448,7 +448,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         if obeisanceComponent.obeisance > 80
         {
             self.isSubservient = true
-            print("Protestor has beoome subservient")
+            print("Protestor has become subservient")
             
 //            guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
 //            intelligenceComponent.stateMachine.enter(InciteState.self)
@@ -481,7 +481,8 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             "ProtestorIdle",
             "ProtestorInciting",
             "ProtestorZapped",
-            "ProtestorInjured"
+            "ProtestorInjured",
+            "ProtestorPatrol"
             
 //            "AngryProtestor",
 //            "CalmProtestor",
@@ -527,6 +528,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             
             goodAnimations![.injured] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[8], withImageIdentifier: "ProtestorInjured", forAnimationState: .injured)
 
+            goodAnimations![.patrol] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[9], withImageIdentifier: "ProtestorPatrol", forAnimationState: .patrol)
             
             //Temperament
 //            goodAnimations![.angry] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[8], withImageIdentifier: "AngryProtestor", forAnimationState: .angry)
@@ -555,6 +557,8 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             badAnimations![.zapped] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[7], withImageIdentifier: "ProtestorZapped", forAnimationState: .zapped)
             
             badAnimations![.injured] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[8], withImageIdentifier: "ProtestorInjured", forAnimationState: .injured)
+
+            badAnimations![.patrol] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[9], withImageIdentifier: "ProtestorPatrol", forAnimationState: .patrol)
             
             // Invoke the passed `completionHandler` to indicate that loading has completed.
             completionHandler()
