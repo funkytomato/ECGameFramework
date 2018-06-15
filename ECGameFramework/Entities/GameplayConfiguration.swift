@@ -224,7 +224,7 @@ struct GameplayConfiguration
         static let thresholdProximityToPatrolPathStartPoint: Float = 50.0
         
         /// The maximum speed (in points per second) for the `TaskBot` when in its "good" state.
-        static let maximumSpeedWhenGood: Float = 150.0
+        static let maximumSpeedWhenGood: Float = 140.0
 
         /// The maximum speed (in points per second) for the `TaskBot` when in its "bad" state.
         static let maximumSpeedWhenBad: Float = 130.0
@@ -323,23 +323,23 @@ struct GameplayConfiguration
         static let maximumHealth = 100.0
         
         /// The amount of health a `PlayerBot` loses by a single `GroundBot` attack.
-        static let healthLossPerContact = 25.0
+        static let healthLossPerContact = 10.0
         
         /// The maximum amount of health a `GroundBot` stores.
         static let maximumResistance = 100.0
         
         /// The amount of resistance a `PlayerBot` loses by a single `GroundBot` attack.
-        static let resistanceLossPerContact = 10.0
+        static let resistanceLossPerContact = 20.0
     
         
         /// The maximum amount of charge a `GroundBot` stores.
         static let maximumCharge = 100.0
         
         /// The amount of charge a `PlayerBot` loses by a single `GroundBot` attack.
-        static let chargeLossPerContact = 5.0
+        static let chargeLossPerContact = 15.0
         
         /// The maximum distance a `GroundBot` can be from a target before it attacks.
-        static let maximumAttackDistance: Float = 300.0
+        static let maximumAttackDistance: Float = 200.0
         
         /// Proximity to the target after which the `GroundBot` attack should end.
         static let attackEndProximity: Float = 7.0
@@ -389,13 +389,16 @@ struct GameplayConfiguration
         
         
         /// The amount of health a `PlayerBot` loses by a single `GroundBot` attack.
-        static let healthLossPerContact = 25.0
+        static let healthLossPerContact = 15.0
         
         /// The maximum amount of charge a `GroundBot` stores.
         static let maximumCharge = 100.0
         
         /// The amount of charge a `PlayerBot` loses by a single `GroundBot` attack.
-        static let chargeLossPerContact = 25.0
+        static let chargeLossPerContact = 20.0
+        
+        /// The amount of resistance a `PlayerBot` loses by a single `GroundBot` attack.
+        static let resistanceLossPerContact = 20.0
         
         /// The maximum distance a `GroundBot` can be from a target before it attacks.
         static let maximumAttackDistance: Float = 300.0
