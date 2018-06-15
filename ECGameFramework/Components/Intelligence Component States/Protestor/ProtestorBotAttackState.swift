@@ -165,13 +165,16 @@ class ProtestorBotAttackState: GKState
             // If the other entity is a `PlayerBot` that isn't powered down, reduce its charge.
             chargeComponent.loseCharge(chargeToLose: GameplayConfiguration.ManBot.chargeLossPerContact)
         }
-        else if let protestorBot = entity as? ProtestorBot, protestorBot.isGood, let healthComponent = protestorBot.component(ofType: HealthComponent.self)
+        else if let targetBot = entity as? TaskBot, targetBot.isGood,
+            let healthComponent = targetBot.component(ofType: HealthComponent.self),
+            let resistanceComponent = targetBot.component(ofType: ResistanceComponent.self),
+            let intelligenceComponent = targetBot.component(ofType: IntelligenceComponent.self)
         {
-            guard let resistanceComponent = protestorBot.component(ofType: ResistanceComponent.self) else { return }
-            guard let intelligenceComponent = protestorBot.component(ofType: IntelligenceComponent.self) else { return }
+//            guard let resistanceComponent = targetBot.component(ofType: ResistanceComponent.self) else { return }
+//            guard let intelligenceComponent = targetBot.component(ofType: IntelligenceComponent.self) else { return }
             
             //Hit them first
-            resistanceComponent.loseResistance(resistanceToLose: GameplayConfiguration.PoliceBot.resistanceLossPerContact)
+            resistanceComponent.loseResistance(resistanceToLose: GameplayConfiguration.ProtestorBot.resistanceLossPerContact)
             
             
             //Have they been beaten into submission?
@@ -181,23 +184,14 @@ class ProtestorBotAttackState: GKState
                 healthComponent.loseHealth(healthToLose: GameplayConfiguration.ProtestorBot.healthLossPerContact)
                 
                 // They have low health, arrest them
-                if healthComponent.health < 50
+                if healthComponent.health < 30
                 {
-                    stateMachine?.enter(PoliceArrestState.self)
-                    intelligenceComponent.stateMachine.enter(ProtestorBeingArrestedState.self)
+//                    stateMachine?.enter(PoliceArrestState.self)
+                    intelligenceComponent.stateMachine.enter(TaskBotZappedState.self)
                 }
             }
         }
             
-            
-            
-//        else if let taskBot = entity as? TaskBot, let healthComponent = entity.component(ofType: HealthComponent.self)
-        else if let healthComponent = entity.component(ofType: HealthComponent.self)
-        {
-            
-            healthComponent.loseHealth(healthToLose: GameplayConfiguration.ManBot.chargeLossPerContact)
-            
-            self.entity.isRetaliating = false
-        }
+        self.entity.isRetaliating = false
     }
 }
