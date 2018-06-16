@@ -21,6 +21,10 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
     
 
     
+
+    
+
+    
     
     // MARK: Static Properties
     
@@ -296,6 +300,11 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
         }
     }
     
+    func resistanceComponentDidGainResistance(resistanceComponent: ResistanceComponent)
+    {
+        guard let resistanceComponent = component(ofType: ResistanceComponent.self) else { return }
+    }
+    
     // MARK: Resistance Component Delegate
     func resistanceComponentDidLoseResistance(resistanceComponent: ResistanceComponent)
     {
@@ -318,6 +327,12 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
     }
     
     // MARK: Health Component Delegate
+    func healthComponentDidAddHealth(healthComponent: HealthComponent)
+    
+    {
+         guard let healthComponent = component(ofType: HealthComponent.self) else { return }
+    }
+    
     func healthComponentDidLoseHealth(healthComponent: HealthComponent)
     {
         guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
