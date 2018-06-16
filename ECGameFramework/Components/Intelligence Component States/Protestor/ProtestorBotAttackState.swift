@@ -165,7 +165,7 @@ class ProtestorBotAttackState: GKState
             // If the other entity is a `PlayerBot` that isn't powered down, reduce its charge.
             chargeComponent.loseCharge(chargeToLose: GameplayConfiguration.ManBot.chargeLossPerContact)
         }
-        else if let targetBot = entity as? TaskBot, targetBot.isGood,
+        else if let targetBot = entity as? TaskBot, /*targetBot.isGood,*/
             let healthComponent = targetBot.component(ofType: HealthComponent.self),
             let resistanceComponent = targetBot.component(ofType: ResistanceComponent.self),
             let intelligenceComponent = targetBot.component(ofType: IntelligenceComponent.self)
