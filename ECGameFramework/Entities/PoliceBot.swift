@@ -17,6 +17,13 @@ import GameplayKit
 //class PoliceBot: TaskBot, ChargeComponentDelegate, HealthComponentDelegate, ResourceLoadableType
 class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, HealthComponentDelegate, ResourceLoadableType
 {
+
+    
+    func resistanceComponentDidGainResistance(resistanceComponent: ResistanceComponent)
+    {
+        guard let resistanceComponent = component(ofType: ResistanceComponent.self) else { return }
+    }
+    
     
     // MARK: Resistance Component Delegate
     func resistanceComponentDidLoseResistance(resistanceComponent: ResistanceComponent)
@@ -53,6 +60,10 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
         }
     }
     
+    func healthComponentDidAddHealth(healthComponent: HealthComponent)
+    {
+        guard let healthComponent = component(ofType: HealthComponent.self) else { return }
+    }
     
     // MARK: HealthComponentDelegate
     func healthComponentDidLoseHealth(healthComponent: HealthComponent)
@@ -385,7 +396,8 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
             "ScaredPolice",
             "UnhappyPolice",
             "ViolentPolice",
-            "PoliceInjured"
+            "PoliceInjured",
+            "PoliceZapped"
         ]
         
         /*
@@ -411,6 +423,8 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
             goodAnimations![.patrol] = AnimationComponent.animationsFromAtlas(atlas: PoliceBotAtlases[5], withImageIdentifier: "PolicePatrol", forAnimationState: .patrol)
             goodAnimations![.walkForward] = AnimationComponent.animationsFromAtlas(atlas: PoliceBotAtlases[5], withImageIdentifier: "PolicePatrol", forAnimationState: .walkForward)
             goodAnimations![.injured] = AnimationComponent.animationsFromAtlas(atlas: PoliceBotAtlases[6], withImageIdentifier: "PoliceInjured", forAnimationState: .injured)
+
+            
             
             //Temperament
             goodAnimations![.angry] = AnimationComponent.animationsFromAtlas(atlas: PoliceBotAtlases[7], withImageIdentifier: "PoliceAngry", forAnimationState: .angry)
@@ -418,6 +432,9 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
             goodAnimations![.scared] = AnimationComponent.animationsFromAtlas(atlas: PoliceBotAtlases[9], withImageIdentifier: "PoliceScared", forAnimationState: .scared)
             goodAnimations![.unhappy] = AnimationComponent.animationsFromAtlas(atlas: PoliceBotAtlases[10], withImageIdentifier: "PoliceUnhappy", forAnimationState: .unhappy)
             goodAnimations![.violent] = AnimationComponent.animationsFromAtlas(atlas: PoliceBotAtlases[11], withImageIdentifier: "PoliceViolent", forAnimationState: .violent)
+            
+            
+            goodAnimations![.zapped] = AnimationComponent.animationsFromAtlas(atlas: PoliceBotAtlases[12], withImageIdentifier: "PoliceZapped", forAnimationState: .zapped)
             
             
             badAnimations = [:]
@@ -429,6 +446,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
             badAnimations![.patrol] = AnimationComponent.animationsFromAtlas(atlas: PoliceBotAtlases[5], withImageIdentifier: "PolicePatrol", forAnimationState: .patrol)
             badAnimations![.walkForward] = AnimationComponent.animationsFromAtlas(atlas: PoliceBotAtlases[5], withImageIdentifier: "PolicePatrol", forAnimationState: .walkForward)
             badAnimations![.injured] = AnimationComponent.animationsFromAtlas(atlas: PoliceBotAtlases[6], withImageIdentifier: "PoliceInjured", forAnimationState: .injured)
+            badAnimations![.zapped] = AnimationComponent.animationsFromAtlas(atlas: PoliceBotAtlases[12], withImageIdentifier: "PoliceZapped", forAnimationState: .zapped)
   
             
             // Invoke the passed `completionHandler` to indicate that loading has completed.
