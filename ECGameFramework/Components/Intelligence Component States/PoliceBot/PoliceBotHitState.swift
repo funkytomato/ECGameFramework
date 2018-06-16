@@ -48,6 +48,12 @@ class PoliceBotHitState: GKState
         return resistanceComponent
     }
     
+    var temperamentComponent: TemperamentComponent
+    {
+        guard let temperamentComponent = entity.component(ofType: TemperamentComponent.self) else { fatalError("A ProtestorBotHitState's entity must have a TemperamentComponent")}
+        return temperamentComponent
+    }
+    
     // MARK: Initializers
     
     required init(entity: PoliceBot)
@@ -90,6 +96,8 @@ class PoliceBotHitState: GKState
                 //The Protestor is injured or dead and out of the game
                 stateMachine?.enter(TaskBotInjuredState.self)
             }
+            
+            //Police has no resistance left and some health, so run away
             else if healthComponent.health < 50.0
             {
                 //The Police is scared and will flee
@@ -104,6 +112,49 @@ class PoliceBotHitState: GKState
             }
         }
         
+        
+        //Policeman hit, deciding whether to flee or attack
+        else
+        {
+            
+            //Create a random number to decide on action
+            let changeTemperament = GKMersenneTwisterRandomSource()
+            let val = changeTemperament.nextInt(upperBound: 10)
+            
+            //print("changeTemperament: \(val)")
+            
+            
+            if val < 3
+            {
+                temperamentComponent.decreaseTemperament()
+            }
+            else
+            {
+                temperamentComponent.increaseTemperament()
+            }
+            
+            
+            
+            // Decide what to do on the Protestor's current temperament
+            if ((temperamentComponent.stateMachine.currentState as? ScaredState) != nil)
+            {
+                // Police is scared and will attempt to flee from danger
+                stateMachine?.enter(TaskBotFleeState.self)
+            }
+                // Protestor is violent and will fight back
+            else if ((temperamentComponent.stateMachine.currentState as? ViolentState) != nil)
+            {
+                //Police will fight back with extreme prejudice
+                self.entity.isRetaliating = true
+            }
+            else
+            {
+                //Protestor is not going to fight back
+                self.entity.isRetaliating = false
+            }
+            
+            stateMachine?.enter(TaskBotAgentControlledState.self)
+        }
         
         // When the `PlayerBot` has been in this state for long enough, transition to the appropriate next state.
 //        if elapsedTime >= GameplayConfiguration.PoliceBot.hitStateDuration
