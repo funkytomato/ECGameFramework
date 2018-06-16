@@ -78,12 +78,12 @@ struct SceneMetadata
             loadableTypesForScene += tags.compactMap { tag in
                 switch tag
                 {
-                    case "ManBot":
-                        return ManBot.self
-                    
-                    case "GroundBot":
-                        return GroundBot.self
-                        
+//                    case "ManBot":
+//                        return ManBot.self
+//                    
+//                    case "GroundBot":
+//                        return GroundBot.self
+//                        
                     case "FlyingBot":
                         return FlyingBot.self
                     
