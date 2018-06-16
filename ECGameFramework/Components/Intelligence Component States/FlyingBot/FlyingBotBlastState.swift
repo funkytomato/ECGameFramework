@@ -180,7 +180,7 @@ class FlyingBotBlastState: GKState
             
             switch currentState
             {
-                case is FlyingBotBlastState, is GroundBotAttackState:
+                case is FlyingBotBlastState/*, is GroundBotAttackState*/:
                     break
                 
                 default:
