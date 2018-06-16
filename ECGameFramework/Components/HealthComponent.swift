@@ -16,8 +16,11 @@ import GameplayKit
 
 protocol HealthComponentDelegate: class
 {
-    // Called whenever a `ChargeComponent` loses charge through a call to `loseCharge`
+    // Called whenever a `HealthComponent` loses charge through a call to `loseCharge`
     func healthComponentDidLoseHealth(healthComponent: HealthComponent)
+    
+    // Called whenever a `HealthComponent` loses charge through a call to `gainCharge`
+    func healthComponentDidAddHealth(healthComponent: HealthComponent)
 }
 
 class HealthComponent: GKComponent
@@ -121,6 +124,7 @@ class HealthComponent: GKComponent
         {
             health = newHealth
             healthBar?.level = percentageHealth
+            delegate?.healthComponentDidAddHealth(healthComponent: self)
         }
     }
 }
