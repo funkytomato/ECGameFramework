@@ -18,6 +18,9 @@ protocol ResistanceComponentDelegate: class
 {
     // Called whenever a `ResistanceComponent` loses Resistance through a call to `loseResistance`
     func resistanceComponentDidLoseResistance(resistanceComponent: ResistanceComponent)
+    
+    // Called whenever a `ResistanceComponent` gains Resistance through a call to `gainResistance`
+    func resistanceComponentDidGainResistance(resistanceComponent: ResistanceComponent)
 }
 
 class ResistanceComponent: GKComponent
@@ -149,6 +152,7 @@ class ResistanceComponent: GKComponent
         {
             resistance = newResistance
             resistanceBar?.level = percentageResistance
+            delegate?.resistanceComponentDidGainResistance(resistanceComponent: self)
         }
     }
 }
