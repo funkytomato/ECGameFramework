@@ -13,6 +13,10 @@ class PlayerBot: GKEntity, HealthComponentDelegate, ResistanceComponentDelegate,
 {
 
     
+
+    
+
+    
     
 
     
@@ -303,6 +307,12 @@ class PlayerBot: GKEntity, HealthComponentDelegate, ResistanceComponentDelegate,
     }
     
     // MARK: Component delegates
+    
+    func healthComponentDidAddHealth(healthComponent: HealthComponent)
+    {
+        guard let healthComponent = component(ofType: HealthComponent.self) else { return }
+    }
+    
     func healthComponentDidLoseHealth(healthComponent: HealthComponent)
     {
         guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
@@ -313,6 +323,11 @@ class PlayerBot: GKEntity, HealthComponentDelegate, ResistanceComponentDelegate,
             //Criminal is fucked, and no longer playable
             intelligenceComponent.stateMachine.enter(TaskBotInjuredState.self)
         }
+    }
+    
+    func resistanceComponentDidGainResistance(resistanceComponent: ResistanceComponent)
+    {
+        guard let resistanceComponent = component(ofType: ResistanceComponent.self) else { return }
     }
     
     func resistanceComponentDidLoseResistance(resistanceComponent: ResistanceComponent)
