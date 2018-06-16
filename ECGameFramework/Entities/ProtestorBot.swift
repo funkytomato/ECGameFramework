@@ -20,6 +20,10 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
 {
 
     
+
+    
+
+    
     // MARK: Static Properties
     
     var texture = SKTexture()
@@ -368,6 +372,11 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         }
     }
     
+    func resistanceComponentDidGainResistance(resistanceComponent: ResistanceComponent)
+    {
+        guard let resistanceComponent = component(ofType: ResistanceComponent.self) else { return }
+    }
+    
     // MARK: Resistance Component Delegate
     func resistanceComponentDidLoseResistance(resistanceComponent: ResistanceComponent)
     {
@@ -390,13 +399,18 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
     }
 
     // MARK: Health Component Delegate
+    func healthComponentDidAddHealth(healthComponent: HealthComponent)
+    {
+        guard let healthComponent = component(ofType: HealthComponent.self) else { return }
+    }
+    
     func healthComponentDidLoseHealth(healthComponent: HealthComponent)
     {
         guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
         
         // Check the on the health of the Protestor
         //if !healthComponent.hasHealth
-        if healthComponent.health < 50.0
+        if healthComponent.health < 5.0
         {
             //Protestor is fucked, and no longer playable
             intelligenceComponent.stateMachine.enter(TaskBotInjuredState.self)
