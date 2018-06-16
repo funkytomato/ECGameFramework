@@ -96,13 +96,9 @@ class ProtestorBotHitState: GKState
                 //The Protestor is injured or dead and out of the game
                 stateMachine?.enter(TaskBotInjuredState.self)
             }
-            else if healthComponent.health < 50.0
-            {
-                //The Protestor is scared and will flee
-                entity.isScared = true
-                stateMachine?.enter(TaskBotFleeState.self)
-            }
-            else
+        
+            //Protestor is healthy enough to be arrested
+            else if healthComponent.hasHealth
             {
                 //The Protestor is subdued and knackered, arrest them
                 temperamentComponent.stateMachine.enter(SubduedState.self)
