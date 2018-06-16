@@ -149,7 +149,7 @@ struct GameplayConfiguration
 
     struct PlayerBot
     {
-        /// The movement speed (in points per second) for the `PlayerBot`.
+        // The movement speed (in points per second) for the `PlayerBot`.
         static let movementSpeed: CGFloat = 210.0
 
         /// The angular rotation speed (in radians per second) for the `PlayerBot`.
@@ -319,67 +319,36 @@ struct GameplayConfiguration
     
     struct PoliceBot
     {
-        /// The maximum amount of health a `GroundBot` stores.
+        //MARK: Health Properties
+        
+        // The maximum amount of health a `GroundBot` stores.
         static let maximumHealth = 100.0
         
-        /// The amount of health a `PlayerBot` loses by a single `GroundBot` attack.
-        static let healthLossPerContact = 10.0
+        // The amount of health a `PlayerBot` loses by a single `GroundBot` attack.
+        static let healthLossPerContact = 15.0
         
-        /// The maximum amount of health a `GroundBot` stores.
-        static let maximumResistance = 100.0
         
-        /// The amount of resistance a `PlayerBot` loses by a single `GroundBot` attack.
-        static let resistanceLossPerContact = 20.0
-    
         
-        /// The maximum amount of charge a `GroundBot` stores.
-        static let maximumCharge = 100.0
-        
-        /// The amount of charge a `PlayerBot` loses by a single `GroundBot` attack.
-        static let chargeLossPerContact = 15.0
-        
-        /// The maximum distance a `GroundBot` can be from a target before it attacks.
-        static let maximumAttackDistance: Float = 200.0
-        
-        /// Proximity to the target after which the `GroundBot` attack should end.
-        static let attackEndProximity: Float = 7.0
-        
-        /// How fast the `GroundBot` rotates to face its target in radians per second.
-        //static let preAttackRotationSpeed = Double.pi / 4
-        static let preAttackRotationSpeed = Double.pi / 8
-        
-        /// How much faster the `GroundBot` can move when attacking.
-        static let movementSpeedMultiplierWhenAttacking: CGFloat = 2.5
-        
-        /// How much faster the `GroundBot` can rotate when attacking.
-        static let angularSpeedMultiplierWhenAttacking: CGFloat = 2.5
-        
-        /// The amount of time to wait between `GroundBot` attacks.
-        static let delayBetweenAttacks: TimeInterval = 1.0
-        
-        /// The offset from the `GroundBot`'s position that should be used for beam targeting.
-        static let beamTargetOffset = CGPoint(x: 0.0, y: 40.0)
-        
-        /// The length of time for which the `PlayerBot` remains in its "hit" state.
-        static let hitStateDuration: TimeInterval = 0.75
-        
-        /// The length of time that it takes the `PlayerBot` to recharge when deactivated.
-        static let rechargeDelayWhenInactive: TimeInterval = 2.0
-        
-        /// The amount of charge that the `PlayerBot` gains per second when recharging.
-        static let rechargeAmountPerSecond = 10.0
-    }
-    
-    struct ProtestorBot
-    {
-        /// The maximum amount of health a `GroundBot` stores.
-        static let maximumHealth = 100.0
+        //MARK: Resistance Properties
         
         /// The maximum amount of resistance a `GroundBot` stores.
         static let maximumResistance = 100.0
         
+        /// The amount of resistance a `PlayerBot` loses by a single `GroundBot` attack.
+        static let resistanceLossPerContact = 20.0
+        
+        /// The amount of charge that the `PlayerBot` gains per second when recharging.
+        static let resistanceRechargeAmountPerSecond = 0.5
+        
+        
+        //MARK: Respect Properties
+        
         /// The maximum amount of respect a `GroundBot` stores.
         static let maximumRespect = 100.0
+        
+        
+        
+        //MARK: Obeisance Properties
         
         /// The maximum amount of obesiance a `GroundBot` stores.
         static let maximumObesiance = 100.0
@@ -388,8 +357,14 @@ struct GameplayConfiguration
         static let obeisanceLossPerCycle = 1.0
         
         
-        /// The amount of health a `PlayerBot` loses by a single `GroundBot` attack.
-        static let healthLossPerContact = 15.0
+        //MARK: Hit Properties
+        
+        /// The length of time for which the `PlayerBot` remains in its "hit" state.
+        static let hitStateDuration: TimeInterval = 0.75
+        
+        
+        
+        //MARK: Charge Properties
         
         /// The maximum amount of charge a `GroundBot` stores.
         static let maximumCharge = 100.0
@@ -397,8 +372,14 @@ struct GameplayConfiguration
         /// The amount of charge a `PlayerBot` loses by a single `GroundBot` attack.
         static let chargeLossPerContact = 20.0
         
-        /// The amount of resistance a `PlayerBot` loses by a single `GroundBot` attack.
-        static let resistanceLossPerContact = 20.0
+        /// The length of time that it takes the `ProtestorBot` to recharge when deactivated.
+        static let rechargeDelayWhenInactive: TimeInterval = 2.0
+        
+        /// The amount of charge that the `ProtestorBot` gains per second when recharging.
+        static let rechargeAmountPerSecond = 10.0
+        
+        
+        //MARK: Attack Properties
         
         /// The maximum distance a `GroundBot` can be from a target before it attacks.
         static let maximumAttackDistance: Float = 300.0
@@ -421,43 +402,174 @@ struct GameplayConfiguration
         /// The offset from the `GroundBot`'s position that should be used for beam targeting.
         static let beamTargetOffset = CGPoint(x: 0.0, y: 40.0)
         
+        
+        
+        //MARK: Flee Properties
+        
+        /// How much faster the `GroundBot` can move when attacking.
+        static let movementSpeedMultiplierWhenFleeing: CGFloat = 5.0
+        
+    }
+    
+    struct ProtestorBot
+    {
+        //MARK: Health Properties
+        
+        // The maximum amount of health a `GroundBot` stores.
+        static let maximumHealth = 100.0
+        
+        // The amount of health a `PlayerBot` loses by a single `GroundBot` attack.
+        static let healthLossPerContact = 15.0
+        
+        
+        
+        //MARK: Resistance Properties
+        
+        /// The maximum amount of resistance a `GroundBot` stores.
+        static let maximumResistance = 100.0
+        
+        /// The amount of resistance a `PlayerBot` loses by a single `GroundBot` attack.
+        static let resistanceLossPerContact = 20.0
+        
+        /// The amount of charge that the `PlayerBot` gains per second when recharging.
+        static let resistanceRechargeAmountPerSecond = 0.5
+        
+        
+        //MARK: Respect Properties
+        
+        /// The maximum amount of respect a `GroundBot` stores.
+        static let maximumRespect = 100.0
+        
+        
+        
+        //MARK: Obeisance Properties
+        
+        /// The maximum amount of obesiance a `GroundBot` stores.
+        static let maximumObesiance = 100.0
+        
+        /// The amount of obeisance a `PlayerBot` loses by a single `GroundBot` attack.
+        static let obeisanceLossPerCycle = 1.0
+        
+        
+        //MARK: Hit Properties
+        
         /// The length of time for which the `PlayerBot` remains in its "hit" state.
         static let hitStateDuration: TimeInterval = 0.75
+        
+        
+        
+        //MARK: Charge Properties
+        
+        /// The maximum amount of charge a `GroundBot` stores.
+        static let maximumCharge = 100.0
+        
+        /// The amount of charge a `PlayerBot` loses by a single `GroundBot` attack.
+        static let chargeLossPerContact = 20.0
         
         /// The length of time that it takes the `ProtestorBot` to recharge when deactivated.
         static let rechargeDelayWhenInactive: TimeInterval = 2.0
         
         /// The amount of charge that the `ProtestorBot` gains per second when recharging.
         static let rechargeAmountPerSecond = 10.0
+        
+
+        //MARK: Attack Properties
+        
+        /// The maximum distance a `GroundBot` can be from a target before it attacks.
+        static let maximumAttackDistance: Float = 300.0
+        
+        /// Proximity to the target after which the `GroundBot` attack should end.
+        static let attackEndProximity: Float = 7.0
+        
+        /// How fast the `GroundBot` rotates to face its target in radians per second.
+        static let preAttackRotationSpeed = Double.pi / 4
+        
+        /// How much faster the `GroundBot` can move when attacking.
+        static let movementSpeedMultiplierWhenAttacking: CGFloat = 2.5
+        
+        /// How much faster the `GroundBot` can rotate when attacking.
+        static let angularSpeedMultiplierWhenAttacking: CGFloat = 2.5
+        
+        /// The amount of time to wait between `GroundBot` attacks.
+        static let delayBetweenAttacks: TimeInterval = 2.0
+        
+        /// The offset from the `GroundBot`'s position that should be used for beam targeting.
+        static let beamTargetOffset = CGPoint(x: 0.0, y: 40.0)
+        
+
+        
+        //MARK: Flee Properties
+        
+        /// How much faster the `GroundBot` can move when attacking.
+        static let movementSpeedMultiplierWhenFleeing: CGFloat = 5.0
+
         
     }
     
     struct CriminalBot
     {
-        /// The maximum amount of health a `GroundBot` stores.
+        //MARK: Health Properties
+        
+        // The maximum amount of health a `GroundBot` stores.
         static let maximumHealth = 100.0
+        
+        // The amount of health a `PlayerBot` loses by a single `GroundBot` attack.
+        static let healthLossPerContact = 15.0
+        
+        
+        
+        //MARK: Resistance Properties
         
         /// The maximum amount of resistance a `GroundBot` stores.
         static let maximumResistance = 100.0
         
+        /// The amount of resistance a `PlayerBot` loses by a single `GroundBot` attack.
+        static let resistanceLossPerContact = 20.0
         
-        /// The amount of health a `PlayerBot` loses by a single `GroundBot` attack.
-        static let healthLossPerContact = 25.0
+        /// The amount of charge that the `PlayerBot` gains per second when recharging.
+        static let resistanceRechargeAmountPerSecond = 0.5
+        
+        
+        //MARK: Respect Properties
+        
+        /// The maximum amount of respect a `GroundBot` stores.
+        static let maximumRespect = 100.0
+        
+        
+        
+        //MARK: Obeisance Properties
+        
+        
+        /// The maximum amount of obesiance a `GroundBot` stores.
+        static let maximumObeisance = 100.0
+        
+        /// The amount of obeisance a `PlayerBot` loses by a single `GroundBot` attack.
+        static let obeisanceLossPerCycle = 1.0
+        
+        
+        //MARK: Hit Properties
+        
+        /// The length of time for which the `PlayerBot` remains in its "hit" state.
+        static let hitStateDuration: TimeInterval = 0.75
+        
+        
+        
+        //MARK: Charge Properties
         
         /// The maximum amount of charge a `GroundBot` stores.
         static let maximumCharge = 100.0
-
-        /// The maximum amount of respect a `GroundBot` stores.
-        static let maximumRespect = 100.0
-
-        /// The maximum amount of obeisance a `GroundBot` stores.
-        static let maximumObeisance = 100.0
         
         /// The amount of charge a `PlayerBot` loses by a single `GroundBot` attack.
-        static let obeisanceLossPerCycle = 1.0
+        static let chargeLossPerContact = 20.0
         
-        /// The amount of charge a `PlayerBot` loses by a single `GroundBot` attack.
-        static let chargeLossPerContact = 25.0
+        /// The length of time that it takes the `ProtestorBot` to recharge when deactivated.
+        static let rechargeDelayWhenInactive: TimeInterval = 2.0
+        
+        /// The amount of charge that the `ProtestorBot` gains per second when recharging.
+        static let rechargeAmountPerSecond = 10.0
+        
+        
+        //MARK: Attack Properties
         
         /// The maximum distance a `GroundBot` can be from a target before it attacks.
         static let maximumAttackDistance: Float = 300.0
@@ -480,14 +592,12 @@ struct GameplayConfiguration
         /// The offset from the `GroundBot`'s position that should be used for beam targeting.
         static let beamTargetOffset = CGPoint(x: 0.0, y: 40.0)
         
-        /// The length of time for which the `PlayerBot` remains in its "hit" state.
-        static let hitStateDuration: TimeInterval = 0.75
         
-        /// The length of time that it takes the `ProtestorBot` to recharge when deactivated.
-        static let rechargeDelayWhenInactive: TimeInterval = 2.0
         
-        /// The amount of charge that the `ProtestorBot` gains per second when recharging.
-        static let rechargeAmountPerSecond = 10.0
+        //MARK: Flee Properties
+        
+        /// How much faster the `GroundBot` can move when attacking.
+        static let movementSpeedMultiplierWhenFleeing: CGFloat = 5.0
         
     }
 
