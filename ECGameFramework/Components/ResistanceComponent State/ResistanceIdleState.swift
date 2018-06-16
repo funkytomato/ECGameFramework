@@ -54,7 +54,7 @@ class ResistanceIdleState: GKState
             {
             
                 // Add resistance to the `ProtestorBot`.
-                let amountToRecharge = GameplayConfiguration.ProtestorBot.rechargeAmountPerSecond * seconds
+                let amountToRecharge = GameplayConfiguration.ProtestorBot.resistanceRechargeAmountPerSecond * seconds
                 resistanceComponent.addResistance(resistanceToAdd: amountToRecharge)
             }
         }
