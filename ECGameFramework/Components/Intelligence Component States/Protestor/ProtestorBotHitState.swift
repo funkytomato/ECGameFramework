@@ -90,6 +90,8 @@ class ProtestorBotHitState: GKState
         // Has the Protestor's resistance been broken down?
         if !resistanceComponent.hasResistance
         {
+            print("hashealth: \(healthComponent.hasHealth) health:\(healthComponent.health)")
+            
             //Is the Protestor dead?
             if !healthComponent.hasHealth
             {
