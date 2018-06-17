@@ -284,6 +284,7 @@ class AnimationComponent: GKComponent
         // If an animation has been requested, run the animation.
         if let animationState = requestedAnimationState
         {
+            print("entiy: \(self.entity?.debugDescription) animationState: \(requestedAnimationState)")
             runAnimationForAnimationState(animationState: animationState, deltaTime: deltaTime)
             requestedAnimationState = nil
         }
