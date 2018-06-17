@@ -845,34 +845,37 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
     {
         super.touchesMoved(touches, with: event)
  
-        for touch in touches
-        {
-            let touchLocation = touch.location(in: self)
-            let touchedNodes = self.nodes(at: touchLocation)
-            
-            for node in touchedNodes
-            {
-
-                //print("node: \(node.description)")
-                //print("node.entity: \(String(describing: node.entity?.description))")
-                
-                activeEntity?.touchesMoved(touches, with: event, scene: self)
-            }
-        }
+        //Touch control for creating paths
+//        for touch in touches
+//        {
+//            let touchLocation = touch.location(in: self)
+//            let touchedNodes = self.nodes(at: touchLocation)
+//
+//            for node in touchedNodes
+//            {
+//
+//                //print("node: \(node.description)")
+//                //print("node.entity: \(String(describing: node.entity?.description))")
+//
+//                activeEntity?.touchesMoved(touches, with: event, scene: self)
+//            }
+//        }
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?)
     {
-        for _ in touches
-        {
-            //let touchLocation = touch.location(in: self)
-            //let touchedNodes = self.nodes(at: touchLocation)
-            
-            activeEntity?.touchesEnded(touches, with: event, scene: self)
-        }
         
-        // The entity is not selected anymore, as it's path has been set
-        activeEntity = nil
+        //Touch control for creating paths
+//        for _ in touches
+//        {
+//            //let touchLocation = touch.location(in: self)
+//            //let touchedNodes = self.nodes(at: touchLocation)
+//
+//            activeEntity?.touchesEnded(touches, with: event, scene: self)
+//        }
+//
+//        // The entity is not selected anymore, as it's path has been set
+//        activeEntity = nil
     }
     
  /*
