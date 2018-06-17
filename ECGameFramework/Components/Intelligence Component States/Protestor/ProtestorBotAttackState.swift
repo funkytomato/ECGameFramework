@@ -187,7 +187,8 @@ class ProtestorBotAttackState: GKState
                 if healthComponent.health < 30
                 {
 //                    stateMachine?.enter(PoliceArrestState.self)
-                    intelligenceComponent.stateMachine.enter(TaskBotZappedState.self)
+                    //intelligenceComponent.stateMachine.enter(TaskBotZappedState.self)
+                    intelligenceComponent.stateMachine.enter(PoliceBotHitState.self)
                 }
             }
         }
