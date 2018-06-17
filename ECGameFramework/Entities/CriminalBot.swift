@@ -391,15 +391,24 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
         super.loadSharedAssets()
         
         let CriminalBotAtlasNames = [
+            "CriminalBeingArrested",
+            "CriminalArrested",
+            "CriminalDetained",
+            
+            "CriminalAttack",
+            "CriminalHit",
+
             "CriminalIdle",
+            "CriminalPatrol",
+            "CriminalInActive",
+            "CriminalInciting",
+            "CriminalZapped",
+            "CriminalInjured",
+            
             "CriminalLooting",
             "CriminalVandalising",
             "CriminalSellingWares",
-            "CriminalHit",
-            "CriminalAttack",
-            "CriminalInciting",
-            "CriminalZapped",
-            "CriminalPatrol",
+
             
             "AngryProtestor",
             "CalmProtestor",
@@ -423,29 +432,68 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
              */
             
             goodAnimations = [:]
-            goodAnimations![.idle] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[0], withImageIdentifier: "CriminalIdle", forAnimationState: .idle)
-            goodAnimations![.looting] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[1], withImageIdentifier: "CriminalLooting", forAnimationState: .looting)
-            goodAnimations![.vandalising] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[2], withImageIdentifier: "CriminalVandalising", forAnimationState: .vandalising)
-            goodAnimations![.sellingWares] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[3], withImageIdentifier: "CriminalSellingWares", forAnimationState: .sellingWares)
+            
+            goodAnimations![.beingArrested] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[0], withImageIdentifier: "CriminalBeingArrested", forAnimationState: .beingArrested)
+            
+            goodAnimations![.arrested] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[1], withImageIdentifier: "CriminalArrested", forAnimationState: .arrested)
+            
+            goodAnimations![.detained] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[2], withImageIdentifier: "CriminalDetained", forAnimationState: .detained)
+            
+            
+            
+            goodAnimations![.attack] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[3], withImageIdentifier: "CriminalAttack", forAnimationState: .attack)
+            
             goodAnimations![.hit] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[4], withImageIdentifier: "CriminalHit", forAnimationState: .hit)
-            goodAnimations![.attack] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[5], withImageIdentifier: "CriminalAttack", forAnimationState: .attack)
-            goodAnimations![.inciting] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[6], withImageIdentifier: "CriminalInciting", forAnimationState: .inciting)
-            goodAnimations![.zapped] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[7], withImageIdentifier: "CriminalZapped", forAnimationState: .zapped)
-            goodAnimations![.injured] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[8], withImageIdentifier: "CriminalInjured", forAnimationState: .injured)
-            goodAnimations![.patrol] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[9], withImageIdentifier: "CriminalPatrol", forAnimationState: .patrol)
+            
+
+            
+            goodAnimations![.idle] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[5], withImageIdentifier: "CriminalIdle", forAnimationState: .idle)
+            
+            goodAnimations![.patrol] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[6], withImageIdentifier: "CriminalPatrol", forAnimationState: .patrol)
+            
+            goodAnimations![.inactive] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[7], withImageIdentifier: "CriminalInActive", forAnimationState: .inactive)
+            
+            goodAnimations![.inciting] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[8], withImageIdentifier: "CriminalInciting", forAnimationState: .inciting)
+            
+            goodAnimations![.zapped] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[9], withImageIdentifier: "CriminalZapped", forAnimationState: .zapped)
+            
+            goodAnimations![.injured] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[10], withImageIdentifier: "CriminalInjured", forAnimationState: .injured)
+            
+            
+            goodAnimations![.looting] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[11], withImageIdentifier: "CriminalLooting", forAnimationState: .looting)
+            
+            goodAnimations![.vandalising] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[12], withImageIdentifier: "CriminalVandalising", forAnimationState: .vandalising)
+            
+            goodAnimations![.sellingWares] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[13], withImageIdentifier: "CriminalSellingWares", forAnimationState: .sellingWares)
+            
+
+            
+
+
+            
+
+            
+
             
             
             badAnimations = [:]
-            badAnimations![.idle] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[0], withImageIdentifier: "Idle", forAnimationState: .idle)
-            badAnimations![.looting] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[1], withImageIdentifier: "Looting", forAnimationState: .looting)
-            badAnimations![.vandalising] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[2], withImageIdentifier: "Vandalising", forAnimationState: .vandalising)
-            badAnimations![.sellingWares] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[3], withImageIdentifier: "SellingWares", forAnimationState: .sellingWares)
-            badAnimations![.hit] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[4], withImageIdentifier: "Hit", forAnimationState: .hit)
-            badAnimations![.attack] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[5], withImageIdentifier: "Attack", forAnimationState: .attack)
-            badAnimations![.inciting] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[6], withImageIdentifier: "CriminalInciting", forAnimationState: .inciting)
-            badAnimations![.zapped] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[7], withImageIdentifier: "CriminalZapped", forAnimationState: .zapped)
-            badAnimations![.injured] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[8], withImageIdentifier: "CriminalInjured", forAnimationState: .injured)
-            badAnimations![.patrol] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[9], withImageIdentifier: "CriminalPatrol", forAnimationState: .patrol)
+            
+            badAnimations![.hit] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[0], withImageIdentifier: "Hit", forAnimationState: .hit)
+            badAnimations![.attack] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[1], withImageIdentifier: "Attack", forAnimationState: .attack)
+            
+            badAnimations![.idle] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[2], withImageIdentifier: "Idle", forAnimationState: .idle)
+            badAnimations![.patrol] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[3], withImageIdentifier: "CriminalPatrol", forAnimationState: .patrol)
+            badAnimations![.inactive] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[4], withImageIdentifier: "CriminalInActive", forAnimationState: .inactive)
+            badAnimations![.inciting] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[5], withImageIdentifier: "CriminalInciting", forAnimationState: .inciting)
+            badAnimations![.zapped] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[6], withImageIdentifier: "CriminalZapped", forAnimationState: .zapped)
+            badAnimations![.injured] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[7], withImageIdentifier: "CriminalInjured", forAnimationState: .injured)
+            
+            badAnimations![.looting] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[8], withImageIdentifier: "Looting", forAnimationState: .looting)
+            badAnimations![.vandalising] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[9], withImageIdentifier: "Vandalising", forAnimationState: .vandalising)
+            badAnimations![.sellingWares] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[10], withImageIdentifier: "SellingWares", forAnimationState: .sellingWares)
+            
+            
+            
             
             // Invoke the passed `completionHandler` to indicate that loading has completed.
             completionHandler()
