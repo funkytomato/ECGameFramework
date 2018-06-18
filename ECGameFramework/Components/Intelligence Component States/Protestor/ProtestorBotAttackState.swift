@@ -160,12 +160,15 @@ class ProtestorBotAttackState: GKState
     
     func applyDamageToEntity(entity: GKEntity)
     {
+        print("entity: \(self.entity.debugDescription) target: \(entity.debugDescription)")
+        
         if let playerBot = entity as? PlayerBot, let chargeComponent = playerBot.component(ofType: ChargeComponent.self), !playerBot.isPoweredDown
         {
             // If the other entity is a `PlayerBot` that isn't powered down, reduce its charge.
             chargeComponent.loseCharge(chargeToLose: GameplayConfiguration.ManBot.chargeLossPerContact)
         }
         else if let targetBot = entity as? TaskBot, /*targetBot.isGood,*/
+            targetBot.isActive,
             let healthComponent = targetBot.component(ofType: HealthComponent.self),
             let resistanceComponent = targetBot.component(ofType: ResistanceComponent.self),
             let intelligenceComponent = targetBot.component(ofType: IntelligenceComponent.self)
@@ -187,8 +190,8 @@ class ProtestorBotAttackState: GKState
                 if healthComponent.health < 30
                 {
 //                    stateMachine?.enter(PoliceArrestState.self)
-                    //intelligenceComponent.stateMachine.enter(TaskBotZappedState.self)
-                    intelligenceComponent.stateMachine.enter(PoliceBotHitState.self)
+                    intelligenceComponent.stateMachine.enter(TaskBotZappedState.self)
+                    //intelligenceComponent.stateMachine.enter(PoliceBotHitState.self)
                 }
             }
         }
