@@ -77,7 +77,7 @@ class TaskBotFleeState: GKState
     {
         super.didEnter(from: previousState)
         
-        //self.entity.isScared = true
+        self.entity.isScared = true  //fry
         
         //Reset the tracking of how long the 'ManBot' has been in "Scared" state
         elapsedTime = 0.0
