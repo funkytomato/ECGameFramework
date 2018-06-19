@@ -32,19 +32,20 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
         guard let resistanceComponent = component(ofType: ResistanceComponent.self) else { return }
         
         resistanceComponent.isTriggered = true
+        intelligenceComponent.stateMachine.enter(PoliceBotHitState.self)
         
-        // Criminal is resisting
-        if resistanceComponent.hasResistance
-        {
-            // Beat them up
-            //intelligenceComponent.stateMachine.enter(ProtestorBotHitState.self)
-            intelligenceComponent.stateMachine.enter(PoliceBotAttackState.self)
-        }
-        else
-        {
-            // Attempt to arrest the Criminal
-            intelligenceComponent.stateMachine.enter(PoliceArrestState.self)
-        }
+//        // Criminal is resisting
+//        if resistanceComponent.hasResistance
+//        {
+//            // Beat them up
+//            //intelligenceComponent.stateMachine.enter(ProtestorBotHitState.self)
+//            intelligenceComponent.stateMachine.enter(PoliceBotAttackState.self)
+//        }
+//        else
+//        {
+//            // Attempt to arrest the Criminal
+//            intelligenceComponent.stateMachine.enter(PoliceArrestState.self)
+//        }
     }
     
     // MARK: ChargeComponentDelegate
@@ -77,6 +78,8 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
             //if !healthComponent.hasHealth
             if healthComponent.health < 20.0
             {
+                print("current state: \(intelligenceComponent.stateMachine.currentState.debugDescription)")
+                
                 //intelligenceComponent.stateMachine.enter(PoliceBotRechargingState.self)
                 intelligenceComponent.stateMachine.enter(TaskBotInjuredState.self)
             }
@@ -201,14 +204,14 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
         let intelligenceComponent = IntelligenceComponent(states: [
             TaskBotAgentControlledState(entity: self),
             TaskBotFleeState(entity: self),
+            TaskBotInjuredState(entity: self),
+            TaskBotZappedState(entity: self),
             PoliceBotRotateToAttackState(entity: self),
             PoliceBotPreAttackState(entity: self),
             PoliceBotAttackState(entity: self),
             PoliceArrestState(entity: self),
             PoliceDetainState(entity: self),
-            TaskBotZappedState(entity: self),
-            PoliceBotHitState(entity: self),
-            TaskBotInjuredState(entity: self)
+            PoliceBotHitState(entity: self)
             ])
         addComponent(intelligenceComponent)
         
@@ -453,7 +456,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
             badAnimations![.patrol] = AnimationComponent.animationsFromAtlas(atlas: PoliceBotAtlases[5], withImageIdentifier: "PolicePatrol", forAnimationState: .patrol)
             badAnimations![.walkForward] = AnimationComponent.animationsFromAtlas(atlas: PoliceBotAtlases[6], withImageIdentifier: "PolicePatrol", forAnimationState: .walkForward)
             badAnimations![.inactive] = AnimationComponent.animationsFromAtlas(atlas: PoliceBotAtlases[7], withImageIdentifier: "PoliceInActive", forAnimationState: .inactive)
-             badAnimations![.zapped] = AnimationComponent.animationsFromAtlas(atlas: PoliceBotAtlases[8], withImageIdentifier: "PoliceZapped", forAnimationState: .zapped)
+            badAnimations![.zapped] = AnimationComponent.animationsFromAtlas(atlas: PoliceBotAtlases[8], withImageIdentifier: "PoliceZapped", forAnimationState: .zapped)
             badAnimations![.injured] = AnimationComponent.animationsFromAtlas(atlas: PoliceBotAtlases[9], withImageIdentifier: "PoliceInjured", forAnimationState: .injured)
  
 
@@ -461,6 +464,9 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
             
             // Invoke the passed `completionHandler` to indicate that loading has completed.
             completionHandler()
+            
+            print("Police goodAnimations: \(goodAnimations?.description)")
+            print("Police badAnimations: \(badAnimations?.description)")
         }
         
         //print((goodAnimations?.description))
