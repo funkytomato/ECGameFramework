@@ -16,7 +16,7 @@
     },
     {
       "idiom" : "ipad",
-      "filename" : "PoliceZapped_100_00-1.png",
+      "filename" : "PoliceZapped_120_00.png",
       "scale" : "1x"
     },
     {
@@ -37,5 +37,10 @@
   "info" : {
     "version" : 1,
     "author" : "xcode"
+  },
+  "properties" : {
+    "on-demand-resource-tags" : [
+      "PoliceBot"
+    ]
   }
 }

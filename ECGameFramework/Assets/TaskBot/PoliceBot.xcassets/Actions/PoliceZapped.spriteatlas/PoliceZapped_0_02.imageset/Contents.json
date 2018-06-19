@@ -16,7 +16,7 @@
     },
     {
       "idiom" : "ipad",
-      "filename" : "PoliceZapped_100_02-1.png",
+      "filename" : "PoliceZapped_120_02.png",
       "scale" : "1x"
     },
     {
@@ -40,7 +40,7 @@
   },
   "properties" : {
     "on-demand-resource-tags" : [
-      "ProtestorBot"
+      "PoliceBot"
     ]
   }
 }
