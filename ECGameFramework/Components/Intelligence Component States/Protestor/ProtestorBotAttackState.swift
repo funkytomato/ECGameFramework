@@ -186,13 +186,13 @@ class ProtestorBotAttackState: GKState
                 // Their guard is down, apply damage
                 healthComponent.loseHealth(healthToLose: GameplayConfiguration.ProtestorBot.healthLossPerContact)
                 
-                // They have low health, arrest them
-                if healthComponent.health < 30
-                {
-//                    stateMachine?.enter(PoliceArrestState.self)
-                    intelligenceComponent.stateMachine.enter(TaskBotZappedState.self)
-                    //intelligenceComponent.stateMachine.enter(PoliceBotHitState.self)
-                }
+//                // They have low health, arrest them
+//                if healthComponent.health < 30
+//                {
+////                    stateMachine?.enter(PoliceArrestState.self)
+//                    intelligenceComponent.stateMachine.enter(TaskBotZappedState.self)
+//                    //intelligenceComponent.stateMachine.enter(PoliceBotHitState.self)
+//                }
             }
         }
             
