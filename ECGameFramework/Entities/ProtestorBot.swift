@@ -384,18 +384,20 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         guard let resistanceComponent = component(ofType: ResistanceComponent.self) else { return }
         
         resistanceComponent.isTriggered = true
+        intelligenceComponent.stateMachine.enter(ProtestorBotHitState.self)
         
-        // Protestor is resisting
-        if resistanceComponent.hasResistance
-        {
-            // Beat them up
-            intelligenceComponent.stateMachine.enter(ProtestorBotHitState.self)
-        }
-        else
-        {
-            // Attempt to arrest the Protestor
-            intelligenceComponent.stateMachine.enter(ProtestorBeingArrestedState.self)
-        }
+        
+//        // Protestor is resisting
+//        if resistanceComponent.hasResistance
+//        {
+//            // Beat them up
+//            intelligenceComponent.stateMachine.enter(ProtestorBotHitState.self)
+//        }
+//        else
+//        {
+//            // Attempt to arrest the Protestor
+//            intelligenceComponent.stateMachine.enter(ProtestorBeingArrestedState.self)
+//        }
     }
 
     // MARK: Health Component Delegate
@@ -410,7 +412,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         
         // Check the on the health of the Protestor
         //if !healthComponent.hasHealth
-        if healthComponent.health < 5.0
+        if healthComponent.health < 80.0
         {
             //Protestor is fucked, and no longer playable
             intelligenceComponent.stateMachine.enter(TaskBotInjuredState.self)
@@ -552,9 +554,6 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             
             goodAnimations![.injured] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[10], withImageIdentifier: "ProtestorInjured", forAnimationState: .injured)
 
-
-
-
             
             //Temperament
             goodAnimations![.angry] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[11], withImageIdentifier: "AngryProtestor", forAnimationState: .angry)
@@ -573,8 +572,6 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             badAnimations![.attack] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[2], withImageIdentifier: "ProtestorAttack", forAnimationState: .attack)
             
             badAnimations![.hit] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[3], withImageIdentifier: "ProtestorHit", forAnimationState: .hit, bodyActionName: "ZappedShake", shadowActionName: "ZappedShadowShake", repeatTexturesForever: false)
-            
-
             
             badAnimations![.idle] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[4], withImageIdentifier: "ProtestorIdle", forAnimationState: .idle)
             
@@ -596,7 +593,8 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             completionHandler()
         }
         
-        //print((goodAnimations?.description))
+        print("Police goodAnimations: \(goodAnimations?.description)")
+        print("Police badAnimations: \(badAnimations?.description)")
     }
     
     static func purgeResources()
