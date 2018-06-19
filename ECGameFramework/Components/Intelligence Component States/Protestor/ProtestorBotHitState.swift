@@ -86,33 +86,11 @@ class ProtestorBotHitState: GKState
         // Update the amount of time the `PlayerBot` has been in the "hit" state.
         elapsedTime += seconds
    
+        print("hashealth: \(healthComponent.hasHealth) health:\(healthComponent.health)")
 
-        // Has the Protestor's resistance been broken down?
-        if !resistanceComponent.hasResistance
+        // Protestor has resistance, change their temperament
+        if resistanceComponent.hasResistance
         {
-            print("hashealth: \(healthComponent.hasHealth) health:\(healthComponent.health)")
-            
-            //Is the Protestor dead?
-            if !healthComponent.hasHealth
-            {
-                //The Protestor is injured or dead and out of the game
-                stateMachine?.enter(TaskBotInjuredState.self)
-            }
-        
-            //Protestor is healthy enough to be arrested
-            else if healthComponent.hasHealth
-            {
-                //The Protestor is subdued and knackered, arrest them
-                temperamentComponent.stateMachine.enter(SubduedState.self)
-                stateMachine?.enter(ProtestorBeingArrestedState.self)
-            }
-        }
-            
-
-        //Protestor hit, deciding whether to flee or attack
-        else
-        {
-            
             //Create a random number to decide on action
             let changeTemperament = GKMersenneTwisterRandomSource()
             let val = changeTemperament.nextInt(upperBound: 10)
@@ -137,7 +115,7 @@ class ProtestorBotHitState: GKState
                 // Protestor is scared and will attempt to flee from danger
                 stateMachine?.enter(TaskBotFleeState.self)
             }
-            // Protestor is violent and will fight back
+                // Protestor is violent and will fight back
             else if ((temperamentComponent.stateMachine.currentState as? ViolentState) != nil),
                 healthComponent.hasHealth
             {
@@ -151,6 +129,27 @@ class ProtestorBotHitState: GKState
             }
             
             stateMachine?.enter(TaskBotAgentControlledState.self)
+        }
+            
+
+        //Protestor hit, deciding whether to flee or attack
+        else
+        {
+            //Is the Protestor dead?
+            if healthComponent.health < 30.0
+            {
+                //The Protestor is injured or dead and out of the game
+                stateMachine?.enter(TaskBotInjuredState.self)
+            }
+                
+                //Protestor is healthy enough to be arrested
+            else if healthComponent.hasHealth
+            {
+                //The Protestor is subdued and knackered, arrest them
+                temperamentComponent.stateMachine.enter(SubduedState.self)
+                stateMachine?.enter(ProtestorBeingArrestedState.self)
+            }
+
         }
     }
     
