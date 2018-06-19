@@ -88,35 +88,8 @@ class PoliceBotHitState: GKState
 
         
         // Has the Protestor's resistance been broken down?
-        if !resistanceComponent.hasResistance
+        if resistanceComponent.hasResistance
         {
-            //Is the Protestor dead?
-            if !healthComponent.hasHealth
-            {
-                //The Protestor is injured or dead and out of the game
-                stateMachine?.enter(TaskBotInjuredState.self)
-            }
-            
-            //Police has no resistance left and some health, so run away
-            else if healthComponent.health < 50.0
-            {
-                //The Police is scared and will flee
-                entity.isScared = true
-                stateMachine?.enter(TaskBotFleeState.self)
-            }
-            else
-            {
-                //The Protestor is subdued and knackered, arrest them
-                //temperamentComponent.stateMachine.enter(SubduedState.self)
-                stateMachine?.enter(PoliceArrestState.self)
-            }
-        }
-        
-        
-        //Policeman hit, deciding whether to flee or attack
-        else
-        {
-            
             //Create a random number to decide on action
             let changeTemperament = GKMersenneTwisterRandomSource()
             let val = changeTemperament.nextInt(upperBound: 10)
@@ -143,7 +116,7 @@ class PoliceBotHitState: GKState
             }
                 // Protestor is violent and will fight back
             else if ((temperamentComponent.stateMachine.currentState as? ViolentState) != nil),
-                    healthComponent.health > 30.0
+                healthComponent.health > 30.0
             {
                 //Police will fight back with extreme prejudice
                 self.entity.isRetaliating = true
@@ -155,6 +128,34 @@ class PoliceBotHitState: GKState
             }
             
             stateMachine?.enter(TaskBotAgentControlledState.self)
+            
+        }
+        
+        
+        //Policeman hit and has no resistance, deciding whether is injured, or able to flee
+        else
+        {
+            //Is the Protestor dead?
+            if !healthComponent.hasHealth
+            {
+                //The Protestor is injured or dead and out of the game
+                stateMachine?.enter(TaskBotInjuredState.self)
+            }
+                
+                //Police has no resistance left and some health, so run away
+//            else if healthComponent.health < 50.0
+//            {
+//                //The Police is scared and will flee
+//                entity.isScared = true
+//                stateMachine?.enter(TaskBotFleeState.self)
+//            }
+//            else
+//            {
+//                //The Protestor is subdued and knackered, arrest them
+//                //temperamentComponent.stateMachine.enter(SubduedState.self)
+//                stateMachine?.enter(PoliceArrestState.self)
+//            }
+
         }
         
         // When the `PlayerBot` has been in this state for long enough, transition to the appropriate next state.
@@ -175,7 +176,7 @@ class PoliceBotHitState: GKState
     {
         switch stateClass
         {
-        case is TaskBotAgentControlledState.Type, is PoliceBotRechargingState.Type:
+        case is TaskBotAgentControlledState.Type, is PoliceBotRechargingState.Type, is TaskBotInjuredState.Type:
             return true
             
         default:
