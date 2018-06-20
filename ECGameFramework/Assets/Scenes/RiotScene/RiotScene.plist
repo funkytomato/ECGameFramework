@@ -25,7 +25,7 @@
 			<key>initialOrientation</key>
 			<string>South</string>
 			<key>botType</key>
-			<string>protestor</string>
+			<string>police</string>
 		</dict>
 		<dict>
 			<key>temperament</key>
@@ -75,7 +75,30 @@
 		</dict>
 		<dict>
 			<key>temperament</key>
-			<string>Calm</string>
+			<string>Violent</string>
+			<key>goodPathNodeNames</key>
+			<array>
+				<string>groundBot1_point04</string>
+				<string>groundBot1_point02</string>
+				<string>groundBot1_point01</string>
+				<string>groundBot1_point03</string>
+			</array>
+			<key>badPathNodeNames</key>
+			<array>
+				<string>groundBot1_point03</string>
+				<string>groundBot1_point02</string>
+				<string>groundBot1_point01</string>
+			</array>
+			<key>startsBad</key>
+			<false/>
+			<key>initialOrientation</key>
+			<string>South</string>
+			<key>botType</key>
+			<string>protestor</string>
+		</dict>
+		<dict>
+			<key>temperament</key>
+			<string>Violent</string>
 			<key>goodPathNodeNames</key>
 			<array>
 				<string>groundBot1_point04</string>
@@ -124,29 +147,6 @@
 			<string>Calm</string>
 			<key>goodPathNodeNames</key>
 			<array>
-				<string>groundBot1_point04</string>
-				<string>groundBot1_point02</string>
-				<string>groundBot1_point01</string>
-				<string>groundBot1_point03</string>
-			</array>
-			<key>badPathNodeNames</key>
-			<array>
-				<string>groundBot1_point03</string>
-				<string>groundBot1_point02</string>
-				<string>groundBot1_point01</string>
-			</array>
-			<key>startsBad</key>
-			<false/>
-			<key>initialOrientation</key>
-			<string>South</string>
-			<key>botType</key>
-			<string>protestor</string>
-		</dict>
-		<dict>
-			<key>temperament</key>
-			<string>Calm</string>
-			<key>goodPathNodeNames</key>
-			<array>
 				<string>groundBot1_point02</string>
 				<string>groundBot1_point04</string>
 				<string>groundBot1_point01</string>
@@ -190,7 +190,7 @@
 		</dict>
 		<dict>
 			<key>temperament</key>
-			<string>Calm</string>
+			<string>Violent</string>
 			<key>goodPathNodeNames</key>
 			<array>
 				<string>groundBot1_point01</string>
