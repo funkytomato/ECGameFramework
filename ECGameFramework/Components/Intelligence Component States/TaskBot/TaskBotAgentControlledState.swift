@@ -45,7 +45,7 @@ class TaskBotAgentControlledState: GKState
         timeSinceBehaviorUpdate = 0.0
         elapsedTime = 0.0
         
-        print("entity behaviour: \(entity.behaviorForCurrentMandate.debugDescription)")
+        //print("entity behaviour: \(entity.behaviorForCurrentMandate.debugDescription)")
         
         // Ensure that the agent's behavior is the appropriate behavior for its current mandate.
         entity.agent.behavior = entity.behaviorForCurrentMandate
@@ -87,7 +87,7 @@ class TaskBotAgentControlledState: GKState
             {
                 let obeisanceToLose = GameplayConfiguration.ProtestorBot.obeisanceLossPerCycle
                 
-                print("ObeisanceToLose: \(obeisanceToLose.debugDescription)")
+                //print("ObeisanceToLose: \(obeisanceToLose.debugDescription)")
                 
                 obeisanceComponent.loseObeisance(obeisanceToLose: obeisanceToLose)
             }
@@ -148,7 +148,7 @@ class TaskBotAgentControlledState: GKState
             }
             
 
-            print("Current behaviour mandate: \(entity.mandate)")
+            //print("Current behaviour mandate: \(entity.mandate)")
             
             // Ensure the agent's behavior is the appropriate behavior for its current mandate.
             entity.agent.behavior = entity.behaviorForCurrentMandate
