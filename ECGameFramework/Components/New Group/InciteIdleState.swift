@@ -42,7 +42,7 @@ class InciteIdleState: GKState
     
     override func didEnter(from previousState: GKState?)
     {
-        print("InciteIdleState entered: \(inciteComponent.entity.debugDescription)")
+        //print("InciteIdleState entered: \(inciteComponent.entity.debugDescription)")
         
         super.didEnter(from: previousState)
         
