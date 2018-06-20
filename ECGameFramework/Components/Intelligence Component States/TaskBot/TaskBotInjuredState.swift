@@ -88,7 +88,7 @@ class TaskBotInjuredState: GKState
         //Reset the tracking of how long the 'ManBot' has been in "Scared" state
         elapsedTime = 0.0
 
-        print("entity: \(entity.debugDescription) previousState:\(previousState.debugDescription)")
+        //print("entity: \(entity.debugDescription) previousState:\(previousState.debugDescription)")
         animationComponent.requestedAnimationState = .injured
         
         temperamentComponent.stateMachine.enter(SubduedState.self)
