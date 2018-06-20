@@ -47,7 +47,7 @@ class InciteActiveState: GKState
     
     override func didEnter(from previousState: GKState?)
     {
-        print("InciteActiveState entered: \(inciteComponent.entity.debugDescription)")
+        //print("InciteActiveState entered: \(inciteComponent.entity.debugDescription)")
         
         super.didEnter(from: previousState)
         
@@ -62,7 +62,7 @@ class InciteActiveState: GKState
     {
         super.update(deltaTime: seconds)
         
-        print(animationComponent.requestedAnimationState.debugDescription)
+        //print(animationComponent.requestedAnimationState.debugDescription)
         
         animationComponent.requestedAnimationState = .inciting
         
