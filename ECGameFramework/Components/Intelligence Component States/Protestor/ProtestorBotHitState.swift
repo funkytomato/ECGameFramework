@@ -86,7 +86,7 @@ class ProtestorBotHitState: GKState
         // Update the amount of time the `PlayerBot` has been in the "hit" state.
         elapsedTime += seconds
    
-        print("hashealth: \(healthComponent.hasHealth) health:\(healthComponent.health)")
+        //print("hashealth: \(healthComponent.hasHealth) health:\(healthComponent.health)")
 
         // Protestor has resistance, change their temperament
         if resistanceComponent.hasResistance
