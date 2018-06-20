@@ -278,7 +278,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             guard let protestorTargetObeisanceComponent = protestorTarget.component(ofType: ObeisanceComponent.self) else { return }
             protestorTargetObeisanceComponent.addObeisance(obeisanceToAdd: 10.0)
             
-            print("Increased the obeisance of the touching Protestor")
+            //print("Increased the obeisance of the touching Protestor")
         }
     }
     
@@ -295,7 +295,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             guard let protestorTargetTemperamentComponent = protestorTarget.component(ofType: TemperamentComponent.self) else { return }
             protestorTargetTemperamentComponent.increaseTemperament()
             
-            print("Raised temperament of touching Protestor")
+            //print("Raised temperament of touching Protestor")
         }
     }
     
@@ -331,13 +331,13 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         // 3) Set the Protestor to Flee State
         //guard intelligenceComponent.stateMachine.enter(TaskBotFleeState.self) else { return }
         
-        print("mandate \(mandate)")
-        print("state: \(intelligenceComponent.stateMachine.currentState.debugDescription)")
+        //print("mandate \(mandate)")
+        //print("state: \(intelligenceComponent.stateMachine.currentState.debugDescription)")
 
         switch mandate
         {
             case .incite:
-                print("mandate \(mandate)")
+                //print("mandate \(mandate)")
                 intelligenceComponent.stateMachine.enter(InciteState.self)
 
             case let .huntAgent(targetAgent):
@@ -412,7 +412,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         
         // Check the on the health of the Protestor
         //if !healthComponent.hasHealth
-        if healthComponent.health < 80.0
+        if healthComponent.health < 20.0
         {
             //Protestor is fucked, and no longer playable
             intelligenceComponent.stateMachine.enter(TaskBotInjuredState.self)
@@ -457,14 +457,14 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
     {
         guard let obeisanceComponent = component(ofType: ObeisanceComponent.self) else { return }
         
-        print("\(obeisanceComponent.obeisance)")
+        //print("\(obeisanceComponent.obeisance)")
         
         //Player has gained enough influence (obeisance) over the protestor,
         //and so the protesor should start to incite too
         if obeisanceComponent.obeisance > 80
         {
             self.isSubservient = true
-            print("Protestor has become subservient")
+            //print("Protestor has become subservient")
             
 //            guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
 //            intelligenceComponent.stateMachine.enter(InciteState.self)
@@ -593,8 +593,8 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             completionHandler()
         }
         
-        print("Police goodAnimations: \(goodAnimations?.description)")
-        print("Police badAnimations: \(badAnimations?.description)")
+        //print("Police goodAnimations: \(goodAnimations?.description)")
+        //print("Police badAnimations: \(badAnimations?.description)")
     }
     
     static func purgeResources()
@@ -610,7 +610,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         
         startAnimation()
         
-        print("playerpathPoints: \(playerPathPoints.count)")
+        //print("playerpathPoints: \(playerPathPoints.count)")
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?, scene: LevelScene)
