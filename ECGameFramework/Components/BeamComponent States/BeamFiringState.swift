@@ -158,7 +158,7 @@ class BeamFiringState: GKState
             let obeisanceToGain = GameplayConfiguration.ProtestorBot.rechargeAmountPerSecond * seconds
             obeisanceComponent.addObeisance(obeisanceToAdd: obeisanceToGain)
             
-            print("obeisanceToGain: \(obeisanceToGain.debugDescription)")
+            //print("obeisanceToGain: \(obeisanceToGain.debugDescription)")
         }
         
         // Update the appearance, position, size and orientation of the `BeamNode`.
