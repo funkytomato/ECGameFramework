@@ -171,8 +171,6 @@ class PoliceBotAttackState: GKState
             let healthComponent = targetBot.component(ofType: HealthComponent.self),
             let intelligenceComponent = targetBot.component(ofType: IntelligenceComponent.self)
         {
-            //guard let resistanceComponent = protestorBot.component(ofType: ResistanceComponent.self) else { return }
-            //guard let intelligenceComponent = protestorBot.component(ofType: IntelligenceComponent.self) else { return }
             
             //Hit them first
             resistanceComponent.loseResistance(resistanceToLose: GameplayConfiguration.PoliceBot.resistanceLossPerContact)
@@ -191,6 +189,5 @@ class PoliceBotAttackState: GKState
             }
         }
     }
-    
 }
 
