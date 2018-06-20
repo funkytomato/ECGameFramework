@@ -77,9 +77,9 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
         if !resistanceComponent.isFullyResistanced
         {
             //if !healthComponent.hasHealth
-            if healthComponent.health < 50.0
+            if healthComponent.health < 20.0
             {
-                print("current state: \(intelligenceComponent.stateMachine.currentState.debugDescription) isGood: \(self.isGood)")
+//                print("current state: \(intelligenceComponent.stateMachine.currentState.debugDescription) isGood: \(self.isGood)")
                 
                 //intelligenceComponent.stateMachine.enter(PoliceBotRechargingState.self)
                 intelligenceComponent.stateMachine.enter(TaskBotInjuredState.self)
