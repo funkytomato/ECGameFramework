@@ -157,7 +157,7 @@ class PoliceBotAttackState: GKState
     
     func applyDamageToEntity(entity: GKEntity)
     {
-        print("entity: \(self.entity.debugDescription) target: \(entity.debugDescription)")
+        //print("entity: \(self.entity.debugDescription) target: \(entity.debugDescription)")
         
         if let playerBot = entity as? PlayerBot, let chargeComponent = playerBot.component(ofType: ChargeComponent.self), !playerBot.isPoweredDown
         {
