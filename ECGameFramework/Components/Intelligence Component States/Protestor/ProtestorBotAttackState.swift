@@ -160,7 +160,7 @@ class ProtestorBotAttackState: GKState
     
     func applyDamageToEntity(entity: GKEntity)
     {
-        print("entity: \(self.entity.debugDescription) target: \(entity.debugDescription)")
+//        print("entity: \(self.entity.debugDescription) target: \(entity.debugDescription)")
         
         if let playerBot = entity as? PlayerBot, let chargeComponent = playerBot.component(ofType: ChargeComponent.self), !playerBot.isPoweredDown
         {
@@ -170,11 +170,8 @@ class ProtestorBotAttackState: GKState
         else if let targetBot = entity as? TaskBot, /*targetBot.isGood,*/
             targetBot.isActive,
             let healthComponent = targetBot.component(ofType: HealthComponent.self),
-            let resistanceComponent = targetBot.component(ofType: ResistanceComponent.self),
-            let intelligenceComponent = targetBot.component(ofType: IntelligenceComponent.self)
+            let resistanceComponent = targetBot.component(ofType: ResistanceComponent.self)
         {
-//            guard let resistanceComponent = targetBot.component(ofType: ResistanceComponent.self) else { return }
-//            guard let intelligenceComponent = targetBot.component(ofType: IntelligenceComponent.self) else { return }
             
             //Hit them first
             resistanceComponent.loseResistance(resistanceToLose: GameplayConfiguration.ProtestorBot.resistanceLossPerContact)
@@ -185,14 +182,6 @@ class ProtestorBotAttackState: GKState
             {
                 // Their guard is down, apply damage
                 healthComponent.loseHealth(healthToLose: GameplayConfiguration.ProtestorBot.healthLossPerContact)
-                
-//                // They have low health, arrest them
-//                if healthComponent.health < 30
-//                {
-////                    stateMachine?.enter(PoliceArrestState.self)
-//                    intelligenceComponent.stateMachine.enter(TaskBotZappedState.self)
-//                    //intelligenceComponent.stateMachine.enter(PoliceBotHitState.self)
-//                }
             }
         }
             
