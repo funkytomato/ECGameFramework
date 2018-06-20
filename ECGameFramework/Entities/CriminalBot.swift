@@ -286,6 +286,9 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
     {
         guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
         
+        print("current state: \(intelligenceComponent.stateMachine.currentState.debugDescription) isGood: \(self.isGood)")
+ //       intelligenceComponent.stateMachine.enter(TaskBotZappedState.self)
+        
         isGood = !chargeComponent.hasCharge
         
         if !isGood
@@ -388,30 +391,30 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
         super.loadSharedAssets()
         
         let CriminalBotAtlasNames = [
-            "CriminalBeingArrested",
-            "CriminalArrested",
-            "CriminalDetained",
+            "CriminalBeingArrested",        //0
+            "CriminalArrested",             //1
+            "CriminalDetained",             //2
             
-            "CriminalAttack",
-            "CriminalHit",
+            "CriminalAttack",               //3
+            "CriminalHit",                  //4
 
-            "CriminalIdle",
-            "CriminalPatrol",
-            "CriminalInActive",
-            "CriminalInciting",
-            "CriminalZapped",
-            "CriminalInjured",
+            "CriminalIdle",                 //5
+            "CriminalPatrol",               //6
+            "CriminalInActive",             //7
+            "CriminalInciting",             //8
+            "CriminalZapped",               //9
+            "CriminalInjured",              //10
             
-            "CriminalLooting",
-            "CriminalVandalising",
-            "CriminalSellingWares",
+            "CriminalLooting",              //11
+            "CriminalVandalising",          //12
+            "CriminalSellingWares",         //13
 
             
-            "AngryProtestor",
-            "CalmProtestor",
-            "ScaredProtestor",
-            "UnhappyProtestor",
-            "ViolentProtestor"
+            "AngryProtestor",               //14
+            "CalmProtestor",                //15
+            "ScaredProtestor",              //16
+            "UnhappyProtestor",             //17
+            "ViolentProtestor"              //18
         ]
         
         /*
@@ -448,22 +451,23 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
             
             goodAnimations![.patrol] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[6], withImageIdentifier: "CriminalPatrol", forAnimationState: .patrol)
             
-            goodAnimations![.walkForward] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[7], withImageIdentifier: "CriminalPatrol", forAnimationState: .walkForward)
+            goodAnimations![.walkForward] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[6], withImageIdentifier: "CriminalPatrol", forAnimationState: .walkForward)
             
-            goodAnimations![.inactive] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[8], withImageIdentifier: "CriminalInActive", forAnimationState: .inactive)
+            goodAnimations![.inactive] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[7], withImageIdentifier: "CriminalInActive", forAnimationState: .inactive)
             
-            goodAnimations![.inciting] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[9], withImageIdentifier: "CriminalInciting", forAnimationState: .inciting)
+            goodAnimations![.inciting] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[8], withImageIdentifier: "CriminalInciting", forAnimationState: .inciting)
             
-            goodAnimations![.zapped] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[10], withImageIdentifier: "CriminalZapped", forAnimationState: .zapped)
+            goodAnimations![.zapped] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[9], withImageIdentifier: "CriminalZapped", forAnimationState: .zapped)
             
-            goodAnimations![.injured] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[11], withImageIdentifier: "CriminalInjured", forAnimationState: .injured)
+            goodAnimations![.injured] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[10], withImageIdentifier: "CriminalInjured", forAnimationState: .injured)
             
             
-            goodAnimations![.looting] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[12], withImageIdentifier: "CriminalLooting", forAnimationState: .looting)
             
-            goodAnimations![.vandalising] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[13], withImageIdentifier: "CriminalVandalising", forAnimationState: .vandalising)
+            goodAnimations![.looting] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[11], withImageIdentifier: "CriminalLooting", forAnimationState: .looting)
             
-            goodAnimations![.sellingWares] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[14], withImageIdentifier: "CriminalSellingWares", forAnimationState: .sellingWares)
+            goodAnimations![.vandalising] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[12], withImageIdentifier: "CriminalVandalising", forAnimationState: .vandalising)
+            
+            goodAnimations![.sellingWares] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[13], withImageIdentifier: "CriminalSellingWares", forAnimationState: .sellingWares)
             
 
             
@@ -485,21 +489,21 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
             
             badAnimations![.patrol] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[6], withImageIdentifier: "CriminalPatrol", forAnimationState: .patrol)
             
-            badAnimations![.walkForward] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[7], withImageIdentifier: "CriminalPatrol", forAnimationState: .walkForward)
+            badAnimations![.walkForward] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[6], withImageIdentifier: "CriminalPatrol", forAnimationState: .walkForward)
             
-            badAnimations![.inactive] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[8], withImageIdentifier: "CriminalInActive", forAnimationState: .inactive)
+            badAnimations![.inactive] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[7], withImageIdentifier: "CriminalInActive", forAnimationState: .inactive)
             
-            badAnimations![.inciting] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[9], withImageIdentifier: "CriminalInciting", forAnimationState: .inciting)
+            badAnimations![.inciting] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[8], withImageIdentifier: "CriminalInciting", forAnimationState: .inciting)
             
-            badAnimations![.zapped] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[10], withImageIdentifier: "CriminalZapped", forAnimationState: .zapped)
+            badAnimations![.zapped] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[9], withImageIdentifier: "CriminalZapped", forAnimationState: .zapped)
             
-            badAnimations![.injured] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[11], withImageIdentifier: "CriminalInjured", forAnimationState: .injured)
+            badAnimations![.injured] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[10], withImageIdentifier: "CriminalInjured", forAnimationState: .injured)
             
-            badAnimations![.looting] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[12], withImageIdentifier: "CriminalLooting", forAnimationState: .looting)
+            badAnimations![.looting] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[11], withImageIdentifier: "CriminalLooting", forAnimationState: .looting)
             
-            badAnimations![.vandalising] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[13], withImageIdentifier: "CriminalVandalising", forAnimationState: .vandalising)
+            badAnimations![.vandalising] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[12], withImageIdentifier: "CriminalVandalising", forAnimationState: .vandalising)
             
-            badAnimations![.sellingWares] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[14], withImageIdentifier: "CriminalSellingWares", forAnimationState: .sellingWares)
+            badAnimations![.sellingWares] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[13], withImageIdentifier: "CriminalSellingWares", forAnimationState: .sellingWares)
             
             
             
