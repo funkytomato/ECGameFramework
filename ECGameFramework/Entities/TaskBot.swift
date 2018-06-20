@@ -216,7 +216,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         let debugColor: SKColor
         
         
-        print("behaviour mandate: \(mandate)")
+        //print("behaviour mandate: \(mandate)")
         
         
         switch mandate
