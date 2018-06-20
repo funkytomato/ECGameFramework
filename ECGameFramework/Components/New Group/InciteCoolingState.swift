@@ -44,7 +44,7 @@ class InciteCoolingState: GKState
     
     override func didEnter(from previousState: GKState?)
     {
-        print("InciteCoolingState entered")
+        //print("InciteCoolingState entered")
         
         super.didEnter(from: previousState)
         
