@@ -441,7 +441,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
             
             goodAnimations![.zapped] = AnimationComponent.animationsFromAtlas(atlas: PoliceBotAtlases[7], withImageIdentifier: "PoliceZapped", forAnimationState: .zapped)
             
-            goodAnimations![.injured] = AnimationComponent.animationsFromAtlas(atlas: PoliceBotAtlases[9], withImageIdentifier: "PoliceInjured", forAnimationState: .injured)
+            goodAnimations![.injured] = AnimationComponent.animationsFromAtlas(atlas: PoliceBotAtlases[8], withImageIdentifier: "PoliceInjured", forAnimationState: .injured)
 
 
             
