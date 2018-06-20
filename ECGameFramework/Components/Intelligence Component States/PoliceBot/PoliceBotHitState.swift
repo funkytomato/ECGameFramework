@@ -176,7 +176,7 @@ class PoliceBotHitState: GKState
     {
         switch stateClass
         {
-        case is TaskBotAgentControlledState.Type, is PoliceBotRechargingState.Type, is TaskBotInjuredState.Type:
+        case is TaskBotAgentControlledState.Type, is PoliceBotRechargingState.Type, is TaskBotInjuredState.Type, is TaskBotFleeState.Type:
             return true
             
         default:
