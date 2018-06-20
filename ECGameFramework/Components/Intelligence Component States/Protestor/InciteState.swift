@@ -68,7 +68,7 @@ class InciteState: GKState
     override func didEnter(from previousState: GKState?)
     {
         
-        print("InciteState entered")
+        //print("InciteState entered")
         
         super.didEnter(from: previousState)
         
