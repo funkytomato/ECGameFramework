@@ -506,8 +506,8 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
 
         }
         
-        print("Police goodAnimations: \(goodAnimations?.description)")
-        print("Police badAnimations: \(badAnimations?.description)")
+        //print("Police goodAnimations: \(goodAnimations?.description)")
+        //print("Police badAnimations: \(badAnimations?.description)")
     }
     
     static func purgeResources()
