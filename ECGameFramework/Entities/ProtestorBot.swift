@@ -387,19 +387,6 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         
         resistanceComponent.isTriggered = true
         intelligenceComponent.stateMachine.enter(ProtestorBotHitState.self)
-        
-        
-//        // Protestor is resisting
-//        if resistanceComponent.hasResistance
-//        {
-//            // Beat them up
-//            intelligenceComponent.stateMachine.enter(ProtestorBotHitState.self)
-//        }
-//        else
-//        {
-//            // Attempt to arrest the Protestor
-//            intelligenceComponent.stateMachine.enter(ProtestorBeingArrestedState.self)
-//        }
     }
 
     // MARK: Health Component Delegate
