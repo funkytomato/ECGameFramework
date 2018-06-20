@@ -60,13 +60,14 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
             intelligenceComponent.stateMachine.enter(TaskBotZappedState.self)
         }
     }
-    
+
+    // MARK: HealthComponentDelegate
     func healthComponentDidAddHealth(healthComponent: HealthComponent)
     {
         guard let healthComponent = component(ofType: HealthComponent.self) else { return }
     }
     
-    // MARK: HealthComponentDelegate
+
     func healthComponentDidLoseHealth(healthComponent: HealthComponent)
     {
         guard let resistanceComponent = component(ofType: ResistanceComponent.self) else { return }
@@ -76,7 +77,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
         if !resistanceComponent.isFullyResistanced
         {
             //if !healthComponent.hasHealth
-            if healthComponent.health < 40.0
+            if healthComponent.health < 20.0
             {
                 //print("current state: \(intelligenceComponent.stateMachine.currentState.debugDescription)")
                 
