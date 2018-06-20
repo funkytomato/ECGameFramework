@@ -13,13 +13,6 @@ class PlayerBot: GKEntity, HealthComponentDelegate, ResistanceComponentDelegate,
 {
 
     
-
-    
-
-    
-    
-
-    
     // MARK: Static properties
     
     /// The size to use for the `PlayerBot`s animation textures.
