@@ -11,6 +11,8 @@ import GameplayKit
 
 class FlyingBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
 {
+
+    
     // MARK: Static Properties
     
     /// The size to use for the `FlyingBot`s animation textures.
@@ -153,6 +155,11 @@ class FlyingBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
     }
     
     // MARK: ChargeComponentDelegate
+    
+    func chargeComponentDidGainCharge(chargeComponent: ChargeComponent)
+    {
+        print("Add charge to FlyingBot")
+    }
     
     func chargeComponentDidLoseCharge(chargeComponent: ChargeComponent)
     {
