@@ -100,8 +100,6 @@ class InciteActiveState: GKState
     
     override func willExit(to nextState: GKState)
     {
- //       animationComponent.requestedAnimationState = .idle
-        
         super.willExit(to: nextState)
     }
 }
