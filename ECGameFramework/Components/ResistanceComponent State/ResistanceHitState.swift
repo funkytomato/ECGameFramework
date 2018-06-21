@@ -25,16 +25,7 @@ class ResistanceHitState: GKState
     
     /// The amount of time the beam has been in its "firing" state.
     var elapsedTime: TimeInterval = 0.0
-    
 
- /*
-    /// The `RenderComponent` associated with the `BeamComponent`'s `entity`.
-    var renderComponent: RenderComponent
-    {
-        guard let renderComponent = resistanceComponent.entity?.component(ofType: RenderComponent.self) else { fatalError("A ResistanceHitState entity must have a RenderComponent.") }
-        return renderComponent
-    }
-   */
     // MARK: Initializers
     
     required init(resistanceComponent: ResistanceComponent)
