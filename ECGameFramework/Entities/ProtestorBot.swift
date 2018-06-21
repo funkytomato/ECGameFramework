@@ -142,7 +142,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         
         let intelligenceComponent = IntelligenceComponent(states: [
             TaskBotAgentControlledState(entity: self),
-            TaskBotPlayerControlledState(entity: self),
+            //TaskBotPlayerControlledState(entity: self),
             TaskBotFleeState(entity: self),
             TaskBotInjuredState(entity: self),
             ProtestorBotHitState(entity: self),
