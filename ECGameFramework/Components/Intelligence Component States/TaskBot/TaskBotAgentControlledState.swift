@@ -138,8 +138,6 @@ class TaskBotAgentControlledState: GKState
                     break
                 
                 case .incite:
-                    //guard let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self) else { return }
-                    //intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
                     entity.mandate = .wander
                     break
                 
