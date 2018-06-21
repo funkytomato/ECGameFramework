@@ -26,9 +26,6 @@ class TemperamentComponent: GKComponent
     {
         //print("Initialising TemperamentComponent")
         stateMachine = GKStateMachine(states: states)
-        //let firstState = states.first!
-        //initialStateClass = type(of: firstState)
-        
         initialStateClass = type(of: initialState)
         
         //print("initialStateClass :\(initialStateClass.description())")
@@ -137,7 +134,4 @@ class TemperamentComponent: GKComponent
             stateMachine.enter(CalmState.self)
         }
     }
-    
-    
-    
 }
