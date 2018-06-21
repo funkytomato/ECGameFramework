@@ -66,20 +66,13 @@ class ProtestorDetainedState: GKState
         super.update(deltaTime: seconds)
         
         
-        
         elapsedTime += seconds
-        
-        /*
-         If the arrested manbot reaches the meatwagon pointer, move to detained state
-         */
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
     {
         switch stateClass
         {
-//        case is TaskBotAgentControlledState.Type:
-//            return true
             
         default:
             return false
