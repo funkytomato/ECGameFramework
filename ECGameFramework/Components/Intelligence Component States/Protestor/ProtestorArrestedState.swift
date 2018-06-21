@@ -32,12 +32,6 @@ class ProtestorArrestedState: GKState
         return animationComponent
     }
     
-    /// The `PhysicsComponent` associated with the `entity`.
-    var physicsComponent: PhysicsComponent
-    {
-        guard let physicsComponent = entity.component(ofType: PhysicsComponent.self) else { fatalError("An ArrestedState's entity must have a PhysicsComponent.") }
-        return physicsComponent
-    }
     
     //MARK:- Initializers
     required init(entity: ProtestorBot)
@@ -73,21 +67,6 @@ class ProtestorArrestedState: GKState
         super.update(deltaTime: seconds)
         
         elapsedTime += seconds
-        
-        
-        
-        /*
-        Move the Protestor to the meatwagon
-        If the arrested manbot reaches the meatwagon pointer, move to detained state
-        */
-        
- /*
-         we are now moving the protestor using lockup mandate, when close proximity set to detained
-        if elapsedTime >= GameplayConfiguration.TaskBot.arrestedStateDuration
-        {
-            stateMachine?.enter(ProtestorDetainedState.self)
-        }
- */
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
