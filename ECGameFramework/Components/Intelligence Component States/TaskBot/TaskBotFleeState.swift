@@ -26,38 +26,11 @@ class TaskBotFleeState: GKState
     
     /// The distance to the current target on the previous update loop.
     var lastDistanceToTarget: Float = 0
-    
-    /// The `MovementComponent` associated with the `entity`.
-    var movementComponent: MovementComponent
-    {
-        guard let movementComponent = entity.component(ofType: MovementComponent.self) else { fatalError("A TaskBot FleeState's entity must have a MovementComponent.") }
-        return movementComponent
-    }
-    
-    /// The `PhysicsComponent` associated with the `entity`.
-    var physicsComponent: PhysicsComponent
-    {
-        guard let physicsComponent = entity.component(ofType: PhysicsComponent.self) else { fatalError("A TaskBot FleeState's entity must have a PhysicsComponent.") }
-        return physicsComponent
-    }
-    
-    /// The `IntelligenceComponent` associated with the `entity`.
-    var intelligenceComponent: IntelligenceComponent
-    {
-        guard let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self) else { fatalError("An entity's FleeState's must have an IntelligenceComponent.") }
-        return intelligenceComponent
-    }
 
     var temperamentComponent: TemperamentComponent
     {
         guard let temperamentComponent = entity.component(ofType: TemperamentComponent.self) else { fatalError("An entity's FleeState's must have an TemperamentComponent.") }
         return temperamentComponent
-    }
-    
-    var resistanceComponent: ResistanceComponent
-    {
-        guard let resistanceComponent = entity.component(ofType: ResistanceComponent.self) else { fatalError("An entity's FleeState's must have an ResistanceComponent.") }
-        return resistanceComponent
     }
     
     // MARK: Initializers
@@ -90,12 +63,6 @@ class TaskBotFleeState: GKState
         elapsedTime += seconds
         
         stateMachine?.enter(TaskBotAgentControlledState.self)
-        
-/*        if elapsedTime > 1
-        {
-            stateMachine?.enter(TaskBotAgentControlledState.self)
-        }
- */
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
