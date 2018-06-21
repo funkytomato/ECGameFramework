@@ -63,14 +63,6 @@ class MovementComponent: GKComponent
         return renderComponent
     }
 
-    /*
-    /// The `AnimationComponent` for this component's entity.
-    var animationComponent: AnimationComponent
-    {
-        guard let animationComponent = entity?.component(ofType: AnimationComponent.self) else { fatalError("A MovementComponent's entity must have an AnimationComponent") }
-        return animationComponent
-    }
-*/
  
     /// The `OrientationComponent` for this component's entity.
     var orientationComponent: OrientationComponent
@@ -79,7 +71,6 @@ class MovementComponent: GKComponent
         return orientationComponent
     }
 
- 
  
     /// Determines how quickly the entity is moved in points per second.
     var movementSpeed: CGFloat
