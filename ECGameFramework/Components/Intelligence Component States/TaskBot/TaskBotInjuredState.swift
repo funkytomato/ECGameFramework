@@ -41,19 +41,6 @@ class TaskBotInjuredState: GKState
         return animationComponent
     }
     
-    /// The `PhysicsComponent` associated with the `entity`.
-    var physicsComponent: PhysicsComponent
-    {
-        guard let physicsComponent = entity.component(ofType: PhysicsComponent.self) else { fatalError("A TaskBot FleeState's entity must have a PhysicsComponent.") }
-        return physicsComponent
-    }
-    
-    /// The `IntelligenceComponent` associated with the `entity`.
-    var intelligenceComponent: IntelligenceComponent
-    {
-        guard let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self) else { fatalError("An entity's FleeState's must have an IntelligenceComponent.") }
-        return intelligenceComponent
-    }
     
     var temperamentComponent: TemperamentComponent
     {
@@ -61,11 +48,6 @@ class TaskBotInjuredState: GKState
         return temperamentComponent
     }
     
-    var resistanceComponent: ResistanceComponent
-    {
-        guard let resistanceComponent = entity.component(ofType: ResistanceComponent.self) else { fatalError("An entity's FleeState's must have an ResistanceComponent.") }
-        return resistanceComponent
-    }
     
     // MARK: Initializers
     
