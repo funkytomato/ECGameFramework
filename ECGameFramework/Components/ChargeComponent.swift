@@ -13,6 +13,9 @@ protocol ChargeComponentDelegate: class
 {
     // Called whenever a `ChargeComponent` loses charge through a call to `loseCharge`
     func chargeComponentDidLoseCharge(chargeComponent: ChargeComponent)
+    
+    // Called whenever a `ChargeComponent` gains charge through a call to `gainCharge`
+    func chargeComponentDidGainCharge(chargeComponent: ChargeComponent)
 }
 
 class ChargeComponent: GKComponent
