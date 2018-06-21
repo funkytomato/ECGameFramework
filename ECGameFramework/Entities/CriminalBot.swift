@@ -19,6 +19,8 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
 {
 
     
+
+    
     // MARK: Static Properties
     
     var texture = SKTexture()
@@ -282,6 +284,11 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
     }
     
     // MARK: Charge Component Delegate
+    func chargeComponentDidGainCharge(chargeComponent: ChargeComponent)
+    {
+        print("Add charge to Criminal")
+    }
+    
     func chargeComponentDidLoseCharge(chargeComponent: ChargeComponent)
     {
         guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
