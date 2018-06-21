@@ -29,13 +29,7 @@ class ProtestorBotHitState: GKState
         guard let animationComponent = entity.component(ofType: AnimationComponent.self) else { fatalError("A ProtestorBotHitState's entity must have an AnimationComponent.") }
         return animationComponent
     }
-    /*
-    var chargeComponent: ChargeComponent
-    {
-        guard let chargeComponent = entity.component(ofType: ChargeComponent.self) else { fatalError("A ProtestorBotHitState's entity must have a ChargeComponent")}
-        return chargeComponent
-    }
-    */
+
     
     var resistanceComponent: ResistanceComponent
     {
