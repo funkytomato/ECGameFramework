@@ -81,23 +81,19 @@ class InciteState: GKState
         
         //Set the InciteComponent to on
         inciteComponent.isTriggered = true
-        inciteComponent.stateMachine.enter(InciteIdleState.self)
-        
-        //temperamentComponent.stateMachine.enter(SubduedState.self)
-        //entity.isActive = false
+        inciteComponent.stateMachine.enter(InciteActiveState.self)
     }
     
     override func update(deltaTime seconds: TimeInterval)
     {
         super.update(deltaTime: seconds)
         
+        print("InciteState updating")
+        
+        
         intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
         
         elapsedTime += seconds
-        
-        /*
-         If the arrested manbot reaches the meatwagon pointer, move to detained state
-         */
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
@@ -105,7 +101,7 @@ class InciteState: GKState
         switch stateClass
         {
             
-            case is TaskBotAgentControlledState.Type, is InciteState.Type, is ProtestorBotRotateToAttackState.Type:
+            case is TaskBotAgentControlledState.Type/*, is InciteState.Type, is ProtestorBotRotateToAttackState.Type*/:
                 return true
             
             default:
@@ -116,8 +112,6 @@ class InciteState: GKState
     override func willExit(to nextState: GKState)
     {
         super.willExit(to: nextState)
-        
-        //inciteComponent.isTriggered = false
     }
 }
 
