@@ -44,7 +44,7 @@ class InciteCoolingState: GKState
     
     override func didEnter(from previousState: GKState?)
     {
-        //print("InciteCoolingState entered")
+        print("InciteCoolingState entered")
         
         super.didEnter(from: previousState)
         
@@ -56,6 +56,8 @@ class InciteCoolingState: GKState
     override func update(deltaTime seconds: TimeInterval)
     {
         super.update(deltaTime: seconds)
+        
+        print("InciteCoolingState update")
         
         elapsedTime += seconds
         
