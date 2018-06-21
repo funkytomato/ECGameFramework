@@ -654,8 +654,8 @@
 			isa = PBXGroup;
 			children = (
 				18FCE9EA2040EB9F009A5C0D /* AnimationComponent.swift */,
-				18FCE9EB2040EB9F009A5C0D /* BeamComponent States */,
 				18FCE9EF2040EB9F009A5C0D /* BeamComponent.swift */,
+				18FCE9EB2040EB9F009A5C0D /* BeamComponent States */,
 				18FCE9F02040EB9F009A5C0D /* ChargeComponent.swift */,
 				18FCE9F12040EB9F009A5C0D /* CompassDirection.swift */,
 				18F35DB420542DA300B686DA /* EmitterComponent.swift */,
