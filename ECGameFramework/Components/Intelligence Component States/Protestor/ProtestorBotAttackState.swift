@@ -37,12 +37,6 @@ class ProtestorBotAttackState: GKState
         return physicsComponent
     }
     
-    /// The `PhysicsComponent` associated with the `entity`.
-    var intelligenceComponent: IntelligenceComponent
-    {
-        guard let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self) else { fatalError("A ProtestorBotAttackState's entity must have a IntelligenceComponent.") }
-        return intelligenceComponent
-    }
     
     /// The `targetPosition` from the `entity`.
     var targetPosition: float2
