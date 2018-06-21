@@ -23,20 +23,6 @@ class InciteState: GKState
     // The amount of time the 'ManBot' has been in its "Detained" state
     var elapsedTime: TimeInterval = 0.0
     
-    
-    /// The `AnimationComponent` associated with the `entity`.
-    var animationComponent: AnimationComponent
-    {
-        guard let animationComponent = entity.component(ofType: AnimationComponent.self) else { fatalError("A InciteState's entity must have an AnimationComponent.") }
-        return animationComponent
-    }
-    
-    /// The `TemperamentComponent` associated with the `entity`.
-    var temperamentComponent: TemperamentComponent
-    {
-        guard let temperamentComponent = entity.component(ofType: TemperamentComponent.self) else { fatalError("A InciteState's entity must have an TemperamentComponent.") }
-        return temperamentComponent
-    }
  
     /// The `TemperamentComponent` associated with the `entity`.
     var intelligenceComponent: IntelligenceComponent
@@ -75,10 +61,6 @@ class InciteState: GKState
         //Reset the tracking of how long the 'ManBot' has been in "Detained" state
         elapsedTime = 0.0
         
-        //Request the "detained animation for this state's 'ProtestorBot'
-        //animationComponent.requestedAnimationState = .inciting
-        
-        
         //Set the InciteComponent to on
         inciteComponent.isTriggered = true
         inciteComponent.stateMachine.enter(InciteActiveState.self)
@@ -101,7 +83,7 @@ class InciteState: GKState
         switch stateClass
         {
             
-            case is TaskBotAgentControlledState.Type/*, is InciteState.Type, is ProtestorBotRotateToAttackState.Type*/:
+            case is TaskBotAgentControlledState.Type:
                 return true
             
             default:
