@@ -19,6 +19,8 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
 {
 
     
+
+    
     func resistanceComponentDidGainResistance(resistanceComponent: ResistanceComponent)
     {
         guard let resistanceComponent = component(ofType: ResistanceComponent.self) else { return }
@@ -49,6 +51,11 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
     }
     
     // MARK: ChargeComponentDelegate
+    func chargeComponentDidGainCharge(chargeComponent: ChargeComponent)
+    {
+        print("Add charge to PoliceBot")
+    }
+    
     func chargeComponentDidLoseCharge(chargeComponent: ChargeComponent)
     {
         guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
