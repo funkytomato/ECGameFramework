@@ -11,7 +11,6 @@ import GameplayKit
 
 class PlayerBot: GKEntity, HealthComponentDelegate, ResistanceComponentDelegate, ChargeComponentDelegate, RespectComponentDelegate, ObeisanceComponentDelegate, ResourceLoadableType
 {
-
     
     // MARK: Static properties
     
@@ -299,7 +298,7 @@ class PlayerBot: GKEntity, HealthComponentDelegate, ResistanceComponentDelegate,
         print("I am Player")
     }
     
-    // MARK: Component delegates
+    // MARK: Health Component delegates
     
     func healthComponentDidAddHealth(healthComponent: HealthComponent)
     {
@@ -318,6 +317,7 @@ class PlayerBot: GKEntity, HealthComponentDelegate, ResistanceComponentDelegate,
         }
     }
     
+    // MARK: Resistance Component delegates
     func resistanceComponentDidGainResistance(resistanceComponent: ResistanceComponent)
     {
         guard let resistanceComponent = component(ofType: ResistanceComponent.self) else { return }
@@ -343,6 +343,11 @@ class PlayerBot: GKEntity, HealthComponentDelegate, ResistanceComponentDelegate,
         }
     }
     
+    // MARK: Charge Component delegates
+    func chargeComponentDidGainCharge(chargeComponent: ChargeComponent)
+    {
+        print("Add charge to PlayerBot")
+    }
     
     func chargeComponentDidLoseCharge(chargeComponent: ChargeComponent)
     {
@@ -360,6 +365,7 @@ class PlayerBot: GKEntity, HealthComponentDelegate, ResistanceComponentDelegate,
         }
     }
     
+    // MARK: Respect Component delegates
     func respectComponentDidLoseRespect(respectComponent: RespectComponent)
     {
         guard let respectComponent = component(ofType: RespectComponent.self) else { return }
@@ -373,7 +379,7 @@ class PlayerBot: GKEntity, HealthComponentDelegate, ResistanceComponentDelegate,
         
     }
     
-    
+    // MARK: Obeisance Component delegates
     func obeisanceComponentDidLoseObeisance(obeisanceComponent: ObeisanceComponent)
     {
         guard let obeisanceComponent = component(ofType: ObeisanceComponent.self) else { return }
