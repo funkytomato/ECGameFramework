@@ -293,6 +293,20 @@ class PlayerBot: GKEntity, HealthComponentDelegate, ResistanceComponentDelegate,
         agent.position = float2(x: Float(renderComponent.node.position.x + agentOffset.x), y: Float(renderComponent.node.position.y + agentOffset.y))
     }
     
+    /// Sets the `TaskBot` `GKAgent` rotation to match the `TaskBot`'s orientation.
+    func updateAgentRotationToMatchTaskBotOrientation()
+    {
+        //Ensure the agent's orientation and visible orientation are consistent
+        guard let orientationComponent = component(ofType: OrientationComponent.self) else { return }
+        agent.rotation = Float(orientationComponent.zRotation)
+        
+        //Ensure animationComponent and Orientation are consistent
+        guard let animationComponent = component(ofType: AnimationComponent.self) else { return }
+        animationComponent.node.zRotation = orientationComponent.zRotation
+        
+        print("entity: \(self.debugDescription)  zRotation:\(orientationComponent.zRotation)")
+    }
+    
     func handleTouch()
     {
         print("I am Player")
