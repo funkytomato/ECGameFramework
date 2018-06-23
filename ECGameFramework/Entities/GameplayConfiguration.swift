@@ -81,6 +81,15 @@ struct GameplayConfiguration
         static let obeisanceBarOffset = CGPoint(x: 0.0, y: 55.0)
     }
     
+    struct IntoxicationBar
+    {
+        // The charge level node color.
+        static let foregroundLevelColour = SKColor.brown
+        
+        // The offset of the Entity's respect bar from its position.
+        static let intoxicationBarOffset = CGPoint(x: 0.0, y: 45.0)
+    }
+    
     struct Beam
     {
         /// The distance (in points) over which the beam can be fired.
@@ -147,6 +156,29 @@ struct GameplayConfiguration
         
     }
 
+    struct Intoxication
+    {
+        static let maximumIntoxicationDuration: TimeInterval = 10.0
+    }
+    
+    struct Observe
+    {
+        /// The length of time that the beam takes to recharge when it is fully depleted.
+        static let coolDownDuration: TimeInterval = 1.0
+        
+        /// The maximum number of seconds for which the beam can be fired before recharging.
+        static let maximumLookDuration: TimeInterval = 10.0
+    }
+    
+    struct Appetite
+    {
+        /// The length of time that the beam takes to recharge when it is fully depleted.
+        static let coolDownDuration: TimeInterval = 1.0
+        
+        /// The maximum number of seconds for which the beam can be fired before recharging.
+        static let maximumAppetiteDuration: TimeInterval = 10.0
+    }
+    
     struct PlayerBot
     {
         // The movement speed (in points per second) for the `PlayerBot`.
