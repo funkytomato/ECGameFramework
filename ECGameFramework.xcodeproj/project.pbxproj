@@ -11,6 +11,10 @@
 		181073692088E604001390EA /* PoliceBotRotateToAttackState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181073682088E604001390EA /* PoliceBotRotateToAttackState.swift */; };
 		1810736C2088E740001390EA /* PoliceBotAttackState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810736B2088E740001390EA /* PoliceBotAttackState.swift */; };
 		1810736E2088E75C001390EA /* PoliceBotPreAttackState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810736D2088E75C001390EA /* PoliceBotPreAttackState.swift */; };
+		181146AA20DEAD710060EF0A /* IntoxicationComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181146A920DEAD710060EF0A /* IntoxicationComponent.swift */; };
+		181146AD20DEB9230060EF0A /* IntoxicationCoolingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181146AC20DEB9230060EF0A /* IntoxicationCoolingState.swift */; };
+		181146AF20DEB9E60060EF0A /* IntoxicationActiveState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181146AE20DEB9E60060EF0A /* IntoxicationActiveState.swift */; };
+		181146B120DEBA5E0060EF0A /* IntoxicationIdleState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181146B020DEBA5E0060EF0A /* IntoxicationIdleState.swift */; };
 		1818BC1120A6612C007FB4C7 /* TaskBotPlayerControlledState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1818BC1020A6612C007FB4C7 /* TaskBotPlayerControlledState.swift */; };
 		1823608D209BA1D000E71EB6 /* ResistanceComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1823608C209BA1D000E71EB6 /* ResistanceComponent.swift */; };
 		184974B5208A440D00F7CEEB /* ProtestorBot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184974B4208A440D00F7CEEB /* ProtestorBot.swift */; };
@@ -210,6 +214,10 @@
 		181073682088E604001390EA /* PoliceBotRotateToAttackState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoliceBotRotateToAttackState.swift; sourceTree = "<group>"; };
 		1810736B2088E740001390EA /* PoliceBotAttackState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoliceBotAttackState.swift; sourceTree = "<group>"; };
 		1810736D2088E75C001390EA /* PoliceBotPreAttackState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoliceBotPreAttackState.swift; sourceTree = "<group>"; };
+		181146A920DEAD710060EF0A /* IntoxicationComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntoxicationComponent.swift; sourceTree = "<group>"; };
+		181146AC20DEB9230060EF0A /* IntoxicationCoolingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntoxicationCoolingState.swift; sourceTree = "<group>"; };
+		181146AE20DEB9E60060EF0A /* IntoxicationActiveState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntoxicationActiveState.swift; sourceTree = "<group>"; };
+		181146B020DEBA5E0060EF0A /* IntoxicationIdleState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntoxicationIdleState.swift; sourceTree = "<group>"; };
 		1818BC1020A6612C007FB4C7 /* TaskBotPlayerControlledState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskBotPlayerControlledState.swift; sourceTree = "<group>"; };
 		1823608C209BA1D000E71EB6 /* ResistanceComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResistanceComponent.swift; sourceTree = "<group>"; };
 		184974B4208A440D00F7CEEB /* ProtestorBot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtestorBot.swift; sourceTree = "<group>"; };
@@ -424,6 +432,16 @@
 				18C8C090208F38DE002FA9C0 /* PoliceBotRechargingState.swift */,
 			);
 			path = PoliceBot;
+			sourceTree = "<group>";
+		};
+		181146AB20DEB8B30060EF0A /* Intoxication Component(States) */ = {
+			isa = PBXGroup;
+			children = (
+				181146AC20DEB9230060EF0A /* IntoxicationCoolingState.swift */,
+				181146AE20DEB9E60060EF0A /* IntoxicationActiveState.swift */,
+				181146B020DEBA5E0060EF0A /* IntoxicationIdleState.swift */,
+			);
+			path = "Intoxication Component(States)";
 			sourceTree = "<group>";
 		};
 		181B1464208A8E3900B9580B /* Intelligence Component States */ = {
@@ -665,6 +683,8 @@
 				18FCE9F22040EB9F009A5C0D /* InputComponent.swift */,
 				18FCEA002040EB9F009A5C0D /* IntelligenceComponent.swift */,
 				181B1464208A8E3900B9580B /* Intelligence Component States */,
+				181146A920DEAD710060EF0A /* IntoxicationComponent.swift */,
+				181146AB20DEB8B30060EF0A /* Intoxication Component(States) */,
 				18FCEA012040EB9F009A5C0D /* MovementComponent.swift */,
 				189183E920CC72EE00DE0435 /* ObeisanceComponent.swift */,
 				18FCEA022040EB9F009A5C0D /* OrientationComponent.swift */,
@@ -1122,6 +1142,7 @@
 				18C8C08F208F380E002FA9C0 /* PoliceBotHitState.swift in Sources */,
 				18FCEA6F2040EC40009A5C0D /* IntelligenceComponent.swift in Sources */,
 				184B7635207D0CDA00F959F7 /* ProtestorDetainedState.swift in Sources */,
+				181146AF20DEB9E60060EF0A /* IntoxicationActiveState.swift in Sources */,
 				1878B6CB208E5F9400FC5FDA /* ProtestorBotRechargingState.swift in Sources */,
 				18FCEA532040EC40009A5C0D /* LevelScene.swift in Sources */,
 				18FCEA592040EC40009A5C0D /* PlayerBot.swift in Sources */,
@@ -1158,6 +1179,7 @@
 				18FCEA5C2040EC40009A5C0D /* AnimationComponent.swift in Sources */,
 				18DE88D4208F4E8100732803 /* ProtestorBotHitState.swift in Sources */,
 				18FCEAA32040EC40009A5C0D /* GameInput.swift in Sources */,
+				181146AD20DEB9230060EF0A /* IntoxicationCoolingState.swift in Sources */,
 				18FCEA672040EC40009A5C0D /* PlayerBotRechargingState.swift in Sources */,
 				181073692088E604001390EA /* PoliceBotRotateToAttackState.swift in Sources */,
 				18FCEA762040EC40009A5C0D /* GeometryExtensions.swift in Sources */,
@@ -1167,12 +1189,14 @@
 				C23337C520B5CD8C00A79CD5 /* CriminalBot.swift in Sources */,
 				18FCEA692040EC40009A5C0D /* FlyingBotPreAttackState.swift in Sources */,
 				18F1455B20D0173D002DC88D /* InciteState.swift in Sources */,
+				181146AA20DEAD710060EF0A /* IntoxicationComponent.swift in Sources */,
 				C2D1BAF920CB501A00400BB3 /* InciteActiveState.swift in Sources */,
 				181073642088E15B001390EA /* PoliceBot.swift in Sources */,
 				18F52203208927820070EB0C /* PoliceArrestState.swift in Sources */,
 				18FCEA9C2040EC40009A5C0D /* FuzzyTaskBotRule.swift in Sources */,
 				1859B2C020CBE8F900F3E687 /* RespectComponent.swift in Sources */,
 				18FCEA4B2040EC40009A5C0D /* LevelConfiguration.swift in Sources */,
+				181146B120DEBA5E0060EF0A /* IntoxicationIdleState.swift in Sources */,
 				18FCEA472040EC40009A5C0D /* BaseScene+Buttons.swift in Sources */,
 				18F35DB520542DA300B686DA /* EmitterComponent.swift in Sources */,
 				189183E620CC557D00DE0435 /* ColourBar.swift in Sources */,
