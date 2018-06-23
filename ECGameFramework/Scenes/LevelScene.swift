@@ -354,6 +354,7 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
                 physics world at the start of its next update cycle.
             */
             playerBot.updateAgentPositionToMatchNodePosition()
+            playerBot.updateAgentRotationToMatchTaskBotOrientation()
         }
         
         // Sort the entities in the scene by ascending y-position.
