@@ -304,7 +304,7 @@ class PlayerBot: GKEntity, HealthComponentDelegate, ResistanceComponentDelegate,
         guard let animationComponent = component(ofType: AnimationComponent.self) else { return }
         animationComponent.node.zRotation = orientationComponent.zRotation
         
-        print("entity: \(self.debugDescription)  zRotation:\(orientationComponent.zRotation)")
+        //print("entity: \(self.debugDescription)  zRotation:\(orientationComponent.zRotation)")
     }
     
     func handleTouch()
