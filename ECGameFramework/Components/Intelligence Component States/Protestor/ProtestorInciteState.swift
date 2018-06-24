@@ -1,6 +1,6 @@
 /*
 //
-//  InciteState.swift
+//  ProtestorInciteState.swift
 //  ECGameFramework
 //
 //  Created by Jason Fry on 24/05/2018.
@@ -15,7 +15,7 @@ Abstract:
 import SpriteKit
 import GameplayKit
 
-class InciteState: GKState
+class ProtestorInciteState: GKState
 {
     // MARK:- Properties
     unowned var entity: ProtestorBot
@@ -83,7 +83,8 @@ class InciteState: GKState
         switch stateClass
         {
             
-            case is TaskBotAgentControlledState.Type:
+            case is TaskBotAgentControlledState.Type, is TaskBotFleeState.Type, is TaskBotInjuredState.Type,  is TaskBotZappedState.Type,
+                is ProtestorBotHitState.Type:
                 return true
             
             default:
