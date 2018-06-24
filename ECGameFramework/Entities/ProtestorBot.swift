@@ -138,7 +138,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         
         let intelligenceComponent = IntelligenceComponent(states: [
             TaskBotAgentControlledState(entity: self),
-            //TaskBotPlayerControlledState(entity: self),
+  //          TaskBotPlayerControlledState(entity: self),
             TaskBotFleeState(entity: self),
             TaskBotInjuredState(entity: self),
             ProtestorBotHitState(entity: self),
@@ -150,7 +150,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             ProtestorDetainedState(entity: self),
             ProtestorBotRechargingState(entity: self),
             TaskBotZappedState(entity: self),
-            InciteState(entity: self)
+            ProtestorInciteState(entity: self)
             ])
         addComponent(intelligenceComponent)
         
@@ -334,7 +334,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         {
             case .incite:
                 //print("mandate \(mandate)")
-                intelligenceComponent.stateMachine.enter(InciteState.self)
+                intelligenceComponent.stateMachine.enter(ProtestorInciteState.self)
 
             case let .huntAgent(targetAgent):
                 intelligenceComponent.stateMachine.enter(ProtestorBotRotateToAttackState.self)
@@ -562,13 +562,13 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             
             badAnimations![.arrested] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[1], withImageIdentifier: "ProtestorArrested", forAnimationState: .arrested, bodyActionName: "ZappedShake", shadowActionName: "ZappedShadowShake", repeatTexturesForever: false)
             
-            badAnimations![.attack] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[2], withImageIdentifier: "ProtestorAttack", forAnimationState: .attack)
+            badAnimations![.attack] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[3], withImageIdentifier: "ProtestorAttack", forAnimationState: .attack)
             
-            badAnimations![.hit] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[3], withImageIdentifier: "ProtestorHit", forAnimationState: .hit, bodyActionName: "ZappedShake", shadowActionName: "ZappedShadowShake", repeatTexturesForever: false)
+            badAnimations![.hit] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[4], withImageIdentifier: "ProtestorHit", forAnimationState: .hit, bodyActionName: "ZappedShake", shadowActionName: "ZappedShadowShake", repeatTexturesForever: false)
             
-            badAnimations![.idle] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[4], withImageIdentifier: "ProtestorIdle", forAnimationState: .idle)
+            badAnimations![.idle] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[5], withImageIdentifier: "ProtestorIdle", forAnimationState: .idle)
             
-            badAnimations![.patrol] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[5], withImageIdentifier: "ProtestorPatrol", forAnimationState: .patrol)
+            badAnimations![.patrol] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[6], withImageIdentifier: "ProtestorPatrol", forAnimationState: .patrol)
             
             badAnimations![.walkForward] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[6], withImageIdentifier: "ProtestorPatrol", forAnimationState: .walkForward)
 
