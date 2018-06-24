@@ -43,7 +43,7 @@ class TaskBotZappedState: GKState
     {
         super.didEnter(from: previousState)
         
-        print("entity: \(entity.debugDescription)")
+        //print("entity: \(entity.debugDescription)")
         
         // Reset the elapsed time.
         elapsedTime = 0.0
@@ -91,7 +91,8 @@ class TaskBotZappedState: GKState
                 elapsedTime = 0.0
                 return false
             
-        case is TaskBotAgentControlledState.Type, is ProtestorBotHitState.Type, is PoliceBotHitState.Type, is TaskBotFleeState.Type:
+        case is TaskBotAgentControlledState.Type, is TaskBotFleeState.Type, is TaskBotInjuredState.Type,  is TaskBotZappedState.Type,
+             is ProtestorBotHitState.Type, is PoliceBotHitState.Type:
                 return true
                 
             default:

@@ -75,7 +75,8 @@ class ProtestorBotPreAttackState: GKState
     {
         switch stateClass
         {
-        case is TaskBotAgentControlledState.Type, is ProtestorBotAttackState.Type, is TaskBotZappedState.Type:
+        case is TaskBotAgentControlledState.Type, is TaskBotFleeState.Type, is TaskBotInjuredState.Type,  is TaskBotZappedState.Type,
+             is ProtestorBotAttackState.Type:
             return true
             
         default:

@@ -111,7 +111,8 @@ class ProtestorBotRotateToAttackState: GKState
     {
         switch stateClass
         {
-        case is TaskBotAgentControlledState.Type, is ProtestorBotPreAttackState.Type, is TaskBotZappedState.Type:
+        case is TaskBotAgentControlledState.Type, is TaskBotFleeState.Type, is TaskBotInjuredState.Type,  is TaskBotZappedState.Type,
+             is ProtestorBotPreAttackState.Type, is ProtestorBotHitState.Type:
             return true
             
         default:

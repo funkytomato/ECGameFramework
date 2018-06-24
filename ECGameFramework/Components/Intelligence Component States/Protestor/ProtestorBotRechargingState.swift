@@ -115,6 +115,15 @@ class ProtestorBotRechargingState: GKState
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
     {
-        return stateClass is TaskBotAgentControlledState.Type
+        switch stateClass
+        {
+        case is TaskBotAgentControlledState.Type, is TaskBotFleeState.Type, is TaskBotInjuredState.Type,  is TaskBotZappedState.Type,
+             is ProtestorBeingArrestedState.Type, is PoliceBotHitState.Type, is ProtestorBotHitState.Type, is TaskBotInjuredState.Type:
+            return true
+            
+        default:
+            return false
+        }
+        //return stateClass is TaskBotAgentControlledState.Type
     }
 }

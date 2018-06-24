@@ -69,7 +69,7 @@ class TaskBotFleeState: GKState
     {
         switch stateClass
         {
-        case is TaskBotAgentControlledState.Type, is TaskBotZappedState.Type, is TaskBotFleeState.Type:
+        case is TaskBotAgentControlledState.Type, is TaskBotFleeState.Type, is TaskBotInjuredState.Type,  is TaskBotZappedState.Type:
             return true
             
         default:
