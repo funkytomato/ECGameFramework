@@ -264,7 +264,7 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
         {
             case .incite:
                 print("Incite trouble")
-                intelligenceComponent.stateMachine.enter(InciteState.self)
+                intelligenceComponent.stateMachine.enter(ProtestorInciteState.self)
             
             case .sellWares:
                 print("Sell Wares")
