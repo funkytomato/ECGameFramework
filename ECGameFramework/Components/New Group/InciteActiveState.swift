@@ -54,8 +54,9 @@ class InciteActiveState: GKState
         // Reset the "amount of time firing" tracker when we enter the "firing" state.
         elapsedTime = 0.0
         
-        
         animationComponent.requestedAnimationState = .inciting
+        
+        inciteComponent.isTriggered = true
     }
     
     override func update(deltaTime seconds: TimeInterval)
@@ -77,18 +78,13 @@ class InciteActiveState: GKState
              */
             stateMachine?.enter(InciteCoolingState.self)
         }
-        else if !inciteComponent.isTriggered
-        {
-            // The beam is no longer being fired. Enter the `InciteIdleState`.
-            stateMachine?.enter(InciteIdleState.self)
-        }
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
     {
         switch stateClass
         {
-        case is InciteIdleState.Type, is InciteCoolingState.Type:
+        case is InciteCoolingState.Type:
             return true
             
         default:
@@ -98,6 +94,8 @@ class InciteActiveState: GKState
     
     override func willExit(to nextState: GKState)
     {
+        inciteComponent.isTriggered = false
+        
         super.willExit(to: nextState)
     }
 }
