@@ -724,13 +724,14 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             ruleSystem.minimumGrade(forFacts: [
                 Fact.policeBotNear.rawValue as AnyObject,
                 Fact.policeTaskBotPercentageLow.rawValue as AnyObject
-                ])
+                ]),
             
-            // Police TaskBot is nearby and their are some Police
-//            ruleSystem.minimumGrade(forFacts: [
-//                Fact.policeBotNear.rawValue as AnyObject,
-//                Fact.policeTaskBotPercentageMedium.rawValue as AnyObject
-//                ])
+            // Police TaskBot is nearby and their are some Police, but there are dangerous protestors nearby for backup
+            ruleSystem.minimumGrade(forFacts: [
+                Fact.policeBotNear.rawValue as AnyObject,
+                Fact.policeTaskBotPercentageMedium.rawValue as AnyObject,
+                Fact.dangerousTaskBotNear.rawValue as AnyObject
+                ])
             
             // Police TaskBot is medium proximity and their are few Police
 //            ruleSystem.minimumGrade(forFacts: [
@@ -773,7 +774,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         }
             
         //TaskBot is Violent and Police are nearby, go fuck them up
-        else if self.isProtestor && self.isViolent && attackPoliceBot > 0
+        else if self.isProtestor && self.isViolent && attackPoliceBot > 0.0
         {
             //print("Attacking Police")
             guard let dangerousTaskBot = state.nearestPoliceTaskBotTarget?.target.agent else { return }
