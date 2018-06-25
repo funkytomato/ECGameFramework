@@ -60,7 +60,7 @@ class TaskBotAgentControlledState: GKState
             chargeComponent.addCharge(chargeToAdd: chargeToAdd)
         }
         
-        self.entity.isDangerous = false
+        self.entity.isDangerous = false  //fry ?
         
         guard let renderComponent = entity.component(ofType: RenderComponent.self) else { return }
         let scene = renderComponent.node.scene as? LevelScene
