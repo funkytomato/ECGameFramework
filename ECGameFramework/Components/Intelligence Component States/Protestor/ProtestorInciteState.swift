@@ -62,7 +62,6 @@ class ProtestorInciteState: GKState
         elapsedTime = 0.0
         
         //Set the InciteComponent to on
-        inciteComponent.isTriggered = true
         inciteComponent.stateMachine.enter(InciteActiveState.self)
     }
     
