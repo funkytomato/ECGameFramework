@@ -66,12 +66,10 @@ class InciteActiveState: GKState
         
         //print(animationComponent.requestedAnimationState.debugDescription)
         
-        animationComponent.requestedAnimationState = .inciting
-        
         // Update the "amount of time firing" tracker.
         elapsedTime += seconds
         
-        if elapsedTime >= GameplayConfiguration.Incite.maximumFireDuration
+        if elapsedTime >= GameplayConfiguration.Incite.maximumIncitingDuration
         {
             /**
              The player has been firing the beam for too long. Enter the `InciteCoolingState`
