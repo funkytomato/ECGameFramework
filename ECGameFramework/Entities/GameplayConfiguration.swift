@@ -124,13 +124,13 @@ struct GameplayConfiguration
         static let maxArcAngle = CGFloat(0.35)
         
         /// The maximum number of seconds for which the beam can be fired before recharging.
-        static let maximumFireDuration: TimeInterval = 2.0
+        static let maximumIncitingDuration: TimeInterval = 2.0
         
         /// The amount of charge points the beam drains from `TaskBot`s per second.
         static let chargeLossPerSecond = 90.0
         
         /// The length of time that the beam takes to recharge when it is fully depleted.
-        static let coolDownDuration: TimeInterval = 1.0
+        static let coolDownDuration: TimeInterval = 5.0
     }
     
     struct Tazer
@@ -367,10 +367,10 @@ struct GameplayConfiguration
         static let maximumResistance = 100.0
         
         /// The amount of resistance a `PlayerBot` loses by a single `GroundBot` attack.
-        static let resistanceLossPerContact = 20.0
+        static let resistanceLossPerContact = 10.0
         
         /// The amount of charge that the `PlayerBot` gains per second when recharging.
-        static let resistanceRechargeAmountPerSecond = 0.5
+        static let resistanceRechargeAmountPerSecond = 1.0
         
         
         //MARK: Respect Properties
@@ -508,7 +508,7 @@ struct GameplayConfiguration
         //MARK: Attack Properties
         
         /// The maximum distance a `GroundBot` can be from a target before it attacks.
-        static let maximumAttackDistance: Float = 300.0
+        static let maximumAttackDistance: Float = 200.0
         
         /// Proximity to the target after which the `GroundBot` attack should end.
         static let attackEndProximity: Float = 7.0
