@@ -56,6 +56,7 @@
 		188359FF2087FCA90054111A /* PoliceBot.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 188359FE2087FCA90054111A /* PoliceBot.xcassets */; };
 		189183E620CC557D00DE0435 /* ColourBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189183E520CC557D00DE0435 /* ColourBar.swift */; };
 		189183EA20CC72EE00DE0435 /* ObeisanceComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189183E920CC72EE00DE0435 /* ObeisanceComponent.swift */; };
+		1899E18120E2D06E00C29031 /* PoliceBotSupportState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1899E18020E2D06E00C29031 /* PoliceBotSupportState.swift */; };
 		18C3A24F209FB4110072BC28 /* TaskBotInjuredState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C3A24E209FB4110072BC28 /* TaskBotInjuredState.swift */; };
 		18C82A6020861FCA0046B746 /* ScaredState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C82A5F20861FCA0046B746 /* ScaredState.swift */; };
 		18C82A62208620520046B746 /* CalmState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C82A61208620520046B746 /* CalmState.swift */; };
@@ -267,6 +268,7 @@
 		188359FE2087FCA90054111A /* PoliceBot.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = PoliceBot.xcassets; sourceTree = "<group>"; };
 		189183E520CC557D00DE0435 /* ColourBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColourBar.swift; sourceTree = "<group>"; };
 		189183E920CC72EE00DE0435 /* ObeisanceComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObeisanceComponent.swift; sourceTree = "<group>"; };
+		1899E18020E2D06E00C29031 /* PoliceBotSupportState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoliceBotSupportState.swift; sourceTree = "<group>"; };
 		18C3A24E209FB4110072BC28 /* TaskBotInjuredState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskBotInjuredState.swift; sourceTree = "<group>"; };
 		18C82A5F20861FCA0046B746 /* ScaredState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaredState.swift; sourceTree = "<group>"; };
 		18C82A61208620520046B746 /* CalmState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalmState.swift; sourceTree = "<group>"; };
@@ -439,6 +441,7 @@
 		181073652088E538001390EA /* PoliceBot */ = {
 			isa = PBXGroup;
 			children = (
+				1899E18020E2D06E00C29031 /* PoliceBotSupportState.swift */,
 				181073682088E604001390EA /* PoliceBotRotateToAttackState.swift */,
 				1810736B2088E740001390EA /* PoliceBotAttackState.swift */,
 				1810736D2088E75C001390EA /* PoliceBotPreAttackState.swift */,
@@ -1269,6 +1272,7 @@
 				18FCEA9D2040EC40009A5C0D /* LevelStateSnapshot.swift in Sources */,
 				18FCEA4C2040EC40009A5C0D /* LevelSceneActiveState.swift in Sources */,
 				18FCEA612040EC40009A5C0D /* ChargeComponent.swift in Sources */,
+				1899E18120E2D06E00C29031 /* PoliceBotSupportState.swift in Sources */,
 				18FCEAA02040EC40009A5C0D /* BaseScene+TouchEventForwarding.swift in Sources */,
 				18FCEA712040EC40009A5C0D /* OrientationComponent.swift in Sources */,
 				18FCE9CB2040EB3C009A5C0D /* SceneLoaderResourcesAvailableState.swift in Sources */,
