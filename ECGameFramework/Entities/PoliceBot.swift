@@ -36,18 +36,11 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
         resistanceComponent.isTriggered = true
         intelligenceComponent.stateMachine.enter(PoliceBotHitState.self)
         
-//        // Criminal is resisting
-//        if resistanceComponent.hasResistance
-//        {
-//            // Beat them up
-//            //intelligenceComponent.stateMachine.enter(ProtestorBotHitState.self)
-//            intelligenceComponent.stateMachine.enter(PoliceBotAttackState.self)
-//        }
-//        else
-//        {
-//            // Attempt to arrest the Criminal
-//            intelligenceComponent.stateMachine.enter(PoliceArrestState.self)
-//        }
+        //Policeman is in trouble and needs backup
+        if resistanceComponent.resistance < 50.0
+        {
+            self.needsHelp = true
+        }
     }
     
     // MARK: ChargeComponentDelegate
@@ -219,7 +212,8 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
             PoliceBotAttackState(entity: self),
             PoliceArrestState(entity: self),
             PoliceDetainState(entity: self),
-            PoliceBotHitState(entity: self)
+            PoliceBotHitState(entity: self),
+            PoliceBotSupportState(entity: self)
             ])
         addComponent(intelligenceComponent)
         
@@ -342,14 +336,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
     override func rulesComponent(rulesComponent: RulesComponent, didFinishEvaluatingRuleSystem ruleSystem: GKRuleSystem)
     {
         super.rulesComponent(rulesComponent: rulesComponent, didFinishEvaluatingRuleSystem: ruleSystem)
-        
-        /*
-         A `PoliceBot` will attack a location in the scene if the following conditions are met:
-         1) Enough time has elapsed since the `PoliceBot` last attacked a target.
-         2) The `PoliceBot` is hunting a target.
-         3) The target is within the `PoliceBot`'s attack range.
-         4) There is no scenery between the `PoliceBot` and the target.
-         */
+
         guard let scene = component(ofType: RenderComponent.self)?.node.scene else { return }
         guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
         guard let agentControlledState = intelligenceComponent.stateMachine.currentState as? TaskBotAgentControlledState else { return }
@@ -357,27 +344,45 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
         // 1) Check if enough time has passed since the `PoliceBot`'s last attack.
         guard agentControlledState.elapsedTime >= GameplayConfiguration.PoliceBot.delayBetweenAttacks else { return }
         
-        // 2) Check if the current mandate is to hunt an agent.
-        guard case let .huntAgent(targetAgent) = mandate else { return }
+        print("PoliceBot mandate: \(mandate)")
         
-        // 3) Check if the target is within the `PoliceBot`'s attack range.
-        guard distanceToAgent(otherAgent: targetAgent) <= GameplayConfiguration.PoliceBot.maximumAttackDistance else { return }
-        
-        // 4) Check if any walls or obstacles are between the `PoliceBot` and its hunt target position.
-        var hasLineOfSight = true
-        
-        scene.physicsWorld.enumerateBodies(alongRayStart: CGPoint(agent.position), end: CGPoint(targetAgent.position)) { body, _, _, stop in
-            if ColliderType(rawValue: body.categoryBitMask).contains(.Obstacle) {
-                hasLineOfSight = false
-                stop.pointee = true
-            }
+        //Check the current mandate and set the appropriate values
+        switch mandate
+        {
+            /*
+             A `PoliceBot` will attack a location in the scene if the following conditions are met:
+             1) Enough time has elapsed since the `PoliceBot` last attacked a target.
+             2) The `PoliceBot` is hunting a target.
+             3) The target is within the `PoliceBot`'s attack range.
+             4) There is no scenery between the `PoliceBot` and the target.
+             */
+            case let .huntAgent(targetAgent):
+                // 3) Check if the target is within the `PoliceBot`'s attack range.
+                guard distanceToAgent(otherAgent: targetAgent) <= GameplayConfiguration.PoliceBot.maximumAttackDistance else { return }
+                
+                // 4) Check if any walls or obstacles are between the `PoliceBot` and its hunt target position.
+                var hasLineOfSight = true
+                
+                scene.physicsWorld.enumerateBodies(alongRayStart: CGPoint(agent.position), end: CGPoint(targetAgent.position)) { body, _, _, stop in
+                    if ColliderType(rawValue: body.categoryBitMask).contains(.Obstacle) {
+                        hasLineOfSight = false
+                        stop.pointee = true
+                    }
+                }
+                
+                if !hasLineOfSight { return }
+                
+                // The `PoliceBot` is ready to attack the `targetAgent`'s current position.
+                targetPosition = targetAgent.position
+                intelligenceComponent.stateMachine.enter(PoliceBotRotateToAttackState.self)
+            
+            case let .supportPolice(targetAgent):
+                intelligenceComponent.stateMachine.enter(PoliceBotSupportState.self)
+                targetPosition = targetAgent.position
+            
+            default:
+                print("Hmm, do something hereE?")
         }
-        
-        if !hasLineOfSight { return }
-        
-        // The `PoliceBot` is ready to attack the `targetAgent`'s current position.
-        targetPosition = targetAgent.position
-        intelligenceComponent.stateMachine.enter(PoliceBotRotateToAttackState.self)
     }
     
 
