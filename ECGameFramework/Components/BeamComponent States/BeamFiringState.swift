@@ -155,7 +155,8 @@ class BeamFiringState: GKState
         // If the beam has a target with a Obeisance component, add charge to it.
         if let obeisanceComponent = target?.component(ofType: ObeisanceComponent.self)
         {
-            let obeisanceToGain = GameplayConfiguration.ProtestorBot.rechargeAmountPerSecond * seconds
+            //let obeisanceToGain = GameplayConfiguration.ProtestorBot.rechargeAmountPerSecond * seconds
+            let obeisanceToGain = GameplayConfiguration.Beam.chargeLossPerSecond * seconds
             obeisanceComponent.addObeisance(obeisanceToAdd: obeisanceToGain)
             
             //print("obeisanceToGain: \(obeisanceToGain.debugDescription)")
