@@ -366,11 +366,11 @@ struct GameplayConfiguration
         /// The maximum amount of resistance a `GroundBot` stores.
         static let maximumResistance = 100.0
         
-        /// The amount of resistance a `PlayerBot` loses by a single `GroundBot` attack.
-        static let resistanceLossPerContact = 10.0
+        /// The amount of resistance a `PoliceBot` loses by a single `TaskBot` attack.
+        static let resistanceLossPerContact = 5.0
         
         /// The amount of charge that the `PlayerBot` gains per second when recharging.
-        static let resistanceRechargeAmountPerSecond = 1.0
+        static let resistanceRechargeAmountPerSecond = 2.0
         
         
         //MARK: Respect Properties
@@ -414,7 +414,7 @@ struct GameplayConfiguration
         //MARK: Attack Properties
         
         /// The maximum distance a `GroundBot` can be from a target before it attacks.
-        static let maximumAttackDistance: Float = 300.0
+        static let maximumAttackDistance: Float = 150.0
         
         /// Proximity to the target after which the `GroundBot` attack should end.
         static let attackEndProximity: Float = 7.0
@@ -464,7 +464,7 @@ struct GameplayConfiguration
         static let resistanceLossPerContact = 20.0
         
         /// The amount of charge that the `PlayerBot` gains per second when recharging.
-        static let resistanceRechargeAmountPerSecond = 0.5
+        static let resistanceRechargeAmountPerSecond = 1.0
         
         
         //MARK: Respect Properties
@@ -508,7 +508,7 @@ struct GameplayConfiguration
         //MARK: Attack Properties
         
         /// The maximum distance a `GroundBot` can be from a target before it attacks.
-        static let maximumAttackDistance: Float = 200.0
+        static let maximumAttackDistance: Float = 100.0
         
         /// Proximity to the target after which the `GroundBot` attack should end.
         static let attackEndProximity: Float = 7.0
@@ -523,7 +523,7 @@ struct GameplayConfiguration
         static let angularSpeedMultiplierWhenAttacking: CGFloat = 2.5
         
         /// The amount of time to wait between `GroundBot` attacks.
-        static let delayBetweenAttacks: TimeInterval = 2.0
+        static let delayBetweenAttacks: TimeInterval = 1.0
         
         /// The offset from the `GroundBot`'s position that should be used for beam targeting.
         static let beamTargetOffset = CGPoint(x: 0.0, y: 40.0)
@@ -604,7 +604,7 @@ struct GameplayConfiguration
         //MARK: Attack Properties
         
         /// The maximum distance a `GroundBot` can be from a target before it attacks.
-        static let maximumAttackDistance: Float = 300.0
+        static let maximumAttackDistance: Float = 100.0
         
         /// Proximity to the target after which the `GroundBot` attack should end.
         static let attackEndProximity: Float = 7.0
@@ -734,6 +734,7 @@ struct GameplayConfiguration
         
         static let agentSearchDistanceForFlocking: Float = 50.0
         static let agentSearchDistanceForArrest: Float = 50.0
+        static let agentSupportSearchDistanceForArrest: Float = 500.0
     }
     
     struct TouchControl
