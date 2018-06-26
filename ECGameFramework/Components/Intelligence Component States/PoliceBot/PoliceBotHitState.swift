@@ -90,6 +90,12 @@ class PoliceBotHitState: GKState
         // Has the Protestor's resistance been broken down?
         if resistanceComponent.hasResistance
         {
+            //If resistance getting low, radio for backup
+            if resistanceComponent.resistance < 50.0
+            {
+                entity.needsHelp = true
+            }
+            
             //Create a random number to decide on action
             let changeTemperament = GKMersenneTwisterRandomSource()
             let val = changeTemperament.nextInt(upperBound: 10)
@@ -97,7 +103,7 @@ class PoliceBotHitState: GKState
             //print("changeTemperament: \(val)")
             
             
-            if val < 1
+            if val < 5
             {
                 temperamentComponent.decreaseTemperament()
             }
@@ -142,20 +148,13 @@ class PoliceBotHitState: GKState
                 stateMachine?.enter(TaskBotInjuredState.self)
             }
                 
-                //Police has no resistance left and some health, so run away
-//            else if healthComponent.health < 50.0
-//            {
-//                //The Police is scared and will flee
-//                entity.isScared = true
-//                stateMachine?.enter(TaskBotFleeState.self)
-//            }
-//            else
-//            {
-//                //The Protestor is subdued and knackered, arrest them
-//                //temperamentComponent.stateMachine.enter(SubduedState.self)
-//                stateMachine?.enter(PoliceArrestState.self)
-//            }
-
+            //Police has no resistance left and some health, so run away
+            else if healthComponent.health < 50.0
+            {
+                //The Police is scared and will flee
+                entity.isScared = true
+                stateMachine?.enter(TaskBotFleeState.self)
+            }
         }
         
         // When the `PlayerBot` has been in this state for long enough, transition to the appropriate next state.
