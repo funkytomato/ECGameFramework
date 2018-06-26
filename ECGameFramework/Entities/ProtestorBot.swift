@@ -458,14 +458,6 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         {
             self.isSubservient = true
             //print("Protestor has become subservient")
-            
-//            guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
-//            intelligenceComponent.stateMachine.enter(InciteState.self)
-            
-            //Ensure Protestor is inciting
-//            guard let inciteComponent = component(ofType: InciteComponent.self) else { return }
-//            inciteComponent.stateMachine.enter(InciteActiveState.self)
-//            inciteComponent.isTriggered = true
         }
     }
     
