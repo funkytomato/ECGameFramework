@@ -45,6 +45,11 @@ enum Fact: String
     case policeBotMedium = "PoliceBotMedium"
     case policeBotFar = "PoliceBotFar"
     
+    // Fuzzy rules pertaining to this 'TaskBot''s proximity to a PoliceBot in trouble
+    case policeBotInTroubleNear = "PoliceBotInTroubleNear"
+    case policeBotInTroubleMedium = "PoliceBotInTroubleMedium"
+    case policeBotInTroubleFar = "PoliceBotInTroubleFar"
+    
     // Fuzzy rules pertaining to this `TaskBot`'s proximity to the `PlayerBot`.
     case playerBotNear = "PlayerBotNear"
     case playerBotMedium = "PlayerBotMedium"
@@ -227,6 +232,71 @@ class PoliceBotFarRule: FuzzyTaskBotRule
         print("Deallocating PoliceBotFarRule")
     }
 }
+
+
+/// Asserts whether the `PoliceBot` is considered to be "near" to this `TaskBot`.
+class PoliceBotInTroubleNearRule: FuzzyTaskBotRule
+{
+    // MARK: Properties
+    
+    override func grade() -> Float
+    {
+        guard let distance = snapshot.nearestPoliceTaskBotTarget?.distance else { return 0.0 }
+        let oneThird = snapshot.proximityFactor / 3
+        return (oneThird - distance) / oneThird
+    }
+    
+    // MARK: Initializers
+    
+    init() { super.init(fact: .policeBotNear) }
+    
+    deinit {
+        print("Deallocating PoliceBotNearRule")
+    }
+}
+
+/// Asserts whether the `PoliceBot` is considered to be at a "medium" distance from this `TaskBot`.
+class PoliceBotInTroubleMediumRule: FuzzyTaskBotRule
+{
+    // MARK: Properties
+    
+    override func grade() -> Float
+    {
+        guard let distance = snapshot.nearestPoliceTaskBotTarget?.distance else { return 0.0 }
+        let oneThird = snapshot.proximityFactor / 3
+        return 1 - (fabs(distance - oneThird) / oneThird)
+    }
+    
+    // MARK: Initializers
+    
+    init() { super.init(fact: .policeBotMedium) }
+    
+    deinit {
+        print("Deallocating PoliceBotMediumRule")
+    }
+}
+
+/// Asserts whether the `PoliceBot` is considered to be "far" from this `TaskBot`.
+class PoliceBotInTroubleFarRule: FuzzyTaskBotRule
+{
+    // MARK: Properties
+    
+    override func grade() -> Float
+    {
+        guard let distance = snapshot.nearestPoliceTaskBotTarget?.distance else { return 0.0 }
+        let oneThird = snapshot.proximityFactor / 3
+        return (distance - oneThird) / oneThird
+    }
+    
+    // MARK: Initializers
+    
+    init() { super.init(fact: .policeBotFar) }
+    
+    deinit {
+        print("Deallocating PoliceBotFarRule")
+    }
+}
+
 
 
 /// Asserts whether the number of "bad" `TaskBot`s is considered "low".
