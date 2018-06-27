@@ -75,9 +75,6 @@ class TaskBotAgentControlledState: GKState
         timeSinceBehaviorUpdate += seconds
         elapsedTime += seconds
         
-        
-
-        
         // Check if enough time has passed since the last behavior update, and update the behavior if so.
         if timeSinceBehaviorUpdate >= GameplayConfiguration.TaskBot.behaviorUpdateWaitDuration
         {
