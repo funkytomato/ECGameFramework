@@ -256,10 +256,10 @@ struct GameplayConfiguration
         static let thresholdProximityToPatrolPathStartPoint: Float = 50.0
         
         /// The maximum speed (in points per second) for the `TaskBot` when in its "good" state.
-        static let maximumSpeedWhenGood: Float = 140.0
+        static let maximumSpeedWhenGood: Float = 100.0
 
         /// The maximum speed (in points per second) for the `TaskBot` when in its "bad" state.
-        static let maximumSpeedWhenBad: Float = 130.0
+        static let maximumSpeedWhenBad: Float = 100.0
 
         /// A convenience function to return the max speed for a state.
         static func maximumSpeedForIsGood(isGood: Bool) -> Float
@@ -273,14 +273,14 @@ struct GameplayConfiguration
         */
         /// The maximum acceleration (in points per second per second) for the `TaskBot`.
         //static let maximumAcceleration: Float = 10.0
-        static let maximumAcceleration: Float = 1000.0
+        static let maximumAcceleration: Float = 500.0
 
         /// The agent's mass.
         static let agentMass: Float = 0.25
         
         /// The radius of the `TaskBot`'s physics body.
-        //static var physicsBodyRadius: CGFloat = 35.0
-        static var physicsBodyRadius: CGFloat = 15.0
+        static var physicsBodyRadius: CGFloat = 25.0
+        //static var physicsBodyRadius: CGFloat = 15.0
 
         /// The offset of the `TaskBot` physics body's center from the `TaskBot`'s center.
         static let physicsBodyOffset = CGPoint(x: 0.0, y: 0.0)
@@ -317,7 +317,7 @@ struct GameplayConfiguration
         static let returnToPatrolPathRadius: Float = 20.0
         
         /// The buffer radius (in points) to add to polygon obstacles when calculating agent pathfinding.
-        static let pathfindingGraphBufferRadius: Float = 20.0
+        static let pathfindingGraphBufferRadius: Float = 30.0
         
         /// The duration of a `TaskBot`'s pre-attack state.
         static let preAttackStateDuration: TimeInterval = 0.3
