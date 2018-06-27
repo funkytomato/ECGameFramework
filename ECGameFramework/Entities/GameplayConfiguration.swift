@@ -279,7 +279,7 @@ struct GameplayConfiguration
         static let agentMass: Float = 0.25
         
         /// The radius of the `TaskBot`'s physics body.
-        static var physicsBodyRadius: CGFloat = 25.0
+        static var physicsBodyRadius: CGFloat = 27.0
         //static var physicsBodyRadius: CGFloat = 15.0
 
         /// The offset of the `TaskBot` physics body's center from the `TaskBot`'s center.
@@ -339,7 +339,7 @@ struct GameplayConfiguration
         
         
         /// The duration of a `TaskBot`'s being scared state.
-        static let scaredStateDuration: TimeInterval = 5
+        static let scaredStateDuration: TimeInterval = 10
         
         /// The duration of a `TaskBot`'s resistance cooldown state.
         static let resistanceCooldownDuration: TimeInterval = 5
