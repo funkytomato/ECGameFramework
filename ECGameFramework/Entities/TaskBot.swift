@@ -455,8 +455,16 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         let agent = TaskBotAgent()
         agent.delegate = self
         
+        
+        // Create a random speed for each taskbot
+        let randomSource = GKRandomSource.sharedRandom()
+        let diff = randomSource.nextUniform() // returns random Float between 0.0 and 1.0
+        let speed = diff * GameplayConfiguration.TaskBot.maximumSpeedForIsGood(isGood: isGood)
+        print("speed :\(speed.debugDescription)")
+        
         // Configure the agent's characteristics for the steering physics simulation.
-        agent.maxSpeed = GameplayConfiguration.TaskBot.maximumSpeedForIsGood(isGood: isGood)
+        agent.maxSpeed = speed
+        //agent.maxSpeed = GameplayConfiguration.TaskBot.maximumSpeedForIsGood(isGood: isGood)
         agent.maxAcceleration = GameplayConfiguration.TaskBot.maximumAcceleration
         agent.mass = GameplayConfiguration.TaskBot.agentMass
         agent.radius = GameplayConfiguration.TaskBot.agentRadius

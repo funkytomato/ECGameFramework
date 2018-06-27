@@ -31,12 +31,6 @@ class PoliceBotSupportState: GKState
         return intelligenceComponent
     }
     
-    /// The `TemperamentComponent` associated with the `entity`.
-//    var inciteComponent: InciteComponent
-//    {
-//        guard let inciteComponent = entity.component(ofType: InciteComponent.self) else { fatalError("A PoliceSupportState entity must have an InciteComponent.") }
-//        return inciteComponent
-//    }
     
     
     //MARK:- Initializers
