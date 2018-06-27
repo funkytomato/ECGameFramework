@@ -114,7 +114,7 @@ class PoliceBotHitState: GKState
             
             
             
-            // Decide what to do on the Protestor's current temperament
+            // Decide what to do on the Police's current temperament
             if ((temperamentComponent.stateMachine.currentState as? ScaredState) != nil)
             {
                 // Police is scared and will attempt to flee from danger
@@ -152,6 +152,7 @@ class PoliceBotHitState: GKState
             else if healthComponent.health < 50.0
             {
                 //The Police is scared and will flee
+                temperamentComponent.stateMachine.enter(ScaredState.self)
                 entity.isScared = true
                 stateMachine?.enter(TaskBotFleeState.self)
             }
