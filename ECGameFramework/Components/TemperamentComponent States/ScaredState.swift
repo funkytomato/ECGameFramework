@@ -60,7 +60,7 @@ class ScaredState: GKState
         elapsedTime = 0.0
         
         //Request the ScaredState animation for this state's 'ProtestorBot'
-        animationComponent.requestedAnimationState = .scared
+        //animationComponent.requestedAnimationState = .scared
         
         //Change the colour of the sprite to show calmness
         spriteComponent.changeColour(colour: SKColor.purple)
