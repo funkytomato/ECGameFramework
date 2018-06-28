@@ -8,7 +8,7 @@
 //
 
 Abstract:
-The state the beam enters when it overheats from being used for too long.
+Reduce the appetite as product is consumed
 */
 
 import SpriteKit
@@ -62,13 +62,21 @@ class AppetiteCoolingState: GKState
         
         elapsedTime += seconds
         
-        // If the beam has spent long enough cooling down, enter `BeamIdleState`.
-        if elapsedTime >= GameplayConfiguration.Appetite.coolDownDuration
+        //Start losing appetite
+        appetiteComponent.loseAppetite(appetiteToLose: GameplayConfiguration.CriminalBot.appetiteLossPerCycle)
+        
+        //Protestor has consumed the product and should go into idle state
+        if !appetiteComponent.hasAppetite
         {
             stateMachine?.enter(AppetiteIdleState.self)
-            
-            //Should refill the appetite bar for next inciting round
         }
+        
+        // If the beam has spent long enough cooling down, enter `BeamIdleState`.
+//        if elapsedTime >= GameplayConfiguration.Appetite.coolDownDuration
+//        {
+//            stateMachine?.enter(AppetiteIdleState.self)
+//
+//        }
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
