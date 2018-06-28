@@ -16,8 +16,11 @@ import SpriteKit
 import GameplayKit
 
 
-class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate, ChargeComponentDelegate, RespectComponentDelegate, ObeisanceComponentDelegate, ResourceLoadableType
+class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate, ChargeComponentDelegate, RespectComponentDelegate, ObeisanceComponentDelegate,
+    AppetiteComponentDelegate, IntoxicationComponentDelegate, ResourceLoadableType
 {
+
+    
 
     
     // MARK: Static Properties
@@ -80,6 +83,10 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         let initialCharge: Double
         let initialRespect: Double
         let initialObeisance: Double
+        let initialAppetite: Double
+        let initialIntoxication: Double
+
+
         
         self.isProtestor = true
         
@@ -95,6 +102,8 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             initialCharge = 50.0           //Blue bar
             initialRespect = 50.0       //Yellow bar
             initialObeisance = 100.0      //Brown bar
+            initialAppetite = 50.0
+            initialIntoxication = 0.0
             
             texture = SKTexture(imageNamed: "ProtestorBot")
         }
@@ -112,6 +121,8 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             initialCharge = GameplayConfiguration.ProtestorBot.maximumCharge
             initialRespect = GameplayConfiguration.ProtestorBot.maximumRespect
             initialObeisance = GameplayConfiguration.ProtestorBot.maximumObesiance
+            initialAppetite = GameplayConfiguration.ProtestorBot.maximumAppetite
+            initialIntoxication = GameplayConfiguration.ProtestorBot.maximumIntoxication
             
             texture = SKTexture(imageNamed: "ProtestorBotBad")
         }
@@ -218,6 +229,13 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         let inciteComponent = InciteComponent()
         addComponent(inciteComponent)
         
+        let appetiteComponent = AppetiteComponent(appetite: initialAppetite, maximumAppetite: GameplayConfiguration.ProtestorBot.maximumAppetite, displaysAppetiteBar: true)
+        appetiteComponent.delegate = self
+        addComponent(appetiteComponent)
+        
+        let intoxicationComponent = IntoxicationComponent(intoxication: initialIntoxication , maximumIntoxication: GameplayConfiguration.ProtestorBot.maximumIntoxication, displaysIntoxicationBar: true)
+        appetiteComponent.delegate = self
+        addComponent(appetiteComponent)
         
         let movementComponent = MovementComponent()
         addComponent(movementComponent)
@@ -276,6 +294,8 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             
             //print("Increased the obeisance of the touching Protestor")
         }
+        
+
     }
     
     override func contactWithEntityDidEnd(_ entity: GKEntity)
@@ -292,6 +312,21 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             protestorTargetTemperamentComponent.increaseTemperament()
             
             //print("Raised temperament of touching Protestor")
+        }
+        
+        //If Protestor appetite is high, buy wares, reduce appetite slowly as wares are consumed
+        guard let appetiteComponent = component(ofType: AppetiteComponent.self) else { return }
+        if appetiteComponent.isTriggered
+        {
+            //Buy wares
+            appetiteComponent.isTriggered = false
+            
+            //Start countdown to finish consuming product
+            
+            
+                //Trigger Intoxication to slowly rise a number of units
+            
+                //Trigger Appetite to start rising
         }
     }
     
@@ -356,6 +391,28 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         }
     }
 
+    // MARK: Appetite Component Delegate
+    func appetiteComponentDidLoseAppetite(appetiteComponent: AppetiteComponent)
+    {
+        print("Appetite Component Lose Appetite")
+    }
+    
+    func appetiteComponentDidGainAppetite(appetiteComponent: AppetiteComponent)
+    {
+        print("Appetite Component Add Appetite")
+    }
+    
+    // MARK: Intoxication Component Delegate
+    func IntoxicationComponentDidLoseintoxication(IntoxicationComponent: IntoxicationComponent)
+    {
+        print("Intoxication Component Lose Appetite")
+    }
+    
+    func IntoxicationComponentDidAddintoxication(IntoxicationComponent: IntoxicationComponent)
+    {
+        print("Intoxication Component Lose Appetite")
+    }
+    
     // MARK: Charge Component Delegate
     func chargeComponentDidGainCharge(chargeComponent: ChargeComponent)
     {
