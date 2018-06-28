@@ -22,7 +22,7 @@ protocol AppetiteComponentDelegate: class
     func appetiteComponentDidLoseAppetite(appetiteComponent: AppetiteComponent)
     
     // Called whenever a `HealthComponent` loses charge through a call to `gainCharge`
-    func appetiteComponentDidAddAppetite(appetiteComponent: AppetiteComponent)
+    func appetiteComponentDidGainAppetite(appetiteComponent: AppetiteComponent)
 }
 
 class AppetiteComponent: GKComponent
@@ -31,6 +31,9 @@ class AppetiteComponent: GKComponent
     
     
     // MARK: Properties
+    
+    //A product has been bought, now consuming
+    var consuming: Bool
     
     var appetite: Double
     
@@ -46,6 +49,16 @@ class AppetiteComponent: GKComponent
         return appetite / maximumAppetite
     }
     
+    var hasAppetite: Bool
+    {
+        return (appetite > 0.0)
+    }
+    
+    var needsConsumable: Bool
+    {
+        return appetite == maximumAppetite
+    }
+    
     /**
      A `ColourBar` used to show the current appetite level. The `ColourBar`'s node
      is added to the scene when the component's entity is added to a `LevelScene`
@@ -55,7 +68,7 @@ class AppetiteComponent: GKComponent
     
     weak var delegate: AppetiteComponentDelegate?
     
-    /// Set to `true` whenever the player is holding down the attack button.
+    /// Whether the Protestor is looking for something to buy
     var isTriggered = false
     
     
@@ -87,6 +100,7 @@ class AppetiteComponent: GKComponent
     {
         self.appetite = appetite
         self.maximumAppetite = maximumAppetite
+        self.consuming = false
         
         // Create a `ColourBar` if this `AppetiteComponent` should display one.
         if displaysAppetiteBar
@@ -129,10 +143,47 @@ class AppetiteComponent: GKComponent
     {
         guard (stateMachine.currentState as? AppetiteActiveState) != nil else { return }
         
-        animationComponent.requestedAnimationState = .inciting
+        animationComponent.requestedAnimationState = .arrested
         
         stateMachine.update(deltaTime: seconds)
     }
     
     // MARK: Convenience
+    func loseAppetite(appetiteToLose: Double)
+    {
+        var newAppetite = appetite - appetiteToLose
+        
+        // Clamp the new value to the valid range.
+        newAppetite = min(maximumAppetite, newAppetite)
+        newAppetite = max(0.0, newAppetite)
+        
+        //print("newObeiscance: \(newObeisance.debugDescription)  obeisance: \(obeisance.debugDescription)")
+        
+        // Check if the new charge is less than the current charge.
+        if newAppetite < appetite
+        {
+            appetite = newAppetite
+            appetiteBar?.level = percentageAppetite
+            delegate?.appetiteComponentDidLoseAppetite(appetiteComponent: self)
+        }
+    }
+    
+    func gainAppetite(appetiteToAdd: Double)
+    {
+        var newAppetite = appetite + appetiteToAdd
+        
+        // Clamp the new value to the valid range.
+        newAppetite = min(maximumAppetite, newAppetite)
+        newAppetite = max(0.0, newAppetite)
+        
+        print("newAppetite: \(newAppetite.debugDescription)  appetite: \(appetite.debugDescription)")
+        
+        // Check if the new charge is greater than the current charge.
+        if newAppetite > appetite
+        {
+            appetite = newAppetite
+            appetiteBar?.level = percentageAppetite
+            delegate?.appetiteComponentDidGainAppetite(appetiteComponent: self)
+        }
+    }
 }
