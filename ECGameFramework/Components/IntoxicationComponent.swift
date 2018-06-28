@@ -29,16 +29,16 @@ class IntoxicationComponent: GKComponent
     
     var intoxication: Double
     
-    let maximumintoxication: Double
+    let maximumIntoxication: Double
     
-    var percentageintoxication: Double
+    var percentageIntoxication: Double
     {
-        if maximumintoxication == 0
+        if maximumIntoxication == 0
         {
             return 0.0
         }
         
-        return intoxication / maximumintoxication
+        return intoxication / maximumIntoxication
     }
     
     var hasintoxication: Bool
@@ -49,7 +49,7 @@ class IntoxicationComponent: GKComponent
     //var isFullyCharged: Bool
     var hasFullintoxication: Bool
     {
-        return intoxication == maximumintoxication
+        return intoxication == maximumIntoxication
     }
     
     /**
@@ -63,13 +63,13 @@ class IntoxicationComponent: GKComponent
     
     // MARK: Initializers
     
-    init(intoxication: Double, maximumintoxication: Double, displaysintoxicationBar: Bool = false)
+    init(intoxication: Double, maximumIntoxication: Double, displaysIntoxicationBar: Bool = false)
     {
         self.intoxication = intoxication
-        self.maximumintoxication = maximumintoxication
+        self.maximumIntoxication = maximumIntoxication
         
         // Create a `ChargeBar` if this `ChargeComponent` should display one.
-        if displaysintoxicationBar
+        if displaysIntoxicationBar
         {
             intoxicationBar = ColourBar(levelColour: GameplayConfiguration.IntoxicationBar.foregroundLevelColour)
         }
@@ -80,7 +80,7 @@ class IntoxicationComponent: GKComponent
         
         super.init()
         
-        intoxicationBar?.level = percentageintoxication
+        intoxicationBar?.level = percentageIntoxication
     }
     
     required init?(coder aDecoder: NSCoder)
@@ -99,14 +99,14 @@ class IntoxicationComponent: GKComponent
         var newintoxication = intoxication - intoxicationToLose
         
         // Clamp the new value to the valid range.
-        newintoxication = min(maximumintoxication, newintoxication)
+        newintoxication = min(maximumIntoxication, newintoxication)
         newintoxication = max(0.0, newintoxication)
         
         // Check if the new charge is less than the current charge.
         if newintoxication < intoxication
         {
             intoxication = newintoxication
-            intoxicationBar?.level = percentageintoxication
+            intoxicationBar?.level = percentageIntoxication
             delegate?.IntoxicationComponentDidLoseintoxication(IntoxicationComponent: self)
         }
     }
@@ -116,14 +116,14 @@ class IntoxicationComponent: GKComponent
         var newintoxication = intoxication + intoxicationToAdd
         
         // Clamp the new value to the valid range.
-        newintoxication = min(maximumintoxication, newintoxication)
+        newintoxication = min(maximumIntoxication, newintoxication)
         newintoxication = max(0.0, newintoxication)
         
         // Check if the new charge is greater than the current charge.
         if newintoxication > intoxication
         {
             intoxication = newintoxication
-            intoxicationBar?.level = percentageintoxication
+            intoxicationBar?.level = percentageIntoxication
             delegate?.IntoxicationComponentDidAddintoxication(IntoxicationComponent: self)
         }
     }
