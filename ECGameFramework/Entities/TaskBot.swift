@@ -63,6 +63,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         // Incite trouble
         case incite
         
+        // Buy wares
+        case buyWares
+        
         // Sell wares
         case sellWares
         
@@ -89,6 +92,8 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             guard let resistanceComponent = component(ofType: ResistanceComponent.self) else { fatalError("TaskBots must have a resistance component.") }
             guard let healthComponent = component(ofType: HealthComponent.self) else { fatalError("TaskBots must have a health component.") }
             guard let chargeComponent = component(ofType: ChargeComponent.self) else { fatalError("TaskBots must have a charge component.") }
+//            guard let appetiteComponent = component(ofType: AppetiteComponent.self) else { fatalError("TaskBots must have a appetite component.") }
+//            guard let intoxicationComponent = component(ofType: IntoxicationComponent.self) else { fatalError("TaskBots must have a intoxication component.") }
             //guard let respectComponent = component(ofType: RespectComponent.self) else { fatalError("TaskBots must have a respect component.") }
             //guard let obeisanceComponent = component(ofType: ObeisanceComponent.self) else { fatalError("TaskBots must have a obeisance component.") }
             
@@ -126,6 +131,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 healthComponent.health = 100.0
                 //respectComponent.respect = 100.0
                 //obeisanceComponent.obeisance = 100.0
+
             }
             else
             {
@@ -312,6 +318,13 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 radius = GameplayConfiguration.TaskBot.wanderPathRadius
                 (agentBehavior, debugPathPoints)  = TaskBotBehavior.wanderBehaviour(forAgent: agent, inScene: levelScene)
                 debugColor = SKColor.gray
+  
+            // TaskBot is a protestor and is buying their wares
+            case .buyWares:
+                print("SellWares")
+                radius = GameplayConfiguration.TaskBot.wanderPathRadius
+                (agentBehavior, debugPathPoints)  = TaskBotBehavior.wanderBehaviour(forAgent: agent, inScene: levelScene)
+                debugColor = SKColor.yellow
             
             // TaskBot is a criminal and is selling their wares
             case .sellWares:
