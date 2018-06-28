@@ -8,13 +8,22 @@
 //
 
 Abstract:
-A `GKComponent` that supplies and manages the 'TaskBot's inciting others.
+A `GKComponent` that supplies and manages the 'TaskBot's appetite for alcohol and drugs.
 
-A TaskBot can only appetite others periodically and can only influence others nearby.
+A TaskBot's appetite will gradually increase.  When their appetite is at maximum, they will buy more.
 */
 
 import SpriteKit
 import GameplayKit
+
+protocol AppetiteComponentDelegate: class
+{
+    // Called whenever a `HealthComponent` loses charge through a call to `loseCharge`
+    func appetiteComponentDidLoseAppetite(appetiteComponent: AppetiteComponent)
+    
+    // Called whenever a `HealthComponent` loses charge through a call to `gainCharge`
+    func appetiteComponentDidAddAppetite(appetiteComponent: AppetiteComponent)
+}
 
 class AppetiteComponent: GKComponent
 {
@@ -22,6 +31,29 @@ class AppetiteComponent: GKComponent
     
     
     // MARK: Properties
+    
+    var appetite: Double
+    
+    let maximumAppetite: Double
+    
+    var percentageAppetite: Double
+    {
+        if maximumAppetite == 0
+        {
+            return 0.0
+        }
+        
+        return appetite / maximumAppetite
+    }
+    
+    /**
+     A `ColourBar` used to show the current appetite level. The `ColourBar`'s node
+     is added to the scene when the component's entity is added to a `LevelScene`
+     via `addEntity(_:)`.
+     */
+    let appetiteBar: ColourBar?
+    
+    weak var delegate: AppetiteComponentDelegate?
     
     /// Set to `true` whenever the player is holding down the attack button.
     var isTriggered = false
@@ -51,9 +83,24 @@ class AppetiteComponent: GKComponent
     
     // MARK: Initializers
     
-    override init()
+    init(appetite: Double, maximumAppetite: Double, displaysAppetiteBar: Bool = false)
     {
+        self.appetite = appetite
+        self.maximumAppetite = maximumAppetite
+        
+        // Create a `ColourBar` if this `AppetiteComponent` should display one.
+        if displaysAppetiteBar
+        {
+            appetiteBar = ColourBar(levelColour: GameplayConfiguration.AppetiteBar.foregroundLevelColour)
+        }
+        else
+        {
+            appetiteBar = nil
+        }
+        
         super.init()
+        
+        appetiteBar?.level = percentageAppetite
         
         stateMachine = GKStateMachine(states: [
             AppetiteIdleState(appetiteComponent: self),
