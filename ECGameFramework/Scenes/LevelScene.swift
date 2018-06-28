@@ -580,6 +580,60 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
                 
                 obeisanceBar.constraints = [constraint]
             }
+            
+            /*
+             If the entity has a `AppetiteComponent` with a `AppetiteBar`, add the `AppetiteBar`
+             to the scene. Constrain the `AppetiteBar` to the `RenderComponent`'s node.
+             */
+            if let appetiteBar = entity.component(ofType: AppetiteComponent.self)?.appetiteBar
+            {
+                addNode(node: appetiteBar, toWorldLayer: .aboveCharacters)
+                
+                // Constrain the `ChargeBar`'s node position to the render node.
+                let xRange = SKRange(constantValue: GameplayConfiguration.AppetiteBar.appetiteBarOffset.x)
+                let yRange = SKRange(constantValue: GameplayConfiguration.AppetiteBar.appetiteBarOffset.y)
+                
+                let constraint = SKConstraint.positionX(xRange, y: yRange)
+                constraint.referenceNode = renderNode
+                
+                appetiteBar.constraints = [constraint]
+            }
+            
+            /*
+             If the entity has a `IntoxicationComponent` with a `IntoxicationBar`, add the `IntoxicationBar`
+             to the scene. Constrain the `IntoxicationBar` to the `RenderComponent`'s node.
+             */
+            if let intoxicationBar = entity.component(ofType: IntoxicationComponent.self)?.intoxicationBar
+            {
+                addNode(node: intoxicationBar, toWorldLayer: .aboveCharacters)
+                
+                // Constrain the `ChargeBar`'s node position to the render node.
+                let xRange = SKRange(constantValue: GameplayConfiguration.IntoxicationBar.intoxicationBarOffset.x)
+                let yRange = SKRange(constantValue: GameplayConfiguration.IntoxicationBar.intoxicationBarOffset.y)
+                
+                let constraint = SKConstraint.positionX(xRange, y: yRange)
+                constraint.referenceNode = renderNode
+                
+                intoxicationBar.constraints = [constraint]
+            }
+            
+            /*
+             If the entity has a `SellingWaresComponent` with a `SellingWaresBar`, add the `SellingWaresBar`
+             to the scene. Constrain the `SellingWaresBar` to the `RenderComponent`'s node.
+             */
+            if let sellingWaresBar = entity.component(ofType: SellingWaresComponent.self)?.sellingWaresBar
+            {
+                addNode(node: sellingWaresBar, toWorldLayer: .aboveCharacters)
+                
+                // Constrain the `ChargeBar`'s node position to the render node.
+                let xRange = SKRange(constantValue: GameplayConfiguration.SellingWaresBar.sellingWaresBarOffset.x)
+                let yRange = SKRange(constantValue: GameplayConfiguration.SellingWaresBar.sellingWaresBarOffset.y)
+                
+                let constraint = SKConstraint.positionX(xRange, y: yRange)
+                constraint.referenceNode = renderNode
+                
+                sellingWaresBar.constraints = [constraint]
+            }
         }
         
         // If the entity has an `IntelligenceComponent`, enter its initial state.
