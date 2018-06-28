@@ -20,7 +20,7 @@ class SellWaresState: GKState
     
     // The amount of time the 'ManBot' has been in its "Detained" state
     var elapsedTime: TimeInterval = 0.0
-    
+
     
     /// The `AnimationComponent` associated with the `entity`.
     var animationComponent: AnimationComponent
@@ -36,10 +36,18 @@ class SellWaresState: GKState
         return temperamentComponent
     }
     
+    /// The `Intelligenceomponent` associated with the `entity`.
+    var intelligenceComponent: IntelligenceComponent
+    {
+        guard let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self) else { fatalError("A SellWaresState entity must have an IntelligenceComponent.") }
+        return intelligenceComponent
+    }
+    
     //MARK:- Initializers
     required init(entity: CriminalBot)
     {
         self.entity = entity
+
     }
     
     deinit {
@@ -57,29 +65,26 @@ class SellWaresState: GKState
         //Request the "detained animation for this state's 'ProtestorBot'
         animationComponent.requestedAnimationState = .arrested
         
-        //temperamentComponent.stateMachine.enter(SubduedState.self)
-        //entity.isActive = false
     }
     
     override func update(deltaTime seconds: TimeInterval)
     {
         super.update(deltaTime: seconds)
         
+        animationComponent.requestedAnimationState = .arrested
         
+        intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
         
         elapsedTime += seconds
         
-        /*
-         If the arrested manbot reaches the meatwagon pointer, move to detained state
-         */
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
     {
         switch stateClass
         {
-            //        case is TaskBotAgentControlledState.Type:
-            //            return true
+            case is TaskBotAgentControlledState.Type:
+                return true
             
         default:
             return false
