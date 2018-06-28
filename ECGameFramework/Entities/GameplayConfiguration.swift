@@ -32,6 +32,34 @@ struct GameplayConfiguration
         
     }
     
+    struct SellingWaresBar
+    {
+        // The charge level node color.
+        static let foregroundLevelColour = SKColor.white
+        
+        // The offset of the Entity's charge bar from its position.
+        static let sellingWaresBarOffset = CGPoint(x: 0.0, y: 125.0)
+    }
+    
+    struct IntoxicationBar
+    {
+        // The charge level node color.
+        static let foregroundLevelColour = SKColor.yellow
+        
+        // The offset of the Entity's charge bar from its position.
+        static let intoxicationBarOffset = CGPoint(x: 0.0, y: 115.0)
+    }
+    
+    struct AppetiteBar
+    {
+        // The charge level node color.
+        static let foregroundLevelColour = SKColor.white
+        
+        // The offset of the Entity's charge bar from its position.
+        static let appetiteBarOffset = CGPoint(x: 0.0, y: 105.0)
+    }
+    
+
     
     struct ChargeBar
     {
@@ -81,14 +109,6 @@ struct GameplayConfiguration
         static let obeisanceBarOffset = CGPoint(x: 0.0, y: 55.0)
     }
     
-    struct IntoxicationBar
-    {
-        // The charge level node color.
-        static let foregroundLevelColour = SKColor.brown
-        
-        // The offset of the Entity's respect bar from its position.
-        static let intoxicationBarOffset = CGPoint(x: 0.0, y: 45.0)
-    }
     
     struct Beam
     {
@@ -111,6 +131,27 @@ struct GameplayConfiguration
         static let coolDownDuration: TimeInterval = 1.0
     }
 
+    
+    struct SellingWares
+    {
+        /// The distance (in points) over which the beam can be fired.
+        static let arcLength: CGFloat = 300.0
+        
+        /// The arc angle (in radians) within which the beam is effective.
+        static let arcAngle = CGFloat(45.0 * (Double.pi / 180.0))
+        
+        /// The maximum arc angle (in radians) after being adjusted for distance from target.
+        static let maxArcAngle = CGFloat(0.35)
+        
+        /// The maximum number of seconds for which the beam can be fired before recharging.
+        static let maximumSellingWaresDuration: TimeInterval = 2.0
+        
+        /// The amount of charge points the beam drains from `TaskBot`s per second.
+        static let chargeLossPerSecond = 90.0
+        
+        /// The length of time that the beam takes to recharge when it is fully depleted.
+        static let coolDownDuration: TimeInterval = 5.0
+    }
     
     struct Incite
     {
@@ -158,6 +199,8 @@ struct GameplayConfiguration
 
     struct Intoxication
     {
+
+        
         static let maximumIntoxicationDuration: TimeInterval = 10.0
     }
     
@@ -231,6 +274,8 @@ struct GameplayConfiguration
         /// The maximum amount of obeisance a `GroundBot` stores.
         static let maximumObeisance = 100.0
         
+
+        
         /// The length of time for which the `PlayerBot` remains in its "hit" state.
         static let hitStateDuration: TimeInterval = 0.75
         
@@ -279,8 +324,8 @@ struct GameplayConfiguration
         static let agentMass: Float = 0.25
         
         /// The radius of the `TaskBot`'s physics body.
-        static var physicsBodyRadius: CGFloat = 27.0
-        //static var physicsBodyRadius: CGFloat = 15.0
+        //static var physicsBodyRadius: CGFloat = 35.0
+        static var physicsBodyRadius: CGFloat = 25.0
 
         /// The offset of the `TaskBot` physics body's center from the `TaskBot`'s center.
         static let physicsBodyOffset = CGPoint(x: 0.0, y: 0.0)
@@ -473,6 +518,22 @@ struct GameplayConfiguration
         static let maximumRespect = 100.0
         
         
+        //MARK: Appetite Properties
+        
+        /// The maximum amount of appetite a `GroundBot` stores.
+        static let maximumAppetite = 100.0
+        
+        /// The amount of appetite a `PlayerBot` loses by a single `GroundBot` attack.
+        static let appetiteGainPerCycle = 1.0
+        
+        
+        //MARK: Intoxication Properties
+        
+        /// The maximum amount of intoxication a `GroundBot` stores.
+        static let maximumIntoxication = 100.0
+        
+        /// The amount of intoxication a `Protestor` gains each cycle
+        static let intoxicationGainPerCycle = 1.0
         
         //MARK: Obeisance Properties
         
@@ -548,6 +609,23 @@ struct GameplayConfiguration
         // The amount of health a `PlayerBot` loses by a single `GroundBot` attack.
         static let healthLossPerContact = 15.0
         
+        //MARK: Appetite Properties
+        
+        /// The maximum amount of appetite a `GroundBot` stores.
+        static let maximumAppetite = 100.0
+        
+        /// The amount of appetite a `PlayerBot` loses by a single `GroundBot` attack.
+        static let appetiteLossPerCycle = 1.0
+        
+        
+        
+        //MARK: Intoxication Properties
+        
+        /// The maximum amount of intoxication a `GroundBot` stores.
+        static let maximumIntoxication = 100.0
+        
+        /// The amount of intoxication a `PlayerBot` loses by a single `GroundBot` attack.
+        static let intoxicationLossPerCycle = 1.0
         
         
         //MARK: Resistance Properties
@@ -571,12 +649,20 @@ struct GameplayConfiguration
         
         //MARK: Obeisance Properties
         
-        
         /// The maximum amount of obesiance a `GroundBot` stores.
         static let maximumObeisance = 100.0
         
         /// The amount of obeisance a `PlayerBot` loses by a single `GroundBot` attack.
         static let obeisanceLossPerCycle = 1.0
+        
+        
+        //MARK: SellingWares Properties
+        
+        /// The maximum amount of obesiance a `GroundBot` stores.
+        static let maximumWares = 100.0
+        
+        /// The amount of product a `CriminalBot` loses by a single `Protestor` purchase.
+        static let sellingWaresLossPerCycle = 1.0
         
         
         //MARK: Hit Properties
