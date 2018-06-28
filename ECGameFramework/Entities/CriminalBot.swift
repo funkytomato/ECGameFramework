@@ -15,11 +15,8 @@ import SpriteKit
 import GameplayKit
 
 
-class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate, ChargeComponentDelegate, RespectComponentDelegate, ObeisanceComponentDelegate, ResourceLoadableType
+class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate, ChargeComponentDelegate, RespectComponentDelegate, ObeisanceComponentDelegate, SellingWaresComponentDelegate, ResourceLoadableType
 {
-
-    
-
     
     // MARK: Static Properties
     
@@ -80,6 +77,7 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
         let initialCharge: Double
         let initialRespect: Double
         let initialObeisance: Double
+        let initialSellingWares: Double
         
         self.isCriminal = true
         
@@ -95,6 +93,8 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
             initialCharge = 100.0
             initialRespect = 100.0
             initialObeisance = 100.0
+            initialSellingWares = 100.0
+            
             texture = SKTexture(imageNamed: "CriminalBot")
         }
             
@@ -110,6 +110,7 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
             initialCharge = GameplayConfiguration.CriminalBot.maximumCharge
             initialRespect = GameplayConfiguration.CriminalBot.maximumRespect
             initialObeisance = GameplayConfiguration.CriminalBot.maximumObeisance
+            initialSellingWares = GameplayConfiguration.CriminalBot.maximumWares
             
             texture = SKTexture(imageNamed: "CriminalBotBad")
         }
@@ -139,7 +140,8 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
             TaskBotPlayerControlledState(entity: self),
             TaskBotFleeState(entity: self),
             TaskBotInjuredState(entity: self),
-            TaskBotZappedState(entity: self)
+            TaskBotZappedState(entity: self),
+            SellWaresState(entity: self)
             ])
         addComponent(intelligenceComponent)
         
@@ -199,6 +201,10 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
         obesianceComponent.delegate = self
         addComponent(obesianceComponent)
         
+        let sellingWaresComponent = SellingWaresComponent(wares: initialSellingWares, maximumWares: GameplayConfiguration.CriminalBot.maximumWares, displaysWaresBar: true)
+        sellingWaresComponent.delegate = self
+        addComponent(sellingWaresComponent)
+        
         let movementComponent = MovementComponent()
         addComponent(movementComponent)
         
@@ -245,9 +251,20 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
         super.contactWithEntityDidBegin(entity)
     }
     
+    
     override func contactWithEntityDidEnd(_ entity: GKEntity)
     {
         super.contactWithEntityDidEnd(entity)
+    
+        //If a Criminal is selling wares and a Protestor touches Criminal and wants to buy, sell them a product
+        
+ 
+        guard let protestorAppetiteComponent = entity.component(ofType: AppetiteComponent.self) else { return }
+        
+        if protestorAppetiteComponent.needsConsumable
+        {
+            protestorAppetiteComponent.consuming = true
+        }
     }
     
     // MARK: RulesComponentDelegate
@@ -256,6 +273,7 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
     {
         super.rulesComponent(rulesComponent: rulesComponent, didFinishEvaluatingRuleSystem: ruleSystem)
         
+        mandate = .sellWares
         
         guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
         
@@ -384,6 +402,19 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
             print("Player has full obeisance")
         }
     }
+    
+    // MARK: SellingWares Component Delegate
+    func sellingWaresComponentDidLoseWares(sellingWaresComponent: SellingWaresComponent)
+    {
+        print("SellingWares lose wares")
+    }
+    
+    func sellingWaresComponenttDidGainWares(sellingWaresComponent: SellingWaresComponent)
+    {
+        print("SellingWares gain wares")
+    }
+    
+
     
     // MARK: ResourceLoadableType
     
