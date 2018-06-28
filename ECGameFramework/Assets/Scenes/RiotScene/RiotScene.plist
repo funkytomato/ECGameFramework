@@ -25,7 +25,7 @@
 			<key>initialOrientation</key>
 			<string>South</string>
 			<key>botType</key>
-			<string>protestor</string>
+			<string>criminal</string>
 		</dict>
 		<dict>
 			<key>temperament</key>
