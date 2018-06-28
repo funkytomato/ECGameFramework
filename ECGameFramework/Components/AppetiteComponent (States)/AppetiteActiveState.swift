@@ -71,18 +71,18 @@ class AppetiteActiveState: GKState
         // Update the "amount of time firing" tracker.
         elapsedTime += seconds
         
-        if elapsedTime >= GameplayConfiguration.Appetite.maximumAppetiteDuration
-        {
-            /**
-             The player has been firing the beam for too long. Enter the `AppetiteCoolingState`
-             to disable firing until the beam has had time to cool down.
-             */
-            stateMachine?.enter(AppetiteCoolingState.self)
-        }
-        else if !appetiteComponent.isTriggered
+//        if elapsedTime >= GameplayConfiguration.Appetite.maximumAppetiteDuration
+//        {
+//            /**
+//             The player has been firing the beam for too long. Enter the `AppetiteCoolingState`
+//             to disable firing until the beam has had time to cool down.
+//             */
+//            stateMachine?.enter(AppetiteCoolingState.self)
+//        }
+        if !appetiteComponent.isTriggered
         {
             // The beam is no longer being fired. Enter the `AppetiteIdleState`.
-            stateMachine?.enter(AppetiteIdleState.self)
+            stateMachine?.enter(AppetiteCoolingState.self)
         }
     }
     
