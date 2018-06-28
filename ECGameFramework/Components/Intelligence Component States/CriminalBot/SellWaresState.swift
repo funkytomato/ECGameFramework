@@ -16,7 +16,7 @@ import GameplayKit
 class SellWaresState: GKState
 {
     // MARK:- Properties
-    unowned var entity: ProtestorBot
+    unowned var entity: CriminalBot
     
     // The amount of time the 'ManBot' has been in its "Detained" state
     var elapsedTime: TimeInterval = 0.0
@@ -37,7 +37,7 @@ class SellWaresState: GKState
     }
     
     //MARK:- Initializers
-    required init(entity: ProtestorBot)
+    required init(entity: CriminalBot)
     {
         self.entity = entity
     }
