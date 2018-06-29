@@ -64,7 +64,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         case incite
         
         // Buy wares
-        case buyWares
+        case buyWares(GKAgent2D)
         
         // Sell wares
         case sellWares
@@ -183,6 +183,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
 
     //Is the taskbot protestor?
     var isProtestor: Bool
+    
+    //Is the taskbot hungry for alcohol and drugs
+    var isHungry: Bool
     
     //Is the taskbot Subservient?
     var isSubservient: Bool
@@ -320,7 +323,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 debugColor = SKColor.gray
   
             // TaskBot is a protestor and is buying their wares
-            case .buyWares:
+            case let .buyWares(target):
                 print("SellWares")
                 radius = GameplayConfiguration.TaskBot.wanderPathRadius
                 (agentBehavior, debugPathPoints)  = TaskBotBehavior.wanderBehaviour(forAgent: agent, inScene: levelScene)
@@ -437,6 +440,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
 
         // Whether or not the taskbot is protestor
         self.isProtestor = false
+        
+        //Whether or not the taskbot is hungry for alcohol and drugs
+        self.isHungry = false
         
         //Whether or not the taskbot is Subservient to the Player
         self.isSubservient = false
@@ -668,6 +674,30 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         
         let supportPoliceBot = supportTaskBotRaw.reduce(0.0, max)
         print("supportPoliceBot: \(supportPoliceBot.description), supportPoliceBotRaw: \(supportTaskBotRaw.description) ")
+
+        
+        //A series of situation in which we prefer to Incite other Protestors
+        let huntCriminalTaskBotRaw = [
+            
+            //Police are in trouble are nearby
+            ruleSystem.minimumGrade(forFacts: [
+                Fact.criminalTaskBotNear.rawValue as AnyObject
+                ]),
+            
+            //Police are in trouble are medium distance
+            ruleSystem.minimumGrade(forFacts: [
+                Fact.criminalTaskBotMedium.rawValue as AnyObject
+                ]),
+            
+            //Police are in trouble are far away
+            ruleSystem.minimumGrade(forFacts: [
+                Fact.criminalTaskBotFar.rawValue as AnyObject
+                ])
+        ]
+        
+        let huntCriminalTaskBot = huntCriminalTaskBotRaw.reduce(0.0, max)
+        print("huntCriminalTaskBot: \(huntCriminalTaskBot.description), huntCriminalTaskBotRaw: \(huntCriminalTaskBotRaw.description) ")
+        
         
         let fleeDangerousTaskBot = fleeTaskBotRaw.reduce(0.0, max)
         //print("fleeDangerousTaskBot: \(fleeDangerousTaskBot.description), fleeTaskBotRaw: \(fleeTaskBotRaw.description) ")
@@ -846,6 +876,13 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             mandate = .huntAgent(dangerousTaskBot)
         }
          
+        //TaskBot is Protestor and wants to buy wares
+        else if self.isProtestor && self.isHungry && huntCriminalTaskBot > 0.0
+        {
+            guard let criminalBot = state.nearestCriminalTaskBotTarget?.target.agent else { return }
+            mandate = .buyWares(criminalBot)
+        }
+            
         //TaskBot is Police and another Policeman needs help, go support them
         else if self.isPolice && supportPoliceBot > 0.0
         {
