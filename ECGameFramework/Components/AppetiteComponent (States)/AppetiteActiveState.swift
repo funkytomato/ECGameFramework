@@ -71,14 +71,28 @@ class AppetiteActiveState: GKState
         // Update the "amount of time firing" tracker.
         elapsedTime += seconds
         
-//        if elapsedTime >= GameplayConfiguration.Appetite.maximumAppetiteDuration
+        let appetiteToGain = GameplayConfiguration.ProtestorBot.appetiteGainPerCycle
+        
+        if appetiteComponent.isConsumingProduct
+        {
+            //Decrease the appetite as product is being consumed
+            appetiteComponent.loseAppetite(appetiteToLose: appetiteToGain)
+        }
+        else
+        {
+            //Increase the appetite as product has been consumed
+            appetiteComponent.gainAppetite(appetiteToAdd: appetiteToGain)
+        }
+        
+//        if let appetiteComponent = appetiteComponent.entity?.component(ofType: AppetiteComponent.self), appetiteComponent.hasAppetite
 //        {
-//            /**
-//             The player has been firing the beam for too long. Enter the `AppetiteCoolingState`
-//             to disable firing until the beam has had time to cool down.
-//             */
-//            stateMachine?.enter(AppetiteCoolingState.self)
+//            let appetiteToGain = GameplayConfiguration.ProtestorBot.appetiteGainPerCycle
+//
+//            //print("ObeisanceToLose: \(obeisanceToLose.debugDescription)")
+//
+//
 //        }
+        
         if !appetiteComponent.isTriggered
         {
             // The beam is no longer being fired. Enter the `AppetiteIdleState`.
