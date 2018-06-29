@@ -43,6 +43,14 @@ class SellWaresState: GKState
         return intelligenceComponent
     }
     
+    /// The `SellingWaresComponent` associated with the `entity`.
+    var sellingWaresComponent: SellingWaresComponent
+    {
+        guard let sellingWaresComponent = entity.component(ofType: SellingWaresComponent.self) else { fatalError("A SellWaresState entity must have an SellingWaresComponent.") }
+        return sellingWaresComponent
+    }
+    
+    
     //MARK:- Initializers
     required init(entity: CriminalBot)
     {
@@ -58,6 +66,8 @@ class SellWaresState: GKState
     override func didEnter(from previousState: GKState?)
     {
         super.didEnter(from: previousState)
+     
+        sellingWaresComponent.isTriggered = true
         
         //Reset the tracking of how long the 'ManBot' has been in "Detained" state
         elapsedTime = 0.0
