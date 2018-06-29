@@ -35,7 +35,7 @@ struct GameplayConfiguration
     struct SellingWaresBar
     {
         // The charge level node color.
-        static let foregroundLevelColour = SKColor.white
+        static let foregroundLevelColour = SKColor.darkGray
         
         // The offset of the Entity's charge bar from its position.
         static let sellingWaresBarOffset = CGPoint(x: 0.0, y: 125.0)
@@ -44,7 +44,7 @@ struct GameplayConfiguration
     struct IntoxicationBar
     {
         // The charge level node color.
-        static let foregroundLevelColour = SKColor.yellow
+        static let foregroundLevelColour = SKColor.orange
         
         // The offset of the Entity's charge bar from its position.
         static let intoxicationBarOffset = CGPoint(x: 0.0, y: 115.0)
@@ -103,7 +103,7 @@ struct GameplayConfiguration
     struct ObeisanceBar
     {
         // The charge level node color.
-        static let foregroundLevelColour = SKColor.brown
+        static let foregroundLevelColour = SKColor.lightGray
         
         // The offset of the Entity's respect bar from its position.
         static let obeisanceBarOffset = CGPoint(x: 0.0, y: 55.0)
