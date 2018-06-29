@@ -51,6 +51,8 @@ class IntoxicationCoolingState: GKState
         elapsedTime = 0.0
         
         animationComponent.requestedAnimationState = .idle
+        
+       // intoxicationComponent.isTriggered = false
     }
     
     override func update(deltaTime seconds: TimeInterval)
@@ -64,9 +66,7 @@ class IntoxicationCoolingState: GKState
         // If the beam has spent long enough cooling down, enter `BeamIdleState`.
         if elapsedTime >= GameplayConfiguration.Incite.coolDownDuration
         {
-            stateMachine?.enter(InciteIdleState.self)
-            
-            //Should refill the incite bar for next inciting round
+            stateMachine?.enter(IntoxicationIdleState.self)
         }
     }
     
@@ -74,7 +74,7 @@ class IntoxicationCoolingState: GKState
     {
         switch stateClass
         {
-        case is InciteIdleState.Type, is InciteActiveState.Type:
+        case is IntoxicationIdleState.Type, is IntoxicationActiveState.Type:
             return true
             
         default:
