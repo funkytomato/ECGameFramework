@@ -235,12 +235,14 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
         fatalError("init(coder:) has not been implemented")
     }
     
-    required init(isGood: Bool, goodPathPoints: [CGPoint], badPathPoints: [CGPoint]) {
+    required init(isGood: Bool, goodPathPoints: [CGPoint], badPathPoints: [CGPoint])
+    {
         fatalError("init(isGood:goodPathPoints:badPathPoints:) has not been implemented")
     }
     
     
-    deinit {
+    deinit
+    {
         print("Deallocating CriminalBot")
     }
     
@@ -273,15 +275,19 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
             
             //Reduce the number of wares the Criminal has
             sellingWaresComponent.loseWares(waresToLose: 10.0)
+            
+            //Trigger the Protestor isConSuming flag
+            protestorAppetiteComponent.isConsumingProduct = true
+            
+            //Protestor has bought product and so does not need to look to buy more
+            protestorAppetiteComponent.isTriggered = false
+            
+            //Ensure the Protestor has an IntoxicationComponent
+            guard let protestorIntoxicationComponent = entity.component(ofType: IntoxicationComponent.self) else { return }
+            
+            //Trigger the Protestor's intoxication component
+            protestorIntoxicationComponent.isTriggered = true
         }
-        
-
-        
-//
-//        if protestorAppetiteComponent.needsConsumable
-//        {
-//            protestorAppetiteComponent.consuming = true
-//        }
     }
     
     // MARK: RulesComponentDelegate
@@ -329,7 +335,6 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
         guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
         
         print("current state: \(intelligenceComponent.stateMachine.currentState.debugDescription) isGood: \(self.isGood)")
- //       intelligenceComponent.stateMachine.enter(TaskBotZappedState.self)
         
         isGood = !chargeComponent.hasCharge
         

@@ -27,6 +27,15 @@ class IntoxicationComponent: GKComponent
 {
     // MARK: Properties
     
+    /**
+     The state machine for this `BeamComponent`. Defined as an implicitly
+     unwrapped optional property, because it is created during initialization,
+     but cannot be created until after we have called super.init().
+     */
+    var stateMachine: GKStateMachine!
+    
+    var isTriggered: Bool
+    
     var intoxication: Double
     
     let maximumIntoxication: Double
@@ -65,6 +74,7 @@ class IntoxicationComponent: GKComponent
     
     init(intoxication: Double, maximumIntoxication: Double, displaysIntoxicationBar: Bool = false)
     {
+        self.isTriggered = false
         self.intoxication = intoxication
         self.maximumIntoxication = maximumIntoxication
         
@@ -81,6 +91,14 @@ class IntoxicationComponent: GKComponent
         super.init()
         
         intoxicationBar?.level = percentageIntoxication
+        
+        stateMachine = GKStateMachine(states: [
+            IntoxicationIdleState(intoxicationComponent: self),
+            IntoxicationActiveState(intoxicationComponent: self),
+            IntoxicationCoolingState(intoxicationComponent: self)
+            ])
+        
+        stateMachine.enter(IntoxicationIdleState.self)
     }
     
     required init?(coder aDecoder: NSCoder)
@@ -91,6 +109,17 @@ class IntoxicationComponent: GKComponent
     deinit {
         print("Deallocating IntoxicationComponent")
     }
+    
+    
+    override func update(deltaTime seconds: TimeInterval)
+    {
+        stateMachine.update(deltaTime: seconds)
+        
+        //guard (stateMachine.currentState as? IntoxicationActiveState) != nil else { return }
+        
+        //animationComponent.requestedAnimationState = .inciting
+    }
+    
     
     // MARK: Component actions
     

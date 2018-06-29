@@ -55,11 +55,15 @@ class IntoxicationIdleState: GKState
         super.update(deltaTime: seconds)
         
         print("IntoxicationIdleState update: \(intoxicationComponent.entity.debugDescription)")
-        
-        if intoxicationComponent.hasFullintoxication
+
+        if intoxicationComponent.isTriggered
         {
-            stateMachine?.enter(IntoxicationActiveState.self)
+             stateMachine?.enter(IntoxicationActiveState.self)
         }
+//        if intoxicationComponent.hasFullintoxication
+//        {
+//            stateMachine?.enter(IntoxicationActiveState.self)
+//        }
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool

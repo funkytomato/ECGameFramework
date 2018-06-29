@@ -65,7 +65,6 @@ class AppetiteActiveState: GKState
         print("AppetiteActiveState updating")
         
         //print(animationComponent.requestedAnimationState.debugDescription)
-        
         animationComponent.requestedAnimationState = .inciting
         
         // Update the "amount of time firing" tracker.
@@ -83,15 +82,6 @@ class AppetiteActiveState: GKState
             //Increase the appetite as product has been consumed
             appetiteComponent.gainAppetite(appetiteToAdd: appetiteToGain)
         }
-        
-//        if let appetiteComponent = appetiteComponent.entity?.component(ofType: AppetiteComponent.self), appetiteComponent.hasAppetite
-//        {
-//            let appetiteToGain = GameplayConfiguration.ProtestorBot.appetiteGainPerCycle
-//
-//            //print("ObeisanceToLose: \(obeisanceToLose.debugDescription)")
-//
-//
-//        }
         
         if !appetiteComponent.isTriggered
         {

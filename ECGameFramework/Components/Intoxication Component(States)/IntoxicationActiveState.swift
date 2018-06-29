@@ -54,8 +54,9 @@ class IntoxicationActiveState: GKState
         // Reset the "amount of time firing" tracker when we enter the "firing" state.
         elapsedTime = 0.0
         
+        intoxicationComponent.isTriggered = false
         
-        animationComponent.requestedAnimationState = .inciting
+        //animationComponent.requestedAnimationState = .drinking
     }
     
     override func update(deltaTime seconds: TimeInterval)
@@ -66,24 +67,29 @@ class IntoxicationActiveState: GKState
         
         //print(animationComponent.requestedAnimationState.debugDescription)
         
-        animationComponent.requestedAnimationState = .inciting
+        //animationComponent.requestedAnimationState = .drinking
         
         // Update the "amount of time firing" tracker.
         elapsedTime += seconds
         
+
+        
         if elapsedTime >= GameplayConfiguration.Intoxication.maximumIntoxicationDuration
         {
             /**
-             The player has been firing the beam for too long. Enter the `IntoxicationCoolingState`
-             to disable firing until the beam has had time to cool down.
+             The protestor has consumed product, and intoxication will rise a predefined rise over a peroid of time.
+             And then move to cooling state where intoxication will fall a little bit.
              */
             stateMachine?.enter(IntoxicationCoolingState.self)
+            
+            //Increase intoxication levels
+            intoxicationComponent.addintoxication(intoxicationToAdd: seconds * 1.0)
         }
-        else if intoxicationComponent.intoxication < 40.0
-        {
-            // The beam is no longer being fired. Enter the `IntoxicationIdleState`.
-            stateMachine?.enter(IntoxicationIdleState.self)
-        }
+//        else if intoxicationComponent.intoxication < 40.0
+//        {
+//            // The beam is no longer being fired. Enter the `IntoxicationIdleState`.
+//            stateMachine?.enter(IntoxicationIdleState.self)
+//        }
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
