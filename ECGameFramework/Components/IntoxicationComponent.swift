@@ -27,6 +27,8 @@ class IntoxicationComponent: GKComponent
 {
     // MARK: Properties
     
+    var isTriggered: Bool
+    
     var intoxication: Double
     
     let maximumIntoxication: Double
@@ -65,6 +67,7 @@ class IntoxicationComponent: GKComponent
     
     init(intoxication: Double, maximumIntoxication: Double, displaysIntoxicationBar: Bool = false)
     {
+        self.isTriggered = false
         self.intoxication = intoxication
         self.maximumIntoxication = maximumIntoxication
         
