@@ -145,18 +145,6 @@ class AppetiteComponent: GKComponent
         
         animationComponent.requestedAnimationState = .arrested
         
-        
-//        //Product is being consumed, so drain appetite
-//        if self.isConsumingProduct
-//        {
-//            loseAppetite(appetiteToLose: GameplayConfiguration.ProtestorBot.appetiteGainPerCycle)
-//        }
-//        else
-//        {
-//            gainAppetite(appetiteToAdd: GameplayConfiguration.ProtestorBot.appetiteGainPerCycle)
-//        }
-        
-        
         stateMachine.update(deltaTime: seconds)
     }
     
