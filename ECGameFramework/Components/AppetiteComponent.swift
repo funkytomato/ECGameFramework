@@ -33,7 +33,7 @@ class AppetiteComponent: GKComponent
     // MARK: Properties
     
     //A product has been bought, now consuming
-    var consuming: Bool
+    var isConsumingProduct: Bool
     
     var appetite: Double
     
@@ -100,7 +100,7 @@ class AppetiteComponent: GKComponent
     {
         self.appetite = appetite
         self.maximumAppetite = maximumAppetite
-        self.consuming = false
+        self.isConsumingProduct = false
         
         // Create a `ColourBar` if this `AppetiteComponent` should display one.
         if displaysAppetiteBar
@@ -141,9 +141,21 @@ class AppetiteComponent: GKComponent
     
     override func update(deltaTime seconds: TimeInterval)
     {
-        guard (stateMachine.currentState as? AppetiteActiveState) != nil else { return }
+        //guard (stateMachine.currentState as? AppetiteActiveState) != nil else { return }
         
         animationComponent.requestedAnimationState = .arrested
+        
+        
+//        //Product is being consumed, so drain appetite
+//        if self.isConsumingProduct
+//        {
+//            loseAppetite(appetiteToLose: GameplayConfiguration.ProtestorBot.appetiteGainPerCycle)
+//        }
+//        else
+//        {
+//            gainAppetite(appetiteToAdd: GameplayConfiguration.ProtestorBot.appetiteGainPerCycle)
+//        }
+        
         
         stateMachine.update(deltaTime: seconds)
     }
