@@ -259,12 +259,29 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
         //If a Criminal is selling wares and a Protestor touches Criminal and wants to buy, sell them a product
         
  
+        //Check protestor has an appetite
         guard let protestorAppetiteComponent = entity.component(ofType: AppetiteComponent.self) else { return }
         
-        if protestorAppetiteComponent.needsConsumable
+        //Check the protestor wants a product
+        let wantsWares = protestorAppetiteComponent.isTriggered
+        
+        //If Protestor wants product, sell it to them
+        if wantsWares
         {
-            protestorAppetiteComponent.consuming = true
+            //Check the criminal has a SellingWaresComponent
+            guard let sellingWaresComponent = component(ofType: SellingWaresComponent.self) else { return }
+            
+            //Reduce the number of wares the Criminal has
+            sellingWaresComponent.loseWares(waresToLose: 10.0)
         }
+        
+
+        
+//
+//        if protestorAppetiteComponent.needsConsumable
+//        {
+//            protestorAppetiteComponent.consuming = true
+//        }
     }
     
     // MARK: RulesComponentDelegate
@@ -273,7 +290,7 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
     {
         super.rulesComponent(rulesComponent: rulesComponent, didFinishEvaluatingRuleSystem: ruleSystem)
         
-        mandate = .sellWares
+//        mandate = .sellWares
         
         guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
         
