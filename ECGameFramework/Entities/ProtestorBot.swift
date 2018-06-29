@@ -426,14 +426,24 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
     }
     
     // MARK: Intoxication Component Delegate
-    func IntoxicationComponentDidLoseintoxication(IntoxicationComponent: IntoxicationComponent)
+    func intoxicationComponentDidLoseintoxication(intoxicationComponent: IntoxicationComponent)
     {
         print("Intoxication Component Lose Appetite")
+        
+        if !intoxicationComponent.hasintoxication
+        {
+            print("Protestor has sobered up")
+        }
     }
     
-    func IntoxicationComponentDidAddintoxication(IntoxicationComponent: IntoxicationComponent)
+    func intoxicationComponentDidAddintoxication(intoxicationComponent: IntoxicationComponent)
     {
         print("Intoxication Component Lose Appetite")
+        
+        if intoxicationComponent.hasFullintoxication
+        {
+            print("Protestor is drunk")
+        }
     }
     
     // MARK: Charge Component Delegate
