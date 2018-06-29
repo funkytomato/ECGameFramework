@@ -25,6 +25,7 @@
 		181146C320DEC14E0060EF0A /* AppetiteIdleState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181146C220DEC14E0060EF0A /* AppetiteIdleState.swift */; };
 		1818BC1120A6612C007FB4C7 /* TaskBotPlayerControlledState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1818BC1020A6612C007FB4C7 /* TaskBotPlayerControlledState.swift */; };
 		1823608D209BA1D000E71EB6 /* ResistanceComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1823608C209BA1D000E71EB6 /* ResistanceComponent.swift */; };
+		1838BBA420E5895E00C59E36 /* ProtestorBuyWaresState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1838BBA320E5895E00C59E36 /* ProtestorBuyWaresState.swift */; };
 		184974B5208A440D00F7CEEB /* ProtestorBot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184974B4208A440D00F7CEEB /* ProtestorBot.swift */; };
 		184974B8208A54D300F7CEEB /* ProtestorBotRotateToAttackState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184974B7208A54D300F7CEEB /* ProtestorBotRotateToAttackState.swift */; };
 		184974BA208A557000F7CEEB /* ProtestorBotAttackState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184974B9208A557000F7CEEB /* ProtestorBotAttackState.swift */; };
@@ -241,6 +242,7 @@
 		181146C220DEC14E0060EF0A /* AppetiteIdleState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppetiteIdleState.swift; sourceTree = "<group>"; };
 		1818BC1020A6612C007FB4C7 /* TaskBotPlayerControlledState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskBotPlayerControlledState.swift; sourceTree = "<group>"; };
 		1823608C209BA1D000E71EB6 /* ResistanceComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResistanceComponent.swift; sourceTree = "<group>"; };
+		1838BBA320E5895E00C59E36 /* ProtestorBuyWaresState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtestorBuyWaresState.swift; sourceTree = "<group>"; };
 		184974B4208A440D00F7CEEB /* ProtestorBot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtestorBot.swift; sourceTree = "<group>"; };
 		184974B7208A54D300F7CEEB /* ProtestorBotRotateToAttackState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtestorBotRotateToAttackState.swift; sourceTree = "<group>"; };
 		184974B9208A557000F7CEEB /* ProtestorBotAttackState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtestorBotAttackState.swift; sourceTree = "<group>"; };
@@ -525,6 +527,7 @@
 				184974BB208A55C600F7CEEB /* ProtestorBotPreAttackState.swift */,
 				1878B6CA208E5F9400FC5FDA /* ProtestorBotRechargingState.swift */,
 				18DE88D3208F4E8100732803 /* ProtestorBotHitState.swift */,
+				1838BBA320E5895E00C59E36 /* ProtestorBuyWaresState.swift */,
 			);
 			path = Protestor;
 			sourceTree = "<group>";
@@ -1207,6 +1210,7 @@
 				184B7635207D0CDA00F959F7 /* ProtestorDetainedState.swift in Sources */,
 				181146AF20DEB9E60060EF0A /* IntoxicationActiveState.swift in Sources */,
 				1878B6CB208E5F9400FC5FDA /* ProtestorBotRechargingState.swift in Sources */,
+				1838BBA420E5895E00C59E36 /* ProtestorBuyWaresState.swift in Sources */,
 				18FCEA532040EC40009A5C0D /* LevelScene.swift in Sources */,
 				181146C120DEC11C0060EF0A /* AppetiteActiveState.swift in Sources */,
 				18FCEA592040EC40009A5C0D /* PlayerBot.swift in Sources */,
