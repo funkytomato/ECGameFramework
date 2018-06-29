@@ -70,13 +70,6 @@ class AppetiteCoolingState: GKState
         {
             stateMachine?.enter(AppetiteIdleState.self)
         }
-        
-        // If the beam has spent long enough cooling down, enter `BeamIdleState`.
-//        if elapsedTime >= GameplayConfiguration.Appetite.coolDownDuration
-//        {
-//            stateMachine?.enter(AppetiteIdleState.self)
-//
-//        }
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
