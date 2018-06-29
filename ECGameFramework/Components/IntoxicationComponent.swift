@@ -17,10 +17,10 @@ import GameplayKit
 protocol IntoxicationComponentDelegate: class
 {
     // Called whenever a `IntoxicationComponent` loses charge through a call to `loseCharge`
-    func IntoxicationComponentDidLoseintoxication(IntoxicationComponent: IntoxicationComponent)
+    func intoxicationComponentDidLoseintoxication(intoxicationComponent: IntoxicationComponent)
     
     // Called whenever a `IntoxicationComponent` loses charge through a call to `gainCharge`
-    func IntoxicationComponentDidAddintoxication(IntoxicationComponent: IntoxicationComponent)
+    func intoxicationComponentDidAddintoxication(intoxicationComponent: IntoxicationComponent)
 }
 
 class IntoxicationComponent: GKComponent
@@ -136,7 +136,7 @@ class IntoxicationComponent: GKComponent
         {
             intoxication = newintoxication
             intoxicationBar?.level = percentageIntoxication
-            delegate?.IntoxicationComponentDidLoseintoxication(IntoxicationComponent: self)
+            delegate?.intoxicationComponentDidLoseintoxication(intoxicationComponent: self)
         }
     }
     
@@ -153,7 +153,7 @@ class IntoxicationComponent: GKComponent
         {
             intoxication = newintoxication
             intoxicationBar?.level = percentageIntoxication
-            delegate?.IntoxicationComponentDidAddintoxication(IntoxicationComponent: self)
+            delegate?.intoxicationComponentDidAddintoxication(intoxicationComponent: self)
         }
     }
 }
