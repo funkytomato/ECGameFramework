@@ -44,7 +44,7 @@ class IntoxicationCoolingState: GKState
     
     override func didEnter(from previousState: GKState?)
     {
-        print("InciteCoolingState entered")
+        print("IntoxicationCoolingState entered")
         
         super.didEnter(from: previousState)
         
@@ -57,7 +57,7 @@ class IntoxicationCoolingState: GKState
     {
         super.update(deltaTime: seconds)
         
-        print("InciteCoolingState update")
+        print("IntoxicationCoolingState update")
         
         elapsedTime += seconds
         
