@@ -140,10 +140,13 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
         let beamSystem = GKComponentSystem(componentClass: BeamComponent.self)
         let inciteSystem = GKComponentSystem(componentClass: InciteComponent.self)
         let temperamentSystem = GKComponentSystem(componentClass: TemperamentComponent.self)
+        let sellingWaresSystem = GKComponentSystem(componentClass: SellingWaresComponent.self)
+        let appetiteSystem = GKComponentSystem(componentClass: AppetiteComponent.self)
+        let intoxicationSystem = GKComponentSystem(componentClass: IntoxicationComponent.self)
         let rulesSystem = GKComponentSystem(componentClass: RulesComponent.self)
         
         // The systems will be updated in order. This order is explicitly defined to match assumptions made within components.
-        return [rulesSystem, intelligenceSystem, movementSystem, agentSystem, chargeSystem, beamSystem, healthSystem, resistanceSystem, respectSystem, obeisanceSystem, inciteSystem, temperamentSystem, animationSystem]
+        return [rulesSystem, intelligenceSystem, movementSystem, agentSystem, chargeSystem, beamSystem, healthSystem, resistanceSystem, respectSystem, obeisanceSystem, inciteSystem, temperamentSystem, sellingWaresSystem, appetiteSystem, intoxicationSystem, animationSystem]
     }()
     
     // MARK: Initializers
