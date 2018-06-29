@@ -419,7 +419,9 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         {
             //Protestor wants to be a product
             appetiteComponent.isTriggered = true
-            appetiteComponent.isConsumingProduct = true
+            //appetiteComponent.isConsumingProduct = true
+            
+
         }
     }
     
