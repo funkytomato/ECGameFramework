@@ -130,15 +130,16 @@ class SellingWaresComponent: GKComponent
     
     // MARK: GKComponent Life Cycle
     
-    
-    
     override func update(deltaTime seconds: TimeInterval)
     {
+        stateMachine.update(deltaTime: seconds)
+        
         guard (stateMachine.currentState as? SellingWaresActiveState) != nil else { return }
         
+        print("SellingWaresComponent update: Sell some shit")
         //animationComponent.requestedAnimationState = .selling
         
-        stateMachine.update(deltaTime: seconds)
+        
     }
     
     // MARK: Component actions
