@@ -74,8 +74,8 @@ class IntoxicationActiveState: GKState
         if elapsedTime >= GameplayConfiguration.Intoxication.maximumIntoxicationDuration
         {
             /**
-             The player has been firing the beam for too long. Enter the `IntoxicationCoolingState`
-             to disable firing until the beam has had time to cool down.
+             The protestor has consumed product, and intoxication will rise a predefined rise over a peroid of time.
+             And then move to cooling state where intoxication will fall a little bit.
              */
             stateMachine?.enter(IntoxicationCoolingState.self)
         }
