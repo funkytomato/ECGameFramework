@@ -234,8 +234,8 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         addComponent(appetiteComponent)
         
         let intoxicationComponent = IntoxicationComponent(intoxication: initialIntoxication , maximumIntoxication: GameplayConfiguration.ProtestorBot.maximumIntoxication, displaysIntoxicationBar: true)
-        appetiteComponent.delegate = self
-        addComponent(appetiteComponent)
+        intoxicationComponent.delegate = self
+        addComponent(intoxicationComponent)
         
         let movementComponent = MovementComponent()
         addComponent(movementComponent)
@@ -315,19 +315,24 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         }
         
         //If Protestor appetite is high, buy wares, reduce appetite slowly as wares are consumed
-        guard let appetiteComponent = component(ofType: AppetiteComponent.self) else { return }
-        if appetiteComponent.isTriggered
-        {
-            //Buy wares
-            appetiteComponent.isTriggered = false
-            
-            //Start countdown to finish consuming product
-            
-            
-                //Trigger Intoxication to slowly rise a number of units
-            
-                //Trigger Appetite to start rising
-        }
+//        guard let appetiteComponent = component(ofType: AppetiteComponent.self) else { return }
+//        if appetiteComponent.isTriggered
+//        {
+//            //Start consuming product
+//            appetiteComponent.isConsumingProduct = true
+// 
+//            //Switch off desire for more products 
+//            appetiteComponent.isTriggered = false
+//            
+//            
+//            
+//            //Start countdown to finish consuming product
+//            
+//            
+//                //Trigger Intoxication to slowly rise a number of units
+//            
+//                //Trigger Appetite to start rising
+//        }
     }
     
     // MARK: RulesComponentDelegate
@@ -367,6 +372,9 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
 
         switch mandate
         {
+            case let .buyWares(target):
+                intelligenceComponent.stateMachine.enter(ProtestorBuyWaresState.self)
+            
             case .incite:
                 //print("mandate \(mandate)")
                 intelligenceComponent.stateMachine.enter(ProtestorInciteState.self)
@@ -395,11 +403,24 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
     func appetiteComponentDidLoseAppetite(appetiteComponent: AppetiteComponent)
     {
         print("Appetite Component Lose Appetite")
+        
+        if !appetiteComponent.hasAppetite
+        {
+            appetiteComponent.isTriggered = false
+            appetiteComponent.isConsumingProduct = false
+        }
     }
     
     func appetiteComponentDidGainAppetite(appetiteComponent: AppetiteComponent)
     {
         print("Appetite Component Add Appetite")
+        
+        if appetiteComponent.appetite == 100.0
+        {
+            //Protestor wants to be a product
+            appetiteComponent.isTriggered = true
+            appetiteComponent.isConsumingProduct = true
+        }
     }
     
     // MARK: Intoxication Component Delegate
