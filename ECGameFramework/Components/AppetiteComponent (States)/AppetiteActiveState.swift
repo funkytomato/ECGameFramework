@@ -20,14 +20,6 @@ class AppetiteActiveState: GKState
     unowned var appetiteComponent: AppetiteComponent
     
     
-    /// The `RenderComponent' for this component's 'entity'.
-    var animationComponent: AnimationComponent
-    {
-        guard let animationComponent = appetiteComponent.entity?.component(ofType: AnimationComponent.self) else { fatalError("A AppetiteComponent's entity must have a AnimationComponent") }
-        return animationComponent
-    }
-    
-    
     /// The amount of time the beam has been in its "firing" state.
     var elapsedTime: TimeInterval = 0.0
     
@@ -53,9 +45,6 @@ class AppetiteActiveState: GKState
         
         // Reset the "amount of time firing" tracker when we enter the "firing" state.
         elapsedTime = 0.0
-        
-        
-        animationComponent.requestedAnimationState = .inciting
     }
     
     override func update(deltaTime seconds: TimeInterval)
@@ -63,10 +52,7 @@ class AppetiteActiveState: GKState
         super.update(deltaTime: seconds)
         
         print("AppetiteActiveState updating")
-        
-        //print(animationComponent.requestedAnimationState.debugDescription)
-        animationComponent.requestedAnimationState = .inciting
-        
+
         // Update the "amount of time firing" tracker.
         elapsedTime += seconds
         
