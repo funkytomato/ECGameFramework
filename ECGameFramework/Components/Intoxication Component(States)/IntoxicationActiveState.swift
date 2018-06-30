@@ -21,11 +21,11 @@ class IntoxicationActiveState: GKState
     
     
     /// The `RenderComponent' for this component's 'entity'.
-    var animationComponent: AnimationComponent
-    {
-        guard let animationComponent = intoxicationComponent.entity?.component(ofType: AnimationComponent.self) else { fatalError("A IntoxicationComponent's entity must have a AnimationComponent") }
-        return animationComponent
-    }
+//    var animationComponent: AnimationComponent
+//    {
+//        guard let animationComponent = intoxicationComponent.entity?.component(ofType: AnimationComponent.self) else { fatalError("A IntoxicationComponent's entity must have a AnimationComponent") }
+//        return animationComponent
+//    }
     
     
     /// The amount of time the beam has been in its "firing" state.
