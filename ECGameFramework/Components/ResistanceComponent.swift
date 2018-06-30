@@ -25,6 +25,14 @@ protocol ResistanceComponentDelegate: class
 
 class ResistanceComponent: GKComponent
 {
+    
+    /// The `RenderComponent' for this component's 'entity'.
+    var animationComponent: AnimationComponent
+    {
+        guard let animationComponent = entity?.component(ofType: AnimationComponent.self) else { fatalError("A ObserveComponent's entity must have a AnimationComponent") }
+        return animationComponent
+    }
+    
     // MARK: Properties
     
     // Set to true when being attacked
@@ -118,6 +126,10 @@ class ResistanceComponent: GKComponent
     override func update(deltaTime seconds: TimeInterval)
     {
         stateMachine.update(deltaTime: seconds)
+        
+        guard (stateMachine.currentState as? ObserveActiveState) != nil else { return }
+        
+        animationComponent.requestedAnimationState = .looking
     }
     
     // MARK: Component actions
