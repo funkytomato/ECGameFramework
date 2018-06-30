@@ -25,6 +25,14 @@ protocol IntoxicationComponentDelegate: class
 
 class IntoxicationComponent: GKComponent
 {
+    
+    /// The `RenderComponent' for this component's 'entity'.
+    var animationComponent: AnimationComponent
+    {
+        guard let animationComponent = entity?.component(ofType: AnimationComponent.self) else { fatalError("A ObserveComponent's entity must have a AnimationComponent") }
+        return animationComponent
+    }
+    
     // MARK: Properties
     
     /**
@@ -115,9 +123,9 @@ class IntoxicationComponent: GKComponent
     {
         stateMachine.update(deltaTime: seconds)
         
-        //guard (stateMachine.currentState as? IntoxicationActiveState) != nil else { return }
+        guard (stateMachine.currentState as? IntoxicationActiveState) != nil else { return }
         
-        //animationComponent.requestedAnimationState = .inciting
+        animationComponent.requestedAnimationState = .drunk
     }
     
     
