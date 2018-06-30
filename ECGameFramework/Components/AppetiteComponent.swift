@@ -141,11 +141,13 @@ class AppetiteComponent: GKComponent
     
     override func update(deltaTime seconds: TimeInterval)
     {
-        //guard (stateMachine.currentState as? AppetiteActiveState) != nil else { return }
-        
-        animationComponent.requestedAnimationState = .arrested
-        
         stateMachine.update(deltaTime: seconds)
+        
+        guard (stateMachine.currentState as? AppetiteActiveState) != nil else { return }
+        
+        animationComponent.requestedAnimationState = .looking
+        
+
     }
     
     // MARK: Convenience
