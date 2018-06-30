@@ -137,7 +137,7 @@ class SellingWaresComponent: GKComponent
         guard (stateMachine.currentState as? SellingWaresActiveState) != nil else { return }
         
         print("SellingWaresComponent update: Sell some shit")
-        //animationComponent.requestedAnimationState = .selling
+        animationComponent.requestedAnimationState = .sellingWares
         
         
     }
