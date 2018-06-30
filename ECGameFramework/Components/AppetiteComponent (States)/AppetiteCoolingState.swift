@@ -63,7 +63,7 @@ class AppetiteCoolingState: GKState
         elapsedTime += seconds
         
         //Start losing appetite
-        appetiteComponent.loseAppetite(appetiteToLose: GameplayConfiguration.CriminalBot.appetiteLossPerCycle)
+        appetiteComponent.loseAppetite(appetiteToLose: GameplayConfiguration.ProtestorBot.appetiteLossPerCycle)
         
         //Protestor has consumed the product and should go into idle state
         if !appetiteComponent.hasAppetite
