@@ -20,13 +20,6 @@ class SellingWaresCoolingState: GKState
     
     unowned var sellingWaresComponent: SellingWaresComponent
     
-    /// The `RenderComponent' for this component's 'entity'.
-    var animationComponent: AnimationComponent
-    {
-        guard let animationComponent = sellingWaresComponent.entity?.component(ofType: AnimationComponent.self) else { fatalError("A SellingWaresCoolingState entity must have a AnimationComponent") }
-        return animationComponent
-    }
-    
     /// The amount of time the beam has been cooling down.
     var elapsedTime: TimeInterval = 0.0
     
@@ -50,8 +43,6 @@ class SellingWaresCoolingState: GKState
         super.didEnter(from: previousState)
         
         elapsedTime = 0.0
-        
-        animationComponent.requestedAnimationState = .idle
     }
     
     override func update(deltaTime seconds: TimeInterval)
@@ -66,8 +57,6 @@ class SellingWaresCoolingState: GKState
         if elapsedTime >= GameplayConfiguration.SellingWares.coolDownDuration
         {
             stateMachine?.enter(SellingWaresIdleState.self)
-            
-            //Should refill the appetite bar for next inciting round
         }
     }
     
