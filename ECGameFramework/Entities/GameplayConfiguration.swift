@@ -523,9 +523,12 @@ struct GameplayConfiguration
         /// The maximum amount of appetite a `GroundBot` stores.
         static let maximumAppetite = 100.0
         
-        /// The amount of appetite a `PlayerBot` loses by a single `GroundBot` attack.
+        /// The amount of appetite a `Protestor gains per cycle
         static let appetiteGainPerCycle = 1.0
         
+        
+        // The amount of appetite a Protestor loses per cycle
+        static let appetiteLossPerCycle = 1.0
         
         //MARK: Intoxication Properties
         
