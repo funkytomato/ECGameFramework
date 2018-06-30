@@ -178,7 +178,7 @@ class AppetiteComponent: GKComponent
         newAppetite = min(maximumAppetite, newAppetite)
         newAppetite = max(0.0, newAppetite)
         
-        print("newAppetite: \(newAppetite.debugDescription)  appetite: \(appetite.debugDescription)")
+        //print("newAppetite: \(newAppetite.debugDescription)  appetite: \(appetite.debugDescription)")
         
         // Check if the new charge is greater than the current charge.
         if newAppetite > appetite
