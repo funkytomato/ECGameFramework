@@ -56,7 +56,7 @@ class AppetiteIdleState: GKState
         
         print("AppetiteIdleState update: \(appetiteComponent.entity.debugDescription)")
         
-        appetiteComponent.gainAppetite(appetiteToAdd: GameplayConfiguration.CriminalBot.appetiteLossPerCycle)
+        appetiteComponent.gainAppetite(appetiteToAdd: GameplayConfiguration.ProtestorBot.appetiteGainPerCycle)
         
         // If the beam has been triggered, enter `AppetiteActiveState`.
         if appetiteComponent.isTriggered
