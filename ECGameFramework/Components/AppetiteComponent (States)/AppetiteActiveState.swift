@@ -70,17 +70,16 @@ class AppetiteActiveState: GKState
         // Update the "amount of time firing" tracker.
         elapsedTime += seconds
         
-        let appetiteToGain = GameplayConfiguration.ProtestorBot.appetiteGainPerCycle
         
         if appetiteComponent.isConsumingProduct
         {
             //Decrease the appetite as product is being consumed
-            appetiteComponent.loseAppetite(appetiteToLose: appetiteToGain)
+            appetiteComponent.loseAppetite(appetiteToLose: GameplayConfiguration.ProtestorBot.appetiteLossPerCycle)
         }
         else
         {
             //Increase the appetite as product has been consumed
-            appetiteComponent.gainAppetite(appetiteToAdd: appetiteToGain)
+            appetiteComponent.gainAppetite(appetiteToAdd: GameplayConfiguration.ProtestorBot.appetiteGainPerCycle)
         }
         
         if !appetiteComponent.isTriggered
