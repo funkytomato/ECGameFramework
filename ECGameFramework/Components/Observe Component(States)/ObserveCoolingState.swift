@@ -19,13 +19,7 @@ class ObserveCoolingState: GKState
     // MARK: Properties
     
     unowned var observeComponent: ObserveComponent
-    
-    /// The `RenderComponent' for this component's 'entity'.
-    var animationComponent: AnimationComponent
-    {
-        guard let animationComponent = observeComponent.entity?.component(ofType: AnimationComponent.self) else { fatalError("A ObserveComponent's entity must have a AnimationComponent") }
-        return animationComponent
-    }
+
     
     /// The amount of time the beam has been cooling down.
     var elapsedTime: TimeInterval = 0.0
@@ -50,8 +44,6 @@ class ObserveCoolingState: GKState
         super.didEnter(from: previousState)
         
         elapsedTime = 0.0
-        
-        animationComponent.requestedAnimationState = .idle
     }
     
     override func update(deltaTime seconds: TimeInterval)
@@ -66,8 +58,6 @@ class ObserveCoolingState: GKState
         if elapsedTime >= GameplayConfiguration.Observe.coolDownDuration
         {
             stateMachine?.enter(ObserveIdleState.self)
-            
-            //Should refill the observe bar for next inciting round
         }
     }
     
