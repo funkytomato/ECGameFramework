@@ -26,6 +26,10 @@ enum AnimationState: String
     case inactive = "Inactive"
     case inciting = "Inciting"
     case injured = "Injured"
+    case drunk = "Drunk"
+    case looking = "Looking"
+    case selling = "Selling"
+    case buying = "Buying"
     
     case walkForward = "WalkForward"
     case walkBackward = "WalkBackward"
