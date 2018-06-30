@@ -82,7 +82,7 @@ class ObserveComponent: GKComponent
     {
         guard (stateMachine.currentState as? ObserveActiveState) != nil else { return }
         
-        animationComponent.requestedAnimationState = .inciting
+        animationComponent.requestedAnimationState = .looking
         
         stateMachine.update(deltaTime: seconds)
     }
