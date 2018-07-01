@@ -20,6 +20,12 @@ class AppetiteIdleState: GKState
     
     unowned var appetiteComponent: AppetiteComponent
     
+    /// The `IntoxicationComponent' for this component's 'entity'.
+    var intoxicationComponent: IntoxicationComponent
+    {
+        guard let intoxicationComponent = appetiteComponent.entity?.component(ofType: IntoxicationComponent.self) else { fatalError("A AppetiteComponent's entity must have a IntoxicationComponent") }
+        return intoxicationComponent
+    }
     
     
     /// The amount of time the beam has been in its "firing" state.
@@ -56,12 +62,19 @@ class AppetiteIdleState: GKState
         
         print("AppetiteIdleState update: \(appetiteComponent.entity.debugDescription)")
         
-        appetiteComponent.gainAppetite(appetiteToAdd: GameplayConfiguration.ProtestorBot.appetiteGainPerCycle)
         
-        // If the beam has been triggered, enter `AppetiteActiveState`.
-        if appetiteComponent.isTriggered
+        //Protestor is not fully wasted so keep buying more beed
+        if !intoxicationComponent.hasFullintoxication
         {
-            stateMachine?.enter(AppetiteActiveState.self)
+        
+            appetiteComponent.gainAppetite(appetiteToAdd: GameplayConfiguration.ProtestorBot.appetiteGainPerCycle)
+            
+            // If the beam has been triggered, enter `AppetiteActiveState`.
+    //        if appetiteComponent.isTriggered
+            if appetiteComponent.appetite >= 100.0
+            {
+                stateMachine?.enter(AppetiteActiveState.self)
+            }
         }
     }
     
