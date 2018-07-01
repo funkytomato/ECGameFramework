@@ -21,11 +21,11 @@ class InciteActiveState: GKState
     
     
     /// The `RenderComponent' for this component's 'entity'.
-    var animationComponent: AnimationComponent
-    {
-        guard let animationComponent = inciteComponent.entity?.component(ofType: AnimationComponent.self) else { fatalError("A InciteComponent's entity must have a AnimationComponent") }
-        return animationComponent
-    }
+//    var animationComponent: AnimationComponent
+//    {
+//        guard let animationComponent = inciteComponent.entity?.component(ofType: AnimationComponent.self) else { fatalError("A InciteComponent's entity must have a AnimationComponent") }
+//        return animationComponent
+//    }
     
     
     /// The amount of time the beam has been in its "firing" state.
@@ -54,7 +54,7 @@ class InciteActiveState: GKState
         // Reset the "amount of time firing" tracker when we enter the "firing" state.
         elapsedTime = 0.0
         
-        animationComponent.requestedAnimationState = .inciting
+//        animationComponent.requestedAnimationState = .inciting
         
         inciteComponent.isTriggered = true
     }
