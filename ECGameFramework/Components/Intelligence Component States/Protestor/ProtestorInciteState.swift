@@ -38,6 +38,12 @@ class ProtestorInciteState: GKState
         return inciteComponent
     }
     
+    /// The `TemperamentComponent` associated with the `entity`.
+    var animationComponent: AnimationComponent
+    {
+        guard let animationComponent = entity.component(ofType: AnimationComponent.self) else { fatalError("A InciteState's entity must have an InciteComponent.") }
+        return animationComponent
+    }
     
     //MARK:- Initializers
     required init(entity: ProtestorBot)
@@ -71,10 +77,12 @@ class ProtestorInciteState: GKState
         
         print("InciteState updating")
         
-        
         intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
         
         elapsedTime += seconds
+        
+        guard (stateMachine?.currentState as? InciteActiveState) != nil else { return }
+        animationComponent.requestedAnimationState = .inciting
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
