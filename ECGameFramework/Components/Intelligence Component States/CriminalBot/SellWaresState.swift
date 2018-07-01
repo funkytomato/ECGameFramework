@@ -67,13 +67,16 @@ class SellWaresState: GKState
     {
         super.didEnter(from: previousState)
      
+        
         sellingWaresComponent.isTriggered = true
+        
+        entity.isSelling = true
         
         //Reset the tracking of how long the 'ManBot' has been in "Detained" state
         elapsedTime = 0.0
         
         //Request the "detained animation for this state's 'ProtestorBot'
-        animationComponent.requestedAnimationState = .arrested
+        animationComponent.requestedAnimationState = .selling
         
     }
     
@@ -81,8 +84,13 @@ class SellWaresState: GKState
     {
         super.update(deltaTime: seconds)
         
-        animationComponent.requestedAnimationState = .arrested
+        //Update the SellingWaresComponent StateMachine
+        sellingWaresComponent.stateMachine.update(deltaTime: seconds)
         
+        //Present the selling animation
+        animationComponent.requestedAnimationState = .selling
+        
+        //Ensure the taskbot continues to move around the scene
         intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
         
         elapsedTime += seconds
