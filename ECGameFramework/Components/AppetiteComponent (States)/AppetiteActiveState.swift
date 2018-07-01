@@ -56,21 +56,13 @@ class AppetiteActiveState: GKState
         // Update the "amount of time firing" tracker.
         elapsedTime += seconds
         
+        //Increase the appetite as product has been consumed
+        appetiteComponent.gainAppetite(appetiteToAdd: GameplayConfiguration.ProtestorBot.appetiteGainPerCycle)
+        
         
         if appetiteComponent.isConsumingProduct
         {
-            //Decrease the appetite as product is being consumed
-            appetiteComponent.loseAppetite(appetiteToLose: GameplayConfiguration.ProtestorBot.appetiteLossPerCycle)
-        }
-        else
-        {
-            //Increase the appetite as product has been consumed
-            appetiteComponent.gainAppetite(appetiteToAdd: GameplayConfiguration.ProtestorBot.appetiteGainPerCycle)
-        }
-        
-        if !appetiteComponent.isTriggered
-        {
-            // The beam is no longer being fired. Enter the `AppetiteIdleState`.
+            // Protestor is now consuming product
             stateMachine?.enter(AppetiteCoolingState.self)
         }
     }
@@ -83,6 +75,7 @@ class AppetiteActiveState: GKState
             return true
             
         default:
+            print("current state: \(stateClass.debugDescription())")
             return false
         }
     }
