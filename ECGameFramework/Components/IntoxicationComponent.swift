@@ -125,7 +125,11 @@ class IntoxicationComponent: GKComponent
         
         guard (stateMachine.currentState as? IntoxicationActiveState) != nil else { return }
         
-        animationComponent.requestedAnimationState = .drunk
+        if hasFullintoxication
+        {
+            animationComponent.requestedAnimationState = .drunk
+        }
+
     }
     
     
