@@ -97,7 +97,7 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
             
             texture = SKTexture(imageNamed: "CriminalBot")
             
-            self.isSelling = true
+//            self.isSelling = true
         }
             
         //Bad Taskbot
@@ -421,6 +421,7 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
         if !isGood
         {
             intelligenceComponent.stateMachine.enter(TaskBotZappedState.self)
+            self.isSelling = true
         }
     }
     
