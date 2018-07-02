@@ -56,7 +56,7 @@ class SellingWaresActiveState: GKState
         // Update the "amount of time firing" tracker.
         elapsedTime += seconds
         
-        if elapsedTime >= GameplayConfiguration.SellingWares.maximumSellingWaresDuration
+        if elapsedTime >= GameplayConfiguration.Wares.maximumSellingWaresDuration
         {
             /**
              The player has been firing the beam for too long. Enter the `SellingWaresCoolingState`
