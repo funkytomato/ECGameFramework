@@ -17,8 +17,10 @@ import GameplayKit
 
 
 class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate, ChargeComponentDelegate, RespectComponentDelegate, ObeisanceComponentDelegate,
-    AppetiteComponentDelegate, IntoxicationComponentDelegate, ResourceLoadableType
+    AppetiteComponentDelegate, IntoxicationComponentDelegate, BuyingWaresComponentDelegate, ResourceLoadableType
 {
+
+    
 
     
 
@@ -102,7 +104,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             initialCharge = 50.0           //Blue bar
             initialRespect = 50.0       //Yellow bar
             initialObeisance = 100.0      //Brown bar
-            initialAppetite = 50.0
+            initialAppetite = 0.0
             initialIntoxication = 0.0
             
             texture = SKTexture(imageNamed: "ProtestorBot")
@@ -161,7 +163,8 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             ProtestorDetainedState(entity: self),
             ProtestorBotRechargingState(entity: self),
             TaskBotZappedState(entity: self),
-            ProtestorInciteState(entity: self)
+            ProtestorInciteState(entity: self),
+            ProtestorBuyWaresState(entity: self)
             ])
         addComponent(intelligenceComponent)
         
@@ -228,6 +231,10 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         
         let inciteComponent = InciteComponent()
         addComponent(inciteComponent)
+        
+        let buyWaresComponent = BuyingWaresComponent(wares: 0.0, maximumWares: 100.0)
+        buyWaresComponent.delegate = self
+        addComponent(buyWaresComponent)
         
         let appetiteComponent = AppetiteComponent(appetite: initialAppetite, maximumAppetite: GameplayConfiguration.ProtestorBot.maximumAppetite, displaysAppetiteBar: true)
         appetiteComponent.delegate = self
@@ -314,6 +321,22 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             //print("Raised temperament of touching Protestor")
         }
         
+        // Check the contact is a criminal and is selling
+//        guard let criminalBot = entity as? CriminalBot else { return }
+//        
+//        //Check the Protestor has purchasing power (BuyingWareComponent), and they are in a buying state.
+//        guard let buyingWaresComponent = component(ofType: BuyingWaresComponent.self) else { return }
+//        guard (buyingWaresComponent.stateMachine.currentState as? BuyingState) != nil else { return }
+//        buyingWaresComponent.gainProduct()
+//        
+//        // Check the Protestor has an appetite, and start consuming the product.
+//        // The Protestor does not need a product anymore and so the trigger switched off.
+//        guard let appetiteComponent = component(ofType: AppetiteComponent.self) else { return }
+//        appetiteComponent.isConsumingProduct = true
+//        appetiteComponent.isTriggered = false
+        
+        
+        
         //If Protestor appetite is high, buy wares, reduce appetite slowly as wares are consumed
 //        guard let appetiteComponent = component(ofType: AppetiteComponent.self) else { return }
 //        if appetiteComponent.isTriggered
@@ -367,8 +390,8 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         // 3) Set the Protestor to Flee State
         //guard intelligenceComponent.stateMachine.enter(TaskBotFleeState.self) else { return }
         
-        //print("mandate \(mandate)")
-        //print("state: \(intelligenceComponent.stateMachine.currentState.debugDescription)")
+        print("mandate \(mandate)")
+        print("state: \(intelligenceComponent.stateMachine.currentState.debugDescription)")
 
         switch mandate
         {
@@ -419,11 +442,35 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         {
             //Protestor wants to be a product
             appetiteComponent.isTriggered = true
+            
+            
+            //Protestor is hungry
+            self.isHungry = true
             //appetiteComponent.isConsumingProduct = true
             
 
         }
     }
+    
+    
+    // MARK: BuyWares Component Delegate
+    func buyingWaresComponentDidLoseProduct(buyWaresComponent: BuyingWaresComponent)
+    {
+        print("Use product")
+        //self.isHungry = false
+        
+
+    }
+    
+    func buyingWaresComponentDidGainProduct(buyWaresComponent: BuyingWaresComponent) {
+        print("Buy product and eat/use")
+        
+        //Protestor is eating
+        self.isHungry = false
+        
+        
+    }
+    
     
     // MARK: Intoxication Component Delegate
     func intoxicationComponentDidLoseintoxication(intoxicationComponent: IntoxicationComponent)
@@ -578,6 +625,11 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             "ProtestorZapped",
             "ProtestorInjured",
 
+            "ProtestorLooking",
+            "ProtestorBuying",
+            "ProtestorDrinking",
+            "ProtestorDrunk",
+
             
             "AngryProtestor",
             "CalmProtestor",
@@ -629,6 +681,14 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             
             goodAnimations![.injured] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[10], withImageIdentifier: "ProtestorInjured", forAnimationState: .injured)
 
+            goodAnimations![.looking] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[11], withImageIdentifier: "ProtestorLooking", forAnimationState: .looking)
+            
+            goodAnimations![.buying] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[12], withImageIdentifier: "ProtestorBuying", forAnimationState: .buying)
+            
+            goodAnimations![.drinking] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[13], withImageIdentifier: "ProtestorDrinking", forAnimationState: .drinking)
+            
+            goodAnimations![.drunk] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[14], withImageIdentifier: "ProtestorDrunk", forAnimationState: .drunk)
+            
             
             //Temperament
             goodAnimations![.angry] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[11], withImageIdentifier: "AngryProtestor", forAnimationState: .angry)
@@ -661,6 +721,14 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             badAnimations![.zapped] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[9], withImageIdentifier: "ProtestorZapped", forAnimationState: .zapped)
             
             badAnimations![.injured] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[10], withImageIdentifier: "ProtestorInjured", forAnimationState: .injured)
+            
+            badAnimations![.looking] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[11], withImageIdentifier: "ProtestorLooking", forAnimationState: .looking)
+            
+            badAnimations![.buying] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[12], withImageIdentifier: "ProtestorBuying", forAnimationState: .buying)
+            
+            badAnimations![.drinking] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[13], withImageIdentifier: "ProtestorDrinking", forAnimationState: .drinking)
+            
+            badAnimations![.drunk] = AnimationComponent.animationsFromAtlas(atlas: ProtestorBotAtlases[14], withImageIdentifier: "ProtestorDrunk", forAnimationState: .drunk)
 
 
             
@@ -668,8 +736,8 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             completionHandler()
         }
         
-        //print("Police goodAnimations: \(goodAnimations?.description)")
-        //print("Police badAnimations: \(badAnimations?.description)")
+        //print("Protestor goodAnimations: \(goodAnimations?.description)")
+        //print("Protestor badAnimations: \(badAnimations?.description)")
     }
     
     static func purgeResources()
