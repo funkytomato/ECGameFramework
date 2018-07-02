@@ -1,4 +1,4 @@
-
+              
 /*
 //
 //  ProtestorBot.swift
@@ -19,10 +19,6 @@ import GameplayKit
 class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate, ChargeComponentDelegate, RespectComponentDelegate, ObeisanceComponentDelegate,
     AppetiteComponentDelegate, IntoxicationComponentDelegate, BuyingWaresComponentDelegate, ResourceLoadableType
 {
-
-    
-
-    
 
     
     // MARK: Static Properties
@@ -302,6 +298,25 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             //print("Increased the obeisance of the touching Protestor")
         }
         
+        
+        //Check the contacting entity is Criminal, and selling
+//        guard let criminalBot = entity as? CriminalBot else { return }
+//        
+//        //Move Protestor from looking state to buying state
+//        guard let buyingWaresComponent = component(ofType: BuyingWaresComponent.self) else { return }
+//        guard (buyingWaresComponent.stateMachine.currentState as? LookingState) != nil else { return }
+//        buyingWaresComponent.stateMachine.enter(BuyingState.self)
+        
+//        guard let sellingWaresComponent = criminalBot.component(ofType: SellingWaresComponent.self) else { return }
+//        print("state: \(sellingWaresComponent.stateMachine.currentState.debugDescription)")
+//        guard (sellingWaresComponent.stateMachine.currentState as? SellingWaresActiveState) != nil else { return }
+        
+
+        
+        
+        //Protestor has started drinking, trigger intociation component
+//        guard let intoxicationComponent = component(ofType: IntoxicationComponent.self) else { return }
+//        intoxicationComponent.isTriggered = true
 
     }
     
