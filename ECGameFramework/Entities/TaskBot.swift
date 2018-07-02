@@ -682,7 +682,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         print("supportPoliceBot: \(supportPoliceBot.description), supportPoliceBotRaw: \(supportTaskBotRaw.description) ")
 
         
-        //A series of situation in which we prefer to Incite other Protestors
+        //A series of situation in which we prefer to hunt the criminal
         let huntCriminalTaskBotRaw = [
             
             //Police are in trouble are nearby
@@ -704,6 +704,29 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         let huntCriminalTaskBot = huntCriminalTaskBotRaw.reduce(0.0, max)
         print("huntCriminalTaskBot: \(huntCriminalTaskBot.description), huntCriminalTaskBotRaw: \(huntCriminalTaskBotRaw.description) ")
         
+        
+        //A series of situation in which we hunt sellers
+        let huntSellerTaskBotRaw = [
+            
+            //Police are in trouble are nearby
+            ruleSystem.minimumGrade(forFacts: [
+                Fact.criminalTaskBotNear.rawValue as AnyObject
+                ]),
+            
+            //Police are in trouble are medium distance
+            ruleSystem.minimumGrade(forFacts: [
+                Fact.criminalTaskBotMedium.rawValue as AnyObject
+                ]),
+            
+            //Police are in trouble are far away
+            ruleSystem.minimumGrade(forFacts: [
+                Fact.criminalTaskBotFar.rawValue as AnyObject
+                ])
+        ]
+        
+        let huntSellerTaskBot = huntSellerTaskBotRaw.reduce(0.0, max)
+        print("huntSellerTaskBot: \(huntSellerTaskBot.description), huntSellerTaskBotRaw: \(huntSellerTaskBotRaw.description) ")
+
         
         let fleeDangerousTaskBot = fleeTaskBotRaw.reduce(0.0, max)
         //print("fleeDangerousTaskBot: \(fleeDangerousTaskBot.description), fleeTaskBotRaw: \(fleeTaskBotRaw.description) ")
