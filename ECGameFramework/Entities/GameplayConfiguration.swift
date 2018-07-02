@@ -132,7 +132,7 @@ struct GameplayConfiguration
     }
 
     
-    struct SellingWares
+    struct Wares
     {
         /// The distance (in points) over which the beam can be fired.
         static let arcLength: CGFloat = 300.0
@@ -150,7 +150,11 @@ struct GameplayConfiguration
         static let chargeLossPerSecond = 90.0
         
         /// The length of time that the beam takes to recharge when it is fully depleted.
-        static let coolDownDuration: TimeInterval = 5.0
+        static let coolDownDuration: TimeInterval = 30.0
+        
+        /// The length of time that the beam takes to recharge when it is fully depleted.
+        static let buyDuration: TimeInterval = 5.0
+
     }
     
     struct Incite
@@ -216,7 +220,7 @@ struct GameplayConfiguration
     struct Appetite
     {
         /// The length of time that the beam takes to recharge when it is fully depleted.
-        static let coolDownDuration: TimeInterval = 1.0
+        static let coolDownDuration: TimeInterval = 30.0
         
         /// The maximum number of seconds for which the beam can be fired before recharging.
         static let maximumAppetiteDuration: TimeInterval = 10.0
@@ -524,11 +528,11 @@ struct GameplayConfiguration
         static let maximumAppetite = 100.0
         
         /// The amount of appetite a `Protestor gains per cycle
-        static let appetiteGainPerCycle = 1.0
+        static let appetiteGainPerCycle = 0.1
         
         
         // The amount of appetite a Protestor loses per cycle
-        static let appetiteLossPerCycle = 1.0
+        static let appetiteLossPerCycle = 0.2
         
         //MARK: Intoxication Properties
         
