@@ -68,7 +68,7 @@ class LookingState: GKState
         
         print("BuyWaresActiveState updating")
         
-        animationComponent.requestedAnimationState = .looking
+ //       animationComponent.requestedAnimationState = .looking
         
         //print(animationComponent.requestedAnimationState.debugDescription)
         
