@@ -19,6 +19,12 @@ class SellingWaresActiveState: GKState
     // MARK: Properties
     unowned var sellingWaresComponent: SellingWaresComponent
     
+    /// The `PhysicsComponent' for this component's 'entity'.
+    var physicsComponent: PhysicsComponent
+    {
+        guard let physicsComponent = sellingWaresComponent.entity?.component(ofType: PhysicsComponent.self) else { fatalError("A SellingWaresActiveState entity must have a PhysicsComponent") }
+        return physicsComponent
+    }
     
     /// The amount of time the beam has been in its "firing" state.
     var elapsedTime: TimeInterval = 0.0
@@ -55,6 +61,23 @@ class SellingWaresActiveState: GKState
         
         // Update the "amount of time firing" tracker.
         elapsedTime += seconds
+        
+        // Check if criminal seller is in contact with protestor.
+        let contactedBodies = physicsComponent.physicsBody.allContactedBodies()
+        for contactedBody in contactedBodies
+        {
+            //Check touching entity is Protestor and wants to buy something
+            guard let entity = contactedBody.node?.entity else { continue }
+            if let buyer = entity as? ProtestorBot, buyer.isProtestor, buyer.isActive
+            {
+                guard let protestorBuyingWaresComponent = buyer.component(ofType: BuyingWaresComponent.self) else { return }
+                guard (protestorBuyingWaresComponent.stateMachine.currentState as? BuyingState) != nil else { return }
+                
+                stateMachine?.enter(SellingWaresActiveState.self)
+                //buyProductFromSeller(entity: entity)
+            }
+        }
+        
         
         if elapsedTime >= GameplayConfiguration.Wares.maximumSellingWaresDuration
         {
