@@ -8,7 +8,11 @@
 //
 
  Abstract:
- The state `ProtestorBot`s are criminal and selling states
+ The state `ProtestorBot`s is when buying product to consume.
+ States:
+    ProtestorBuyWareIdleState = protestor does not need a product
+    ProtestorBuyWareLookingState = protestor needs a product and is looking for nearest product seller
+    ProtestorBuyWaresBuyingState = protestor is touching seller and is buying product
  */
 
 import SpriteKit
@@ -17,7 +21,7 @@ import GameplayKit
 class ProtestorBuyWaresState: GKState
 {
     // MARK:- Properties
-    unowned var entity: CriminalBot
+    unowned var entity: ProtestorBot
     
     // The amount of time the 'ManBot' has been in its "Detained" state
     var elapsedTime: TimeInterval = 0.0
@@ -51,16 +55,23 @@ class ProtestorBuyWaresState: GKState
         return sellingWaresComponent
     }
     
+    /// The `SellingWaresComponent` associated with the `entity`.
+    var buyWaresComponent: BuyingWaresComponent
+    {
+        guard let buyWaresComponent = entity.component(ofType: BuyingWaresComponent.self) else { fatalError("A ProtestorBuyWaresState entity must have an BuyWaresComponent.") }
+        return buyWaresComponent
+    }
+    
     
     //MARK:- Initializers
-    required init(entity: CriminalBot)
+    required init(entity: ProtestorBot)
     {
         self.entity = entity
         
     }
     
     deinit {
-        print("Deallocating SellWareState")
+        print("Deallocating ProtestorBuyWaresState")
     }
     
     //MARK:- GKState Life Cycle
@@ -68,25 +79,25 @@ class ProtestorBuyWaresState: GKState
     {
         super.didEnter(from: previousState)
         
-        
         //Reset the tracking of how long the 'ManBot' has been in "Detained" state
         elapsedTime = 0.0
         
-        //Request the "detained animation for this state's 'ProtestorBot'
-        animationComponent.requestedAnimationState = .arrested
-        
+        buyWaresComponent.stateMachine.enter(IdleState.self)
     }
     
     override func update(deltaTime seconds: TimeInterval)
     {
         super.update(deltaTime: seconds)
+        elapsedTime += seconds
         
-        animationComponent.requestedAnimationState = .arrested
+        buyWaresComponent.stateMachine.update(deltaTime: seconds)
         
         intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
         
-        elapsedTime += seconds
-        
+
+        //Show buying animation if in buying state
+ //       guard (stateMachine?.currentState as? BuyWaresBuyingState) != nil else { return }
+ //       animationComponent.requestedAnimationState = .buying
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
