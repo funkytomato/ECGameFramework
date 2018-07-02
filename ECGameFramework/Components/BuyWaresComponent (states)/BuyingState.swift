@@ -69,16 +69,10 @@ class BuyingState: GKState
         animationComponent.requestedAnimationState = .buying
         
         elapsedTime += seconds
-        
- //       stateMachine?.enter(BuyWaresIdleState.self)
-        
-        // Spend a little time animating the buying
-        if elapsedTime >= GameplayConfiguration.Wares.buyDuration
+        if buyWaresComponent.hasWares
         {
             stateMachine?.enter(IdleState.self)
             intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
-            
-           // buyWaresComponent.entity.
         }
     }
     
