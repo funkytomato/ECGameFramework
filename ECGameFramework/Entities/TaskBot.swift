@@ -193,6 +193,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
     //Is the taskbot criminal?
     var isCriminal: Bool
     
+    //Is the taskbot selling wares?
+    var isSelling: Bool
+    
     //Is the taskbot injured?
     var isInjured: Bool
     
@@ -324,10 +327,10 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
   
             // TaskBot is a protestor and is buying their wares
             case let .buyWares(target):
-                print("SellWares")
+                print("BuyWares")
                 radius = GameplayConfiguration.TaskBot.wanderPathRadius
-                (agentBehavior, debugPathPoints)  = TaskBotBehavior.wanderBehaviour(forAgent: agent, inScene: levelScene)
-                debugColor = SKColor.yellow
+                (agentBehavior, debugPathPoints)  = TaskBotBehavior.huntBehaviour(forAgent: agent, huntingAgent: target, pathRadius: radius, inScene: levelScene)
+                debugColor = SKColor.white
             
             // TaskBot is a criminal and is selling their wares
             case .sellWares:
@@ -438,6 +441,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         // Whether or not the protestor is criminal
         self.isCriminal = false
 
+        //Whether or not the criminal is selling wares
+        self.isSelling = false
+        
         // Whether or not the taskbot is protestor
         self.isProtestor = false
         
@@ -876,6 +882,12 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             mandate = .huntAgent(dangerousTaskBot)
         }
          
+        //TaskBot is Criminal and wants to sell wares
+        else if self.isCriminal && self.isSelling
+        {
+            mandate = .sellWares
+        }
+            
         //TaskBot is Protestor and wants to buy wares
         else if self.isProtestor && self.isHungry && huntCriminalTaskBot > 0.0
         {
