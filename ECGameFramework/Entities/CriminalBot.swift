@@ -253,56 +253,121 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
     override func contactWithEntityDidBegin(_ entity: GKEntity)
     {
         super.contactWithEntityDidBegin(entity)
+        
+
+        
+        //If a Criminal is selling wares and a Protestor touches Criminal and wants to buy, sell them a product
+        //Check the criminal has a SellingWaresComponent
+        guard let sellingWaresComponent = component(ofType: SellingWaresComponent.self) else { return }
+        guard (sellingWaresComponent.stateMachine.currentState as? SellingWaresActiveState) != nil else { return }
+        
+        
+        //Check protestor has a buying component, and move into buying state
+        guard let protestorBot = entity as? ProtestorBot else { return }
+        guard let protestorBuyingWaresComponent = protestorBot.component(ofType: BuyingWaresComponent.self) else { return }
+        print("state: \(protestorBuyingWaresComponent.stateMachine.currentState.debugDescription)")
+        guard (protestorBuyingWaresComponent.stateMachine.currentState as? LookingState) != nil else { return }
+        protestorBuyingWaresComponent.stateMachine.enter(BuyingState.self)
+        
+ 
+        //Reduce the number of wares the Criminal has
+        sellingWaresComponent.loseWares(waresToLose: 10.0)
+        
+        //Protestor buys product
+        protestorBuyingWaresComponent.gainProduct(waresToAdd: 10.0)
+        
+        //Check protestor has an appetite
+        guard let protestorAppetiteComponent = protestorBot.component(ofType: AppetiteComponent.self) else { return }
+        
+        //Trigger the Protestor isConSuming flag
+        protestorAppetiteComponent.isConsumingProduct = true
+        
+        //Protestor has bought product and so does not need to look to buy more
+        protestorAppetiteComponent.isTriggered = false
+        
+        
+        //Ensure the Protestor has an IntoxicationComponent
+        guard let protestorIntoxicationComponent = protestorBot.component(ofType: IntoxicationComponent.self) else { return }
+        
+        //Trigger the Protestor's intoxication component
+        protestorIntoxicationComponent.isTriggered = true
     }
     
     
     override func contactWithEntityDidEnd(_ entity: GKEntity)
     {
         super.contactWithEntityDidEnd(entity)
-    
-        //If a Criminal is selling wares and a Protestor touches Criminal and wants to buy, sell them a product
         
- 
-        //Check protestor has a buying component
-        guard let protestorBuyingWaresComponent = entity.component(ofType: BuyingWaresComponent.self) else { return }
-        
-        //Check protestor has an appetite
-        guard let protestorAppetiteComponent = entity.component(ofType: AppetiteComponent.self) else { return }
-        
-        //Check the protestor wants a product
-        let wantsWares = protestorAppetiteComponent.isTriggered
-        
-        //If Protestor wants product, sell it to them
-        if wantsWares
-        {
-            //Check the criminal has a SellingWaresComponent
-            guard let sellingWaresComponent = component(ofType: SellingWaresComponent.self) else { return }
-            
-            //Reduce the number of wares the Criminal has
-            sellingWaresComponent.loseWares(waresToLose: 10.0)
-            
-            
-            
-            //Protestor buys product
-            protestorBuyingWaresComponent.gainProduct(waresToAdd: 10.0)
-            
-            
-            //Trigger the Protestor isConSuming flag
-            protestorAppetiteComponent.isConsumingProduct = true
-            
-            //Protestor has bought product and so does not need to look to buy more
-            protestorAppetiteComponent.isTriggered = false
-            
-    
-            
+//        //If a Criminal is selling wares and a Protestor touches Criminal and wants to buy, sell them a product
+//        //Check the criminal has a SellingWaresComponent
+//        guard let sellingWaresComponent = component(ofType: SellingWaresComponent.self) else { return }
+//        guard (sellingWaresComponent.stateMachine.currentState as? SellingWaresActiveState) != nil else { return }
+//        
+//        //Check protestor has a buying component
+//        guard let protestorBot = entity as? ProtestorBot else { return }
+//        guard let protestorBuyingWaresComponent = protestorBot.component(ofType: BuyingWaresComponent.self) else { return }
+//        guard (protestorBuyingWaresComponent.stateMachine.currentState as? BuyingState) != nil else { return }
+//        
+//        //Reduce the number of wares the Criminal has
+//        sellingWaresComponent.loseWares(waresToLose: 10.0)
+//        
+//        //Protestor buys product
+//        protestorBuyingWaresComponent.gainProduct(waresToAdd: 10.0)
+//        
+//        //Check protestor has an appetite
+//        guard let protestorAppetiteComponent = protestorBot.component(ofType: AppetiteComponent.self) else { return }
+//        
+//        //Trigger the Protestor isConSuming flag
+//        protestorAppetiteComponent.isConsumingProduct = true
+//        
+//        //Protestor has bought product and so does not need to look to buy more
+//        protestorAppetiteComponent.isTriggered = false
+//        
+//
+//        //Ensure the Protestor has an IntoxicationComponent
+//        guard let protestorIntoxicationComponent = protestorBot.component(ofType: IntoxicationComponent.self) else { return }
+//        
+//        //Trigger the Protestor's intoxication component
+//        protestorIntoxicationComponent.isTriggered = true
 
-            
-            //Ensure the Protestor has an IntoxicationComponent
-            guard let protestorIntoxicationComponent = entity.component(ofType: IntoxicationComponent.self) else { return }
-            
-            //Trigger the Protestor's intoxication component
-            protestorIntoxicationComponent.isTriggered = true
-        }
+        
+        
+        
+//        //Check protestor has an appetite
+//        guard let protestorAppetiteComponent = entity.component(ofType: AppetiteComponent.self) else { return }
+//
+//        //Check the protestor wants a product
+//        let wantsWares = protestorAppetiteComponent.isTriggered
+//
+//        //If Protestor wants product, sell it to them
+//        if wantsWares
+//        {
+//
+//            //Reduce the number of wares the Criminal has
+//            sellingWaresComponent.loseWares(waresToLose: 10.0)
+//
+//
+//
+//            //Protestor buys product
+//            protestorBuyingWaresComponent.gainProduct(waresToAdd: 10.0)
+//
+//
+//            //Trigger the Protestor isConSuming flag
+//            protestorAppetiteComponent.isConsumingProduct = true
+//
+//            //Protestor has bought product and so does not need to look to buy more
+//            protestorAppetiteComponent.isTriggered = false
+//
+//
+//
+//
+//
+//            //Ensure the Protestor has an IntoxicationComponent
+//            guard let protestorIntoxicationComponent = entity.component(ofType: IntoxicationComponent.self) else { return }
+//
+//            //Trigger the Protestor's intoxication component
+//            protestorIntoxicationComponent.isTriggered = true
+//        }
     }
     
     // MARK: RulesComponentDelegate
