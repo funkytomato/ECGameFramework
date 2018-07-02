@@ -66,7 +66,7 @@ class BuyingState: GKState
         
         print("BuyWaresBuyingState update: \(seconds.description)")
         
-        animationComponent.requestedAnimationState = .buying
+//        animationComponent.requestedAnimationState = .buying
         
         elapsedTime += seconds
         if buyWaresComponent.hasWares
