@@ -96,6 +96,8 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
             initialSellingWares = 100.0
             
             texture = SKTexture(imageNamed: "CriminalBot")
+            
+            self.isSelling = true
         }
             
         //Bad Taskbot
@@ -261,6 +263,9 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
         //If a Criminal is selling wares and a Protestor touches Criminal and wants to buy, sell them a product
         
  
+        //Check protestor has a buying component
+        guard let protestorBuyingWaresComponent = entity.component(ofType: BuyingWaresComponent.self) else { return }
+        
         //Check protestor has an appetite
         guard let protestorAppetiteComponent = entity.component(ofType: AppetiteComponent.self) else { return }
         
@@ -276,11 +281,21 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
             //Reduce the number of wares the Criminal has
             sellingWaresComponent.loseWares(waresToLose: 10.0)
             
+            
+            
+            //Protestor buys product
+            protestorBuyingWaresComponent.gainProduct(waresToAdd: 10.0)
+            
+            
             //Trigger the Protestor isConSuming flag
             protestorAppetiteComponent.isConsumingProduct = true
             
             //Protestor has bought product and so does not need to look to buy more
             protestorAppetiteComponent.isTriggered = false
+            
+    
+            
+
             
             //Ensure the Protestor has an IntoxicationComponent
             guard let protestorIntoxicationComponent = entity.component(ofType: IntoxicationComponent.self) else { return }
