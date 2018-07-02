@@ -94,6 +94,13 @@ class AppetiteComponent: GKComponent
         return animationComponent
     }
     
+    /// The `RenderComponent' for this component's 'entity'.
+    var buyWaresComponent: BuyingWaresComponent
+    {
+        guard let buyWaresComponent = entity?.component(ofType: BuyingWaresComponent.self) else { fatalError("A AppetiteComponent's entity must have a BuyingWaresComponent") }
+        return buyWaresComponent
+    }
+    
     // MARK: Initializers
     
     init(appetite: Double, maximumAppetite: Double, displaysAppetiteBar: Bool = false)
@@ -143,11 +150,11 @@ class AppetiteComponent: GKComponent
     {
         stateMachine.update(deltaTime: seconds)
         
+        //Protestor's is now hungry and will start to look for a source to buy from
         guard (stateMachine.currentState as? AppetiteActiveState) != nil else { return }
         
-        animationComponent.requestedAnimationState = .looking
-        
-
+        //Moves the Buying Component into Active state
+        buyWaresComponent.isTriggered = true
     }
     
     // MARK: Convenience
