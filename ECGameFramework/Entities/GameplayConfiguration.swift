@@ -144,7 +144,7 @@ struct GameplayConfiguration
         static let maxArcAngle = CGFloat(0.35)
         
         /// The maximum number of seconds for which the beam can be fired before recharging.
-        static let maximumSellingWaresDuration: TimeInterval = 2.0
+        static let maximumSellingWaresDuration: TimeInterval = 10.0
         
         /// The amount of charge points the beam drains from `TaskBot`s per second.
         static let chargeLossPerSecond = 90.0
