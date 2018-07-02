@@ -46,6 +46,11 @@ class BuyingWaresComponent: GKComponent
     }
 
     
+    var hasWares: Bool
+    {
+        return (wares > 0.0)
+    }
+    
     weak var delegate: BuyingWaresComponentDelegate?
     
     /// Whether the Protestor is looking for something to buy
@@ -110,11 +115,24 @@ class BuyingWaresComponent: GKComponent
     {
         stateMachine.update(deltaTime: seconds)
         
-//        guard (stateMachine.currentState as? BuyWaresLookingState) != nil else { return }
-//        
-//        animationComponent.requestedAnimationState = .looking
+        guard let currentState = stateMachine.currentState else { return }
         
-        
+        switch currentState
+        {
+            case is IdleState:
+                print("Idle")
+                animationComponent.requestedAnimationState = .idle
+            
+            case is LookingState:
+                animationComponent.requestedAnimationState = .looking
+            
+            case is BuyingState:
+                animationComponent.requestedAnimationState = .buying
+            
+            default:
+                animationComponent.requestedAnimationState = .idle
+            
+        }
     }
     
     // MARK: Convenience
