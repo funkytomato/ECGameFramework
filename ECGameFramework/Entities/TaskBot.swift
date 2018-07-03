@@ -484,7 +484,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         // Create a random speed for each taskbot
         let randomSource = GKRandomSource.sharedRandom()
         let diff = randomSource.nextUniform() // returns random Float between 0.0 and 1.0
-        let speed = diff * GameplayConfiguration.TaskBot.maximumSpeedForIsGood(isGood: isGood)
+        let speed = diff * GameplayConfiguration.TaskBot.maximumSpeedForIsGood(isGood: isGood) + 5.0 //Ensure it has some speed
         print("speed :\(speed.debugDescription)")
         
         // Configure the agent's characteristics for the steering physics simulation.
