@@ -28,11 +28,11 @@ class LookingState: GKState
     }
     
     /// The `RenderComponent' for this component's 'entity'.
-    var animationComponent: AnimationComponent
-    {
-        guard let animationComponent = buyWaresComponent.entity?.component(ofType: AnimationComponent.self) else { fatalError("A BuyWaresActiveState entity must have a AnimationComponent") }
-        return animationComponent
-    }
+//    var animationComponent: AnimationComponent
+//    {
+//        guard let animationComponent = buyWaresComponent.entity?.component(ofType: AnimationComponent.self) else { fatalError("A BuyWaresActiveState entity must have a AnimationComponent") }
+//        return animationComponent
+//    }
     
     
     /// The amount of time the beam has been in its "firing" state.
@@ -81,7 +81,7 @@ class LookingState: GKState
         {
             //Check touching entity is Criminal selling products
             guard let entity = contactedBody.node?.entity else { continue }
-            if let targetBot = entity as? TaskBot, targetBot.isCriminal, targetBot.isActive
+            if let targetBot = entity as? TaskBot, targetBot.isCriminal, targetBot.isActive, targetBot.isSelling
             {
                 stateMachine?.enter(BuyingState.self)
             //buyProductFromSeller(entity: entity)
