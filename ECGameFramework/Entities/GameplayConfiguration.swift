@@ -150,10 +150,10 @@ struct GameplayConfiguration
         static let chargeLossPerSecond = 90.0
         
         /// The length of time that the beam takes to recharge when it is fully depleted.
-        static let coolDownDuration: TimeInterval = 10.0
+        static let coolDownDuration: TimeInterval = 5.0
         
         /// The length of time that the beam takes to recharge when it is fully depleted.
-        static let buyDuration: TimeInterval = 5.0
+        static let buyDuration: TimeInterval = 10.0
 
     }
     
