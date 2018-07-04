@@ -453,7 +453,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
     {
         print("Appetite Component Add Appetite")
         
-        if appetiteComponent.appetite >= 100.0
+        if appetiteComponent.appetite == 100.0
         {
             //Protestor wants to be a product
             appetiteComponent.isTriggered = true
@@ -483,6 +483,8 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         //Protestor is eating
         self.isHungry = false
         
+        //Protestor consuming
+        //appetiteComponent.isConsumingProduct = true
         
     }
     
