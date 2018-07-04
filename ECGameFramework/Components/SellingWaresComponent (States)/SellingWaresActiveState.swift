@@ -87,11 +87,12 @@ class SellingWaresActiveState: GKState
              */
             stateMachine?.enter(SellingWaresCoolingState.self)
         }
-        else if !sellingWaresComponent.isTriggered
-        {
-            // The beam is no longer being fired. Enter the `SellingWaresIdleState`.
-            stateMachine?.enter(SellingWaresIdleState.self)
-        }
+        
+//        if !sellingWaresComponent.isTriggered
+//        {
+//            // The beam is no longer being fired. Enter the `SellingWaresIdleState`.
+//            stateMachine?.enter(SellingWaresIdleState.self)
+//        }
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
