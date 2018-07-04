@@ -87,11 +87,15 @@ class SellWaresState: GKState
         //Update the SellingWaresComponent StateMachine
         sellingWaresComponent.stateMachine.update(deltaTime: seconds)
         
+        //Ensure the taskbot continues to move around the scene
+        intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
+        
+        guard (stateMachine?.currentState as? SellingWaresActiveState) != nil else { return }
+        
         //Present the selling animation
         animationComponent.requestedAnimationState = .selling
         
-        //Ensure the taskbot continues to move around the scene
-        intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
+
         
         elapsedTime += seconds
         
