@@ -30,11 +30,11 @@ class BuyingState: GKState
     
     
     /// The `RenderComponent' for this component's 'entity'.
-    var animationComponent: AnimationComponent
-    {
-        guard let animationComponent = buyWaresComponent.entity?.component(ofType: AnimationComponent.self) else { fatalError("A BuyingState entity must have a AnimationComponent") }
-        return animationComponent
-    }
+//    var animationComponent: AnimationComponent
+//    {
+//        guard let animationComponent = buyWaresComponent.entity?.component(ofType: AnimationComponent.self) else { fatalError("A BuyingState entity must have a AnimationComponent") }
+//        return animationComponent
+//    }
 
     var intelligenceComponent: IntelligenceComponent
     {
@@ -75,7 +75,7 @@ class BuyingState: GKState
         
         print("BuyWaresBuyingState update: \(seconds.description)")
         
-//        animationComponent.requestedAnimationState = .buying
+ //       animationComponent.requestedAnimationState = .buying
         
         // Check if Protestor is in contact with criminal seller.
         let contactedBodies = physicsComponent.physicsBody.allContactedBodies()
