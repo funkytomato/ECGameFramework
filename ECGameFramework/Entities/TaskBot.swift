@@ -912,7 +912,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         }
             
         //TaskBot is Protestor and wants to buy wares
-        else if self.isProtestor && self.isHungry && huntCriminalTaskBot > 0.0
+        else if self.isProtestor && !self.isSubservient && self.isHungry && huntCriminalTaskBot > 0.0
         {
             guard let criminalBot = state.nearestCriminalTaskBotTarget?.target.agent else { return }
             mandate = .buyWares(criminalBot)
