@@ -83,6 +83,7 @@ class SellWaresState: GKState
     override func update(deltaTime seconds: TimeInterval)
     {
         super.update(deltaTime: seconds)
+        elapsedTime += seconds
         
         //Update the SellingWaresComponent StateMachine
         sellingWaresComponent.stateMachine.update(deltaTime: seconds)
@@ -94,11 +95,6 @@ class SellWaresState: GKState
         
         //Present the selling animation
         animationComponent.requestedAnimationState = .selling
-        
-
-        
-        elapsedTime += seconds
-        
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
