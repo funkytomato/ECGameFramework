@@ -89,7 +89,7 @@ class TouchControlInputNode: SKSpriteNode, ThumbStickNodeDelegate, ControlInputS
     
     
     deinit {
-        print("Deallocating TouchControlInputNode")
+//        print("Deallocating TouchControlInputNode")
     }
     
     // MARK: ThumbStickNodeDelegate

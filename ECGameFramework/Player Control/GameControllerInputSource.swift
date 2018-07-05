@@ -35,7 +35,7 @@ class GameControllerInputSource: ControlInputSourceType
     
     
     deinit {
-        print("Deallocating GameControllerInputSource")
+//        print("Deallocating GameControllerInputSource")
     }
     
     // MARK: Gamepad Registration Methods

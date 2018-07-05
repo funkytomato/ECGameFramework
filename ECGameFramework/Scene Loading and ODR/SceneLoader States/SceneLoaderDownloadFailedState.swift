@@ -22,7 +22,7 @@ class SceneLoaderDownloadFailedState: GKState
     }
     
     deinit {
-        print("Deallocating SceneLoaderDownloadFailedState")
+//        print("Deallocating SceneLoaderDownloadFailedState")
     }
     
     // MARK: GKState Life Cycle

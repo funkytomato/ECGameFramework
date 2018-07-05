@@ -75,7 +75,7 @@ class ThumbStickNode: SKSpriteNode
 
     
     deinit {
-        print("Deallocating ThumbStickNode")
+//        print("Deallocating ThumbStickNode")
     }
     
     // MARK: UIResponder

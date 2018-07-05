@@ -31,7 +31,7 @@ class TazerCoolingState: GKState
     }
     
     deinit {
-        print("Deallocating TazerCoolingState")
+//        print("Deallocating TazerCoolingState")
     }
     
     // MARK: GKState life cycle

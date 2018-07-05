@@ -48,7 +48,7 @@ class LevelSceneActiveState: GKState
     }
     
     deinit {
-        print("Deallocating LevelSceneActiveState")
+//        print("Deallocating LevelSceneActiveState")
     }
     
     

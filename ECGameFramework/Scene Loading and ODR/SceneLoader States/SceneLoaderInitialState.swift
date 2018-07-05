@@ -22,7 +22,7 @@ class SceneLoaderInitialState: GKState
     }
     
     deinit {
-        print("Deallocating SceneLoaderInitialState")
+//        print("Deallocating SceneLoaderInitialState")
     }
     
     // MARK: GKState Life Cycle

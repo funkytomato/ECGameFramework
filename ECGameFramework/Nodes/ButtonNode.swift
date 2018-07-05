@@ -183,7 +183,7 @@ class ButtonNode: SKSpriteNode
     }
     
     deinit {
-        print("Deallocating ButtonNode")
+//        print("Deallocating ButtonNode")
     }
     
     override func copy(with zone: NSZone? = nil) -> Any

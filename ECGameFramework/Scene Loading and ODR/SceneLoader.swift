@@ -148,7 +148,7 @@ class SceneLoader
     
     
     deinit {
-        print("Deallocating SceneLoader")
+//        print("Deallocating SceneLoader")
     }
     
     #if os(iOS) || os(tvOS)

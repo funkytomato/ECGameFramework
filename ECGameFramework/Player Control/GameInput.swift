@@ -94,7 +94,7 @@ final class GameInput
     
     deinit
     {
-        print("Deallocating GameInput")
+//        print("Deallocating GameInput")
         
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.GCControllerDidConnect, object: nil)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.GCControllerDidDisconnect, object: nil)

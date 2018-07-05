@@ -22,7 +22,7 @@ class SceneLoaderResourcesReadyState: GKState
     }
     
     deinit {
-        print("Deallocating SceneLoaderResourcesReaddyState")
+//        print("Deallocating SceneLoaderResourcesReaddyState")
     }
     
     // MARK: GKState Life Cycle

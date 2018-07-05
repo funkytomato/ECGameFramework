@@ -29,7 +29,7 @@ class LoadResourcesOperation: SceneOperation, ProgressReporting
     }
     
     deinit {
-        print("Deallocating LoadResourcesOperation")
+//        print("Deallocating LoadResourcesOperation")
     }
     
     // MARK: NSOperation

@@ -55,7 +55,7 @@ class SceneLoaderPreparingResourcesState: GKState
     }
     
     deinit {
-        print("Deallocating SceneLoaderPreparingState")
+//        print("Deallocating SceneLoaderPreparingState")
     }
     
     // MARK: GKState Life Cycle

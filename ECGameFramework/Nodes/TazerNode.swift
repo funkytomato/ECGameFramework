@@ -85,7 +85,7 @@ class TazerNode: SKNode, ResourceLoadableType
     }
     
     deinit {
-        print("Deallocating TazerNode")
+//        print("Deallocating TazerNode")
     }
     
     

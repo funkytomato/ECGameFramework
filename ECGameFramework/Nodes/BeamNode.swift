@@ -81,7 +81,7 @@ class BeamNode: SKNode, ResourceLoadableType
     }
     
     deinit {
-        print("Deallocating BeamNode")
+//        print("Deallocating BeamNode")
     }
     
     // MARK: Actions

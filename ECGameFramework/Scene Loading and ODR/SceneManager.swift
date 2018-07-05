@@ -121,7 +121,7 @@ final class SceneManager
     
     deinit
     {
-        print("Deallocating SceneManager")
+//        print("Deallocating SceneManager")
         
         // Unregister for `SceneLoader` notifications if the observer is still around.
         if let loadingCompletedObserver = loadingCompletedObserver

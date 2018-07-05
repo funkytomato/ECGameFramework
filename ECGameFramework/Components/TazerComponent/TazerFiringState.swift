@@ -49,7 +49,7 @@ class TazerFiringState: GKState
     
     
     deinit {
-        print("Deallocating TazerFiringState")
+//        print("Deallocating TazerFiringState")
     }
     
     // MARK: GKState life cycle

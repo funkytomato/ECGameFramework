@@ -78,6 +78,6 @@ class ColourBar: SKSpriteNode
     }
     
     deinit {
-        print("Deallocating ChargeBar")
+//        print("Deallocating ChargeBar")
     }
 }

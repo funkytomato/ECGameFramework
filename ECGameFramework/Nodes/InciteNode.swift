@@ -85,7 +85,7 @@ class InciteNode: SKNode, ResourceLoadableType
     }
     
     deinit {
-        print("Deallocating InciteNode")
+//        print("Deallocating InciteNode")
     }
     
     // MARK: Actions
