@@ -89,12 +89,12 @@ class BuyingWaresComponent: GKComponent
         super.init()
         
         stateMachine = GKStateMachine(states: [
-            IdleState(buyWaresComponent: self),
-            LookingState(buyWaresComponent: self),
-            BuyingState(buyWaresComponent: self)
+            BuyingWaresIdleState(buyWaresComponent: self),
+            BuyingWaresLookingState(buyWaresComponent: self),
+            BuyingWaresBuyingState(buyWaresComponent: self)
             ])
         
-        stateMachine.enter(IdleState.self)
+        stateMachine.enter(BuyingWaresIdleState.self)
     }
     
     required init?(coder aDecoder: NSCoder)
@@ -119,14 +119,14 @@ class BuyingWaresComponent: GKComponent
         
         switch currentState
         {
-            case is IdleState:
+            case is BuyingWaresIdleState:
                 print("Idle")
                 animationComponent.requestedAnimationState = .idle
             
-            case is LookingState:
+            case is BuyingWaresLookingState:
                 animationComponent.requestedAnimationState = .looking
             
-            case is BuyingState:
+            case is BuyingWaresBuyingState:
                 animationComponent.requestedAnimationState = .buying
             
             default:
