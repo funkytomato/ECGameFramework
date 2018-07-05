@@ -14,7 +14,7 @@ The state representing the `TaskBot' while actively inciting others.
 import SpriteKit
 import GameplayKit
 
-class AppetiteActiveState: GKState
+class AppetiteGettingHungryState: GKState
 {
     // MARK: Properties
     unowned var appetiteComponent: AppetiteComponent
@@ -63,7 +63,7 @@ class AppetiteActiveState: GKState
         if appetiteComponent.isConsumingProduct
         {
             // Protestor is now consuming product
-            stateMachine?.enter(AppetiteCoolingState.self)
+            stateMachine?.enter(AppetiteConsumingState.self)
         }
     }
     
@@ -71,7 +71,7 @@ class AppetiteActiveState: GKState
     {
         switch stateClass
         {
-        case is AppetiteIdleState.Type, is AppetiteCoolingState.Type:
+        case is AppetiteIdleState.Type, is AppetiteConsumingState.Type:
             return true
             
         default:
