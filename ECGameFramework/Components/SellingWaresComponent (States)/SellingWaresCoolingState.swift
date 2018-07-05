@@ -64,7 +64,7 @@ class SellingWaresCoolingState: GKState
     {
         switch stateClass
         {
-        case is SellingWaresIdleState.Type, is SellingWaresActiveState.Type:
+        case is SellingWaresIdleState.Type:
             return true
             
         default:
