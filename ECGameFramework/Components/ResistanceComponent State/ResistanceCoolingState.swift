@@ -31,7 +31,7 @@ class ResistanceCoolingState: GKState
     }
     
     deinit {
-        print("Deallocating ResistanceCoolingState")
+//        print("Deallocating ResistanceCoolingState")
     }
     
     // MARK: GKState life cycle

@@ -29,7 +29,7 @@ class ResistanceIdleState: GKState
     }
     
     deinit {
-        print("Deallocating ResistanceIdleState")
+//        print("Deallocating ResistanceIdleState")
     }
     
     // MARK: GKState life cycle

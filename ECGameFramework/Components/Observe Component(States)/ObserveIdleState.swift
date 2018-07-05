@@ -35,14 +35,14 @@ class ObserveIdleState: GKState
     }
     
     deinit {
-        print("Deallocating ObserveIdleState")
+//        print("Deallocating ObserveIdleState")
     }
     
     // MARK: GKState life cycle
     
     override func didEnter(from previousState: GKState?)
     {
-        print("ObserveIdleState entered: \(observeComponent.entity.debugDescription)")
+//        print("ObserveIdleState entered: \(observeComponent.entity.debugDescription)")
         
         super.didEnter(from: previousState)
         
@@ -54,7 +54,7 @@ class ObserveIdleState: GKState
     {
         super.update(deltaTime: seconds)
         
-        print("ObserveIdleState update: \(observeComponent.entity.debugDescription)")
+//        print("ObserveIdleState update: \(observeComponent.entity.debugDescription)")
         
         // If the beam has been triggered, enter `ObserveActiveState`.
         if observeComponent.isTriggered

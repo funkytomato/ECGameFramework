@@ -33,7 +33,7 @@ class FlyingBotPreAttackState: GKState
     }
     
     deinit {
-        print("Deallocating FlyingBotPreAttackState")
+//        print("Deallocating FlyingBotPreAttackState")
     }
     
     // MARK: GKState Life Cycle

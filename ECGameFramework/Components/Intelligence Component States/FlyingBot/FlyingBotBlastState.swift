@@ -64,7 +64,7 @@ class FlyingBotBlastState: GKState
     }
     
     deinit {
-        print("Deallocating FlyingBotBlastState")
+//        print("Deallocating FlyingBotBlastState")
     }
     
     // MARK: GKState Life Cycle

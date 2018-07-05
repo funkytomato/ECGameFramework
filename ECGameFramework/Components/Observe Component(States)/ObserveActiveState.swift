@@ -32,14 +32,14 @@ class ObserveActiveState: GKState
     }
     
     deinit {
-        print("Deallocating ObserveActiveState")
+//        print("Deallocating ObserveActiveState")
     }
     
     // MARK: GKState life cycle
     
     override func didEnter(from previousState: GKState?)
     {
-        print("ObserveActiveState entered: \(observeComponent.entity.debugDescription)")
+//        print("ObserveActiveState entered: \(observeComponent.entity.debugDescription)")
         
         super.didEnter(from: previousState)
         
@@ -51,7 +51,7 @@ class ObserveActiveState: GKState
     {
         super.update(deltaTime: seconds)
         
-        print("ObserveActiveState updating")
+//        print("ObserveActiveState updating")
         
         // Update the "amount of time firing" tracker.
         elapsedTime += seconds

@@ -34,7 +34,7 @@ class ResistanceHitState: GKState
     }
     
     deinit {
-        print("Deallocating ResistanceHitState")
+//        print("Deallocating ResistanceHitState")
     }
     
     // MARK: GKState life cycle
