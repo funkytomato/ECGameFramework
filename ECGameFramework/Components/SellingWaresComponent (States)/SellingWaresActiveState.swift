@@ -49,13 +49,11 @@ class SellingWaresActiveState: GKState
     override func update(deltaTime seconds: TimeInterval)
     {
         super.update(deltaTime: seconds)
+        elapsedTime += seconds
         
         print("SellingWaresActiveState updating")
         
-        // Update the "amount of time firing" tracker.
-        elapsedTime += seconds
-        
-        
+
         if elapsedTime >= GameplayConfiguration.Wares.maximumSellingWaresDuration
         {
             /**
