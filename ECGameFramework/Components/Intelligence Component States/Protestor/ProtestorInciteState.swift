@@ -68,22 +68,19 @@ class ProtestorInciteState: GKState
         elapsedTime = 0.0
         
         //Set the InciteComponent to on
-        //inciteComponent.stateMachine.enter(InciteActiveState.self)
-        //inciteComponent.stateMachine.enter(InciteIdleState.self)
         inciteComponent.isTriggered = true
     }
     
     override func update(deltaTime seconds: TimeInterval)
     {
         super.update(deltaTime: seconds)
-        
-        print("InciteState updating")
-        
-        intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
-        
         elapsedTime += seconds
         
-        guard (stateMachine?.currentState as? InciteActiveState) != nil else { return }
+        inciteComponent.stateMachine.update(deltaTime: seconds)
+        intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
+        
+        print("currentState: \(inciteComponent.stateMachine?.currentState.debugDescription)")
+        guard (inciteComponent.stateMachine?.currentState as? InciteActiveState) != nil else { return }
         animationComponent.requestedAnimationState = .inciting
     }
     
@@ -93,7 +90,7 @@ class ProtestorInciteState: GKState
         {
             
             case is TaskBotAgentControlledState.Type, is TaskBotFleeState.Type, is TaskBotInjuredState.Type,  is TaskBotZappedState.Type,
-                is ProtestorBotHitState.Type:
+                is ProtestorBotHitState.Type, is ProtestorInciteState.Type:
                 return true
             
             default:
