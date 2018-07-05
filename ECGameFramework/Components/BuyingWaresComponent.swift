@@ -127,6 +127,7 @@ class BuyingWaresComponent: GKComponent
                 animationComponent.requestedAnimationState = .buying
             
             default:
+//                animationComponent.requestedAnimationState = .idle
                 break
             
         }
