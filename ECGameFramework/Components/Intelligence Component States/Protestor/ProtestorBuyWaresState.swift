@@ -82,7 +82,7 @@ class ProtestorBuyWaresState: GKState
         //Reset the tracking of how long the 'ManBot' has been in "Detained" state
         elapsedTime = 0.0
         
-        buyWaresComponent.stateMachine.enter(IdleState.self)
+        buyWaresComponent.stateMachine.enter(BuyingWaresIdleState.self)
     }
     
     override func update(deltaTime seconds: TimeInterval)
