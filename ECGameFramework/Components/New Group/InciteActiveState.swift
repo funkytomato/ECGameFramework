@@ -56,7 +56,7 @@ class InciteActiveState: GKState
         
 //        animationComponent.requestedAnimationState = .inciting
         
-        inciteComponent.isTriggered = true
+ //       inciteComponent.isTriggered = true
     }
     
     override func update(deltaTime seconds: TimeInterval)
