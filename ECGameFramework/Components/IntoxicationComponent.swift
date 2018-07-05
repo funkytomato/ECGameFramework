@@ -123,8 +123,6 @@ class IntoxicationComponent: GKComponent
     {
         stateMachine.update(deltaTime: seconds)
         
- //       guard (stateMachine.currentState as? IntoxicationActiveState) != nil else { return }
-        
         if hasFullintoxication
         {
             animationComponent.requestedAnimationState = .drunk
