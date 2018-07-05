@@ -20,20 +20,6 @@ class BuyingWaresLookingState: GKState
     unowned var buyWaresComponent: BuyingWaresComponent
     
     
-    /// The `PhysicsComponent' for this component's 'entity'.
-    var physicsComponent: PhysicsComponent
-    {
-        guard let physicsComponent = buyWaresComponent.entity?.component(ofType: PhysicsComponent.self) else { fatalError("A BuyWaresActiveState entity must have a PhysicsComponent") }
-        return physicsComponent
-    }
-    
-    /// The `RenderComponent' for this component's 'entity'.
-//    var animationComponent: AnimationComponent
-//    {
-//        guard let animationComponent = buyWaresComponent.entity?.component(ofType: AnimationComponent.self) else { fatalError("A BuyWaresActiveState entity must have a AnimationComponent") }
-//        return animationComponent
-//    }
-    
     
     /// The amount of time the beam has been in its "firing" state.
     var elapsedTime: TimeInterval = 0.0
@@ -67,26 +53,12 @@ class BuyingWaresLookingState: GKState
         super.update(deltaTime: seconds)
         
         print("BuyWaresActiveState updating")
-        
- //       animationComponent.requestedAnimationState = .looking
+    
         
         //print(animationComponent.requestedAnimationState.debugDescription)
         
         // Update the "amount of time firing" tracker.
         elapsedTime += seconds
-        
-        // Check if criminal seller is in contact with protestor.
-        let contactedBodies = physicsComponent.physicsBody.allContactedBodies()
-        for contactedBody in contactedBodies
-        {
-            //Check touching entity is Criminal selling products
-            guard let entity = contactedBody.node?.entity else { continue }
-            if let targetBot = entity as? TaskBot, targetBot.isCriminal, targetBot.isActive, targetBot.isSelling
-            {
-                stateMachine?.enter(BuyingWaresBuyingState.self)
-            //buyProductFromSeller(entity: entity)
-            }
-        }
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
