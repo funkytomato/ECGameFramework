@@ -262,35 +262,38 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
         guard (sellingWaresComponent.stateMachine.currentState as? SellingWaresActiveState) != nil else { return }
         
         
-        //Check protestor has a buying component, and move into buying state
+        //Check protestor is active, has a buying component, and move into buying state
         guard let protestorBot = entity as? ProtestorBot else { return }
-        guard let protestorBuyingWaresComponent = protestorBot.component(ofType: BuyingWaresComponent.self) else { return }
-        print("state: \(protestorBuyingWaresComponent.stateMachine.currentState.debugDescription)")
-        guard (protestorBuyingWaresComponent.stateMachine.currentState as? BuyingWaresLookingState) != nil else { return }
-       // protestorBuyingWaresComponent.stateMachine.enter(BuyingState.self)
-        
- 
-        //Reduce the number of wares the Criminal has
-        sellingWaresComponent.loseWares(waresToLose: GameplayConfiguration.CriminalBot.sellingWaresLossPerCycle)
-        
-        //Protestor buys product
-        protestorBuyingWaresComponent.gainProduct(waresToAdd: GameplayConfiguration.CriminalBot.sellingWaresLossPerCycle)
-        
-        //Check protestor has an appetite
-        guard let protestorAppetiteComponent = protestorBot.component(ofType: AppetiteComponent.self) else { return }
-        
-        //Trigger the Protestor isConSuming flag
-        protestorAppetiteComponent.isConsumingProduct = true
-        
-        //Protestor has bought product and so does not need to look to buy more
-        protestorAppetiteComponent.isTriggered = false
-        
-        
-        //Ensure the Protestor has an IntoxicationComponent
-        guard let protestorIntoxicationComponent = protestorBot.component(ofType: IntoxicationComponent.self) else { return }
-        
-        //Trigger the Protestor's intoxication component
-        protestorIntoxicationComponent.isTriggered = true
+        if protestorBot.isActive
+        {
+            guard let protestorBuyingWaresComponent = protestorBot.component(ofType: BuyingWaresComponent.self) else { return }
+            print("state: \(protestorBuyingWaresComponent.stateMachine.currentState.debugDescription)")
+            guard (protestorBuyingWaresComponent.stateMachine.currentState as? BuyingWaresLookingState) != nil else { return }
+            // protestorBuyingWaresComponent.stateMachine.enter(BuyingState.self)
+            
+            
+            //Reduce the number of wares the Criminal has
+            sellingWaresComponent.loseWares(waresToLose: GameplayConfiguration.CriminalBot.sellingWaresLossPerCycle)
+            
+            //Protestor buys product
+            protestorBuyingWaresComponent.gainProduct(waresToAdd: GameplayConfiguration.CriminalBot.sellingWaresLossPerCycle)
+            
+            //Check protestor has an appetite
+            guard let protestorAppetiteComponent = protestorBot.component(ofType: AppetiteComponent.self) else { return }
+            
+            //Trigger the Protestor isConSuming flag
+            protestorAppetiteComponent.isConsumingProduct = true
+            
+            //Protestor has bought product and so does not need to look to buy more
+            protestorAppetiteComponent.isTriggered = false
+            
+            
+            //Ensure the Protestor has an IntoxicationComponent
+            guard let protestorIntoxicationComponent = protestorBot.component(ofType: IntoxicationComponent.self) else { return }
+            
+            //Trigger the Protestor's intoxication component
+            protestorIntoxicationComponent.isTriggered = true
+        }
     }
     
     
@@ -306,34 +309,36 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
         
         //Check protestor has a buying component, and move into buying state
         guard let protestorBot = entity as? ProtestorBot else { return }
-        guard let protestorBuyingWaresComponent = protestorBot.component(ofType: BuyingWaresComponent.self) else { return }
-        print("state: \(protestorBuyingWaresComponent.stateMachine.currentState.debugDescription)")
-        guard (protestorBuyingWaresComponent.stateMachine.currentState as? BuyingWaresLookingState) != nil else { return }
-        // protestorBuyingWaresComponent.stateMachine.enter(BuyingState.self)
-        
-        
-        //Reduce the number of wares the Criminal has
-        sellingWaresComponent.loseWares(waresToLose: GameplayConfiguration.CriminalBot.sellingWaresLossPerCycle)
-        
-        //Protestor buys product
-        protestorBuyingWaresComponent.gainProduct(waresToAdd: GameplayConfiguration.CriminalBot.sellingWaresLossPerCycle)
-        
-        //Check protestor has an appetite
-        guard let protestorAppetiteComponent = protestorBot.component(ofType: AppetiteComponent.self) else { return }
-        
-        //Trigger the Protestor isConSuming flag
-        protestorAppetiteComponent.isConsumingProduct = true
-        
-        //Protestor has bought product and so does not need to look to buy more
-        protestorAppetiteComponent.isTriggered = false
-        
-        
-        //Ensure the Protestor has an IntoxicationComponent
-        guard let protestorIntoxicationComponent = protestorBot.component(ofType: IntoxicationComponent.self) else { return }
-        
-        //Trigger the Protestor's intoxication component
-        protestorIntoxicationComponent.isTriggered = true
-        
+        if protestorBot.isActive
+        {
+            guard let protestorBuyingWaresComponent = protestorBot.component(ofType: BuyingWaresComponent.self) else { return }
+            print("state: \(protestorBuyingWaresComponent.stateMachine.currentState.debugDescription)")
+            guard (protestorBuyingWaresComponent.stateMachine.currentState as? BuyingWaresLookingState) != nil else { return }
+            // protestorBuyingWaresComponent.stateMachine.enter(BuyingState.self)
+            
+            
+            //Reduce the number of wares the Criminal has
+            sellingWaresComponent.loseWares(waresToLose: GameplayConfiguration.CriminalBot.sellingWaresLossPerCycle)
+            
+            //Protestor buys product
+            protestorBuyingWaresComponent.gainProduct(waresToAdd: GameplayConfiguration.CriminalBot.sellingWaresLossPerCycle)
+            
+            //Check protestor has an appetite
+            guard let protestorAppetiteComponent = protestorBot.component(ofType: AppetiteComponent.self) else { return }
+            
+            //Trigger the Protestor isConSuming flag
+            protestorAppetiteComponent.isConsumingProduct = true
+            
+            //Protestor has bought product and so does not need to look to buy more
+            protestorAppetiteComponent.isTriggered = false
+            
+            
+            //Ensure the Protestor has an IntoxicationComponent
+            guard let protestorIntoxicationComponent = protestorBot.component(ofType: IntoxicationComponent.self) else { return }
+            
+            //Trigger the Protestor's intoxication component
+            protestorIntoxicationComponent.isTriggered = true
+        }
     }
     
     // MARK: RulesComponentDelegate
