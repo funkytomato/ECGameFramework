@@ -23,7 +23,7 @@ class BeamIdleState: GKState
     }
     
     deinit {
-        print("Deallocating BeamIdleState")
+//        print("Deallocating BeamIdleState")
     }
     
     // MARK: GKState life cycle

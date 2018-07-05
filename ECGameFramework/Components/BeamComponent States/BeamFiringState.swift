@@ -43,7 +43,7 @@ class BeamFiringState: GKState
     }
     
     deinit {
-        print("Deallocating BeamFiringState")
+//        print("Deallocating BeamFiringState")
     }
     
     // MARK: GKState life cycle

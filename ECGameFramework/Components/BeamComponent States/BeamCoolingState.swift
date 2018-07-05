@@ -26,7 +26,7 @@ class BeamCoolingState: GKState
     }
     
     deinit {
-        print("Deallocating BeamCoolingSate")
+//        print("Deallocating BeamCoolingSate")
     }
     
     // MARK: GKState life cycle
