@@ -121,7 +121,7 @@ class BuyingWaresComponent: GKComponent
         {
             case is BuyingWaresIdleState:
                 print("Idle")
-                animationComponent.requestedAnimationState = .idle
+ //               animationComponent.requestedAnimationState = .idle
             
             case is BuyingWaresLookingState:
                 animationComponent.requestedAnimationState = .looking
@@ -130,7 +130,8 @@ class BuyingWaresComponent: GKComponent
                 animationComponent.requestedAnimationState = .buying
             
             default:
-                animationComponent.requestedAnimationState = .idle
+                print("Idle")
+//                animationComponent.requestedAnimationState = .idle
             
         }
     }
