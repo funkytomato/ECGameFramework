@@ -643,7 +643,13 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             ruleSystem.minimumGrade(forFacts: [
                 Fact.protestorTaskBotNear.rawValue as AnyObject,
                 Fact.policeBotFar.rawValue as AnyObject
+                ]),
+            
+            ruleSystem.minimumGrade(forFacts: [
+                Fact.protestorTaskBotMedium.rawValue as AnyObject,
+                Fact.policeBotFar.rawValue as AnyObject
                 ])
+            
         ]
         
         let inciteTaskBot = inciteTaskBotRaw.reduce(0.0, max)
