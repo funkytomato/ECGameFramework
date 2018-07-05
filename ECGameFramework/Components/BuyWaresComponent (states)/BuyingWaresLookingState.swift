@@ -51,14 +51,14 @@ class BuyingWaresLookingState: GKState
     override func update(deltaTime seconds: TimeInterval)
     {
         super.update(deltaTime: seconds)
+        elapsedTime += seconds
         
 //        print("BuyWaresActiveState updating")
     
-        
-        //print(animationComponent.requestedAnimationState.debugDescription)
-        
-        // Update the "amount of time firing" tracker.
-        elapsedTime += seconds
+        if buyWaresComponent.hasWares
+        {
+            stateMachine?.enter(BuyingWaresBuyingState.self)
+        }
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
