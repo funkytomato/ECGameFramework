@@ -20,21 +20,6 @@ class BuyingWaresBuyingState: GKState
     
     unowned var buyWaresComponent: BuyingWaresComponent
     
-    
-    /// The `PhysicsComponent' for this component's 'entity'.
-    var physicsComponent: PhysicsComponent
-    {
-        guard let physicsComponent = buyWaresComponent.entity?.component(ofType: PhysicsComponent.self) else { fatalError("A SellingWaresActiveState entity must have a PhysicsComponent") }
-        return physicsComponent
-    }
-    
-    
-    /// The `RenderComponent' for this component's 'entity'.
-//    var animationComponent: AnimationComponent
-//    {
-//        guard let animationComponent = buyWaresComponent.entity?.component(ofType: AnimationComponent.self) else { fatalError("A BuyingState entity must have a AnimationComponent") }
-//        return animationComponent
-//    }
 
     var intelligenceComponent: IntelligenceComponent
     {
@@ -74,24 +59,7 @@ class BuyingWaresBuyingState: GKState
         super.update(deltaTime: seconds)
         
         print("BuyWaresBuyingState update: \(seconds.description)")
-        
- //       animationComponent.requestedAnimationState = .buying
-        
-        // Check if Protestor is in contact with criminal seller.
-        let contactedBodies = physicsComponent.physicsBody.allContactedBodies()
-        for contactedBody in contactedBodies
-        {
-            //Check touching entity is Criminal and wants to sell something
-            guard let entity = contactedBody.node?.entity else { continue }
-            if let seller = entity as? CriminalBot, seller.isCriminal, seller.isActive, seller.isSelling
-            {
-                guard let criminalSellingWaresComponent = seller.component(ofType: SellingWaresComponent.self) else { return }
-                guard (criminalSellingWaresComponent.stateMachine.currentState as? SellingWaresActiveState) != nil else { return }
-                
-                stateMachine?.enter(BuyingWaresBuyingState.self)
-                //buyProductFromSeller(entity: entity)
-            }
-        }
+    
         
         elapsedTime += seconds
         if buyWaresComponent.hasWares
