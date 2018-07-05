@@ -125,8 +125,8 @@ class AppetiteComponent: GKComponent
         
         stateMachine = GKStateMachine(states: [
             AppetiteIdleState(appetiteComponent: self),
-            AppetiteActiveState(appetiteComponent: self),
-            AppetiteCoolingState(appetiteComponent: self)
+            AppetiteGettingHungryState(appetiteComponent: self),
+            AppetiteConsumingState(appetiteComponent: self)
             ])
         
         stateMachine.enter(AppetiteIdleState.self)
@@ -150,8 +150,22 @@ class AppetiteComponent: GKComponent
     {
         stateMachine.update(deltaTime: seconds)
         
+        guard let currentState = stateMachine.currentState else { return }
+        
+        
+        switch currentState {
+//        case is AppetiteGettingHungryState:
+            //animationComponent.requestedAnimationState =
+            
+        case is AppetiteConsumingState:
+            animationComponent.requestedAnimationState = .drinking
+            
+        default:
+            animationComponent.requestedAnimationState = .idle
+        }
+        
         //Protestor's is now hungry and will start to look for a source to buy from
-        guard (stateMachine.currentState as? AppetiteActiveState) != nil else { return }
+        guard (stateMachine.currentState as? AppetiteGettingHungryState) != nil else { return }
         
         //Moves the Buying Component into Active state
         buyWaresComponent.isTriggered = true
