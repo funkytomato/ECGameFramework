@@ -153,9 +153,6 @@ class AppetiteComponent: GKComponent
         guard let currentState = stateMachine.currentState else { return }
         
         
-        //Protestor's is now hungry and will start to look for a source to buy from
-        guard (stateMachine.currentState as? AppetiteGettingHungryState) != nil else { return }
-        
         switch currentState
         {
             
