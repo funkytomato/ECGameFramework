@@ -14,7 +14,7 @@ The state representing the `TaskBot' while actively inciting others.
 import SpriteKit
 import GameplayKit
 
-class LookingState: GKState
+class BuyingWaresLookingState: GKState
 {
     // MARK: Properties
     unowned var buyWaresComponent: BuyingWaresComponent
@@ -83,7 +83,7 @@ class LookingState: GKState
             guard let entity = contactedBody.node?.entity else { continue }
             if let targetBot = entity as? TaskBot, targetBot.isCriminal, targetBot.isActive, targetBot.isSelling
             {
-                stateMachine?.enter(BuyingState.self)
+                stateMachine?.enter(BuyingWaresBuyingState.self)
             //buyProductFromSeller(entity: entity)
             }
         }
@@ -93,7 +93,7 @@ class LookingState: GKState
     {
         switch stateClass
         {
-        case is BuyingState.Type:
+        case is BuyingWaresBuyingState.Type:
             return true
             
         default:

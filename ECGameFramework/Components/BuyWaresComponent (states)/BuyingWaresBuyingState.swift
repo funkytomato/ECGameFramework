@@ -14,7 +14,7 @@ The state the beam enters when it overheats from being used for too long.
 import SpriteKit
 import GameplayKit
 
-class BuyingState: GKState
+class BuyingWaresBuyingState: GKState
 {
     // MARK: Properties
     
@@ -88,7 +88,7 @@ class BuyingState: GKState
                 guard let criminalSellingWaresComponent = seller.component(ofType: SellingWaresComponent.self) else { return }
                 guard (criminalSellingWaresComponent.stateMachine.currentState as? SellingWaresActiveState) != nil else { return }
                 
-                stateMachine?.enter(BuyingState.self)
+                stateMachine?.enter(BuyingWaresBuyingState.self)
                 //buyProductFromSeller(entity: entity)
             }
         }
@@ -96,7 +96,7 @@ class BuyingState: GKState
         elapsedTime += seconds
         if buyWaresComponent.hasWares
         {
-            stateMachine?.enter(IdleState.self)
+            stateMachine?.enter(BuyingWaresIdleState.self)
             intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
         }
     }
@@ -105,7 +105,7 @@ class BuyingState: GKState
     {
         switch stateClass
         {
-        case is IdleState.Type:
+        case is BuyingWaresIdleState.Type:
             return true
             
         default:

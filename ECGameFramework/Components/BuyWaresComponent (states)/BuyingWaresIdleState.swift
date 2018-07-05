@@ -14,7 +14,7 @@ The state of the `PlayerBot`'s beam when not in use.
 import SpriteKit
 import GameplayKit
 
-class IdleState: GKState
+class BuyingWaresIdleState: GKState
 {
     // MARK: Properties
     
@@ -61,12 +61,12 @@ class IdleState: GKState
         // If buy a product has been triggered, start searching for a seller
         if buyWaresComponent.isTriggered
         {
-            stateMachine?.enter(LookingState.self)
+            stateMachine?.enter(BuyingWaresLookingState.self)
         }
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
     {
-        return stateClass is LookingState.Type
+        return stateClass is BuyingWaresLookingState.Type
     }
 }
