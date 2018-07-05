@@ -266,7 +266,7 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
         guard let protestorBot = entity as? ProtestorBot else { return }
         guard let protestorBuyingWaresComponent = protestorBot.component(ofType: BuyingWaresComponent.self) else { return }
         print("state: \(protestorBuyingWaresComponent.stateMachine.currentState.debugDescription)")
-        guard (protestorBuyingWaresComponent.stateMachine.currentState as? LookingState) != nil else { return }
+        guard (protestorBuyingWaresComponent.stateMachine.currentState as? BuyingWaresLookingState) != nil else { return }
        // protestorBuyingWaresComponent.stateMachine.enter(BuyingState.self)
         
  
