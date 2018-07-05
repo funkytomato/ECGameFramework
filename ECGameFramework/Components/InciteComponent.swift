@@ -70,7 +70,7 @@ class InciteComponent: GKComponent
     
     deinit
     {
-        print("Deallocating InciteComponent")
+//        print("Deallocating InciteComponent")
     }
     
     // MARK: GKComponent Life Cycle
@@ -81,7 +81,7 @@ class InciteComponent: GKComponent
     {
         stateMachine.update(deltaTime: seconds)
         
-        print("current state: \(stateMachine.currentState.debugDescription)")
+//        print("current state: \(stateMachine.currentState.debugDescription)")
         
         guard (stateMachine.currentState as? InciteActiveState) != nil else { return }
         
