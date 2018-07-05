@@ -55,31 +55,21 @@ class LootState: GKState
         elapsedTime = 0.0
         
         //Request the "detained animation for this state's 'ProtestorBot'
-        animationComponent.requestedAnimationState = .arrested
-        
-        //temperamentComponent.stateMachine.enter(SubduedState.self)
-        //entity.isActive = false
+        animationComponent.requestedAnimationState = .looting
     }
     
     override func update(deltaTime seconds: TimeInterval)
     {
         super.update(deltaTime: seconds)
-        
-        
-        
         elapsedTime += seconds
-        
-        /*
-         If the arrested manbot reaches the meatwagon pointer, move to detained state
-         */
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
     {
         switch stateClass
         {
-            //        case is TaskBotAgentControlledState.Type:
-            //            return true
+            case is TaskBotAgentControlledState.Type:
+                return true
             
         default:
             return false
