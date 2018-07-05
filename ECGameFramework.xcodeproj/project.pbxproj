@@ -20,16 +20,16 @@
 		181146B820DEBE710060EF0A /* ObserveActiveState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181146B720DEBE710060EF0A /* ObserveActiveState.swift */; };
 		181146BA20DEBECD0060EF0A /* ObserveCoolingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181146B920DEBECD0060EF0A /* ObserveCoolingState.swift */; };
 		181146BC20DEC06D0060EF0A /* AppetiteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181146BB20DEC06D0060EF0A /* AppetiteComponent.swift */; };
-		181146BF20DEC0D80060EF0A /* AppetiteCoolingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181146BE20DEC0D80060EF0A /* AppetiteCoolingState.swift */; };
-		181146C120DEC11C0060EF0A /* AppetiteActiveState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181146C020DEC11C0060EF0A /* AppetiteActiveState.swift */; };
+		181146BF20DEC0D80060EF0A /* AppetiteConsumingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181146BE20DEC0D80060EF0A /* AppetiteConsumingState.swift */; };
+		181146C120DEC11C0060EF0A /* AppetiteGettingHungryState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181146C020DEC11C0060EF0A /* AppetiteGettingHungryState.swift */; };
 		181146C320DEC14E0060EF0A /* AppetiteIdleState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181146C220DEC14E0060EF0A /* AppetiteIdleState.swift */; };
 		1818BC1120A6612C007FB4C7 /* TaskBotPlayerControlledState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1818BC1020A6612C007FB4C7 /* TaskBotPlayerControlledState.swift */; };
 		1823608D209BA1D000E71EB6 /* ResistanceComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1823608C209BA1D000E71EB6 /* ResistanceComponent.swift */; };
 		1838BBA420E5895E00C59E36 /* ProtestorBuyWaresState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1838BBA320E5895E00C59E36 /* ProtestorBuyWaresState.swift */; };
 		18443F2020E7EDB600660E27 /* BuyingWaresComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18443F1F20E7EDB600660E27 /* BuyingWaresComponent.swift */; };
-		18443F2320E7F05C00660E27 /* BuyingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18443F2220E7F05C00660E27 /* BuyingState.swift */; };
-		18443F2520E7F11400660E27 /* LookingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18443F2420E7F11400660E27 /* LookingState.swift */; };
-		18443F2720E7F1C700660E27 /* IdleState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18443F2620E7F1C700660E27 /* IdleState.swift */; };
+		18443F2320E7F05C00660E27 /* BuyingWaresBuyingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18443F2220E7F05C00660E27 /* BuyingWaresBuyingState.swift */; };
+		18443F2520E7F11400660E27 /* BuyingWaresLookingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18443F2420E7F11400660E27 /* BuyingWaresLookingState.swift */; };
+		18443F2720E7F1C700660E27 /* BuyingWaresIdleState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18443F2620E7F1C700660E27 /* BuyingWaresIdleState.swift */; };
 		184974B5208A440D00F7CEEB /* ProtestorBot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184974B4208A440D00F7CEEB /* ProtestorBot.swift */; };
 		184974B8208A54D300F7CEEB /* ProtestorBotRotateToAttackState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184974B7208A54D300F7CEEB /* ProtestorBotRotateToAttackState.swift */; };
 		184974BA208A557000F7CEEB /* ProtestorBotAttackState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184974B9208A557000F7CEEB /* ProtestorBotAttackState.swift */; };
@@ -241,16 +241,16 @@
 		181146B720DEBE710060EF0A /* ObserveActiveState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserveActiveState.swift; sourceTree = "<group>"; };
 		181146B920DEBECD0060EF0A /* ObserveCoolingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserveCoolingState.swift; sourceTree = "<group>"; };
 		181146BB20DEC06D0060EF0A /* AppetiteComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppetiteComponent.swift; sourceTree = "<group>"; };
-		181146BE20DEC0D80060EF0A /* AppetiteCoolingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppetiteCoolingState.swift; sourceTree = "<group>"; };
-		181146C020DEC11C0060EF0A /* AppetiteActiveState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppetiteActiveState.swift; sourceTree = "<group>"; };
+		181146BE20DEC0D80060EF0A /* AppetiteConsumingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppetiteConsumingState.swift; sourceTree = "<group>"; };
+		181146C020DEC11C0060EF0A /* AppetiteGettingHungryState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppetiteGettingHungryState.swift; sourceTree = "<group>"; };
 		181146C220DEC14E0060EF0A /* AppetiteIdleState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppetiteIdleState.swift; sourceTree = "<group>"; };
 		1818BC1020A6612C007FB4C7 /* TaskBotPlayerControlledState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskBotPlayerControlledState.swift; sourceTree = "<group>"; };
 		1823608C209BA1D000E71EB6 /* ResistanceComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResistanceComponent.swift; sourceTree = "<group>"; };
 		1838BBA320E5895E00C59E36 /* ProtestorBuyWaresState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtestorBuyWaresState.swift; sourceTree = "<group>"; };
 		18443F1F20E7EDB600660E27 /* BuyingWaresComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyingWaresComponent.swift; sourceTree = "<group>"; };
-		18443F2220E7F05C00660E27 /* BuyingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyingState.swift; sourceTree = "<group>"; };
-		18443F2420E7F11400660E27 /* LookingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookingState.swift; sourceTree = "<group>"; };
-		18443F2620E7F1C700660E27 /* IdleState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdleState.swift; sourceTree = "<group>"; };
+		18443F2220E7F05C00660E27 /* BuyingWaresBuyingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyingWaresBuyingState.swift; sourceTree = "<group>"; };
+		18443F2420E7F11400660E27 /* BuyingWaresLookingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyingWaresLookingState.swift; sourceTree = "<group>"; };
+		18443F2620E7F1C700660E27 /* BuyingWaresIdleState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyingWaresIdleState.swift; sourceTree = "<group>"; };
 		184974B4208A440D00F7CEEB /* ProtestorBot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtestorBot.swift; sourceTree = "<group>"; };
 		184974B7208A54D300F7CEEB /* ProtestorBotRotateToAttackState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtestorBotRotateToAttackState.swift; sourceTree = "<group>"; };
 		184974B9208A557000F7CEEB /* ProtestorBotAttackState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtestorBotAttackState.swift; sourceTree = "<group>"; };
@@ -494,8 +494,8 @@
 		181146BD20DEC0A60060EF0A /* AppetiteComponent (States) */ = {
 			isa = PBXGroup;
 			children = (
-				181146BE20DEC0D80060EF0A /* AppetiteCoolingState.swift */,
-				181146C020DEC11C0060EF0A /* AppetiteActiveState.swift */,
+				181146BE20DEC0D80060EF0A /* AppetiteConsumingState.swift */,
+				181146C020DEC11C0060EF0A /* AppetiteGettingHungryState.swift */,
 				181146C220DEC14E0060EF0A /* AppetiteIdleState.swift */,
 			);
 			path = "AppetiteComponent (States)";
@@ -526,9 +526,9 @@
 		18443F2120E7F02C00660E27 /* BuyWaresComponent (states) */ = {
 			isa = PBXGroup;
 			children = (
-				18443F2220E7F05C00660E27 /* BuyingState.swift */,
-				18443F2420E7F11400660E27 /* LookingState.swift */,
-				18443F2620E7F1C700660E27 /* IdleState.swift */,
+				18443F2220E7F05C00660E27 /* BuyingWaresBuyingState.swift */,
+				18443F2420E7F11400660E27 /* BuyingWaresLookingState.swift */,
+				18443F2620E7F1C700660E27 /* BuyingWaresIdleState.swift */,
 			);
 			path = "BuyWaresComponent (states)";
 			sourceTree = "<group>";
@@ -1232,7 +1232,7 @@
 				1878B6CB208E5F9400FC5FDA /* ProtestorBotRechargingState.swift in Sources */,
 				1838BBA420E5895E00C59E36 /* ProtestorBuyWaresState.swift in Sources */,
 				18FCEA532040EC40009A5C0D /* LevelScene.swift in Sources */,
-				181146C120DEC11C0060EF0A /* AppetiteActiveState.swift in Sources */,
+				181146C120DEC11C0060EF0A /* AppetiteGettingHungryState.swift in Sources */,
 				18FCEA592040EC40009A5C0D /* PlayerBot.swift in Sources */,
 				186F6E9D2040DAF5001EEF65 /* GameViewController.swift in Sources */,
 				18EDA50F2084FB26005CB784 /* TemperamentComponent.swift in Sources */,
@@ -1250,7 +1250,7 @@
 				18FCEA682040EC40009A5C0D /* FlyingBotBlastState.swift in Sources */,
 				184974BC208A55C600F7CEEB /* ProtestorBotPreAttackState.swift in Sources */,
 				18C82A642086207B0046B746 /* AngryState.swift in Sources */,
-				18443F2520E7F11400660E27 /* LookingState.swift in Sources */,
+				18443F2520E7F11400660E27 /* BuyingWaresLookingState.swift in Sources */,
 				185960F6209E7D0800F6972E /* ResistanceCoolingState.swift in Sources */,
 				18FCEA602040EC40009A5C0D /* BeamComponent.swift in Sources */,
 				18F52205208927E80070EB0C /* PoliceDetainState.swift in Sources */,
@@ -1276,7 +1276,7 @@
 				181146AD20DEB9230060EF0A /* IntoxicationCoolingState.swift in Sources */,
 				18FCEA672040EC40009A5C0D /* PlayerBotRechargingState.swift in Sources */,
 				181073692088E604001390EA /* PoliceBotRotateToAttackState.swift in Sources */,
-				181146BF20DEC0D80060EF0A /* AppetiteCoolingState.swift in Sources */,
+				181146BF20DEC0D80060EF0A /* AppetiteConsumingState.swift in Sources */,
 				181146B320DEBDB70060EF0A /* ObserveComponent.swift in Sources */,
 				18FCEA762040EC40009A5C0D /* GeometryExtensions.swift in Sources */,
 				18FCEA5E2040EC40009A5C0D /* BeamFiringState.swift in Sources */,
@@ -1317,7 +1317,7 @@
 				18FCE9C42040EB3C009A5C0D /* LoadResourcesOperation.swift in Sources */,
 				18FCEA562040EC40009A5C0D /* FlyingBot.swift in Sources */,
 				18FCEA702040EC40009A5C0D /* MovementComponent.swift in Sources */,
-				18443F2720E7F1C700660E27 /* IdleState.swift in Sources */,
+				18443F2720E7F1C700660E27 /* BuyingWaresIdleState.swift in Sources */,
 				18FCEA5D2040EC40009A5C0D /* BeamCoolingState.swift in Sources */,
 				18FCEA9D2040EC40009A5C0D /* LevelStateSnapshot.swift in Sources */,
 				18FCEA4C2040EC40009A5C0D /* LevelSceneActiveState.swift in Sources */,
@@ -1325,7 +1325,7 @@
 				1899E18120E2D06E00C29031 /* PoliceBotSupportState.swift in Sources */,
 				18FCEAA02040EC40009A5C0D /* BaseScene+TouchEventForwarding.swift in Sources */,
 				18FCEA712040EC40009A5C0D /* OrientationComponent.swift in Sources */,
-				18443F2320E7F05C00660E27 /* BuyingState.swift in Sources */,
+				18443F2320E7F05C00660E27 /* BuyingWaresBuyingState.swift in Sources */,
 				18FCE9CB2040EB3C009A5C0D /* SceneLoaderResourcesAvailableState.swift in Sources */,
 				18FCE9CF2040EB3C009A5C0D /* SceneMetadata.swift in Sources */,
 				18FCEA642040EC40009A5C0D /* PlayerBotAppearState.swift in Sources */,
