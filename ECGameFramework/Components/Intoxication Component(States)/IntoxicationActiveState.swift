@@ -20,14 +20,6 @@ class IntoxicationActiveState: GKState
     unowned var intoxicationComponent: IntoxicationComponent
     
     
-    /// The `RenderComponent' for this component's 'entity'.
-//    var animationComponent: AnimationComponent
-//    {
-//        guard let animationComponent = intoxicationComponent.entity?.component(ofType: AnimationComponent.self) else { fatalError("A IntoxicationComponent's entity must have a AnimationComponent") }
-//        return animationComponent
-//    }
-    
-    
     /// The amount of time the beam has been in its "firing" state.
     var elapsedTime: TimeInterval = 0.0
     
@@ -55,8 +47,6 @@ class IntoxicationActiveState: GKState
         elapsedTime = 0.0
         
         intoxicationComponent.isTriggered = false
-        
-        //animationComponent.requestedAnimationState = .drinking
     }
     
     override func update(deltaTime seconds: TimeInterval)
@@ -64,10 +54,6 @@ class IntoxicationActiveState: GKState
         super.update(deltaTime: seconds)
         
         print("IntoxicationActiveState updating")
-        
-        //print(animationComponent.requestedAnimationState.debugDescription)
-        
-        //animationComponent.requestedAnimationState = .drinking
         
         // Update the "amount of time firing" tracker.
         elapsedTime += seconds
