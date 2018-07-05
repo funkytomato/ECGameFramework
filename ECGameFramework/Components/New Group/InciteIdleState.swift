@@ -35,14 +35,14 @@ class InciteIdleState: GKState
     }
     
     deinit {
-        print("Deallocating InciteIdleState")
+//        print("Deallocating InciteIdleState")
     }
     
     // MARK: GKState life cycle
     
     override func didEnter(from previousState: GKState?)
     {
-        print("InciteIdleState entered: \(inciteComponent.entity.debugDescription)")
+//        print("InciteIdleState entered: \(inciteComponent.entity.debugDescription)")
         
         super.didEnter(from: previousState)
         
@@ -54,7 +54,7 @@ class InciteIdleState: GKState
     {
         super.update(deltaTime: seconds)
         
-        print("InciteIdleState update: \(inciteComponent.entity.debugDescription)")
+//        print("InciteIdleState update: \(inciteComponent.entity.debugDescription)")
         
         // If the beam has been triggered, enter `InciteActiveState`.
         if inciteComponent.isTriggered

@@ -48,7 +48,7 @@ class PoliceBotRotateToAttackState: GKState
     }
     
     deinit {
-        print("Deallocating PoliceBotToRotateAttackState")
+//        print("Deallocating PoliceBotToRotateAttackState")
     }
     
     // MARK: GPState Life Cycle

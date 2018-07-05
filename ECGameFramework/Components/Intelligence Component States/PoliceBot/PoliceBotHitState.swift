@@ -63,7 +63,7 @@ class PoliceBotHitState: GKState
     
     
     deinit {
-        print("Deallocating PoliceBotHitState")
+//        print("Deallocating PoliceBotHitState")
     }
     
     // MARK: GKState Life Cycle

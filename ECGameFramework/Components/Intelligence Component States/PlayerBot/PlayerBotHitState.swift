@@ -33,7 +33,7 @@ class PlayerBotHitState: GKState
     }
     
     deinit {
-        print("Deallocating PlayerBotHitState")
+//        print("Deallocating PlayerBotHitState")
     }
     
     // MARK: GKState Life Cycle

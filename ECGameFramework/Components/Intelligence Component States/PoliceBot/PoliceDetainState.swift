@@ -52,7 +52,7 @@ class PoliceDetainState: GKState
     }
     
     deinit {
-        print("Deallocating PolceDetainState")
+//        print("Deallocating PolceDetainState")
     }
     
     // MARK: GKState Life Cycle

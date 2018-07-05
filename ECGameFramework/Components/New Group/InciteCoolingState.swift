@@ -31,14 +31,14 @@ class InciteCoolingState: GKState
     }
     
     deinit {
-        print("Deallocating InciteCoolingSate")
+//        print("Deallocating InciteCoolingSate")
     }
     
     // MARK: GKState life cycle
     
     override func didEnter(from previousState: GKState?)
     {
-        print("InciteCoolingState entered")
+//        print("InciteCoolingState entered")
         
         super.didEnter(from: previousState)
         
@@ -49,7 +49,7 @@ class InciteCoolingState: GKState
     {
         super.update(deltaTime: seconds)
         
-        print("InciteCoolingState update")
+//        print("InciteCoolingState update")
         
         elapsedTime += seconds
         

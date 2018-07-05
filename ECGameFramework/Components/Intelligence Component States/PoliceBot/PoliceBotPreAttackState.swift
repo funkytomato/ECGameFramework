@@ -38,7 +38,7 @@ class PoliceBotPreAttackState: GKState
     }
     
     deinit {
-        print("Deallocating PoliceBotPreAttackState")
+//        print("Deallocating PoliceBotPreAttackState")
     }
     
     // MARK: GPState Life Cycle

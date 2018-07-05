@@ -45,7 +45,7 @@ class PoliceBotRechargingState: GKState
     }
     
     deinit {
-        print("Deallocating PoliceBotRechargingState")
+//        print("Deallocating PoliceBotRechargingState")
     }
     
     // MARK: GKState life cycle

@@ -41,7 +41,7 @@ class PoliceBotSupportState: GKState
     
     
     deinit {
-        print("Deallocating PoliceSupportState")
+//        print("Deallocating PoliceSupportState")
     }
     
     //MARK:- GKState Life Cycle
@@ -63,7 +63,7 @@ class PoliceBotSupportState: GKState
     {
         super.update(deltaTime: seconds)
         
-        print("PoliceSupportState updating")
+//        print("PoliceSupportState updating")
         
         
         intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)

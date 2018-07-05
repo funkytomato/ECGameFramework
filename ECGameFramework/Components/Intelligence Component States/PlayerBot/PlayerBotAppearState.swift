@@ -57,7 +57,7 @@ class PlayerBotAppearState: GKState
     }
     
     deinit {
-        print("Deallocating PlayerBotAppear")
+//        print("Deallocating PlayerBotAppear")
     }
     
     // MARK: GKState Life Cycle

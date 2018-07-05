@@ -33,14 +33,14 @@ class InciteActiveState: GKState
     }
     
     deinit {
-        print("Deallocating InciteActiveState")
+//        print("Deallocating InciteActiveState")
     }
     
     // MARK: GKState life cycle
     
     override func didEnter(from previousState: GKState?)
     {
-        print("InciteActiveState entered: \(inciteComponent.entity.debugDescription)")
+//        print("InciteActiveState entered: \(inciteComponent.entity.debugDescription)")
         
         super.didEnter(from: previousState)
         
@@ -52,7 +52,7 @@ class InciteActiveState: GKState
     {
         super.update(deltaTime: seconds)
         
-        print("InciteActiveState updating")
+//        print("InciteActiveState updating")
         
         
         // Update the "amount of time firing" tracker.
