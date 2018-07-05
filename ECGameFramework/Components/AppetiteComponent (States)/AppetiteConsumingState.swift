@@ -14,7 +14,7 @@ Reduce the appetite as product is consumed
 import SpriteKit
 import GameplayKit
 
-class AppetiteCoolingState: GKState
+class AppetiteConsumingState: GKState
 {
     // MARK: Properties
     
@@ -68,7 +68,7 @@ class AppetiteCoolingState: GKState
     {
         switch stateClass
         {
-        case is AppetiteIdleState.Type, is AppetiteActiveState.Type:
+        case is AppetiteIdleState.Type, is AppetiteGettingHungryState.Type:
             return true
             
         default:
