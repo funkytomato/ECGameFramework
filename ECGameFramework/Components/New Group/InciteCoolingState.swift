@@ -18,13 +18,7 @@ class InciteCoolingState: GKState
     // MARK: Properties
     
     unowned var inciteComponent: InciteComponent
-    
-//    /// The `RenderComponent' for this component's 'entity'.
-//    var animationComponent: AnimationComponent
-//    {
-//        guard let animationComponent = inciteComponent.entity?.component(ofType: AnimationComponent.self) else { fatalError("A InciteComponent's entity must have a AnimationComponent") }
-//        return animationComponent
-//    }
+
     
     /// The amount of time the beam has been cooling down.
     var elapsedTime: TimeInterval = 0.0
@@ -49,8 +43,6 @@ class InciteCoolingState: GKState
         super.didEnter(from: previousState)
         
         elapsedTime = 0.0
-        
-//        animationComponent.requestedAnimationState = .idle
     }
     
     override func update(deltaTime seconds: TimeInterval)
@@ -65,8 +57,6 @@ class InciteCoolingState: GKState
         if elapsedTime >= GameplayConfiguration.Incite.coolDownDuration
         {
             stateMachine?.enter(InciteIdleState.self)
-            
-            //Should refill the incite bar for next inciting round
         }
     }
     
@@ -74,7 +64,7 @@ class InciteCoolingState: GKState
     {
         switch stateClass
         {
-        case is InciteIdleState.Type, is InciteActiveState.Type:
+        case is InciteIdleState.Type:
             return true
             
         default:
