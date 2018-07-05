@@ -57,7 +57,7 @@ class TaskBotInjuredState: GKState
     }
     
     deinit {
-        print("Deallocating TaskBotInjuredState")
+//        print("Deallocating TaskBotInjuredState")
     }
     
     // MARK: GKState Life Cycle

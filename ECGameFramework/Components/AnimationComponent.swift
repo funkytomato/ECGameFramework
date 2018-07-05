@@ -159,7 +159,7 @@ class AnimationComponent: GKComponent
     
     deinit
     {
-        print("Deallocating AnimationComponent")
+//        print("Deallocating AnimationComponent")
     }
     
     // MARK: Character Animation
@@ -182,7 +182,7 @@ class AnimationComponent: GKComponent
 
         //For prototype, use the same graphic (they are all the same)
         guard let unwrappedAnimation = animations[animationState] else {
-            print("Unknown animation for state \(animationState.rawValue)")
+//            print("Unknown animation for state \(animationState.rawValue)")
             return
         }
         var animation = unwrappedAnimation
@@ -290,7 +290,7 @@ class AnimationComponent: GKComponent
         // If an animation has been requested, run the animation.
         if let animationState = requestedAnimationState
         {
-            print("entiy: \(self.entity?.debugDescription) animationState: \(requestedAnimationState)")
+//            print("entiy: \(self.entity?.debugDescription) animationState: \(requestedAnimationState)")
             runAnimationForAnimationState(animationState: animationState, deltaTime: deltaTime)
             requestedAnimationState = nil
         }

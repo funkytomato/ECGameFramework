@@ -43,7 +43,7 @@ class LootState: GKState
     }
     
     deinit {
-        print("Deallocating LootState")
+//        print("Deallocating LootState")
     }
     
     //MARK:- GKState Life Cycle

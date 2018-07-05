@@ -71,7 +71,7 @@ class ProtestorBuyWaresState: GKState
     }
     
     deinit {
-        print("Deallocating ProtestorBuyWaresState")
+//        print("Deallocating ProtestorBuyWaresState")
     }
     
     //MARK:- GKState Life Cycle

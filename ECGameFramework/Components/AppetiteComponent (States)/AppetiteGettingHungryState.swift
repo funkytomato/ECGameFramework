@@ -32,14 +32,14 @@ class AppetiteGettingHungryState: GKState
     }
     
     deinit {
-        print("Deallocating AppetiteActiveState")
+//        print("Deallocating AppetiteActiveState")
     }
     
     // MARK: GKState life cycle
     
     override func didEnter(from previousState: GKState?)
     {
-        print("AppetiteActiveState entered: \(appetiteComponent.entity.debugDescription)")
+//        print("AppetiteActiveState entered: \(appetiteComponent.entity.debugDescription)")
         
         super.didEnter(from: previousState)
         
@@ -51,7 +51,7 @@ class AppetiteGettingHungryState: GKState
     {
         super.update(deltaTime: seconds)
         
-        print("AppetiteActiveState updating")
+//        print("AppetiteActiveState updating")
 
         // Update the "amount of time firing" tracker.
         elapsedTime += seconds
@@ -75,7 +75,7 @@ class AppetiteGettingHungryState: GKState
             return true
             
         default:
-            print("current state: \(stateClass.debugDescription())")
+//            print("current state: \(stateClass.debugDescription())")
             return false
         }
     }

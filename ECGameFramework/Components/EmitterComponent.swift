@@ -37,7 +37,7 @@ class EmitterComponent: GKComponent
     }
     
     deinit {
-        print("Deallocating EmitterComponent")
+//        print("Deallocating EmitterComponent")
     }
     
     override func update(deltaTime: TimeInterval)

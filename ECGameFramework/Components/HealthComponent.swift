@@ -89,7 +89,7 @@ class HealthComponent: GKComponent
     }
     
     deinit {
-        print("Deallocating HealthComponent")
+//        print("Deallocating HealthComponent")
     }
     
     // MARK: Component actions

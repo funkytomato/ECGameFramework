@@ -83,7 +83,7 @@ class ChargeComponent: GKComponent
     }
 
     deinit {
-        print("Deallocating ChargeComponent")
+//        print("Deallocating ChargeComponent")
     }
     
     // MARK: Component actions

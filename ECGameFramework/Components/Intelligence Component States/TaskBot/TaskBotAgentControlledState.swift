@@ -32,7 +32,7 @@ class TaskBotAgentControlledState: GKState
     
     
     deinit {
-        print("Deallocating TaskBotAgentControlledState")
+//        print("Deallocating TaskBotAgentControlledState")
     }
     
     // MARK: GKState Life Cycle

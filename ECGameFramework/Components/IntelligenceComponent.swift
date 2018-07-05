@@ -34,7 +34,7 @@ class IntelligenceComponent: GKComponent
     }
     
     deinit {
-        print("Deallocating IntelligenceComponent")
+//        print("Deallocating IntelligenceComponent")
     }
     
     // MARK: GKComponent Life Cycle

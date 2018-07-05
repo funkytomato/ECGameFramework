@@ -35,14 +35,14 @@ class BuyingWaresIdleState: GKState
     }
     
     deinit {
-        print("Deallocating BuyWaresIdleState")
+//        print("Deallocating BuyWaresIdleState")
     }
     
     // MARK: GKState life cycle
     
     override func didEnter(from previousState: GKState?)
     {
-        print("BuyWaresIdleState entered: \(buyWaresComponent.entity.debugDescription)")
+//        print("BuyWaresIdleState entered: \(buyWaresComponent.entity.debugDescription)")
         
         super.didEnter(from: previousState)
         
@@ -56,7 +56,7 @@ class BuyingWaresIdleState: GKState
     {
         super.update(deltaTime: seconds)
         
-        print("BuyWaresIdleState update: \(buyWaresComponent.entity.debugDescription)")
+//        print("BuyWaresIdleState update: \(buyWaresComponent.entity.debugDescription)")
         
         // If buy a product has been triggered, start searching for a seller
         if buyWaresComponent.isTriggered

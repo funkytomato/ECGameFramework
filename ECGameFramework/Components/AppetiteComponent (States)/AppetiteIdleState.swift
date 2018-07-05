@@ -47,14 +47,14 @@ class AppetiteIdleState: GKState
     }
     
     deinit {
-        print("Deallocating AppetiteIdleState")
+//        print("Deallocating AppetiteIdleState")
     }
     
     // MARK: GKState life cycle
     
     override func didEnter(from previousState: GKState?)
     {
-        print("AppetiteIdleState entered: \(appetiteComponent.entity.debugDescription)")
+//        print("AppetiteIdleState entered: \(appetiteComponent.entity.debugDescription)")
         
         super.didEnter(from: previousState)
         
@@ -66,7 +66,7 @@ class AppetiteIdleState: GKState
     {
         super.update(deltaTime: seconds)
         
-        print("AppetiteIdleState update: \(appetiteComponent.entity.debugDescription)")
+//        print("AppetiteIdleState update: \(appetiteComponent.entity.debugDescription)")
         
         guard let protestor = appetiteComponent.entity as? ProtestorBot else { return }
 

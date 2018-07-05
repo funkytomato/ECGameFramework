@@ -59,7 +59,7 @@ class SellWaresState: GKState
     }
     
     deinit {
-        print("Deallocating SellWareState")
+//        print("Deallocating SellWareState")
     }
     
     //MARK:- GKState Life Cycle

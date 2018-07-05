@@ -57,7 +57,7 @@ class ProtestorBotHitState: GKState
     }
     
     deinit {
-        print("Deallocating ProtestorBotHitState")
+//        print("Deallocating ProtestorBotHitState")
     }
     
     // MARK: GKState Life Cycle

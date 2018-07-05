@@ -41,7 +41,7 @@ class ProtestorArrestedState: GKState
     
     
     deinit {
-        print("Deallocating ProtestorArrestedState")
+//        print("Deallocating ProtestorArrestedState")
     }
     
     //MARK:- GKState Life Cycle

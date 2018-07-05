@@ -43,7 +43,7 @@ class VandaliseState: GKState
     }
     
     deinit {
-        print("Deallocating VandaliseState")
+//        print("Deallocating VandaliseState")
     }
     
     

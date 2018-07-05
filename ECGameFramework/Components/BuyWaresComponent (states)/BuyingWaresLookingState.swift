@@ -33,14 +33,14 @@ class BuyingWaresLookingState: GKState
     }
     
     deinit {
-        print("Deallocating BuyWaresLookingState")
+//        print("Deallocating BuyWaresLookingState")
     }
     
     // MARK: GKState life cycle
     
     override func didEnter(from previousState: GKState?)
     {
-        print("BuyWaresLookingState entered: \(buyWaresComponent.entity.debugDescription)")
+//        print("BuyWaresLookingState entered: \(buyWaresComponent.entity.debugDescription)")
         
         super.didEnter(from: previousState)
         
@@ -52,7 +52,7 @@ class BuyingWaresLookingState: GKState
     {
         super.update(deltaTime: seconds)
         
-        print("BuyWaresActiveState updating")
+//        print("BuyWaresActiveState updating")
     
         
         //print(animationComponent.requestedAnimationState.debugDescription)

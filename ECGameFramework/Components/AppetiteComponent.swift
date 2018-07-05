@@ -163,7 +163,7 @@ class AppetiteComponent: GKComponent
                 animationComponent.requestedAnimationState = .drinking
             
             default:
-                print("animate nothing")
+                break
         }
         
         //Protestor's is now hungry and will start to look for a source to buy from

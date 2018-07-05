@@ -122,6 +122,6 @@ class InputComponent: GKComponent, ControlInputSourceDelegate
     }
     
     deinit {
-        print("Dealocating InputComponent")
+//        print("Dealocating InputComponent")
     }
 }

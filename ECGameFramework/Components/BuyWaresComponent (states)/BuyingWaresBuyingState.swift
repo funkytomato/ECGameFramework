@@ -38,14 +38,14 @@ class BuyingWaresBuyingState: GKState
     }
     
     deinit {
-        print("Deallocating BuyWaresBuyingState")
+//        print("Deallocating BuyWaresBuyingState")
     }
     
     // MARK: GKState life cycle
     
     override func didEnter(from previousState: GKState?)
     {
-        print("BuyWaresBuyingState entered")
+//        print("BuyWaresBuyingState entered")
         
         super.didEnter(from: previousState)
         
@@ -58,7 +58,7 @@ class BuyingWaresBuyingState: GKState
     {
         super.update(deltaTime: seconds)
         
-        print("BuyWaresBuyingState update: \(seconds.description)")
+//        print("BuyWaresBuyingState update: \(seconds.description)")
     
         
         elapsedTime += seconds

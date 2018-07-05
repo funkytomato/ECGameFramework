@@ -49,7 +49,7 @@ class TaskBotPlayerControlledState: GKState
     
     
     deinit {
-        print("Deallocating TaskBotPlayerControlledState")
+//        print("Deallocating TaskBotPlayerControlledState")
     }
     
     // MARK: GKState Life Cycle

@@ -32,14 +32,14 @@ class AppetiteConsumingState: GKState
     }
     
     deinit {
-        print("Deallocating AppetiteCoolingSate")
+//        print("Deallocating AppetiteCoolingSate")
     }
     
     // MARK: GKState life cycle
     
     override func didEnter(from previousState: GKState?)
     {
-        print("AppetiteCoolingState entered")
+//        print("AppetiteCoolingState entered")
         
         super.didEnter(from: previousState)
         
@@ -50,7 +50,7 @@ class AppetiteConsumingState: GKState
     {
         super.update(deltaTime: seconds)
         
-        print("AppetiteCoolingState update")
+//        print("AppetiteCoolingState update")
         
         elapsedTime += seconds
         
