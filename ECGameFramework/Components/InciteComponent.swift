@@ -79,11 +79,11 @@ class InciteComponent: GKComponent
     
     override func update(deltaTime seconds: TimeInterval)
     {
+        stateMachine.update(deltaTime: seconds)
+        
         guard (stateMachine.currentState as? InciteActiveState) != nil else { return }
         
         animationComponent.requestedAnimationState = .inciting
-        
-        stateMachine.update(deltaTime: seconds)
     }
     
     // MARK: Convenience
