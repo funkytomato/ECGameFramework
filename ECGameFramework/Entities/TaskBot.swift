@@ -928,7 +928,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             
             
         //Protestor is subvervient and protestors are nearby
-        else if self.isSubservient && inciteTaskBot > 0
+        else if self.isSubservient && inciteTaskBot > 0.0
         {
             print("Inciting others")
             mandate = .incite
