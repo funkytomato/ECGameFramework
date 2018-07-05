@@ -96,8 +96,8 @@ class ProtestorBuyWaresState: GKState
         
 
         //Show buying animation if in buying state
- //       guard (stateMachine?.currentState as? BuyWaresBuyingState) != nil else { return }
- //       animationComponent.requestedAnimationState = .buying
+        guard (stateMachine?.currentState as? BuyingWaresBuyingState) != nil else { return }
+        animationComponent.requestedAnimationState = .buying
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
