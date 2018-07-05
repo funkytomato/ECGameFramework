@@ -81,6 +81,8 @@ class InciteComponent: GKComponent
     {
         stateMachine.update(deltaTime: seconds)
         
+        print("current state: \(stateMachine.currentState.debugDescription)")
+        
         guard (stateMachine.currentState as? InciteActiveState) != nil else { return }
         
         animationComponent.requestedAnimationState = .inciting
