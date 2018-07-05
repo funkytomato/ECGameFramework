@@ -31,13 +31,6 @@ class ScaredState: GKState
         guard let spriteComponent = entity.component(ofType: SpriteComponent.self) else { fatalError("An entity's AngryState must have an AnimationComponent.") }
         return spriteComponent
     }
-    
-    /// The `AnimationComponent` associated with the `entity`.
-    var animationComponent: AnimationComponent
-    {
-        guard let animationComponent = entity.component(ofType: AnimationComponent.self) else { fatalError("An entity's ScaredState must have an AnimationComponent.") }
-        return animationComponent
-    }
 
     
     //MARK:- Initializers
@@ -58,9 +51,6 @@ class ScaredState: GKState
         
         //Reset the tracking of how long the 'ManBot' has been in "Scared" state
         elapsedTime = 0.0
-        
-        //Request the ScaredState animation for this state's 'ProtestorBot'
-        //animationComponent.requestedAnimationState = .scared
         
         //Change the colour of the sprite to show calmness
         spriteComponent.changeColour(colour: SKColor.purple)

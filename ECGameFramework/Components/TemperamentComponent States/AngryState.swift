@@ -30,21 +30,7 @@ class AngryState: GKState
         guard let spriteComponent = entity.component(ofType: SpriteComponent.self) else { fatalError("An entity's AngryState must have an AnimationComponent.") }
         return spriteComponent
     }
-/*
-    /// The `AnimationComponent` associated with the `entity`.
-    var animationComponent: AnimationComponent
-    {
-        guard let animationComponent = entity.component(ofType: AnimationComponent.self) else { fatalError("An entity's AngryState must have an AnimationComponent.") }
-        return animationComponent
-    }
-    
-    /// The `PhysicsComponent` associated with the `entity`.
-    var physicsComponent: PhysicsComponent
-    {
-        guard let physicsComponent = entity.component(ofType: PhysicsComponent.self) else { fatalError("An entity's AngryState must have a PhysicsComponent.") }
-        return physicsComponent
-    }
-  */
+
     //MARK:- Initializers
     required init(entity: TaskBot)
     {
@@ -64,8 +50,6 @@ class AngryState: GKState
         //Reset the tracking of how long the 'ManBot' has been in "Angry" state
         elapsedTime = 0.0
         
-        //Request the "beingArrested animation for this state's 'ProtestorBot'
-        //animationComponent.requestedAnimationState = .angry
         
         //Change the colour of the sprite to show anger
         spriteComponent.changeColour(colour: SKColor.orange)
@@ -73,18 +57,6 @@ class AngryState: GKState
         entity.isScared = false
         
         entity.isViolent = false
-        
-        
-        
-        
-        /*let contactedBodies = physicsComponent.physicsBody.allContactedBodies()
-        for contactedBody in contactedBodies
-        {
-            guard let entity = contactedBody.node?.entity else { continue }
-            
-            spriteComponent.changeColour(colour: SKColor.orange)
-        }
-         */
     }
     
     override func update(deltaTime seconds: TimeInterval)

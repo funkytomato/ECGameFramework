@@ -34,21 +34,6 @@ class ViolentState: GKState
         return spriteComponent
     }
     
-    
-    /// The `AnimationComponent` associated with the `entity`.
-    var animationComponent: AnimationComponent
-    {
-        guard let animationComponent = entity.component(ofType: AnimationComponent.self) else { fatalError("An entity's ViolentState must have an AnimationComponent.") }
-        return animationComponent
-    }
-    
-    /// The `PhysicsComponent` associated with the `entity`.
-    var physicsComponent: PhysicsComponent
-    {
-        guard let physicsComponent = entity.component(ofType: PhysicsComponent.self) else { fatalError("An entity's ViolentState must have a PhysicsComponent.") }
-        return physicsComponent
-    }
-    
     //MARK:- Initializers
     required init(entity: TaskBot)
     {
@@ -67,9 +52,6 @@ class ViolentState: GKState
         
         //Reset the tracking of how long the 'ProtestorBot' has been in "Violent" state
         elapsedTime = 0.0
-        
-        //Request the "beingArrested animation for this state's 'ProtestorBot'
-        //animationComponent.requestedAnimationState = .violent
         
         //Change the colour of the sprite to show violent
         spriteComponent.changeColour(colour: SKColor.red)

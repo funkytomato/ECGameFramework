@@ -32,27 +32,6 @@ class SubduedState: GKState
         return spriteComponent
     }
     
-    /// The `AnimationComponent` associated with the `entity`.
-    var animationComponent: AnimationComponent
-    {
-        guard let animationComponent = entity.component(ofType: AnimationComponent.self) else { fatalError("An entity's SubduedState must have an AnimationComponent.") }
-        return animationComponent
-    }
-    
-    /// The `PhysicsComponent` associated with the `entity`.
-    var physicsComponent: PhysicsComponent
-    {
-        guard let physicsComponent = entity.component(ofType: PhysicsComponent.self) else { fatalError("An entity's SubduedState must have a PhysicsComponent.") }
-        return physicsComponent
-    }
-    
-    /// The `IntelligenceComponent` associated with the `entity`.
-    var intelligenceComponent: IntelligenceComponent
-    {
-        guard let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self) else { fatalError("An entity's SubduedState must have a IntelligenceComponent.") }
-        return intelligenceComponent
-    }
-    
     
     //MARK:- Initializers
     required init(entity: TaskBot)
@@ -71,9 +50,6 @@ class SubduedState: GKState
         
         //Reset the tracking of how long the 'ProtestorBot' has been in "Subdued" state
         elapsedTime = 0.0
-        
-        //Request the "beingArrested animation for this state's 'ManBot'
-        //animationComponent.requestedAnimationState = .calm
         
         //Change the colour of the sprite to show subdued
         spriteComponent.changeColour(colour: SKColor.darkGray)
