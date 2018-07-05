@@ -69,9 +69,6 @@ class AppetiteIdleState: GKState
         print("AppetiteIdleState update: \(appetiteComponent.entity.debugDescription)")
         
         guard let protestor = appetiteComponent.entity as? ProtestorBot else { return }
-        
-        
-        
 
         //Protestor is not fully wasted so keep buying more beed
         if !intoxicationComponent.hasFullintoxication && !protestor.isSubservient
@@ -84,13 +81,13 @@ class AppetiteIdleState: GKState
             
             if appetiteComponent.appetite >= 100.0
             {
-                stateMachine?.enter(AppetiteActiveState.self)
+                stateMachine?.enter(AppetiteGettingHungryState.self)
             }
         }
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
     {
-        return stateClass is AppetiteActiveState.Type
+        return stateClass is AppetiteGettingHungryState.Type
     }
 }
