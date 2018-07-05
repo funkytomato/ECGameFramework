@@ -446,6 +446,10 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         {
             appetiteComponent.isTriggered = false
             appetiteComponent.isConsumingProduct = false
+            
+            //Remove product
+            guard let buyingWaresComponent = component(ofType: BuyingWaresComponent.self) else { return }
+            buyingWaresComponent.loseProduct(waresToLose: 10.0)
         }
     }
     
@@ -462,8 +466,6 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             //Protestor is hungry
             self.isHungry = true
             //appetiteComponent.isConsumingProduct = true
-            
-
         }
     }
     
@@ -473,8 +475,6 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
     {
         //print("Use product")
         //self.isHungry = false
-        
-
     }
     
     func buyingWaresComponentDidGainProduct(buyWaresComponent: BuyingWaresComponent) {
