@@ -71,7 +71,7 @@ class SellingWaresActiveState: GKState
             if let buyer = entity as? ProtestorBot, buyer.isProtestor, buyer.isActive
             {
                 guard let protestorBuyingWaresComponent = buyer.component(ofType: BuyingWaresComponent.self) else { return }
-                guard (protestorBuyingWaresComponent.stateMachine.currentState as? BuyingState) != nil else { return }
+                guard (protestorBuyingWaresComponent.stateMachine.currentState as? BuyingWaresBuyingState) != nil else { return }
                 
                 stateMachine?.enter(SellingWaresActiveState.self)
                 //buyProductFromSeller(entity: entity)
