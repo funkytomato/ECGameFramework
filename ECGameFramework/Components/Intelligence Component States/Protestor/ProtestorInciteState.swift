@@ -53,7 +53,7 @@ class ProtestorInciteState: GKState
     
     
     deinit {
-        print("Deallocating InciteState")
+//        print("Deallocating InciteState")
     }
     
     //MARK:- GKState Life Cycle
@@ -79,7 +79,7 @@ class ProtestorInciteState: GKState
         inciteComponent.stateMachine.update(deltaTime: seconds)
         intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
         
-        print("currentState: \(inciteComponent.stateMachine?.currentState.debugDescription)")
+//        print("currentState: \(inciteComponent.stateMachine?.currentState.debugDescription)")
         guard (inciteComponent.stateMachine?.currentState as? InciteActiveState) != nil else { return }
         animationComponent.requestedAnimationState = .inciting
     }
