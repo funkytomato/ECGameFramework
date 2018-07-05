@@ -154,7 +154,7 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
     
     deinit
     {
-        print("Deallocating LevelScene")
+//        print("Deallocating LevelScene")
         
         unregisterForPauseNotifications()
     }

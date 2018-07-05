@@ -111,7 +111,7 @@ class ProgressScene: BaseScene
     
     deinit
     {
-        print("Deallocating ProgressScene")
+//        print("Deallocating ProgressScene")
         
         // Unregister as an observer of 'SceneLoaderDownloadFailedNotification' notifications.
         if let downloadFailedObserver = downloadFailedObserver

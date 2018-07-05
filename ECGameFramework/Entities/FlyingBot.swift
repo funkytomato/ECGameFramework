@@ -124,7 +124,7 @@ class FlyingBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
     }
     
     deinit {
-        print("Deallocating FlyingBot")
+//        print("Deallocating FlyingBot")
     }
     
     // MARK: ContactableType

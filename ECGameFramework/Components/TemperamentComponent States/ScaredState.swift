@@ -41,7 +41,7 @@ class ScaredState: GKState
     
     
     deinit {
-        print("Deallocating ScaredState")
+//        print("Deallocating ScaredState")
     }
     
     //MARK:- GKState Life Cycle

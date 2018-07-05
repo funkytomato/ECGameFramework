@@ -685,7 +685,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         ]
         
         let supportPoliceBot = supportTaskBotRaw.reduce(0.0, max)
-        print("supportPoliceBot: \(supportPoliceBot.description), supportPoliceBotRaw: \(supportTaskBotRaw.description) ")
+//        print("supportPoliceBot: \(supportPoliceBot.description), supportPoliceBotRaw: \(supportTaskBotRaw.description) ")
 
         
         //A series of situation in which we prefer to hunt the criminal
@@ -708,7 +708,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         ]
         
         let huntCriminalTaskBot = huntCriminalTaskBotRaw.reduce(0.0, max)
-        print("huntCriminalTaskBot: \(huntCriminalTaskBot.description), huntCriminalTaskBotRaw: \(huntCriminalTaskBotRaw.description) ")
+ //       print("huntCriminalTaskBot: \(huntCriminalTaskBot.description), huntCriminalTaskBotRaw: \(huntCriminalTaskBotRaw.description) ")
         
         
         //A series of situation in which we hunt sellers
@@ -731,7 +731,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         ]
         
         let huntSellerTaskBot = huntSellerTaskBotRaw.reduce(0.0, max)
-        print("huntSellerTaskBot: \(huntSellerTaskBot.description), huntSellerTaskBotRaw: \(huntSellerTaskBotRaw.description) ")
+//        print("huntSellerTaskBot: \(huntSellerTaskBot.description), huntSellerTaskBotRaw: \(huntSellerTaskBotRaw.description) ")
 
         
         let fleeDangerousTaskBot = fleeTaskBotRaw.reduce(0.0, max)
@@ -785,7 +785,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         
         // Find the maximum of the minima from above.
         let huntDangerousProtestorBot = huntDangerousProtestorTaskBotRaw.reduce(0.0, max)
-        print("huntDangerousTaskBot: \(huntDangerousProtestorBot.description), huntDangerousTaskBotRaw: \(huntDangerousProtestorTaskBotRaw.description) ")
+//        print("huntDangerousTaskBot: \(huntDangerousProtestorBot.description), huntDangerousTaskBotRaw: \(huntDangerousProtestorTaskBotRaw.description) ")
         
         
         // A series of situations in which we prefer this `TaskBot` to hunt the nearest "Protestor" TaskBot.
@@ -927,7 +927,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         //TaskBot is Police and another Policeman needs help, go support them
         else if self.isPolice && supportPoliceBot > 0.0
         {
-            print("Support another Police")
+//            print("Support another Police")
             guard let supportPoliceBot = state.nearestPoliceTaskBotTarget?.target.agent else { return }
             mandate = .supportPolice(supportPoliceBot)
         }
@@ -936,7 +936,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         //Protestor is subvervient and protestors are nearby
         else if self.isSubservient && inciteTaskBot > 0.0
         {
-            print("Inciting others")
+//            print("Inciting others")
             mandate = .incite
         }
             

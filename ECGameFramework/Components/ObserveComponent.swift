@@ -71,7 +71,7 @@ class ObserveComponent: GKComponent
     
     deinit
     {
-        print("Deallocating ObserveComponent")
+//        print("Deallocating ObserveComponent")
     }
     
     // MARK: GKComponent Life Cycle

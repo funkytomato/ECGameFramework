@@ -39,7 +39,7 @@ class TemperamentComponent: GKComponent
     }
     
     deinit {
-        print("Deallocating TemperamentComponent")
+//        print("Deallocating TemperamentComponent")
     }
     
     // MARK: GKComponent Life Cycle

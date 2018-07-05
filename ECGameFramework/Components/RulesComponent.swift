@@ -46,7 +46,7 @@ class RulesComponent: GKComponent
     }
     
     deinit {
-        print("Deallocating RulesComponent")
+//        print("Deallocating RulesComponent")
     }
     
     

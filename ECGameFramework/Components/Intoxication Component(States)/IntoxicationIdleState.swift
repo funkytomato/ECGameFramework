@@ -35,14 +35,14 @@ class IntoxicationIdleState: GKState
     }
     
     deinit {
-        print("Deallocating IntoxicationIdleState")
+//        print("Deallocating IntoxicationIdleState")
     }
     
     // MARK: GKState life cycle
     
     override func didEnter(from previousState: GKState?)
     {
-        print("IntoxicationIdleState entered: \(intoxicationComponent.entity.debugDescription)")
+//        print("IntoxicationIdleState entered: \(intoxicationComponent.entity.debugDescription)")
         
         super.didEnter(from: previousState)
         
@@ -54,7 +54,7 @@ class IntoxicationIdleState: GKState
     {
         super.update(deltaTime: seconds)
         
-        print("IntoxicationIdleState update: \(intoxicationComponent.entity.debugDescription)")
+//        print("IntoxicationIdleState update: \(intoxicationComponent.entity.debugDescription)")
 
         if intoxicationComponent.isTriggered
         {

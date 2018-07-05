@@ -35,7 +35,7 @@ class ShadowComponent: GKComponent
     }
     
     deinit {
-        print("Deallocating ShadowComponent")
+//        print("Deallocating ShadowComponent")
     }
     
 }

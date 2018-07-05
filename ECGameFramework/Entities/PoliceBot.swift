@@ -313,7 +313,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
     
     
     deinit {
-        print("Deallocating PoliceBot")
+//        print("Deallocating PoliceBot")
     }
     
     // MARK: ContactableType

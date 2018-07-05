@@ -86,7 +86,7 @@ class BaseScene: SKScene, GameInputDelegate, ControlInputSourceGameStateDelegate
     
     
     deinit {
-        print("Deallocating BaseScene")
+//        print("Deallocating BaseScene")
     }
     
     // MARK: SKScene Life Cycle

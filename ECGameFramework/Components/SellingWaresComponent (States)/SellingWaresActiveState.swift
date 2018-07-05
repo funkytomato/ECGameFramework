@@ -31,14 +31,14 @@ class SellingWaresActiveState: GKState
     }
     
     deinit {
-        print("Deallocating SellingWaresActiveState")
+//        print("Deallocating SellingWaresActiveState")
     }
     
     // MARK: GKState life cycle
     
     override func didEnter(from previousState: GKState?)
     {
-        print("SellingWaresActiveState entered: \(sellingWaresComponent.entity.debugDescription)")
+//        print("SellingWaresActiveState entered: \(sellingWaresComponent.entity.debugDescription)")
         
         super.didEnter(from: previousState)
         
@@ -51,7 +51,7 @@ class SellingWaresActiveState: GKState
         super.update(deltaTime: seconds)
         elapsedTime += seconds
         
-        print("SellingWaresActiveState updating")
+//        print("SellingWaresActiveState updating")
         
 
         if elapsedTime >= GameplayConfiguration.Wares.maximumSellingWaresDuration

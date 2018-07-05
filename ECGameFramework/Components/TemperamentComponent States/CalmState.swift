@@ -40,7 +40,7 @@ class CalmState: GKState
     
     
     deinit {
-        print("Deallocating CalmState")
+//        print("Deallocating CalmState")
     }
     
     //MARK:- GKState Life Cycle

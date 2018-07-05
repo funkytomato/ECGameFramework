@@ -203,7 +203,7 @@ class PlayerBot: GKEntity, HealthComponentDelegate, ResistanceComponentDelegate,
     }
     
     deinit {
-        print("Deallocating PlayerBot")
+//        print("Deallocating PlayerBot")
     }
     
     

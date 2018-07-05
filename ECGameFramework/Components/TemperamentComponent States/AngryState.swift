@@ -38,7 +38,7 @@ class AngryState: GKState
     }
     
     deinit {
-        print("Deallocating AngryState")
+//        print("Deallocating AngryState")
     }
     
     

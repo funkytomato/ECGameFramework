@@ -35,14 +35,14 @@ class SellingWaresIdleState: GKState
     }
     
     deinit {
-        print("Deallocating SellingWaresIdleState")
+//        print("Deallocating SellingWaresIdleState")
     }
     
     // MARK: GKState life cycle
     
     override func didEnter(from previousState: GKState?)
     {
-        print("SellingWaresIdleState entered: \(sellingWaresComponent.entity.debugDescription)")
+//        print("SellingWaresIdleState entered: \(sellingWaresComponent.entity.debugDescription)")
         
         super.didEnter(from: previousState)
         
@@ -54,7 +54,7 @@ class SellingWaresIdleState: GKState
     {
         super.update(deltaTime: seconds)
         
-        print("SellingWaresIdleState update: \(sellingWaresComponent.entity.debugDescription)")
+//        print("SellingWaresIdleState update: \(sellingWaresComponent.entity.debugDescription)")
         
         // If the beam has been triggered, enter `AppetiteActiveState`.
         if sellingWaresComponent.isTriggered

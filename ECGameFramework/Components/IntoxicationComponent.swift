@@ -115,7 +115,7 @@ class IntoxicationComponent: GKComponent
     }
     
     deinit {
-        print("Deallocating IntoxicationComponent")
+//        print("Deallocating IntoxicationComponent")
     }
     
     

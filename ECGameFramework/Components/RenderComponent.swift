@@ -17,7 +17,7 @@ class RenderComponent: GKComponent
     let node = SKNode()
 
     deinit {
-        print("Deallocating RenderComponent")
+//        print("Deallocating RenderComponent")
     }
     
     

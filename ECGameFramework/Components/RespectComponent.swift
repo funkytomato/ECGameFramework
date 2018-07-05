@@ -88,7 +88,7 @@ class RespectComponent: GKComponent
     }
     
     deinit {
-        print("Deallocating RespectComponent")
+//        print("Deallocating RespectComponent")
     }
     
     // MARK: Component actions

@@ -276,7 +276,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
     
     
     deinit {
-        print("Deallocating ProtestorBot")
+//        print("Deallocating ProtestorBot")
     }
     
     // MARK: ContactableType
@@ -405,8 +405,8 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         // 3) Set the Protestor to Flee State
         //guard intelligenceComponent.stateMachine.enter(TaskBotFleeState.self) else { return }
         
-        print("mandate \(mandate)")
-        print("state: \(intelligenceComponent.stateMachine.currentState.debugDescription)")
+        //print("mandate \(mandate)")
+        //print("state: \(intelligenceComponent.stateMachine.currentState.debugDescription)")
 
         switch mandate
         {
@@ -440,7 +440,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
     // MARK: Appetite Component Delegate
     func appetiteComponentDidLoseAppetite(appetiteComponent: AppetiteComponent)
     {
-        print("Appetite Component Lose Appetite")
+        //print("Appetite Component Lose Appetite")
         
         if !appetiteComponent.hasAppetite
         {
@@ -451,7 +451,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
     
     func appetiteComponentDidGainAppetite(appetiteComponent: AppetiteComponent)
     {
-        print("Appetite Component Add Appetite")
+        //print("Appetite Component Add Appetite")
         
         if appetiteComponent.appetite == 100.0
         {
@@ -471,14 +471,14 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
     // MARK: BuyWares Component Delegate
     func buyingWaresComponentDidLoseProduct(buyWaresComponent: BuyingWaresComponent)
     {
-        print("Use product")
+        //print("Use product")
         //self.isHungry = false
         
 
     }
     
     func buyingWaresComponentDidGainProduct(buyWaresComponent: BuyingWaresComponent) {
-        print("Buy product and eat/use")
+//        print("Buy product and eat/use")
         
         //Protestor is eating
         self.isHungry = false
@@ -492,28 +492,28 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
     // MARK: Intoxication Component Delegate
     func intoxicationComponentDidLoseintoxication(intoxicationComponent: IntoxicationComponent)
     {
-        print("Intoxication Component Lose Appetite")
+//        print("Intoxication Component Lose Appetite")
         
         if !intoxicationComponent.hasintoxication
         {
-            print("Protestor has sobered up")
+//            print("Protestor has sobered up")
         }
     }
     
     func intoxicationComponentDidAddintoxication(intoxicationComponent: IntoxicationComponent)
     {
-        print("Intoxication Component Lose Appetite")
+//        print("Intoxication Component Lose Appetite")
         
         if intoxicationComponent.hasFullintoxication
         {
-            print("Protestor is drunk")
+//            print("Protestor is drunk")
         }
     }
     
     // MARK: Charge Component Delegate
     func chargeComponentDidGainCharge(chargeComponent: ChargeComponent)
     {
-        print("Add charge to Protestor")
+//        print("Add charge to Protestor")
     }
     
     

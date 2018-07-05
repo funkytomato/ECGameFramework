@@ -41,7 +41,7 @@ class ViolentState: GKState
     }
     
     deinit {
-        print("Deallocating ViolentState")
+//        print("Deallocating ViolentState")
     }
     
     

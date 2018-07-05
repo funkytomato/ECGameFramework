@@ -125,7 +125,7 @@ class SellingWaresComponent: GKComponent
     
     deinit
     {
-        print("Deallocating InciteComponent")
+//        print("Deallocating InciteComponent")
     }
     
     // MARK: GKComponent Life Cycle
@@ -136,7 +136,7 @@ class SellingWaresComponent: GKComponent
         
         guard (stateMachine.currentState as? SellingWaresActiveState) != nil else { return }
         
-        print("SellingWaresComponent update: Sell some shit")
+//        print("SellingWaresComponent update: Sell some shit")
         animationComponent.requestedAnimationState = .sellingWares
         
         

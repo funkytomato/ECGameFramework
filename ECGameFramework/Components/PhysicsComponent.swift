@@ -32,6 +32,6 @@ class PhysicsComponent: GKComponent
     }
     
     deinit {
-        print("Deallocating PhysicsComponent")
+//        print("Deallocating PhysicsComponent")
     }
 }

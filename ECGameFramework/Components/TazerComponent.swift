@@ -109,7 +109,7 @@ class TazerComponent: GKComponent
     
     deinit
     {
-        print("Dealocating TazerComponent")
+//        print("Dealocating TazerComponent")
         
         // Remove the beam node from the scene.
         tazerNode.removeFromParent()

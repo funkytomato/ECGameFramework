@@ -245,7 +245,7 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
     
     deinit
     {
-        print("Deallocating CriminalBot")
+//        print("Deallocating CriminalBot")
     }
     
     // MARK: ContactableType
@@ -267,7 +267,7 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
         if protestorBot.isActive
         {
             guard let protestorBuyingWaresComponent = protestorBot.component(ofType: BuyingWaresComponent.self) else { return }
-            print("state: \(protestorBuyingWaresComponent.stateMachine.currentState.debugDescription)")
+//            print("state: \(protestorBuyingWaresComponent.stateMachine.currentState.debugDescription)")
             guard (protestorBuyingWaresComponent.stateMachine.currentState as? BuyingWaresLookingState) != nil else { return }
             // protestorBuyingWaresComponent.stateMachine.enter(BuyingState.self)
             
@@ -312,7 +312,7 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
         if protestorBot.isActive
         {
             guard let protestorBuyingWaresComponent = protestorBot.component(ofType: BuyingWaresComponent.self) else { return }
-            print("state: \(protestorBuyingWaresComponent.stateMachine.currentState.debugDescription)")
+//            print("state: \(protestorBuyingWaresComponent.stateMachine.currentState.debugDescription)")
             guard (protestorBuyingWaresComponent.stateMachine.currentState as? BuyingWaresLookingState) != nil else { return }
             // protestorBuyingWaresComponent.stateMachine.enter(BuyingState.self)
             
@@ -378,14 +378,14 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
     // MARK: Charge Component Delegate
     func chargeComponentDidGainCharge(chargeComponent: ChargeComponent)
     {
-        print("Add charge to Criminal")
+//        print("Add charge to Criminal")
     }
     
     func chargeComponentDidLoseCharge(chargeComponent: ChargeComponent)
     {
         guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
         
-        print("current state: \(intelligenceComponent.stateMachine.currentState.debugDescription) isGood: \(self.isGood)")
+//        print("current state: \(intelligenceComponent.stateMachine.currentState.debugDescription) isGood: \(self.isGood)")
         
         isGood = !chargeComponent.hasCharge
         

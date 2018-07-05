@@ -94,7 +94,7 @@ class MovementComponent: GKComponent
     
     
     deinit {
-        print("Deallocating MovementComponent")
+//        print("Deallocating MovementComponent")
     }
     
     // MARK: GKComponent Life Cycle

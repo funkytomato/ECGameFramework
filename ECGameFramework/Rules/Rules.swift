@@ -126,7 +126,7 @@ class PoliceTaskBotPercentageLowRule: FuzzyTaskBotRule
     init() { super.init(fact: .policeTaskBotPercentageLow) }
     
     deinit {
-        print("Deallocating PoliceTaskBotPercentageLowRule")
+//        print("Deallocating PoliceTaskBotPercentageLowRule")
     }
 }
 
@@ -152,7 +152,7 @@ class PoliceTaskBotPercentageMediumRule: FuzzyTaskBotRule
     init() { super.init(fact: .policeTaskBotPercentageMedium) }
     
     deinit {
-        print("Deallocating PoliceTaskBotPercentageMediumRule")
+//        print("Deallocating PoliceTaskBotPercentageMediumRule")
     }
 }
 
@@ -171,7 +171,7 @@ class PoliceTaskBotPercentageHighRule: FuzzyTaskBotRule
     init() { super.init(fact: .policeTaskBotPercentageHigh) }
     
     deinit {
-        print("Deallocating PoliceTaskBotPercentageHighRule")
+//        print("Deallocating PoliceTaskBotPercentageHighRule")
     }
 }
 
@@ -192,7 +192,7 @@ class PoliceBotNearRule: FuzzyTaskBotRule
     init() { super.init(fact: .policeBotNear) }
     
     deinit {
-        print("Deallocating PoliceBotNearRule")
+//        print("Deallocating PoliceBotNearRule")
     }
 }
 
@@ -213,7 +213,7 @@ class PoliceBotMediumRule: FuzzyTaskBotRule
     init() { super.init(fact: .policeBotMedium) }
     
     deinit {
-        print("Deallocating PoliceBotMediumRule")
+//        print("Deallocating PoliceBotMediumRule")
     }
 }
 
@@ -234,7 +234,7 @@ class PoliceBotFarRule: FuzzyTaskBotRule
     init() { super.init(fact: .policeBotFar) }
     
     deinit {
-        print("Deallocating PoliceBotFarRule")
+//        print("Deallocating PoliceBotFarRule")
     }
 }
 
@@ -256,7 +256,7 @@ class PoliceBotInTroubleNearRule: FuzzyTaskBotRule
     init() { super.init(fact: .policeBotNear) }
     
     deinit {
-        print("Deallocating PoliceBotNearRule")
+//        print("Deallocating PoliceBotNearRule")
     }
 }
 
@@ -277,7 +277,7 @@ class PoliceBotInTroubleMediumRule: FuzzyTaskBotRule
     init() { super.init(fact: .policeBotMedium) }
     
     deinit {
-        print("Deallocating PoliceBotMediumRule")
+//        print("Deallocating PoliceBotMediumRule")
     }
 }
 
@@ -298,7 +298,7 @@ class PoliceBotInTroubleFarRule: FuzzyTaskBotRule
     init() { super.init(fact: .policeBotFar) }
     
     deinit {
-        print("Deallocating PoliceBotFarRule")
+//        print("Deallocating PoliceBotFarRule")
     }
 }
 
@@ -319,7 +319,7 @@ class DangerousTaskBotPercentageLowRule: FuzzyTaskBotRule
     init() { super.init(fact: .dangerousTaskBotPercentageLow) }
     
     deinit {
-        print("Deallocating DangerousTaskBotPercentageLowRule")
+//        print("Deallocating DangerousTaskBotPercentageLowRule")
     }
 }
 
@@ -345,7 +345,7 @@ class DangerousTaskBotPercentageMediumRule: FuzzyTaskBotRule
     init() { super.init(fact: .dangerousTaskBotPercentageMedium) }
     
     deinit {
-        print("Deallocating DangerousTaskBotPercentageMediumRule")
+//        print("Deallocating DangerousTaskBotPercentageMediumRule")
     }
 }
 
@@ -364,7 +364,7 @@ class DangerousTaskBotPercentageHighRule: FuzzyTaskBotRule
     init() { super.init(fact: .dangerousTaskBotPercentageHigh) }
     
     deinit {
-        print("Deallocating DangerousTaskBotPercentageHighRule")
+//        print("Deallocating DangerousTaskBotPercentageHighRule")
     }
 }
 
@@ -390,7 +390,7 @@ class PlayerBotNearRule: FuzzyTaskBotRule
     init() { super.init(fact: .playerBotNear) }
     
     deinit {
-        print("Deallocating PlayerBotNearRule")
+//        print("Deallocating PlayerBotNearRule")
     }
 }
 
@@ -411,7 +411,7 @@ class PlayerBotMediumRule: FuzzyTaskBotRule
     init() { super.init(fact: .playerBotMedium) }
     
     deinit {
-        print("Deallocating PlayerBotMediumRule")
+//        print("Deallocating PlayerBotMediumRule")
     }
 }
 
@@ -432,7 +432,7 @@ class PlayerBotFarRule: FuzzyTaskBotRule
     init() { super.init(fact: .playerBotFar) }
     
     deinit {
-        print("Deallocating PlayerBotfarRule")
+//        print("Deallocating PlayerBotfarRule")
     }
 }
 
@@ -456,7 +456,7 @@ class ProtestorTaskBotNearRule: FuzzyTaskBotRule
     init() { super.init(fact: .protestorTaskBotNear) }
     
     deinit {
-        print("Deallocating ProtestorTaskBotNearRule")
+//        print("Deallocating ProtestorTaskBotNearRule")
     }
 }
 
@@ -477,7 +477,7 @@ class ProtestorTaskBotMediumRule: FuzzyTaskBotRule
     init() { super.init(fact: .protestorTaskBotMedium) }
     
     deinit {
-        print("Deallocating ProtestorTaskBotMediumRule")
+//        print("Deallocating ProtestorTaskBotMediumRule")
     }
 }
 
@@ -498,7 +498,7 @@ class ProtestorTaskBotFarRule: FuzzyTaskBotRule
     init() { super.init(fact: .protestorTaskBotFar) }
     
     deinit {
-        print("Deallocating ProtestorTaskBotFarRule")
+//        print("Deallocating ProtestorTaskBotFarRule")
     }
 }
 
@@ -518,7 +518,7 @@ class SubservientTaskBotPercentageLowRule: FuzzyTaskBotRule
     init() { super.init(fact: .subservientTaskBotPercentageLow) }
     
     deinit {
-        print("Deallocating SubservientTaskBotPercentageLowRule")
+//        print("Deallocating SubservientTaskBotPercentageLowRule")
     }
 }
 
@@ -544,7 +544,7 @@ class SubservientTaskBotPercentageMediumRule: FuzzyTaskBotRule
     init() { super.init(fact: .subservientTaskBotPercentageMedium) }
     
     deinit {
-        print("Deallocating SubservientTaskBotPercentageMediumRule")
+//        print("Deallocating SubservientTaskBotPercentageMediumRule")
     }
 }
 
@@ -563,7 +563,7 @@ class SubservientTaskBotPercentageHighRule: FuzzyTaskBotRule
     init() { super.init(fact: .subservientTaskBotPercentageHigh) }
     
     deinit {
-        print("Deallocating SubservientTaskBotPercentageHighRule")
+//        print("Deallocating SubservientTaskBotPercentageHighRule")
     }
 }
 
@@ -585,7 +585,7 @@ class SubservientTaskBotNearRule: FuzzyTaskBotRule
     init() { super.init(fact: .subservientTaskBotNear) }
     
     deinit {
-        print("Deallocating ProtestorTaskBotNearRule")
+//        print("Deallocating ProtestorTaskBotNearRule")
     }
 }
 
@@ -606,7 +606,7 @@ class SubservientTaskBotMediumRule: FuzzyTaskBotRule
     init() { super.init(fact: .subservientTaskBotMedium) }
     
     deinit {
-        print("Deallocating SubservientTaskBotMediumRule")
+//        print("Deallocating SubservientTaskBotMediumRule")
     }
 }
 
@@ -627,7 +627,7 @@ class SubservientTaskBotFarRule: FuzzyTaskBotRule
     init() { super.init(fact: .subservientTaskBotFar) }
     
     deinit {
-        print("Deallocating SubservientTaskBotFarRule")
+//        print("Deallocating SubservientTaskBotFarRule")
     }
 }
 
@@ -651,7 +651,7 @@ class DangerousProtestorTaskBotNearRule: FuzzyTaskBotRule
     init() { super.init(fact: .dangerousTaskBotNear) }
     
     deinit {
-        print("Deallocating DangerousProtestorTaskBotNearRule")
+//        print("Deallocating DangerousProtestorTaskBotNearRule")
     }
 }
 
@@ -672,7 +672,7 @@ class DangerousProtestorTaskBotMediumRule: FuzzyTaskBotRule
     init() { super.init(fact: .dangerousTaskBotMedium) }
     
     deinit {
-        print("Deallocating DangerousProtestorTaskBotMediumRule")
+//        print("Deallocating DangerousProtestorTaskBotMediumRule")
     }
 }
 
@@ -693,7 +693,7 @@ class DangerousProtestorTaskBotFarRule: FuzzyTaskBotRule
     init() { super.init(fact: .dangerousTaskBotFar) }
     
     deinit {
-        print("Deallocating DangerousProtestorTaskBotFarRule")
+//        print("Deallocating DangerousProtestorTaskBotFarRule")
     }
 }
 
@@ -714,7 +714,7 @@ class ScaredTaskBotNearRule: FuzzyTaskBotRule
     init() { super.init(fact: .scaredTaskBotNear) }
     
     deinit {
-        print("Deallocating ScaredTaskBotNearRule")
+//        print("Deallocating ScaredTaskBotNearRule")
     }
 }
 
@@ -735,7 +735,7 @@ class ScaredTaskBotMediumRule: FuzzyTaskBotRule
     init() { super.init(fact: .scaredTaskBotMedium) }
     
     deinit {
-        print("Deallocating ScaredTaskBotMediumRule")
+//        print("Deallocating ScaredTaskBotMediumRule")
     }
 }
 
@@ -756,7 +756,7 @@ class ScaredTaskBotFarRule: FuzzyTaskBotRule
     init() { super.init(fact: .scaredTaskBotFar) }
     
     deinit {
-        print("Deallocating ScaredTaskBotFarRule")
+//        print("Deallocating ScaredTaskBotFarRule")
     }
 }
 
@@ -775,7 +775,7 @@ class CriminalTaskBotPercentageLowRule: FuzzyTaskBotRule
     init() { super.init(fact: .criminalTaskBotPercentageLow) }
     
     deinit {
-        print("Deallocating CriminalTaskBotPercentageLowRule")
+//        print("Deallocating CriminalTaskBotPercentageLowRule")
     }
 }
 
@@ -801,7 +801,7 @@ class CriminalTaskBotPercentageMediumRule: FuzzyTaskBotRule
     init() { super.init(fact: .criminalTaskBotPercentageMedium) }
     
     deinit {
-        print("Deallocating CriminalTaskBotPercentageMediumRule")
+//        print("Deallocating CriminalTaskBotPercentageMediumRule")
     }
 }
 
@@ -820,7 +820,7 @@ class CriminalTaskBotPercentageHighRule: FuzzyTaskBotRule
     init() { super.init(fact: .criminalTaskBotPercentageHigh) }
     
     deinit {
-        print("Deallocating CriminalTaskBotPercentageHighRule")
+//        print("Deallocating CriminalTaskBotPercentageHighRule")
     }
 }
 
@@ -841,7 +841,7 @@ class CriminalTaskBotNearRule: FuzzyTaskBotRule
     init() { super.init(fact: .criminalTaskBotNear) }
     
     deinit {
-        print("Deallocating CriminalTaskBotNearRule")
+//        print("Deallocating CriminalTaskBotNearRule")
     }
 }
 
@@ -862,7 +862,7 @@ class CriminalTaskBotMediumRule: FuzzyTaskBotRule
     init() { super.init(fact: .criminalTaskBotMedium) }
     
     deinit {
-        print("Deallocating CriminalTaskBotMediumRule")
+//        print("Deallocating CriminalTaskBotMediumRule")
     }
 }
 
@@ -883,7 +883,7 @@ class CriminalTaskBotFarRule: FuzzyTaskBotRule
     init() { super.init(fact: .criminalTaskBotFar) }
     
     deinit {
-        print("Deallocating CriminalTaskBotFarRule")
+//        print("Deallocating CriminalTaskBotFarRule")
     }
 }
 
@@ -905,7 +905,7 @@ class SellerTaskBotNearRule: FuzzyTaskBotRule
     init() { super.init(fact: .sellerTaskBotNear) }
     
     deinit {
-        print("Deallocating SellerTaskBotNearRule")
+//        print("Deallocating SellerTaskBotNearRule")
     }
 }
 
@@ -926,7 +926,7 @@ class SellerTaskBotMediumRule: FuzzyTaskBotRule
     init() { super.init(fact: .sellerTaskBotMedium) }
     
     deinit {
-        print("Deallocating CriminalTaskBotMediumRule")
+//        print("Deallocating CriminalTaskBotMediumRule")
     }
 }
 
@@ -947,7 +947,7 @@ class SellerTaskBotFarRule: FuzzyTaskBotRule
     init() { super.init(fact: .sellerTaskBotFar) }
     
     deinit {
-        print("Deallocating CriminalTaskBotFarRule")
+//        print("Deallocating CriminalTaskBotFarRule")
     }
 }
 
@@ -966,7 +966,7 @@ class InjuredTaskBotPercentageLowRule: FuzzyTaskBotRule
     init() { super.init(fact: .injuredTaskBotPercentageLow) }
     
     deinit {
-        print("Deallocating InjuredTaskBotPercentageLowRule")
+//        print("Deallocating InjuredTaskBotPercentageLowRule")
     }
 }
 
@@ -992,7 +992,7 @@ class InjuredTaskBotPercentageMediumRule: FuzzyTaskBotRule
     init() { super.init(fact: .injuredTaskBotPercentageMedium) }
     
     deinit {
-        print("Deallocating InjuredTaskBotPercentageMediumRule")
+//        print("Deallocating InjuredTaskBotPercentageMediumRule")
     }
 }
 
@@ -1011,7 +1011,7 @@ class InjuredTaskBotPercentageHighRule: FuzzyTaskBotRule
     init() { super.init(fact: .injuredTaskBotPercentageHigh) }
     
     deinit {
-        print("Deallocating InjuredTaskBotPercentageHighRule")
+//        print("Deallocating InjuredTaskBotPercentageHighRule")
     }
 }
 
@@ -1033,7 +1033,7 @@ class InjuredTaskBotNearRule: FuzzyTaskBotRule
     init() { super.init(fact: .injuredTaskBotNear) }
     
     deinit {
-        print("Deallocating InjuredTaskBotNearRule")
+//        print("Deallocating InjuredTaskBotNearRule")
     }
 }
 
@@ -1054,7 +1054,7 @@ class InjuredTaskBotMediumRule: FuzzyTaskBotRule
     init() { super.init(fact: .injuredTaskBotMedium) }
     
     deinit {
-        print("Deallocating InjuredTaskBotMediumRule")
+//        print("Deallocating InjuredTaskBotMediumRule")
     }
     
 }
@@ -1076,6 +1076,6 @@ class InjuredTaskBotFarRule: FuzzyTaskBotRule
     init() { super.init(fact: .injuredTaskBotFar) }
     
     deinit {
-        print("Deallocating InjuredTaskBotFarRule")
+//        print("Deallocating InjuredTaskBotFarRule")
     }
 }

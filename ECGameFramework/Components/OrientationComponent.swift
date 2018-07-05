@@ -36,6 +36,6 @@ class OrientationComponent: GKComponent
     }
     
     deinit {
-        print("Deallocatin OrientationComponent")
+//        print("Deallocatin OrientationComponent")
     }
 }

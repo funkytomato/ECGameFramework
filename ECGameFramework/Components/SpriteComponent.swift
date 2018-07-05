@@ -29,7 +29,7 @@ class SpriteComponent: GKComponent
     }
     
     deinit {
-        print("Deallocating SpriteComponent")
+//        print("Deallocating SpriteComponent")
     }
     
     // MARK:- GKComponent

@@ -43,7 +43,7 @@ class SceneOverlay
     }
     
     deinit {
-        print("Deallocating SceneOverlay")
+//        print("Deallocating SceneOverlay")
     }
     
     func updateScale()

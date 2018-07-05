@@ -32,7 +32,7 @@ class FuzzyTaskBotRule: GKRule
     
     
     deinit {
-        print("Deallocating FuzzyTaskbotRule")
+//        print("Deallocating FuzzyTaskbotRule")
     }
     
     // MARK: GPRule Overrides
