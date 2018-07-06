@@ -641,6 +641,11 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         
             //Protestors are nearby
             ruleSystem.minimumGrade(forFacts: [
+                Fact.protestorTaskBotNear.rawValue as AnyObject
+                ]),
+            
+            
+            ruleSystem.minimumGrade(forFacts: [
                 Fact.protestorTaskBotNear.rawValue as AnyObject,
                 Fact.policeBotFar.rawValue as AnyObject
                 ]),
@@ -952,13 +957,13 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         
         // PROBABLY DELETE THIS LATER
         // An active PoliceBot is near a Protestor, attack them
-//        else if self.isPolice && self.isActive && huntTaskBot > huntPlayerBot
-//        {
-//            //print("Hunt the nearest Protestor: \(state.nearestProtestorTaskBotTarget!.target.agent.debugDescription)")
-//
-//            // The rules provided greater motivation to hunt the nearest good TaskBot. Ignore any motivation to hunt the PlayerBot.
-//            mandate = .huntAgent(state.nearestProtestorTaskBotTarget!.target.agent)
-//        }
+        else if self.isPolice && self.isActive && huntTaskBot > huntPlayerBot
+        {
+            //print("Hunt the nearest Protestor: \(state.nearestProtestorTaskBotTarget!.target.agent.debugDescription)")
+
+            // The rules provided greater motivation to hunt the nearest good TaskBot. Ignore any motivation to hunt the PlayerBot.
+            mandate = .huntAgent(state.nearestProtestorTaskBotTarget!.target.agent)
+        }
         else
         {
             // The rules provided no motivation to hunt, retaliate or flee
