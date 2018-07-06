@@ -64,9 +64,10 @@ class ProtestorDetainedState: GKState
     override func update(deltaTime seconds: TimeInterval)
     {
         super.update(deltaTime: seconds)
-        
-        
         elapsedTime += seconds
+        
+        //Request the "detained animation for this state's 'ProtestorBot'
+        animationComponent.requestedAnimationState = .detained
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
