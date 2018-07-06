@@ -14,7 +14,7 @@ The state representing the `TaskBot' while actively inciting others.
 import SpriteKit
 import GameplayKit
 
-class AppetiteGettingHungryState: GKState
+class AppetiteHungryState: GKState
 {
     // MARK: Properties
     unowned var appetiteComponent: AppetiteComponent
@@ -50,14 +50,11 @@ class AppetiteGettingHungryState: GKState
     override func update(deltaTime seconds: TimeInterval)
     {
         super.update(deltaTime: seconds)
-        
-//        print("AppetiteActiveState updating")
-
-        // Update the "amount of time firing" tracker.
         elapsedTime += seconds
         
+        
         //Increase the appetite as product has been consumed
-        appetiteComponent.gainAppetite(appetiteToAdd: GameplayConfiguration.ProtestorBot.appetiteGainPerCycle)
+//        appetiteComponent.gainAppetite(appetiteToAdd: GameplayConfiguration.ProtestorBot.appetiteGainPerCycle)
         
         
         if appetiteComponent.isConsumingProduct
@@ -71,7 +68,7 @@ class AppetiteGettingHungryState: GKState
     {
         switch stateClass
         {
-        case is AppetiteIdleState.Type, is AppetiteConsumingState.Type:
+        case is AppetiteConsumingState.Type:
             return true
             
         default:
