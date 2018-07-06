@@ -65,8 +65,10 @@ class ProtestorArrestedState: GKState
     override func update(deltaTime seconds: TimeInterval)
     {
         super.update(deltaTime: seconds)
-        
         elapsedTime += seconds
+        
+        //Request the "beingArrested animation for this state's 'ManBot'
+        animationComponent.requestedAnimationState = .arrested
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
