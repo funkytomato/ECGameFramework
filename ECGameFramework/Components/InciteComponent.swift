@@ -85,7 +85,11 @@ class InciteComponent: GKComponent
         
         guard (stateMachine.currentState as? InciteActiveState) != nil else { return }
         
-        animationComponent.requestedAnimationState = .inciting
+        guard let target = entity as? ProtestorBot else { return }
+        if target.isActive
+        {
+            animationComponent.requestedAnimationState = .inciting
+        }
     }
     
     // MARK: Convenience
