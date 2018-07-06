@@ -104,7 +104,8 @@ class ProtestorBuyWaresState: GKState
     {
         switch stateClass
         {
-        case is TaskBotAgentControlledState.Type:
+        case is TaskBotAgentControlledState.Type, is TaskBotFleeState.Type, is TaskBotInjuredState.Type,  is TaskBotZappedState.Type,
+             is ProtestorBotHitState.Type, is ProtestorInciteState.Type:
             return true
             
         default:
