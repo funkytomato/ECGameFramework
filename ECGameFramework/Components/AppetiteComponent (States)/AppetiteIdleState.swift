@@ -81,13 +81,13 @@ class AppetiteIdleState: GKState
             
             if appetiteComponent.appetite >= 100.0
             {
-                stateMachine?.enter(AppetiteGettingHungryState.self)
+                stateMachine?.enter(AppetiteHungryState.self)
             }
         }
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
     {
-        return stateClass is AppetiteGettingHungryState.Type
+        return stateClass is AppetiteHungryState.Type
     }
 }
