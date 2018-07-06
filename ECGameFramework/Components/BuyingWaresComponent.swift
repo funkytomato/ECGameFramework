@@ -29,6 +29,12 @@ class BuyingWaresComponent: GKComponent
 {
     // MARK: Types
     
+    /// The `IntelligenceComponent' for this component's 'entity'.
+    var intelligenceComponent: IntelligenceComponent
+    {
+        guard let intelligenceComponent = entity?.component(ofType: IntelligenceComponent.self) else { fatalError("A InciteComponent's entity must have a IntelligenceComponent") }
+        return intelligenceComponent
+    }
     
     // MARK: Properties
     var wares: Double
@@ -113,23 +119,41 @@ class BuyingWaresComponent: GKComponent
     
     override func update(deltaTime seconds: TimeInterval)
     {
-        stateMachine.update(deltaTime: seconds)
+        print("state: \(intelligenceComponent.stateMachine.currentState)")
         
-        guard let currentState = stateMachine.currentState else { return }
+        //Check Protestor is not fighting or confrontation with Police
+        guard ((intelligenceComponent.stateMachine.currentState as? ProtestorDetainedState) == nil) else { return }
+        guard ((intelligenceComponent.stateMachine.currentState as? ProtestorArrestedState) == nil) else { return }
+        guard ((intelligenceComponent.stateMachine.currentState as? ProtestorBeingArrestedState) == nil) else { return }
+        guard ((intelligenceComponent.stateMachine.currentState as? ProtestorBotRotateToAttackState) == nil) else { return }
+        guard ((intelligenceComponent.stateMachine.currentState as? ProtestorBotPreAttackState) == nil) else { return }
+        guard ((intelligenceComponent.stateMachine.currentState as? ProtestorBotAttackState) == nil) else { return }
+        guard ((intelligenceComponent.stateMachine.currentState as? ProtestorBotHitState) == nil) else { return }
+        guard ((intelligenceComponent.stateMachine.currentState as? TaskBotInjuredState) == nil) else { return }
+        guard ((intelligenceComponent.stateMachine.currentState as? TaskBotFleeState) == nil) else { return }
         
-        switch currentState
+        guard let target = entity as? ProtestorBot else { return }
+        
+        
+        if target.isActive
         {
+            stateMachine.update(deltaTime: seconds)
             
-            case is BuyingWaresLookingState:
-                animationComponent.requestedAnimationState = .looking
+            guard let currentState = stateMachine.currentState else { return }
             
-            case is BuyingWaresBuyingState:
-                animationComponent.requestedAnimationState = .buying
-            
-            default:
-//                animationComponent.requestedAnimationState = .idle
-                break
-            
+            switch currentState
+            {
+                
+                case is BuyingWaresLookingState:
+                    animationComponent.requestedAnimationState = .looking
+                
+                case is BuyingWaresBuyingState:
+                    animationComponent.requestedAnimationState = .buying
+                
+                default:
+                    //animationComponent.requestedAnimationState = .idle
+                    break
+            }
         }
     }
     
