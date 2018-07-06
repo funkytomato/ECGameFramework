@@ -97,11 +97,11 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             initialAnimations = goodAnimations
             initialResistance = 100.0       //Red bar
             initialHealth = 100.0           //Green bar
-            initialCharge = 50.0           //Blue bar
-            initialRespect = 50.0       //Yellow bar
-            initialObeisance = 100.0      //Brown bar
-            initialAppetite = 0.0
-            initialIntoxication = 0.0
+            initialCharge = 50.0            //Blue bar
+            initialRespect = 50.0           //Yellow bar
+            initialObeisance = 100.0        //Brown bar
+            initialAppetite = 0.0           //White
+            initialIntoxication = 0.0       //Orange
             
             texture = SKTexture(imageNamed: "ProtestorBot")
         }
@@ -297,27 +297,6 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             
             //print("Increased the obeisance of the touching Protestor")
         }
-        
-        
-        //Check the contacting entity is Criminal, and selling
-//        guard let criminalBot = entity as? CriminalBot else { return }
-//        
-//        //Move Protestor from looking state to buying state
-//        guard let buyingWaresComponent = component(ofType: BuyingWaresComponent.self) else { return }
-//        guard (buyingWaresComponent.stateMachine.currentState as? LookingState) != nil else { return }
-//        buyingWaresComponent.stateMachine.enter(BuyingState.self)
-        
-//        guard let sellingWaresComponent = criminalBot.component(ofType: SellingWaresComponent.self) else { return }
-//        print("state: \(sellingWaresComponent.stateMachine.currentState.debugDescription)")
-//        guard (sellingWaresComponent.stateMachine.currentState as? SellingWaresActiveState) != nil else { return }
-        
-
-        
-        
-        //Protestor has started drinking, trigger intociation component
-//        guard let intoxicationComponent = component(ofType: IntoxicationComponent.self) else { return }
-//        intoxicationComponent.isTriggered = true
-
     }
     
     override func contactWithEntityDidEnd(_ entity: GKEntity)
@@ -335,42 +314,6 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             
             //print("Raised temperament of touching Protestor")
         }
-        
-        // Check the contact is a criminal and is selling
-//        guard let criminalBot = entity as? CriminalBot else { return }
-//        
-//        //Check the Protestor has purchasing power (BuyingWareComponent), and they are in a buying state.
-//        guard let buyingWaresComponent = component(ofType: BuyingWaresComponent.self) else { return }
-//        guard (buyingWaresComponent.stateMachine.currentState as? BuyingState) != nil else { return }
-//        buyingWaresComponent.gainProduct()
-//        
-//        // Check the Protestor has an appetite, and start consuming the product.
-//        // The Protestor does not need a product anymore and so the trigger switched off.
-//        guard let appetiteComponent = component(ofType: AppetiteComponent.self) else { return }
-//        appetiteComponent.isConsumingProduct = true
-//        appetiteComponent.isTriggered = false
-        
-        
-        
-        //If Protestor appetite is high, buy wares, reduce appetite slowly as wares are consumed
-//        guard let appetiteComponent = component(ofType: AppetiteComponent.self) else { return }
-//        if appetiteComponent.isTriggered
-//        {
-//            //Start consuming product
-//            appetiteComponent.isConsumingProduct = true
-// 
-//            //Switch off desire for more products 
-//            appetiteComponent.isTriggered = false
-//            
-//            
-//            
-//            //Start countdown to finish consuming product
-//            
-//            
-//                //Trigger Intoxication to slowly rise a number of units
-//            
-//                //Trigger Appetite to start rising
-//        }
     }
     
     // MARK: RulesComponentDelegate
@@ -481,11 +424,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
 //        print("Buy product and eat/use")
         
         //Protestor is eating
-        self.isHungry = false
-        
-        //Protestor consuming
-        //appetiteComponent.isConsumingProduct = true
-        
+        self.isHungry = false 
     }
     
     
