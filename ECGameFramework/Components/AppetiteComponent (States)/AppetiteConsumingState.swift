@@ -68,7 +68,7 @@ class AppetiteConsumingState: GKState
     {
         switch stateClass
         {
-        case is AppetiteIdleState.Type, is AppetiteGettingHungryState.Type:
+        case is AppetiteIdleState.Type, is AppetiteHungryState.Type:
             return true
             
         default:
