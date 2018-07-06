@@ -76,10 +76,11 @@ class ProtestorBotHitState: GKState
     override func update(deltaTime seconds: TimeInterval)
     {
         super.update(deltaTime: seconds)
-        
-        // Update the amount of time the `PlayerBot` has been in the "hit" state.
         elapsedTime += seconds
    
+        // Request the "hit" animation for this `PlayerBot`.
+        animationComponent.requestedAnimationState = .hit
+        
         //print("hashealth: \(healthComponent.hasHealth) health:\(healthComponent.health)")
 
         // Protestor has resistance, change their temperament
@@ -130,13 +131,13 @@ class ProtestorBotHitState: GKState
         else
         {
             //Is the Protestor dead?
-            if healthComponent.health < 30.0
+            if healthComponent.health < 10.0
             {
                 //The Protestor is injured or dead and out of the game
                 stateMachine?.enter(TaskBotInjuredState.self)
             }
                 
-                //Protestor is healthy enough to be arrested
+            //Protestor is healthy enough to be arrested
             else if healthComponent.hasHealth
             {
                 //The Protestor is subdued and knackered, arrest them
