@@ -77,8 +77,10 @@ class ProtestorBeingArrestedState: GKState
     override func update(deltaTime seconds: TimeInterval)
     {
         super.update(deltaTime: seconds)
-        
         elapsedTime += seconds
+        
+        //Request the "beingArrested animation for this state's 'ProtestorBot'
+        animationComponent.requestedAnimationState = .beingArrested
         
         /*
          If the `ManBot` has been in its "beingArrested" state for long enough,
