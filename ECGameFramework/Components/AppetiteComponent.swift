@@ -101,6 +101,13 @@ class AppetiteComponent: GKComponent
         return buyWaresComponent
     }
     
+    /// The `IntelligenceComponent' for this component's 'entity'.
+    var intelligenceComponent: IntelligenceComponent
+    {
+        guard let intelligenceComponent = entity?.component(ofType: IntelligenceComponent.self) else { fatalError("A InciteComponent's entity must have a IntelligenceComponent") }
+        return intelligenceComponent
+    }
+    
     // MARK: Initializers
     
     init(appetite: Double, maximumAppetite: Double, displaysAppetiteBar: Bool = false)
@@ -125,7 +132,7 @@ class AppetiteComponent: GKComponent
         
         stateMachine = GKStateMachine(states: [
             AppetiteIdleState(appetiteComponent: self),
-            AppetiteGettingHungryState(appetiteComponent: self),
+            AppetiteHungryState(appetiteComponent: self),
             AppetiteConsumingState(appetiteComponent: self)
             ])
         
@@ -148,11 +155,23 @@ class AppetiteComponent: GKComponent
     
     override func update(deltaTime seconds: TimeInterval)
     {
+        //Check Protestor is not fighting or confrontation with Police
+        guard ((intelligenceComponent.stateMachine.currentState as? ProtestorDetainedState) == nil) else { return }
+        guard ((intelligenceComponent.stateMachine.currentState as? ProtestorArrestedState) == nil) else { return }
+        guard ((intelligenceComponent.stateMachine.currentState as? ProtestorBeingArrestedState) == nil) else { return }
+        guard ((intelligenceComponent.stateMachine.currentState as? ProtestorBotRotateToAttackState) == nil) else { return }
+        guard ((intelligenceComponent.stateMachine.currentState as? ProtestorBotPreAttackState) == nil) else { return }
+        guard ((intelligenceComponent.stateMachine.currentState as? ProtestorBotAttackState) == nil) else { return }
+        guard ((intelligenceComponent.stateMachine.currentState as? ProtestorBotHitState) == nil) else { return }
+        guard ((intelligenceComponent.stateMachine.currentState as? TaskBotInjuredState) == nil) else { return }
+        guard ((intelligenceComponent.stateMachine.currentState as? TaskBotFleeState) == nil) else { return }
+
+    
         stateMachine.update(deltaTime: seconds)
         
+        print("state: \(intelligenceComponent.stateMachine.currentState)")
+        
         guard let currentState = stateMachine.currentState else { return }
-        
-        
         switch currentState
         {
             
@@ -164,7 +183,7 @@ class AppetiteComponent: GKComponent
         }
         
         //Protestor's is now hungry and will start to look for a source to buy from
-        guard (stateMachine.currentState as? AppetiteGettingHungryState) != nil else { return }
+        guard (stateMachine.currentState as? AppetiteHungryState) != nil else { return }
         
         //Moves the Buying Component into Active state
         buyWaresComponent.isTriggered = true
