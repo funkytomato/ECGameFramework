@@ -135,13 +135,13 @@ struct GameplayConfiguration
     struct Wares
     {
         /// The distance (in points) over which the beam can be fired.
-        static let arcLength: CGFloat = 300.0
+        //static let arcLength: CGFloat = 300.0
         
         /// The arc angle (in radians) within which the beam is effective.
-        static let arcAngle = CGFloat(45.0 * (Double.pi / 180.0))
+        //static let arcAngle = CGFloat(45.0 * (Double.pi / 180.0))
         
         /// The maximum arc angle (in radians) after being adjusted for distance from target.
-        static let maxArcAngle = CGFloat(0.35)
+        //static let maxArcAngle = CGFloat(0.35)
         
         /// The maximum number of seconds for which the beam can be fired before recharging.
         static let maximumSellingWaresDuration: TimeInterval = 10.0
@@ -249,16 +249,6 @@ struct GameplayConfiguration
         /// The offset of the `PlayerBot`'s antenna
         static let antennaOffset = CGPoint(x: 0.0, y: 50.0)
 
-        /*
-        /// The offset of the `PlayerBot`'s charge bar from its position.
-        static let healthBarOffset = CGPoint(x: 0.0, y: 55.0)
-        
-        /// The offset of the `PlayerBot`'s charge bar from its position.
-        static let chargeBarOffset = CGPoint(x: 0.0, y: 65.0)
-
-        /// The offset of the `PlayerBot`'s resistance bar from its position.
-        static let resistanceBarOffset = CGPoint(x: 0.0, y: 45.0)
- */
  
         /// The initial charge value for the `PlayerBot`'s health bar.
         static let initialCharge = 100.0
@@ -400,6 +390,35 @@ struct GameplayConfiguration
     
     struct PoliceBot
     {
+        // MARK:- Physics Properties
+        
+        // The agent's mass.
+        static let agentMass: Float = 0.50
+
+        // The radius of the path along which an agent patrols.
+        static let patrolPathRadius: Float = 10.0
+        
+        // The radius of the path along which an agent travels when hunting.
+        static let huntPathRadius: Float = 20.0
+
+        // The radius of the path along which an agent travels when wandering.
+        static let wanderPathRadius: Float = 20.0
+        
+        // The radius of the path along which an agent travels when fleeing.
+        static let fleePathRadius: Float = 100.0
+        
+        /// The duration of a `TaskBot`'s pre-attack state.
+        static let preAttackStateDuration: TimeInterval = 0.3
+        
+        /// The duration of a `TaskBot`'s zapped state.
+        static let zappedStateDuration: TimeInterval = 0.75
+        
+        /// The duration of a `TaskBot`'s arresting state.
+        static let arrestingStateDuration: TimeInterval = 2
+        
+        
+        
+        
         //MARK: Health Properties
         
         // The maximum amount of health a `GroundBot` stores.
