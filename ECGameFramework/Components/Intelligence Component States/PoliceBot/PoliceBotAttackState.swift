@@ -162,7 +162,7 @@ class PoliceBotAttackState: GKState
         if let playerBot = entity as? PlayerBot, let chargeComponent = playerBot.component(ofType: ChargeComponent.self), !playerBot.isPoweredDown
         {
             // If the other entity is a `PlayerBot` that isn't powered down, reduce its charge.
-            chargeComponent.loseCharge(chargeToLose: GameplayConfiguration.PoliceBot.chargeLossPerContact)
+            chargeComponent.loseCharge(chargeToLose: GameplayConfiguration.PoliceBot.damageDealtPerContact)
         }
             
         else if let targetBot = entity as? ProtestorBot, /*targetBot.isGood,*/
