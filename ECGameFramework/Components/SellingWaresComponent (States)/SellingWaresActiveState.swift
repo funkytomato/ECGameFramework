@@ -54,7 +54,7 @@ class SellingWaresActiveState: GKState
 //        print("SellingWaresActiveState updating")
         
 
-        if elapsedTime >= GameplayConfiguration.Wares.maximumSellingWaresDuration
+        if elapsedTime >= GameplayConfiguration.Wares.maximumSellingAndBuyingDuration
         {
             /**
              The player has been firing the beam for too long. Enter the `SellingWaresCoolingState`
