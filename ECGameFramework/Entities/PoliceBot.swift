@@ -148,6 +148,16 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
         //TaskBot is Police
         self.isPolice = true
         
+
+        // Configure the agent's characteristics for the steering physics simulation.
+        agent.maxSpeed = GameplayConfiguration.PoliceBot.maximumSpeedForIsGood(isGood: isGood)
+        agent.mass = GameplayConfiguration.PoliceBot.agentMass
+        
+        
+        //Put PoliceBots on patrol
+        mandate = isGood ? .followGoodPatrolPath : .followGoodPatrolPath
+        
+        
         // Determine initial animations and charge based on the initial state of the bot.
         let initialAnimations: [AnimationState: Animation]
         let initialCharge: Double
