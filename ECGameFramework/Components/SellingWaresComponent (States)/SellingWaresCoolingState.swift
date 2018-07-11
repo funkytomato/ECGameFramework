@@ -54,7 +54,7 @@ class SellingWaresCoolingState: GKState
         elapsedTime += seconds
         
         // If the beam has spent long enough cooling down, enter `BeamIdleState`.
-        if elapsedTime >= GameplayConfiguration.Wares.coolDownDuration
+        if elapsedTime >= GameplayConfiguration.Wares.timeOutPeriod
         {
             stateMachine?.enter(SellingWaresIdleState.self)
         }
