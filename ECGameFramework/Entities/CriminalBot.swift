@@ -68,6 +68,7 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
     // MARK: Initialization
     required init(temperament: String, isGood: Bool, goodPathPoints: [CGPoint], badPathPoints: [CGPoint])
     {
+        
         super.init(isGood: isGood, goodPathPoints: goodPathPoints, badPathPoints: badPathPoints)
         
         // Determine initial animations and charge based on the initial state of the bot.
@@ -116,6 +117,18 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
             
             texture = SKTexture(imageNamed: "CriminalBotBad")
         }
+        
+        
+        // Create a random speed for each taskbot
+        let randomSource = GKRandomSource.sharedRandom()
+        let diff = randomSource.nextUniform() // returns random Float between 0.0 and 1.0
+        let speed = diff * GameplayConfiguration.CriminalBot.maximumSpeedForIsGood(isGood: isGood) + GameplayConfiguration.TaskBot.minimumSpeed //Ensure it has some speed
+        print("speed :\(speed.debugDescription)")
+        
+        // Configure the agent's characteristics for the steering physics simulation.
+        agent.maxSpeed = speed
+        agent.mass = GameplayConfiguration.CriminalBot.agentMass
+
         
         
         // Create components that define how the entity looks and behaves.
