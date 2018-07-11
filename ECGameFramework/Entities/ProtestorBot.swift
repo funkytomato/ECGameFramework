@@ -84,9 +84,20 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         let initialAppetite: Double
         let initialIntoxication: Double
 
-
         
         self.isProtestor = true
+        
+        
+        // Create a random speed for each taskbot
+        let randomSource = GKRandomSource.sharedRandom()
+        let diff = randomSource.nextUniform() // returns random Float between 0.0 and 1.0
+        let speed = diff * GameplayConfiguration.ProtestorBot.maximumSpeedForIsGood(isGood: isGood) + GameplayConfiguration.TaskBot.minimumSpeed //Ensure it has some speed
+        print("speed :\(speed.debugDescription)")
+        
+        // Configure the agent's characteristics for the steering physics simulation.
+        agent.maxSpeed = speed
+        agent.mass = GameplayConfiguration.ProtestorBot.agentMass
+        
         
         // TaskBot is Protestor
         if isGood
@@ -204,7 +215,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         let physicsBody = SKPhysicsBody(circleOfRadius: GameplayConfiguration.TaskBot.physicsBodyRadius, center: GameplayConfiguration.TaskBot.physicsBodyOffset)
         let physicsComponent = PhysicsComponent(physicsBody: physicsBody, colliderType: .TaskBot)
         addComponent(physicsComponent)
-
+        
         let chargeComponent = ChargeComponent(charge: initialCharge, maximumCharge: GameplayConfiguration.ProtestorBot.maximumCharge, displaysChargeBar: true)
         chargeComponent.delegate = self
         addComponent(chargeComponent)
