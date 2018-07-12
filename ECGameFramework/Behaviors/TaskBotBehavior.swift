@@ -48,11 +48,48 @@ class TaskBotBehavior: GKBehavior
         behavior.addTargetSpeedGoal(speed: agent.maxSpeed)
         behavior.addAvoidObstaclesGoal(forScene: scene)
         
+        
+        let myTemperamentComponent = agent.entity?.component(ofType: TemperamentComponent.self)
+        
+        
         // Find any nearby "protestor" TaskBots to flock with.
         let agentsToFlockWith: [GKAgent2D] = scene.entities.compactMap { entity in
-            if let taskBot = entity as? TaskBot, taskBot.isGood && taskBot.agent !== agent && taskBot.distanceToAgent(otherAgent: agent) <= GameplayConfiguration.Flocking.agentSearchDistanceForArrest
+            if let taskBot = entity as? ProtestorBot,
+                taskBot.isConsuming && taskBot.agent !== agent && taskBot.distanceToAgent(otherAgent: agent) <= GameplayConfiguration.Flocking.agentSearchDistanceForArrest
             {
-                return taskBot.agent
+                
+                let temperamentComponent = taskBot.component(ofType: TemperamentComponent.self)
+                guard (temperamentComponent?.stateMachine.currentState as? CalmState) != nil else { return nil }
+                
+                switch myTemperamentComponent?.stateMachine.currentState
+                {
+                    case is CalmState:
+                        guard (temperamentComponent?.stateMachine.currentState as? CalmState) != nil else { break }
+                        print("CalmState")
+                        return taskBot.agent
+
+                    case is ScaredState:
+                        guard (temperamentComponent?.stateMachine.currentState as? ScaredState) != nil else { break }
+                        print("ScaredState")
+                        return taskBot.agent
+
+                    case is AngryState:
+                        guard (temperamentComponent?.stateMachine.currentState as? AngryState) != nil else { break }
+                        print("AngryState")
+                        return taskBot.agent
+
+                    case is ViolentState:
+                        guard (temperamentComponent?.stateMachine.currentState as? ViolentState) != nil else { break }
+                        print("ViolentState")
+                        return taskBot.agent
+
+                    default:
+                        break
+
+                }
+                
+                
+//                return taskBot.agent
             }
             
             return nil
@@ -60,7 +97,7 @@ class TaskBotBehavior: GKBehavior
         
         if !agentsToFlockWith.isEmpty
         {
-            //print("arrestedBehaviour - agents are flocking \(agentsToFlockWith.description)")
+            print("crowdBehaviour - agents are flocking \(agentsToFlockWith.description)")
             
             
             // Add flocking goals for any nearby "bad" `TaskBot`s.
@@ -233,6 +270,7 @@ class TaskBotBehavior: GKBehavior
         behavior.addTargetSpeedGoal(speed: agent.maxSpeed)
         behavior.addAvoidObstaclesGoal(forScene: scene)
         behavior.addWanderGoal(forScene: scene)
+        
         
         let pathPoints = behavior.addPointsToWander(from: agent.position, pathRadius: GameplayConfiguration.TaskBot.wanderPathRadius, inScene: scene)
         
