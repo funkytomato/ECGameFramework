@@ -85,7 +85,7 @@ class ProtestorBotRotateToAttackState: GKState
         let angleDeltaToTarget = shortestAngleDeltaToTargetFromRotation(entityRotation: Float(orientationComponent.zRotation))
         
         // Calculate the amount of rotation that should be applied during this update.
-        var delta = CGFloat(seconds * GameplayConfiguration.ProtestorBot.preAttackRotationSpeed)
+        var delta = CGFloat(seconds * GameplayConfiguration.TaskBot.preAttackRotationSpeed)
         if angleDeltaToTarget < 0
         {
             delta *= -1
