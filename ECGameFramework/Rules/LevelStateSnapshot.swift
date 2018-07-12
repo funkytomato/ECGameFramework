@@ -156,7 +156,7 @@ class LevelStateSnapshot
             // The taskbot is a Criminal and seller
             else if thisTaskbot.isCriminal && thisTaskbot.isSelling // && isCriminal
             {
-                return (workingArrays.criminalTaskBots, workingArrays.sellerTaskBots + [thisTaskbot], workingArrays.scaredTaskBots, workingArrays.dangerousTaskBots, workingArrays.protestorBots, workingArrays.subservientTaskBots, workingArrays.policeBots, workingArrays.policeInTroubleTaskBots, workingArrays.injuredBots)
+                return (workingArrays.criminalTaskBots + [thisTaskbot], workingArrays.sellerTaskBots + [thisTaskbot], workingArrays.scaredTaskBots, workingArrays.dangerousTaskBots, workingArrays.protestorBots, workingArrays.subservientTaskBots, workingArrays.policeBots, workingArrays.policeInTroubleTaskBots, workingArrays.injuredBots)
             }
                 
             // The taskbot is a Criminal
@@ -193,7 +193,7 @@ class LevelStateSnapshot
 //                                    Float(subservientTaskBots.count) + Float(protestorTaskBots.count) + Float(dangerousTaskBots.count) + Float(injuredTaskBots.count) + Float(policeTaskBots.count) + Float(criminalTaskBots.count)
         
 
-//        print("policeBotPercentage:\(policeBotPercentage.description), protestorBotPercentage: \(protestorBotPercentage.description), criminalBotPercentage: \(criminalBotPercentage.description), dangerousBotPercentage: \(dangerousBotPercentage.description), injuredBotPercentage: \(injuredBotPercentage.description), policeTaskBots: \(policeTaskBots.count), policeInTroubleTaskBots: \(policeInTroubleTaskBots.count), protestorTaskBots: \(protestorTaskBots.count), dangerousTaskBots: \(dangerousTaskBots.count), scaredBots: \(scaredTaskBots.count), injuredTaskBots: \(injuredTaskBots.count), sellerTaskBots: \(sellerTaskBots.count)")
+        print("policeBotPercentage:\(policeBotPercentage.description), protestorBotPercentage: \(protestorBotPercentage.description), criminalBotPercentage: \(criminalBotPercentage.description), dangerousBotPercentage: \(dangerousBotPercentage.description), injuredBotPercentage: \(injuredBotPercentage.description), policeTaskBots: \(policeTaskBots.count), policeInTroubleTaskBots: \(policeInTroubleTaskBots.count), protestorTaskBots: \(protestorTaskBots.count), dangerousTaskBots: \(dangerousTaskBots.count), scaredBots: \(scaredTaskBots.count), injuredTaskBots: \(injuredTaskBots.count), sellerTaskBots: \(sellerTaskBots.count)")
         
         
         
