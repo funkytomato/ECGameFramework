@@ -13,6 +13,9 @@ import SpriteKit  //need for colour setting
 struct GameplayConfiguration
 {
     
+    /*
+        MARK:- Colour Bars for the various properties
+    */
     struct ColourBar
     {
         // The size of the complete bar (back and level indicator).
@@ -32,6 +35,8 @@ struct GameplayConfiguration
         
     }
     
+    //  MARK:- SellingWaresComponent Bar
+    //  Shows the quantity of products available for sale
     struct SellingWaresBar
     {
         // The charge level node color.
@@ -41,6 +46,9 @@ struct GameplayConfiguration
         static let sellingWaresBarOffset = CGPoint(x: 0.0, y: 125.0)
     }
     
+    
+    //  MARK:- IntoxicationComponent Bar
+    //  Shows the intoxication level of the Protestor
     struct IntoxicationBar
     {
         // The charge level node color.
@@ -50,6 +58,9 @@ struct GameplayConfiguration
         static let intoxicationBarOffset = CGPoint(x: 0.0, y: 115.0)
     }
     
+    
+    //  MARK:- AppetiteComponent Bar
+    //  Shows the appetite of the Protestor
     struct AppetiteBar
     {
         // The charge level node color.
@@ -59,8 +70,9 @@ struct GameplayConfiguration
         static let appetiteBarOffset = CGPoint(x: 0.0, y: 105.0)
     }
     
-
     
+    //  MARK:- ChargeComponent Bar
+    //  Shows the level of charge the TaskBot has
     struct ChargeBar
     {
         // The charge level node color.
@@ -71,6 +83,8 @@ struct GameplayConfiguration
     }
 
     
+    //  MARK:- HealthBar Component
+    //  Shows the level of health the TaskBot has
     struct HealthBar
     {
         // The charge level node color.
@@ -81,6 +95,8 @@ struct GameplayConfiguration
     }
     
     
+    //  MARK:- ResistanceComponent bar
+    //  Shows the level of resistance the TaskBot has (resistance to attacks and arrest)
     struct ResistanceBar
     {
         // The charge level node color.
@@ -91,6 +107,9 @@ struct GameplayConfiguration
     }
     
     
+    
+    //  MARK:- RespectComponent bar
+    //  Shows the level of respect the TaskBot has (how others percieve them)
     struct RespectBar
     {
         // The charge level node color.
@@ -100,6 +119,9 @@ struct GameplayConfiguration
         static let respectBarOffset = CGPoint(x: 0.0, y: 65.0)
     }
     
+    
+    //  MARK:- ObeisanceComponent Bar Properties
+    //  Shows the level of obeisance the Protestor has towards the Player (can the player control them)
     struct ObeisanceBar
     {
         // The charge level node color.
@@ -110,6 +132,9 @@ struct GameplayConfiguration
     }
     
     
+    /*
+        MARK:- The Beam fired from the Player to other TaskBots
+    */
     struct Beam
     {
         /// The distance (in points) over which the beam can be fired.
@@ -132,31 +157,19 @@ struct GameplayConfiguration
     }
 
     
+    //  MARK:- BuyingWaresComponent & SellingWaresComponent Properties
     struct Wares
     {
-        /// The distance (in points) over which the beam can be fired.
-        //static let arcLength: CGFloat = 300.0
         
-        /// The arc angle (in radians) within which the beam is effective.
-        //static let arcAngle = CGFloat(45.0 * (Double.pi / 180.0))
+        // The maximum number of seconds for selling and buying wares
+        static let maximumSellingAndBuyingDuration: TimeInterval = 10.0
         
-        /// The maximum arc angle (in radians) after being adjusted for distance from target.
-        //static let maxArcAngle = CGFloat(0.35)
-        
-        /// The maximum number of seconds for which the beam can be fired before recharging.
-        static let maximumSellingWaresDuration: TimeInterval = 10.0
-        
-        /// The amount of charge points the beam drains from `TaskBot`s per second.
-        static let chargeLossPerSecond = 90.0
-        
-        /// The length of time that the beam takes to recharge when it is fully depleted.
-        static let coolDownDuration: TimeInterval = 5.0
-        
-        /// The length of time that the beam takes to recharge when it is fully depleted.
-        static let buyDuration: TimeInterval = 10.0
-
+        // The length of time that to chill out between selling and buying wares
+        static let timeOutPeriod: TimeInterval = 5.0
     }
     
+    
+    //  MARK:- InciteComponent Properties
     struct Incite
     {
         /// The distance (in points) over which the beam can be fired.
@@ -178,6 +191,8 @@ struct GameplayConfiguration
         static let coolDownDuration: TimeInterval = 5.0
     }
     
+    
+    //  MARK:- Tazer Properties
     struct Tazer
     {
         /// The distance (in points) over which the beam can be fired.
@@ -197,17 +212,17 @@ struct GameplayConfiguration
         
         /// The length of time that the beam takes to recharge when it is fully depleted.
         static let coolDownDuration: TimeInterval = 1.0
-        
-        
     }
 
+    
+    //  MARK:- IntoxicationComponent Properties
     struct Intoxication
     {
-
-        
         static let maximumIntoxicationDuration: TimeInterval = 10.0
     }
     
+    
+    //  MARK:- OberveComponent Properties
     struct Observe
     {
         /// The length of time that the beam takes to recharge when it is fully depleted.
@@ -217,82 +232,91 @@ struct GameplayConfiguration
         static let maximumLookDuration: TimeInterval = 10.0
     }
     
+    
+    //  MARK:- AppetiteComponent Properties
     struct Appetite
     {
-        /// The length of time that the beam takes to recharge when it is fully depleted.
-        static let coolDownDuration: TimeInterval = 30.0
-        
         /// The maximum number of seconds for which the beam can be fired before recharging.
-        static let maximumAppetiteDuration: TimeInterval = 10.0
+//        static let maximumAppetiteDuration: TimeInterval = 10.0
     }
     
+    
+    
+    //  MARK:- PlayerBot Properties
     struct PlayerBot
     {
         // The movement speed (in points per second) for the `PlayerBot`.
         static let movementSpeed: CGFloat = 210.0
 
-        /// The angular rotation speed (in radians per second) for the `PlayerBot`.
+        // The angular rotation speed (in radians per second) for the `PlayerBot`.
         static let angularSpeed = CGFloat(Double.pi) * 1.4
         
-        /// The radius of the `PlayerBot`'s physics body.
+        // The radius of the `PlayerBot`'s physics body.
         static var physicsBodyRadius: CGFloat = 30.0
         
-        /// The offset of the `PlayerBot`'s physics body's center from the `PlayerBot`'s center.
+        // The offset of the `PlayerBot`'s physics body's center from the `PlayerBot`'s center.
         static let physicsBodyOffset = CGPoint(x: 0.0, y: -25.0)
         
-        /// The radius of the agent associated with this `PlayerBot` for pathfinding.
+        // The radius of the agent associated with this `PlayerBot` for pathfinding.
         static let agentRadius = Float(physicsBodyRadius)
         
-        /// The offset of the agent's center from the `PlayerBot`'s center.
+        // The offset of the agent's center from the `PlayerBot`'s center.
         static let agentOffset = physicsBodyOffset
         
-        /// The offset of the `PlayerBot`'s antenna
+        // The offset of the `PlayerBot`'s antenna
         static let antennaOffset = CGPoint(x: 0.0, y: 50.0)
 
  
-        /// The initial charge value for the `PlayerBot`'s health bar.
+        // The initial charge value for the `PlayerBot`'s health bar.
         static let initialCharge = 100.0
 
-        /// The maximum charge value for the `PlayerBot`'s health bar.
+        // The maximum charge value for the `PlayerBot`'s health bar.
         static let maximumHealth = 100.0
         
-        /// The maximum charge value for the `PlayerBot`'s health bar.
+        // The maximum charge value for the `PlayerBot`'s health bar.
         static let maximumCharge = 100.0
         
-        /// The maximum amount of respect a `GroundBot` stores.
+        // The maximum amount of respect a `GroundBot` stores.
         static let maximumResistance = 100.0
         
-        /// The maximum amount of respect a `GroundBot` stores.
+        // The maximum amount of respect a `GroundBot` stores.
         static let maximumRespect = 100.0
         
-        /// The maximum amount of obeisance a `GroundBot` stores.
+        // The maximum amount of obeisance a `GroundBot` stores.
         static let maximumObeisance = 100.0
         
 
         
-        /// The length of time for which the `PlayerBot` remains in its "hit" state.
+        // The length of time for which the `PlayerBot` remains in its "hit" state.
         static let hitStateDuration: TimeInterval = 0.75
         
-        /// The length of time that it takes the `PlayerBot` to recharge when deactivated.
+        // The length of time that it takes the `PlayerBot` to recharge when deactivated.
         static let rechargeDelayWhenInactive: TimeInterval = 2.0
         
-        /// The amount of charge that the `PlayerBot` gains per second when recharging.
+        // The amount of charge that the `PlayerBot` gains per second when recharging.
         static let rechargeAmountPerSecond = 10.0
         
-        /// The amount of time it takes the `PlayerBot` to appear in a level before becoming controllable by the player.
+        // The amount of time it takes the `PlayerBot` to appear in a level before becoming controllable by the player.
         static let appearDuration: TimeInterval = 0.50
     }
-
+    
+    
+    
+    //  MARK:- TaskBot Properties
     struct TaskBot
     {
         /// The length of time a `TaskBot` waits before re-evaluating its rules.
         static let rulesUpdateWaitDuration: TimeInterval = 1.0
 
         /// The length of time a `TaskBot` waits before re-checking for an appropriate behavior.
-        static let behaviorUpdateWaitDuration: TimeInterval = 0.25
+//        static let behaviorUpdateWaitDuration: TimeInterval = 0.25
+        static let behaviorUpdateWaitDuration: TimeInterval = 1.0
         
         /// How close a `TaskBot` has to be to a patrol path start point in order to start patrolling.
         static let thresholdProximityToPatrolPathStartPoint: Float = 50.0
+        
+        // The minimum speed (in points per second) for the 'TaskBot'
+        static let minimumSpeed: Float = 30.0
         
         /// The maximum speed (in points per second) for the `TaskBot` when in its "good" state.
         static let maximumSpeedWhenGood: Float = 100.0
@@ -311,15 +335,14 @@ struct GameplayConfiguration
             This ensures that the `TaskBot` can follow its patrol path more effectively.
         */
         /// The maximum acceleration (in points per second per second) for the `TaskBot`.
-        //static let maximumAcceleration: Float = 10.0
-        static let maximumAcceleration: Float = 500.0
+//        static let maximumAcceleration: Float = 10.0
+        static let maximumAcceleration: Float = 1000.0
 
         /// The agent's mass.
         static let agentMass: Float = 0.25
         
         /// The radius of the `TaskBot`'s physics body.
-        //static var physicsBodyRadius: CGFloat = 35.0
-        static var physicsBodyRadius: CGFloat = 25.0
+        static var physicsBodyRadius: CGFloat = 26.0
 
         /// The offset of the `TaskBot` physics body's center from the `TaskBot`'s center.
         static let physicsBodyOffset = CGPoint(x: 0.0, y: 0.0)
@@ -330,21 +353,23 @@ struct GameplayConfiguration
         /// The offset of the agent's center from the `TaskBot`'s center.
         static let agentOffset = physicsBodyOffset
         
+        
+        // A.I. Properties
+        
         /// The maximum time to look ahead when following a path.
         static let maxPredictionTimeWhenFollowingPath: TimeInterval = 1.0
         
         /// The maximum time to look ahead for obstacles to be avoided.
         static let maxPredictionTimeForObstacleAvoidance: TimeInterval = 1.0
-
+        
         /// The radius of the path along which an agent patrols.
         static let patrolPathRadius: Float = 10.0
         
         /// The radius of the path along which an agent travels when hunting.
         static let huntPathRadius: Float = 20.0
 
-        
         /// The radius of the path along which an agent travels when wandering.
-        static let wanderPathRadius: Float = 20.0
+        static let wanderPathRadius: Float = 15.0
 
         /// The radius of the path along which an agent travels when fleeing.
         static let fleePathRadius: Float = 100.0
@@ -356,7 +381,10 @@ struct GameplayConfiguration
         static let returnToPatrolPathRadius: Float = 20.0
         
         /// The buffer radius (in points) to add to polygon obstacles when calculating agent pathfinding.
-        static let pathfindingGraphBufferRadius: Float = 30.0
+        static let pathfindingGraphBufferRadius: Float = 15.0
+        
+        /// How fast the `GroundBot` rotates to face its target in radians per second.
+        static let preAttackRotationSpeed = Double.pi / 2
         
         /// The duration of a `TaskBot`'s pre-attack state.
         static let preAttackStateDuration: TimeInterval = 0.3
@@ -376,7 +404,6 @@ struct GameplayConfiguration
         // The alignment with neighbour angle
         static let alignWithNeighbourAngle: Float = 1
         
-        
         /// The duration of a `TaskBot`'s being scared state.
         static let scaredStateDuration: TimeInterval = 10
         
@@ -385,36 +412,59 @@ struct GameplayConfiguration
         
         /// How close a `TaskBot` has to be to meatwagon point in order to be locked up
         static let thresholdProximityToMeatwagonPoint: Float = 50.0
-        
     }
     
+    
+    
+    //  MARK:- PoliceBot Properties
     struct PoliceBot
     {
         // MARK:- Physics Properties
         
+        /*
+         `maximumAcceleration` is set to a high number to enable the TaskBot to turn very quickly.
+         This ensures that the `TaskBot` can follow its patrol path more effectively.
+         */
+        /// The maximum acceleration (in points per second per second) for the `TaskBot`.
+//        static let maximumAcceleration: Float = 500.0
+        
         // The agent's mass.
-        static let agentMass: Float = 0.50
+        static let agentMass: Float = 0.75
+
+        
+        /// The maximum speed (in points per second) for the `TaskBot` when in its "good" state.
+        static let maximumSpeedWhenGood: Float = 50.0
+        
+        /// The maximum speed (in points per second) for the `TaskBot` when in its "bad" state.
+        static let maximumSpeedWhenBad: Float = 75.0
+        
+        /// A convenience function to return the max speed for a state.
+        static func maximumSpeedForIsGood(isGood: Bool) -> Float
+        {
+            return isGood ? maximumSpeedWhenGood : maximumSpeedWhenBad
+        }
+        
+        
 
         // The radius of the path along which an agent patrols.
-        static let patrolPathRadius: Float = 10.0
+//        static let patrolPathRadius: Float = 10.0
         
         // The radius of the path along which an agent travels when hunting.
-        static let huntPathRadius: Float = 20.0
+//        static let huntPathRadius: Float = 20.0
 
         // The radius of the path along which an agent travels when wandering.
-        static let wanderPathRadius: Float = 20.0
+//        static let wanderPathRadius: Float = 20.0
         
         // The radius of the path along which an agent travels when fleeing.
-        static let fleePathRadius: Float = 100.0
+//        static let fleePathRadius: Float = 100.0
         
-        /// The duration of a `TaskBot`'s pre-attack state.
-        static let preAttackStateDuration: TimeInterval = 0.3
+
         
         /// The duration of a `TaskBot`'s zapped state.
         static let zappedStateDuration: TimeInterval = 0.75
         
         /// The duration of a `TaskBot`'s arresting state.
-        static let arrestingStateDuration: TimeInterval = 2
+        static let arrestingStateDuration: TimeInterval = 2.0
         
         
         
@@ -470,7 +520,7 @@ struct GameplayConfiguration
         static let maximumCharge = 100.0
         
         /// The amount of charge a `PlayerBot` loses by a single `GroundBot` attack.
-        static let chargeLossPerContact = 20.0
+ //       static let chargeLossPerContact = 20.0
         
         /// The length of time that it takes the `ProtestorBot` to recharge when deactivated.
         static let rechargeDelayWhenInactive: TimeInterval = 2.0
@@ -481,6 +531,12 @@ struct GameplayConfiguration
         
         //MARK: Attack Properties
         
+        /// The duration of a `TaskBot`'s pre-attack state.
+        static let preAttackStateDuration: TimeInterval = 0.3
+        
+        /// The amount of damage the PoliceBot delivers
+        static let damageDealtPerContact = 20.0
+        
         /// The maximum distance a `GroundBot` can be from a target before it attacks.
         static let maximumAttackDistance: Float = 150.0
         
@@ -488,7 +544,7 @@ struct GameplayConfiguration
         static let attackEndProximity: Float = 7.0
         
         /// How fast the `GroundBot` rotates to face its target in radians per second.
-        static let preAttackRotationSpeed = Double.pi / 4
+        static let preAttackRotationSpeed = Double.pi
         
         /// How much faster the `GroundBot` can move when attacking.
         static let movementSpeedMultiplierWhenAttacking: CGFloat = 2.5
@@ -511,8 +567,60 @@ struct GameplayConfiguration
         
     }
     
+    
+    //  MARK:- ProtestorBot Properties
     struct ProtestorBot
     {
+        
+        // MARK:- Physics Properties
+        
+        /*
+         `maximumAcceleration` is set to a high number to enable the TaskBot to turn very quickly.
+         This ensures that the `TaskBot` can follow its patrol path more effectively.
+         */
+        /// The maximum acceleration (in points per second per second) for the `TaskBot`.
+        static let maximumAcceleration: Float = 100.0
+        
+        // The agent's mass.
+        static let agentMass: Float = 0.25
+        
+        /// The maximum speed (in points per second) for the `TaskBot` when in its "good" state.
+        static let maximumSpeedWhenGood: Float = 50.0
+        
+        /// The maximum speed (in points per second) for the `TaskBot` when in its "bad" state.
+        static let maximumSpeedWhenBad: Float = 75.0
+        
+        /// A convenience function to return the max speed for a state.
+        static func maximumSpeedForIsGood(isGood: Bool) -> Float
+        {
+            return isGood ? maximumSpeedWhenGood : maximumSpeedWhenBad
+        }
+
+
+        // The radius of the path along which an agent patrols.
+//        static let patrolPathRadius: Float = 10.0
+        
+        // The radius of the path along which an agent travels when hunting.
+//        static let huntPathRadius: Float = 20.0
+        
+        // The radius of the path along which an agent travels when wandering.
+//        static let wanderPathRadius: Float = 20.0
+        
+        // The radius of the path along which an agent travels when fleeing.
+//        static let fleePathRadius: Float = 100.0
+        
+
+        
+        /// The duration of a `TaskBot`'s zapped state.
+        static let zappedStateDuration: TimeInterval = 0.75
+        
+        /// The duration of a `TaskBot`'s arresting state.
+        static let arrestingStateDuration: TimeInterval = 2.0
+        
+        /// The duration of a `TaskBot`'s arresting state.
+        static let maximumSpeedForIsGood: Float = 150.0
+        
+        
         //MARK: Health Properties
         
         // The maximum amount of health a `GroundBot` stores.
@@ -541,6 +649,7 @@ struct GameplayConfiguration
         static let maximumRespect = 100.0
         
         
+        
         //MARK: Appetite Properties
         
         /// The maximum amount of appetite a `GroundBot` stores.
@@ -550,8 +659,9 @@ struct GameplayConfiguration
         static let appetiteGainPerCycle = 0.1
         
         
+        
         // The amount of appetite a Protestor loses per cycle
-        static let appetiteLossPerCycle = 0.2
+        static let appetiteLossPerCycle = 0.01
         
         //MARK: Intoxication Properties
         
@@ -560,6 +670,7 @@ struct GameplayConfiguration
         
         /// The amount of intoxication a `Protestor` gains each cycle
         static let intoxicationGainPerCycle = 1.0
+        
         
         //MARK: Obeisance Properties
         
@@ -594,6 +705,12 @@ struct GameplayConfiguration
 
         //MARK: Attack Properties
         
+        /// The duration of a `TaskBot`'s pre-attack state.
+        static let preAttackStateDuration: TimeInterval = 0.3
+        
+        /// The amount of damage the ProtestorBot delivers
+        static let damageDealtPerContact = 20.0
+        
         /// The maximum distance a `GroundBot` can be from a target before it attacks.
         static let maximumAttackDistance: Float = 100.0
         
@@ -607,7 +724,7 @@ struct GameplayConfiguration
         static let movementSpeedMultiplierWhenAttacking: CGFloat = 2.5
         
         /// How much faster the `GroundBot` can rotate when attacking.
-        static let angularSpeedMultiplierWhenAttacking: CGFloat = 2.5
+        static let angularSpeedMultiplierWhenAttacking: CGFloat = 10.0
         
         /// The amount of time to wait between `GroundBot` attacks.
         static let delayBetweenAttacks: TimeInterval = 1.0
@@ -621,12 +738,61 @@ struct GameplayConfiguration
         
         /// How much faster the `GroundBot` can move when attacking.
         static let movementSpeedMultiplierWhenFleeing: CGFloat = 5.0
-
-        
     }
     
+    
+    
+    //  MARK:- CriminalBot Properties
     struct CriminalBot
     {
+      
+        // MARK:- Physics Properties
+        
+        /*
+         `maximumAcceleration` is set to a high number to enable the TaskBot to turn very quickly.
+         This ensures that the `TaskBot` can follow its patrol path more effectively.
+         */
+        /// The maximum acceleration (in points per second per second) for the `TaskBot`.
+        static let maximumAcceleration: Float = 500.0
+        
+        // The agent's mass.
+        static let agentMass: Float = 0.50
+        
+        /// The maximum speed (in points per second) for the `TaskBot` when in its "good" state.
+        static let maximumSpeedWhenGood: Float = 80.0
+        
+        /// The maximum speed (in points per second) for the `TaskBot` when in its "bad" state.
+        static let maximumSpeedWhenBad: Float = 100.0
+        
+        /// A convenience function to return the max speed for a state.
+        static func maximumSpeedForIsGood(isGood: Bool) -> Float
+        {
+            return isGood ? maximumSpeedWhenGood : maximumSpeedWhenBad
+        }
+        
+        
+        // The radius of the path along which an agent patrols.
+//        static let patrolPathRadius: Float = 10.0
+        
+        // The radius of the path along which an agent travels when hunting.
+//        static let huntPathRadius: Float = 20.0
+        
+        // The radius of the path along which an agent travels when wandering.
+//        static let wanderPathRadius: Float = 20.0
+        
+        // The radius of the path along which an agent travels when fleeing.
+//        static let fleePathRadius: Float = 100.0
+        
+        /// The duration of a `TaskBot`'s pre-attack state.
+        static let preAttackStateDuration: TimeInterval = 0.3
+        
+        /// The duration of a `TaskBot`'s zapped state.
+        static let zappedStateDuration: TimeInterval = 0.75
+        
+        /// The duration of a `TaskBot`'s arresting state.
+        static let arrestingStateDuration: TimeInterval = 2
+        
+        
         //MARK: Health Properties
         
         // The maximum amount of health a `GroundBot` stores.
@@ -659,10 +825,10 @@ struct GameplayConfiguration
         /// The maximum amount of resistance a `GroundBot` stores.
         static let maximumResistance = 100.0
         
-        /// The amount of resistance a `PlayerBot` loses by a single `GroundBot` attack.
+        /// The amount of resistance a `CriminalBot` loses by a single `TaskBot` attack.
         static let resistanceLossPerContact = 20.0
         
-        /// The amount of charge that the `PlayerBot` gains per second when recharging.
+        /// The amount of charge that the `CriminalBot` gains per second when recharging.
         static let resistanceRechargeAmountPerSecond = 0.5
         
         
@@ -715,6 +881,9 @@ struct GameplayConfiguration
         
         //MARK: Attack Properties
         
+        /// The amount of damage the CriminalBot delivers
+        static let damageDealtPerContact = 20.0
+        
         /// The maximum distance a `GroundBot` can be from a target before it attacks.
         static let maximumAttackDistance: Float = 100.0
         
@@ -728,7 +897,7 @@ struct GameplayConfiguration
         static let movementSpeedMultiplierWhenAttacking: CGFloat = 2.5
         
         /// How much faster the `GroundBot` can rotate when attacking.
-        static let angularSpeedMultiplierWhenAttacking: CGFloat = 2.5
+        static let angularSpeedMultiplierWhenAttacking: CGFloat = 10.0
         
         /// The amount of time to wait between `GroundBot` attacks.
         static let delayBetweenAttacks: TimeInterval = 2.0
@@ -745,6 +914,8 @@ struct GameplayConfiguration
         
     }
 
+    
+    //  MARK:- FlyingBot Properties
     struct FlyingBot
     {
         /// The maximum amount of charge a `FlyingBot` stores.
@@ -769,6 +940,8 @@ struct GameplayConfiguration
         static let beamTargetOffset = CGPoint(x: 0.0, y: 65.0)
     }
 
+    
+    //  MARK:- GroundBot Properties
     struct GroundBot
     {
         /// The maximum amount of charge a `GroundBot` stores.
@@ -799,6 +972,9 @@ struct GameplayConfiguration
         static let beamTargetOffset = CGPoint(x: 0.0, y: 40.0)
     }
     
+    
+    
+    //  MARK:- ManBot Properties
     struct ManBot
     {
         /// The maximum amount of charge a `GroundBot` stores.
@@ -829,6 +1005,8 @@ struct GameplayConfiguration
         static let beamTargetOffset = CGPoint(x: 0.0, y: 40.0)
     }
     
+    
+    //  MARK:- Flocking Properties
     struct Flocking
     {
         /// Separation, alignment, and cohesion parameters for multiple `TaskBot`s.
@@ -849,6 +1027,8 @@ struct GameplayConfiguration
         static let agentSupportSearchDistanceForArrest: Float = 500.0
     }
     
+    
+    //  MARK:- TouhcControl Properties
     struct TouchControl
     {
         /// The minimum distance a virtual thumbstick must move before it is considered to have been moved.
@@ -861,6 +1041,8 @@ struct GameplayConfiguration
         static let idealRelativeControlSize: CGFloat = 0.15
     }
     
+    
+    //  MARK:- SceneManager Properties
     struct SceneManager
     {
         /// The duration of a transition between loaded scenes.
@@ -870,6 +1052,8 @@ struct GameplayConfiguration
         static let progressSceneTransitionDuration: TimeInterval = 0.5
     }
     
+    
+    //  MARK:- Timer Properties
     struct Timer
     {
         /// The name of the font to use for the timer.
