@@ -119,7 +119,7 @@ class BuyingWaresComponent: GKComponent
     
     override func update(deltaTime seconds: TimeInterval)
     {
-        print("state: \(intelligenceComponent.stateMachine.currentState)")
+//        print("state: \(intelligenceComponent.stateMachine.currentState)")
         
         //Check Protestor is not fighting or confrontation with Police
         guard ((intelligenceComponent.stateMachine.currentState as? ProtestorDetainedState) == nil) else { return }
@@ -151,7 +151,7 @@ class BuyingWaresComponent: GKComponent
                     animationComponent.requestedAnimationState = .buying
                 
                 default:
-                    //animationComponent.requestedAnimationState = .idle
+//                    animationComponent.requestedAnimationState = .idle
                     break
             }
         }
