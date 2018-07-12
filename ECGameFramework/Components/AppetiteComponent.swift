@@ -169,7 +169,7 @@ class AppetiteComponent: GKComponent
     
         stateMachine.update(deltaTime: seconds)
         
-        print("state: \(intelligenceComponent.stateMachine.currentState)")
+//        print("state: \(intelligenceComponent.stateMachine.currentState)")
         
         guard let currentState = stateMachine.currentState else { return }
         switch currentState
