@@ -300,6 +300,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         // If the Protestor is inciting, influence Protestors on contact
         // Raise their temperament
         guard let inciteComponent = component(ofType: InciteComponent.self) else { return }
+        guard (inciteComponent.stateMachine.currentState as? InciteActiveState) != nil else { return }
         if inciteComponent.isTriggered
         {
             guard let protestorTarget = entity as? ProtestorBot else { return }
@@ -317,6 +318,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         // If the Protestor is inciting, influence Protestors on contact
         // Raise their temperament
         guard let inciteComponent = component(ofType: InciteComponent.self) else { return }
+        guard (inciteComponent.stateMachine.currentState as? InciteActiveState) != nil else { return }
         if inciteComponent.isTriggered
         {
             guard let protestorTarget = entity as? ProtestorBot else { return }
@@ -359,8 +361,8 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         // 3) Set the Protestor to Flee State
         //guard intelligenceComponent.stateMachine.enter(TaskBotFleeState.self) else { return }
         
-        //print("mandate \(mandate)")
-        //print("state: \(intelligenceComponent.stateMachine.currentState.debugDescription)")
+        print("mandate \(mandate)")
+        print("state: \(intelligenceComponent.stateMachine.currentState.debugDescription)")
 
         switch mandate
         {
@@ -400,6 +402,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         {
             appetiteComponent.isTriggered = false
             appetiteComponent.isConsumingProduct = false
+            self.isConsuming = false
             
             //Remove product
             guard let buyingWaresComponent = component(ofType: BuyingWaresComponent.self) else { return }
