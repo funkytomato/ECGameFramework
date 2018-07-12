@@ -296,6 +296,7 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
             
             //Trigger the Protestor isConSuming flag
             protestorAppetiteComponent.isConsumingProduct = true
+            protestorBot.isConsuming = true
             
             //Protestor has bought product and so does not need to look to buy more
             protestorAppetiteComponent.isTriggered = false
