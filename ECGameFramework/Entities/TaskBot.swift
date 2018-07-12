@@ -109,7 +109,8 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                     Set its mandate to `.ReturnToPositionOnPath` for the closest point on its "good" patrol path.
                 */
                 let closestPointOnGoodPath = closestPointOnPath(path: goodPathPoints)
-                mandate = .returnToPositionOnPath(float2(closestPointOnGoodPath))
+//                mandate = .returnToPositionOnPath(float2(closestPointOnGoodPath))
+                mandate = .wander
                 
                 if self is FlyingBot
                 {
@@ -186,6 +187,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
     
     //Is the taskbot hungry for alcohol and drugs
     var isHungry: Bool
+    
+    //Is the taskbot consuming a product
+    var isConsuming: Bool
     
     //Is the taskbot Subservient?
     var isSubservient: Bool
@@ -318,7 +322,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 (agentBehavior, debugPathPoints) = TaskBotBehavior.retaliateBehaviour(forAgent: agent, huntingAgent: taskBot, pathRadius: radius, inScene: levelScene)
                 debugColor = SKColor.blue
 
-            // TaskBot is a criminal and is inciting the crowd
+            // TaskBot is inciting the crowd
             case .incite:
                 print("Incite")
                 radius = GameplayConfiguration.TaskBot.wanderPathRadius
@@ -450,6 +454,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         //Whether or not the taskbot is hungry for alcohol and drugs
         self.isHungry = false
         
+        // Whether or not the taskbot is consuming a product
+        self.isConsuming = false
+        
         //Whether or not the taskbot is Subservient to the Player
         self.isSubservient = false
         
@@ -472,7 +479,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             there is no need for it to pathfind to the start of its path, and it can patrol immediately.
         */
         //mandate = isGood ? .followGoodPatrolPath : .followGoodPatrolPath
-        mandate = isGood ? .wander : .followGoodPatrolPath
+        mandate = .wander
         
         super.init()
 
@@ -534,6 +541,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             CriminalTaskBotNearRule(),
             CriminalTaskBotMediumRule(),
             CriminalTaskBotFarRule(),
+            SellerTaskBotNearRule(),
+            SellerTaskBotMediumRule(),
+            SellerTaskBotFarRule(),
             InjuredTaskBotPercentageLowRule(),
             InjuredTaskBotPercentageMediumRule(),
             InjuredTaskBotPercentageHighRule(),
@@ -667,6 +677,11 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             ruleSystem.minimumGrade(forFacts: [
                 Fact.policeBotNear.rawValue as AnyObject,
                 Fact.dangerousTaskBotNear.rawValue as AnyObject
+                ]),
+            
+            ruleSystem.minimumGrade(forFacts: [
+                Fact.policeBotMedium.rawValue as AnyObject,
+                Fact.dangerousTaskBotMedium.rawValue as AnyObject
                 ])
         ]
         
@@ -721,17 +736,17 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             
             //Police are in trouble are nearby
             ruleSystem.minimumGrade(forFacts: [
-                Fact.criminalTaskBotNear.rawValue as AnyObject
+                Fact.sellerTaskBotNear.rawValue as AnyObject
                 ]),
             
             //Police are in trouble are medium distance
             ruleSystem.minimumGrade(forFacts: [
-                Fact.criminalTaskBotMedium.rawValue as AnyObject
+                Fact.sellerTaskBotMedium.rawValue as AnyObject
                 ]),
             
             //Police are in trouble are far away
             ruleSystem.minimumGrade(forFacts: [
-                Fact.criminalTaskBotFar.rawValue as AnyObject
+                Fact.sellerTaskBotFar.rawValue as AnyObject
                 ])
         ]
         
@@ -923,12 +938,18 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         }
             
         //TaskBot is Protestor and wants to buy wares
-        else if self.isProtestor && !self.isSubservient && self.isHungry && huntCriminalTaskBot > 0.0
+        else if self.isProtestor && !self.isSubservient && self.isHungry
         {
-            guard let criminalBot = state.nearestCriminalTaskBotTarget?.target.agent else { return }
+            guard let criminalBot = state.nearestSellerTaskBotTarget?.target.agent else { return }
             mandate = .buyWares(criminalBot)
         }
-            
+        
+        //TaskBot is Protestor and drinking, make them crowd together
+        else if self.isProtestor && self.isConsuming
+        {
+            mandate = .crowd()
+        }
+        
         //TaskBot is Police and another Policeman needs help, go support them
         else if self.isPolice && supportPoliceBot > 0.0
         {
@@ -957,13 +978,13 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         
         // PROBABLY DELETE THIS LATER
         // An active PoliceBot is near a Protestor, attack them
-//        else if self.isPolice && self.isActive && huntTaskBot > huntPlayerBot
-//        {
-//            //print("Hunt the nearest Protestor: \(state.nearestProtestorTaskBotTarget!.target.agent.debugDescription)")
-//
-//            // The rules provided greater motivation to hunt the nearest good TaskBot. Ignore any motivation to hunt the PlayerBot.
-//            mandate = .huntAgent(state.nearestProtestorTaskBotTarget!.target.agent)
-//        }
+        else if self.isPolice && self.isActive && huntTaskBot > huntPlayerBot
+        {
+            //print("Hunt the nearest Protestor: \(state.nearestProtestorTaskBotTarget!.target.agent.debugDescription)")
+
+            // The rules provided greater motivation to hunt the nearest good TaskBot. Ignore any motivation to hunt the PlayerBot.
+            mandate = .huntAgent(state.nearestProtestorTaskBotTarget!.target.agent)
+        }
         else
         {
             // The rules provided no motivation to hunt, retaliate or flee
@@ -989,7 +1010,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                     // Send the `TaskBot` to the closest point on its "bad" patrol path.
                     let closestPointOnBadPath = closestPointOnPath(path: badPathPoints)
                     mandate = .returnToPositionOnPath(float2(closestPointOnBadPath))
-                    //print("entity: \(self.debugDescription)")
+                    print("entity: \(self.debugDescription)")
             }
         }
     }
