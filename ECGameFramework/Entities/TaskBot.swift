@@ -277,8 +277,11 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 // Who will crowd with who, only calm people for now
                 let temperament = "Calm"
                 radius = GameplayConfiguration.TaskBot.huntPathRadius
-                (agentBehavior, debugPathPoints) = TaskBotBehavior.crowdBehaviour(forAgent: agent, pathRadius: radius, temperament: temperament, inScene: levelScene)
+                agentBehavior = TaskBotBehavior.crowdBehaviour(forAgent: agent, pathRadius: radius, temperament: temperament, inScene: levelScene)
                 debugColor = SKColor.orange
+            
+                let pathPoints = isGood ? goodPathPoints : badPathPoints
+                debugPathPoints = pathPoints
             
             // TaskBot is hunting another TaskBot
             case let .huntAgent(taskBot):
@@ -978,13 +981,13 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         
         // PROBABLY DELETE THIS LATER
         // An active PoliceBot is near a Protestor, attack them
-        else if self.isPolice && self.isActive && huntTaskBot > huntPlayerBot
-        {
-            //print("Hunt the nearest Protestor: \(state.nearestProtestorTaskBotTarget!.target.agent.debugDescription)")
-
-            // The rules provided greater motivation to hunt the nearest good TaskBot. Ignore any motivation to hunt the PlayerBot.
-            mandate = .huntAgent(state.nearestProtestorTaskBotTarget!.target.agent)
-        }
+//        else if self.isPolice && self.isActive && huntTaskBot > huntPlayerBot
+//        {
+//            //print("Hunt the nearest Protestor: \(state.nearestProtestorTaskBotTarget!.target.agent.debugDescription)")
+//
+//            // The rules provided greater motivation to hunt the nearest good TaskBot. Ignore any motivation to hunt the PlayerBot.
+//            mandate = .huntAgent(state.nearestProtestorTaskBotTarget!.target.agent)
+//        }
         else
         {
             // The rules provided no motivation to hunt, retaliate or flee
