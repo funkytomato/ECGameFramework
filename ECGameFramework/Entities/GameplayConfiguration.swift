@@ -535,7 +535,7 @@ struct GameplayConfiguration
         static let preAttackStateDuration: TimeInterval = 0.3
         
         /// The amount of damage the PoliceBot delivers
-        static let damageDealtPerContact = 20.0
+        static let damageDealtPerContact = 25.0
         
         /// The maximum distance a `GroundBot` can be from a target before it attacks.
         static let maximumAttackDistance: Float = 150.0
@@ -656,12 +656,12 @@ struct GameplayConfiguration
         static let maximumAppetite = 100.0
         
         /// The amount of appetite a `Protestor gains per cycle
-        static let appetiteGainPerCycle = 0.1
+        static let appetiteGainPerCycle = 0.2
         
         
         
         // The amount of appetite a Protestor loses per cycle
-        static let appetiteLossPerCycle = 0.01
+        static let appetiteLossPerCycle = 0.1
         
         //MARK: Intoxication Properties
         
@@ -709,7 +709,7 @@ struct GameplayConfiguration
         static let preAttackStateDuration: TimeInterval = 0.3
         
         /// The amount of damage the ProtestorBot delivers
-        static let damageDealtPerContact = 20.0
+        static let damageDealtPerContact = 10.0
         
         /// The maximum distance a `GroundBot` can be from a target before it attacks.
         static let maximumAttackDistance: Float = 100.0
@@ -756,7 +756,7 @@ struct GameplayConfiguration
         static let maximumAcceleration: Float = 500.0
         
         // The agent's mass.
-        static let agentMass: Float = 0.50
+        static let agentMass: Float = 0.65
         
         /// The maximum speed (in points per second) for the `TaskBot` when in its "good" state.
         static let maximumSpeedWhenGood: Float = 80.0
@@ -1023,7 +1023,7 @@ struct GameplayConfiguration
         static let cohesionWeight: Float = 60.0 //1.667
         
 //        static let agentSearchDistanceForFlocking: Float = 50.0
-        static let agentSearchDistanceForFlocking: Float = 150.0
+        static let agentSearchDistanceForFlocking: Float = 500.0
         static let agentSearchDistanceForArrest: Float = 50.0
         static let agentSupportSearchDistanceForArrest: Float = 500.0
     }
