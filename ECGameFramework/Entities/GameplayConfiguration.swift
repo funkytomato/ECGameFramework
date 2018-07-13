@@ -1020,9 +1020,10 @@ struct GameplayConfiguration
         
         static let cohesionRadius: Float = 50.0
         static let cohesionAngle = Float(Double.pi / 2)
-        static let cohesionWeight: Float = 1.667
+        static let cohesionWeight: Float = 60.0 //1.667
         
-        static let agentSearchDistanceForFlocking: Float = 50.0
+//        static let agentSearchDistanceForFlocking: Float = 50.0
+        static let agentSearchDistanceForFlocking: Float = 150.0
         static let agentSearchDistanceForArrest: Float = 50.0
         static let agentSupportSearchDistanceForArrest: Float = 500.0
     }
