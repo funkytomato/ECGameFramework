@@ -38,7 +38,7 @@ class TaskBotBehavior: GKBehavior
     
     
     // Crowd behaviour
-    static func crowdBehaviour(forAgent agent: GKAgent2D, pathRadius: Float, temperament: String, inScene scene: LevelScene) -> (behaviour: GKBehavior, pathPoints: [CGPoint])
+    static func crowdBehaviour(forAgent agent: GKAgent2D, pathRadius: Float, temperament: String, inScene scene: LevelScene) -> (GKBehavior)
     {
         //print("behaviorAndPathPoints \(agent.description) hunting: \(target.description) scene: \(scene.description)")
         
@@ -47,49 +47,43 @@ class TaskBotBehavior: GKBehavior
         // Add basic goals to reach the `TaskBot`'s maximum speed and avoid obstacles.
         behavior.addTargetSpeedGoal(speed: agent.maxSpeed)
         behavior.addAvoidObstaclesGoal(forScene: scene)
+        behavior.addWanderGoal(forScene: scene)
         
         
+        //Get a pointer to this Taskbot's Temperament Component
         let myTemperamentComponent = agent.entity?.component(ofType: TemperamentComponent.self)
         
         
         // Find any nearby "protestor" TaskBots to flock with.
         let agentsToFlockWith: [GKAgent2D] = scene.entities.compactMap { entity in
             if let taskBot = entity as? ProtestorBot,
-                taskBot.isConsuming && taskBot.agent !== agent && taskBot.distanceToAgent(otherAgent: agent) <= GameplayConfiguration.Flocking.agentSearchDistanceForArrest
+                taskBot.isConsuming && taskBot.agent !== agent && taskBot.distanceToAgent(otherAgent: agent) <= GameplayConfiguration.Flocking.agentSearchDistanceForFlocking
             {
                 
-                let temperamentComponent = taskBot.component(ofType: TemperamentComponent.self)
-                guard (temperamentComponent?.stateMachine.currentState as? CalmState) != nil else { return nil }
+                //Get the Protestor's current temperament state
+                let entityTemperamentComponent = taskBot.component(ofType: TemperamentComponent.self)
+                let myCurrentTemperament = myTemperamentComponent?.stateMachine.currentState
                 
-                switch myTemperamentComponent?.stateMachine.currentState
+                
+                //If the TaskBot's temperament match, return agent to flock with
+                switch myCurrentTemperament
                 {
-                    case is CalmState:
-                        guard (temperamentComponent?.stateMachine.currentState as? CalmState) != nil else { break }
-                        print("CalmState")
-                        return taskBot.agent
-
                     case is ScaredState:
-                        guard (temperamentComponent?.stateMachine.currentState as? ScaredState) != nil else { break }
-                        print("ScaredState")
+                        guard (entityTemperamentComponent?.stateMachine.currentState is ScaredState) else { return nil }
                         return taskBot.agent
-
+                    case is CalmState:
+                        guard (entityTemperamentComponent?.stateMachine.currentState is CalmState) else { return nil }
+                        return taskBot.agent
                     case is AngryState:
-                        guard (temperamentComponent?.stateMachine.currentState as? AngryState) != nil else { break }
-                        print("AngryState")
+                        guard (entityTemperamentComponent?.stateMachine.currentState is AngryState) else { return nil }
                         return taskBot.agent
-
                     case is ViolentState:
-                        guard (temperamentComponent?.stateMachine.currentState as? ViolentState) != nil else { break }
-                        print("ViolentState")
+                        guard (entityTemperamentComponent?.stateMachine.currentState is ViolentState) else { return nil }
                         return taskBot.agent
-
                     default:
                         break
-
                 }
                 
-                
-//                return taskBot.agent
             }
             
             return nil
@@ -97,7 +91,7 @@ class TaskBotBehavior: GKBehavior
         
         if !agentsToFlockWith.isEmpty
         {
-            print("crowdBehaviour - agents are flocking \(agentsToFlockWith.description)")
+            print("crowdBehaviour - agents are flocking \(agentsToFlockWith.debugDescription)")
             
             
             // Add flocking goals for any nearby "bad" `TaskBot`s.
@@ -111,14 +105,8 @@ class TaskBotBehavior: GKBehavior
             behavior.setWeight(GameplayConfiguration.Flocking.cohesionWeight, for: cohesionGoal)
         }
         
-        // Add goals to follow a calculated path from the `TaskBot` to its target.
-        let pathPoints = behavior.addGoalsToFollowPath(from: agent.position, to: scene.meatWagonLocation(), pathRadius: pathRadius, inScene: scene)
-        
-        
-        //print("targetPosition: \(target.position)")
-        
         // Return a tuple containing the new behavior, and the found path points for debug drawing.
-        return (behavior, pathPoints)
+        return (behavior)
     }
     
     
@@ -180,31 +168,31 @@ class TaskBotBehavior: GKBehavior
         behavior.addTargetSpeedGoal(speed: agent.maxSpeed)
         behavior.addAvoidObstaclesGoal(forScene: scene)
 
-        // Find any nearby "bad" TaskBots to flock with.
-        let agentsToFlockWith: [GKAgent2D] = scene.entities.compactMap { entity in
-            if let taskBot = entity as? TaskBot, !taskBot.isGood && taskBot.agent !== agent && taskBot.distanceToAgent(otherAgent: agent) <= GameplayConfiguration.Flocking.agentSearchDistanceForFlocking
-            {
-                return taskBot.agent
-            }
-
-            return nil
-        }
-        
-        if !agentsToFlockWith.isEmpty
-        {
-            //print("behaviorAndPathPoints - agents are flocking \(agentsToFlockWith.description)")
-            
-            
-            // Add flocking goals for any nearby "bad" `TaskBot`s.
-            let separationGoal = GKGoal(toSeparateFrom: agentsToFlockWith, maxDistance: GameplayConfiguration.Flocking.separationRadius, maxAngle: GameplayConfiguration.Flocking.separationAngle)
-            behavior.setWeight(GameplayConfiguration.Flocking.separationWeight, for: separationGoal)
-            
-            let alignmentGoal = GKGoal(toAlignWith: agentsToFlockWith, maxDistance: GameplayConfiguration.Flocking.alignmentRadius, maxAngle: GameplayConfiguration.Flocking.alignmentAngle)
-            behavior.setWeight(GameplayConfiguration.Flocking.alignmentWeight, for: alignmentGoal)
-            
-            let cohesionGoal = GKGoal(toCohereWith: agentsToFlockWith, maxDistance: GameplayConfiguration.Flocking.cohesionRadius, maxAngle: GameplayConfiguration.Flocking.cohesionAngle)
-            behavior.setWeight(GameplayConfiguration.Flocking.cohesionWeight, for: cohesionGoal)
-        }
+//        // Find any nearby "bad" TaskBots to flock with.
+//        let agentsToFlockWith: [GKAgent2D] = scene.entities.compactMap { entity in
+//            if let taskBot = entity as? TaskBot, !taskBot.isGood && taskBot.agent !== agent && taskBot.distanceToAgent(otherAgent: agent) <= GameplayConfiguration.Flocking.agentSearchDistanceForFlocking
+//            {
+//                return taskBot.agent
+//            }
+//
+//            return nil
+//        }
+//
+//        if !agentsToFlockWith.isEmpty
+//        {
+//            //print("behaviorAndPathPoints - agents are flocking \(agentsToFlockWith.description)")
+//
+//
+//            // Add flocking goals for any nearby "bad" `TaskBot`s.
+//            let separationGoal = GKGoal(toSeparateFrom: agentsToFlockWith, maxDistance: GameplayConfiguration.Flocking.separationRadius, maxAngle: GameplayConfiguration.Flocking.separationAngle)
+//            behavior.setWeight(GameplayConfiguration.Flocking.separationWeight, for: separationGoal)
+//
+//            let alignmentGoal = GKGoal(toAlignWith: agentsToFlockWith, maxDistance: GameplayConfiguration.Flocking.alignmentRadius, maxAngle: GameplayConfiguration.Flocking.alignmentAngle)
+//            behavior.setWeight(GameplayConfiguration.Flocking.alignmentWeight, for: alignmentGoal)
+//
+//            let cohesionGoal = GKGoal(toCohereWith: agentsToFlockWith, maxDistance: GameplayConfiguration.Flocking.cohesionRadius, maxAngle: GameplayConfiguration.Flocking.cohesionAngle)
+//            behavior.setWeight(GameplayConfiguration.Flocking.cohesionWeight, for: cohesionGoal)
+//        }
 
         // Add goals to follow a calculated path from the `TaskBot` to its target.
         let pathPoints = behavior.addGoalsToFollowPath(from: agent.position, to: target.position, pathRadius: pathRadius, inScene: scene)
