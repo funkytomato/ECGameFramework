@@ -85,8 +85,8 @@ class ProtestorBotAttackState: GKState
         let movementComponent = self.movementComponent
         
         // Move the `ManBot` towards the target at an increased speed.
-        movementComponent.movementSpeed *= GameplayConfiguration.ProtestorBot.movementSpeedMultiplierWhenAttacking
-        movementComponent.angularSpeed *= GameplayConfiguration.ProtestorBot.angularSpeedMultiplierWhenAttacking
+        movementComponent.movementSpeed *= GameplayConfiguration.TaskBot.movementSpeedMultiplierWhenAttacking
+        movementComponent.angularSpeed *= GameplayConfiguration.TaskBot.angularSpeedMultiplierWhenAttacking
         
         movementComponent.nextTranslation = MovementKind(displacement: targetVector)
         movementComponent.nextRotation = nil
@@ -104,7 +104,7 @@ class ProtestorBotAttackState: GKState
         let dy = targetPosition.y - entity.agent.position.y
         
         let currentDistanceToTarget = hypot(dx, dy)
-        if currentDistanceToTarget < GameplayConfiguration.ProtestorBot.attackEndProximity
+        if currentDistanceToTarget < GameplayConfiguration.TaskBot.attackEndProximity
         {
             stateMachine?.enter(TaskBotAgentControlledState.self)
             return
@@ -147,8 +147,8 @@ class ProtestorBotAttackState: GKState
         // Stop the `ProtestorBot`'s movement and restore its standard movement speed.
         movementComponent.nextRotation = nil
         movementComponent.nextTranslation = nil
-        movementComponent.movementSpeed /= GameplayConfiguration.ProtestorBot.movementSpeedMultiplierWhenAttacking
-        movementComponent.angularSpeed /= GameplayConfiguration.ProtestorBot.angularSpeedMultiplierWhenAttacking
+        movementComponent.movementSpeed /= GameplayConfiguration.TaskBot.movementSpeedMultiplierWhenAttacking
+        movementComponent.angularSpeed /= GameplayConfiguration.TaskBot.angularSpeedMultiplierWhenAttacking
     }
     
     // MARK: Convenience
