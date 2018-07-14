@@ -57,8 +57,10 @@ class BuyingWaresTimeOutState: GKState
         
         //        print("BuyWaresIdleState update: \(buyWaresComponent.entity.debugDescription)")
         
-
-        if elapsedTime >= 15.0
+        guard let appetiteComponent = buyWaresComponent.entity?.component(ofType: AppetiteComponent.self) else { return }
+        appetiteComponent.loseAppetite(appetiteToLose: 2.0)
+        
+        if elapsedTime >= GameplayConfiguration.Wares.timeOutPeriod
         {
             stateMachine?.enter(BuyingWaresIdleState.self)
 //            buyWaresComponent.isTriggered = true
