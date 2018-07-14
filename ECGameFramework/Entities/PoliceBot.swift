@@ -352,7 +352,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
         guard let agentControlledState = intelligenceComponent.stateMachine.currentState as? TaskBotAgentControlledState else { return }
         
         // 1) Check if enough time has passed since the `PoliceBot`'s last attack.
-        guard agentControlledState.elapsedTime >= GameplayConfiguration.PoliceBot.delayBetweenAttacks else { return }
+        guard agentControlledState.elapsedTime >= GameplayConfiguration.TaskBot.delayBetweenAttacks else { return }
         
         print("PoliceBot mandate: \(mandate)")
         
@@ -368,7 +368,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
              */
             case let .huntAgent(targetAgent):
                 // 3) Check if the target is within the `PoliceBot`'s attack range.
-                guard distanceToAgent(otherAgent: targetAgent) <= GameplayConfiguration.PoliceBot.maximumAttackDistance else { return }
+                guard distanceToAgent(otherAgent: targetAgent) <= GameplayConfiguration.TaskBot.maximumAttackDistance else { return }
                 
                 // 4) Check if any walls or obstacles are between the `PoliceBot` and its hunt target position.
                 var hasLineOfSight = true
