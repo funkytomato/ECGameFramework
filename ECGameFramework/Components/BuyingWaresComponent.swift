@@ -97,7 +97,8 @@ class BuyingWaresComponent: GKComponent
         stateMachine = GKStateMachine(states: [
             BuyingWaresIdleState(buyWaresComponent: self),
             BuyingWaresLookingState(buyWaresComponent: self),
-            BuyingWaresBuyingState(buyWaresComponent: self)
+            BuyingWaresBuyingState(buyWaresComponent: self),
+            BuyingWaresTimeOutState(buyWaresComponent: self)
             ])
         
         stateMachine.enter(BuyingWaresIdleState.self)
@@ -120,6 +121,15 @@ class BuyingWaresComponent: GKComponent
     override func update(deltaTime seconds: TimeInterval)
     {
 //        print("state: \(intelligenceComponent.stateMachine.currentState)")
+        
+        if (stateMachine.currentState as? BuyingWaresTimeOutState != nil)
+        {
+            let appetiteComponent = self.renderComponent.entity?.component(ofType: AppetiteComponent.self)
+            appetiteComponent?.loseAppetite(appetiteToLose: 100.0)
+            appetiteComponent?.stateMachine.enter(AppetiteIdleState.self)
+            let taskBot = renderComponent.entity as? ProtestorBot
+            taskBot?.isHungry = false
+        }
         
         //Check Protestor is not fighting or confrontation with Police
         guard ((intelligenceComponent.stateMachine.currentState as? ProtestorDetainedState) == nil) else { return }
