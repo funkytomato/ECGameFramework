@@ -55,7 +55,12 @@ class BuyingWaresLookingState: GKState
         
 //        print("BuyWaresActiveState updating")
     
-        if buyWaresComponent.hasWares
+        if elapsedTime >= 10
+        {
+            stateMachine?.enter(BuyingWaresTimeOutState.self)
+        }
+        
+        else if buyWaresComponent.hasWares
         {
             stateMachine?.enter(BuyingWaresBuyingState.self)
         }
@@ -65,7 +70,7 @@ class BuyingWaresLookingState: GKState
     {
         switch stateClass
         {
-        case is BuyingWaresBuyingState.Type:
+        case is BuyingWaresBuyingState.Type, is BuyingWaresTimeOutState.Type:
             return true
             
         default:
