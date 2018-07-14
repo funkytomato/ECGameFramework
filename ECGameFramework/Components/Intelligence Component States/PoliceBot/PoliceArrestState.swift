@@ -84,8 +84,8 @@ class PoliceArrestState: GKState
         let movementComponent = self.movementComponent
         
         // Move the `ManBot` towards the target at an increased speed.
-        movementComponent.movementSpeed *= GameplayConfiguration.PoliceBot.movementSpeedMultiplierWhenAttacking
-        movementComponent.angularSpeed *= GameplayConfiguration.PoliceBot.angularSpeedMultiplierWhenAttacking
+        movementComponent.movementSpeed *= GameplayConfiguration.TaskBot.movementSpeedMultiplierWhenAttacking
+        movementComponent.angularSpeed *= GameplayConfiguration.TaskBot.angularSpeedMultiplierWhenAttacking
         
         movementComponent.nextTranslation = MovementKind(displacement: targetVector)
         movementComponent.nextRotation = nil
@@ -103,7 +103,7 @@ class PoliceArrestState: GKState
         let dy = targetPosition.y - entity.agent.position.y
         
         let currentDistanceToTarget = hypot(dx, dy)
-        if currentDistanceToTarget < GameplayConfiguration.PoliceBot.attackEndProximity
+        if currentDistanceToTarget < GameplayConfiguration.TaskBot.attackEndProximity
         {
             stateMachine?.enter(TaskBotAgentControlledState.self)
             return
@@ -145,8 +145,8 @@ class PoliceArrestState: GKState
         // Stop the `ManBot`'s movement and restore its standard movement speed.
         movementComponent.nextRotation = nil
         movementComponent.nextTranslation = nil
-        movementComponent.movementSpeed /= GameplayConfiguration.PoliceBot.movementSpeedMultiplierWhenAttacking
-        movementComponent.angularSpeed /= GameplayConfiguration.PoliceBot.angularSpeedMultiplierWhenAttacking
+        movementComponent.movementSpeed /= GameplayConfiguration.TaskBot.movementSpeedMultiplierWhenAttacking
+        movementComponent.angularSpeed /= GameplayConfiguration.TaskBot.angularSpeedMultiplierWhenAttacking
     }
     
     // MARK: Convenience
@@ -156,7 +156,7 @@ class PoliceArrestState: GKState
         if let playerBot = entity as? PlayerBot, let chargeComponent = playerBot.component(ofType: ChargeComponent.self), !playerBot.isPoweredDown
         {
             // If the other entity is a `PlayerBot` that isn't powered down, reduce its charge.
-            chargeComponent.loseCharge(chargeToLose: GameplayConfiguration.PoliceBot.damageDealtPerContact)
+            chargeComponent.loseCharge(chargeToLose: GameplayConfiguration.TaskBot.damageDealtPerContact)
         }
         else if let taskBot = entity as? TaskBot, taskBot.isGood, taskBot.isActive
         {
