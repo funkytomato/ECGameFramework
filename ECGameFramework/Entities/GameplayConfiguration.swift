@@ -383,12 +383,6 @@ struct GameplayConfiguration
         /// The buffer radius (in points) to add to polygon obstacles when calculating agent pathfinding.
         static let pathfindingGraphBufferRadius: Float = 15.0
         
-        /// How fast the `GroundBot` rotates to face its target in radians per second.
-        static let preAttackRotationSpeed = Double.pi / 2
-        
-        /// The duration of a `TaskBot`'s pre-attack state.
-        static let preAttackStateDuration: TimeInterval = 0.3
-        
         /// The duration of a `TaskBot`'s zapped state.
         static let zappedStateDuration: TimeInterval = 0.75
         
@@ -412,6 +406,39 @@ struct GameplayConfiguration
         
         /// How close a `TaskBot` has to be to meatwagon point in order to be locked up
         static let thresholdProximityToMeatwagonPoint: Float = 50.0
+        
+        
+        //MARK: Attack Properties
+        
+        /// The duration of a `TaskBot`'s pre-attack state.
+        static let preAttackStateDuration: TimeInterval = 0.3
+        
+        /// The amount of damage the PoliceBot delivers
+        static let damageDealtPerContact = 25.0
+        
+        /// The maximum distance a `GroundBot` can be from a target before it attacks.
+        static let maximumAttackDistance: Float = 150.0
+        
+        /// Proximity to the target after which the `GroundBot` attack should end.
+        static let attackEndProximity: Float = 7.0
+        
+        /// How fast the `GroundBot` rotates to face its target in radians per second.
+        static let preAttackRotationSpeed = Double.pi
+        
+        /// How much faster the `GroundBot` can move when attacking.
+        static let movementSpeedMultiplierWhenAttacking: CGFloat = 2.5
+        
+        /// How much faster the `GroundBot` can rotate when attacking.
+        static let angularSpeedMultiplierWhenAttacking: CGFloat = 2.5
+        
+        /// The amount of time to wait between `GroundBot` attacks.
+        static let delayBetweenAttacks: TimeInterval = 2.0
+        
+        
+        //MARK: Flee Properties
+        
+        /// How much faster the `GroundBot` can move when attacking.
+        static let movementSpeedMultiplierWhenFleeing: CGFloat = 5.0
     }
     
     
@@ -443,30 +470,6 @@ struct GameplayConfiguration
         {
             return isGood ? maximumSpeedWhenGood : maximumSpeedWhenBad
         }
-        
-        
-
-        // The radius of the path along which an agent patrols.
-//        static let patrolPathRadius: Float = 10.0
-        
-        // The radius of the path along which an agent travels when hunting.
-//        static let huntPathRadius: Float = 20.0
-
-        // The radius of the path along which an agent travels when wandering.
-//        static let wanderPathRadius: Float = 20.0
-        
-        // The radius of the path along which an agent travels when fleeing.
-//        static let fleePathRadius: Float = 100.0
-        
-
-        
-        /// The duration of a `TaskBot`'s zapped state.
-        static let zappedStateDuration: TimeInterval = 0.75
-        
-        /// The duration of a `TaskBot`'s arresting state.
-        static let arrestingStateDuration: TimeInterval = 2.0
-        
-        
         
         
         //MARK: Health Properties
@@ -529,42 +532,9 @@ struct GameplayConfiguration
         static let rechargeAmountPerSecond = 10.0
         
         
-        //MARK: Attack Properties
-        
-        /// The duration of a `TaskBot`'s pre-attack state.
-        static let preAttackStateDuration: TimeInterval = 0.3
-        
-        /// The amount of damage the PoliceBot delivers
-        static let damageDealtPerContact = 25.0
-        
-        /// The maximum distance a `GroundBot` can be from a target before it attacks.
-        static let maximumAttackDistance: Float = 150.0
-        
-        /// Proximity to the target after which the `GroundBot` attack should end.
-        static let attackEndProximity: Float = 7.0
-        
-        /// How fast the `GroundBot` rotates to face its target in radians per second.
-        static let preAttackRotationSpeed = Double.pi
-        
-        /// How much faster the `GroundBot` can move when attacking.
-        static let movementSpeedMultiplierWhenAttacking: CGFloat = 2.5
-        
-        /// How much faster the `GroundBot` can rotate when attacking.
-        static let angularSpeedMultiplierWhenAttacking: CGFloat = 2.5
-        
-        /// The amount of time to wait between `GroundBot` attacks.
-        static let delayBetweenAttacks: TimeInterval = 2.0
-        
         /// The offset from the `GroundBot`'s position that should be used for beam targeting.
         static let beamTargetOffset = CGPoint(x: 0.0, y: 40.0)
-        
-        
-        
-        //MARK: Flee Properties
-        
-        /// How much faster the `GroundBot` can move when attacking.
-        static let movementSpeedMultiplierWhenFleeing: CGFloat = 5.0
-        
+   
     }
     
     
@@ -596,26 +566,6 @@ struct GameplayConfiguration
             return isGood ? maximumSpeedWhenGood : maximumSpeedWhenBad
         }
 
-
-        // The radius of the path along which an agent patrols.
-//        static let patrolPathRadius: Float = 10.0
-        
-        // The radius of the path along which an agent travels when hunting.
-//        static let huntPathRadius: Float = 20.0
-        
-        // The radius of the path along which an agent travels when wandering.
-//        static let wanderPathRadius: Float = 20.0
-        
-        // The radius of the path along which an agent travels when fleeing.
-//        static let fleePathRadius: Float = 100.0
-        
-
-        
-        /// The duration of a `TaskBot`'s zapped state.
-        static let zappedStateDuration: TimeInterval = 0.75
-        
-        /// The duration of a `TaskBot`'s arresting state.
-        static let arrestingStateDuration: TimeInterval = 2.0
         
         /// The duration of a `TaskBot`'s arresting state.
         static let maximumSpeedForIsGood: Float = 150.0
@@ -702,42 +652,6 @@ struct GameplayConfiguration
         /// The amount of charge that the `ProtestorBot` gains per second when recharging.
         static let rechargeAmountPerSecond = 10.0
         
-
-        //MARK: Attack Properties
-        
-        /// The duration of a `TaskBot`'s pre-attack state.
-        static let preAttackStateDuration: TimeInterval = 0.3
-        
-        /// The amount of damage the ProtestorBot delivers
-        static let damageDealtPerContact = 10.0
-        
-        /// The maximum distance a `GroundBot` can be from a target before it attacks.
-        static let maximumAttackDistance: Float = 100.0
-        
-        /// Proximity to the target after which the `GroundBot` attack should end.
-        static let attackEndProximity: Float = 7.0
-        
-        /// How fast the `GroundBot` rotates to face its target in radians per second.
-        static let preAttackRotationSpeed = Double.pi / 4
-        
-        /// How much faster the `GroundBot` can move when attacking.
-        static let movementSpeedMultiplierWhenAttacking: CGFloat = 2.5
-        
-        /// How much faster the `GroundBot` can rotate when attacking.
-        static let angularSpeedMultiplierWhenAttacking: CGFloat = 10.0
-        
-        /// The amount of time to wait between `GroundBot` attacks.
-        static let delayBetweenAttacks: TimeInterval = 1.0
-        
-        /// The offset from the `GroundBot`'s position that should be used for beam targeting.
-        static let beamTargetOffset = CGPoint(x: 0.0, y: 40.0)
-        
-
-        
-        //MARK: Flee Properties
-        
-        /// How much faster the `GroundBot` can move when attacking.
-        static let movementSpeedMultiplierWhenFleeing: CGFloat = 5.0
     }
     
     
@@ -756,7 +670,7 @@ struct GameplayConfiguration
         static let maximumAcceleration: Float = 500.0
         
         // The agent's mass.
-        static let agentMass: Float = 0.65
+        static let agentMass: Float = 0.90
         
         /// The maximum speed (in points per second) for the `TaskBot` when in its "good" state.
         static let maximumSpeedWhenGood: Float = 80.0
@@ -769,28 +683,6 @@ struct GameplayConfiguration
         {
             return isGood ? maximumSpeedWhenGood : maximumSpeedWhenBad
         }
-        
-        
-        // The radius of the path along which an agent patrols.
-//        static let patrolPathRadius: Float = 10.0
-        
-        // The radius of the path along which an agent travels when hunting.
-//        static let huntPathRadius: Float = 20.0
-        
-        // The radius of the path along which an agent travels when wandering.
-//        static let wanderPathRadius: Float = 20.0
-        
-        // The radius of the path along which an agent travels when fleeing.
-//        static let fleePathRadius: Float = 100.0
-        
-        /// The duration of a `TaskBot`'s pre-attack state.
-        static let preAttackStateDuration: TimeInterval = 0.3
-        
-        /// The duration of a `TaskBot`'s zapped state.
-        static let zappedStateDuration: TimeInterval = 0.75
-        
-        /// The duration of a `TaskBot`'s arresting state.
-        static let arrestingStateDuration: TimeInterval = 2
         
         
         //MARK: Health Properties
@@ -877,41 +769,6 @@ struct GameplayConfiguration
         
         /// The amount of charge that the `ProtestorBot` gains per second when recharging.
         static let rechargeAmountPerSecond = 10.0
-        
-        
-        //MARK: Attack Properties
-        
-        /// The amount of damage the CriminalBot delivers
-        static let damageDealtPerContact = 20.0
-        
-        /// The maximum distance a `GroundBot` can be from a target before it attacks.
-        static let maximumAttackDistance: Float = 100.0
-        
-        /// Proximity to the target after which the `GroundBot` attack should end.
-        static let attackEndProximity: Float = 7.0
-        
-        /// How fast the `GroundBot` rotates to face its target in radians per second.
-        static let preAttackRotationSpeed = Double.pi / 4
-        
-        /// How much faster the `GroundBot` can move when attacking.
-        static let movementSpeedMultiplierWhenAttacking: CGFloat = 2.5
-        
-        /// How much faster the `GroundBot` can rotate when attacking.
-        static let angularSpeedMultiplierWhenAttacking: CGFloat = 10.0
-        
-        /// The amount of time to wait between `GroundBot` attacks.
-        static let delayBetweenAttacks: TimeInterval = 2.0
-        
-        /// The offset from the `GroundBot`'s position that should be used for beam targeting.
-        static let beamTargetOffset = CGPoint(x: 0.0, y: 40.0)
-        
-        
-        
-        //MARK: Flee Properties
-        
-        /// How much faster the `GroundBot` can move when attacking.
-        static let movementSpeedMultiplierWhenFleeing: CGFloat = 5.0
-        
     }
 
     
