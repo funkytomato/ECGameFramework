@@ -122,14 +122,6 @@ class BuyingWaresComponent: GKComponent
     {
 //        print("state: \(intelligenceComponent.stateMachine.currentState)")
         
-        if (stateMachine.currentState as? BuyingWaresTimeOutState != nil)
-        {
-            let appetiteComponent = self.renderComponent.entity?.component(ofType: AppetiteComponent.self)
-            appetiteComponent?.loseAppetite(appetiteToLose: 100.0)
-            appetiteComponent?.stateMachine.enter(AppetiteIdleState.self)
-            let taskBot = renderComponent.entity as? ProtestorBot
-            taskBot?.isHungry = false
-        }
         
         //Check Protestor is not fighting or confrontation with Police
         guard ((intelligenceComponent.stateMachine.currentState as? ProtestorDetainedState) == nil) else { return }
@@ -160,10 +152,25 @@ class BuyingWaresComponent: GKComponent
                 case is BuyingWaresBuyingState:
                     animationComponent.requestedAnimationState = .buying
                 
+                case is BuyingWaresTimeOutState:
+                    animationComponent.requestedAnimationState = .idle
+                    
+                    //Protestor has stopped looking for wares and has lost their appetite.
+                    //Reset Appetite to idle
+                    let appetiteComponent = self.renderComponent.entity?.component(ofType: AppetiteComponent.self)
+                    appetiteComponent?.stateMachine.enter(AppetiteIdleState.self)
+                    let taskBot = renderComponent.entity as? ProtestorBot
+                    taskBot?.isHungry = false
+                
                 default:
 //                    animationComponent.requestedAnimationState = .idle
                     break
             }
+        }
+        
+        if (stateMachine.currentState as? BuyingWaresTimeOutState != nil)
+        {
+
         }
     }
     
