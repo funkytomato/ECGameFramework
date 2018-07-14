@@ -47,6 +47,7 @@ class BuyingWaresTimeOutState: GKState
         elapsedTime = 0.0
         
         buyWaresComponent.isTriggered = false
+        
     }
     
     override func update(deltaTime seconds: TimeInterval)
@@ -57,10 +58,10 @@ class BuyingWaresTimeOutState: GKState
         //        print("BuyWaresIdleState update: \(buyWaresComponent.entity.debugDescription)")
         
 
-        if elapsedTime >= 10.0
+        if elapsedTime >= 15.0
         {
             stateMachine?.enter(BuyingWaresIdleState.self)
-            buyWaresComponent.isTriggered = true
+//            buyWaresComponent.isTriggered = true
         }
     }
     
