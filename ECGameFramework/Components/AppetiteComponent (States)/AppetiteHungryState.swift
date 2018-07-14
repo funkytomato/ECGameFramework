@@ -52,11 +52,6 @@ class AppetiteHungryState: GKState
         super.update(deltaTime: seconds)
         elapsedTime += seconds
         
-        
-        //Increase the appetite as product has been consumed
-//        appetiteComponent.gainAppetite(appetiteToAdd: GameplayConfiguration.ProtestorBot.appetiteGainPerCycle)
-        
-        
         if appetiteComponent.isConsumingProduct
         {
             // Protestor is now consuming product
@@ -68,7 +63,7 @@ class AppetiteHungryState: GKState
     {
         switch stateClass
         {
-        case is AppetiteConsumingState.Type:
+        case is AppetiteConsumingState.Type, is AppetiteIdleState.Type:
             return true
             
         default:
