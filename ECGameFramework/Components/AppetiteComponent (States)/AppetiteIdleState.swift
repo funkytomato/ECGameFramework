@@ -65,6 +65,7 @@ class AppetiteIdleState: GKState
     override func update(deltaTime seconds: TimeInterval)
     {
         super.update(deltaTime: seconds)
+        elapsedTime += seconds
         
 //        print("AppetiteIdleState update: \(appetiteComponent.entity.debugDescription)")
         
@@ -74,11 +75,10 @@ class AppetiteIdleState: GKState
         if !intoxicationComponent.hasFullintoxication && !protestor.isSubservient
         {
         
+            //Increase the appetite over time
             appetiteComponent.gainAppetite(appetiteToAdd: GameplayConfiguration.ProtestorBot.appetiteGainPerCycle)
             
-            // If the beam has been triggered, enter `AppetiteActiveState`.
-    //        if appetiteComponent.isTriggered
-            
+            //If Appetite is full move to the next state, Hungry!
             if appetiteComponent.appetite >= 100.0
             {
                 stateMachine?.enter(AppetiteHungryState.self)
