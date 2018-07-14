@@ -55,7 +55,7 @@ class BuyingWaresLookingState: GKState
         
 //        print("BuyWaresActiveState updating")
     
-        if elapsedTime >= 10
+        if elapsedTime >= GameplayConfiguration.Wares.maximumLookingDuration
         {
             stateMachine?.enter(BuyingWaresTimeOutState.self)
         }
