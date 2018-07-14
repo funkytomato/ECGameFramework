@@ -161,11 +161,15 @@ struct GameplayConfiguration
     struct Wares
     {
         
+        
+        // The maximum number of seconds for looking
+        static let maximumLookingDuration: TimeInterval = 30.0
+        
         // The maximum number of seconds for selling and buying wares
         static let maximumSellingAndBuyingDuration: TimeInterval = 10.0
         
         // The length of time that to chill out between selling and buying wares
-        static let timeOutPeriod: TimeInterval = 5.0
+        static let timeOutPeriod: TimeInterval = 15.0
     }
     
     
