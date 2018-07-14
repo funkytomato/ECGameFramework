@@ -179,6 +179,7 @@ class AppetiteComponent: GKComponent
                 animationComponent.requestedAnimationState = .drinking
             
             default:
+                animationComponent.requestedAnimationState = .idle
                 break
         }
         
