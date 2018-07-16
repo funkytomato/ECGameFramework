@@ -166,7 +166,7 @@ struct GameplayConfiguration
         static let maximumLookingDuration: TimeInterval = 30.0
         
         // The maximum number of seconds for selling and buying wares
-        static let maximumSellingAndBuyingDuration: TimeInterval = 10.0
+        static let maximumSellingAndBuyingDuration: TimeInterval = 20.0
         
         // The length of time that to chill out between selling and buying wares
         static let timeOutPeriod: TimeInterval = 15.0
@@ -677,10 +677,10 @@ struct GameplayConfiguration
         static let agentMass: Float = 0.90
         
         /// The maximum speed (in points per second) for the `TaskBot` when in its "good" state.
-        static let maximumSpeedWhenGood: Float = 80.0
+        static let maximumSpeedWhenGood: Float = 50.0
         
         /// The maximum speed (in points per second) for the `TaskBot` when in its "bad" state.
-        static let maximumSpeedWhenBad: Float = 100.0
+        static let maximumSpeedWhenBad: Float = 60.0
         
         /// A convenience function to return the max speed for a state.
         static func maximumSpeedForIsGood(isGood: Bool) -> Float
@@ -890,7 +890,7 @@ struct GameplayConfiguration
     }
     
     
-    //  MARK:- TouhcControl Properties
+    //  MARK:- TouchControl Properties
     struct TouchControl
     {
         /// The minimum distance a virtual thumbstick must move before it is considered to have been moved.
