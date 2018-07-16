@@ -148,9 +148,13 @@ class BuyingWaresComponent: GKComponent
                 
                 case is BuyingWaresLookingState:
                     animationComponent.requestedAnimationState = .looking
+                    let taskBot = renderComponent.entity as? ProtestorBot
+                    taskBot?.isBuying = true
+                
                 
                 case is BuyingWaresBuyingState:
                     animationComponent.requestedAnimationState = .buying
+
                 
                 case is BuyingWaresTimeOutState:
                     animationComponent.requestedAnimationState = .idle
@@ -162,15 +166,12 @@ class BuyingWaresComponent: GKComponent
                     let taskBot = renderComponent.entity as? ProtestorBot
                     taskBot?.isHungry = false
                 
+                    taskBot?.isBuying = false
+                
                 default:
 //                    animationComponent.requestedAnimationState = .idle
                     break
             }
-        }
-        
-        if (stateMachine.currentState as? BuyingWaresTimeOutState != nil)
-        {
-
         }
     }
     
