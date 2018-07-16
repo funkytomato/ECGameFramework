@@ -41,16 +41,19 @@ class SellingWaresCoolingState: GKState
 //        print("SellingWaresCoolingState entered")
         
         super.didEnter(from: previousState)
-        
         elapsedTime = 0.0
+        
+        //Criminal is chilling out from selling
+        guard let taskBot = sellingWaresComponent.entity as? TaskBot else { return }
+//        taskBot.isSelling = false
     }
     
     override func update(deltaTime seconds: TimeInterval)
     {
+        
+        //        print("SellingWaresComponent update")
+        
         super.update(deltaTime: seconds)
-        
-//        print("SellingWaresComponent update")
-        
         elapsedTime += seconds
         
         // If the beam has spent long enough cooling down, enter `BeamIdleState`.
