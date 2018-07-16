@@ -67,7 +67,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         case buyWares(GKAgent2D)
         
         // Sell wares
-        case sellWares
+        case sellWares(GKAgent2D)
         
         // Vandalise
         case vandalise(float2)
@@ -191,6 +191,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
     
     //Is the taskbot selling wares?
     var isSelling: Bool
+    
+    //Is the taskbot buying wares?
+    var isBuying: Bool
     
     //Is the taskbot injured?
     var isInjured: Bool
@@ -332,10 +335,11 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 debugColor = SKColor.white
             
             // TaskBot is a criminal and is selling their wares
-            case .sellWares:
+            case let .sellWares(target):
                 print("SellWares")
                 radius = GameplayConfiguration.TaskBot.wanderPathRadius
-                (agentBehavior, debugPathPoints)  = TaskBotBehavior.wanderBehaviour(forAgent: agent, inScene: levelScene)
+                (agentBehavior, debugPathPoints)  = TaskBotBehavior.huntBehaviour(forAgent: agent, huntingAgent: target, pathRadius: radius, inScene: levelScene)
+                //(agentBehavior, debugPathPoints)  = TaskBotBehavior.wanderBehaviour(forAgent: agent, inScene: levelScene)
                 debugColor = SKColor.yellow
             
             //TaskBot is a criminal and is vandalising
@@ -442,6 +446,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
 
         //Whether or not the criminal is selling wares
         self.isSelling = false
+
+        //Whether or not the protestor is buying wares
+        self.isBuying = false
         
         // Whether or not the taskbot is protestor
         self.isProtestor = false
@@ -539,6 +546,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             SellerTaskBotNearRule(),
             SellerTaskBotMediumRule(),
             SellerTaskBotFarRule(),
+            BuyerTaskBotNearRule(),
+            BuyerTaskBotMediumRule(),
+            BuyerTaskBotFarRule(),
             InjuredTaskBotPercentageLowRule(),
             InjuredTaskBotPercentageMediumRule(),
             InjuredTaskBotPercentageHighRule(),
@@ -730,15 +740,15 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         let huntSellerTaskBotRaw = [
             
             //Police are in trouble are nearby
-            ruleSystem.minimumGrade(forFacts: [
-                Fact.sellerTaskBotNear.rawValue as AnyObject
-                ]),
+//            ruleSystem.minimumGrade(forFacts: [
+//                Fact.sellerTaskBotNear.rawValue as AnyObject
+//                ])
             
             //Police are in trouble are medium distance
             ruleSystem.minimumGrade(forFacts: [
                 Fact.sellerTaskBotMedium.rawValue as AnyObject
                 ]),
-            
+
             //Police are in trouble are far away
             ruleSystem.minimumGrade(forFacts: [
                 Fact.sellerTaskBotFar.rawValue as AnyObject
@@ -748,6 +758,29 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         let huntSellerTaskBot = huntSellerTaskBotRaw.reduce(0.0, max)
         print("huntSellerTaskBot: \(huntSellerTaskBot.description), huntSellerTaskBotRaw: \(huntSellerTaskBotRaw.description) ")
 
+        
+        //A series of situation in which we hunt sellers
+        let huntBuyerTaskBotRaw = [
+            
+            //Police are in trouble are nearby
+            ruleSystem.minimumGrade(forFacts: [
+                Fact.buyerTaskBotNear.rawValue as AnyObject
+                ]),
+            
+            //Police are in trouble are medium distance
+            ruleSystem.minimumGrade(forFacts: [
+                Fact.buyerTaskBotMedium.rawValue as AnyObject
+                ]),
+
+            //Police are in trouble are far away
+            ruleSystem.minimumGrade(forFacts: [
+                Fact.buyerTaskBotFar.rawValue as AnyObject
+                ])
+        ]
+        
+        let huntBuyerTaskBot = huntBuyerTaskBotRaw.reduce(0.0, max)
+        print("huntBuyerTaskBot: \(huntBuyerTaskBot.description), huntBuyerTaskBotRaw: \(huntBuyerTaskBotRaw.description) ")
+        
         
         let fleeDangerousTaskBot = fleeTaskBotRaw.reduce(0.0, max)
         //print("fleeDangerousTaskBot: \(fleeDangerousTaskBot.description), fleeTaskBotRaw: \(fleeTaskBotRaw.description) ")
@@ -927,9 +960,10 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         }
          
         //TaskBot is Criminal and wants to sell wares
-        else if self.isCriminal && self.isSelling
+        else if self.isCriminal && self.isSelling && huntBuyerTaskBot > 0.0
         {
-            mandate = .sellWares
+            guard let protestorBot = state.nearestBuyerTaskBotTarget?.target.agent else { return }
+            mandate = .sellWares(protestorBot)
         }
             
         //TaskBot is Protestor and wants to buy wares and seller nearby
