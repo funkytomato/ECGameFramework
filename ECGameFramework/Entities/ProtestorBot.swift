@@ -171,8 +171,8 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             ProtestorBotRechargingState(entity: self),
             TaskBotZappedState(entity: self),
             ProtestorInciteState(entity: self),
-            ProtestorBuyWaresState(entity: self),
-            ProtestorBotWanderState(entity: self)
+            ProtestorBuyWaresState(entity: self)
+ //           ProtestorBotWanderState(entity: self)
             ])
         addComponent(intelligenceComponent)
         
@@ -367,8 +367,8 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
 
         switch mandate
         {
-            case .wander:
-                intelligenceComponent.stateMachine.enter(ProtestorBotWanderState.self)
+//            case .wander:
+//                intelligenceComponent.stateMachine.enter(ProtestorBotWanderState.self)
             
             case let .buyWares(target):
                 intelligenceComponent.stateMachine.enter(ProtestorBuyWaresState.self)
