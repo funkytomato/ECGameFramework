@@ -99,6 +99,11 @@ enum Fact: String
     case sellerTaskBotNear = "SellerTaskBotNear"
     case sellerTaskBotMedium = "SellerTaskBotMedium"
     case sellerTaskBotFar = "SellerTaskBotFar"
+
+    // Fuzzy rules pertaining to this `TaskBot`'s proximity to the nearest "Buyer" `TaskBot`.
+    case buyerTaskBotNear = "BuyerTaskBotNear"
+    case buyerTaskBotMedium = "BuyerTaskBotMedium"
+    case buyerTaskBotFar = "BuyerTaskBotFar"
     
     // Fuzzy rules pertaining to the proportion of "Injured" bots in the level.
     case injuredTaskBotPercentageLow = "InjuredTaskBotPercentageLow"
@@ -950,6 +955,71 @@ class SellerTaskBotFarRule: FuzzyTaskBotRule
 //        print("Deallocating CriminalTaskBotFarRule")
     }
 }
+
+
+/// Asserts whether the nearest "Criminal Seller" `TaskBot` is considered to be "near" to this `TaskBot`.
+class BuyerTaskBotNearRule: FuzzyTaskBotRule
+{
+    // MARK: Properties
+    
+    override func grade() -> Float
+    {
+        guard let distance = snapshot.nearestBuyerTaskBotTarget?.distance else { return 0.0 }
+        let oneThird = snapshot.proximityFactor / 3
+        return (oneThird - distance) / oneThird
+    }
+    
+    // MARK: Initializers
+    
+    init() { super.init(fact: .buyerTaskBotNear) }
+    
+    deinit {
+        //        print("Deallocating SellerTaskBotNearRule")
+    }
+}
+
+/// Asserts whether the nearest "Criminal" `TaskBot` is considered to be at a "medium" distance from this `TaskBot`.
+class BuyerTaskBotMediumRule: FuzzyTaskBotRule
+{
+    // MARK: Properties
+    
+    override func grade() -> Float
+    {
+        guard let distance = snapshot.nearestBuyerTaskBotTarget?.distance else { return 0.0 }
+        let oneThird = snapshot.proximityFactor / 3
+        return 1 - (fabs(distance - oneThird) / oneThird)
+    }
+    
+    // MARK: Initializers
+    
+    init() { super.init(fact: .buyerTaskBotMedium) }
+    
+    deinit {
+        //        print("Deallocating CriminalTaskBotMediumRule")
+    }
+}
+
+/// Asserts whether the nearest "Criminal" `TaskBot` is considered to be "far" from this `TaskBot`.
+class BuyerTaskBotFarRule: FuzzyTaskBotRule
+{
+    // MARK: Properties
+    
+    override func grade() -> Float
+    {
+        guard let distance = snapshot.nearestBuyerTaskBotTarget?.distance else { return 0.0 }
+        let oneThird = snapshot.proximityFactor / 3
+        return (distance - oneThird) / oneThird
+    }
+    
+    // MARK: Initializers
+    
+    init() { super.init(fact: .buyerTaskBotFar) }
+    
+    deinit {
+        //        print("Deallocating CriminalTaskBotFarRule")
+    }
+}
+
 
 /// Asserts whether the number of "Injured" `TaskBot`s is considered "low".
 class InjuredTaskBotPercentageLowRule: FuzzyTaskBotRule
