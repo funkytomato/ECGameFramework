@@ -236,14 +236,6 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
             // Create the appropriate type `TaskBot` (ground or flying).
             switch taskBotConfiguration.botType
             {
-                case .flying:
-                    taskBot = FlyingBot(isGood: !taskBotConfiguration.startsBad, goodPathPoints: goodPathPoints, badPathPoints: badPathPoints)
-                    
-//                case .ground:
-//                    taskBot = GroundBot(isGood: !taskBotConfiguration.startsBad, goodPathPoints: goodPathPoints, badPathPoints: badPathPoints)
-//                    
-//                case .man:
-//                    taskBot = ManBot(temperament: taskBotConfiguration.temperament, isGood: !taskBotConfiguration.startsBad, goodPathPoints: goodPathPoints, badPathPoints: badPathPoints)
                 
                 case .police:
                     taskBot = PoliceBot(temperament: taskBotConfiguration.temperament, isGood: !taskBotConfiguration.startsBad, goodPathPoints: goodPathPoints, badPathPoints: badPathPoints)
@@ -677,11 +669,7 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
         for controlInputSource in gameInput.controlInputSources
         {
             //This ensures the control input source is from the PlayerBot Input controls, and thus move the player
-            controlInputSource.delegate = playerBot.component(ofType: InputComponent.self)
-            
-            //How do I get a pointer to the CriminalBots?
-            
-            
+            controlInputSource.delegate = playerBot.component(ofType: InputComponent.self)    
         }
         
         #if os(iOS)
