@@ -43,8 +43,6 @@ class BuyingWaresLookingState: GKState
 //        print("BuyWaresLookingState entered: \(buyWaresComponent.entity.debugDescription)")
         
         super.didEnter(from: previousState)
-        
-        // Reset the "amount of time firing" tracker when we enter the "firing" state.
         elapsedTime = 0.0
     }
     
