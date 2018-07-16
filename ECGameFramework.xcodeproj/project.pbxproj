@@ -209,6 +209,7 @@
 		C2EB349920912A9C00DCF457 /* TazerFiringState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EB349820912A9C00DCF457 /* TazerFiringState.swift */; };
 		C2EB349B20912C0A00DCF457 /* TazerIdleState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EB349A20912C0A00DCF457 /* TazerIdleState.swift */; };
 		C2EB349D20913D3800DCF457 /* TazerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EB349C20913D3800DCF457 /* TazerNode.swift */; };
+		C2F3EF7F20FCB2C90009F15A /* ProtestorBotWanderState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2F3EF7E20FCB2C90009F15A /* ProtestorBotWanderState.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -431,6 +432,7 @@
 		C2EB349820912A9C00DCF457 /* TazerFiringState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TazerFiringState.swift; sourceTree = "<group>"; };
 		C2EB349A20912C0A00DCF457 /* TazerIdleState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TazerIdleState.swift; sourceTree = "<group>"; };
 		C2EB349C20913D3800DCF457 /* TazerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TazerNode.swift; sourceTree = "<group>"; };
+		C2F3EF7E20FCB2C90009F15A /* ProtestorBotWanderState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtestorBotWanderState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -549,6 +551,7 @@
 				1878B6CA208E5F9400FC5FDA /* ProtestorBotRechargingState.swift */,
 				18DE88D3208F4E8100732803 /* ProtestorBotHitState.swift */,
 				1838BBA320E5895E00C59E36 /* ProtestorBuyWaresState.swift */,
+				C2F3EF7E20FCB2C90009F15A /* ProtestorBotWanderState.swift */,
 			);
 			path = Protestor;
 			sourceTree = "<group>";
@@ -831,7 +834,7 @@
 				18FCEA0B2040EC3C009A5C0D /* Assets.xcassets */,
 				18FCEA0C2040EC3C009A5C0D /* PlayerBot */,
 				18FCEA112040EC3C009A5C0D /* Scenes */,
-				18FCEA282040EC3C009A5C0D /* TaskBot */,
+				18FCEA282040EC3C009A5C0D /* TaskBots */,
 			);
 			path = Assets;
 			sourceTree = "<group>";
@@ -909,7 +912,7 @@
 			path = "LevelScene States";
 			sourceTree = "<group>";
 		};
-		18FCEA282040EC3C009A5C0D /* TaskBot */ = {
+		18FCEA282040EC3C009A5C0D /* TaskBots */ = {
 			isa = PBXGroup;
 			children = (
 				18D4706720D933B9007DD9B9 /* CriminalBot.xcassets */,
@@ -924,7 +927,7 @@
 				188359FE2087FCA90054111A /* PoliceBot.xcassets */,
 				1874890D20880FE000DAF14E /* ProtestorBot.xcassets */,
 			);
-			path = TaskBot;
+			path = TaskBots;
 			sourceTree = "<group>";
 		};
 		18FCEA302040EC3E009A5C0D /* Physics Contacts and Collisions */ = {
@@ -1328,6 +1331,7 @@
 				1899E18120E2D06E00C29031 /* PoliceBotSupportState.swift in Sources */,
 				18FCEAA02040EC40009A5C0D /* BaseScene+TouchEventForwarding.swift in Sources */,
 				18FCEA712040EC40009A5C0D /* OrientationComponent.swift in Sources */,
+				C2F3EF7F20FCB2C90009F15A /* ProtestorBotWanderState.swift in Sources */,
 				18443F2320E7F05C00660E27 /* BuyingWaresBuyingState.swift in Sources */,
 				18FCE9CB2040EB3C009A5C0D /* SceneLoaderResourcesAvailableState.swift in Sources */,
 				18FCE9CF2040EB3C009A5C0D /* SceneMetadata.swift in Sources */,
