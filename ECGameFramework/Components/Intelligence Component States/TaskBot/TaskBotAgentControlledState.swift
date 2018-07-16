@@ -146,6 +146,11 @@ class TaskBotAgentControlledState: GKState
                     entity.mandate = .wander
                     break
                 
+                case .wander:
+//                    if entity.distanceToPoint(otherPoint: <#T##float2#>)
+                    print("TaskBot wander")
+                
+                
                 default:
                     break
             }
@@ -169,7 +174,7 @@ class TaskBotAgentControlledState: GKState
         {
         case is TaskBotAgentControlledState.Type, is TaskBotZappedState.Type, /*is TaskBotPlayerControlledState.Type,*/ is TaskBotFleeState.Type, is TaskBotInjuredState.Type,
              is PoliceBotRotateToAttackState.Type, is PoliceBotAttackState.Type, is PoliceBotPreAttackState.Type, is PoliceArrestState.Type, is PoliceDetainState.Type, is PoliceBotHitState.Type, is PoliceBotSupportState.Type,
-             is ProtestorBotPreAttackState.Type, is ProtestorBotRotateToAttackState.Type, is ProtestorBotAttackState.Type, is ProtestorBeingArrestedState.Type, is ProtestorArrestedState.Type, is ProtestorDetainedState.Type, is ProtestorBotHitState.Type, is ProtestorBotRechargingState.Type, is ProtestorInciteState.Type, is ProtestorBuyWaresState.Type,
+             is ProtestorBotPreAttackState.Type, is ProtestorBotRotateToAttackState.Type, is ProtestorBotAttackState.Type, is ProtestorBeingArrestedState.Type, is ProtestorArrestedState.Type, is ProtestorDetainedState.Type, is ProtestorBotHitState.Type, is ProtestorBotRechargingState.Type, is ProtestorInciteState.Type, is ProtestorBuyWaresState.Type, is ProtestorBotWanderState.Type,
              is SellWaresState.Type:
                 return true
                 
