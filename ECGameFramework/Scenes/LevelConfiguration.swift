@@ -24,9 +24,6 @@ struct LevelConfiguration
         /// The different types of `TaskBot` that can exist in a level.
         enum BotType
         {
-//            case man
-//            case ground
-            case flying
             case police
             case protestor
             case criminal
@@ -55,14 +52,6 @@ struct LevelConfiguration
         {
             switch botConfigurationInfo["botType"] as! String
             {
-//                case "man":
-//                    botType = .man
-//                
-//                case "ground":
-//                    botType = .ground
-                    
-                case "flying":
-                    botType = .flying
                 
                 case "police":
                     botType = .police
