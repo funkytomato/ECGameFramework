@@ -335,14 +335,15 @@ class EntitySnapshot
             {
                 nearestPoliceTaskBotInTroubleTarget = (target: target, distance: entityDistance.distance)
             }
-            else if let target = entityDistance.target as? TaskBot, nearestCriminalTaskBotTarget == nil && target.isCriminal && target.isActive // && isCriminal (isBad gets confused with PoliceBot
-            {
-                nearestCriminalTaskBotTarget = (target: target, distance: entityDistance.distance)
-            }
             else if let target = entityDistance.target as? TaskBot, nearestSellerTaskBotTarget == nil && target.isCriminal && target.isActive && target.isSelling // && isCriminal (isBad gets confused with PoliceBot
             {
                 nearestSellerTaskBotTarget = (target: target, distance: entityDistance.distance)
             }
+            else if let target = entityDistance.target as? TaskBot, nearestCriminalTaskBotTarget == nil && target.isCriminal && target.isActive // && isCriminal (isBad gets confused with PoliceBot
+            {
+                nearestCriminalTaskBotTarget = (target: target, distance: entityDistance.distance)
+            }
+ 
             else if let target = entityDistance.target as? TaskBot, nearestInjuredTaskBotTarget == nil && target.isInjured && !target.isActive // && isCriminal (isBad gets confused with PoliceBot
             {
                 nearestInjuredTaskBotTarget = (target: target, distance: entityDistance.distance)
