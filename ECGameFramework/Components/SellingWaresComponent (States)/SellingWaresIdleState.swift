@@ -45,8 +45,6 @@ class SellingWaresIdleState: GKState
 //        print("SellingWaresIdleState entered: \(sellingWaresComponent.entity.debugDescription)")
         
         super.didEnter(from: previousState)
-        
-        // Reset the "amount of time firing" tracker when we enter the "firing" state.
         elapsedTime = 0.0
     }
     
@@ -56,7 +54,7 @@ class SellingWaresIdleState: GKState
         
 //        print("SellingWaresIdleState update: \(sellingWaresComponent.entity.debugDescription)")
         
-        // If the beam has been triggered, enter `AppetiteActiveState`.
+        // If selling has been triggered, move to SellingWaresActiveState and find somebody who wants to buy
         if sellingWaresComponent.isTriggered
         {
             stateMachine?.enter(SellingWaresActiveState.self)
