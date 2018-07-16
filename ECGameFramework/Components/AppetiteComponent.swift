@@ -155,7 +155,7 @@ class AppetiteComponent: GKComponent
     
     override func update(deltaTime seconds: TimeInterval)
     {
-        //Check Protestor is not fighting or confrontation with Police
+        //Check Protestor is not fighting, confrontation, scared or injured
         guard ((intelligenceComponent.stateMachine.currentState as? ProtestorDetainedState) == nil) else { return }
         guard ((intelligenceComponent.stateMachine.currentState as? ProtestorArrestedState) == nil) else { return }
         guard ((intelligenceComponent.stateMachine.currentState as? ProtestorBeingArrestedState) == nil) else { return }
