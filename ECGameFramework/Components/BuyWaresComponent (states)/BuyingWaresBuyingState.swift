@@ -57,11 +57,12 @@ class BuyingWaresBuyingState: GKState
     override func update(deltaTime seconds: TimeInterval)
     {
         super.update(deltaTime: seconds)
+        elapsedTime += seconds
         
 //        print("BuyWaresBuyingState update: \(seconds.description)")
     
         
-        elapsedTime += seconds
+
         if buyWaresComponent.hasWares
         {
             stateMachine?.enter(BuyingWaresIdleState.self)
