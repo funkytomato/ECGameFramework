@@ -66,14 +66,13 @@ class SellWaresState: GKState
     override func didEnter(from previousState: GKState?)
     {
         super.didEnter(from: previousState)
-     
+        elapsedTime = 0.0
         
+        //Tell SellingaresComponent we are selling, and set the TaskBot isSelling flag for pathfinding
         sellingWaresComponent.isTriggered = true
-        
         entity.isSelling = true
         
-        //Reset the tracking of how long the 'ManBot' has been in "Detained" state
-        elapsedTime = 0.0
+ 
         
         //Request the "detained animation for this state's 'ProtestorBot'
         animationComponent.requestedAnimationState = .selling
@@ -91,10 +90,8 @@ class SellWaresState: GKState
         //Ensure the taskbot continues to move around the scene
         intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
         
-        guard (stateMachine?.currentState as? SellingWaresActiveState) != nil else { return }
+//        guard (stateMachine?.currentState as? SellingWaresActiveState) != nil else { return }
         
-        //Present the selling animation
-        animationComponent.requestedAnimationState = .selling
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
@@ -107,5 +104,10 @@ class SellWaresState: GKState
         default:
             return false
         }
+    }
+    
+    override func willExit(to nextState: GKState)
+    {
+//        entity.isSelling = false
     }
 }
