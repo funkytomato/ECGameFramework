@@ -746,7 +746,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         ]
         
         let huntSellerTaskBot = huntSellerTaskBotRaw.reduce(0.0, max)
-//        print("huntSellerTaskBot: \(huntSellerTaskBot.description), huntSellerTaskBotRaw: \(huntSellerTaskBotRaw.description) ")
+        print("huntSellerTaskBot: \(huntSellerTaskBot.description), huntSellerTaskBotRaw: \(huntSellerTaskBotRaw.description) ")
 
         
         let fleeDangerousTaskBot = fleeTaskBotRaw.reduce(0.0, max)
@@ -932,8 +932,8 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             mandate = .sellWares
         }
             
-        //TaskBot is Protestor and wants to buy wares
-        else if self.isProtestor && !self.isSubservient && self.isHungry
+        //TaskBot is Protestor and wants to buy wares and seller nearby
+        else if self.isProtestor && !self.isSubservient && self.isHungry && huntSellerTaskBot > 0.0
         {
             guard let criminalBot = state.nearestSellerTaskBotTarget?.target.agent else { return }
             mandate = .buyWares(criminalBot)
