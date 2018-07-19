@@ -46,8 +46,6 @@ class PoliceBotPreAttackState: GKState
     override func didEnter(from previousState: GKState?)
     {
         super.didEnter(from: previousState)
-        
-        // Reset the tracking of how long the `PoliceBot` has been in a "pre-attack" state.
         elapsedTime = 0.0
         
         // Request the "attack" animation for this state's `PoliceBot`.
@@ -74,7 +72,8 @@ class PoliceBotPreAttackState: GKState
     {
         switch stateClass
         {
-        case is TaskBotAgentControlledState.Type, is PoliceBotAttackState.Type, is TaskBotZappedState.Type, is PoliceBotHitState.Type:
+        case is TaskBotAgentControlledState.Type, is TaskBotFleeState.Type, is TaskBotInjuredState.Type, is TaskBotZappedState.Type,
+             is PoliceBotAttackState.Type:
             return true
             
         default:
