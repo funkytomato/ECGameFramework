@@ -500,6 +500,12 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
     func sellingWaresComponenttDidGainWares(sellingWaresComponent: SellingWaresComponent)
     {
         print("SellingWares gain wares")
+        
+        //If no more products available, can not sell
+        if !sellingWaresComponent.hasWares
+        {
+            self.isSelling = false
+        }
     }
     
 
