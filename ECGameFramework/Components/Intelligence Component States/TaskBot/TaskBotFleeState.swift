@@ -46,6 +46,12 @@ class TaskBotFleeState: GKState
         return physicsComponent
     }
     
+    var animationComponent: AnimationComponent
+    {
+        guard let animationComponent = entity.component(ofType: AnimationComponent.self) else { fatalError("An entity's FleeState's must have an AnimationComponent.") }
+        return animationComponent
+    }
+    
     // MARK: Initializers
     
     required init(entity: TaskBot)
@@ -66,13 +72,15 @@ class TaskBotFleeState: GKState
         self.entity.isScared = true  //fry
         self.entity.isDangerous = false
 
+        animationComponent.requestedAnimationState = .idle
+        
         
         // `movementComponent` is a computed property. Declare a local version so we don't compute it multiple times.
         let movementComponent = self.movementComponent
         
         // Move the `ManBot` towards the target at an increased speed.
-        movementComponent.movementSpeed *= GameplayConfiguration.TaskBot.movementSpeedMultiplierWhenAttacking
-        movementComponent.angularSpeed *= GameplayConfiguration.TaskBot.angularSpeedMultiplierWhenAttacking
+        movementComponent.movementSpeed *= GameplayConfiguration.TaskBot.movementSpeedMultiplierWhenFleeing
+        movementComponent.angularSpeed *= GameplayConfiguration.TaskBot.angularSpeedMultiplierWhenFleeing
         
         
         
@@ -92,7 +100,7 @@ class TaskBotFleeState: GKState
     {
         switch stateClass
         {
-        case is TaskBotAgentControlledState.Type, is TaskBotFleeState.Type, is TaskBotInjuredState.Type,  is TaskBotZappedState.Type:
+        case is TaskBotAgentControlledState.Type, /*is TaskBotFleeState.Type,*/ is TaskBotInjuredState.Type,  is TaskBotZappedState.Type:
             return true
             
         default:
