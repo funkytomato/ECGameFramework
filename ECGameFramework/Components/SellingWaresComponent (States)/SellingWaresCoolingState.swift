@@ -45,7 +45,7 @@ class SellingWaresCoolingState: GKState
         
         //Criminal is chilling out from selling
         guard let taskBot = sellingWaresComponent.entity as? TaskBot else { return }
-//        taskBot.isSelling = false
+        taskBot.isSelling = false
     }
     
     override func update(deltaTime seconds: TimeInterval)
@@ -78,6 +78,10 @@ class SellingWaresCoolingState: GKState
     override func willExit(to nextState: GKState)
     {
         super.willExit(to: nextState)
+        
+        //Criminal has finished chilling out, start selling again
+        guard let taskBot = sellingWaresComponent.entity as? TaskBot else { return }
+        taskBot.isSelling = true
     }
 }
 
