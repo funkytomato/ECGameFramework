@@ -27,10 +27,23 @@ class TaskBotFleeState: GKState
     /// The distance to the current target on the previous update loop.
     var lastDistanceToTarget: Float = 0
 
+    /// The `MovementComponent` associated with the `entity`.
+    var movementComponent: MovementComponent
+    {
+        guard let movementComponent = entity.component(ofType: MovementComponent.self) else { fatalError("A TaskBotFleeState entity must have a MovementComponent.") }
+        return movementComponent
+    }
+    
     var temperamentComponent: TemperamentComponent
     {
         guard let temperamentComponent = entity.component(ofType: TemperamentComponent.self) else { fatalError("An entity's FleeState's must have an TemperamentComponent.") }
         return temperamentComponent
+    }
+    
+    var physicsComponent: PhysicsComponent
+    {
+        guard let physicsComponent = entity.component(ofType: PhysicsComponent.self) else { fatalError("An entity's FleeState's must have an PhysicsComponent.") }
+        return physicsComponent
     }
     
     // MARK: Initializers
@@ -51,6 +64,17 @@ class TaskBotFleeState: GKState
         super.didEnter(from: previousState)
         
         self.entity.isScared = true  //fry
+        self.entity.isDangerous = false
+
+        
+        // `movementComponent` is a computed property. Declare a local version so we don't compute it multiple times.
+        let movementComponent = self.movementComponent
+        
+        // Move the `ManBot` towards the target at an increased speed.
+        movementComponent.movementSpeed *= GameplayConfiguration.TaskBot.movementSpeedMultiplierWhenAttacking
+        movementComponent.angularSpeed *= GameplayConfiguration.TaskBot.angularSpeedMultiplierWhenAttacking
+        
+        
         
         //Reset the tracking of how long the 'ManBot' has been in "Scared" state
         elapsedTime = 0.0
@@ -59,7 +83,6 @@ class TaskBotFleeState: GKState
     override func update(deltaTime seconds: TimeInterval)
     {
         super.update(deltaTime: seconds)
-        
         elapsedTime += seconds
         
         stateMachine?.enter(TaskBotAgentControlledState.self)
@@ -81,6 +104,7 @@ class TaskBotFleeState: GKState
     {
         super.willExit(to: nextState)
         
+//        physicsComponent.physicsBody.mass = CGFloat(GameplayConfiguration.TaskBot.agentMass)
     }
     
     // MARK: Convenience
