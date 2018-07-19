@@ -306,7 +306,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         {
             guard let protestorTarget = entity as? ProtestorBot else { return }
             guard let protestorTargetObeisanceComponent = protestorTarget.component(ofType: ObeisanceComponent.self) else { return }
-            protestorTargetObeisanceComponent.addObeisance(obeisanceToAdd: 10.0)
+            protestorTargetObeisanceComponent.addObeisance(obeisanceToAdd: GameplayConfiguration.ProtestorBot.obeisanceGainPerCycle)
             
             //print("Increased the obeisance of the touching Protestor")
         }
@@ -347,14 +347,14 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
          4) Their is a high number of Dangerous Protestors nearby
          5) Their is a high number of Police nearby
         */
-        //guard let scene = component(ofType: RenderComponent.self)?.node.scene else { return }
+        guard let scene = component(ofType: RenderComponent.self)?.node.scene else { return }
         guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
         //guard let temperamentComponent = component(ofType: TemperamentComponent.self) else { return }
-        //guard let agentControlledState = intelligenceComponent.stateMachine.currentState as? TaskBotAgentControlledState else { return }
+        guard let agentControlledState = intelligenceComponent.stateMachine.currentState as? TaskBotAgentControlledState else { return }
         
         
-        // 1) Check enough thinking time has passed
-        //guard agentControlledState.elapsedTime >= GameplayConfiguration.ProtestorBot.delayBetweenAttacks else { return }
+        // Check if enough time has passed since the `ProtestorBot`'s last attack.
+        guard agentControlledState.elapsedTime >= GameplayConfiguration.TaskBot.delayBetweenAttacks else { return }
         
         // 2) Check if the Protestor is Scared
         //guard let scared = temperamentComponent.stateMachine.currentState as? ScaredState else { return }
@@ -378,6 +378,23 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
                 intelligenceComponent.stateMachine.enter(ProtestorInciteState.self)
 
             case let .huntAgent(targetAgent):
+                
+                // Check if the target is within the `ProtestorBot`'s attack range.
+                guard distanceToAgent(otherAgent: targetAgent) <= GameplayConfiguration.TaskBot.maximumAttackDistance else { return }
+                
+                // Check if any walls or obstacles are between the `PoliceBot` and its hunt target position.
+                var hasLineOfSight = true
+                
+                scene.physicsWorld.enumerateBodies(alongRayStart: CGPoint(agent.position), end: CGPoint(targetAgent.position)) { body, _, _, stop in
+                    if ColliderType(rawValue: body.categoryBitMask).contains(.Obstacle) {
+                        hasLineOfSight = false
+                        stop.pointee = true
+                    }
+                }
+                
+                if !hasLineOfSight { return }
+                
+                // The `ProtestorBot` is ready to attack the `targetAgent`'s current position.
                 intelligenceComponent.stateMachine.enter(ProtestorBotRotateToAttackState.self)
                 targetPosition = targetAgent.position
             
