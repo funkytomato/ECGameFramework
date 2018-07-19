@@ -77,7 +77,7 @@ class PoliceBotSupportState: GKState
         {
             
         case is TaskBotAgentControlledState.Type, is TaskBotFleeState.Type, is TaskBotInjuredState.Type,  is TaskBotZappedState.Type,
-             is ProtestorBotHitState.Type:
+             is PoliceBotHitState.Type:
             return true
             
         default:
