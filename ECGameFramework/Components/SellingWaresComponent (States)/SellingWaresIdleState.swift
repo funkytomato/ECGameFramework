@@ -54,8 +54,8 @@ class SellingWaresIdleState: GKState
         
 //        print("SellingWaresIdleState update: \(sellingWaresComponent.entity.debugDescription)")
         
-        // If selling has been triggered, move to SellingWaresActiveState and find somebody who wants to buy
-        if sellingWaresComponent.isTriggered
+        // If selling has been triggered and has wares, move to SellingWaresActiveState and find somebody who wants to buy
+        if sellingWaresComponent.isTriggered && sellingWaresComponent.hasWares
         {
             stateMachine?.enter(SellingWaresActiveState.self)
         }
