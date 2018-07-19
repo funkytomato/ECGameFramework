@@ -60,7 +60,7 @@ class TaskBotAgentControlledState: GKState
             chargeComponent.addCharge(chargeToAdd: chargeToAdd)
         }
         
-        self.entity.isDangerous = false  //fry ?
+//        self.entity.isDangerous = false  //fry ?
         
         guard let renderComponent = entity.component(ofType: RenderComponent.self) else { return }
         let scene = renderComponent.node.scene as? LevelScene
@@ -78,6 +78,15 @@ class TaskBotAgentControlledState: GKState
         // Check if enough time has passed since the last behavior update, and update the behavior if so.
         if timeSinceBehaviorUpdate >= GameplayConfiguration.TaskBot.behaviorUpdateWaitDuration
         {
+            
+            //Gradually increase the Police resistance
+            if self.entity.isPolice,
+                let resistanceComponent = entity.component(ofType: ResistanceComponent.self)
+            {
+                //let resistanceToAdd = resistanceComponent.maximumResistance - resistanceComponent.resistance
+                //            resistanceComponent.addResistance(resistanceToAdd: resistanceToAdd)
+                resistanceComponent.addResistance(resistanceToAdd: GameplayConfiguration.PoliceBot.resistanceRechargeAmountPerSecond)
+            }
             
             //Gradually decrease the obeisance
             if let obeisanceComponent = entity.component(ofType: ObeisanceComponent.self), obeisanceComponent.hasObeisance
@@ -130,11 +139,13 @@ class TaskBotAgentControlledState: GKState
                 case let .returnToPositionOnPath(position):
                     if entity.distanceToPoint(otherPoint: position) <= GameplayConfiguration.TaskBot.thresholdProximityToPatrolPathStartPoint
                     {
-                        if entity.isProtestor
+                        //If Protestor Criminal, wander
+                        if entity.isProtestor || entity.isCriminal
                         {
                             entity.mandate = .wander
                         }
                         
+                        //If Police, Patrol
                         else
                         {
                             entity.mandate = entity.isGood ? .followGoodPatrolPath : .followBadPatrolPath
@@ -173,7 +184,7 @@ class TaskBotAgentControlledState: GKState
         switch stateClass
         {
         case is TaskBotAgentControlledState.Type, is TaskBotZappedState.Type, /*is TaskBotPlayerControlledState.Type,*/ is TaskBotFleeState.Type, is TaskBotInjuredState.Type,
-             is PoliceBotRotateToAttackState.Type, is PoliceBotAttackState.Type, is PoliceBotPreAttackState.Type, is PoliceArrestState.Type, is PoliceDetainState.Type, is PoliceBotHitState.Type, is PoliceBotSupportState.Type,
+              is PoliceBotPreAttackState.Type, is PoliceBotRotateToAttackState.Type, is PoliceBotAttackState.Type, is PoliceArrestState.Type, is PoliceDetainState.Type, is PoliceBotHitState.Type, is PoliceBotSupportState.Type,
              is ProtestorBotPreAttackState.Type, is ProtestorBotRotateToAttackState.Type, is ProtestorBotAttackState.Type, is ProtestorBeingArrestedState.Type, is ProtestorArrestedState.Type, is ProtestorDetainedState.Type, is ProtestorBotHitState.Type, is ProtestorBotRechargingState.Type, is ProtestorInciteState.Type, is ProtestorBuyWaresState.Type, /*is ProtestorBotWanderState.Type,*/
              is SellWaresState.Type:
                 return true
