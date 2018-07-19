@@ -93,7 +93,7 @@ class ProtestorBotHitState: GKState
             //print("changeTemperament: \(val)")
             
             
-            if val < 3
+            if val < 5
             {
                 temperamentComponent.decreaseTemperament()
             }
@@ -123,7 +123,7 @@ class ProtestorBotHitState: GKState
                 self.entity.isRetaliating = false
             }
             
-            stateMachine?.enter(TaskBotAgentControlledState.self)
+//            stateMachine?.enter(TaskBotAgentControlledState.self)
         }
             
 
