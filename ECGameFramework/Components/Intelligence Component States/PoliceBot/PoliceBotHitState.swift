@@ -102,7 +102,7 @@ class PoliceBotHitState: GKState
             
             //print("changeTemperament: \(val)")
             
-            
+            //Police are less likely to get scared
             if val < 2
             {
                 temperamentComponent.decreaseTemperament()
@@ -120,9 +120,10 @@ class PoliceBotHitState: GKState
                 // Police is scared and will attempt to flee from danger
                 stateMachine?.enter(TaskBotFleeState.self)
             }
-            // Protestor is violent and will fight back
-            else if ((temperamentComponent.stateMachine.currentState as? ViolentState) != nil),
-                healthComponent.health > 30.0
+            // Police will fight back if they have enough health
+//            else if ((temperamentComponent.stateMachine.currentState as? ViolentState) != nil), healthComponent.health > 30.0
+
+            else if healthComponent.health > 30.0
             {
                 //Police will fight back with extreme prejudice
                 self.entity.isRetaliating = true
@@ -176,7 +177,8 @@ class PoliceBotHitState: GKState
     {
         switch stateClass
         {
-        case is TaskBotAgentControlledState.Type, is PoliceBotRechargingState.Type, is TaskBotInjuredState.Type, is TaskBotFleeState.Type:
+        case is TaskBotAgentControlledState.Type,  is TaskBotFleeState.Type,  is TaskBotInjuredState.Type, is TaskBotZappedState.Type,
+             is PoliceBotRechargingState.Type, is PoliceBotRotateToAttackState.Type:
             return true
             
         default:
