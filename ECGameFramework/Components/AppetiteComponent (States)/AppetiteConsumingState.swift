@@ -23,6 +23,8 @@ class AppetiteConsumingState: GKState
     
     /// The amount of time the beam has been cooling down.
     var elapsedTime: TimeInterval = 0.0
+    var consumptionSpeed: Double = 0.0
+    
     
     // MARK: Initializers
     
@@ -42,8 +44,16 @@ class AppetiteConsumingState: GKState
 //        print("AppetiteCoolingState entered")
         
         super.didEnter(from: previousState)
-        
         elapsedTime = 0.0
+        
+        // Create a random consumption speed
+        let randomSource = GKRandomSource.sharedRandom()
+        let diff = randomSource.nextUniform() // returns random Float between 0.0 and 1.0
+        let speed = diff * GameplayConfiguration.Appetite.consumptionLossPerSecond
+        
+        
+        self.consumptionSpeed = Double(speed)
+//        print("consumption speed :\(speed.debugDescription)")
     }
     
     override func update(deltaTime seconds: TimeInterval)
@@ -55,7 +65,8 @@ class AppetiteConsumingState: GKState
         elapsedTime += seconds
         
         //Start losing appetite
-        appetiteComponent.loseAppetite(appetiteToLose: GameplayConfiguration.ProtestorBot.appetiteLossPerCycle)
+//        appetiteComponent.loseAppetite(appetiteToLose: GameplayConfiguration.ProtestorBot.appetiteLossPerCycle)
+        appetiteComponent.loseAppetite(appetiteToLose: self.consumptionSpeed)
         
         //Protestor has consumed the product and should go into idle state
         if !appetiteComponent.hasAppetite
