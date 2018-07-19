@@ -444,8 +444,11 @@ struct GameplayConfiguration
         
         //MARK: Flee Properties
         
-        /// How much faster the `GroundBot` can move when attacking.
+        /// How much faster the `GroundBot` can move when fleeing.
         static let movementSpeedMultiplierWhenFleeing: CGFloat = 5.0
+        
+        /// How much faster the `GroundBot` can rotate when fleeing.
+        static let angularSpeedMultiplierWhenFleeing: CGFloat = 5.0
     }
     
     
