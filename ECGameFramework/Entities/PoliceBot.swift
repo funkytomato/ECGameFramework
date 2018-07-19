@@ -153,7 +153,6 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
         agent.maxSpeed = GameplayConfiguration.PoliceBot.maximumSpeedForIsGood(isGood: isGood)
         agent.mass = GameplayConfiguration.PoliceBot.agentMass
         
-        
         //Put PoliceBots on patrol
         mandate = isGood ? .followGoodPatrolPath : .followGoodPatrolPath
         
@@ -265,6 +264,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
         
         
         let physicsBody = SKPhysicsBody(circleOfRadius: GameplayConfiguration.TaskBot.physicsBodyRadius, center: GameplayConfiguration.TaskBot.physicsBodyOffset)
+        physicsBody.restitution = 100.0
         let physicsComponent = PhysicsComponent(physicsBody: physicsBody, colliderType: .TaskBot)
         addComponent(physicsComponent)
         
@@ -388,6 +388,10 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
             
             case let .supportPolice(targetAgent):
                 intelligenceComponent.stateMachine.enter(PoliceBotSupportState.self)
+                targetPosition = targetAgent.position
+            
+            case let .fleeAgent(targetAgent):
+                intelligenceComponent.stateMachine.enter(TaskBotFleeState.self)
                 targetPosition = targetAgent.position
             
             default:
