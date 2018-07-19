@@ -128,7 +128,8 @@ class PoliceBotAttackState: GKState
         
         switch stateClass
         {
-        case is TaskBotAgentControlledState.Type, is TaskBotZappedState.Type, is PoliceArrestState.Type, is PoliceBotHitState.Type:
+        case is TaskBotAgentControlledState.Type, is TaskBotFleeState.Type, is TaskBotInjuredState.Type, is TaskBotZappedState.Type,
+             is PoliceArrestState.Type/*, is PoliceBotHitState.Type*/:
             return true
             
         default:
@@ -141,7 +142,7 @@ class PoliceBotAttackState: GKState
         super.willExit(to: nextState)
         
         //Make Police not dangerous again
-        //self.entity.isDangerous = true
+        self.entity.isDangerous = false
         
         // `movementComponent` is a computed property. Declare a local version so we don't compute it multiple times.
         let movementComponent = self.movementComponent
@@ -177,15 +178,16 @@ class PoliceBotAttackState: GKState
             
             
             //Have they been beaten into submission?
-            if resistanceComponent.resistance < 25
+//            if resistanceComponent.resistance < 25
+            if !resistanceComponent.hasResistance
             {
                 stateMachine?.enter(PoliceArrestState.self)
                 intelligenceComponent.stateMachine.enter(ProtestorBeingArrestedState.self)
             }
-            else if resistanceComponent.percentageResistance < 80
+            else if resistanceComponent.percentageResistance < 50
             {
                 // Their guard is down, apply damage
-                healthComponent.loseHealth(healthToLose: GameplayConfiguration.PoliceBot.healthLossPerContact)
+                healthComponent.loseHealth(healthToLose: GameplayConfiguration.PoliceBot.damageDealt)
             }
         }
     }
