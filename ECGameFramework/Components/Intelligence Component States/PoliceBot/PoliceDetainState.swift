@@ -126,7 +126,7 @@ class PoliceDetainState: GKState
     {
         switch stateClass
         {
-        case is TaskBotAgentControlledState.Type, is TaskBotZappedState.Type:
+        case is TaskBotAgentControlledState.Type:
             return true
             
         default:
