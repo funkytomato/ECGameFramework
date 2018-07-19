@@ -173,10 +173,11 @@ class ProtestorBotAttackState: GKState
             
             
             //Have they been beaten into submission?
-            if resistanceComponent.percentageResistance < 80
+//            if resistanceComponent.percentageResistance < 80
+            if !resistanceComponent.hasResistance
             {
                 // Their guard is down, apply damage
-                healthComponent.loseHealth(healthToLose: GameplayConfiguration.ProtestorBot.healthLossPerContact)
+                healthComponent.loseHealth(healthToLose: GameplayConfiguration.ProtestorBot.damageDealt)
             }
         }
             
