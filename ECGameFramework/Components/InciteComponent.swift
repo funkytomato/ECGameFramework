@@ -48,6 +48,13 @@ class InciteComponent: GKComponent
         return animationComponent
     }
     
+    /// The `IntelligenceComponent' for this component's 'entity'.
+    var intelligenceComponent: IntelligenceComponent
+    {
+        guard let intelligenceComponent = entity?.component(ofType: IntelligenceComponent.self) else { fatalError("A InciteComponent's entity must have a IntelligenceComponent") }
+        return intelligenceComponent
+    }
+    
     // MARK: Initializers
     
     override init()
@@ -83,6 +90,18 @@ class InciteComponent: GKComponent
         
 //        print("current state: \(stateMachine.currentState.debugDescription)")
         
+        //Check Protestor is not fighting or confrontation with Police
+
+//        guard ((intelligenceComponent.stateMachine.currentState as? ProtestorArrestedState) == nil) else { return }
+//        guard ((intelligenceComponent.stateMachine.currentState as? ProtestorBeingArrestedState) == nil) else { return }
+//        guard ((intelligenceComponent.stateMachine.currentState as? ProtestorBotRotateToAttackState) == nil) else { return }
+//        guard ((intelligenceComponent.stateMachine.currentState as? ProtestorBotPreAttackState) == nil) else { return }
+//        guard ((intelligenceComponent.stateMachine.currentState as? ProtestorBotAttackState) == nil) else { return }
+//        guard ((intelligenceComponent.stateMachine.currentState as? ProtestorBotHitState) == nil) else { return }
+//        guard ((intelligenceComponent.stateMachine.currentState as? TaskBotInjuredState) == nil) else { return }
+//        guard ((intelligenceComponent.stateMachine.currentState as? TaskBotFleeState) == nil) else { return }
+        
+        guard ((intelligenceComponent.stateMachine.currentState as? ProtestorInciteState) != nil) else { return }
         guard (stateMachine.currentState as? InciteActiveState) != nil else { return }
         
         guard let target = entity as? ProtestorBot else { return }
