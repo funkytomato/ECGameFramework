@@ -19,7 +19,8 @@ import GameplayKit
 class CalmState: GKState
 {
     // MARK:- Properties
-    unowned var entity: TaskBot
+//    unowned var entity: TaskBot
+    unowned var temperamentComponent: TemperamentComponent
     
     //The amount of time the 'ManBot' has been in its "Arrested" state
     var elapsedTime: TimeInterval = 0.0
@@ -27,17 +28,20 @@ class CalmState: GKState
     /// The `SpriteComponent` associated with the `entity`.
     var spriteComponent: SpriteComponent
     {
-        guard let spriteComponent = entity.component(ofType: SpriteComponent.self) else { fatalError("An entity's AngryState must have an AnimationComponent.") }
+        guard let spriteComponent = temperamentComponent.entity?.component(ofType: SpriteComponent.self) else { fatalError("An entity's AngryState must have an AnimationComponent.") }
         return spriteComponent
     }
     
     
     //MARK:- Initializers
-    required init(entity: TaskBot)
+//    required init(e/Users/spaceman/Development/Game Development/Games/ECGameFramework/ECGameFramework/Components/TemperamentComponent States/RageState.swiftntity: TaskBot)
+//    {
+//        self.entity = entity
+//    }
+    required init(temperamentComponent: TemperamentComponent)
     {
-        self.entity = entity
+        self.temperamentComponent = temperamentComponent
     }
-    
     
     deinit {
 //        print("Deallocating CalmState")
@@ -54,9 +58,9 @@ class CalmState: GKState
         //Change the colour of the sprite to show calmness
         spriteComponent.changeColour(colour: SKColor.green)
         
-        self.entity.isScared = false
-        
-        entity.isViolent = false
+//        self.entity.isScared = false
+//        
+//        entity.isViolent = false
         
     }
     

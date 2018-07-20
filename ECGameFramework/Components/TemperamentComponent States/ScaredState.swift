@@ -18,7 +18,8 @@ import GameplayKit
 class ScaredState: GKState
 {
     // MARK:- Properties
-    unowned var entity: TaskBot
+//    unowned var entity: TaskBot
+    unowned var temperamentComponent: TemperamentComponent
     
     //The amount of time the 'ManBot' has been in its "Arrested" state
     var elapsedTime: TimeInterval = 0.0
@@ -28,15 +29,20 @@ class ScaredState: GKState
     /// The `SpriteComponent` associated with the `entity`.
     var spriteComponent: SpriteComponent
     {
-        guard let spriteComponent = entity.component(ofType: SpriteComponent.self) else { fatalError("An entity's AngryState must have an AnimationComponent.") }
+        guard let spriteComponent = temperamentComponent.entity?.component(ofType: SpriteComponent.self) else { fatalError("An entity's AngryState must have an AnimationComponent.") }
         return spriteComponent
     }
 
     
     //MARK:- Initializers
-    required init(entity: TaskBot)
+//    required init(entity: TaskBot)
+//    {
+//        self.entity = entity
+//    }
+    
+    required init(temperamentComponent: TemperamentComponent)
     {
-        self.entity = entity
+        self.temperamentComponent = temperamentComponent
     }
     
     
@@ -57,9 +63,9 @@ class ScaredState: GKState
         
         
         //Set the entity is scared for pathfinding
-        entity.isScared = true
-        
-        entity.isViolent = false
+//        entity.isScared = true
+//
+//        entity.isViolent = false
     }
     
     override func update(deltaTime seconds: TimeInterval)
@@ -73,7 +79,7 @@ class ScaredState: GKState
         if elapsedTime >= GameplayConfiguration.TaskBot.scaredStateDuration
         {
             stateMachine?.enter(CalmState.self)
-            entity.isScared = false
+//            entity.isScared = false
         }
     }
     

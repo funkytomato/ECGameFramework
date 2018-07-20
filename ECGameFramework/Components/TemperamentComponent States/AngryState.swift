@@ -19,7 +19,9 @@ import GameplayKit
 class AngryState: GKState
 {
     // MARK:- Properties
-    unowned var entity: TaskBot
+//    unowned var entity: TaskBot
+    unowned var temperamentComponent: TemperamentComponent
+    
     
     //The amount of time the 'ManBot' has been in its "Arrested" state
     var elapsedTime: TimeInterval = 0.0
@@ -27,15 +29,21 @@ class AngryState: GKState
     /// The `SpriteComponent` associated with the `entity`.
     var spriteComponent: SpriteComponent
     {
-        guard let spriteComponent = entity.component(ofType: SpriteComponent.self) else { fatalError("An entity's AngryState must have an AnimationComponent.") }
+        guard let spriteComponent = temperamentComponent.entity?.component(ofType: SpriteComponent.self) else { fatalError("An entity's AngryState must have an AnimationComponent.") }
         return spriteComponent
     }
 
     //MARK:- Initializers
-    required init(entity: TaskBot)
+//    required init(entity: TaskBot)
+//    {
+//        self.entity = entity
+//    }
+    
+    required init(temperamentComponent: TemperamentComponent)
     {
-        self.entity = entity
+        self.temperamentComponent = temperamentComponent
     }
+    
     
     deinit {
 //        print("Deallocating AngryState")
@@ -54,9 +62,9 @@ class AngryState: GKState
         //Change the colour of the sprite to show anger
         spriteComponent.changeColour(colour: SKColor.orange)
         
-        entity.isScared = false
+//        temperamentComponent.entity.isScared = false
         
-        entity.isViolent = false
+//        temperamentComponent.entity.isViolent = false
     }
     
     override func update(deltaTime seconds: TimeInterval)

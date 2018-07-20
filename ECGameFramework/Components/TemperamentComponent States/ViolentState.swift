@@ -19,7 +19,8 @@ import GameplayKit
 class ViolentState: GKState
 {
     // MARK:- Properties
-    unowned var entity: TaskBot
+//    unowned var entity: TaskBot
+    unowned var temperamentComponent: TemperamentComponent
     
     //The amount of time the 'ProtestorBot' has been in its "Violent" state
     var elapsedTime: TimeInterval = 0.0
@@ -30,14 +31,19 @@ class ViolentState: GKState
     /// The `SpriteComponent` associated with the `entity`.
     var spriteComponent: SpriteComponent
     {
-        guard let spriteComponent = entity.component(ofType: SpriteComponent.self) else { fatalError("An entity's ViolentState must have an AnimationComponent.") }
+        guard let spriteComponent = temperamentComponent.entity?.component(ofType: SpriteComponent.self) else { fatalError("An entity's ViolentState must have an AnimationComponent.") }
         return spriteComponent
     }
     
     //MARK:- Initializers
-    required init(entity: TaskBot)
+//    required init(entity: TaskBot)
+//    {
+//        self.entity = entity
+//    }
+    
+    required init(temperamentComponent: TemperamentComponent)
     {
-        self.entity = entity
+        self.temperamentComponent = temperamentComponent
     }
     
     deinit {
@@ -56,9 +62,9 @@ class ViolentState: GKState
         //Change the colour of the sprite to show violent
         spriteComponent.changeColour(colour: SKColor.red)
 
-        entity.isViolent = true
-        
-        entity.isScared = false
+//        entity.isViolent = true
+//        
+//        entity.isScared = false
     }
     
     override func update(deltaTime seconds: TimeInterval)
