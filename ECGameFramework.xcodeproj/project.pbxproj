@@ -209,6 +209,9 @@
 		C2EB349920912A9C00DCF457 /* TazerFiringState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EB349820912A9C00DCF457 /* TazerFiringState.swift */; };
 		C2EB349B20912C0A00DCF457 /* TazerIdleState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EB349A20912C0A00DCF457 /* TazerIdleState.swift */; };
 		C2EB349D20913D3800DCF457 /* TazerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EB349C20913D3800DCF457 /* TazerNode.swift */; };
+		C2EEAD72210219A30062D7A2 /* RageState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EEAD71210219A30062D7A2 /* RageState.swift */; };
+		C2EEAD7421021A220062D7A2 /* AggitatedState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EEAD7321021A220062D7A2 /* AggitatedState.swift */; };
+		C2EEAD7621021A860062D7A2 /* FearfulState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EEAD7521021A860062D7A2 /* FearfulState.swift */; };
 		C2F3EF7F20FCB2C90009F15A /* ProtestorBotWanderState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2F3EF7E20FCB2C90009F15A /* ProtestorBotWanderState.swift */; };
 /* End PBXBuildFile section */
 
@@ -432,6 +435,9 @@
 		C2EB349820912A9C00DCF457 /* TazerFiringState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TazerFiringState.swift; sourceTree = "<group>"; };
 		C2EB349A20912C0A00DCF457 /* TazerIdleState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TazerIdleState.swift; sourceTree = "<group>"; };
 		C2EB349C20913D3800DCF457 /* TazerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TazerNode.swift; sourceTree = "<group>"; };
+		C2EEAD71210219A30062D7A2 /* RageState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RageState.swift; sourceTree = "<group>"; };
+		C2EEAD7321021A220062D7A2 /* AggitatedState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AggitatedState.swift; sourceTree = "<group>"; };
+		C2EEAD7521021A860062D7A2 /* FearfulState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FearfulState.swift; sourceTree = "<group>"; };
 		C2F3EF7E20FCB2C90009F15A /* ProtestorBotWanderState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtestorBotWanderState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -645,6 +651,9 @@
 				18C82A5F20861FCA0046B746 /* ScaredState.swift */,
 				18C82A67208620C80046B746 /* SubduedState.swift */,
 				18C82A65208620A90046B746 /* ViolentState.swift */,
+				C2EEAD71210219A30062D7A2 /* RageState.swift */,
+				C2EEAD7321021A220062D7A2 /* AggitatedState.swift */,
+				C2EEAD7521021A860062D7A2 /* FearfulState.swift */,
 			);
 			path = "TemperamentComponent States";
 			sourceTree = "<group>";
@@ -1258,6 +1267,7 @@
 				18C82A642086207B0046B746 /* AngryState.swift in Sources */,
 				18443F2520E7F11400660E27 /* BuyingWaresLookingState.swift in Sources */,
 				185960F6209E7D0800F6972E /* ResistanceCoolingState.swift in Sources */,
+				C2EEAD7421021A220062D7A2 /* AggitatedState.swift in Sources */,
 				18FCEA602040EC40009A5C0D /* BeamComponent.swift in Sources */,
 				18F52205208927E80070EB0C /* PoliceDetainState.swift in Sources */,
 				186F6E512040D1D1001EEF65 /* AppDelegate.swift in Sources */,
@@ -1290,6 +1300,7 @@
 				18FCEA502040EC40009A5C0D /* LevelSceneSuccessState.swift in Sources */,
 				C23337C520B5CD8C00A79CD5 /* CriminalBot.swift in Sources */,
 				18FCEA692040EC40009A5C0D /* FlyingBotPreAttackState.swift in Sources */,
+				C2EEAD72210219A30062D7A2 /* RageState.swift in Sources */,
 				18F1455B20D0173D002DC88D /* ProtestorInciteState.swift in Sources */,
 				181146AA20DEAD710060EF0A /* IntoxicationComponent.swift in Sources */,
 				C2AC3A0B20E50310001F784E /* SellingWaresComponent.swift in Sources */,
@@ -1312,6 +1323,7 @@
 				C2AC3A0E20E503F0001F784E /* SellingWaresCoolingState.swift in Sources */,
 				1823608D209BA1D000E71EB6 /* ResistanceComponent.swift in Sources */,
 				185960F8209E7DFB00F6972E /* ResistanceHitState.swift in Sources */,
+				C2EEAD7621021A860062D7A2 /* FearfulState.swift in Sources */,
 				18C8C091208F38DE002FA9C0 /* PoliceBotRechargingState.swift in Sources */,
 				18FCF8CD20CB0AB5000C1B63 /* InciteNode.swift in Sources */,
 				18FCEA4F2040EC40009A5C0D /* LevelScenePauseState.swift in Sources */,
