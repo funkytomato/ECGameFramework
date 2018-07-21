@@ -141,7 +141,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
     
     // MARK: Initialization
     
-    required init(temperament: String, isGood: Bool, goodPathPoints: [CGPoint], badPathPoints: [CGPoint])
+    required init(temperamentState: String, isGood: Bool, goodPathPoints: [CGPoint], badPathPoints: [CGPoint])
     {
         super.init(isGood: isGood, goodPathPoints: goodPathPoints, badPathPoints: badPathPoints)
         
@@ -162,6 +162,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
         let initialCharge: Double
         let initialHealth: Double
         let initialResistance: Double
+        let initialTemperament: Double
         
         if isGood
         {
@@ -173,6 +174,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
             initialCharge = 100.0
             initialHealth = 100.0
             initialResistance = 100.0
+            initialTemperament = 0.0
             
             texture = SKTexture(imageNamed: "PoliceBot")
         }
@@ -187,6 +189,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
             initialCharge = GameplayConfiguration.PoliceBot.maximumCharge
             initialHealth = GameplayConfiguration.PoliceBot.maximumHealth
             initialResistance = GameplayConfiguration.PoliceBot.maximumResistance
+            initialTemperament = GameplayConfiguration.PoliceBot.maximumTemperament
             
             texture = SKTexture(imageNamed: "PoliceBotBad")
         }
@@ -226,39 +229,8 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
             ])
         addComponent(intelligenceComponent)
         
-        var initialState : GKState?
-        switch temperament
-        {
-        case "Scared":
-            //initialState = ScaredState(entity: self) as? GKState
-            initialState = ScaredState(entity: self)
-            
-        case "Calm":
-            //initialState = CalmState(entity: self) as? GKState
-            initialState = CalmState(entity: self)
-            
-        case "Angry":
-            //initialState = AngryState(entity: self) as? GKState
-            initialState = AngryState(entity: self)
-            
-        case "Violent":
-            //initialState = ViolentState(entity: self) as? GKState
-            initialState = ViolentState(entity: self)
-            
-        default:
-            //initialState = CalmState(entity: self) as? GKState
-            initialState = CalmState(entity: self)
-        }
         
-        //print("initialState :\(initialState.debugDescription)")
-        
-        let temperamentComponent = TemperamentComponent(states: [
-            CalmState(entity: self),
-            ScaredState(entity: self),
-            AngryState(entity: self),
-            ViolentState(entity: self),
-            SubduedState(entity: self)
-            ], initialState: initialState!)
+        let temperamentComponent = TemperamentComponent(initialTemperament: temperamentState, temperament: initialTemperament, maximumTemperament: GameplayConfiguration.ProtestorBot.maximumTemperament, displaysTemperamentBar: true)
         addComponent(temperamentComponent)
         
         
