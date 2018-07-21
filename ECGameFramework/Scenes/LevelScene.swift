@@ -238,13 +238,13 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
             {
                 
                 case .police:
-                    taskBot = PoliceBot(temperament: taskBotConfiguration.temperament, isGood: !taskBotConfiguration.startsBad, goodPathPoints: goodPathPoints, badPathPoints: badPathPoints)
+                    taskBot = PoliceBot(temperamentState: taskBotConfiguration.temperament, isGood: !taskBotConfiguration.startsBad, goodPathPoints: goodPathPoints, badPathPoints: badPathPoints)
                 
                 case .protestor:
-                    taskBot = ProtestorBot(temperament: taskBotConfiguration.temperament, isGood: !taskBotConfiguration.startsBad, goodPathPoints: goodPathPoints, badPathPoints: badPathPoints)
+                    taskBot = ProtestorBot(temperamentState: taskBotConfiguration.temperament, isGood: !taskBotConfiguration.startsBad, goodPathPoints: goodPathPoints, badPathPoints: badPathPoints)
                 
                 case .criminal:
-                    taskBot = CriminalBot(temperament: taskBotConfiguration.temperament, isGood: !taskBotConfiguration.startsBad, goodPathPoints: goodPathPoints, badPathPoints: badPathPoints)
+                    taskBot = CriminalBot(temperamentState: taskBotConfiguration.temperament, isGood: !taskBotConfiguration.startsBad, goodPathPoints: goodPathPoints, badPathPoints: badPathPoints)
                 
             }
             
@@ -630,6 +630,24 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
                 
                 sellingWaresBar.constraints = [constraint]
             }
+            
+            /*
+             If the entity has a `TemperamentComponent` with a `TemperamentBar`, add the `TemperamentBar`
+             to the scene. Constrain the `TemperamentBar` to the `RenderComponent`'s node.
+             */
+            if let temperamentBar = entity.component(ofType: TemperamentComponent.self)?.temperamentBar
+            {
+                addNode(node: temperamentBar, toWorldLayer: .aboveCharacters)
+                
+                // Constrain the `TemperamentBar`'s node position to the render node.
+                let xRange = SKRange(constantValue: GameplayConfiguration.TemperamentBar.temperamentBarOffset.x)
+                let yRange = SKRange(constantValue: GameplayConfiguration.TemperamentBar.temperamentBarOffset.y)
+                
+                let constraint = SKConstraint.positionX(xRange, y: yRange)
+                constraint.referenceNode = renderNode
+                
+                temperamentBar.constraints = [constraint]
+            }
         }
         
         // If the entity has an `IntelligenceComponent`, enter its initial state.
@@ -638,11 +656,11 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
             intelligenceComponent.enterInitialState()
         }
         
-        // If the entity has an `TemperamentComponent`, enter its initial state.
-        if let temperamentComponent = entity.component(ofType: TemperamentComponent.self)
-        {
-            temperamentComponent.enterInitialState()
-        }
+//        // If the entity has an `TemperamentComponent`, enter its initial state.
+//        if let temperamentComponent = entity.component(ofType: TemperamentComponent.self)
+//        {
+//            temperamentComponent.enterInitialState()
+//        }
         
     }
     
