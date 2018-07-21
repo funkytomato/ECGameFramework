@@ -35,6 +35,18 @@ struct GameplayConfiguration
         
     }
     
+    
+    //  MARK:- TemperamentComponent Bar
+    //  Shows the temperament of the TaskBot
+    struct TemperamentBar
+    {
+        // The charge level node color.
+        static let foregroundLevelColour = SKColor.cyan
+        
+        // The offset of the Entity's charge bar from its position.
+        static let temperamentBarOffset = CGPoint(x: 0.0, y: 135.0)
+    }
+    
     //  MARK:- SellingWaresComponent Bar
     //  Shows the quantity of products available for sale
     struct SellingWaresBar
@@ -546,6 +558,18 @@ struct GameplayConfiguration
         
         /// The offset from the `GroundBot`'s position that should be used for beam targeting.
         static let beamTargetOffset = CGPoint(x: 0.0, y: 40.0)
+        
+        
+        //MARK: Temperament Properties
+        
+        /// The maximum amount of appetite a `GroundBot` stores.
+        static let maximumTemperament = 100.0
+        
+        /// The amount the Temperament increases per cycle
+        static let temperamentIncreasePerCycle = 1
+        
+        // The amount the Temperament decreases per cycle
+        static let temperamentReductionPerCycle = 1
    
     }
     
@@ -668,6 +692,17 @@ struct GameplayConfiguration
         /// The amount of charge that the `ProtestorBot` gains per second when recharging.
         static let rechargeAmountPerSecond = 10.0
         
+        
+        //MARK: Temperament Properties
+        
+        /// The maximum amount of appetite a `GroundBot` stores.
+        static let maximumTemperament = 100.0
+        
+        /// The amount the Temperament increases per cycle
+        static let temperamentIncreasePerCycle = 1
+        
+        // The amount the Temperament decreases per cycle
+        static let temperamentReductionPerCycle = 1
     }
     
     
@@ -787,6 +822,17 @@ struct GameplayConfiguration
         
         /// The amount of charge that the `ProtestorBot` gains per second when recharging.
         static let rechargeAmountPerSecond = 10.0
+        
+        //MARK: Temperament Properties
+        
+        /// The maximum amount of appetite a `GroundBot` stores.
+        static let maximumTemperament = 100.0
+        
+        /// The amount the Temperament increases per cycle
+        static let temperamentIncreasePerCycle = 1
+        
+        // The amount the Temperament decreases per cycle
+        static let temperamentReductionPerCycle = 1
     }
 
     
