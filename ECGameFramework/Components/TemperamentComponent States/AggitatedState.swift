@@ -55,23 +55,36 @@ class AggitatedState: GKState
     override func didEnter(from previousState: GKState?)
     {
         super.didEnter(from: previousState)
-        
-        //Reset the tracking of how long the 'ProtestorBot' has been in "AggitatedState" state
         elapsedTime = 0.0
         
         //Change the colour of the sprite to show violent
-        spriteComponent.changeColour(colour: SKColor.red)
+//        spriteComponent.changeColour(colour: SKColor.red)
         
-//        entity.isViolent = false
-//        
-//        entity.isScared = false
+        //Set the entity is scared for pathfinding
+        guard let taskBot = temperamentComponent.entity as? TaskBot else { return }
+        taskBot.isViolent = false
+        taskBot.isScared = false
     }
     
     override func update(deltaTime seconds: TimeInterval)
     {
         super.update(deltaTime: seconds)
-        
         elapsedTime += seconds
+        
+        
+        //If temperament rises move to Angry state
+        if elapsedTime >= GameplayConfiguration.Temperament.minimumDurationInStateValue &&
+            temperamentComponent.temperament > GameplayConfiguration.Temperament.aggitatedStateMaximumValue
+        {
+            stateMachine?.enter(AngryState.self)
+        }
+        
+        // temperament has dropped, move to Calm state
+        else if elapsedTime >= GameplayConfiguration.Temperament.minimumDurationInStateValue &&
+            temperamentComponent.temperament < GameplayConfiguration.Temperament.aggitatedStateMinimumValue
+        {
+            stateMachine?.enter(CalmState.self)
+        }
         
     }
     
@@ -79,7 +92,7 @@ class AggitatedState: GKState
     {
         switch stateClass
         {
-        case is ScaredState.Type, is CalmState.Type, is AngryState.Type, is SubduedState.Type:
+        case is CalmState.Type, is AngryState.Type, is SubduedState.Type:
             return true
             
         default:

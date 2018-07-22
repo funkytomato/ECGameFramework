@@ -54,24 +54,37 @@ class AngryState: GKState
     override func didEnter(from previousState: GKState?)
     {
         super.didEnter(from: previousState)
-        
-        //Reset the tracking of how long the 'ManBot' has been in "Angry" state
         elapsedTime = 0.0
         
         
         //Change the colour of the sprite to show anger
-        spriteComponent.changeColour(colour: SKColor.orange)
+//        spriteComponent.changeColour(colour: SKColor.orange)
         
-//        temperamentComponent.entity.isScared = false
-        
-//        temperamentComponent.entity.isViolent = false
+        //Set the entity is scared for pathfinding
+        guard let taskBot = temperamentComponent.entity as? TaskBot else { return }
+        taskBot.isViolent = false
+        taskBot.isScared = false
     }
     
     override func update(deltaTime seconds: TimeInterval)
     {
         super.update(deltaTime: seconds)
-        
         elapsedTime += seconds
+        
+        
+        //If temperament rises move to Violent state
+        if elapsedTime >= GameplayConfiguration.Temperament.minimumDurationInStateValue &&
+            temperamentComponent.temperament > GameplayConfiguration.Temperament.angryStateMaximumValue
+        {
+            stateMachine?.enter(ViolentState.self)
+        }
+        
+        // temperament has dropped, move to Aggitated state
+        else if elapsedTime >= GameplayConfiguration.Temperament.minimumDurationInStateValue &&
+            temperamentComponent.temperament < GameplayConfiguration.Temperament.angryStateMinimumValue
+        {
+            stateMachine?.enter(AggitatedState.self)
+        }
         
     }
     
@@ -79,7 +92,7 @@ class AngryState: GKState
     {
         switch stateClass
         {
-        case is CalmState.Type, is ScaredState.Type, is ViolentState.Type:
+        case is AggitatedState.Type, is ViolentState.Type, is SubduedState.Type:
             return true
             
         default:

@@ -60,20 +60,16 @@ class SubduedState: GKState
         //Change the colour of the sprite to show subdued
         spriteComponent.changeColour(colour: SKColor.darkGray)
         
-        //Taskbot is incapacitated
-        //entity.isActive = false
-        
-//        entity.isScared = false
-//        
-//        entity.isViolent = false
-        
-        
+        //Set the entity to incapacitated for pathfinding
+        guard let taskBot = temperamentComponent.entity as? TaskBot else { return }
+        taskBot.isViolent = false
+        taskBot.isScared = false
+        taskBot.isActive = false 
     }
     
     override func update(deltaTime seconds: TimeInterval)
     {
         super.update(deltaTime: seconds)
-        
         elapsedTime += seconds
 
     }

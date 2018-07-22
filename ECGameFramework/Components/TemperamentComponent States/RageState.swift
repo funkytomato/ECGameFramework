@@ -55,31 +55,36 @@ class RageState: GKState
     override func didEnter(from previousState: GKState?)
     {
         super.didEnter(from: previousState)
-        
-        //Reset the tracking of how long the 'ProtestorBot' has been in "Violent" state
         elapsedTime = 0.0
         
         //Change the colour of the sprite to show violent
-        spriteComponent.changeColour(colour: SKColor.red)
+//        spriteComponent.changeColour(colour: SKColor.red)
         
-//        entity.isViolent = true
-//        
-//        entity.isScared = false
+        //Set the entity is scared for pathfinding
+        guard let taskBot = temperamentComponent.entity as? TaskBot else { return }
+        taskBot.isViolent = true
+        taskBot.isScared = false
     }
     
     override func update(deltaTime seconds: TimeInterval)
     {
         super.update(deltaTime: seconds)
-        
         elapsedTime += seconds
         
+        
+        //If temperament drops move to Violent state
+        if elapsedTime >= GameplayConfiguration.Temperament.minimumDurationInStateValue &&
+            temperamentComponent.temperament < GameplayConfiguration.Temperament.rageStateMinimumValue
+        {
+            stateMachine?.enter(ViolentState.self)
+        }
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
     {
         switch stateClass
         {
-        case is ScaredState.Type, is ViolentState.Type, is SubduedState.Type:
+        case is ViolentState.Type:
             return true
             
         default:

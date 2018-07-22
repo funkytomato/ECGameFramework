@@ -54,15 +54,21 @@ class ScaredState: GKState
     override func didEnter(from previousState: GKState?)
     {
         super.didEnter(from: previousState)
-        
-        //Reset the tracking of how long the 'ManBot' has been in "Scared" state
         elapsedTime = 0.0
         
-        //Change the colour of the sprite to show calmness
-        spriteComponent.changeColour(colour: SKColor.purple)
+
         
+        //Change the colour of the sprite to show calmness
+//        spriteComponent.changeColour(colour: SKColor.purple)
         
         //Set the entity is scared for pathfinding
+        guard let taskBot = temperamentComponent.entity as? TaskBot else { return }
+        taskBot.isViolent = false
+        taskBot.isScared = true
+
+        
+        
+
 //        entity.isScared = true
 //
 //        entity.isViolent = false
@@ -71,23 +77,29 @@ class ScaredState: GKState
     override func update(deltaTime seconds: TimeInterval)
     {
         super.update(deltaTime: seconds)
-        
         elapsedTime += seconds
         
-
-        // If the entity has spent long enough cooling down, enter `CalmState`.
-        if elapsedTime >= GameplayConfiguration.TaskBot.scaredStateDuration
+        //If temperament rises above Scared maximum move to next state
+        if elapsedTime >= GameplayConfiguration.Temperament.minimumDurationInStateValue &&
+            temperamentComponent.temperament > GameplayConfiguration.Temperament.scaredStateMaximumValue
         {
-            stateMachine?.enter(CalmState.self)
-//            entity.isScared = false
+            stateMachine?.enter(FearfulState.self)
         }
+        
+        
+        // If the entity has spent long enough cooling down, enter `CalmState`.
+//        if elapsedTime >= GameplayConfiguration.TaskBot.scaredStateDuration
+//        {
+//            stateMachine?.enter(FearfulState.self)
+////            entity.isScared = false
+//        }
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
     {
         switch stateClass
         {
-        case is CalmState.Type, is AngryState.Type:
+        case is FearfulState.Type, is SubduedState.Type:
             return true
             
         default:

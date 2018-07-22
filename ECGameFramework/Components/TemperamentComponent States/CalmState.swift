@@ -25,12 +25,12 @@ class CalmState: GKState
     //The amount of time the 'ManBot' has been in its "Arrested" state
     var elapsedTime: TimeInterval = 0.0
     
-    /// The `SpriteComponent` associated with the `entity`.
-    var spriteComponent: SpriteComponent
-    {
-        guard let spriteComponent = temperamentComponent.entity?.component(ofType: SpriteComponent.self) else { fatalError("An entity's AngryState must have an AnimationComponent.") }
-        return spriteComponent
-    }
+//    /// The `SpriteComponent` associated with the `entity`.
+//    var spriteComponent: SpriteComponent
+//    {
+//        guard let spriteComponent = temperamentComponent.entity?.component(ofType: SpriteComponent.self) else { fatalError("An entity's CalmState must have an AnimationComponent.") }
+//        return spriteComponent
+//    }
     
     
     //MARK:- Initializers
@@ -51,32 +51,45 @@ class CalmState: GKState
     override func didEnter(from previousState: GKState?)
     {
         super.didEnter(from: previousState)
-        
-        //Reset the tracking of how long the 'ProtestorBot' has been in "Calm" state
         elapsedTime = 0.0
         
         //Change the colour of the sprite to show calmness
-        spriteComponent.changeColour(colour: SKColor.green)
+//        spriteComponent.changeColour(colour: SKColor.green)
         
-//        self.entity.isScared = false
-//        
-//        entity.isViolent = false
-        
+        //Set the entity is scared for pathfinding
+        guard let taskBot = temperamentComponent.entity as? TaskBot else { return }
+        taskBot.isViolent = false
+        taskBot.isScared = false
     }
     
     override func update(deltaTime seconds: TimeInterval)
     {
         super.update(deltaTime: seconds)
-        
         elapsedTime += seconds
         
+        
+        print("temperament: \(temperamentComponent.temperament), calmStateMaximum: \(GameplayConfiguration.Temperament.calmStateMaximumValue)")
+        
+        // If temperament rises enough move to Aggitated state
+        if elapsedTime >= GameplayConfiguration.Temperament.minimumDurationInStateValue &&
+            temperamentComponent.temperament > GameplayConfiguration.Temperament.calmStateMaximumValue
+        {
+            stateMachine?.enter(AggitatedState.self)
+        }
+        
+        // temperament has dropped, move to Calm state
+        else if elapsedTime >= GameplayConfiguration.Temperament.minimumDurationInStateValue &&
+            temperamentComponent.temperament < GameplayConfiguration.Temperament.calmStateMinimumValue
+        {
+            stateMachine?.enter(CalmState.self)
+        }
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
     {
         switch stateClass
         {
-        case is ScaredState.Type, is AngryState.Type, is SubduedState.Type:
+        case is FearfulState.Type, is AggitatedState.Type, is SubduedState.Type:
             return true
             
         default:
