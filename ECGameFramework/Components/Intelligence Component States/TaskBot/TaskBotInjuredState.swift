@@ -82,10 +82,7 @@ class TaskBotInjuredState: GKState
     
     override func update(deltaTime seconds: TimeInterval)
     {
-        super.update(deltaTime: seconds)
-
-
-        
+        super.update(deltaTime: seconds) 
         elapsedTime += seconds
         
     }
