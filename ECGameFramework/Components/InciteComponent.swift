@@ -86,7 +86,7 @@ class InciteComponent: GKComponent
     
     override func update(deltaTime seconds: TimeInterval)
     {
-        stateMachine.update(deltaTime: seconds)
+
         
 //        print("current state: \(stateMachine.currentState.debugDescription)")
         
@@ -100,14 +100,28 @@ class InciteComponent: GKComponent
 //        guard ((intelligenceComponent.stateMachine.currentState as? ProtestorBotHitState) == nil) else { return }
 //        guard ((intelligenceComponent.stateMachine.currentState as? TaskBotInjuredState) == nil) else { return }
 //        guard ((intelligenceComponent.stateMachine.currentState as? TaskBotFleeState) == nil) else { return }
-        
-        guard ((intelligenceComponent.stateMachine.currentState as? ProtestorInciteState) != nil) else { return }
-        guard (stateMachine.currentState as? InciteActiveState) != nil else { return }
+//        
+//        guard ((intelligenceComponent.stateMachine.currentState as? ProtestorInciteState) != nil) else { return }
+//        guard (stateMachine.currentState as? InciteActiveState) != nil else { return }
         
         guard let target = entity as? ProtestorBot else { return }
+        
         if target.isActive
         {
-            animationComponent.requestedAnimationState = .inciting
+            stateMachine.update(deltaTime: seconds)
+            
+            guard let currentState = stateMachine.currentState else { return }
+            
+            switch currentState
+            {
+                case is InciteActiveState:
+                    animationComponent.requestedAnimationState = .inciting
+                
+                default:
+                    animationComponent.requestedAnimationState = .idle
+            }
+            
+//            animationComponent.requestedAnimationState = .inciting
         }
     }
     
