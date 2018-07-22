@@ -36,16 +36,7 @@ struct GameplayConfiguration
     }
     
     
-    //  MARK:- TemperamentComponent Bar
-    //  Shows the temperament of the TaskBot
-    struct TemperamentBar
-    {
-        // The charge level node color.
-        static let foregroundLevelColour = SKColor.cyan
-        
-        // The offset of the Entity's charge bar from its position.
-        static let temperamentBarOffset = CGPoint(x: 0.0, y: 135.0)
-    }
+
     
     //  MARK:- SellingWaresComponent Bar
     //  Shows the quantity of products available for sale
@@ -143,6 +134,16 @@ struct GameplayConfiguration
         static let obeisanceBarOffset = CGPoint(x: 0.0, y: 55.0)
     }
     
+    //  MARK:- TemperamentComponent Bar
+    //  Shows the temperament of the TaskBot
+    struct TemperamentBar
+    {
+        // The charge level node color.
+        static let foregroundLevelColour = SKColor.orange
+        
+        // The offset of the Entity's charge bar from its position.
+        static let temperamentBarOffset = CGPoint(x: 0.0, y: 45.0)
+    }
     
     /*
         MARK:- The Beam fired from the Player to other TaskBots
@@ -265,33 +266,33 @@ struct GameplayConfiguration
     {
         static let minimumDurationInStateValue = 5.0
         
-        static let scaredStateMinimumValue = 0
-        static let scaredStateMaximumValue = 9
-        static let scaredStateInitialValue = 5
+        static let scaredStateMinimumValue = 0.0
+        static let scaredStateMaximumValue = 9.0
+        static let scaredStateInitialValue = 5.0
         
-        static let fearfulStateMinimumValue = 10
-        static let fearfulStateMaximumValue = 19
-        static let fearfulStateInitialValue = 15
+        static let fearfulStateMinimumValue = 10.0
+        static let fearfulStateMaximumValue = 19.0
+        static let fearfulStateInitialValue = 15.0
         
-        static let calmStateMinimumValue = 20
-        static let calmStateMaximumValue = 39
-        static let calmStateInitialValue = 27
+        static let calmStateMinimumValue = 20.0
+        static let calmStateMaximumValue = 39.0
+        static let calmStateInitialValue = 27.0
         
-        static let aggitatedStateMinimumValue = 40
-        static let aggitatedStateMaximumValue = 54
-        static let aggitatedStateInitialValue = 47
+        static let aggitatedStateMinimumValue = 40.0
+        static let aggitatedStateMaximumValue = 54.0
+        static let aggitatedStateInitialValue = 47.0
         
-        static let angryStateMinimumValue = 55
-        static let angryStateMaximumValue = 69
-        static let angryStateInitialValue = 60
+        static let angryStateMinimumValue = 55.0
+        static let angryStateMaximumValue = 69.0
+        static let angryStateInitialValue = 60.0
         
-        static let violentStateMinimumValue = 70
-        static let violentStateMaximumValue = 89
-        static let violentStateInitialValue = 80
+        static let violentStateMinimumValue = 70.0
+        static let violentStateMaximumValue = 89.0
+        static let violentStateInitialValue = 80.0
         
-        static let rageStateMinimumValue = 90
-        static let rageStateMaximumValue = 100
-        static let rageStateInitialValue = 95
+        static let rageStateMinimumValue = 90.0
+        static let rageStateMaximumValue = 100.0
+        static let rageStateInitialValue = 95.0
     }
     
     
@@ -597,13 +598,13 @@ struct GameplayConfiguration
         //MARK: Temperament Properties
         
         /// The maximum amount of appetite a `GroundBot` stores.
-        static let maximumTemperament = 100
+        static let maximumTemperament = 100.0
         
         /// The amount the Temperament increases per cycle
-        static let temperamentIncreasePerCycle = 1
+        static let temperamentIncreasePerCycle = 1.0
         
         // The amount the Temperament decreases per cycle
-        static let temperamentReductionPerCycle = 1
+        static let temperamentReductionPerCycle = 1.0
    
     }
     
