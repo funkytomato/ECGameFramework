@@ -95,11 +95,13 @@ class ProtestorBotHitState: GKState
             
             if val < 5
             {
-                temperamentComponent.decreaseTemperament()
+//                temperamentComponent.decreaseTemperament()
+                temperamentComponent.reduceTemperament(temperamentToLose: GameplayConfiguration.ProtestorBot.temperamentReductionPerCycle)
             }
             else
             {
-                temperamentComponent.increaseTemperament()
+                temperamentComponent.increaseTemperament(temperamentToAdd: GameplayConfiguration.ProtestorBot.temperamentIncreasePerCycle)
+//                temperamentComponent.increaseTemperament()
             }
             
             
