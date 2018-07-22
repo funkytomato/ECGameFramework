@@ -131,12 +131,13 @@ class TemperamentComponent: GKComponent
     {
         super.update(deltaTime: seconds)
     
+        
+        //Update the temperament state machine
         stateMachine?.update(deltaTime: seconds)
         
+        
+        //Set the colour for the current temperament
         guard let currentState = stateMachine.currentState else { return }
-        
-        guard let taskBot = entity as? TaskBot else { return }
-        
         switch currentState
         {
             case is ScaredState:
@@ -198,10 +199,7 @@ class TemperamentComponent: GKComponent
         }
         
         //Set the temperament value
-        self.temperament = stateValue
-        
-//        print("value: \(stateValue)")
-        //print("Setting the temperamentComponent to :\(newState)")
+        increaseTemperament(temperamentToAdd: stateValue)
     }
     
     
