@@ -25,15 +25,29 @@ protocol TemperamentComponentDelegate: class
 class TemperamentComponent: GKComponent
 {
     
+//    /// The `RenderComponent' for this component's 'entity'.
+//    var animationComponent: AnimationComponent
+//    {
+//        guard let animationComponent = entity?.component(ofType: AnimationComponent.self) else { fatalError("A SellingWaresComponent's entity must have a AnimationComponent") }
+//        return animationComponent
+//    }
+    
+    /// The `SpriteComponent` associated with the `entity`.
+    var spriteComponent: SpriteComponent
+    {
+        guard let spriteComponent = self.entity?.component(ofType: SpriteComponent.self) else { fatalError("An entity's AngryState must have an SpriteComponent.") }
+        return spriteComponent
+    }
+    
     // MARK: Properties
     
-    var temperament: Double
-    let maximumTemperament: Double
-    var percentageTemperament: Double
+    var temperament: Int
+    let maximumTemperament: Int
+    var percentageTemperament: Int
     {
         if maximumTemperament == 0
         {
-            return 0.0
+            return 0
         }
         
         return temperament / maximumTemperament
@@ -41,7 +55,7 @@ class TemperamentComponent: GKComponent
     
     var hasTemperament: Bool
     {
-        return (temperament > 0.0)
+        return (temperament > 0)
     }
     
     
@@ -60,16 +74,16 @@ class TemperamentComponent: GKComponent
     
     
     
-    var stateMachine: GKStateMachine?
-    var initialStateClass: AnyClass
+    var stateMachine: GKStateMachine!
+//    var initialStateClass: AnyClass
     
     // MARK: Initializers
     
-    init(initialTemperament: String, temperament: Double, maximumTemperament: Double, displaysTemperamentBar: Bool = false)
+    init(initialState: String, temperament: Int, maximumTemperament: Int, displaysTemperamentBar: Bool = false)
 
     {
         //print("Initialising TemperamentComponent")
-        
+//        self.entity = entity
         self.temperament = temperament
         self.maximumTemperament = maximumTemperament
         
@@ -84,42 +98,47 @@ class TemperamentComponent: GKComponent
         }
         
 
-        initialStateClass = type(of: CalmState.self) as! AnyClass
+        
+     
+//        var startState : GKState?
+//        switch initialState
+//        {
+//        case "Scared":
+//            initialStateClass = type(of: ScaredState.self) as! AnyClass
+////            startState = ScaredState(temperamentComponent: self)
+//
+//        case "Fearful":
+//            initialStateClass = type(of: FearfulState.self) as! AnyClass
+////            startState = FearfulState(temperamentComponent: self)
+//
+//        case "Calm":
+//            initialStateClass = type(of: CalmState.self) as! AnyClass
+////            startState = CalmState(temperamentComponent: self)
+//
+//        case "Aggitated":
+//            initialStateClass = type(of: AggitatedState.self) as! AnyClass
+////            startState = AggitatedState(temperamentComponent: self)
+//
+//        case "Angry":
+//            initialStateClass = type(of: AngryState.self) as! AnyClass
+////            startState = AngryState(temperamentComponent: self)
+//
+//        case "Violent":
+//            initialStateClass = type(of: ViolentState.self) as! AnyClass
+////            startState = ViolentState(temperamentComponent: self)
+//
+//        case "Rage":
+//            initialStateClass = type(of: RageState.self) as! AnyClass
+////            startState = RageState(temperamentComponent: self)
+//
+//        default:
+//            initialStateClass = type(of: CalmState.self) as! AnyClass
+//        }
+//
+//        initialStateClass = type(of: initialState) as! AnyClass
         
         super.init()
 
-        temperamentBar?.level = percentageTemperament
-        
-        var initialState : GKState?
-        switch initialTemperament
-        {
-            case "Scared":
-                initialState = ScaredState(temperamentComponent: self)
-            
-            case "Fearful":
-                initialState = FearfulState(temperamentComponent: self)
-            
-            case "Calm":
-                initialState = CalmState(temperamentComponent: self)
-            
-            case "Aggitated":
-                initialState = AggitatedState(temperamentComponent: self)
-                
-            case "Angry":
-                initialState = AngryState(temperamentComponent: self)
-            
-            case "Violent":
-                initialState = ViolentState(temperamentComponent: self)
-            
-            case "Rage":
-                initialState = RageState(temperamentComponent: self)
-            
-            default:
-                initialState = CalmState(temperamentComponent: self)
-        }
-        
-        initialStateClass = type(of: initialState) as! AnyClass
-        
         stateMachine = GKStateMachine(states: [
             ScaredState(temperamentComponent: self),
             FearfulState(temperamentComponent: self),
@@ -130,7 +149,9 @@ class TemperamentComponent: GKComponent
             RageState(temperamentComponent: self)
             ])
         
-//        stateMachine.enter(initialStateClass)
+        stateMachine.enter(CalmState.self)
+        
+        temperamentBar?.level = Double(percentageTemperament)
     }
     
     required init?(coder aDecoder: NSCoder)
@@ -148,23 +169,95 @@ class TemperamentComponent: GKComponent
     {
         super.update(deltaTime: seconds)
     
-        
         stateMachine?.update(deltaTime: seconds)
+        
+        guard let currentState = stateMachine.currentState else { return }
+        
+        guard let taskBot = entity as? TaskBot else { return }
+        
+        switch currentState
+        {
+            case is ScaredState:
+                spriteComponent.changeColour(colour: SKColor.darkGray)
+            case is FearfulState:
+                spriteComponent.changeColour(colour: SKColor.lightGray)
+            case is CalmState:
+                spriteComponent.changeColour(colour: SKColor.green)
+            case is AggitatedState:
+                spriteComponent.changeColour(colour: SKColor.cyan)
+            case is AngryState:
+                spriteComponent.changeColour(colour: SKColor.orange)
+            case is ViolentState:
+                spriteComponent.changeColour(colour: SKColor.red)
+            case is RageState:
+                spriteComponent.changeColour(colour: SKColor.brown)
+            default:
+                spriteComponent.changeColour(colour: SKColor.green)
+        }
     }
     
     // MARK: Actions
     
-    func enterInitialState()
-    {
-        stateMachine?.enter(initialStateClass)
-    }
+//    func enterInitialState()
+//    {
+//        stateMachine?.enter(initialStateClass)
+//    }
     
     /*
      Convenience functions
     */
+
+    func setTemperament(newState: String)
+    {
+        print("newState: \(newState.debugDescription)")
+        
+        // Create a random number
+//        let randomSource = GKRandomSource.sharedRandom()
+//        let diff = randomSource.nextUniform() // returns random Float between 0.0 and 1.0
+        var stateValue = 0
+        
+        
+        switch newState
+        {
+            case "Scared":
+                stateValue = GameplayConfiguration.Temperament.scaredStateInitialValue
+            
+            case "Fearful":
+                stateValue = GameplayConfiguration.Temperament.fearfulStateInitialValue
+            
+            case "Calm":
+                stateValue = GameplayConfiguration.Temperament.calmStateInitialValue
+            
+            case "Aggitated":
+                stateValue = GameplayConfiguration.Temperament.aggitatedStateInitialValue
+            
+            case "Angry":
+                stateValue = GameplayConfiguration.Temperament.angryStateInitialValue
+            
+            case "Violent":
+                stateValue = GameplayConfiguration.Temperament.violentStateInitialValue
+            
+            case "Rage":
+                stateValue = GameplayConfiguration.Temperament.rageStateInitialValue
+            
+            default:
+                stateMachine?.enter(CalmState.self)
+        }
+        
+        //Set the temperament value
+//        let value = diff * stateValue
+        self.temperament = stateValue
+        
+        print("value: \(stateValue)")
+        
+        
+        //print("Setting the temperamentComponent to :\(newState)")
+    }
+    
     
     func setState(newState: String)
     {
+        print("newState: \(newState.debugDescription)")
         switch newState
         {
             case "Scared":
@@ -179,13 +272,13 @@ class TemperamentComponent: GKComponent
             case "Aggitated":
                 stateMachine?.enter(AggitatedState.self)
             
-            case "AngryState":
+            case "Angry":
                 stateMachine?.enter(AngryState.self)
             
-            case "ViolentState":
+            case "Violent":
                 stateMachine?.enter(ViolentState.self)
             
-            case "RageState":
+            case "Rage":
                 stateMachine?.enter(RageState.self)
             
             default:
@@ -265,36 +358,36 @@ class TemperamentComponent: GKComponent
     
     // MARK: Component actions
     
-    func reduceTemperament(temperamentToLose: Double)
+    func reduceTemperament(temperamentToLose: Int)
     {
         var newTemperament = temperament - temperamentToLose
         
         // Clamp the new value to the valid range.
         newTemperament = min(maximumTemperament, newTemperament)
-        newTemperament = max(0.0, newTemperament)
+        newTemperament = Int(max(0.0, Double(newTemperament)))
         
         // Check if the new charge is less than the current charge.
         if newTemperament < temperament
         {
             temperament = newTemperament
-            temperamentBar?.level = percentageTemperament
+            temperamentBar?.level = Double(percentageTemperament)
             delegate?.temperamentComponentDidReduceTemperament(temperamentComponent: self)
         }
     }
     
-    func increaseTemperament(temperamentToAdd: Double)
+    func increaseTemperament(temperamentToAdd: Int)
     {
         var newTemperament = temperament + temperamentToAdd
         
         // Clamp the new value to the valid range.
         newTemperament = min(maximumTemperament, newTemperament)
-        newTemperament = max(0.0, newTemperament)
+        newTemperament = Int(max(0.0, Double(newTemperament)))
         
         // Check if the new charge is greater than the current charge.
         if newTemperament > temperament
         {
             temperament = newTemperament
-            temperamentBar?.level = percentageTemperament
+            temperamentBar?.level = Double(percentageTemperament)
             delegate?.temperamentComponentDidIncreaseTemperament(temperamentComponent: self)
         }
     }
