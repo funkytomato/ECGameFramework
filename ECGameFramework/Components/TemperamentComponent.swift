@@ -41,13 +41,13 @@ class TemperamentComponent: GKComponent
     
     // MARK: Properties
     
-    var temperament: Int
-    let maximumTemperament: Int
-    var percentageTemperament: Int
+    var temperament: Double
+    let maximumTemperament: Double
+    var percentageTemperament: Double
     {
         if maximumTemperament == 0
         {
-            return 0
+            return 0.0
         }
         
         return temperament / maximumTemperament
@@ -55,7 +55,7 @@ class TemperamentComponent: GKComponent
     
     var hasTemperament: Bool
     {
-        return (temperament > 0)
+        return (temperament > 0.0)
     }
     
     
@@ -79,11 +79,10 @@ class TemperamentComponent: GKComponent
     
     // MARK: Initializers
     
-    init(initialState: String, temperament: Int, maximumTemperament: Int, displaysTemperamentBar: Bool = false)
+    init(initialState: String, temperament: Double, maximumTemperament: Double, displaysTemperamentBar: Bool = false)
 
     {
         //print("Initialising TemperamentComponent")
-//        self.entity = entity
         self.temperament = temperament
         self.maximumTemperament = maximumTemperament
         
@@ -96,49 +95,12 @@ class TemperamentComponent: GKComponent
         {
             temperamentBar = nil
         }
-        
 
-        
-     
-//        var startState : GKState?
-//        switch initialState
-//        {
-//        case "Scared":
-//            initialStateClass = type(of: ScaredState.self) as! AnyClass
-////            startState = ScaredState(temperamentComponent: self)
-//
-//        case "Fearful":
-//            initialStateClass = type(of: FearfulState.self) as! AnyClass
-////            startState = FearfulState(temperamentComponent: self)
-//
-//        case "Calm":
-//            initialStateClass = type(of: CalmState.self) as! AnyClass
-////            startState = CalmState(temperamentComponent: self)
-//
-//        case "Aggitated":
-//            initialStateClass = type(of: AggitatedState.self) as! AnyClass
-////            startState = AggitatedState(temperamentComponent: self)
-//
-//        case "Angry":
-//            initialStateClass = type(of: AngryState.self) as! AnyClass
-////            startState = AngryState(temperamentComponent: self)
-//
-//        case "Violent":
-//            initialStateClass = type(of: ViolentState.self) as! AnyClass
-////            startState = ViolentState(temperamentComponent: self)
-//
-//        case "Rage":
-//            initialStateClass = type(of: RageState.self) as! AnyClass
-////            startState = RageState(temperamentComponent: self)
-//
-//        default:
-//            initialStateClass = type(of: CalmState.self) as! AnyClass
-//        }
-//
-//        initialStateClass = type(of: initialState) as! AnyClass
         
         super.init()
 
+        temperamentBar?.level = Double(percentageTemperament)
+        
         stateMachine = GKStateMachine(states: [
             ScaredState(temperamentComponent: self),
             FearfulState(temperamentComponent: self),
@@ -151,7 +113,7 @@ class TemperamentComponent: GKComponent
         
         stateMachine.enter(CalmState.self)
         
-        temperamentBar?.level = Double(percentageTemperament)
+        
     }
     
     required init?(coder aDecoder: NSCoder)
@@ -196,12 +158,7 @@ class TemperamentComponent: GKComponent
         }
     }
     
-    // MARK: Actions
     
-//    func enterInitialState()
-//    {
-//        stateMachine?.enter(initialStateClass)
-//    }
     
     /*
      Convenience functions
@@ -209,14 +166,10 @@ class TemperamentComponent: GKComponent
 
     func setTemperament(newState: String)
     {
-        print("newState: \(newState.debugDescription)")
+//        print("newState: \(newState.debugDescription)")
         
-        // Create a random number
-//        let randomSource = GKRandomSource.sharedRandom()
-//        let diff = randomSource.nextUniform() // returns random Float between 0.0 and 1.0
-        var stateValue = 0
-        
-        
+
+        var stateValue = 0.0
         switch newState
         {
             case "Scared":
@@ -245,12 +198,9 @@ class TemperamentComponent: GKComponent
         }
         
         //Set the temperament value
-//        let value = diff * stateValue
         self.temperament = stateValue
         
-        print("value: \(stateValue)")
-        
-        
+//        print("value: \(stateValue)")
         //print("Setting the temperamentComponent to :\(newState)")
     }
     
@@ -358,13 +308,13 @@ class TemperamentComponent: GKComponent
     
     // MARK: Component actions
     
-    func reduceTemperament(temperamentToLose: Int)
+    func reduceTemperament(temperamentToLose: Double)
     {
         var newTemperament = temperament - temperamentToLose
         
         // Clamp the new value to the valid range.
         newTemperament = min(maximumTemperament, newTemperament)
-        newTemperament = Int(max(0.0, Double(newTemperament)))
+        newTemperament = max(0.0, Double(newTemperament))
         
         // Check if the new charge is less than the current charge.
         if newTemperament < temperament
@@ -375,13 +325,13 @@ class TemperamentComponent: GKComponent
         }
     }
     
-    func increaseTemperament(temperamentToAdd: Int)
+    func increaseTemperament(temperamentToAdd: Double)
     {
         var newTemperament = temperament + temperamentToAdd
         
         // Clamp the new value to the valid range.
         newTemperament = min(maximumTemperament, newTemperament)
-        newTemperament = Int(max(0.0, Double(newTemperament)))
+        newTemperament = max(0.0, Double(newTemperament))
         
         // Check if the new charge is greater than the current charge.
         if newTemperament > temperament
