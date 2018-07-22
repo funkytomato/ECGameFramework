@@ -83,7 +83,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         let initialObeisance: Double
         let initialAppetite: Double
         let initialIntoxication: Double
-        let initialTemperament: Double
+        let initialTemperament: Int
 
         
         self.isProtestor = true
@@ -114,7 +114,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             initialObeisance = 100.0        //Brown bar
             initialAppetite = 0.0           //White
             initialIntoxication = 0.0       //Orange
-            initialTemperament = 0.0        //Cyan
+            initialTemperament = 0       //Cyan
             
             texture = SKTexture(imageNamed: "ProtestorBot")
         }
@@ -182,9 +182,10 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
 
         
         //print("initialState :\(initialState.debugDescription)")
-        let temperamentComponent = TemperamentComponent(initialTemperament: temperamentState, temperament: initialTemperament, maximumTemperament: GameplayConfiguration.ProtestorBot.maximumTemperament, displaysTemperamentBar: true)
+        let temperamentComponent = TemperamentComponent(initialState: temperamentState, temperament: initialTemperament, maximumTemperament: GameplayConfiguration.ProtestorBot.maximumTemperament, displaysTemperamentBar: true)
         addComponent(temperamentComponent)
-        
+        temperamentComponent.setTemperament(newState: temperamentState)
+//        temperamentComponent.setState(newState: temperamentState)
         
         
         let physicsBody = SKPhysicsBody(circleOfRadius: GameplayConfiguration.TaskBot.physicsBodyRadius, center: GameplayConfiguration.TaskBot.physicsBodyOffset)
@@ -298,7 +299,8 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         {
             guard let protestorTarget = entity as? ProtestorBot else { return }
             guard let protestorTargetTemperamentComponent = protestorTarget.component(ofType: TemperamentComponent.self) else { return }
-            protestorTargetTemperamentComponent.increaseTemperament()
+//            protestorTargetTemperamentComponent.increaseTemperament()
+            protestorTargetTemperamentComponent.increaseTemperament(temperamentToAdd: GameplayConfiguration.ProtestorBot.temperamentIncreasePerCycle)
             
             //print("Raised temperament of touching Protestor")
         }

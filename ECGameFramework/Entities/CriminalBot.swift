@@ -79,7 +79,7 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
         let initialRespect: Double
         let initialObeisance: Double
         let initialSellingWares: Double
-        let initialTemperament: Double
+        let initialTemperament: Int
         
         self.isCriminal = true
         
@@ -96,7 +96,7 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
             initialRespect = 100.0
             initialObeisance = 100.0
             initialSellingWares = 100.0
-            initialTemperament = 0.0
+            initialTemperament = 0
             
             texture = SKTexture(imageNamed: "CriminalBot")
             
@@ -116,7 +116,7 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
             initialRespect = GameplayConfiguration.CriminalBot.maximumRespect
             initialObeisance = GameplayConfiguration.CriminalBot.maximumObeisance
             initialSellingWares = GameplayConfiguration.CriminalBot.maximumWares
-            initialTemperament = GameplayConfiguration.CriminalBot.maximumTemperament
+            initialTemperament = Int(GameplayConfiguration.CriminalBot.maximumTemperament)
             
             texture = SKTexture(imageNamed: "CriminalBotBad")
         }
@@ -164,7 +164,7 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
         addComponent(intelligenceComponent)
         
         
-        let temperamentComponent = TemperamentComponent(initialTemperament: temperamentState, temperament: initialTemperament, maximumTemperament: GameplayConfiguration.ProtestorBot.maximumTemperament, displaysTemperamentBar: true)
+        let temperamentComponent = TemperamentComponent(initialState: temperamentState, temperament: initialTemperament, maximumTemperament: GameplayConfiguration.ProtestorBot.maximumTemperament, displaysTemperamentBar: true)
         addComponent(temperamentComponent)
         
         

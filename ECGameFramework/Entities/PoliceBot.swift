@@ -162,7 +162,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
         let initialCharge: Double
         let initialHealth: Double
         let initialResistance: Double
-        let initialTemperament: Double
+        let initialTemperament: Int
         
         if isGood
         {
@@ -174,7 +174,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
             initialCharge = 100.0
             initialHealth = 100.0
             initialResistance = 100.0
-            initialTemperament = 0.0
+            initialTemperament = 0
             
             texture = SKTexture(imageNamed: "PoliceBot")
         }
@@ -230,7 +230,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
         addComponent(intelligenceComponent)
         
         
-        let temperamentComponent = TemperamentComponent(initialTemperament: temperamentState, temperament: initialTemperament, maximumTemperament: GameplayConfiguration.ProtestorBot.maximumTemperament, displaysTemperamentBar: true)
+        let temperamentComponent = TemperamentComponent(initialState: temperamentState, temperament: initialTemperament, maximumTemperament: GameplayConfiguration.ProtestorBot.maximumTemperament, displaysTemperamentBar: true)
         addComponent(temperamentComponent)
         
         
