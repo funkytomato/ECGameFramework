@@ -68,7 +68,7 @@ class CalmState: GKState
         elapsedTime += seconds
         
         
-        print("temperament: \(temperamentComponent.temperament), calmStateMaximum: \(GameplayConfiguration.Temperament.calmStateMaximumValue)")
+//        print("temperament: \(temperamentComponent.temperament), calmStateMaximum: \(GameplayConfiguration.Temperament.calmStateMaximumValue)")
         
         // If temperament rises enough move to Aggitated state
         if elapsedTime >= GameplayConfiguration.Temperament.minimumDurationInStateValue &&
