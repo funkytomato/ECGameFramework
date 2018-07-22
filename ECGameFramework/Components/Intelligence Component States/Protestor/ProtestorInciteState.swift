@@ -63,23 +63,25 @@ class ProtestorInciteState: GKState
         //print("InciteState entered")
         
         super.didEnter(from: previousState)
-        
-        //Reset the tracking of how long the 'ManBot' has been in "Detained" state
         elapsedTime = 0.0
         
         //Set the InciteComponent to on
         inciteComponent.isTriggered = true
+        inciteComponent.stateMachine.enter(InciteIdleState.self)
     }
     
     override func update(deltaTime seconds: TimeInterval)
     {
+        //        print("currentState: \(inciteComponent.stateMachine?.currentState.debugDescription)")
+        
         super.update(deltaTime: seconds)
         elapsedTime += seconds
         
         inciteComponent.stateMachine.update(deltaTime: seconds)
         intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
         
-//        print("currentState: \(inciteComponent.stateMachine?.currentState.debugDescription)")
+
+        //Show the inciting animation
         guard (inciteComponent.stateMachine?.currentState as? InciteActiveState) != nil else { return }
         animationComponent.requestedAnimationState = .inciting
     }
