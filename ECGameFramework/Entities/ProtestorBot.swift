@@ -17,8 +17,11 @@ import GameplayKit
 
 
 class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate, ChargeComponentDelegate, RespectComponentDelegate, ObeisanceComponentDelegate,
-    AppetiteComponentDelegate, IntoxicationComponentDelegate, BuyingWaresComponentDelegate, ResourceLoadableType
+    AppetiteComponentDelegate, IntoxicationComponentDelegate, BuyingWaresComponentDelegate,
+    TemperamentComponentDelegate, ResourceLoadableType
 {
+
+    
 
     
     // MARK: Static Properties
@@ -83,7 +86,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         let initialObeisance: Double
         let initialAppetite: Double
         let initialIntoxication: Double
-        let initialTemperament: Int
+        let initialTemperament: Double
 
         
         self.isProtestor = true
@@ -114,7 +117,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             initialObeisance = 100.0        //Brown bar
             initialAppetite = 0.0           //White
             initialIntoxication = 0.0       //Orange
-            initialTemperament = 0       //Cyan
+            initialTemperament = 0.0       //Cyan
             
             texture = SKTexture(imageNamed: "ProtestorBot")
         }
@@ -134,7 +137,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             initialObeisance = GameplayConfiguration.ProtestorBot.maximumObesiance
             initialAppetite = GameplayConfiguration.ProtestorBot.maximumAppetite
             initialIntoxication = GameplayConfiguration.ProtestorBot.maximumIntoxication
-            initialTemperament = GameplayConfiguration.ProtestorBot.maximumTemperament
+            initialTemperament = Double(GameplayConfiguration.ProtestorBot.maximumTemperament)
             
             texture = SKTexture(imageNamed: "ProtestorBotBad")
         }
@@ -182,9 +185,10 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
 
         
         //print("initialState :\(initialState.debugDescription)")
-        let temperamentComponent = TemperamentComponent(initialState: temperamentState, temperament: initialTemperament, maximumTemperament: GameplayConfiguration.ProtestorBot.maximumTemperament, displaysTemperamentBar: true)
+        let temperamentComponent = TemperamentComponent(initialState: temperamentState, temperament: initialTemperament, maximumTemperament: Double(GameplayConfiguration.ProtestorBot.maximumTemperament), displaysTemperamentBar: true)
         addComponent(temperamentComponent)
         temperamentComponent.setTemperament(newState: temperamentState)
+        temperamentComponent.delegate = self
 //        temperamentComponent.setState(newState: temperamentState)
         
         
@@ -300,7 +304,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             guard let protestorTarget = entity as? ProtestorBot else { return }
             guard let protestorTargetTemperamentComponent = protestorTarget.component(ofType: TemperamentComponent.self) else { return }
 //            protestorTargetTemperamentComponent.increaseTemperament()
-            protestorTargetTemperamentComponent.increaseTemperament(temperamentToAdd: GameplayConfiguration.ProtestorBot.temperamentIncreasePerCycle)
+            protestorTargetTemperamentComponent.increaseTemperament(temperamentToAdd: Double(GameplayConfiguration.ProtestorBot.temperamentIncreasePerCycle))
             
             //print("Raised temperament of touching Protestor")
         }
@@ -526,6 +530,16 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
     {
         guard let respectComponent = component(ofType: RespectComponent.self) else { return }
 
+    }
+    
+    
+    // MARK: Temperament Component Delegate
+    func temperamentComponentDidReduceTemperament(temperamentComponent: TemperamentComponent) {
+        guard let temperamentComponent = component(ofType: TemperamentComponent.self) else { return }
+    }
+    
+    func temperamentComponentDidIncreaseTemperament(temperamentComponent: TemperamentComponent) {
+        guard let temperamentComponent = component(ofType: TemperamentComponent.self) else { return }
     }
     
     // MARK: Obeisance Component Delegate
