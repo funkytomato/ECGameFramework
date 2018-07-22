@@ -260,6 +260,40 @@ struct GameplayConfiguration
     }
     
     
+    // MARK:- TemperamentComponent Properties
+    struct Temperament
+    {
+        static let minimumDurationInStateValue = 5.0
+        
+        static let scaredStateMinimumValue = 0
+        static let scaredStateMaximumValue = 9
+        static let scaredStateInitialValue = 5
+        
+        static let fearfulStateMinimumValue = 10
+        static let fearfulStateMaximumValue = 19
+        static let fearfulStateInitialValue = 15
+        
+        static let calmStateMinimumValue = 20
+        static let calmStateMaximumValue = 39
+        static let calmStateInitialValue = 27
+        
+        static let aggitatedStateMinimumValue = 40
+        static let aggitatedStateMaximumValue = 54
+        static let aggitatedStateInitialValue = 47
+        
+        static let angryStateMinimumValue = 55
+        static let angryStateMaximumValue = 69
+        static let angryStateInitialValue = 60
+        
+        static let violentStateMinimumValue = 70
+        static let violentStateMaximumValue = 89
+        static let violentStateInitialValue = 80
+        
+        static let rageStateMinimumValue = 90
+        static let rageStateMaximumValue = 100
+        static let rageStateInitialValue = 95
+    }
+    
     
     //  MARK:- PlayerBot Properties
     struct PlayerBot
@@ -563,7 +597,7 @@ struct GameplayConfiguration
         //MARK: Temperament Properties
         
         /// The maximum amount of appetite a `GroundBot` stores.
-        static let maximumTemperament = 100.0
+        static let maximumTemperament = 100
         
         /// The amount the Temperament increases per cycle
         static let temperamentIncreasePerCycle = 1
@@ -696,7 +730,7 @@ struct GameplayConfiguration
         //MARK: Temperament Properties
         
         /// The maximum amount of appetite a `GroundBot` stores.
-        static let maximumTemperament = 100.0
+        static let maximumTemperament = 100
         
         /// The amount the Temperament increases per cycle
         static let temperamentIncreasePerCycle = 1
