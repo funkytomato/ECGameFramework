@@ -20,10 +20,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
     AppetiteComponentDelegate, IntoxicationComponentDelegate, BuyingWaresComponentDelegate,
     TemperamentComponentDelegate, ResourceLoadableType
 {
-
-    
-
-    
+  
     // MARK: Static Properties
     
     var texture = SKTexture()
@@ -186,10 +183,10 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         
         //print("initialState :\(initialState.debugDescription)")
         let temperamentComponent = TemperamentComponent(initialState: temperamentState, temperament: initialTemperament, maximumTemperament: Double(GameplayConfiguration.ProtestorBot.maximumTemperament), displaysTemperamentBar: true)
+        temperamentComponent.delegate = self
         addComponent(temperamentComponent)
         temperamentComponent.setTemperament(newState: temperamentState)
-        temperamentComponent.delegate = self
-//        temperamentComponent.setState(newState: temperamentState)
+        print("temperamentState: \(temperamentState.debugDescription)")
         
         
         let physicsBody = SKPhysicsBody(circleOfRadius: GameplayConfiguration.TaskBot.physicsBodyRadius, center: GameplayConfiguration.TaskBot.physicsBodyOffset)
