@@ -83,19 +83,13 @@ class TaskBotAgentControlledState: GKState
             if self.entity.isPolice,
                 let resistanceComponent = entity.component(ofType: ResistanceComponent.self)
             {
-                //let resistanceToAdd = resistanceComponent.maximumResistance - resistanceComponent.resistance
-                //            resistanceComponent.addResistance(resistanceToAdd: resistanceToAdd)
                 resistanceComponent.addResistance(resistanceToAdd: GameplayConfiguration.PoliceBot.resistanceRechargeAmountPerSecond)
             }
             
             //Gradually decrease the obeisance
             if let obeisanceComponent = entity.component(ofType: ObeisanceComponent.self), obeisanceComponent.hasObeisance
             {
-                let obeisanceToLose = GameplayConfiguration.ProtestorBot.obeisanceLossPerCycle
-                
-                //print("ObeisanceToLose: \(obeisanceToLose.debugDescription)")
-                
-                obeisanceComponent.loseObeisance(obeisanceToLose: obeisanceToLose)
+                obeisanceComponent.loseObeisance(obeisanceToLose: GameplayConfiguration.ProtestorBot.obeisanceLossPerCycle)
             }
 
             
