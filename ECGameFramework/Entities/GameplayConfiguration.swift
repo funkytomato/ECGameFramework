@@ -731,13 +731,13 @@ struct GameplayConfiguration
         //MARK: Temperament Properties
         
         /// The maximum amount of appetite a `GroundBot` stores.
-        static let maximumTemperament = 100
+        static let maximumTemperament = 100.0
         
         /// The amount the Temperament increases per cycle
-        static let temperamentIncreasePerCycle = 1
+        static let temperamentIncreasePerCycle = 1.0
         
         // The amount the Temperament decreases per cycle
-        static let temperamentReductionPerCycle = 1
+        static let temperamentReductionPerCycle = 1.0
     }
     
     
