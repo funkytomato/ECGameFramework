@@ -164,7 +164,7 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
         addComponent(intelligenceComponent)
         
         
-        let temperamentComponent = TemperamentComponent(initialState: temperamentState, temperament: initialTemperament, maximumTemperament: GameplayConfiguration.ProtestorBot.maximumTemperament, displaysTemperamentBar: true)
+        let temperamentComponent = TemperamentComponent(initialState: temperamentState, temperament: Double(initialTemperament), maximumTemperament: Double(GameplayConfiguration.ProtestorBot.maximumTemperament), displaysTemperamentBar: true)
         addComponent(temperamentComponent)
         
         
