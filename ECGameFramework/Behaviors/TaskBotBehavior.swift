@@ -64,6 +64,10 @@ class TaskBotBehavior: GKBehavior
                 let entityTemperamentComponent = taskBot.component(ofType: TemperamentComponent.self)
                 let myCurrentTemperament = myTemperamentComponent?.stateMachine.currentState
                 
+                print("myCurrentTemperament \(myCurrentTemperament.debugDescription), entityTemperamentComponent \(entityTemperamentComponent.debugDescription) ")
+                
+                
+                //FRY we are not casting the correct state for some reason!!!?
                 
                 //If the TaskBot's temperament match, return agent to flock with
                 switch myCurrentTemperament
@@ -71,14 +75,23 @@ class TaskBotBehavior: GKBehavior
                     case is ScaredState:
                         guard (entityTemperamentComponent?.stateMachine.currentState is ScaredState) else { return nil }
                         return taskBot.agent
+                    case is FearfulState:
+                        guard (entityTemperamentComponent?.stateMachine.currentState is FearfulState) else { return nil }
+                        return taskBot.agent
                     case is CalmState:
                         guard (entityTemperamentComponent?.stateMachine.currentState is CalmState) else { return nil }
+                        return taskBot.agent
+                    case is AggitatedState:
+                        guard (entityTemperamentComponent?.stateMachine.currentState is AggitatedState) else { return nil }
                         return taskBot.agent
                     case is AngryState:
                         guard (entityTemperamentComponent?.stateMachine.currentState is AngryState) else { return nil }
                         return taskBot.agent
                     case is ViolentState:
                         guard (entityTemperamentComponent?.stateMachine.currentState is ViolentState) else { return nil }
+                        return taskBot.agent
+                    case is RageState:
+                        guard (entityTemperamentComponent?.stateMachine.currentState is RageState) else { return nil }
                         return taskBot.agent
                     default:
                         break
