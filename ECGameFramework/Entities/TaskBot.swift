@@ -745,9 +745,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         let huntSellerTaskBotRaw = [
             
             //Police are in trouble are nearby
-//            ruleSystem.minimumGrade(forFacts: [
-//                Fact.sellerTaskBotNear.rawValue as AnyObject
-//                ])
+            ruleSystem.minimumGrade(forFacts: [
+                Fact.sellerTaskBotNear.rawValue as AnyObject
+                ]),
             
             //Police are in trouble are medium distance
             ruleSystem.minimumGrade(forFacts: [
@@ -769,20 +769,20 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             
             //A buyer is nearby and Police are far away
             ruleSystem.minimumGrade(forFacts: [
-                Fact.buyerTaskBotNear.rawValue as AnyObject,
-                Fact.policeBotFar.rawValue as AnyObject
+                Fact.buyerTaskBotNear.rawValue as AnyObject
+//                Fact.policeBotFar.rawValue as AnyObject
                 ]),
             
             //A buyer is medium far away and Police are nearby
             ruleSystem.minimumGrade(forFacts: [
-                Fact.buyerTaskBotMedium.rawValue as AnyObject,
-                Fact.policeBotNear.rawValue as AnyObject
+                Fact.buyerTaskBotMedium.rawValue as AnyObject
+//                Fact.policeBotNear.rawValue as AnyObject
                 ]),
 
             //A buyer is far away and Police are nearby
             ruleSystem.minimumGrade(forFacts: [
-                Fact.buyerTaskBotFar.rawValue as AnyObject,
-                Fact.policeBotNear.rawValue as AnyObject
+                Fact.buyerTaskBotFar.rawValue as AnyObject
+//                Fact.policeBotNear.rawValue as AnyObject
                 ])
         ]
         
