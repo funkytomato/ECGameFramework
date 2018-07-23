@@ -95,13 +95,11 @@ class ProtestorBotHitState: GKState
             
             if val < 5
             {
-//                temperamentComponent.decreaseTemperament()
                 temperamentComponent.reduceTemperament(temperamentToLose: Double(GameplayConfiguration.ProtestorBot.temperamentReductionPerCycle))
             }
             else
             {
                 temperamentComponent.increaseTemperament(temperamentToAdd: Double(GameplayConfiguration.ProtestorBot.temperamentIncreasePerCycle))
-//                temperamentComponent.increaseTemperament()
             }
             
             
@@ -143,7 +141,7 @@ class ProtestorBotHitState: GKState
             else if healthComponent.hasHealth
             {
                 //The Protestor is subdued and knackered, arrest them
-                temperamentComponent.stateMachine.enter(SubduedState.self)
+//                temperamentComponent.stateMachine.enter(SubduedState.self)
                 stateMachine?.enter(ProtestorBeingArrestedState.self)
             }
 
