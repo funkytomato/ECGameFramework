@@ -340,6 +340,7 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
 //        mandate = .sellWares
         
         guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
+        print("mandate: \(mandate)")
         
         //Criminal Rules
         switch mandate
@@ -348,7 +349,7 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
                 print("Incite trouble")
                 intelligenceComponent.stateMachine.enter(ProtestorInciteState.self)
             
-            case .sellWares:
+            case let .sellWares(target):
                 print("Sell Wares")
                 intelligenceComponent.stateMachine.enter(SellWaresState.self)
             
