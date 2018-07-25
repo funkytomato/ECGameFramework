@@ -348,7 +348,25 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
 //                intelligenceComponent.stateMachine.enter(ProtestorBotWanderState.self)
             
             case let .buyWares(target):
+                
+                // Check if the target is within the `ProtestorBot`'s attack range.
+                guard distanceToAgent(otherAgent: target) <= 250.0 else { return }
+                
+                // Check if any walls or obstacles are between the `PoliceBot` and its hunt target position.
+                var hasLineOfSight = true
+                
+                scene.physicsWorld.enumerateBodies(alongRayStart: CGPoint(agent.position), end: CGPoint(target.position)) { body, _, _, stop in
+                    if ColliderType(rawValue: body.categoryBitMask).contains(.Obstacle) {
+                        hasLineOfSight = false
+                        stop.pointee = true
+                    }
+                }
+                
+                if !hasLineOfSight { return }
+                
+                
                 intelligenceComponent.stateMachine.enter(ProtestorBuyWaresState.self)
+                targetPosition = target.position
             
             case .incite:
                 //print("mandate \(mandate)")
