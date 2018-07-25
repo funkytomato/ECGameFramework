@@ -57,7 +57,7 @@ class TaskBotBehavior: GKBehavior
         // Find any nearby "protestor" TaskBots to flock with.
         let agentsToFlockWith: [GKAgent2D] = scene.entities.compactMap { entity in
             if let taskBot = entity as? ProtestorBot,
-                taskBot.isConsuming && taskBot.agent !== agent && taskBot.distanceToAgent(otherAgent: agent) <= GameplayConfiguration.Flocking.agentSearchDistanceForFlocking
+                /*taskBot.isConsuming &&*/ taskBot.agent !== agent && taskBot.distanceToAgent(otherAgent: agent) <= GameplayConfiguration.Flocking.agentSearchDistanceForFlocking
             {
                 
                 //Get the Protestor's current temperament state
@@ -65,9 +65,6 @@ class TaskBotBehavior: GKBehavior
                 let myCurrentTemperament = myTemperamentComponent?.stateMachine.currentState
                 
                 print("myCurrentTemperament \(myCurrentTemperament.debugDescription), entityTemperamentComponent \(entityTemperamentComponent.debugDescription) ")
-                
-                
-                //FRY we are not casting the correct state for some reason!!!?
                 
                 //If the TaskBot's temperament match, return agent to flock with
                 switch myCurrentTemperament
