@@ -52,8 +52,9 @@ class AppetiteConsumingState: GKState
         let speed = diff * GameplayConfiguration.Appetite.consumptionLossPerSecond
         
         
-        self.consumptionSpeed = Double(speed)
-//        print("consumption speed :\(speed.debugDescription)")
+//        self.consumptionSpeed = Double(speed)
+        self.consumptionSpeed = 0.1
+        print("consumption speed :\(speed.debugDescription)")
     }
     
     override func update(deltaTime seconds: TimeInterval)
