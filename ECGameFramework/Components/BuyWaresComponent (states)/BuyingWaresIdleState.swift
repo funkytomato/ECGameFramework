@@ -45,21 +45,18 @@ class BuyingWaresIdleState: GKState
 //        print("BuyWaresIdleState entered: \(buyWaresComponent.entity.debugDescription)")
         
         super.didEnter(from: previousState)
-        
- //       appetiteComponent.entity
-        
-        
         elapsedTime = 0.0
     }
     
     override func update(deltaTime seconds: TimeInterval)
     {
         super.update(deltaTime: seconds)
+        elapsedTime += seconds
         
 //        print("BuyWaresIdleState update: \(buyWaresComponent.entity.debugDescription)")
         
         // If buy a product has been triggered, start searching for a seller
-        if buyWaresComponent.isTriggered
+        if buyWaresComponent.isTriggered && elapsedTime >= 20.0
         {
             stateMachine?.enter(BuyingWaresLookingState.self)
         }
