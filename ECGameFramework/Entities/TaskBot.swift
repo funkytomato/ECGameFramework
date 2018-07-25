@@ -104,7 +104,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                     The `TaskBot` just turned from "bad" to "good".
                     Set its mandate to `.ReturnToPositionOnPath` for the closest point on its "good" patrol path.
                 */
-                let closestPointOnGoodPath = closestPointOnPath(path: goodPathPoints)
+//                let closestPointOnGoodPath = closestPointOnPath(path: goodPathPoints)
 //                mandate = .returnToPositionOnPath(float2(closestPointOnGoodPath))
                 mandate = .wander
                 
@@ -764,26 +764,26 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         print("huntSellerTaskBot: \(huntSellerTaskBot.description), huntSellerTaskBotRaw: \(huntSellerTaskBotRaw.description) ")
 
         
-        //A series of situation in which we hunt sellers
+        //A series of situation in which we hunt buyers
         let huntBuyerTaskBotRaw = [
             
             //A buyer is nearby and Police are far away
             ruleSystem.minimumGrade(forFacts: [
                 Fact.buyerTaskBotNear.rawValue as AnyObject
 //                Fact.policeBotFar.rawValue as AnyObject
-                ]),
+                ])//,
             
             //A buyer is medium far away and Police are nearby
-            ruleSystem.minimumGrade(forFacts: [
-                Fact.buyerTaskBotMedium.rawValue as AnyObject
-//                Fact.policeBotNear.rawValue as AnyObject
-                ]),
+//            ruleSystem.minimumGrade(forFacts: [
+//                Fact.buyerTaskBotMedium.rawValue as AnyObject
+////                Fact.policeBotNear.rawValue as AnyObject
+//                ]),
 
             //A buyer is far away and Police are nearby
-            ruleSystem.minimumGrade(forFacts: [
-                Fact.buyerTaskBotFar.rawValue as AnyObject
-//                Fact.policeBotNear.rawValue as AnyObject
-                ])
+//            ruleSystem.minimumGrade(forFacts: [
+//                Fact.buyerTaskBotFar.rawValue as AnyObject
+////                Fact.policeBotNear.rawValue as AnyObject
+//                ])
         ]
         
         let huntBuyerTaskBot = huntBuyerTaskBotRaw.reduce(0.0, max)
@@ -995,7 +995,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         }
             
         //TaskBot is Protestor and wants to buy wares and seller nearby
-        else if self.isProtestor && !self.isSubservient && self.isHungry && huntSellerTaskBot > 0.0
+        else if self.isProtestor && !self.isSubservient && self.isHungry && huntSellerTaskBot > 0.7
         {
             guard let criminalBot = state.nearestSellerTaskBotTarget?.target.agent else { return }
             mandate = .buyWares(criminalBot)
