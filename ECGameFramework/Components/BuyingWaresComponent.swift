@@ -169,7 +169,7 @@ class BuyingWaresComponent: GKComponent
                     taskBot?.isBuying = false
                 
                 default:
-//                    animationComponent.requestedAnimationState = .idle
+                    animationComponent.requestedAnimationState = .idle
                     break
             }
         }
