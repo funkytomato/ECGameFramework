@@ -1044,12 +1044,26 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
 //        }
         else
         {
+            print("mandate :\(mandate)")
+            
             // The rules provided no motivation to hunt, retaliate or flee
             switch mandate
             {
+                case .crowd:
+                    print("Crowding")
+                    break
+                
+                case .sellWares(state.nearestBuyerTaskBotTarget?.target.agent):
+                    print("selling wares")
+                    break
+                
+                case .buyWares(state.nearestSellerTaskBotTarget?.target.agent):
+                    print("buying Wares")
+                    break
+                
                 case .wander:
                     // The taskbot is already wandering, so no update is needed
-                    break;
+                    break
                 
                 case .playerMovedTaskBot:
                     // The taskbot is already on the player designated path, so no update is needed
