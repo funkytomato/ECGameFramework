@@ -785,7 +785,7 @@ struct GameplayConfiguration
         static let maximumAppetite = 100.0
         
         /// The amount of appetite a `PlayerBot` loses by a single `GroundBot` attack.
-        static let appetiteLossPerCycle = 1.0
+        static let appetiteLossPerCycle = 0.5
         
         
         
@@ -979,7 +979,7 @@ struct GameplayConfiguration
         static let cohesionWeight: Float = 60.0 //1.667
         
 //        static let agentSearchDistanceForFlocking: Float = 50.0
-        static let agentSearchDistanceForFlocking: Float = 500.0
+        static let agentSearchDistanceForFlocking: Float = 150.0
         static let agentSearchDistanceForArrest: Float = 50.0
         static let agentSupportSearchDistanceForArrest: Float = 500.0
     }
