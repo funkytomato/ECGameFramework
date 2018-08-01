@@ -37,6 +37,8 @@ class BuyingWaresComponent: GKComponent
     }
     
     // MARK: Properties
+    var returnPosition: CGPoint
+    
     var wares: Double
     
     let maximumWares: Double
@@ -89,6 +91,8 @@ class BuyingWaresComponent: GKComponent
     
     init(wares: Double, maximumWares: Double)
     {
+        
+        self.returnPosition = CGPoint.zero
         self.wares = wares
         self.maximumWares = maximumWares
         
@@ -146,15 +150,18 @@ class BuyingWaresComponent: GKComponent
             switch currentState
             {
                 
+            case is BuyingWaresIdleState:
+                    break
+                
                 case is BuyingWaresLookingState:
                     animationComponent.requestedAnimationState = .looking
                     let taskBot = renderComponent.entity as? ProtestorBot
                     taskBot?.isBuying = true
-                
+                    break
                 
                 case is BuyingWaresBuyingState:
                     animationComponent.requestedAnimationState = .buying
-
+                    break
                 
                 case is BuyingWaresTimeOutState:
                     animationComponent.requestedAnimationState = .idle
@@ -167,6 +174,7 @@ class BuyingWaresComponent: GKComponent
                     taskBot?.isHungry = false
                 
                     taskBot?.isBuying = false
+                    break
                 
                 default:
                     animationComponent.requestedAnimationState = .idle
