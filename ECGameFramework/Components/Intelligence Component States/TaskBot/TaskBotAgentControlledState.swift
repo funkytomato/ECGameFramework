@@ -134,12 +134,12 @@ class TaskBotAgentControlledState: GKState
                     if entity.distanceToPoint(otherPoint: position) <= GameplayConfiguration.TaskBot.thresholdProximityToPatrolPathStartPoint
                     {
                         //If Protestor Criminal, wander
-                        if entity.isProtestor || entity.isCriminal
+                        if entity.isProtestor// || entity.isCriminal
                         {
                             entity.mandate = .wander
                         }
                         
-                        //If Police, Patrol
+                        //If Police or Criminal, Patrol
                         else
                         {
                             entity.mandate = entity.isGood ? .followGoodPatrolPath : .followBadPatrolPath
