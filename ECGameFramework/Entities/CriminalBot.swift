@@ -340,25 +340,43 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
 //        mandate = .sellWares
         
         guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
-        print("mandate: \(mandate)")
+//        print("mandate: \(mandate)")
         
         //Criminal Rules
         switch mandate
         {
             case .incite:
-                print("Incite trouble")
+                print("CriminalBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                print("Incite trouble")
                 intelligenceComponent.stateMachine.enter(ProtestorInciteState.self)
             
             case let .sellWares(target):
-                print("Sell Wares")
+                print("CriminalBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                print("Sell Wares")
                 intelligenceComponent.stateMachine.enter(SellWaresState.self)
+//                guard let sellWaresComponent = component(ofType: SellingWaresComponent.self) else { return }
+//                guard let sellWaresState = sellWaresComponent.stateMachine.currentState else { return }
+//            
+//                switch sellWaresState
+//                {
+//                    case is SellingWaresActiveState:
+//                        self.isSelling = true
+//                        break
+//                    
+//                    default:
+//                        self.isSelling = false
+//                        break
+//                }
+        
             
             case let .vandalise(targetPosition):
-                print("Vandalise")
+                print("CriminalBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                print("Vandalise")
                 intelligenceComponent.stateMachine.enter(VandaliseState.self)
             
             case let .loot(targetPosition):
-                print("Loot")
+                print("CriminalBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                print("Loot")
                 intelligenceComponent.stateMachine.enter(LootState.self)
             
             default:
