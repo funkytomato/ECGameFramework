@@ -326,7 +326,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
         // 1) Check if enough time has passed since the `PoliceBot`'s last attack.
         guard agentControlledState.elapsedTime >= GameplayConfiguration.TaskBot.delayBetweenAttacks else { return }
         
-        print("PoliceBot mandate: \(mandate)")
+//        print("PoliceBot mandate: \(mandate)")
         
         //Check the current mandate and set the appropriate values
         switch mandate
@@ -339,6 +339,9 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
              4) There is no scenery between the `PoliceBot` and the target.
              */
             case let .huntAgent(targetAgent):
+                
+                print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+                
                 // 3) Check if the target is within the `PoliceBot`'s attack range.
                 guard distanceToAgent(otherAgent: targetAgent) <= GameplayConfiguration.TaskBot.maximumAttackDistance else { return }
                 
@@ -359,15 +362,21 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
                 intelligenceComponent.stateMachine.enter(PoliceBotRotateToAttackState.self)
             
             case let .supportPolice(targetAgent):
+                
+                print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 intelligenceComponent.stateMachine.enter(PoliceBotSupportState.self)
                 targetPosition = targetAgent.position
             
             case let .fleeAgent(targetAgent):
+                
+                print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 intelligenceComponent.stateMachine.enter(TaskBotFleeState.self)
                 targetPosition = targetAgent.position
             
             default:
-                print("Hmm, do something hereE?")
+                print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+                break
+//                print("Hmm, do something hereE?")
         }
     }
     
