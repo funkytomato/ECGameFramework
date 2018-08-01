@@ -64,7 +64,7 @@ class TaskBotBehavior: GKBehavior
                 let entityTemperamentComponent = taskBot.component(ofType: TemperamentComponent.self)
                 let myCurrentTemperament = myTemperamentComponent?.stateMachine.currentState
                 
-                print("myCurrentTemperament \(myCurrentTemperament.debugDescription), entityTemperamentComponent \(entityTemperamentComponent.debugDescription) ")
+//                print("myCurrentTemperament \(myCurrentTemperament.debugDescription), entityTemperamentComponent \(entityTemperamentComponent.debugDescription) ")
                 
                 //If the TaskBot's temperament match, return agent to flock with
                 switch myCurrentTemperament
