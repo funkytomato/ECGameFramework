@@ -7,156 +7,22 @@
 		<dict>
 			<key>temperament</key>
 			<string>Calm</string>
+			<key>guardPathNodeNames</key>
+			<array>
+				<string>policeBot_guard_01</string>
+				<string>policeBot_guard_02</string>
+			</array>
 			<key>goodPathNodeNames</key>
 			<array>
-				<string>groundBot1_point01</string>
-				<string>groundBot1_point04</string>
-				<string>groundBot1_point02</string>
-				<string>groundBot1_point03</string>
+				<string>criminalBot_good_01</string>
+				<string>criminalBot_good_02</string>
+				<string>criminalBot_good_03</string>
+				<string>criminalBot_good_04</string>
 			</array>
 			<key>badPathNodeNames</key>
 			<array>
-				<string>groundBot1_point03</string>
-				<string>groundBot1_point02</string>
-				<string>groundBot1_point01</string>
-			</array>
-			<key>startsBad</key>
-			<false/>
-			<key>initialOrientation</key>
-			<string>South</string>
-			<key>botType</key>
-			<string>protestor</string>
-		</dict>
-		<dict>
-			<key>temperament</key>
-			<string>Calm</string>
-			<key>goodPathNodeNames</key>
-			<array>
-				<string>groundBot1_point01</string>
-				<string>groundBot1_point04</string>
-				<string>groundBot1_point02</string>
-				<string>groundBot1_point03</string>
-			</array>
-			<key>badPathNodeNames</key>
-			<array>
-				<string>groundBot1_point03</string>
-				<string>groundBot1_point02</string>
-				<string>groundBot1_point01</string>
-			</array>
-			<key>startsBad</key>
-			<false/>
-			<key>initialOrientation</key>
-			<string>South</string>
-			<key>botType</key>
-			<string>protestor</string>
-		</dict>
-		<dict>
-			<key>temperament</key>
-			<string>Calm</string>
-			<key>goodPathNodeNames</key>
-			<array>
-				<string>groundBot1_point01</string>
-				<string>groundBot1_point04</string>
-				<string>groundBot1_point02</string>
-				<string>groundBot1_point03</string>
-			</array>
-			<key>badPathNodeNames</key>
-			<array>
-				<string>groundBot1_point03</string>
-				<string>groundBot1_point02</string>
-				<string>groundBot1_point01</string>
-			</array>
-			<key>startsBad</key>
-			<false/>
-			<key>initialOrientation</key>
-			<string>South</string>
-			<key>botType</key>
-			<string>protestor</string>
-		</dict>
-		<dict>
-			<key>temperament</key>
-			<string>Calm</string>
-			<key>goodPathNodeNames</key>
-			<array>
-				<string>groundBot1_point01</string>
-				<string>groundBot1_point04</string>
-				<string>groundBot1_point02</string>
-				<string>groundBot1_point03</string>
-			</array>
-			<key>badPathNodeNames</key>
-			<array>
-				<string>groundBot1_point03</string>
-				<string>groundBot1_point02</string>
-				<string>groundBot1_point01</string>
-			</array>
-			<key>startsBad</key>
-			<false/>
-			<key>initialOrientation</key>
-			<string>South</string>
-			<key>botType</key>
-			<string>protestor</string>
-		</dict>
-		<dict>
-			<key>temperament</key>
-			<string>Calm</string>
-			<key>goodPathNodeNames</key>
-			<array>
-				<string>groundBot1_point01</string>
-				<string>groundBot1_point04</string>
-				<string>groundBot1_point02</string>
-				<string>groundBot1_point03</string>
-			</array>
-			<key>badPathNodeNames</key>
-			<array>
-				<string>groundBot1_point03</string>
-				<string>groundBot1_point02</string>
-				<string>groundBot1_point01</string>
-			</array>
-			<key>startsBad</key>
-			<false/>
-			<key>initialOrientation</key>
-			<string>South</string>
-			<key>botType</key>
-			<string>protestor</string>
-		</dict>
-		<dict>
-			<key>temperament</key>
-			<string>Calm</string>
-			<key>goodPathNodeNames</key>
-			<array>
-				<string>groundBot1_point01</string>
-				<string>groundBot1_point04</string>
-				<string>groundBot1_point02</string>
-				<string>groundBot1_point03</string>
-			</array>
-			<key>badPathNodeNames</key>
-			<array>
-				<string>groundBot1_point03</string>
-				<string>groundBot1_point02</string>
-				<string>groundBot1_point01</string>
-			</array>
-			<key>startsBad</key>
-			<false/>
-			<key>initialOrientation</key>
-			<string>South</string>
-			<key>botType</key>
-			<string>protestor</string>
-		</dict>
-		<dict>
-			<key>temperament</key>
-			<string>Calm</string>
-			<key>goodPathNodeNames</key>
-			<array>
-				<string>groundBot1_point02</string>
-				<string>groundBot1_point04</string>
-				<string>groundBot1_point01</string>
-				<string>groundBot1_point03</string>
-			</array>
-			<key>badPathNodeNames</key>
-			<array>
-				<string>groundBot1_point03</string>
-				<string>groundBot1_point02</string>
-				<string>groundBot1_point01</string>
+				<string>criminalBot_bad_01</string>
+				<string>criminalBot_bad_02</string>
 			</array>
 			<key>startsBad</key>
 			<false/>
@@ -168,18 +34,24 @@
 		<dict>
 			<key>temperament</key>
 			<string>Calm</string>
+			<key>guardPathNodeNames</key>
+			<array>
+				<string>policeBot_guard_01</string>
+				<string>policeBot_guard_02</string>
+			</array>
 			<key>goodPathNodeNames</key>
 			<array>
-				<string>groundBot1_point01</string>
-				<string>groundBot1_point04</string>
-				<string>groundBot1_point02</string>
-				<string>groundBot1_point03</string>
+				<string>protestorBot_good_01</string>
+				<string>protestorBot_good_02</string>
+				<string>protestorBot_good_03</string>
+				<string>protestorBot_good_04</string>
 			</array>
 			<key>badPathNodeNames</key>
 			<array>
-				<string>groundBot1_point03</string>
-				<string>groundBot1_point02</string>
-				<string>groundBot1_point01</string>
+				<string>protestorBot_bad_01</string>
+				<string>protestorBot_bad_02</string>
+				<string>protestorBot_bad_03</string>
+				<string>protestorBot_bad_04</string>
 			</array>
 			<key>startsBad</key>
 			<false/>
@@ -191,18 +63,61 @@
 		<dict>
 			<key>temperament</key>
 			<string>Calm</string>
+			<key>guardPathNodeNames</key>
+			<array>
+				<string>policeBot_guard_01</string>
+				<string>policeBot_guard_02</string>
+			</array>
 			<key>goodPathNodeNames</key>
 			<array>
-				<string>groundBot1_point04</string>
-				<string>groundBot1_point02</string>
-				<string>groundBot1_point01</string>
-				<string>groundBot1_point03</string>
+				<string>policeBot_patrol_01</string>
+				<string>policeBot_patrol_02</string>
+				<string>policeBot_patrol_03</string>
+				<string>policeBot_patrol_04</string>
+				<string>policeBot_patrol_05</string>
+				<string>policeBot_patrol_06</string>
+				<string>policeBot_patrol_07</string>
+				<string>policeBot_patrol_08</string>
 			</array>
 			<key>badPathNodeNames</key>
 			<array>
-				<string>groundBot1_point03</string>
-				<string>groundBot1_point02</string>
-				<string>groundBot1_point01</string>
+				<string>policeBot_bad_01</string>
+				<string>policeBot_bad_02</string>
+				<string>policeBot_bad_03</string>
+				<string>policeBot_bad_04</string>
+			</array>
+			<key>startsBad</key>
+			<false/>
+			<key>initialOrientation</key>
+			<string>South</string>
+			<key>botType</key>
+			<string>police</string>
+		</dict>
+		<dict>
+			<key>temperament</key>
+			<string>Calm</string>
+			<key>guardPathNodeNames</key>
+			<array>
+				<string>policeBot_guard_01</string>
+				<string>policeBot_guard_02</string>
+			</array>
+			<key>goodPathNodeNames</key>
+			<array>
+				<string>policeBot_patrol_01</string>
+				<string>policeBot_patrol_02</string>
+				<string>policeBot_patrol_03</string>
+				<string>policeBot_patrol_04</string>
+				<string>policeBot_patrol_05</string>
+				<string>policeBot_patrol_06</string>
+				<string>policeBot_patrol_07</string>
+				<string>policeBot_patrol_08</string>
+			</array>
+			<key>badPathNodeNames</key>
+			<array>
+				<string>policeBot_bad_01</string>
+				<string>policeBot_bad_02</string>
+				<string>policeBot_bad_03</string>
+				<string>policeBot_bad_04</string>
 			</array>
 			<key>startsBad</key>
 			<false/>
@@ -217,6 +132,6 @@
 	<key>initialPlayerBotOrientation</key>
 	<string>East</string>
 	<key>timeLimit</key>
-	<integer>180</integer>
+	<integer>600</integer>
 </dict>
 </plist>
