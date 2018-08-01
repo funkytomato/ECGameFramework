@@ -34,6 +34,9 @@ struct LevelConfiguration
         /// The initial orientation of this `TaskBot` when the level is first loaded.
         let initialOrientation: CompassDirection
         
+        // The names of the nodes for this 'Taskbot's guard path when it is guarding
+        let guardPathNodeNames: [String]
+        
         /// The names of the nodes for this `TaskBot`'s patrol path when it is "good" and not hunting.
         let goodPathNodeNames: [String]
 
@@ -67,6 +70,7 @@ struct LevelConfiguration
             }
             
             initialOrientation = CompassDirection(string: botConfigurationInfo["initialOrientation"] as! String)
+            guardPathNodeNames = botConfigurationInfo["guardPathNodeNames"] as![String]
             goodPathNodeNames = botConfigurationInfo["goodPathNodeNames"] as! [String]
             badPathNodeNames = botConfigurationInfo["badPathNodeNames"] as! [String]
             startsBad = botConfigurationInfo["startsBad"] as! Bool
