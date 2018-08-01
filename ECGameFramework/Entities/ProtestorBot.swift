@@ -99,6 +99,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         agent.maxSpeed = speed
         agent.mass = GameplayConfiguration.ProtestorBot.agentMass
         
+        mandate = .wander
         
         // TaskBot is Protestor
         if isGood
@@ -119,7 +120,6 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             texture = SKTexture(imageNamed: "ProtestorBot")
         }
             
-        // TaskBot is a criminal
         else
         {
             
@@ -201,15 +201,15 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         healthComponent.delegate = self
         addComponent(healthComponent)
 
-        let resistanceComponent = ResistanceComponent(resistance: initialResistance, maximumResistance: GameplayConfiguration.ProtestorBot.maximumResistance, displaysResistanceBar: false)
+        let resistanceComponent = ResistanceComponent(resistance: initialResistance, maximumResistance: GameplayConfiguration.ProtestorBot.maximumResistance, displaysResistanceBar: true)
         resistanceComponent.delegate = self
         addComponent(resistanceComponent)
         
-        let respectComponent = RespectComponent(respect: initialRespect, maximumRespect: GameplayConfiguration.ProtestorBot.maximumRespect, displaysRespectBar: false)
+        let respectComponent = RespectComponent(respect: initialRespect, maximumRespect: GameplayConfiguration.ProtestorBot.maximumRespect, displaysRespectBar: true)
         respectComponent.delegate = self
         addComponent(respectComponent)
         
-        let obesianceComponent = ObeisanceComponent(obeisance: initialObeisance, maximumObeisance: GameplayConfiguration.ProtestorBot.maximumObesiance, displaysObeisanceBar: false)
+        let obesianceComponent = ObeisanceComponent(obeisance: initialObeisance, maximumObeisance: GameplayConfiguration.ProtestorBot.maximumObesiance, displaysObeisanceBar: true)
         obesianceComponent.delegate = self
         addComponent(obesianceComponent)
         
@@ -220,11 +220,11 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         buyWaresComponent.delegate = self
         addComponent(buyWaresComponent)
         
-        let appetiteComponent = AppetiteComponent(appetite: initialAppetite, maximumAppetite: GameplayConfiguration.ProtestorBot.maximumAppetite, displaysAppetiteBar: false)
+        let appetiteComponent = AppetiteComponent(appetite: initialAppetite, maximumAppetite: GameplayConfiguration.ProtestorBot.maximumAppetite, displaysAppetiteBar: true)
         appetiteComponent.delegate = self
         addComponent(appetiteComponent)
         
-        let intoxicationComponent = IntoxicationComponent(intoxication: initialIntoxication , maximumIntoxication: GameplayConfiguration.ProtestorBot.maximumIntoxication, displaysIntoxicationBar: false)
+        let intoxicationComponent = IntoxicationComponent(intoxication: initialIntoxication , maximumIntoxication: GameplayConfiguration.ProtestorBot.maximumIntoxication, displaysIntoxicationBar: true)
         intoxicationComponent.delegate = self
         addComponent(intoxicationComponent)
         
@@ -339,8 +339,8 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         // 3) Set the Protestor to Flee State
         //guard intelligenceComponent.stateMachine.enter(TaskBotFleeState.self) else { return }
         
-        print("mandate \(mandate)")
-        print("state: \(intelligenceComponent.stateMachine.currentState.debugDescription)")
+        print("ProtestorBot: rulesComponent:- mandate \(mandate), state: \(intelligenceComponent.stateMachine.currentState.debugDescription)")
+
 
         switch mandate
         {
@@ -349,8 +349,11 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             
             case let .buyWares(target):
                 
+                print("ProtestorBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+                
+        
                 // Check if the target is within the `ProtestorBot`'s attack range.
-                guard distanceToAgent(otherAgent: target) <= 250.0 else { return }
+                guard distanceToAgent(otherAgent: target) <= 150.0 else { return }
                 
                 // Check if any walls or obstacles are between the `PoliceBot` and its hunt target position.
                 var hasLineOfSight = true
@@ -369,10 +372,15 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
                 targetPosition = target.position
             
             case .incite:
+                
+                print("ProtestorBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+                
                 //print("mandate \(mandate)")
                 intelligenceComponent.stateMachine.enter(ProtestorInciteState.self)
 
             case let .huntAgent(targetAgent):
+                
+                print("ProtestorBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 
                 // Check if the target is within the `ProtestorBot`'s attack range.
                 guard distanceToAgent(otherAgent: targetAgent) <= GameplayConfiguration.TaskBot.maximumAttackDistance else { return }
@@ -394,17 +402,29 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
                 targetPosition = targetAgent.position
             
             case .lockupPrisoner:
+                
+                print("ProtestorBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+                
                 intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
             
             case let .fleeAgent(targetAgent):
-               intelligenceComponent.stateMachine.enter(TaskBotFleeState.self)
-               targetPosition = targetAgent.position
+                
+                print("ProtestorBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+                
+                intelligenceComponent.stateMachine.enter(TaskBotFleeState.self)
+                targetPosition = targetAgent.position
             
             case let .retaliate(targetTaskbot):
+                
+                print("ProtestorBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+                
                 intelligenceComponent.stateMachine.enter(ProtestorBotRotateToAttackState.self)
                 targetPosition = targetTaskbot.position
             
             default:
+                
+                print("ProtestorBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+                
                 break
         }
     }
