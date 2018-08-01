@@ -59,6 +59,10 @@ class BuyingWaresIdleState: GKState
         if buyWaresComponent.isTriggered && elapsedTime >= 20.0
         {
             stateMachine?.enter(BuyingWaresLookingState.self)
+            
+            //Get the current position and save so that Protestor can return to starting position before looking to buy.
+            guard let renderComponent = buyWaresComponent.entity?.component(ofType: RenderComponent.self) else { return }
+            buyWaresComponent.returnPosition = renderComponent.node.position
         }
     }
     
