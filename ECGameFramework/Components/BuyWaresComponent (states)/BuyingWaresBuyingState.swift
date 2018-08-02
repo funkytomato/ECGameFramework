@@ -65,8 +65,12 @@ class BuyingWaresBuyingState: GKState
 
         if buyWaresComponent.hasWares
         {
-            stateMachine?.enter(BuyingWaresIdleState.self)
+            stateMachine?.enter(BuyingWaresReturningHomeState.self)
             intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
+            
+            //Move Protestor back to their initial position (returnPosition)
+            guard let protestor = buyWaresComponent.entity as? ProtestorBot else { return }
+            protestor.targetPosition = buyWaresComponent.returnPosition
         }
     }
     
@@ -74,7 +78,7 @@ class BuyingWaresBuyingState: GKState
     {
         switch stateClass
         {
-        case is BuyingWaresIdleState.Type:
+        case is BuyingWaresReturningHomeState.Type:
             return true
             
         default:
