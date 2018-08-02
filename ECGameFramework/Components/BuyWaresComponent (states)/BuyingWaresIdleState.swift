@@ -62,7 +62,7 @@ class BuyingWaresIdleState: GKState
             
             //Get the current position and save so that Protestor can return to starting position before looking to buy.
             guard let renderComponent = buyWaresComponent.entity?.component(ofType: RenderComponent.self) else { return }
-            buyWaresComponent.returnPosition = renderComponent.node.position
+            buyWaresComponent.returnPosition = float2(renderComponent.node.position)
         }
     }
     
