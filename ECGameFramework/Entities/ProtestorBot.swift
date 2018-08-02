@@ -300,7 +300,6 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         {
             guard let protestorTarget = entity as? ProtestorBot else { return }
             guard let protestorTargetTemperamentComponent = protestorTarget.component(ofType: TemperamentComponent.self) else { return }
-//            protestorTargetTemperamentComponent.increaseTemperament()
             protestorTargetTemperamentComponent.increaseTemperament(temperamentToAdd: Double(GameplayConfiguration.ProtestorBot.temperamentIncreasePerCycle))
             
             //print("Raised temperament of touching Protestor")
@@ -326,18 +325,12 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         */
         guard let scene = component(ofType: RenderComponent.self)?.node.scene else { return }
         guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
-        //guard let temperamentComponent = component(ofType: TemperamentComponent.self) else { return }
         guard let agentControlledState = intelligenceComponent.stateMachine.currentState as? TaskBotAgentControlledState else { return }
         
         
         // Check if enough time has passed since the `ProtestorBot`'s last attack.
         guard agentControlledState.elapsedTime >= GameplayConfiguration.TaskBot.delayBetweenAttacks else { return }
-        
-        // 2) Check if the Protestor is Scared
-        //guard let scared = temperamentComponent.stateMachine.currentState as? ScaredState else { return }
-        
-        // 3) Set the Protestor to Flee State
-        //guard intelligenceComponent.stateMachine.enter(TaskBotFleeState.self) else { return }
+
         
         print("ProtestorBot: rulesComponent:- mandate \(mandate), state: \(intelligenceComponent.stateMachine.currentState.debugDescription)")
 
@@ -346,6 +339,14 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         {
 //            case .wander:
 //                intelligenceComponent.stateMachine.enter(ProtestorBotWanderState.self)
+            
+            case let .returnHome(position):
+            
+                print("ProtestorBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+                
+                targetPosition = position
+                
+                break
             
             case let .buyWares(target):
                 
