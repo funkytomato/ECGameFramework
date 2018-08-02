@@ -317,7 +317,7 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
             guard let protestorAppetiteComponent = protestorBot.component(ofType: AppetiteComponent.self) else { return }
             
             //Trigger the Protestor isConSuming flag
-            protestorAppetiteComponent.isConsumingProduct = true
+//   Will do this when the Protestor has moved back to starting position         protestorAppetiteComponent.isConsumingProduct = true
             
             //Protestor has bought product and so does not need to look to buy more
             protestorAppetiteComponent.isTriggered = false
@@ -336,47 +336,29 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
     override func rulesComponent(rulesComponent: RulesComponent, didFinishEvaluatingRuleSystem ruleSystem: GKRuleSystem)
     {
         super.rulesComponent(rulesComponent: rulesComponent, didFinishEvaluatingRuleSystem: ruleSystem)
-        
-//        mandate = .sellWares
+
         
         guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
-//        print("mandate: \(mandate)")
         
         //Criminal Rules
         switch mandate
         {
             case .incite:
                 print("CriminalBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
-//                print("Incite trouble")
                 intelligenceComponent.stateMachine.enter(ProtestorInciteState.self)
+                break
             
             case let .sellWares(target):
                 print("CriminalBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
-//                print("Sell Wares")
                 intelligenceComponent.stateMachine.enter(SellWaresState.self)
-//                guard let sellWaresComponent = component(ofType: SellingWaresComponent.self) else { return }
-//                guard let sellWaresState = sellWaresComponent.stateMachine.currentState else { return }
-//            
-//                switch sellWaresState
-//                {
-//                    case is SellingWaresActiveState:
-//                        self.isSelling = true
-//                        break
-//                    
-//                    default:
-//                        self.isSelling = false
-//                        break
-//                }
-        
+                break
             
             case let .vandalise(targetPosition):
                 print("CriminalBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
-//                print("Vandalise")
                 intelligenceComponent.stateMachine.enter(VandaliseState.self)
             
             case let .loot(targetPosition):
                 print("CriminalBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
-//                print("Loot")
                 intelligenceComponent.stateMachine.enter(LootState.self)
             
             default:
