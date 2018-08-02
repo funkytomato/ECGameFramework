@@ -129,6 +129,21 @@ class TaskBotAgentControlledState: GKState
                 
                     break
                 
+                case let .returnHome(position):
+                    if entity.distanceToPoint(otherPoint: position) <= GameplayConfiguration.TaskBot.thresholdProximityToPatrolPathStartPoint
+                    {
+                        //If Protestor start consuming
+                        if entity.isProtestor
+                        {
+                            //Check protestor has an appetite
+                            guard let protestorAppetiteComponent = entity.component(ofType: AppetiteComponent.self) else { return }
+                            protestorAppetiteComponent.isConsumingProduct = true
+                            
+                            entity.mandate = .crowd()
+                        }
+                    }
+                    break
+                
                 // When a `TaskBot` is returning to its path patrol start, and gets near enough, it should start to patrol.
                 case let .returnToPositionOnPath(position):
                     if entity.distanceToPoint(otherPoint: position) <= GameplayConfiguration.TaskBot.thresholdProximityToPatrolPathStartPoint
@@ -151,10 +166,10 @@ class TaskBotAgentControlledState: GKState
                     entity.mandate = .wander
                     break
                 
-//                case .wander:
-////                    if entity.distanceToPoint(otherPoint: <#T##float2#>)
-//                    print("TaskBot wander")
-                
+                case .wander:
+
+                    print("TaskBotAgentControlledState: wander")
+                    break
                 
                 default:
                     break
