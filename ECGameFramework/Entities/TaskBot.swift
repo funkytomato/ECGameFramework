@@ -42,6 +42,8 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         // Return to a given position on a patrol path.
         case returnToPositionOnPath(float2)
         
+        // Return to the starting position at the time of beginning to look for wares
+        case returnHome(float2)
         
         // Wander the 'TaskBot' around the scene
         case wander
@@ -104,9 +106,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                     The `TaskBot` just turned from "bad" to "good".
                     Set its mandate to `.ReturnToPositionOnPath` for the closest point on its "good" patrol path.
                 */
-//                let closestPointOnGoodPath = closestPointOnPath(path: goodPathPoints)
-//                mandate = .returnToPositionOnPath(float2(closestPointOnGoodPath))
-                mandate = .wander
+                let closestPointOnGoodPath = closestPointOnPath(path: goodPathPoints)
+                mandate = .returnToPositionOnPath(float2(closestPointOnGoodPath))
+//                mandate = .wander
                 
                 if self is FlyingBot
                 {
@@ -231,15 +233,15 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         let debugPathPoints: [CGPoint]
         var debugPathShouldCycle = false
         let debugColor: SKColor
-        
-        
-//        print("behaviour mandate: \(mandate)")
-        
+    
         
         switch mandate
         {
             // PoliceBots need support
             case let .supportPolice(target):
+                
+                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+                
                 radius = GameplayConfiguration.TaskBot.huntPathRadius
                 (agentBehavior, debugPathPoints) = TaskBotBehavior.supportBehaviour(forAgent: agent, huntingAgent: target, pathRadius: radius, inScene: levelScene)
                 debugColor = SKColor.orange
@@ -247,6 +249,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             
             // Player has created a path for the TaskBot to follow
             case .playerMovedTaskBot:
+                
+                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+                
                 let pathPoints = self.playerPathPoints
                 radius = GameplayConfiguration.TaskBot.patrolPathRadius
                 (agentBehavior, debugPathPoints) = TaskBotBehavior.moveBehaviour(forAgent: agent, pathPoints: pathPoints, pathRadius: radius, inScene: levelScene)
@@ -258,6 +263,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             
             // TaskBots will follow either a good or bad patrol path
             case .followGoodPatrolPath, .followBadPatrolPath:
+                
+                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+                
                 let pathPoints = isGood ? goodPathPoints : badPathPoints
                 radius = GameplayConfiguration.TaskBot.patrolPathRadius
                 agentBehavior = TaskBotBehavior.patrolBehaviour(forAgent: agent, patrollingPathWithPoints: pathPoints, pathRadius: radius, inScene: levelScene, cyclical: true)
@@ -269,6 +277,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             
             // Protestors will crowd together if of the same temperament
             case .crowd:
+                
+                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+                
                 // Who will crowd with who, only calm people for now
                 let temperament = "Calm"
                 radius = GameplayConfiguration.TaskBot.huntPathRadius
@@ -280,63 +291,98 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             
             // TaskBot is hunting another TaskBot
             case let .huntAgent(taskBot):
+                
+                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+                
                 radius = GameplayConfiguration.TaskBot.huntPathRadius
                 (agentBehavior, debugPathPoints) = TaskBotBehavior.huntBehaviour(forAgent: agent, huntingAgent: taskBot, pathRadius: radius, inScene: levelScene)
                 debugColor = SKColor.red
 
             // Return TaskBot to a position on a path
             case let .returnToPositionOnPath(position):
+                
+                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+                
                 radius = GameplayConfiguration.TaskBot.returnToPatrolPathRadius
                 (agentBehavior, debugPathPoints) = TaskBotBehavior.returnToPathBehaviour(forAgent: agent, returningToPoint: position, pathRadius: radius, inScene: levelScene)
                 debugColor = SKColor.yellow
             
+            case let .returnHome(position):
+                
+                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+                
+                radius = GameplayConfiguration.TaskBot.returnToPatrolPathRadius
+                (agentBehavior, debugPathPoints) = TaskBotBehavior.returnToPathBehaviour(forAgent: agent, returningToPoint: position, pathRadius: radius, inScene: levelScene)
+                debugColor = SKColor.brown
+            
             // TaskBot is wandering around the scene
             case .wander:
+                
+                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+                
                 radius = GameplayConfiguration.TaskBot.wanderPathRadius
                 (agentBehavior, debugPathPoints)  = TaskBotBehavior.wanderBehaviour(forAgent: agent, inScene: levelScene)
                 debugColor = SKColor.cyan
             
             // Protestor being moved to LockUp
             case let .arrested(taskBot):
+                
+                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+                
                 radius = GameplayConfiguration.TaskBot.wanderPathRadius
                 (agentBehavior, debugPathPoints) = TaskBotBehavior.arrestedBehaviour(forAgent: agent, huntingAgent: taskBot, pathRadius: 25.0, inScene: levelScene)
                 debugColor = SKColor.white
             
             // PoliceBot taking prisoner to meatwagon
             case .lockupPrisoner:
+                
+                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+                
                 radius = GameplayConfiguration.TaskBot.lockupRadius
                 (agentBehavior, debugPathPoints) = TaskBotBehavior.returnToPathBehaviour(forAgent: agent, returningToPoint: levelScene.meatWagonLocation(), pathRadius: radius, inScene: levelScene)
                 debugColor = SKColor.brown
             
             // TaskBot is scared and running away
             case let .fleeAgent(taskBot):
+                
+                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+                
                 radius = GameplayConfiguration.TaskBot.fleePathRadius
                 (agentBehavior, debugPathPoints) = TaskBotBehavior.fleeBehaviour(forAgent: agent, fromAgent: taskBot, inScene: levelScene)
                 debugColor = SKColor.purple
             
             // TaskBot is violent and being attacked, fight back
             case let .retaliate(taskBot):
+                
+                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+                
                 radius = GameplayConfiguration.TaskBot.huntPathRadius
                 (agentBehavior, debugPathPoints) = TaskBotBehavior.retaliateBehaviour(forAgent: agent, huntingAgent: taskBot, pathRadius: radius, inScene: levelScene)
                 debugColor = SKColor.blue
 
             // TaskBot is inciting the crowd
             case .incite:
-                print("Incite")
+                
+                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+                
                 radius = GameplayConfiguration.TaskBot.wanderPathRadius
                 (agentBehavior, debugPathPoints)  = TaskBotBehavior.wanderBehaviour(forAgent: agent, inScene: levelScene)
                 debugColor = SKColor.gray
   
             // TaskBot is a protestor and is buying their wares
             case let .buyWares(target):
-                print("BuyWares")
+                
+                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+                
                 radius = GameplayConfiguration.TaskBot.wanderPathRadius
                 (agentBehavior, debugPathPoints)  = TaskBotBehavior.huntBehaviour(forAgent: agent, huntingAgent: target, pathRadius: radius, inScene: levelScene)
                 debugColor = SKColor.white
             
             // TaskBot is a criminal and is selling their wares
             case let .sellWares(target):
-                print("SellWares")
+                
+                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+                
                 radius = GameplayConfiguration.TaskBot.wanderPathRadius
                 (agentBehavior, debugPathPoints)  = TaskBotBehavior.huntBehaviour(forAgent: agent, huntingAgent: target, pathRadius: radius, inScene: levelScene)
 //                (agentBehavior, debugPathPoints)  = TaskBotBehavior.wanderBehaviour(forAgent: agent, inScene: levelScene)
@@ -344,14 +390,18 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             
             //TaskBot is a criminal and is vandalising
             case let .vandalise(position):
-                print("Vandalise")
+                
+                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+                
                 radius = GameplayConfiguration.TaskBot.returnToPatrolPathRadius
                 (agentBehavior, debugPathPoints) = TaskBotBehavior.returnToPathBehaviour(forAgent: agent, returningToPoint: position, pathRadius: radius, inScene: levelScene)
                 debugColor = SKColor.yellow
             
             //TaskBot is a criminal and is looting a building
             case let .loot(position):
-                print("Loot")
+                
+                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+                
                 radius = GameplayConfiguration.TaskBot.returnToPatrolPathRadius
                 (agentBehavior, debugPathPoints) = TaskBotBehavior.returnToPathBehaviour(forAgent: agent, returningToPoint: position, pathRadius: radius, inScene: levelScene)
                 debugColor = SKColor.yellow
