@@ -37,7 +37,7 @@ class BuyingWaresComponent: GKComponent
     }
     
     // MARK: Properties
-    var returnPosition: CGPoint
+    var returnPosition: float2
     
     var wares: Double
     
@@ -66,7 +66,7 @@ class BuyingWaresComponent: GKComponent
     
     
     /**
-     The state machine for this `BeamComponent`. Defined as an implicitly
+     The state machine for this `BuyingWaresComponent`. Defined as an implicitly
      unwrapped optional property, because it is created during initialization,
      but cannot be created until after we have called super.init().
      */
@@ -92,7 +92,7 @@ class BuyingWaresComponent: GKComponent
     init(wares: Double, maximumWares: Double)
     {
         
-        self.returnPosition = CGPoint.zero
+        self.returnPosition = float2.init()
         self.wares = wares
         self.maximumWares = maximumWares
         
@@ -102,6 +102,7 @@ class BuyingWaresComponent: GKComponent
             BuyingWaresIdleState(buyWaresComponent: self),
             BuyingWaresLookingState(buyWaresComponent: self),
             BuyingWaresBuyingState(buyWaresComponent: self),
+            BuyingWaresReturningHomeState(buyWaresComponent: self),
             BuyingWaresTimeOutState(buyWaresComponent: self)
             ])
         
@@ -176,8 +177,13 @@ class BuyingWaresComponent: GKComponent
                     taskBot?.isBuying = false
                     break
                 
+                case is BuyingWaresReturningHomeState:
+                    animationComponent.requestedAnimationState = .idle
+                
+                
                 default:
                     animationComponent.requestedAnimationState = .idle
+//                    intelligenceComponent.stateMachine.currentState(returnHome)
                     break
             }
         }
