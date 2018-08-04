@@ -101,7 +101,7 @@ class TaskBotBehavior: GKBehavior
         
         if !agentsToFlockWith.isEmpty
         {
-            print("crowdBehaviour - agents are flocking \(agentsToFlockWith.debugDescription)")
+//            print("crowdBehaviour - agents are flocking \(agentsToFlockWith.debugDescription)")
             
             
             // Add flocking goals for any nearby "bad" `TaskBot`s.
