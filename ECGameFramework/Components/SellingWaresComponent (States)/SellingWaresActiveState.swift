@@ -44,6 +44,9 @@ class SellingWaresActiveState: GKState
         
         // Reset the "amount of time firing" tracker when we enter the "firing" state.
         elapsedTime = 0.0
+        
+        guard let protestorBot = sellingWaresComponent.entity as? ProtestorBot else { return }
+        protestorBot.isSelling = true
     }
     
     override func update(deltaTime seconds: TimeInterval)
@@ -79,6 +82,9 @@ class SellingWaresActiveState: GKState
     override func willExit(to nextState: GKState)
     {
         super.willExit(to: nextState)
+        
+        guard let protestorBot = sellingWaresComponent.entity as? ProtestorBot else { return }
+        protestorBot.isSelling = false
     }
 }
 
