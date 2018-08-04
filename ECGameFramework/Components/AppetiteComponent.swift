@@ -186,7 +186,7 @@ class AppetiteComponent: GKComponent
         //Protestor's is now hungry and will start to look for a source to buy from
         guard (stateMachine.currentState as? AppetiteHungryState) != nil else { return }
         
-        //Moves the Buying Component into Active state
+        //Protestor is hungry, and wants to buy some wares.  Trigger the BuyingComponent into buying wares
         buyWaresComponent.isTriggered = true
     }
     
