@@ -48,9 +48,9 @@ class BuyingWaresBuyingState: GKState
 //        print("BuyWaresBuyingState entered")
         
         super.didEnter(from: previousState)
-        
         elapsedTime = 0.0
         
+        buyWaresComponent.isTriggered = false
 
     }
     
