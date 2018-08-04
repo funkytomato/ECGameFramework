@@ -55,6 +55,9 @@ class AppetiteConsumingState: GKState
 //        self.consumptionSpeed = Double(speed)
         self.consumptionSpeed = 0.1
         print("consumption speed :\(speed.debugDescription)")
+        
+        guard let protestorBot = appetiteComponent.entity as? ProtestorBot else { return }
+        protestorBot.isHungry = false
     }
     
     override func update(deltaTime seconds: TimeInterval)
@@ -73,6 +76,13 @@ class AppetiteConsumingState: GKState
         if !appetiteComponent.hasAppetite
         {
             stateMachine?.enter(AppetiteIdleState.self)
+            
+            guard let protestorBot = appetiteComponent.entity as? ProtestorBot else { return }
+            guard let buyWaresComponent = protestorBot.component(ofType: BuyingWaresComponent.self) else { return }
+            
+            //Remove wares from Protestor's pockethas
+            buyWaresComponent.loseProduct(waresToLose: GameplayConfiguration.CriminalBot.sellingWaresLossPerCycle)
+            
         }
     }
     
@@ -91,6 +101,9 @@ class AppetiteConsumingState: GKState
     override func willExit(to nextState: GKState)
     {
         super.willExit(to: nextState)
+        
+        appetiteComponent.isConsumingProduct = false
+        
     }
 }
 
