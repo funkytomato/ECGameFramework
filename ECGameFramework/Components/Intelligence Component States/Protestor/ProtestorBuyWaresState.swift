@@ -78,8 +78,6 @@ class ProtestorBuyWaresState: GKState
     override func didEnter(from previousState: GKState?)
     {
         super.didEnter(from: previousState)
-        
-        //Reset the tracking of how long the 'ManBot' has been in "Detained" state
         elapsedTime = 0.0
         
         buyWaresComponent.stateMachine.enter(BuyingWaresIdleState.self)
