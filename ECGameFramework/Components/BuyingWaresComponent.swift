@@ -171,10 +171,6 @@ class BuyingWaresComponent: GKComponent
                     //Reset Appetite to idle
                     let appetiteComponent = self.renderComponent.entity?.component(ofType: AppetiteComponent.self)
                     appetiteComponent?.stateMachine.enter(AppetiteIdleState.self)
-                    let taskBot = renderComponent.entity as? ProtestorBot
-                    taskBot?.isHungry = false
-                
-                    taskBot?.isBuying = false
                     break
                 
                 case is BuyingWaresReturningHomeState:
@@ -183,7 +179,6 @@ class BuyingWaresComponent: GKComponent
                 
                 default:
                     animationComponent.requestedAnimationState = .idle
-//                    intelligenceComponent.stateMachine.currentState(returnHome)
                     break
             }
         }
