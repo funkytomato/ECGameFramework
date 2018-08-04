@@ -55,7 +55,7 @@ class BuyingWaresIdleState: GKState
         
 //        print("BuyWaresIdleState update: \(buyWaresComponent.entity.debugDescription)")
         
-        // If buy a product has been triggered, start searching for a seller
+        // If buy a product has been triggered, and has been idle for some time, start searching for a seller
         if buyWaresComponent.isTriggered && elapsedTime >= 20.0
         {
             stateMachine?.enter(BuyingWaresLookingState.self)
@@ -63,6 +63,11 @@ class BuyingWaresIdleState: GKState
             //Get the current position and save so that Protestor can return to starting position before looking to buy.
             guard let renderComponent = buyWaresComponent.entity?.component(ofType: RenderComponent.self) else { return }
             buyWaresComponent.returnPosition = float2(renderComponent.node.position)
+            
+            //Reset the isHome to false
+            
+            guard let protestorBot = buyWaresComponent.entity as? ProtestorBot else { return }
+            protestorBot.isHome = false
         }
     }
     
