@@ -46,9 +46,6 @@ class BuyingWaresReturningHomeState: GKState
         
         super.didEnter(from: previousState)
         elapsedTime = 0.0
-    
-        
-//        buyWaresComponent.entity.mandate = .returnToPositionOnPath(float2(buyWaresComponent.returnPosition))
     }
     
     override func update(deltaTime seconds: TimeInterval)
@@ -62,7 +59,8 @@ class BuyingWaresReturningHomeState: GKState
         guard let physicsComponent = protestor.component(ofType: PhysicsComponent.self) else { return }
         
         // If Protestor has reached their home position (where they started before looking for product) move to BuyingWaresIdleState
-        if buyWaresComponent.isTriggered && elapsedTime >= 20.0
+        guard let protestorBot = buyWaresComponent.entity as? ProtestorBot else { return }
+        if protestorBot.isHome
         {
             stateMachine?.enter(BuyingWaresIdleState.self)
         }
