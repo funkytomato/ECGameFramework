@@ -42,9 +42,11 @@ class AppetiteHungryState: GKState
 //        print("AppetiteActiveState entered: \(appetiteComponent.entity.debugDescription)")
         
         super.didEnter(from: previousState)
-        
-        // Reset the "amount of time firing" tracker when we enter the "firing" state.
         elapsedTime = 0.0
+        
+        guard let protestorBot = appetiteComponent.entity as? ProtestorBot else { return }
+//        protestorBot.isHungry = true
+        
     }
     
     override func update(deltaTime seconds: TimeInterval)
@@ -52,7 +54,10 @@ class AppetiteHungryState: GKState
         super.update(deltaTime: seconds)
         elapsedTime += seconds
         
-        if appetiteComponent.isConsumingProduct
+        guard let protestorBot = appetiteComponent.entity as? ProtestorBot else { return }
+        
+        // Protestor can only consume if triggered and has wares
+        if appetiteComponent.isConsumingProduct && protestorBot.hasWares
         {
             // Protestor is now consuming product
             stateMachine?.enter(AppetiteConsumingState.self)
