@@ -125,7 +125,7 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
         // Create a random speed for each taskbot
         let randomSource = GKRandomSource.sharedRandom()
         let diff = randomSource.nextUniform() // returns random Float between 0.0 and 1.0
-        let speed = diff * GameplayConfiguration.CriminalBot.maximumSpeedForIsGood(isGood: isGood) + GameplayConfiguration.TaskBot.minimumSpeed //Ensure it has some speed
+        let speed = diff * GameplayConfiguration.TaskBot.maximumSpeedForIsGood(isGood: isGood) + GameplayConfiguration.TaskBot.minimumSpeed //Ensure it has some speed
         print("speed :\(speed.debugDescription)")
         
         // Configure the agent's characteristics for the steering physics simulation.
@@ -237,14 +237,9 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
 //        print("Deallocating CriminalBot")
     }
     
-    // MARK: ContactableType
     
-    override func contactWithEntityDidBegin(_ entity: GKEntity)
+    func buyWares(_ entity: GKEntity)
     {
-        super.contactWithEntityDidBegin(entity)
-        
-
-        
         //If a Criminal is selling wares and a Protestor touches Criminal and wants to buy, sell them a product
         //Check the criminal has a SellingWaresComponent
         guard let sellingWaresComponent = component(ofType: SellingWaresComponent.self) else { return }
@@ -256,7 +251,7 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
         if protestorBot.isActive
         {
             guard let protestorBuyingWaresComponent = protestorBot.component(ofType: BuyingWaresComponent.self) else { return }
-//            print("state: \(protestorBuyingWaresComponent.stateMachine.currentState.debugDescription)")
+            //            print("state: \(protestorBuyingWaresComponent.stateMachine.currentState.debugDescription)")
             guard (protestorBuyingWaresComponent.stateMachine.currentState as? BuyingWaresLookingState) != nil else { return }
             // protestorBuyingWaresComponent.stateMachine.enter(BuyingState.self)
             
@@ -271,7 +266,7 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
             guard let protestorAppetiteComponent = protestorBot.component(ofType: AppetiteComponent.self) else { return }
             
             //Trigger the Protestor isConSuming flag
-            protestorAppetiteComponent.isConsumingProduct = true
+            //            protestorAppetiteComponent.isConsumingProduct = true
             protestorBot.isConsuming = true
             
             //Protestor has bought product and so does not need to look to buy more
@@ -287,52 +282,25 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
     }
     
     
+    // MARK: ContactableType
+    
+    override func contactWithEntityDidBegin(_ entity: GKEntity)
+    {
+        super.contactWithEntityDidBegin(entity)
+        
+//        buyWares(entity)
+    }
+    
+    
     override func contactWithEntityDidEnd(_ entity: GKEntity)
     {
         super.contactWithEntityDidEnd(entity)
         
-        //If a Criminal is selling wares and a Protestor touches Criminal and wants to buy, sell them a product
-        //Check the criminal has a SellingWaresComponent
-        guard let sellingWaresComponent = component(ofType: SellingWaresComponent.self) else { return }
-        guard (sellingWaresComponent.stateMachine.currentState as? SellingWaresActiveState) != nil else { return }
-        
-        
-        //Check protestor has a buying component, and move into buying state
-        guard let protestorBot = entity as? ProtestorBot else { return }
-        if protestorBot.isActive
-        {
-            guard let protestorBuyingWaresComponent = protestorBot.component(ofType: BuyingWaresComponent.self) else { return }
-//            print("state: \(protestorBuyingWaresComponent.stateMachine.currentState.debugDescription)")
-            guard (protestorBuyingWaresComponent.stateMachine.currentState as? BuyingWaresLookingState) != nil else { return }
-            // protestorBuyingWaresComponent.stateMachine.enter(BuyingState.self)
-            
-            
-            //Reduce the number of wares the Criminal has
-            sellingWaresComponent.loseWares(waresToLose: GameplayConfiguration.CriminalBot.sellingWaresLossPerCycle)
-            
-            //Protestor buys product
-            protestorBuyingWaresComponent.gainProduct(waresToAdd: GameplayConfiguration.CriminalBot.sellingWaresLossPerCycle)
-            
-            //Check protestor has an appetite
-            guard let protestorAppetiteComponent = protestorBot.component(ofType: AppetiteComponent.self) else { return }
-            
-            //Trigger the Protestor isConSuming flag
-//   Will do this when the Protestor has moved back to starting position         protestorAppetiteComponent.isConsumingProduct = true
-            
-            //Protestor has bought product and so does not need to look to buy more
-            protestorAppetiteComponent.isTriggered = false
-            
-            
-            //Ensure the Protestor has an IntoxicationComponent
-            guard let protestorIntoxicationComponent = protestorBot.component(ofType: IntoxicationComponent.self) else { return }
-            
-            //Trigger the Protestor's intoxication component
-            protestorIntoxicationComponent.isTriggered = true
-        }
+//        buyWares(entity)
     }
     
-    // MARK: RulesComponentDelegate
     
+    // MARK: RulesComponentDelegate
     override func rulesComponent(rulesComponent: RulesComponent, didFinishEvaluatingRuleSystem ruleSystem: GKRuleSystem)
     {
         super.rulesComponent(rulesComponent: rulesComponent, didFinishEvaluatingRuleSystem: ruleSystem)
@@ -348,7 +316,7 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
                 intelligenceComponent.stateMachine.enter(ProtestorInciteState.self)
                 break
             
-            case let .sellWares(target):
+            case .sellWares:
                 print("CriminalBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 intelligenceComponent.stateMachine.enter(SellWaresState.self)
                 break
@@ -356,12 +324,15 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
             case let .vandalise(targetPosition):
                 print("CriminalBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 intelligenceComponent.stateMachine.enter(VandaliseState.self)
+                break
             
             case let .loot(targetPosition):
                 print("CriminalBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 intelligenceComponent.stateMachine.enter(LootState.self)
+                break
             
             default:
+                print("CriminalBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 break
         }
     }
