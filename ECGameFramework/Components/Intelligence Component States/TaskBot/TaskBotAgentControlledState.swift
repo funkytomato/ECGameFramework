@@ -132,6 +132,7 @@ class TaskBotAgentControlledState: GKState
                 case let .returnHome(position):
                     if entity.distanceToPoint(otherPoint: position) <= GameplayConfiguration.TaskBot.thresholdProximityToPatrolPathStartPoint
                     {
+                        
                         //If Protestor start consuming
                         if entity.isProtestor
                         {
@@ -139,7 +140,12 @@ class TaskBotAgentControlledState: GKState
                             guard let protestorAppetiteComponent = entity.component(ofType: AppetiteComponent.self) else { return }
                             protestorAppetiteComponent.isConsumingProduct = true
                             
+                            guard let protestorBot = entity as? ProtestorBot else { return }
+                            protestorBot.isConsuming = true
+                            protestorBot.isHome = true
+                            
                             entity.mandate = .crowd()
+//                            entity.mandate = .wander
                         }
                     }
                     break
@@ -175,7 +181,6 @@ class TaskBotAgentControlledState: GKState
                     break
             }
             
-
             //print("Current behaviour mandate: \(entity.mandate)")
             
             // Ensure the agent's behavior is the appropriate behavior for its current mandate.
