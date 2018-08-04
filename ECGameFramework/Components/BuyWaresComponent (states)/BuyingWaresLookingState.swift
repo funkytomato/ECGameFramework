@@ -44,6 +44,10 @@ class BuyingWaresLookingState: GKState
         
         super.didEnter(from: previousState)
         elapsedTime = 0.0
+        
+        //Protestor is hungry
+        guard let protestorBot = buyWaresComponent.entity as? ProtestorBot else { return }
+        protestorBot.isHungry = true
     }
     
     override func update(deltaTime seconds: TimeInterval)
@@ -79,6 +83,11 @@ class BuyingWaresLookingState: GKState
     override func willExit(to nextState: GKState)
     {
         buyWaresComponent.isTriggered = false
+        
+        //Protestor is hungry
+        guard let protestorBot = buyWaresComponent.entity as? ProtestorBot else { return }
+        protestorBot.isHungry = false
+        
         
         super.willExit(to: nextState)
     }
