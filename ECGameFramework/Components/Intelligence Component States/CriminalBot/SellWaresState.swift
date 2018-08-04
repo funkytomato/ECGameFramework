@@ -70,10 +70,7 @@ class SellWaresState: GKState
         
         //Tell SellingaresComponent we are selling, and set the TaskBot isSelling flag for pathfinding
         sellingWaresComponent.isTriggered = true
-        entity.isSelling = true
-        
  
-        
         //Request the "detained animation for this state's 'ProtestorBot'
         animationComponent.requestedAnimationState = .selling
         
@@ -87,11 +84,12 @@ class SellWaresState: GKState
         //Update the SellingWaresComponent StateMachine
         sellingWaresComponent.stateMachine.update(deltaTime: seconds)
         
+        
+        //If criminal is not actively selling, they should be moving
+        guard sellingWaresComponent.stateMachine?.currentState as? SellingWaresActiveState == nil else { return }
+        
         //Ensure the taskbot continues to move around the scene
         intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
-        
-//        guard (stateMachine?.currentState as? SellingWaresActiveState) != nil else { return }
-        
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
@@ -108,6 +106,5 @@ class SellWaresState: GKState
     
     override func willExit(to nextState: GKState)
     {
-//        entity.isSelling = false
     }
 }
