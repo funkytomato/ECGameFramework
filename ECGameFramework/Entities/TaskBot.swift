@@ -69,7 +69,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         case buyWares(GKAgent2D)
         
         // Sell wares
-        case sellWares(GKAgent2D)
+        case sellWares
         
         // Vandalise
         case vandalise(float2)
@@ -161,6 +161,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
     // Is the taskbot still a playable bot?
     var isActive: Bool
     
+    // Is the taskBot at it's return position?
+    var isHome: Bool
+    
     // Is the taskbot violent?  A violent taskbot will attack if provoked or not unprovoked
     var isViolent: Bool
     
@@ -181,6 +184,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
     
     //Is the taskbot hungry for alcohol and drugs
     var isHungry: Bool
+    
+    //Does the taskbot have wares on them
+    var hasWares: Bool
     
     //Is the taskbot consuming a product
     var isConsuming: Bool
@@ -383,9 +389,19 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 
                 print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 
-                radius = GameplayConfiguration.TaskBot.wanderPathRadius
-                (agentBehavior, debugPathPoints)  = TaskBotBehavior.huntBehaviour(forAgent: agent, huntingAgent: target, pathRadius: radius, inScene: levelScene)
+//                radius = GameplayConfiguration.TaskBot.wanderPathRadius
+//                (agentBehavior, debugPathPoints)  = TaskBotBehavior.huntBehaviour(forAgent: agent, huntingAgent: target, pathRadius: radius, inScene: levelScene)
 //                (agentBehavior, debugPathPoints)  = TaskBotBehavior.wanderBehaviour(forAgent: agent, inScene: levelScene)
+                
+                let pathPoints = isGood ? goodPathPoints : badPathPoints
+                radius = GameplayConfiguration.TaskBot.patrolPathRadius
+                agentBehavior = TaskBotBehavior.patrolBehaviour(forAgent: agent, patrollingPathWithPoints: pathPoints, pathRadius: radius, inScene: levelScene, cyclical: true)
+                debugPathPoints = pathPoints
+                
+                // Patrol paths are always closed loops, so the debug drawing of the path should cycle back round to the start.
+                debugPathShouldCycle = true
+//                debugColor = isGood ? SKColor.green : SKColor.purple
+                
                 debugColor = SKColor.yellow
             
             //TaskBot is a criminal and is vandalising
@@ -470,6 +486,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         
         self.oldColour = SKColor.clear
         
+        //Whether or not the 'TaskBot' is located at it's return position
+        self.isHome = false
+        
         // Whether or not the `TaskBot` is "good" when first created.
         self.isGood = isGood
         
@@ -505,6 +524,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         
         //Whether or not the taskbot is hungry for alcohol and drugs
         self.isHungry = false
+        
+        //Whether or not the taskbot has wares on them
+        self.hasWares = false
         
         // Whether or not the taskbot is consuming a product
         self.isConsuming = false
@@ -1050,12 +1072,21 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         }
          
         //TaskBot is Criminal and wants to sell wares
-        else if self.isCriminal && self.isSelling && huntBuyerTaskBot > 0.5
+        else if self.isCriminal && self.isSelling// && huntBuyerTaskBot > 0.5
         {
-            guard let protestorBot = state.nearestBuyerTaskBotTarget?.target.agent else { return }
-            mandate = .sellWares(protestorBot)
+//            guard let protestorBot = state.nearestBuyerTaskBotTarget?.target.agent else { return }
+            mandate = .sellWares
             
             print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+        }
+
+        //TaskBot is Protestor and and has bought wares, has not reached home, return to starting position
+        else if self.isProtestor && self.hasWares && !self.isHome
+        {
+            guard let protestorBot = self as? ProtestorBot else { return }
+            guard let buyingWaresComponent = protestorBot.component(ofType: BuyingWaresComponent.self) else { return }
+            
+            mandate = .returnHome(buyingWaresComponent.returnPosition)
         }
             
         //TaskBot is Protestor and wants to buy wares and seller nearby
@@ -1067,6 +1098,8 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
         }
         
+
+            
         //TaskBot is Protestor and drinking, make them crowd together
         else if self.isProtestor && self.isConsuming
         {
@@ -1128,7 +1161,8 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
 //                    print("Crowding")
                     break
                 
-                case .sellWares(state.nearestBuyerTaskBotTarget?.target.agent):
+//                case .sellWares(state.nearestBuyerTaskBotTarget?.target.agent):
+                case .sellWares:
                     print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
 //                    print("selling wares")
                     break
