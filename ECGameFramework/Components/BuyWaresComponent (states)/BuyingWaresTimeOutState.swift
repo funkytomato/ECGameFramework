@@ -46,6 +46,7 @@ class BuyingWaresTimeOutState: GKState
         super.didEnter(from: previousState)
         elapsedTime = 0.0
         
+        //Protestor can't find any sellers, so stop looking, and deactive the buying process
         buyWaresComponent.isTriggered = false
         
     }
@@ -63,7 +64,6 @@ class BuyingWaresTimeOutState: GKState
         if elapsedTime >= GameplayConfiguration.Wares.timeOutPeriod
         {
             stateMachine?.enter(BuyingWaresIdleState.self)
-//            buyWaresComponent.isTriggered = true
         }
     }
     
