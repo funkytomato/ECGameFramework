@@ -92,7 +92,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         // Create a random speed for each taskbot
         let randomSource = GKRandomSource.sharedRandom()
         let diff = randomSource.nextUniform() // returns random Float between 0.0 and 1.0
-        let speed = diff * GameplayConfiguration.ProtestorBot.maximumSpeedForIsGood(isGood: isGood) + GameplayConfiguration.TaskBot.minimumSpeed //Ensure it has some speed
+        let speed = diff * GameplayConfiguration.TaskBot.maximumSpeedForIsGood(isGood: isGood) + GameplayConfiguration.TaskBot.minimumSpeed //Ensure it has some speed
         print("speed :\(speed.debugDescription)")
         
         // Configure the agent's characteristics for the steering physics simulation.
@@ -273,6 +273,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
     {
         super.contactWithEntityDidBegin(entity)
         
+        buyWares(entity)
         
         // If the Protestor is inciting, influence Protestors on contact
         // Raise their temperament
@@ -286,6 +287,9 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             
             //print("Increased the obeisance of the touching Protestor")
         }
+        
+
+        
     }
     
     override func contactWithEntityDidEnd(_ entity: GKEntity)
@@ -304,6 +308,85 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             
             //print("Raised temperament of touching Protestor")
         }
+    }
+    
+    
+    func buyWares(_ entity: GKEntity)
+    {
+        
+        //Check touching entity is criminal and actively selling
+        guard let criminalBot = entity as? CriminalBot else { return }
+        guard let sellingWaresComponent = criminalBot.component(ofType: SellingWaresComponent.self) else { return }
+        guard (sellingWaresComponent.stateMachine.currentState as? SellingWaresActiveState) != nil else { return }
+        
+        
+        //Check Protestor is looking to buy wares
+        
+        guard let buyingWaresComponent = self.component(ofType: BuyingWaresComponent.self) else { return }
+        print("\(buyingWaresComponent.stateMachine.currentState.debugDescription)")
+        guard (buyingWaresComponent.stateMachine.currentState as? BuyingWaresLookingState) != nil else { return }
+        
+        
+        //Buy wares
+        buyingWaresComponent.gainProduct(waresToAdd: GameplayConfiguration.CriminalBot.sellingWaresLossPerCycle)
+        sellingWaresComponent.loseWares(waresToLose: GameplayConfiguration.CriminalBot.sellingWaresLossPerCycle)
+        
+        
+        //Reset appetite
+        guard let appetiteComponent = self.component(ofType: AppetiteComponent.self) else { return }
+        appetiteComponent.isTriggered = false
+        //appetiteComponent.isConsumingProduct = true
+        self.isConsuming = true
+        
+        
+        //Trigger intoxication component
+        guard let intoxicationComponent = self.component(ofType: IntoxicationComponent.self) else { return }
+        intoxicationComponent.isTriggered = true
+        
+        
+  /*
+        
+        //If a Criminal is selling wares and a Protestor touches Criminal and wants to buy, sell them a product
+        //Check the criminal has a SellingWaresComponent
+        guard let buyingWaresComponent = component(ofType: BuyingWaresComponent.self) else { return }
+        guard (buyingWaresComponent.stateMachine.currentState as? BuyingWaresActiveState) != nil else { return }
+        
+        
+        //Check criminal is active, has a selling component, and move into selling state
+        guard let criminalBot = entity as? CriminalBot else { return }
+        if criminalBot.isActive
+        {
+            guard let criminalSellingWaresComponent = criminalBot.component(ofType: SellingWaresComponent.self) else { return }
+            //            print("state: \(protestorBuyingWaresComponent.stateMachine.currentState.debugDescription)")
+            guard (protestorBuyingWaresComponent.stateMachine.currentState as? BuyingWaresLookingState) != nil else { return }
+            // protestorBuyingWaresComponent.stateMachine.enter(BuyingState.self)
+            
+            
+            //Reduce the number of wares the Criminal has
+            sellingWaresComponent.loseWares(waresToLose: GameplayConfiguration.CriminalBot.sellingWaresLossPerCycle)
+            
+            //Protestor buys product
+            protestorBuyingWaresComponent.gainProduct(waresToAdd: GameplayConfiguration.CriminalBot.sellingWaresLossPerCycle)
+            
+            //Check protestor has an appetite
+            guard let protestorAppetiteComponent = protestorBot.component(ofType: AppetiteComponent.self) else { return }
+            
+            //Trigger the Protestor isConSuming flag
+            //            protestorAppetiteComponent.isConsumingProduct = true
+            protestorBot.isConsuming = true
+            
+            //Protestor has bought product and so does not need to look to buy more
+            protestorAppetiteComponent.isTriggered = false
+            
+            
+            //Ensure the Protestor has an IntoxicationComponent
+            guard let protestorIntoxicationComponent = protestorBot.component(ofType: IntoxicationComponent.self) else { return }
+            
+            //Trigger the Protestor's intoxication component
+            protestorIntoxicationComponent.isTriggered = true
+        }
+    */
+               
     }
     
     // MARK: RulesComponentDelegate
@@ -451,14 +534,15 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
     {
         //print("Appetite Component Add Appetite")
         
-        if appetiteComponent.appetite == 100.0
+        if appetiteComponent.appetite >= 100.0
         {
-            //Protestor wants to be a product
+            //Protestor wants to buy a product
             appetiteComponent.isTriggered = true
             
             
-            //Protestor is hungry
-            self.isHungry = true
+//            //Protestor is hungry
+//            self.isHungry = true
+            
             //appetiteComponent.isConsumingProduct = true
         }
     }
@@ -469,13 +553,18 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
     {
         //print("Use product")
         //self.isHungry = false
+        
+        //Protestor does not have any wares
+        self.hasWares = false
     }
     
     func buyingWaresComponentDidGainProduct(buyWaresComponent: BuyingWaresComponent) {
 //        print("Buy product and eat/use")
         
+        self.hasWares = true
+        
         //Protestor is eating
-        self.isHungry = false 
+//        self.isHungry = false
     }
     
     
