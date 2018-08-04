@@ -130,7 +130,7 @@ class TaskBotAgentControlledState: GKState
                     break
                 
                 case let .returnHome(position):
-                    if entity.distanceToPoint(otherPoint: position) <= GameplayConfiguration.TaskBot.thresholdProximityToPatrolPathStartPoint
+                    if entity.distanceToPoint(otherPoint: position) <= GameplayConfiguration.TaskBot.thresholdProximityToReturnPoint
                     {
                         
                         //If Protestor start consuming
@@ -168,14 +168,20 @@ class TaskBotAgentControlledState: GKState
                     }
                     break
                 
-                case .incite:
+                
+                case .wander:
+                
+//                    print("TaskBotAgentControlledState: wander")
+                    
                     entity.mandate = .wander
                     break
                 
-                case .wander:
-
-                    print("TaskBotAgentControlledState: wander")
+                
+                case .incite:
+                    entity.mandate = .incite
                     break
+                
+
                 
                 default:
                     break
