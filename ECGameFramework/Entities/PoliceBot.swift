@@ -150,7 +150,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
         
 
         // Configure the agent's characteristics for the steering physics simulation.
-        agent.maxSpeed = GameplayConfiguration.PoliceBot.maximumSpeedForIsGood(isGood: isGood)
+        agent.maxSpeed = GameplayConfiguration.TaskBot.maximumSpeedForIsGood(isGood: isGood)
         agent.mass = GameplayConfiguration.PoliceBot.agentMass
         
         //Put PoliceBots on patrol
