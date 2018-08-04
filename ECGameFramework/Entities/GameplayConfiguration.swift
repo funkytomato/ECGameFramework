@@ -176,35 +176,35 @@ struct GameplayConfiguration
         
         
         // The maximum number of seconds for looking
-        static let maximumLookingDuration: TimeInterval = 30.0
+        static let maximumLookingDuration: TimeInterval = 25.0
         
         // The maximum number of seconds for selling and buying wares
         static let maximumSellingAndBuyingDuration: TimeInterval = 20.0
         
         // The length of time that to chill out between selling and buying wares
-        static let timeOutPeriod: TimeInterval = 15.0
+        static let timeOutPeriod: TimeInterval = 5.0
     }
     
     
     //  MARK:- InciteComponent Properties
     struct Incite
     {
-        /// The distance (in points) over which the beam can be fired.
+        // The distance (in points) over which the beam can be fired.
         static let arcLength: CGFloat = 300.0
         
-        /// The arc angle (in radians) within which the beam is effective.
+        // The arc angle (in radians) within which the beam is effective.
         static let arcAngle = CGFloat(45.0 * (Double.pi / 180.0))
         
-        /// The maximum arc angle (in radians) after being adjusted for distance from target.
+        // The maximum arc angle (in radians) after being adjusted for distance from target.
         static let maxArcAngle = CGFloat(0.35)
         
-        /// The maximum number of seconds for which the beam can be fired before recharging.
+        // The maximum number of seconds for which the beam can be fired before recharging.
         static let maximumIncitingDuration: TimeInterval = 10.0
         
-        /// The amount of charge points the beam drains from `TaskBot`s per second.
+        // The amount of charge points the beam drains from `TaskBot`s per second.
         static let chargeLossPerSecond = 90.0
         
-        /// The length of time that the beam takes to recharge when it is fully depleted.
+        // The length of time that the beam takes to recharge when it is fully depleted.
         static let coolDownDuration: TimeInterval = 5.0
     }
     
@@ -212,22 +212,22 @@ struct GameplayConfiguration
     //  MARK:- Tazer Properties
     struct Tazer
     {
-        /// The distance (in points) over which the beam can be fired.
+        // The distance (in points) over which the beam can be fired.
         static let arcLength: CGFloat = 300.0
         
-        /// The arc angle (in radians) within which the beam is effective.
+        // The arc angle (in radians) within which the beam is effective.
         static let arcAngle = CGFloat(45.0 * (Double.pi / 180.0))
         
-        /// The maximum arc angle (in radians) after being adjusted for distance from target.
+        // The maximum arc angle (in radians) after being adjusted for distance from target.
         static let maxArcAngle = CGFloat(0.35)
         
-        /// The maximum number of seconds for which the beam can be fired before recharging.
+        // The maximum number of seconds for which the beam can be fired before recharging.
         static let maximumFireDuration: TimeInterval = 2.0
         
-        /// The amount of charge points the beam drains from `TaskBot`s per second.
+        // The amount of charge points the beam drains from `TaskBot`s per second.
         static let damageLossPerSecond = 90.0
         
-        /// The length of time that the beam takes to recharge when it is fully depleted.
+        // The length of time that the beam takes to recharge when it is fully depleted.
         static let coolDownDuration: TimeInterval = 1.0
     }
 
@@ -367,16 +367,20 @@ struct GameplayConfiguration
         static let behaviorUpdateWaitDuration: TimeInterval = 1.0
         
         /// How close a `TaskBot` has to be to a patrol path start point in order to start patrolling.
-        static let thresholdProximityToPatrolPathStartPoint: Float = 50.0
+        static let thresholdProximityToPatrolPathStartPoint: Float = 20.0
+        
+        /// How close a `TaskBot` has to be to a return point in order to be home
+        static let thresholdProximityToReturnPoint: Float = 50.0
+        
         
         // The minimum speed (in points per second) for the 'TaskBot'
         static let minimumSpeed: Float = 30.0
         
         /// The maximum speed (in points per second) for the `TaskBot` when in its "good" state.
-        static let maximumSpeedWhenGood: Float = 100.0
+        static let maximumSpeedWhenGood: Float = 50.0
 
         /// The maximum speed (in points per second) for the `TaskBot` when in its "bad" state.
-        static let maximumSpeedWhenBad: Float = 100.0
+        static let maximumSpeedWhenBad: Float = 50.0
 
         /// A convenience function to return the max speed for a state.
         static func maximumSpeedForIsGood(isGood: Bool) -> Float
@@ -390,7 +394,7 @@ struct GameplayConfiguration
         */
         /// The maximum acceleration (in points per second per second) for the `TaskBot`.
 //        static let maximumAcceleration: Float = 10.0
-        static let maximumAcceleration: Float = 500.0
+        static let maximumAcceleration: Float = 250.0
 
         /// The agent's mass.
         static let agentMass: Float = 0.25
@@ -411,10 +415,10 @@ struct GameplayConfiguration
         // A.I. Properties
         
         /// The maximum time to look ahead when following a path.
-        static let maxPredictionTimeWhenFollowingPath: TimeInterval = 5.0
+        static let maxPredictionTimeWhenFollowingPath: TimeInterval = 1.0
         
         /// The maximum time to look ahead for obstacles to be avoided.
-        static let maxPredictionTimeForObstacleAvoidance: TimeInterval = 5.0
+        static let maxPredictionTimeForObstacleAvoidance: TimeInterval = 1.0
         
         /// The radius of the path along which an agent patrols.
         static let patrolPathRadius: Float = 10.0
@@ -426,13 +430,13 @@ struct GameplayConfiguration
         static let wanderPathRadius: Float = 15.0
 
         /// The radius of the path along which an agent travels when fleeing.
-        static let fleePathRadius: Float = 100.0
+        static let fleePathRadius: Float = 10.0
         
         // The radius of meatwagon location
         static let lockupRadius: Float = 25.0
         
         /// The radius of the path along which an agent travels when returning to its patrol path.
-        static let returnToPatrolPathRadius: Float = 20.0
+        static let returnToPatrolPathRadius: Float = 10.0
         
         /// The buffer radius (in points) to add to polygon obstacles when calculating agent pathfinding.
         static let pathfindingGraphBufferRadius: Float = 15.0
@@ -979,7 +983,7 @@ struct GameplayConfiguration
         static let cohesionWeight: Float = 60.0 //1.667
         
 //        static let agentSearchDistanceForFlocking: Float = 50.0
-        static let agentSearchDistanceForFlocking: Float = 150.0
+        static let agentSearchDistanceForFlocking: Float = 250.0
         static let agentSearchDistanceForArrest: Float = 50.0
         static let agentSupportSearchDistanceForArrest: Float = 500.0
     }
