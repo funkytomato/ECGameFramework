@@ -1033,7 +1033,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             //print("Fleeing from dangerous or police")
             
             // The rules provided greated motivation to flee
-            guard let dangerousTaskBot = state.nearestDangerousTaskBotTarget?.target.agent else { return }
+            guard let dangerousTaskBot = state.nearestProtestorTaskBotTarget?.target.agent else { return }
             mandate = .fleeAgent(dangerousTaskBot)
             
             print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
@@ -1101,12 +1101,12 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
 
             
         //TaskBot is Protestor and drinking, make them crowd together
-        else if self.isProtestor && self.isConsuming
-        {
-            mandate = .crowd()
-            
-            print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
-        }
+//        else if self.isProtestor && self.isConsuming
+//        {
+//            mandate = .crowd()
+//            
+//            print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//        }
         
         //TaskBot is Police and another Policeman needs help, go support them
         else if self.isPolice && supportPoliceBot > 0.0
@@ -1162,6 +1162,11 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                     break
                 
 //                case .sellWares(state.nearestBuyerTaskBotTarget?.target.agent):
+                
+                case .incite:
+                    print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+                    break
+                
                 case .sellWares:
                     print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
 //                    print("selling wares")
