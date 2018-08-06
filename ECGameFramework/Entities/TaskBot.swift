@@ -748,7 +748,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         
         
         // A Series of situation in which we prefer to Flee from a 'TaskBot'
-        let fleeTaskBotRaw = [
+        let fleeDangerousTaskBotRaw = [
         
             // "Police nearby" AND "Dangerous Protestors nearby"
             ruleSystem.minimumGrade(forFacts: [
@@ -766,6 +766,29 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 Fact.dangerousTaskBotFar.rawValue as AnyObject
                 ])
         ]
+        let fleeDangerousTaskBot = fleeDangerousTaskBotRaw.reduce(0.0, max)
+        
+        
+        // A Series of situation in which we prefer to Flee from a 'TaskBot'
+        let fleePoliceTaskBotRaw = [
+            
+            // "Police nearby" AND "Dangerous Protestors nearby"
+            ruleSystem.minimumGrade(forFacts: [
+                Fact.policeBotNear.rawValue as AnyObject
+            ]),
+            
+            ruleSystem.minimumGrade(forFacts: [
+                Fact.policeBotMedium.rawValue as AnyObject
+                ]),
+            
+            ruleSystem.minimumGrade(forFacts: [
+                Fact.policeBotMedium.rawValue as AnyObject
+                ])
+        ]
+        let fleePoliceTaskBot = fleePoliceTaskBotRaw.reduce(0.0, max)
+
+        //print("fleeDangerousTaskBot: \(fleeDangerousTaskBot.description), fleeTaskBotRaw: \(fleeTaskBotRaw.description) ")
+
         
         //A series of situation in which we prefer to Incite other Protestors
         let supportTaskBotRaw = [
@@ -862,8 +885,6 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
 //        print("huntBuyerTaskBot: \(huntBuyerTaskBot.description), huntBuyerTaskBotRaw: \(huntBuyerTaskBotRaw.description) ")
         
         
-        let fleeDangerousTaskBot = fleeTaskBotRaw.reduce(0.0, max)
-        //print("fleeDangerousTaskBot: \(fleeDangerousTaskBot.description), fleeTaskBotRaw: \(fleeTaskBotRaw.description) ")
       
         
         // A series of situations in which we prefer this `TaskBot` to hunt the player.
@@ -899,14 +920,14 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 ]),
             
             // "Number of Police TaskBots is medium" AND "Nearest Dangerous Protestor is at medium away"
-            ruleSystem.minimumGrade(forFacts: [
-                Fact.policeTaskBotPercentageMedium.rawValue as AnyObject,
-                Fact.dangerousTaskBotMedium.rawValue as AnyObject
-                ]),
-            
+//            ruleSystem.minimumGrade(forFacts: [
+//                Fact.policeTaskBotPercentageMedium.rawValue as AnyObject,
+//                Fact.dangerousTaskBotMedium.rawValue as AnyObject
+//                ]),
+//
             // "Number of Police TaskBots is high" AND "Nearest Dangerous Protestor is at far away"
             ruleSystem.minimumGrade(forFacts: [
-                Fact.policeTaskBotPercentageHigh.rawValue as AnyObject,
+//                Fact.policeTaskBotPercentageHigh.rawValue as AnyObject,
                 Fact.dangerousTaskBotFar.rawValue as AnyObject
                 ]),
         ]
@@ -1014,9 +1035,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         }
         
         //Protestor is scared and wants to run away
-        else if self.isScared && self.isProtestor
+        else if self.isScared && self.isProtestor && fleePoliceTaskBot > 0.0
         {
-            //print("Fleeing from dangerous or police")
+            print("Protestor Fleeing from Police")
             
             // The rules provided greated motivation to flee
             guard let policeTaskBot = state.nearestPoliceTaskBotTarget?.target.agent else { return }
@@ -1028,12 +1049,12 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             
         // Police is scared and a Dangerous or is nearby, leg it
 //        else if self.isScared && fleeDangerousTaskBot > 0
-        else if self.isScared && self.isPolice
+        else if self.isScared && self.isPolice && fleeDangerousTaskBot > 0.0
         {
-            //print("Fleeing from dangerous or police")
+            print("Police Fleeing from dangerous protestor")
             
             // The rules provided greated motivation to flee
-            guard let dangerousTaskBot = state.nearestProtestorTaskBotTarget?.target.agent else { return }
+            guard let dangerousTaskBot = state.nearestDangerousTaskBotTarget?.target.agent else { return }
             mandate = .fleeAgent(dangerousTaskBot)
             
             print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
@@ -1109,7 +1130,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
 //        }
         
         //TaskBot is Police and another Policeman needs help, go support them
-        else if self.isPolice && supportPoliceBot > 0.0
+        else if self.isPolice && supportPoliceBot > 0.5
         {
 //            print("Support another Police")
             guard let supportPoliceBot = state.nearestPoliceTaskBotTarget?.target.agent else { return }
