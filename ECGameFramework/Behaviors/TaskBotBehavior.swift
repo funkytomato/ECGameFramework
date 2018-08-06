@@ -287,7 +287,7 @@ class TaskBotBehavior: GKBehavior
         
         
         //Add basic goals to reach the TaskBot's maximum speed, avoid obstacles and wander
-        behavior.addTargetSpeedGoal(speed: agent.maxSpeed)
+        behavior.addTargetSpeedGoal(speed: agent.maxSpeed + 50.0)
         behavior.addAvoidObstaclesGoal(forScene: scene)
         behavior.addFleeGoal(forScene: scene, forAgent: fearSource)
         
