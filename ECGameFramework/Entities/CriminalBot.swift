@@ -312,27 +312,27 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
         switch mandate
         {
             case .incite:
-                print("CriminalBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                print("CriminalBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 intelligenceComponent.stateMachine.enter(ProtestorInciteState.self)
                 break
             
             case .sellWares:
-                print("CriminalBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                print("CriminalBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 intelligenceComponent.stateMachine.enter(SellWaresState.self)
                 break
             
             case let .vandalise(targetPosition):
-                print("CriminalBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                print("CriminalBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 intelligenceComponent.stateMachine.enter(VandaliseState.self)
                 break
             
             case let .loot(targetPosition):
-                print("CriminalBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                print("CriminalBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 intelligenceComponent.stateMachine.enter(LootState.self)
                 break
             
             default:
-                print("CriminalBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                print("CriminalBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 break
         }
     }
