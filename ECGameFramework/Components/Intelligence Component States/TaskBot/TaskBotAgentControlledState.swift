@@ -15,6 +15,9 @@ class TaskBotAgentControlledState: GKState
     
     unowned var entity: TaskBot
     
+    //Used for moving TaskBot's out of corners
+    var oldPosition: float2 = [0.0,0.0]
+    
     // The amount of time that has passed since the `TaskBot` became agent-controlled.
     var elapsedTime: TimeInterval = 0.0
     
@@ -170,24 +173,32 @@ class TaskBotAgentControlledState: GKState
                 
                 
                 case .wander:
-                
-//                    print("TaskBotAgentControlledState: wander")
                     
+//                    print("TaskBotAgentControlledState: wander")
                     entity.mandate = .wander
+                    
                     break
-                
                 
                 case .incite:
                     entity.mandate = .incite
                     break
                 
-
-                
                 default:
                     break
             }
             
-            //print("Current behaviour mandate: \(entity.mandate)")
+            print("entity: \(entity.debugDescription)")
+            
+            //Check if taskbot has stayed in same position for long time, e.g. stuck in corner.  Move Taskbot away from current position
+            if entity.distanceToPoint(otherPoint: oldPosition) <= 10.0 && elapsedTime >= 5.0
+            {
+                entity.mandate = .returnToPositionOnPath(float2(0.0,0.0))
+            }
+            
+            guard let taskBot = entity as? TaskBot else { return }
+            oldPosition = taskBot.agent.position
+            
+            print("Current behaviour mandate: \(entity.mandate)")
             
             // Ensure the agent's behavior is the appropriate behavior for its current mandate.
             entity.agent.behavior = entity.behaviorForCurrentMandate
