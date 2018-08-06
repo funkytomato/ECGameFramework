@@ -68,7 +68,7 @@ class ProtestorBotRotateToAttackState: GKState
         // Request the "walk forward" animation for this `ProtestorBot`.
         animationComponent.requestedAnimationState = .idle
         
-        if ((temperamentComponent.stateMachine.currentState as? ViolentState) != nil)
+        if ((temperamentComponent.stateMachine.currentState as? ViolentState) != nil) || ((temperamentComponent.stateMachine.currentState as? RageState) != nil)
         {
             self.entity.isDangerous = true
         }
