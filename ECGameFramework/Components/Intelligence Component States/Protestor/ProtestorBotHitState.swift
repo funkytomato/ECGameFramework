@@ -111,7 +111,7 @@ class ProtestorBotHitState: GKState
                 stateMachine?.enter(TaskBotFleeState.self)
             }
                 // Protestor is violent and will fight back
-            else if ((temperamentComponent.stateMachine.currentState as? ViolentState) != nil),
+            else if ((temperamentComponent.stateMachine.currentState as? ViolentState) != nil) || ((temperamentComponent.stateMachine.currentState as? RageState) != nil),
                 healthComponent.hasHealth
             {
                 //Protestor will fight back with extreme prejudice
@@ -123,7 +123,7 @@ class ProtestorBotHitState: GKState
                 self.entity.isRetaliating = false
             }
             
-//            stateMachine?.enter(TaskBotAgentControlledState.self)
+            stateMachine?.enter(TaskBotAgentControlledState.self)
         }
             
 
