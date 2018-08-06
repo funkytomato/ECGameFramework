@@ -61,7 +61,7 @@ class PoliceBotRotateToAttackState: GKState
         animationComponent.requestedAnimationState = .idle
         
         //Make Police dangerous
-        self.entity.isDangerous = true
+//        self.entity.isDangerous = true
     }
     
     override func update(deltaTime seconds: TimeInterval)
