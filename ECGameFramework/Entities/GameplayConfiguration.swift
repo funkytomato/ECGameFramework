@@ -394,7 +394,7 @@ struct GameplayConfiguration
         */
         /// The maximum acceleration (in points per second per second) for the `TaskBot`.
 //        static let maximumAcceleration: Float = 10.0
-        static let maximumAcceleration: Float = 250.0
+        static let maximumAcceleration: Float = 100.0
 
         /// The agent's mass.
         static let agentMass: Float = 0.25
