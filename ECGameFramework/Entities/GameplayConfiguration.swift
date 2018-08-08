@@ -496,10 +496,10 @@ struct GameplayConfiguration
         //MARK: Flee Properties
         
         /// How much faster the `GroundBot` can move when fleeing.
-        static let movementSpeedMultiplierWhenFleeing: CGFloat = 5.0
+        static let movementSpeedMultiplierWhenFleeing: CGFloat = 50.0
         
         /// How much faster the `GroundBot` can rotate when fleeing.
-        static let angularSpeedMultiplierWhenFleeing: CGFloat = 5.0
+        static let angularSpeedMultiplierWhenFleeing: CGFloat = 50.0
     }
     
     
@@ -549,7 +549,7 @@ struct GameplayConfiguration
         static let maximumResistance = 100.0
         
         /// The amount of resistance a `PoliceBot` loses by a single `TaskBot` attack.
-        static let resistanceLossPerContact = 5.0
+        static let resistanceLossPerContact = 10.0
         
         /// The amount of charge that the `PlayerBot` gains per second when recharging.
         static let resistanceRechargeAmountPerSecond = 1.0
