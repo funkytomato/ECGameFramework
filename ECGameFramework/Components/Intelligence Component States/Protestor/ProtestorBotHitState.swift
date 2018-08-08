@@ -102,12 +102,13 @@ class ProtestorBotHitState: GKState
                 temperamentComponent.increaseTemperament(temperamentToAdd: Double(GameplayConfiguration.ProtestorBot.temperamentIncreasePerCycle))
             }
             
-            
+            print("Temperament: \(temperamentComponent.stateMachine.currentState.debugDescription), Health: \(healthComponent.health.debugDescription)")
             
             // Decide what to do on the Protestor's current temperament
-            if ((temperamentComponent.stateMachine.currentState as? ScaredState) != nil)
+            if ((temperamentComponent.stateMachine.currentState as? ScaredState) != nil) || healthComponent.health <= 50.0
             {
                 // Protestor is scared and will attempt to flee from danger
+//                temperamentComponent.stateMachine.enter(ScaredState.self)
                 stateMachine?.enter(TaskBotFleeState.self)
             }
                 // Protestor is violent and will fight back
@@ -116,14 +117,14 @@ class ProtestorBotHitState: GKState
             {
                 //Protestor will fight back with extreme prejudice
                 self.entity.isRetaliating = true
+                stateMachine?.enter(TaskBotAgentControlledState.self)
             }
             else
             {
                 //Protestor is not going to fight back
                 self.entity.isRetaliating = false
+                stateMachine?.enter(TaskBotAgentControlledState.self)
             }
-            
-            stateMachine?.enter(TaskBotAgentControlledState.self)
         }
             
 
