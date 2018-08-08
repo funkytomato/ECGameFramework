@@ -495,8 +495,8 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
                 
                 print("ProtestorBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 
-                intelligenceComponent.stateMachine.enter(TaskBotFleeState.self)
-                targetPosition = targetAgent.position
+//                intelligenceComponent.stateMachine.enter(TaskBotFleeState.self)
+//                targetPosition = targetAgent.position
             
             case let .retaliate(targetTaskbot):
                 
@@ -621,7 +621,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         guard let resistanceComponent = component(ofType: ResistanceComponent.self) else { return }
         
         resistanceComponent.isTriggered = true
-        intelligenceComponent.stateMachine.enter(ProtestorBotHitState.self)
+//        intelligenceComponent.stateMachine.enter(ProtestorBotHitState.self)
     }
 
     // MARK: Health Component Delegate
@@ -640,6 +640,12 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         {
             //Protestor is fucked, and no longer playable
             intelligenceComponent.stateMachine.enter(TaskBotInjuredState.self)
+        }
+            
+        //If Protestor's health gets below 50, move them to ScaredState, ready to Flee
+        else if healthComponent.health < 50.0
+        {
+            temperamentComponent.stateMachine.enter(ScaredState.self)
         }
     }
     
