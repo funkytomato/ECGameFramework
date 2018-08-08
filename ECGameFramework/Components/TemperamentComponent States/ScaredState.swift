@@ -65,13 +65,6 @@ class ScaredState: GKState
         guard let taskBot = temperamentComponent.entity as? TaskBot else { return }
         taskBot.isViolent = false
         taskBot.isScared = true
-
-        
-        
-
-//        entity.isScared = true
-//
-//        entity.isViolent = false
     }
     
     override func update(deltaTime seconds: TimeInterval)
@@ -85,14 +78,6 @@ class ScaredState: GKState
         {
             stateMachine?.enter(FearfulState.self)
         }
-        
-        
-        // If the entity has spent long enough cooling down, enter `CalmState`.
-//        if elapsedTime >= GameplayConfiguration.TaskBot.scaredStateDuration
-//        {
-//            stateMachine?.enter(FearfulState.self)
-////            entity.isScared = false
-//        }
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
