@@ -168,26 +168,26 @@ class PoliceBotAttackState: GKState
             
         else if let targetBot = entity as? ProtestorBot, /*targetBot.isGood,*/
             targetBot.isActive,
-            let resistanceComponent = targetBot.component(ofType: ResistanceComponent.self),
-            let healthComponent = targetBot.component(ofType: HealthComponent.self),
-            let intelligenceComponent = targetBot.component(ofType: IntelligenceComponent.self)
+            let targetResistanceComponent = targetBot.component(ofType: ResistanceComponent.self),
+            let targetHealthComponent = targetBot.component(ofType: HealthComponent.self),
+            let targetIntelligenceComponent = targetBot.component(ofType: IntelligenceComponent.self)
         {
             
             //Hit them first
-            resistanceComponent.loseResistance(resistanceToLose: GameplayConfiguration.PoliceBot.resistanceLossPerContact)
+            targetResistanceComponent.loseResistance(resistanceToLose: GameplayConfiguration.PoliceBot.resistanceLossPerContact)
             
             
             //Have they been beaten into submission?
 //            if resistanceComponent.resistance < 25
-            if !resistanceComponent.hasResistance
+            if !targetResistanceComponent.hasResistance
             {
                 stateMachine?.enter(PoliceArrestState.self)
-                intelligenceComponent.stateMachine.enter(ProtestorBeingArrestedState.self)
+                targetIntelligenceComponent.stateMachine.enter(ProtestorBeingArrestedState.self)
             }
-            else if resistanceComponent.percentageResistance < 50
+            else if targetResistanceComponent.resistance <= 50.0
             {
                 // Their guard is down, apply damage
-                healthComponent.loseHealth(healthToLose: GameplayConfiguration.PoliceBot.damageDealt)
+                targetHealthComponent.loseHealth(healthToLose: GameplayConfiguration.PoliceBot.damageDealt)
             }
         }
     }
