@@ -124,12 +124,14 @@ class TaskBotAgentControlledState: GKState
                 // When a `TaskBot` is close to the meatwagon, it should be removed from game
                 case .lockupPrisoner:
                     
-                    if entity.distanceToPoint(otherPoint: destination) <= GameplayConfiguration.TaskBot.thresholdProximityToMeatwagonPoint
+                    if entity.isArrested
                     {
-                        guard let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self) else { return }
-                        intelligenceComponent.stateMachine.enter(ProtestorDetainedState.self)
+                        if entity.distanceToPoint(otherPoint: destination) <= GameplayConfiguration.TaskBot.thresholdProximityToMeatwagonPoint
+                        {
+                            guard let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self) else { return }
+                            intelligenceComponent.stateMachine.enter(ProtestorDetainedState.self)
+                        }
                     }
-                
                     break
                 
                 case let .returnHome(position):
@@ -158,7 +160,7 @@ class TaskBotAgentControlledState: GKState
                     if entity.distanceToPoint(otherPoint: position) <= GameplayConfiguration.TaskBot.thresholdProximityToPatrolPathStartPoint
                     {
                         //If Protestor Criminal, wander
-                        if entity.isProtestor// || entity.isCriminal
+                        if entity.isProtestor && entity.isArrested
                         {
                             entity.mandate = .wander
                         }
