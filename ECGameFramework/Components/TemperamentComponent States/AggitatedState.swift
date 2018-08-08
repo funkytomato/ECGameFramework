@@ -92,7 +92,7 @@ class AggitatedState: GKState
     {
         switch stateClass
         {
-        case is CalmState.Type, is AngryState.Type, is SubduedState.Type:
+        case is CalmState.Type, is AngryState.Type, is SubduedState.Type, is ScaredState.Type:
             return true
             
         default:
