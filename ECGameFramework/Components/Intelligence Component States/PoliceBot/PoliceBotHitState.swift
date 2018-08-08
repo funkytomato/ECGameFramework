@@ -127,15 +127,14 @@ class PoliceBotHitState: GKState
             {
                 //Police will fight back with extreme prejudice
                 self.entity.isRetaliating = true
+                stateMachine?.enter(TaskBotAgentControlledState.self)
             }
             else
             {
-                //Protestor is not going to fight back
+                //Police is not going to fight back
                 self.entity.isRetaliating = false
+                stateMachine?.enter(TaskBotAgentControlledState.self)
             }
-            
-            stateMachine?.enter(TaskBotAgentControlledState.self)
-            
         }
         
         
@@ -150,11 +149,10 @@ class PoliceBotHitState: GKState
             }
                 
             //Police has no resistance left and some health, so run away
-            else if healthComponent.health < 50.0
+            else if ((temperamentComponent.stateMachine.currentState as? ScaredState) != nil) ||  healthComponent.health < 50.0
             {
                 //The Police is scared and will flee
                 temperamentComponent.stateMachine.enter(ScaredState.self)
-                entity.isScared = true
                 stateMachine?.enter(TaskBotFleeState.self)
             }
         }
