@@ -20,21 +20,21 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
 
     
 
-    
+    // MARK: Resistance Component Delegate
     func resistanceComponentDidGainResistance(resistanceComponent: ResistanceComponent)
     {
         guard let resistanceComponent = component(ofType: ResistanceComponent.self) else { return }
     }
     
     
-    // MARK: Resistance Component Delegate
+
     func resistanceComponentDidLoseResistance(resistanceComponent: ResistanceComponent)
     {
         guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
         guard let resistanceComponent = component(ofType: ResistanceComponent.self) else { return }
         
         resistanceComponent.isTriggered = true
-        intelligenceComponent.stateMachine.enter(PoliceBotHitState.self)
+//        intelligenceComponent.stateMachine.enter(PoliceBotHitState.self)
         
         //Policeman is in trouble and needs backup
         if resistanceComponent.resistance < 50.0
@@ -53,9 +53,9 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
     {
         guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
         
-        isProtestor = !chargeComponent.hasCharge
+        isGood = !chargeComponent.hasCharge
         
-        if !isProtestor
+        if !isGood
         {
             intelligenceComponent.stateMachine.enter(TaskBotZappedState.self)
         }
