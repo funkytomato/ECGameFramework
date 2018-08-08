@@ -71,7 +71,12 @@ class SubduedState: GKState
     {
         super.update(deltaTime: seconds)
         elapsedTime += seconds
-
+        
+        //Move to a Calmm state after 5 seconds
+        if elapsedTime >= 5.0
+        {
+            stateMachine?.canEnterState(CalmState.self)
+        }
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
