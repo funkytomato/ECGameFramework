@@ -267,6 +267,39 @@
 			<key>botType</key>
 			<string>police</string>
 		</dict>
+		<dict>
+			<key>temperament</key>
+			<string>Calm</string>
+			<key>guardPathNodeNames</key>
+			<array>
+				<string>policeBot_guard_01</string>
+				<string>policeBot_guard_02</string>
+			</array>
+			<key>goodPathNodeNames</key>
+			<array>
+				<string>policeBot_patrol_01</string>
+				<string>policeBot_patrol_02</string>
+				<string>policeBot_patrol_03</string>
+				<string>policeBot_patrol_04</string>
+				<string>policeBot_patrol_05</string>
+				<string>policeBot_patrol_06</string>
+				<string>policeBot_patrol_07</string>
+				<string>policeBot_patrol_08</string>
+			</array>
+			<key>badPathNodeNames</key>
+			<array>
+				<string>policeBot_bad_01</string>
+				<string>policeBot_bad_02</string>
+				<string>policeBot_bad_03</string>
+				<string>policeBot_bad_04</string>
+			</array>
+			<key>startsBad</key>
+			<false/>
+			<key>initialOrientation</key>
+			<string>South</string>
+			<key>botType</key>
+			<string>police</string>
+		</dict>
 	</array>
 	<key>proximityFactor</key>
 	<integer>800</integer>
