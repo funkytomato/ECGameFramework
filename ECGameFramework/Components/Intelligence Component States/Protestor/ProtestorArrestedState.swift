@@ -56,10 +56,8 @@ class ProtestorArrestedState: GKState
         animationComponent.requestedAnimationState = .arrested
         
         applyCuffsToEntity(entity: self.entity)
-        
-        self.entity.isActive = false
-        
-        self.entity.isArrested = true
+ 
+        entity.isArrested = true
     }
     
     override func update(deltaTime seconds: TimeInterval)
@@ -67,8 +65,12 @@ class ProtestorArrestedState: GKState
         super.update(deltaTime: seconds)
         elapsedTime += seconds
         
-        //Request the "beingArrested animation for this state's 'ManBot'
-        animationComponent.requestedAnimationState = .arrested
+        //Move Protestor to Meatwagon after 5 seconds
+        if elapsedTime >= 5.0
+        {
+            guard let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self) else { return }
+            intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
+        }
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
