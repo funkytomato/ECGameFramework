@@ -71,7 +71,13 @@ class MovementComponent: GKComponent
         return orientationComponent
     }
 
- 
+    var animationComponent: AnimationComponent
+    {
+        guard let animationComponent = entity?.component(ofType: AnimationComponent.self) else { fatalError("A MovementComponent's entity must have an AnimationComponent") }
+        return animationComponent
+    }
+    
+    
     /// Determines how quickly the entity is moved in points per second.
     var movementSpeed: CGFloat
     
@@ -162,7 +168,7 @@ class MovementComponent: GKComponent
             and the requested animation can be overwritten, update the `AnimationComponent`'s
             requested animation state.
         */
-        /*
+        
         if let animationState = animationState
         {
             // `animationComponent` is a computed property. Declare a local version so we don't compute it multiple times.
@@ -173,7 +179,6 @@ class MovementComponent: GKComponent
                 animationComponent.requestedAnimationState = animationState
             }
         }
- */
     }
     
     // MARK: Convenience Methods
