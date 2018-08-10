@@ -55,7 +55,7 @@ class ProtestorDetainedState: GKState
         elapsedTime = 0.0
         
         //Request the "detained animation for this state's 'ProtestorBot'
-        animationComponent.requestedAnimationState = .arrested
+        animationComponent.requestedAnimationState = .detained
         
         temperamentComponent.stateMachine.enter(SubduedState.self)
         entity.isActive = false
@@ -65,9 +65,6 @@ class ProtestorDetainedState: GKState
     {
         super.update(deltaTime: seconds)
         elapsedTime += seconds
-        
-        //Request the "detained animation for this state's 'ProtestorBot'
-        animationComponent.requestedAnimationState = .detained
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
