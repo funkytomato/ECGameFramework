@@ -53,8 +53,6 @@ class SubduedState: GKState
     override func didEnter(from previousState: GKState?)
     {
         super.didEnter(from: previousState)
-        
-        //Reset the tracking of how long the 'ProtestorBot' has been in "Subdued" state
         elapsedTime = 0.0
         
         //Change the colour of the sprite to show subdued
@@ -73,7 +71,7 @@ class SubduedState: GKState
         elapsedTime += seconds
         
         //Move to a Calmm state after 5 seconds
-        if elapsedTime >= 5.0
+        if elapsedTime >= 30.0
         {
             stateMachine?.canEnterState(CalmState.self)
         }

@@ -91,7 +91,7 @@ class ViolentState: GKState
     {
         switch stateClass
         {
-        case is RageState.Type, is AngryState.Type, is ScaredState.Type:
+        case is RageState.Type, is AngryState.Type, is ScaredState.Type, is SubduedState.Type:
             return true
             
         default:
