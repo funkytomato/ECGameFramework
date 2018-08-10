@@ -108,7 +108,8 @@ class TemperamentComponent: GKComponent
             AggitatedState(temperamentComponent: self),
             AngryState(temperamentComponent: self),
             ViolentState(temperamentComponent: self),
-            RageState(temperamentComponent: self)
+            RageState(temperamentComponent: self),
+            SubduedState(temperamentComponent: self)
             ])
         
         stateMachine.enter(CalmState.self)
@@ -154,6 +155,8 @@ class TemperamentComponent: GKComponent
                 spriteComponent.changeColour(colour: SKColor.red)
             case is RageState:
                 spriteComponent.changeColour(colour: SKColor.brown)
+            case is SubduedState:
+                spriteComponent.changeColour(colour: SKColor.blue)
             default:
                 spriteComponent.changeColour(colour: SKColor.green)
         }
