@@ -48,7 +48,7 @@ class TaskBotAgentControlledState: GKState
         timeSinceBehaviorUpdate = 0.0
         elapsedTime = 0.0
         
-        //print("entity behaviour: \(entity.behaviorForCurrentMandate.debugDescription)")
+//        print("entity behaviour: \(entity.behaviorForCurrentMandate.debugDescription)")
         
         // Ensure that the agent's behavior is the appropriate behavior for its current mandate.
         entity.agent.behavior = entity.behaviorForCurrentMandate
@@ -63,8 +63,6 @@ class TaskBotAgentControlledState: GKState
             chargeComponent.addCharge(chargeToAdd: chargeToAdd)
         }
         
-//        self.entity.isDangerous = false  //fry ?
-        
         guard let renderComponent = entity.component(ofType: RenderComponent.self) else { return }
         let scene = renderComponent.node.scene as? LevelScene
         self.destination = (scene?.meatWagonLocation())!
@@ -73,6 +71,8 @@ class TaskBotAgentControlledState: GKState
     override func update(deltaTime seconds: TimeInterval)
     {
         super.update(deltaTime: seconds)
+        
+        print("entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate)")
         
         // Update the "time since last behavior update" tracker.
         timeSinceBehaviorUpdate += seconds
@@ -123,15 +123,13 @@ class TaskBotAgentControlledState: GKState
                 
                 // When a `TaskBot` is close to the meatwagon, it should be removed from game
                 case .lockupPrisoner:
-                    
-                    if entity.isArrested
+ 
+                    if entity.distanceToPoint(otherPoint: destination) <= GameplayConfiguration.TaskBot.thresholdProximityToMeatwagonPoint
                     {
-                        if entity.distanceToPoint(otherPoint: destination) <= GameplayConfiguration.TaskBot.thresholdProximityToMeatwagonPoint
-                        {
-                            guard let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self) else { return }
-                            intelligenceComponent.stateMachine.enter(ProtestorDetainedState.self)
-                        }
+                        guard let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self) else { return }
+                        intelligenceComponent.stateMachine.enter(ProtestorDetainedState.self)
                     }
+
                     break
                 
                 case let .returnHome(position):
@@ -150,7 +148,6 @@ class TaskBotAgentControlledState: GKState
                             protestorBot.isHome = true
                             
                             entity.mandate = .crowd()
-//                            entity.mandate = .wander
                         }
                     }
                     break
@@ -160,7 +157,7 @@ class TaskBotAgentControlledState: GKState
                     if entity.distanceToPoint(otherPoint: position) <= GameplayConfiguration.TaskBot.thresholdProximityToPatrolPathStartPoint
                     {
                         //If Protestor Criminal, wander
-                        if entity.isProtestor && entity.isArrested
+                        if entity.isProtestor
                         {
                             entity.mandate = .wander
                         }
@@ -189,10 +186,10 @@ class TaskBotAgentControlledState: GKState
                     break
             }
             
-            print("entity: \(entity.debugDescription)")
+            print("entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate)")
             
             //Check if taskbot has stayed in same position for long time, e.g. stuck in corner.  Move Taskbot away from current position
-            if entity.distanceToPoint(otherPoint: oldPosition) <= 10.0 && elapsedTime >= 5.0
+            if entity.distanceToPoint(otherPoint: oldPosition) <= 10.0 && elapsedTime >= 5.0 && !entity.isArrested
             {
                 entity.mandate = .returnToPositionOnPath(float2(0.0,0.0))
             }
@@ -200,7 +197,6 @@ class TaskBotAgentControlledState: GKState
             guard let taskBot = entity as? TaskBot else { return }
             oldPosition = taskBot.agent.position
             
-            print("Current behaviour mandate: \(entity.mandate)")
             
             // Ensure the agent's behavior is the appropriate behavior for its current mandate.
             entity.agent.behavior = entity.behaviorForCurrentMandate
