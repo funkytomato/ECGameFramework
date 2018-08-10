@@ -397,7 +397,8 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
 
         super.rulesComponent(rulesComponent: rulesComponent, didFinishEvaluatingRuleSystem: ruleSystem)
         
-
+        
+        
         /*
          A Protestor will flee a location if the following conditions are met:
          1) Enough time has elapsed since the Protestor last did something (create delays between actions
@@ -408,6 +409,10 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         */
         guard let scene = component(ofType: RenderComponent.self)?.node.scene else { return }
         guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
+        
+        print("agentControlledState: \(intelligenceComponent.stateMachine.currentState)")
+
+        
         guard let agentControlledState = intelligenceComponent.stateMachine.currentState as? TaskBotAgentControlledState else { return }
         
         
@@ -422,6 +427,10 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         {
 //            case .wander:
 //                intelligenceComponent.stateMachine.enter(ProtestorBotWanderState.self)
+            
+            case let .returnToPositionOnPath(position):
+                print("ProtestorBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+                break
             
             case let .returnHome(position):
             
@@ -489,14 +498,14 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
                 
                 print("ProtestorBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 
-                intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
+//                intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
             
             case let .fleeAgent(targetAgent):
                 
                 print("ProtestorBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 
-//                intelligenceComponent.stateMachine.enter(TaskBotFleeState.self)
-//                targetPosition = targetAgent.position
+                intelligenceComponent.stateMachine.enter(TaskBotFleeState.self)
+                targetPosition = targetAgent.position
             
             case let .retaliate(targetTaskbot):
                 
