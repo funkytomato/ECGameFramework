@@ -680,8 +680,12 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         {
             
             // `TaskBot`s always move in a forward direction when they are agent-controlled.
-            component(ofType: AnimationComponent.self)?.requestedAnimationState = .idle    //.walkForward
-            
+            //If arrested, show Protestor in cuffs, if not, as per normal
+            if !isArrested
+            {
+                component(ofType: AnimationComponent.self)?.requestedAnimationState = .idle    //.walkForward
+            }
+                
             // When the `TaskBot` is agent-controlled, the node position follows the agent position.
             updateNodePositionToMatchAgentPosition()
             
@@ -726,12 +730,6 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         //A series of situation in which we prefer to Incite other Protestors
         let inciteTaskBotRaw = [
         
-            //Protestors are nearby
-//            ruleSystem.minimumGrade(forFacts: [
-//                Fact.protestorTaskBotNear.rawValue as AnyObject
-//                ]),
-            
-            
             ruleSystem.minimumGrade(forFacts: [
                 Fact.protestorTaskBotNear.rawValue as AnyObject,
                 Fact.policeBotFar.rawValue as AnyObject
@@ -866,19 +864,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             ruleSystem.minimumGrade(forFacts: [
                 Fact.buyerTaskBotNear.rawValue as AnyObject
 //                Fact.policeBotFar.rawValue as AnyObject
-                ])//,
-            
-            //A buyer is medium far away and Police are nearby
-//            ruleSystem.minimumGrade(forFacts: [
-//                Fact.buyerTaskBotMedium.rawValue as AnyObject
-////                Fact.policeBotNear.rawValue as AnyObject
-//                ]),
-
-            //A buyer is far away and Police are nearby
-//            ruleSystem.minimumGrade(forFacts: [
-//                Fact.buyerTaskBotFar.rawValue as AnyObject
-////                Fact.policeBotNear.rawValue as AnyObject
-//                ])
+                ])
         ]
         
         let huntBuyerTaskBot = huntBuyerTaskBotRaw.reduce(0.0, max)
@@ -983,12 +969,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 Fact.policeTaskBotPercentageMedium.rawValue as AnyObject,
        //         Fact.playerBotFar.rawValue as AnyObject,
                 Fact.protestorTaskBotMedium.rawValue as AnyObject
-            ]),
-            /*
-                There are a reasonable number of Police `TaskBot`s on the level, the
-                player is far away, and the nearest Protestor `TaskBot` is at medium
-                proximity, so prefer the nearest Protestor `TaskBot` for hunting.
-            */
+            ])
         ]
 
         // Find the maximum of the minima from above.
@@ -1011,12 +992,6 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 Fact.policeTaskBotPercentageMedium.rawValue as AnyObject,
                 Fact.dangerousTaskBotNear.rawValue as AnyObject
                 ])
-            
-            // Police TaskBot is medium proximity and their are few Police
-//            ruleSystem.minimumGrade(forFacts: [
-//                Fact.policeBotMedium.rawValue as AnyObject,
-//                Fact.policeTaskBotPercentageLow.rawValue as AnyObject
-//                ])
         ]
         
         //Find the maximum of the minum from above
@@ -1184,6 +1159,12 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 
 //                case .sellWares(state.nearestBuyerTaskBotTarget?.target.agent):
                 
+                case .lockupPrisoner:
+                    print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+                //                    print("Crowding")
+                    break
+                
+                
                 case .incite:
                     print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                     break
@@ -1208,6 +1189,10 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                     print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
 //                    print("playerMovedTaskbot")
                     // The taskbot is already on the player designated path, so no update is needed
+                    break
+                
+                case .returnToPositionOnPath:
+                    print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                     break
                 
                 case .followGoodPatrolPath:
