@@ -90,6 +90,8 @@ class TaskBotFleeState: GKState
     
     override func update(deltaTime seconds: TimeInterval)
     {
+        print("entity: \(entity.debugDescription), mandate: \(entity.mandate)")
+        
         super.update(deltaTime: seconds)
         elapsedTime += seconds
         
