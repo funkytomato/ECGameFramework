@@ -129,7 +129,7 @@ class PoliceBotAttackState: GKState
         switch stateClass
         {
         case is TaskBotAgentControlledState.Type, is TaskBotFleeState.Type, is TaskBotInjuredState.Type, is TaskBotZappedState.Type,
-             is PoliceArrestState.Type/*, is PoliceBotHitState.Type*/:
+             is PoliceArrestState.Type, is PoliceBotHitState.Type:
             return true
             
         default:
