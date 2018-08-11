@@ -560,9 +560,6 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
     // MARK: BuyWares Component Delegate
     func buyingWaresComponentDidLoseProduct(buyWaresComponent: BuyingWaresComponent)
     {
-        //print("Use product")
-        //self.isHungry = false
-        
         //Protestor does not have any wares
         self.hasWares = false
     }
@@ -571,9 +568,6 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
 //        print("Buy product and eat/use")
         
         self.hasWares = true
-        
-        //Protestor is eating
-//        self.isHungry = false
     }
     
     
