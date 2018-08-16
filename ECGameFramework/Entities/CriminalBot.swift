@@ -100,7 +100,7 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
             
             texture = SKTexture(imageNamed: "CriminalBot")
             
-//            self.isSelling = true
+            self.isSelling = true
         }
             
         //Bad Taskbot
