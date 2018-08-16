@@ -149,11 +149,16 @@ class PoliceBotHitState: GKState
             }
                 
             //Police has no resistance left and some health, so run away
-            else if ((temperamentComponent.stateMachine.currentState as? ScaredState) != nil) ||  healthComponent.health < 50.0
+//            else if ((temperamentComponent.stateMachine.currentState as? ScaredState) != nil) ||  healthComponent.health < 50.0
+            else if healthComponent.health < 50.0
             {
                 //The Police is scared and will flee
                 temperamentComponent.stateMachine.enter(ScaredState.self)
                 stateMachine?.enter(TaskBotFleeState.self)
+            }
+            else
+            {
+                stateMachine?.enter(TaskBotAgentControlledState.self)
             }
         }
         
