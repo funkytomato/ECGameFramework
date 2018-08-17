@@ -88,19 +88,21 @@ class InciteComponent: GKComponent
     {
 
         
-//        print("current state: \(stateMachine.currentState.debugDescription)")
+        print("current state: \(stateMachine.currentState.debugDescription), intelligenceComponent current state: \(intelligenceComponent.stateMachine.currentState)")
         
         //Check Protestor is not fighting or confrontation with Police
 
-//        guard ((intelligenceComponent.stateMachine.currentState as? ProtestorArrestedState) == nil) else { return }
-//        guard ((intelligenceComponent.stateMachine.currentState as? ProtestorBeingArrestedState) == nil) else { return }
-//        guard ((intelligenceComponent.stateMachine.currentState as? ProtestorBotRotateToAttackState) == nil) else { return }
-//        guard ((intelligenceComponent.stateMachine.currentState as? ProtestorBotPreAttackState) == nil) else { return }
-//        guard ((intelligenceComponent.stateMachine.currentState as? ProtestorBotAttackState) == nil) else { return }
-//        guard ((intelligenceComponent.stateMachine.currentState as? ProtestorBotHitState) == nil) else { return }
-//        guard ((intelligenceComponent.stateMachine.currentState as? TaskBotInjuredState) == nil) else { return }
-//        guard ((intelligenceComponent.stateMachine.currentState as? TaskBotFleeState) == nil) else { return }
-//        
+        guard ((intelligenceComponent.stateMachine.currentState as? ProtestorArrestedState) == nil) else { return }
+        guard ((intelligenceComponent.stateMachine.currentState as? ProtestorBeingArrestedState) == nil) else { return }
+        guard ((intelligenceComponent.stateMachine.currentState as? ProtestorBotRotateToAttackState) == nil) else { return }
+        guard ((intelligenceComponent.stateMachine.currentState as? ProtestorBotPreAttackState) == nil) else { return }
+        guard ((intelligenceComponent.stateMachine.currentState as? ProtestorBotAttackState) == nil) else { return }
+        guard ((intelligenceComponent.stateMachine.currentState as? ProtestorBotHitState) == nil) else { return }
+        guard ((intelligenceComponent.stateMachine.currentState as? TaskBotInjuredState) == nil) else { return }
+        guard ((intelligenceComponent.stateMachine.currentState as? TaskBotFleeState) == nil) else { return }
+        guard ((intelligenceComponent.stateMachine.currentState as? ProtestorSheepState) == nil) else { return }
+        
+//
 //        guard ((intelligenceComponent.stateMachine.currentState as? ProtestorInciteState) != nil) else { return }
 //        guard (stateMachine.currentState as? InciteActiveState) != nil else { return }
         
