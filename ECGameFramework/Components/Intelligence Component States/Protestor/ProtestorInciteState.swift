@@ -92,7 +92,7 @@ class ProtestorInciteState: GKState
         {
             
             case is TaskBotAgentControlledState.Type, is TaskBotFleeState.Type, is TaskBotInjuredState.Type,  is TaskBotZappedState.Type,
-                is ProtestorBotHitState.Type, is ProtestorBuyWaresState.Type:
+                is ProtestorBotHitState.Type, is ProtestorBuyWaresState.Type, is ProtestorInciteState.Type:
                 return true
             
             default:
