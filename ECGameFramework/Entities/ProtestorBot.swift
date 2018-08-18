@@ -65,6 +65,9 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
     
     // MARK: ProtestorBot Properties
     
+    //The target Protestor (Ringleader) to follow when influenced
+    var ringLeader: GKEntity?
+    
     // The position in the scene that the `PoliceBot` should target with its attack.
     var targetPosition: float2?
     
@@ -174,7 +177,8 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             ProtestorBotRechargingState(entity: self),
             TaskBotZappedState(entity: self),
             ProtestorInciteState(entity: self),
-            ProtestorBuyWaresState(entity: self)
+            ProtestorBuyWaresState(entity: self),
+            ProtestorSheepState(entity: self)
  //           ProtestorBotWanderState(entity: self)
             ])
         addComponent(intelligenceComponent)
@@ -182,34 +186,34 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
 
         
         //print("initialState :\(initialState.debugDescription)")
-        let temperamentComponent = TemperamentComponent(initialState: temperamentState, temperament: initialTemperament, maximumTemperament: Double(GameplayConfiguration.ProtestorBot.maximumTemperament), displaysTemperamentBar: true)
+        let temperamentComponent = TemperamentComponent(initialState: temperamentState, temperament: initialTemperament, maximumTemperament: Double(GameplayConfiguration.ProtestorBot.maximumTemperament), displaysTemperamentBar: false)
         temperamentComponent.delegate = self
         addComponent(temperamentComponent)
         temperamentComponent.setTemperament(newState: temperamentState)
-        print("temperamentState: \(temperamentState.debugDescription)")
+//        print("temperamentState: \(temperamentState.debugDescription)")
         
         
         let physicsBody = SKPhysicsBody(circleOfRadius: GameplayConfiguration.TaskBot.physicsBodyRadius, center: GameplayConfiguration.TaskBot.physicsBodyOffset)
         let physicsComponent = PhysicsComponent(physicsBody: physicsBody, colliderType: .TaskBot)
         addComponent(physicsComponent)
         
-        let chargeComponent = ChargeComponent(charge: initialCharge, maximumCharge: GameplayConfiguration.ProtestorBot.maximumCharge, displaysChargeBar: true)
+        let chargeComponent = ChargeComponent(charge: initialCharge, maximumCharge: GameplayConfiguration.ProtestorBot.maximumCharge, displaysChargeBar: false)
         chargeComponent.delegate = self
         addComponent(chargeComponent)
   
-        let healthComponent = HealthComponent(health: initialHealth, maximumHealth: GameplayConfiguration.ProtestorBot.maximumHealth, displaysHealthBar: true)
+        let healthComponent = HealthComponent(health: initialHealth, maximumHealth: GameplayConfiguration.ProtestorBot.maximumHealth, displaysHealthBar: false)
         healthComponent.delegate = self
         addComponent(healthComponent)
 
-        let resistanceComponent = ResistanceComponent(resistance: initialResistance, maximumResistance: GameplayConfiguration.ProtestorBot.maximumResistance, displaysResistanceBar: true)
+        let resistanceComponent = ResistanceComponent(resistance: initialResistance, maximumResistance: GameplayConfiguration.ProtestorBot.maximumResistance, displaysResistanceBar: false)
         resistanceComponent.delegate = self
         addComponent(resistanceComponent)
         
-        let respectComponent = RespectComponent(respect: initialRespect, maximumRespect: GameplayConfiguration.ProtestorBot.maximumRespect, displaysRespectBar: true)
+        let respectComponent = RespectComponent(respect: initialRespect, maximumRespect: GameplayConfiguration.ProtestorBot.maximumRespect, displaysRespectBar: false)
         respectComponent.delegate = self
         addComponent(respectComponent)
         
-        let obesianceComponent = ObeisanceComponent(obeisance: initialObeisance, maximumObeisance: GameplayConfiguration.ProtestorBot.maximumObesiance, displaysObeisanceBar: true)
+        let obesianceComponent = ObeisanceComponent(obeisance: initialObeisance, maximumObeisance: GameplayConfiguration.ProtestorBot.maximumObesiance, displaysObeisanceBar: false)
         obesianceComponent.delegate = self
         addComponent(obesianceComponent)
         
@@ -220,11 +224,11 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         buyWaresComponent.delegate = self
         addComponent(buyWaresComponent)
         
-        let appetiteComponent = AppetiteComponent(appetite: initialAppetite, maximumAppetite: GameplayConfiguration.ProtestorBot.maximumAppetite, displaysAppetiteBar: true)
+        let appetiteComponent = AppetiteComponent(appetite: initialAppetite, maximumAppetite: GameplayConfiguration.ProtestorBot.maximumAppetite, displaysAppetiteBar: false)
         appetiteComponent.delegate = self
         addComponent(appetiteComponent)
         
-        let intoxicationComponent = IntoxicationComponent(intoxication: initialIntoxication , maximumIntoxication: GameplayConfiguration.ProtestorBot.maximumIntoxication, displaysIntoxicationBar: true)
+        let intoxicationComponent = IntoxicationComponent(intoxication: initialIntoxication , maximumIntoxication: GameplayConfiguration.ProtestorBot.maximumIntoxication, displaysIntoxicationBar: false)
         intoxicationComponent.delegate = self
         addComponent(intoxicationComponent)
         
@@ -276,7 +280,6 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         buyWares(entity)
         
         // If the Protestor is inciting, influence Protestors on contact
-        // Raise their temperament
         guard let inciteComponent = component(ofType: InciteComponent.self) else { return }
         guard (inciteComponent.stateMachine.currentState as? InciteActiveState) != nil else { return }
         if inciteComponent.isTriggered
@@ -284,6 +287,22 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             guard let protestorTarget = entity as? ProtestorBot else { return }
             guard let protestorTargetObeisanceComponent = protestorTarget.component(ofType: ObeisanceComponent.self) else { return }
             protestorTargetObeisanceComponent.addObeisance(obeisanceToAdd: GameplayConfiguration.ProtestorBot.obeisanceGainPerCycle)
+            
+            //If target Protestor's obeisance becomes high enough, set the Protestor's RingLeader Property to this entity
+//            if protestorTargetObeisanceComponent.obeisance >  50.0
+            if protestorTarget.isSubservient
+            {
+//                self.isRingLeader = true
+                
+                print("self ringleader: \(self.isRingLeader), \(self.ringLeader.debugDescription)")
+                
+                protestorTarget.ringLeader = self
+                guard let intelligenceComponent = protestorTarget.component(ofType: IntelligenceComponent.self) else { return }
+                intelligenceComponent.stateMachine.enter(ProtestorSheepState.self)
+                
+                print("protestorTarget.ringLeader: \(protestorTarget.ringLeader.debugDescription)")
+            }
+            
             
             //print("Increased the obeisance of the touching Protestor")
         }
@@ -396,6 +415,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
 
 
         super.rulesComponent(rulesComponent: rulesComponent, didFinishEvaluatingRuleSystem: ruleSystem)
+        
         
         
         
@@ -603,11 +623,18 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
     {
         guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
 
+        
+        self.isRingLeader = true
+        
         //Freeze Protestor for a bit and then carry on
         isGood = !chargeComponent.hasCharge
         if !isGood
         {
             intelligenceComponent.stateMachine.enter(TaskBotZappedState.self)
+//            self.isRingLeader = true  //This could cause a crash.  If a protestor gets to sheep state, but ringleader has not been set, will crash in sheepBehavour with null pointer
+            
+//            guard let spriteComponent = component(ofType: SpriteComponent.self) else { return }
+//            spriteComponent.changeColour(colour: SKColor.black)
         }
     }
     
@@ -695,6 +722,9 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             guard let inciteComponent = component(ofType: InciteComponent.self) else { return }
             inciteComponent.stateMachine.enter(InciteIdleState.self)
             inciteComponent.isTriggered = false
+            
+            //Reset the Ringleader to nil (do not follow them anymore)
+            self.ringLeader = nil
         }
     }
 
