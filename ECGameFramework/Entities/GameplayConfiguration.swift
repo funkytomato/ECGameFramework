@@ -374,7 +374,7 @@ struct GameplayConfiguration
         
         
         // The minimum speed (in points per second) for the 'TaskBot'
-        static let minimumSpeed: Float = 30.0
+        static let minimumSpeed: Float = 50.0
         
         /// The maximum speed (in points per second) for the `TaskBot` when in its "good" state.
         static let maximumSpeedWhenGood: Float = 50.0
@@ -394,7 +394,7 @@ struct GameplayConfiguration
         */
         /// The maximum acceleration (in points per second per second) for the `TaskBot`.
 //        static let maximumAcceleration: Float = 10.0
-        static let maximumAcceleration: Float = 100.0
+        static let maximumAcceleration: Float = 150.0
 
         /// The agent's mass.
         static let agentMass: Float = 0.25
