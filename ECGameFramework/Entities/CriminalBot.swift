@@ -100,7 +100,7 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
             
             texture = SKTexture(imageNamed: "CriminalBot")
             
-            self.isSelling = true
+//            self.isSelling = true
         }
             
         //Bad Taskbot
@@ -164,7 +164,7 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
         addComponent(intelligenceComponent)
         
         
-        let temperamentComponent = TemperamentComponent(initialState: temperamentState, temperament: Double(initialTemperament), maximumTemperament: Double(GameplayConfiguration.ProtestorBot.maximumTemperament), displaysTemperamentBar: true)
+        let temperamentComponent = TemperamentComponent(initialState: temperamentState, temperament: Double(initialTemperament), maximumTemperament: Double(GameplayConfiguration.ProtestorBot.maximumTemperament), displaysTemperamentBar: false)
         addComponent(temperamentComponent)
         
         
@@ -172,27 +172,27 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
         let physicsComponent = PhysicsComponent(physicsBody: physicsBody, colliderType: .TaskBot)
         addComponent(physicsComponent)
         
-         let chargeComponent = ChargeComponent(charge: initialCharge, maximumCharge: GameplayConfiguration.ProtestorBot.maximumCharge, displaysChargeBar: true)
+         let chargeComponent = ChargeComponent(charge: initialCharge, maximumCharge: GameplayConfiguration.ProtestorBot.maximumCharge, displaysChargeBar: false)
          chargeComponent.delegate = self
          addComponent(chargeComponent)
         
-        let healthComponent = HealthComponent(health: initialHealth, maximumHealth: GameplayConfiguration.CriminalBot.maximumHealth, displaysHealthBar: true)
+        let healthComponent = HealthComponent(health: initialHealth, maximumHealth: GameplayConfiguration.CriminalBot.maximumHealth, displaysHealthBar: false)
         healthComponent.delegate = self
         addComponent(healthComponent)
         
-        let resistanceComponent = ResistanceComponent(resistance: initialResistance, maximumResistance: GameplayConfiguration.CriminalBot.maximumResistance, displaysResistanceBar: true)
+        let resistanceComponent = ResistanceComponent(resistance: initialResistance, maximumResistance: GameplayConfiguration.CriminalBot.maximumResistance, displaysResistanceBar: false)
         resistanceComponent.delegate = self
         addComponent(resistanceComponent)
         
-        let respectComponent = RespectComponent(respect: initialRespect, maximumRespect: GameplayConfiguration.CriminalBot.maximumRespect, displaysRespectBar: true)
+        let respectComponent = RespectComponent(respect: initialRespect, maximumRespect: GameplayConfiguration.CriminalBot.maximumRespect, displaysRespectBar: false)
         respectComponent.delegate = self
         addComponent(respectComponent)
         
-        let obesianceComponent = ObeisanceComponent(obeisance: initialObeisance, maximumObeisance: GameplayConfiguration.CriminalBot.maximumObeisance, displaysObeisanceBar: true)
+        let obesianceComponent = ObeisanceComponent(obeisance: initialObeisance, maximumObeisance: GameplayConfiguration.CriminalBot.maximumObeisance, displaysObeisanceBar: false)
         obesianceComponent.delegate = self
         addComponent(obesianceComponent)
         
-        let sellingWaresComponent = SellingWaresComponent(wares: initialSellingWares, maximumWares: GameplayConfiguration.CriminalBot.maximumWares, displaysWaresBar: true)
+        let sellingWaresComponent = SellingWaresComponent(wares: initialSellingWares, maximumWares: GameplayConfiguration.CriminalBot.maximumWares, displaysWaresBar: false)
         sellingWaresComponent.delegate = self
         addComponent(sellingWaresComponent)
         
