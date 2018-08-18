@@ -230,7 +230,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
         addComponent(intelligenceComponent)
         
         
-        let temperamentComponent = TemperamentComponent(initialState: temperamentState, temperament: initialTemperament, maximumTemperament: Double(GameplayConfiguration.ProtestorBot.maximumTemperament), displaysTemperamentBar: true)
+        let temperamentComponent = TemperamentComponent(initialState: temperamentState, temperament: initialTemperament, maximumTemperament: Double(GameplayConfiguration.ProtestorBot.maximumTemperament), displaysTemperamentBar: false)
         addComponent(temperamentComponent)
         
         
@@ -241,15 +241,15 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
         addComponent(physicsComponent)
         
         
-        let chargeComponent = ChargeComponent(charge: initialCharge, maximumCharge: GameplayConfiguration.PoliceBot.maximumCharge, displaysChargeBar: true)
+        let chargeComponent = ChargeComponent(charge: initialCharge, maximumCharge: GameplayConfiguration.PoliceBot.maximumCharge, displaysChargeBar: false)
         chargeComponent.delegate = self
         addComponent(chargeComponent)
         
-        let healthComponent = HealthComponent(health: initialHealth, maximumHealth: GameplayConfiguration.PoliceBot.maximumHealth, displaysHealthBar: true)
+        let healthComponent = HealthComponent(health: initialHealth, maximumHealth: GameplayConfiguration.PoliceBot.maximumHealth, displaysHealthBar: false)
         healthComponent.delegate = self
         addComponent(healthComponent)
         
-        let resistanceComponent = ResistanceComponent(resistance: initialResistance, maximumResistance: GameplayConfiguration.PoliceBot.maximumResistance, displaysResistanceBar: true)
+        let resistanceComponent = ResistanceComponent(resistance: initialResistance, maximumResistance: GameplayConfiguration.PoliceBot.maximumResistance, displaysResistanceBar: false)
         resistanceComponent.delegate = self
         addComponent(resistanceComponent)
         
