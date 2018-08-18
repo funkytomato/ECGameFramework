@@ -76,6 +76,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         
         // Loot
         case loot(float2)
+        
+        // Follow Ringleader
+        case sheep(GKAgent2D)
     }
 
     // MARK: Properties
@@ -182,6 +185,12 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
     //Is the taskbot protestor?
     var isProtestor: Bool
     
+    // Is the taskbot a ringleader?
+    var isRingLeader: Bool
+    
+    //Is the Protestor following a RingLeader?
+    var isSheep: Bool
+    
     //Is the taskbot hungry for alcohol and drugs
     var isHungry: Bool
     
@@ -280,6 +289,20 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 // Patrol paths are always closed loops, so the debug drawing of the path should cycle back round to the start.
                 debugPathShouldCycle = true
                 debugColor = isGood ? SKColor.green : SKColor.purple
+            
+            
+            // Protestors will crowd the Ringleader
+            case let .sheep(target):
+                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+            
+                //Crowd with the Ringleader
+                radius = 100.0
+                agentBehavior = TaskBotBehavior.sheepBehaviour(forAgent: agent, targetAgent: target, pathRadius: radius, inScene: levelScene)
+                debugColor = SKColor.green
+            
+                let pathPoints = isGood ? goodPathPoints : badPathPoints
+                debugPathPoints = pathPoints
+            
             
             // Protestors will crowd together if of the same temperament
             case .crowd:
@@ -521,6 +544,12 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         
         // Whether or not the taskbot is protestor
         self.isProtestor = false
+        
+        // Whether or not the taskbot is a ringleader
+        self.isRingLeader = false
+        
+        // Whether or not the Protestor is following a Ringleader
+        self.isSheep = false
         
         //Whether or not the taskbot is hungry for alcohol and drugs
         self.isHungry = false
@@ -1067,6 +1096,16 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
         }
          
+        //TaskBot is not a Ringleader, but is following Ringleader
+        else if self.isSheep && !self.isRingLeader
+        {
+//            print("Protestor is sheep")
+            guard let nearestRingLeaderTaskbot = state.nearestRingLeaderTaskBotTarget?.target.agent else { return }
+            mandate = .sheep(nearestRingLeaderTaskbot)
+            
+            print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+        }
+            
         //TaskBot is Criminal and wants to sell wares
         else if self.isCriminal && self.isSelling// && huntBuyerTaskBot > 0.5
         {
@@ -1116,10 +1155,11 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             
             
         //Protestor is subvervient and protestors are nearby
-        else if self.isSubservient && inciteTaskBot > 0.0
+        else if self.isSubservient && !self.isSheep && inciteTaskBot > 0.0
         {
 //            print("Inciting others")
             mandate = .incite
+//            mandate = .sheep
             
             print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
         }
