@@ -75,7 +75,7 @@ class ProtestorSheepState: GKState
         
         entity.isSheep = true
         
-        spriteComponent.changeColour(colour: SKColor.red)
+//        spriteComponent.changeColour(colour: SKColor.red)
     }
     
     override func update(deltaTime seconds: TimeInterval)
@@ -95,7 +95,7 @@ class ProtestorSheepState: GKState
         {
             
         case is TaskBotAgentControlledState.Type, is TaskBotFleeState.Type, is TaskBotInjuredState.Type,  is TaskBotZappedState.Type,
-             is ProtestorBotHitState.Type, is ProtestorBuyWaresState.Type:
+             is ProtestorBotHitState.Type, is ProtestorBuyWaresState.Type, is ProtestorSheepState.Type:
             return true
             
         default:
