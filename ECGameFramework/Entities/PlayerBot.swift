@@ -119,23 +119,23 @@ class PlayerBot: GKEntity, HealthComponentDelegate, ResistanceComponentDelegate,
         addComponent(movementComponent)
         
         // `ChargeComponent` manages the `PlayerBot`'s charge (i.e. health).
-        let chargeComponent = ChargeComponent(charge: GameplayConfiguration.PlayerBot.initialCharge, maximumCharge: GameplayConfiguration.PlayerBot.maximumCharge, displaysChargeBar: true)
+        let chargeComponent = ChargeComponent(charge: GameplayConfiguration.PlayerBot.initialCharge, maximumCharge: GameplayConfiguration.PlayerBot.maximumCharge, displaysChargeBar: false)
         chargeComponent.delegate = self
         addComponent(chargeComponent)
         
-        let healthComponent = HealthComponent(health: initialHealth, maximumHealth: GameplayConfiguration.PlayerBot.maximumHealth, displaysHealthBar: true)
+        let healthComponent = HealthComponent(health: initialHealth, maximumHealth: GameplayConfiguration.PlayerBot.maximumHealth, displaysHealthBar: false)
         healthComponent.delegate = self
         addComponent(healthComponent)
         
-        let resistanceComponent = ResistanceComponent(resistance: initialResistance, maximumResistance: GameplayConfiguration.PlayerBot.maximumResistance, displaysResistanceBar: true)
+        let resistanceComponent = ResistanceComponent(resistance: initialResistance, maximumResistance: GameplayConfiguration.PlayerBot.maximumResistance, displaysResistanceBar: false)
         resistanceComponent.delegate = self
         addComponent(resistanceComponent)
         
-        let respectComponent = RespectComponent(respect: initialRespect, maximumRespect: GameplayConfiguration.PlayerBot.maximumRespect, displaysRespectBar: true)
+        let respectComponent = RespectComponent(respect: initialRespect, maximumRespect: GameplayConfiguration.PlayerBot.maximumRespect, displaysRespectBar: false)
         respectComponent.delegate = self
         addComponent(respectComponent)
         
-        let obesianceComponent = ObeisanceComponent(obeisance: initialObeisance, maximumObeisance: GameplayConfiguration.PlayerBot.maximumObeisance, displaysObeisanceBar: true)
+        let obesianceComponent = ObeisanceComponent(obeisance: initialObeisance, maximumObeisance: GameplayConfiguration.PlayerBot.maximumObeisance, displaysObeisanceBar: false)
         obesianceComponent.delegate = self
         addComponent(obesianceComponent)
         
