@@ -55,6 +55,11 @@ enum Fact: String
     case playerBotMedium = "PlayerBotMedium"
     case playerBotFar = "PlayerBotFar"
 
+    // Fuzzy rules pertaining to this `TaskBot`'s proximity to the nearest "RingLeader" `TaskBot`.
+    case ringLeaderTaskBotNear = "RingLeaderTaskBotNear"
+    case ringLeaderTaskBotMedium = "RingLeaderTaskBotMedium"
+    case ringLeaderTaskBotFar = "RingLeaderTaskBotFar"
+    
     // Fuzzy rules pertaining to this `TaskBot`'s proximity to the nearest "Protestor" `TaskBot`.
     case protestorTaskBotNear = "ProtestorTaskBotNear"
     case protestorTaskBotMedium = "ProtestorTaskBotMedium"
@@ -443,6 +448,69 @@ class PlayerBotFarRule: FuzzyTaskBotRule
 
 // MARK: TaskBot Proximity Rules
 
+
+/// Asserts whether the nearest "RingLeader" `TaskBot` is considered to be "near" to this `TaskBot`.
+class RingLeaderTaskBotNearRule: FuzzyTaskBotRule
+{
+    // MARK: Properties
+    
+    override func grade() -> Float
+    {
+        guard let distance = snapshot.nearestRingLeaderTaskBotTarget?.distance else { return 0.0 }
+        let oneThird = snapshot.proximityFactor / 3
+        return (oneThird - distance) / oneThird
+    }
+    
+    // MARK: Initializers
+    
+    init() { super.init(fact: .ringLeaderTaskBotNear) }
+    
+    deinit {
+        //        print("Deallocating RingLeaderTaskBotNearRule")
+    }
+}
+
+/// Asserts whether the nearest "Protestor" `TaskBot` is considered to be at a "medium" distance from this `TaskBot`.
+class RingLeaderTaskBotMediumRule: FuzzyTaskBotRule
+{
+    // MARK: Properties
+    
+    override func grade() -> Float
+    {
+        guard let distance = snapshot.nearestRingLeaderTaskBotTarget?.distance else { return 0.0 }
+        let oneThird = snapshot.proximityFactor / 3
+        return 1 - (fabs(distance - oneThird) / oneThird)
+    }
+    
+    // MARK: Initializers
+    
+    init() { super.init(fact: .ringLeaderTaskBotMedium) }
+    
+    deinit {
+        //        print("Deallocating RingLeaderTaskBotMediumRule")
+    }
+}
+
+/// Asserts whether the nearest "Protestor" `TaskBot` is considered to be "far" from this `TaskBot`.
+class RingLeaderTaskBotFarRule: FuzzyTaskBotRule
+{
+    // MARK: Properties
+    
+    override func grade() -> Float
+    {
+        guard let distance = snapshot.nearestRingLeaderTaskBotTarget?.distance else { return 0.0 }
+        let oneThird = snapshot.proximityFactor / 3
+        return (distance - oneThird) / oneThird
+    }
+    
+    // MARK: Initializers
+    
+    init() { super.init(fact: .ringLeaderTaskBotFar) }
+    
+    deinit {
+        //        print("Deallocating RingLeaderTaskBotFarRule")
+    }
+}
 
 /// Asserts whether the nearest "Protestor" `TaskBot` is considered to be "near" to this `TaskBot`.
 class ProtestorTaskBotNearRule: FuzzyTaskBotRule
