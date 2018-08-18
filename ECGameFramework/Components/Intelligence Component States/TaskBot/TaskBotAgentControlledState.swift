@@ -182,6 +182,10 @@ class TaskBotAgentControlledState: GKState
                     entity.mandate = .incite
                     break
                 
+                case let .sheep(target):
+                    entity.mandate = .sheep(target)
+                    break
+                
                 default:
                     break
             }
