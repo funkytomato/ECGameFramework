@@ -37,6 +37,67 @@ class TaskBotBehavior: GKBehavior
     }
     
     
+    // Sheep behaviour
+    static func sheepBehaviour(forAgent agent: GKAgent2D, targetAgent: GKAgent2D, pathRadius: Float, inScene scene: LevelScene) -> (GKBehavior)
+    {
+        print("behaviorAndPathPoints \(agent.description),  scene: \(scene.description)")
+        
+        let behavior = TaskBotBehavior()
+        
+        // Add basic goals to reach the `TaskBot`'s maximum speed and avoid obstacles.
+        behavior.addTargetSpeedGoal(speed: agent.maxSpeed)
+        behavior.addAvoidObstaclesGoal(forScene: scene)
+        behavior.addWanderGoal(forScene: scene)
+        
+        
+        // Find nearby "RingLeader" to flock with.
+        let agentsToFlockWith: [GKAgent2D] = scene.entities.compactMap { entity in
+            if let taskBot = entity as? ProtestorBot,
+                taskBot.agent !== agent && taskBot.distanceToAgent(otherAgent: agent) <= GameplayConfiguration.Flocking.agentSearchDistanceForFlocking
+            {
+
+                if taskBot.isSubservient
+                {
+                    return taskBot.agent
+                }
+                
+//                guard let obeisanceComponent = taskBot.component(ofType: ObeisanceComponent.self) else { return }
+//                if obeisanceComponent.obeisance >=
+     
+                
+                
+//                if taskBot.ringLeader != nil
+                //If Protestor's Ringleader is this Ringleader
+//                if taskBot.ringLeader == targetAgent
+//                {
+//                    return taskBot.agent
+//                }
+            }
+            
+            return nil
+        }
+        
+        if !agentsToFlockWith.isEmpty
+        {
+            //            print("crowdBehaviour - agents are flocking \(agentsToFlockWith.debugDescription)")
+            
+            
+            // Add flocking goals for any nearby "bad" `TaskBot`s.
+            let separationGoal = GKGoal(toSeparateFrom: agentsToFlockWith, maxDistance: GameplayConfiguration.Flocking.separationRadius, maxAngle: GameplayConfiguration.Flocking.separationAngle)
+            behavior.setWeight(GameplayConfiguration.Flocking.separationWeight, for: separationGoal)
+            
+            let alignmentGoal = GKGoal(toAlignWith: agentsToFlockWith, maxDistance: GameplayConfiguration.Flocking.alignmentRadius, maxAngle: GameplayConfiguration.Flocking.alignmentAngle)
+            behavior.setWeight(GameplayConfiguration.Flocking.alignmentWeight, for: alignmentGoal)
+            
+            let cohesionGoal = GKGoal(toCohereWith: agentsToFlockWith, maxDistance: GameplayConfiguration.Flocking.cohesionRadius, maxAngle: GameplayConfiguration.Flocking.cohesionAngle)
+            behavior.setWeight(GameplayConfiguration.Flocking.cohesionWeight, for: cohesionGoal)
+        }
+        
+        // Return a tuple containing the new behavior, and the found path points for debug drawing.
+        return (behavior)
+    }
+    
+    
     // Crowd behaviour
     static func crowdBehaviour(forAgent agent: GKAgent2D, pathRadius: Float, temperament: String, inScene scene: LevelScene) -> (GKBehavior)
     {
