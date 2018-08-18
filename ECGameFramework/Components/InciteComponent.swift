@@ -118,9 +118,11 @@ class InciteComponent: GKComponent
             {
                 case is InciteActiveState:
                     animationComponent.requestedAnimationState = .inciting
+                    break
                 
                 default:
-                    animationComponent.requestedAnimationState = .idle
+//                    animationComponent.requestedAnimationState = .idle
+                    break
             }
             
 //            animationComponent.requestedAnimationState = .inciting
