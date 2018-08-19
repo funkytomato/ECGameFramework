@@ -47,31 +47,21 @@ class TaskBotBehavior: GKBehavior
         // Add basic goals to reach the `TaskBot`'s maximum speed and avoid obstacles.
         behavior.addTargetSpeedGoal(speed: agent.maxSpeed)
         behavior.addAvoidObstaclesGoal(forScene: scene)
-        behavior.addWanderGoal(forScene: scene)
+        behavior.addSeekGoal(forScene: scene, agent: targetAgent)
+//        behavior.addWanderGoal(forScene: scene)
         
         
-        // Find nearby "RingLeader" to flock with.
+        // Find nearby Subservient Protestors and group together
         let agentsToFlockWith: [GKAgent2D] = scene.entities.compactMap { entity in
             if let taskBot = entity as? ProtestorBot,
                 taskBot.agent !== agent && taskBot.distanceToAgent(otherAgent: agent) <= GameplayConfiguration.Flocking.agentSearchDistanceForFlocking
             {
 
-                if taskBot.isSubservient
+                //Crowd all subservient Protestors but not if Ringleader
+                if taskBot.isSubservient && !taskBot.isRingLeader
                 {
                     return taskBot.agent
                 }
-                
-//                guard let obeisanceComponent = taskBot.component(ofType: ObeisanceComponent.self) else { return }
-//                if obeisanceComponent.obeisance >=
-     
-                
-                
-//                if taskBot.ringLeader != nil
-                //If Protestor's Ringleader is this Ringleader
-//                if taskBot.ringLeader == targetAgent
-//                {
-//                    return taskBot.agent
-//                }
             }
             
             return nil
@@ -83,7 +73,8 @@ class TaskBotBehavior: GKBehavior
             
             
             // Add flocking goals for any nearby "bad" `TaskBot`s.
-            let separationGoal = GKGoal(toSeparateFrom: agentsToFlockWith, maxDistance: GameplayConfiguration.Flocking.separationRadius, maxAngle: GameplayConfiguration.Flocking.separationAngle)
+//            let separationGoal = GKGoal(toSeparateFrom: agentsToFlockWith, maxDistance: GameplayConfiguration.Flocking.separationRadius, maxAngle: GameplayConfiguration.Flocking.separationAngle)
+            let separationGoal = GKGoal(toSeparateFrom: agentsToFlockWith, maxDistance: 200.0, maxAngle: GameplayConfiguration.Flocking.separationAngle)
             behavior.setWeight(GameplayConfiguration.Flocking.separationWeight, for: separationGoal)
             
             let alignmentGoal = GKGoal(toAlignWith: agentsToFlockWith, maxDistance: GameplayConfiguration.Flocking.alignmentRadius, maxAngle: GameplayConfiguration.Flocking.alignmentAngle)
@@ -587,7 +578,7 @@ class TaskBotBehavior: GKBehavior
     // Adds a goal to wander around thhe scene
     private func addWanderGoal(forScene scene: LevelScene)
     {
-        setWeight(100.0, for: GKGoal(toWander: 100))
+        setWeight(0.9, for: GKGoal(toWander: 500))
         //print("addWanderGoal  scene: \(scene.description)")
     }
 
@@ -596,14 +587,14 @@ class TaskBotBehavior: GKBehavior
     // Adds a goal to flee around thhe scene
     private func addFleeGoal(forScene scene: LevelScene, forAgent agent: GKAgent2D)
     {
-        setWeight(100.0, for: GKGoal(toFleeAgent: agent))
+        setWeight(50.0, for: GKGoal(toFleeAgent: agent))
         //print("addWanderGoal  scene: \(scene.description)")
     }
     
     //Add a goal to seek
     private func addSeekGoal(forScene scene: LevelScene, agent: GKAgent)
     {
-        setWeight(100.0, for: GKGoal(toSeekAgent: agent))
+        setWeight(0.5, for: GKGoal(toSeekAgent: agent))
         //print("addSeekGoal \(agent.description)  scene: \(scene.description)")
     }
     
@@ -611,7 +602,7 @@ class TaskBotBehavior: GKBehavior
     // Adds a goal to avoid all polygon obstacles in the scene.
     private func addAvoidObstaclesGoal(forScene scene: LevelScene)
     {
-        setWeight(100.0, for: GKGoal(toAvoid: scene.polygonObstacles, maxPredictionTime: GameplayConfiguration.TaskBot.maxPredictionTimeForObstacleAvoidance))
+        setWeight(1.0, for: GKGoal(toAvoid: scene.polygonObstacles, maxPredictionTime: GameplayConfiguration.TaskBot.maxPredictionTimeForObstacleAvoidance))
         //print("addAvoidObstaclesGoal  scene: \(scene.description)")
     }
     
