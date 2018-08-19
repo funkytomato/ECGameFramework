@@ -125,7 +125,7 @@ class BuyingWaresComponent: GKComponent
     
     override func update(deltaTime seconds: TimeInterval)
     {
-//        print("state: \(intelligenceComponent.stateMachine.currentState)")
+        print("state: \(intelligenceComponent.stateMachine.currentState)")
         
         
         //Check Protestor is not fighting or confrontation with Police
@@ -138,11 +138,13 @@ class BuyingWaresComponent: GKComponent
         guard ((intelligenceComponent.stateMachine.currentState as? ProtestorBotHitState) == nil) else { return }
         guard ((intelligenceComponent.stateMachine.currentState as? TaskBotInjuredState) == nil) else { return }
         guard ((intelligenceComponent.stateMachine.currentState as? TaskBotFleeState) == nil) else { return }
+        guard ((intelligenceComponent.stateMachine.currentState as? ProtestorInciteState) == nil) else { return }
         
         guard let target = entity as? ProtestorBot else { return }
         
         
-        if target.isActive
+        //Check target is active and is trying to buy wares (triggered)
+        if target.isActive && isTriggered
         {
             stateMachine.update(deltaTime: seconds)
             
