@@ -213,7 +213,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         respectComponent.delegate = self
         addComponent(respectComponent)
         
-        let obesianceComponent = ObeisanceComponent(obeisance: initialObeisance, maximumObeisance: GameplayConfiguration.ProtestorBot.maximumObesiance, displaysObeisanceBar: false)
+        let obesianceComponent = ObeisanceComponent(obeisance: initialObeisance, maximumObeisance: GameplayConfiguration.ProtestorBot.maximumObesiance, displaysObeisanceBar: true)
         obesianceComponent.delegate = self
         addComponent(obesianceComponent)
         
@@ -224,7 +224,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         buyWaresComponent.delegate = self
         addComponent(buyWaresComponent)
         
-        let appetiteComponent = AppetiteComponent(appetite: initialAppetite, maximumAppetite: GameplayConfiguration.ProtestorBot.maximumAppetite, displaysAppetiteBar: false)
+        let appetiteComponent = AppetiteComponent(appetite: initialAppetite, maximumAppetite: GameplayConfiguration.ProtestorBot.maximumAppetite, displaysAppetiteBar: true)
         appetiteComponent.delegate = self
         addComponent(appetiteComponent)
         
@@ -306,9 +306,6 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             
             //print("Increased the obeisance of the touching Protestor")
         }
-        
-
-        
     }
     
     override func contactWithEntityDidEnd(_ entity: GKEntity)
@@ -736,7 +733,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         
         //Player has gained enough influence (obeisance) over the protestor,
         //and so the protesor should start to incite too
-        if obeisanceComponent.obeisance > 80
+        if obeisanceComponent.obeisance > 50
         {
             self.isSubservient = true
             //print("Protestor has become subservient")
