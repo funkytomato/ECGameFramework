@@ -418,7 +418,7 @@ struct GameplayConfiguration
         static let maxPredictionTimeWhenFollowingPath: TimeInterval = 1.0
         
         /// The maximum time to look ahead for obstacles to be avoided.
-        static let maxPredictionTimeForObstacleAvoidance: TimeInterval = 1.0
+        static let maxPredictionTimeForObstacleAvoidance: TimeInterval = 5.0
         
         /// The radius of the path along which an agent patrols.
         static let patrolPathRadius: Float = 10.0
@@ -427,7 +427,7 @@ struct GameplayConfiguration
         static let huntPathRadius: Float = 20.0
 
         /// The radius of the path along which an agent travels when wandering.
-        static let wanderPathRadius: Float = 15.0
+        static let wanderPathRadius: Float = 5.0
 
         /// The radius of the path along which an agent travels when fleeing.
         static let fleePathRadius: Float = 10.0
