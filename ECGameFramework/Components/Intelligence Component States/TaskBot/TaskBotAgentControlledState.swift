@@ -193,7 +193,7 @@ class TaskBotAgentControlledState: GKState
             print("entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate)")
             
             //Check if taskbot has stayed in same position for long time, e.g. stuck in corner.  Move Taskbot away from current position
-            if entity.distanceToPoint(otherPoint: oldPosition) <= 10.0 && elapsedTime >= 10.0 && !entity.isArrested
+            if entity.distanceToPoint(otherPoint: oldPosition) <= 10.0 && elapsedTime >= 20.0 && !entity.isArrested
             {
                 entity.mandate = .returnToPositionOnPath(float2(0.0,0.0))
             }
