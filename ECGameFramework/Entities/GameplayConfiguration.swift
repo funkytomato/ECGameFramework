@@ -377,7 +377,7 @@ struct GameplayConfiguration
         static let minimumSpeed: Float = 50.0
         
         /// The maximum speed (in points per second) for the `TaskBot` when in its "good" state.
-        static let maximumSpeedWhenGood: Float = 50.0
+        static let maximumSpeedWhenGood: Float = 100.0
 
         /// The maximum speed (in points per second) for the `TaskBot` when in its "bad" state.
         static let maximumSpeedWhenBad: Float = 50.0
