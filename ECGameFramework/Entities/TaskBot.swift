@@ -255,7 +255,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             // PoliceBots need support
             case let .supportPolice(target):
                 
-                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 
                 radius = GameplayConfiguration.TaskBot.huntPathRadius
                 (agentBehavior, debugPathPoints) = TaskBotBehavior.supportBehaviour(forAgent: agent, huntingAgent: target, pathRadius: radius, inScene: levelScene)
@@ -265,7 +265,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             // Player has created a path for the TaskBot to follow
             case .playerMovedTaskBot:
                 
-                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 
                 let pathPoints = self.playerPathPoints
                 radius = GameplayConfiguration.TaskBot.patrolPathRadius
@@ -279,7 +279,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             // TaskBots will follow either a good or bad patrol path
             case .followGoodPatrolPath, .followBadPatrolPath:
                 
-                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 
                 let pathPoints = isGood ? goodPathPoints : badPathPoints
                 radius = GameplayConfiguration.TaskBot.patrolPathRadius
@@ -293,10 +293,10 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             
             // Protestors will crowd the Ringleader
             case let .sheep(target):
-                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
             
                 //Crowd with the Ringleader
-                radius = 100.0
+                radius = 10.0
                 agentBehavior = TaskBotBehavior.sheepBehaviour(forAgent: agent, targetAgent: target, pathRadius: radius, inScene: levelScene)
                 debugColor = SKColor.green
             
@@ -307,7 +307,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             // Protestors will crowd together if of the same temperament
             case .crowd:
                 
-                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 
                 // Who will crowd with who, only calm people for now
                 let temperament = "Calm"
@@ -321,7 +321,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             // TaskBot is hunting another TaskBot
             case let .huntAgent(taskBot):
                 
-                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 
                 radius = GameplayConfiguration.TaskBot.huntPathRadius
                 (agentBehavior, debugPathPoints) = TaskBotBehavior.huntBehaviour(forAgent: agent, huntingAgent: taskBot, pathRadius: radius, inScene: levelScene)
@@ -330,7 +330,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             // Return TaskBot to a position on a path
             case let .returnToPositionOnPath(position):
                 
-                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 
                 radius = GameplayConfiguration.TaskBot.returnToPatrolPathRadius
                 (agentBehavior, debugPathPoints) = TaskBotBehavior.returnToPathBehaviour(forAgent: agent, returningToPoint: position, pathRadius: radius, inScene: levelScene)
@@ -338,7 +338,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             
             case let .returnHome(position):
                 
-                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 
                 radius = GameplayConfiguration.TaskBot.returnToPatrolPathRadius
                 (agentBehavior, debugPathPoints) = TaskBotBehavior.returnToPathBehaviour(forAgent: agent, returningToPoint: position, pathRadius: radius, inScene: levelScene)
@@ -347,7 +347,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             // TaskBot is wandering around the scene
             case .wander:
                 
-                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 
                 radius = GameplayConfiguration.TaskBot.wanderPathRadius
                 (agentBehavior, debugPathPoints)  = TaskBotBehavior.wanderBehaviour(forAgent: agent, inScene: levelScene)
@@ -356,7 +356,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             // Protestor being moved to LockUp
             case let .arrested(taskBot):
                 
-                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 
                 radius = GameplayConfiguration.TaskBot.wanderPathRadius
                 (agentBehavior, debugPathPoints) = TaskBotBehavior.arrestedBehaviour(forAgent: agent, huntingAgent: taskBot, pathRadius: 25.0, inScene: levelScene)
@@ -365,7 +365,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             // PoliceBot taking prisoner to meatwagon
             case .lockupPrisoner:
                 
-                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 
                 radius = GameplayConfiguration.TaskBot.lockupRadius
                 (agentBehavior, debugPathPoints) = TaskBotBehavior.returnToPathBehaviour(forAgent: agent, returningToPoint: levelScene.meatWagonLocation(), pathRadius: radius, inScene: levelScene)
@@ -374,7 +374,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             // TaskBot is scared and running away
             case let .fleeAgent(taskBot):
                 
-                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 
                 radius = GameplayConfiguration.TaskBot.fleePathRadius
                 (agentBehavior, debugPathPoints) = TaskBotBehavior.fleeBehaviour(forAgent: agent, fromAgent: taskBot, inScene: levelScene)
@@ -383,7 +383,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             // TaskBot is violent and being attacked, fight back
             case let .retaliate(taskBot):
                 
-                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 
                 radius = GameplayConfiguration.TaskBot.huntPathRadius
                 (agentBehavior, debugPathPoints) = TaskBotBehavior.retaliateBehaviour(forAgent: agent, huntingAgent: taskBot, pathRadius: radius, inScene: levelScene)
@@ -392,7 +392,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             // TaskBot is inciting the crowd
             case .incite:
                 
-                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 
                 radius = GameplayConfiguration.TaskBot.wanderPathRadius
                 (agentBehavior, debugPathPoints)  = TaskBotBehavior.wanderBehaviour(forAgent: agent, inScene: levelScene)
@@ -401,7 +401,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             // TaskBot is a protestor and is buying their wares
             case let .buyWares(target):
                 
-                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 
                 radius = GameplayConfiguration.TaskBot.wanderPathRadius
                 (agentBehavior, debugPathPoints)  = TaskBotBehavior.huntBehaviour(forAgent: agent, huntingAgent: target, pathRadius: radius, inScene: levelScene)
@@ -410,7 +410,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             // TaskBot is a criminal and is selling their wares
             case let .sellWares(target):
                 
-                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 
 //                radius = GameplayConfiguration.TaskBot.wanderPathRadius
 //                (agentBehavior, debugPathPoints)  = TaskBotBehavior.huntBehaviour(forAgent: agent, huntingAgent: target, pathRadius: radius, inScene: levelScene)
@@ -430,7 +430,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             //TaskBot is a criminal and is vandalising
             case let .vandalise(position):
                 
-                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 
                 radius = GameplayConfiguration.TaskBot.returnToPatrolPathRadius
                 (agentBehavior, debugPathPoints) = TaskBotBehavior.returnToPathBehaviour(forAgent: agent, returningToPoint: position, pathRadius: radius, inScene: levelScene)
@@ -439,7 +439,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             //TaskBot is a criminal and is looting a building
             case let .loot(position):
                 
-                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 
                 radius = GameplayConfiguration.TaskBot.returnToPatrolPathRadius
                 (agentBehavior, debugPathPoints) = TaskBotBehavior.returnToPathBehaviour(forAgent: agent, returningToPoint: position, pathRadius: radius, inScene: levelScene)
@@ -709,7 +709,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         {
             
             // `TaskBot`s always move in a forward direction when they are agent-controlled.
-            //If arrested, show Protestor in cuffs, if not, as per normal
+            // If arrested, show Protestor in cuffs, if not, as per normal
             if !isArrested
             {
                 component(ofType: AnimationComponent.self)?.requestedAnimationState = .idle    //.walkForward
@@ -760,19 +760,20 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         let inciteTaskBotRaw = [
         
             ruleSystem.minimumGrade(forFacts: [
-                Fact.protestorTaskBotNear.rawValue as AnyObject,
-                Fact.policeBotFar.rawValue as AnyObject
+                Fact.protestorTaskBotNear.rawValue as AnyObject//,
+//                Fact.policeBotFar.rawValue as AnyObject
                 ]),
             
             ruleSystem.minimumGrade(forFacts: [
-                Fact.protestorTaskBotMedium.rawValue as AnyObject,
-                Fact.policeBotFar.rawValue as AnyObject
+                Fact.protestorTaskBotMedium.rawValue as AnyObject//,
+//                Fact.policeBotFar.rawValue as AnyObject
                 ])
             
         ]
-        
         let inciteTaskBot = inciteTaskBotRaw.reduce(0.0, max)
         
+        
+        //MARK:- TaskBotRaw Rules
         
         // A Series of situation in which we prefer to Flee from a 'TaskBot'
         let fleeDangerousTaskBotRaw = [
@@ -786,12 +787,12 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             ruleSystem.minimumGrade(forFacts: [
 //                Fact.policeBotMedium.rawValue as AnyObject,
                 Fact.dangerousTaskBotMedium.rawValue as AnyObject
-                ]),
+                ])//,
             
-            ruleSystem.minimumGrade(forFacts: [
-    //          Fact.policeBotMedium.rawValue as AnyObject,
-                Fact.dangerousTaskBotFar.rawValue as AnyObject
-                ])
+//            ruleSystem.minimumGrade(forFacts: [
+//    //          Fact.policeBotMedium.rawValue as AnyObject,
+//                Fact.dangerousTaskBotFar.rawValue as AnyObject
+//                ])
         ]
         let fleeDangerousTaskBot = fleeDangerousTaskBotRaw.reduce(0.0, max)
         
@@ -802,22 +803,21 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             // "Police nearby" AND "Dangerous Protestors nearby"
             ruleSystem.minimumGrade(forFacts: [
                 Fact.policeBotNear.rawValue as AnyObject
-            ]),
+            ])//,
             
-            ruleSystem.minimumGrade(forFacts: [
-                Fact.policeBotMedium.rawValue as AnyObject
-                ]),
+//            ruleSystem.minimumGrade(forFacts: [
+//                Fact.policeBotMedium.rawValue as AnyObject
+//                ]),
             
-            ruleSystem.minimumGrade(forFacts: [
-                Fact.policeBotMedium.rawValue as AnyObject
-                ])
+//            ruleSystem.minimumGrade(forFacts: [
+//                Fact.policeBotMedium.rawValue as AnyObject
+//                ])
         ]
         let fleePoliceTaskBot = fleePoliceTaskBotRaw.reduce(0.0, max)
-
         //print("fleeDangerousTaskBot: \(fleeDangerousTaskBot.description), fleeTaskBotRaw: \(fleeTaskBotRaw.description) ")
 
         
-        //A series of situation in which we prefer to Incite other Protestors
+        //A series of situation in which Police go to support other Police
         let supportTaskBotRaw = [
             
             //Police are in trouble are nearby
@@ -835,7 +835,6 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 Fact.policeBotInTroubleFar.rawValue as AnyObject
                 ])
         ]
-        
         let supportPoliceBot = supportTaskBotRaw.reduce(0.0, max)
 //        print("supportPoliceBot: \(supportPoliceBot.description), supportPoliceBotRaw: \(supportTaskBotRaw.description) ")
 
@@ -858,7 +857,6 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 Fact.criminalTaskBotFar.rawValue as AnyObject
                 ])
         ]
-        
         let huntCriminalTaskBot = huntCriminalTaskBotRaw.reduce(0.0, max)
  //       print("huntCriminalTaskBot: \(huntCriminalTaskBot.description), huntCriminalTaskBotRaw: \(huntCriminalTaskBotRaw.description) ")
         
@@ -881,7 +879,6 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 Fact.sellerTaskBotFar.rawValue as AnyObject
                 ])
         ]
-        
         let huntSellerTaskBot = huntSellerTaskBotRaw.reduce(0.0, max)
 //        print("huntSellerTaskBot: \(huntSellerTaskBot.description), huntSellerTaskBotRaw: \(huntSellerTaskBotRaw.description) ")
 
@@ -895,12 +892,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
 //                Fact.policeBotFar.rawValue as AnyObject
                 ])
         ]
-        
         let huntBuyerTaskBot = huntBuyerTaskBotRaw.reduce(0.0, max)
 //        print("huntBuyerTaskBot: \(huntBuyerTaskBot.description), huntBuyerTaskBotRaw: \(huntBuyerTaskBotRaw.description) ")
         
-        
-      
         
         // A series of situations in which we prefer this `TaskBot` to hunt the player.
         let huntPlayerBotRaw = [
@@ -910,7 +904,6 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 Fact.playerBotNear.rawValue as AnyObject
             ])
         ]
-
         // Find the maximum of the minima from above.
         let huntPlayerBot = huntPlayerBotRaw.reduce(0.0, max)
         //print("huntPlayerBot: \(huntPlayerBot.description), huntPlayerBotRaw: \(huntPlayerBotRaw.description) ")
@@ -946,7 +939,6 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 Fact.dangerousTaskBotFar.rawValue as AnyObject
                 ]),
         ]
-        
         // Find the maximum of the minima from above.
         let huntDangerousProtestorBot = huntDangerousProtestorTaskBotRaw.reduce(0.0, max)
 //        print("huntDangerousTaskBot: \(huntDangerousProtestorBot.description), huntDangerousTaskBotRaw: \(huntDangerousProtestorTaskBotRaw.description) ")
@@ -1000,7 +992,6 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 Fact.protestorTaskBotMedium.rawValue as AnyObject
             ])
         ]
-
         // Find the maximum of the minima from above.
         let huntTaskBot = huntTaskBotRaw.reduce(0.0, max)
         //print("huntTaskBot: \(huntTaskBot.description), huntTaskBotRaw: \(huntTaskBotRaw.description) ")
@@ -1022,11 +1013,12 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 Fact.dangerousTaskBotNear.rawValue as AnyObject
                 ])
         ]
-        
         //Find the maximum of the minum from above
         let attackPoliceBot = attackPoliceBotRaw.reduce(0.0, max)
         //print("attackPoliceBot: \(attackPoliceBot)")
         
+        
+        //MARK:- Define TaskBot mandates
         
         // Protestor is arrested and should be moved to the meatwagaon
         if self.isArrested
@@ -1035,33 +1027,33 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             
             mandate = .lockupPrisoner
             
-            print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//            print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
         }
         
         //Protestor is scared and wants to run away
         else if self.isScared && self.isProtestor && fleePoliceTaskBot > 0.0
         {
-            print("Protestor Fleeing from Police")
+//            print("Protestor Fleeing from Police")
             
             // The rules provided greated motivation to flee
             guard let policeTaskBot = state.nearestPoliceTaskBotTarget?.target.agent else { return }
 
             mandate = .fleeAgent(policeTaskBot)
             
-            print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//            print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
         }
             
         // Police is scared and a Dangerous or is nearby, leg it
 //        else if self.isScared && fleeDangerousTaskBot > 0
         else if self.isScared && self.isPolice && fleeDangerousTaskBot > 0.0
         {
-            print("Police Fleeing from dangerous protestor")
+//            print("Police Fleeing from dangerous protestor")
             
             // The rules provided greated motivation to flee
             guard let dangerousTaskBot = state.nearestDangerousTaskBotTarget?.target.agent else { return }
             mandate = .fleeAgent(dangerousTaskBot)
             
-            print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//            print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
         }
         
             
@@ -1073,7 +1065,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             mandate = .retaliate(targetTaskbot)
             self.isSubservient = false
             
-            print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//            print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
         }
          
         // Police has been attacked and is now retaliating
@@ -1083,7 +1075,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             guard let targetTaskbot = state.nearestDangerousTaskBotTarget?.target.agent else { return }
             mandate = .retaliate(targetTaskbot)
             
-            print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//            print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
         }
             
         //TaskBot is Violent and Police are nearby, go fuck them up
@@ -1093,7 +1085,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             guard let dangerousTaskBot = state.nearestPoliceTaskBotTarget?.target.agent else { return }
             mandate = .huntAgent(dangerousTaskBot)
             
-            print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//            print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
         }
          
         //TaskBot is not a Ringleader, but is following Ringleader
@@ -1103,7 +1095,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             guard let nearestRingLeaderTaskbot = state.nearestRingLeaderTaskBotTarget?.target.agent else { return }
             mandate = .sheep(nearestRingLeaderTaskbot)
             
-            print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//            print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
         }
             
         //TaskBot is Criminal and wants to sell wares
@@ -1112,7 +1104,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
 //            guard let protestorBot = state.nearestBuyerTaskBotTarget?.target.agent else { return }
             mandate = .sellWares
             
-            print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//            print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
         }
 
         //TaskBot is Protestor and and has bought wares, has not reached home, return to starting position
@@ -1124,13 +1116,13 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             mandate = .returnHome(buyingWaresComponent.returnPosition)
         }
             
-        //TaskBot is Protestor and wants to buy wares and seller nearby
+        //TaskBot is Protestor, is not subservient, and wants to buy wares and seller nearby
         else if self.isProtestor && !self.isSubservient && self.isHungry && huntSellerTaskBot > 0.7
         {
             guard let criminalBot = state.nearestSellerTaskBotTarget?.target.agent else { return }
             mandate = .buyWares(criminalBot)
             
-            print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//            print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
         }
         
 
@@ -1150,18 +1142,17 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             guard let supportPoliceBot = state.nearestPoliceTaskBotTarget?.target.agent else { return }
             mandate = .supportPolice(supportPoliceBot)
             
-            print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//            print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
         }
             
             
         //Protestor is subvervient and protestors are nearby
-        else if self.isSubservient && !self.isSheep && inciteTaskBot > 0.0
+        else if self.isSubservient /*&& !self.isSheep */&& inciteTaskBot > 0.0
         {
 //            print("Inciting others")
             mandate = .incite
-//            mandate = .sheep
             
-            print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//            print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
         }
             
         // TaskBot is Police and active (alive) and a dangerous bot is detected, attack it
@@ -1173,7 +1164,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             guard let dangerousTaskBot = state.nearestDangerousTaskBotTarget?.target.agent else { return }
             mandate = .huntAgent(dangerousTaskBot)
             
-            print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//            print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
         }
         
         // PROBABLY DELETE THIS LATER
@@ -1193,57 +1184,61 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             switch mandate
             {
                 case .crowd:
-                    print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                    print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
 //                    print("Crowding")
                     break
                 
 //                case .sellWares(state.nearestBuyerTaskBotTarget?.target.agent):
                 
                 case .lockupPrisoner:
-                    print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                    print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 //                    print("Crowding")
                     break
                 
                 
+                case let .sheep(target):
+//                    print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+                    break
+                
                 case .incite:
-                    print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                    print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                     break
                 
                 case .sellWares:
-                    print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                    print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
 //                    print("selling wares")
                     break
                 
                 case .buyWares(state.nearestSellerTaskBotTarget?.target.agent):
-                    print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                    print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
 //                    print("buying Wares")
                     break
                 
                 case .wander:
-                    print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                    print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
 //                    print("wandering")
                     // The taskbot is already wandering, so no update is needed
                     break
                 
                 case .playerMovedTaskBot:
-                    print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                    print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
 //                    print("playerMovedTaskbot")
                     // The taskbot is already on the player designated path, so no update is needed
                     break
                 
                 case .returnToPositionOnPath:
-                    print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                    print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                     break
                 
                 case .followGoodPatrolPath:
-                    print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                    print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
 //                    print("followGoodPatrolPath")
                     //The taskbot is already on its "good" patrol path, so no update is needed
                     break
                 
                 case .followBadPatrolPath:
 //                    print("followBadPatrolPath")
-                    print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                    print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                     // The `TaskBot` is already on its "bad" patrol path, so no update is needed.
                     break
                 
@@ -1251,7 +1246,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                     // Send the `TaskBot` to the closest point on its "bad" patrol path.
                     let closestPointOnBadPath = closestPointOnPath(path: badPathPoints)
                     mandate = .returnToPositionOnPath(float2(closestPointOnBadPath))
-                    print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                    print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
             }
         }
     }
