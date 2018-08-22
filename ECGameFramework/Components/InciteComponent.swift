@@ -99,7 +99,7 @@ class InciteComponent: GKComponent
         guard ((intelligenceComponent.stateMachine.currentState as? ProtestorBotAttackState) == nil) else { return }
         guard ((intelligenceComponent.stateMachine.currentState as? ProtestorBotHitState) == nil) else { return }
         guard ((intelligenceComponent.stateMachine.currentState as? TaskBotInjuredState) == nil) else { return }
-        guard ((intelligenceComponent.stateMachine.currentState as? TaskBotFleeState) == nil) else { return }
+//        guard ((intelligenceComponent.stateMachine.currentState as? TaskBotFleeState) == nil) else { return }
         guard ((intelligenceComponent.stateMachine.currentState as? ProtestorSheepState) == nil) else { return }
         
 //
@@ -121,11 +121,8 @@ class InciteComponent: GKComponent
                     break
                 
                 default:
-//                    animationComponent.requestedAnimationState = .idle
                     break
             }
-            
-//            animationComponent.requestedAnimationState = .inciting
         }
     }
     
