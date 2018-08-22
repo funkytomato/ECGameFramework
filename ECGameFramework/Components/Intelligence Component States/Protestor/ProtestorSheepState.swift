@@ -74,8 +74,6 @@ class ProtestorSheepState: GKState
         elapsedTime = 0.0
         
         entity.isSheep = true
-        
-//        spriteComponent.changeColour(colour: SKColor.red)
     }
     
     override func update(deltaTime seconds: TimeInterval)
@@ -86,7 +84,6 @@ class ProtestorSheepState: GKState
         elapsedTime += seconds
         
         intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
-        
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
