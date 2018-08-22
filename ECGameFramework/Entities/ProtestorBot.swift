@@ -224,7 +224,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         buyWaresComponent.delegate = self
         addComponent(buyWaresComponent)
         
-        let appetiteComponent = AppetiteComponent(appetite: initialAppetite, maximumAppetite: GameplayConfiguration.ProtestorBot.maximumAppetite, displaysAppetiteBar: true)
+        let appetiteComponent = AppetiteComponent(appetite: initialAppetite, maximumAppetite: GameplayConfiguration.ProtestorBot.maximumAppetite, displaysAppetiteBar: false)
         appetiteComponent.delegate = self
         addComponent(appetiteComponent)
         
@@ -294,13 +294,13 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             {
 //                self.isRingLeader = true
                 
-                print("self ringleader: \(self.isRingLeader), \(self.ringLeader.debugDescription)")
+//                print("self ringleader: \(self.isRingLeader), \(self.ringLeader.debugDescription)")
                 
                 protestorTarget.ringLeader = self
                 guard let intelligenceComponent = protestorTarget.component(ofType: IntelligenceComponent.self) else { return }
                 intelligenceComponent.stateMachine.enter(ProtestorSheepState.self)
                 
-                print("protestorTarget.ringLeader: \(protestorTarget.ringLeader.debugDescription)")
+//                print("protestorTarget.ringLeader: \(protestorTarget.ringLeader.debugDescription)")
             }
             
             
@@ -339,7 +339,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         //Check Protestor is looking to buy wares
         
         guard let buyingWaresComponent = self.component(ofType: BuyingWaresComponent.self) else { return }
-        print("\(buyingWaresComponent.stateMachine.currentState.debugDescription)")
+//        print("\(buyingWaresComponent.stateMachine.currentState.debugDescription)")
         guard (buyingWaresComponent.stateMachine.currentState as? BuyingWaresLookingState) != nil else { return }
         
         
@@ -427,7 +427,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         guard let scene = component(ofType: RenderComponent.self)?.node.scene else { return }
         guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
         
-        print("agentControlledState: \(intelligenceComponent.stateMachine.currentState)")
+//        print("agentControlledState: \(intelligenceComponent.stateMachine.currentState)")
 
         
         guard let agentControlledState = intelligenceComponent.stateMachine.currentState as? TaskBotAgentControlledState else { return }
@@ -446,12 +446,12 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
 //                intelligenceComponent.stateMachine.enter(ProtestorBotWanderState.self)
             
             case let .returnToPositionOnPath(position):
-                print("ProtestorBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                print("ProtestorBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 break
             
             case let .returnHome(position):
             
-                print("ProtestorBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                print("ProtestorBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 
                 targetPosition = position
                 
@@ -459,7 +459,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             
             case let .buyWares(target):
                 
-                print("ProtestorBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                print("ProtestorBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 
         
                 // Check if the target is within the `ProtestorBot`'s attack range.
@@ -480,17 +480,19 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
                 
                 intelligenceComponent.stateMachine.enter(ProtestorBuyWaresState.self)
                 targetPosition = target.position
+                break
             
             case .incite:
                 
-                print("ProtestorBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                print("ProtestorBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 
                 //print("mandate \(mandate)")
                 intelligenceComponent.stateMachine.enter(ProtestorInciteState.self)
+                break
 
             case let .huntAgent(targetAgent):
                 
-                print("ProtestorBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                print("ProtestorBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 
                 // Check if the target is within the `ProtestorBot`'s attack range.
                 guard distanceToAgent(otherAgent: targetAgent) <= GameplayConfiguration.TaskBot.maximumAttackDistance else { return }
@@ -510,30 +512,37 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
                 // The `ProtestorBot` is ready to attack the `targetAgent`'s current position.
                 intelligenceComponent.stateMachine.enter(ProtestorBotRotateToAttackState.self)
                 targetPosition = targetAgent.position
+                break
             
             case .lockupPrisoner:
-                
-                print("ProtestorBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
-                
+                break
+//                print("ProtestorBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+            
 //                intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
             
             case let .fleeAgent(targetAgent):
                 
-                print("ProtestorBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                print("ProtestorBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 
                 intelligenceComponent.stateMachine.enter(TaskBotFleeState.self)
                 targetPosition = targetAgent.position
+                break
             
             case let .retaliate(targetTaskbot):
                 
-                print("ProtestorBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                print("ProtestorBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 
                 intelligenceComponent.stateMachine.enter(ProtestorBotRotateToAttackState.self)
                 targetPosition = targetTaskbot.position
+                break
+            
+            case let .sheep(target):
+//                print("ProtestorBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+                break
             
             default:
                 
-                print("ProtestorBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                print("ProtestorBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 
                 break
         }
@@ -622,6 +631,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
 
         
         self.isRingLeader = true
+        self.agent.mass = 100.0
         
         //Freeze Protestor for a bit and then carry on
         isGood = !chargeComponent.hasCharge
