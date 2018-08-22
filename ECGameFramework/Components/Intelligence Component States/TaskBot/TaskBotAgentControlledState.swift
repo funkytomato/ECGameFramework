@@ -174,23 +174,25 @@ class TaskBotAgentControlledState: GKState
                 case .wander:
                     
 //                    print("TaskBotAgentControlledState: wander")
-                    entity.mandate = .wander
+//                    entity.mandate = .wander
                     
                     break
                 
                 case .incite:
-                    entity.mandate = .incite
+//                    print("TaskBotAgentControlledState: incite")
+//                    entity.mandate = .incite
                     break
                 
                 case let .sheep(target):
-                    entity.mandate = .sheep(target)
+//                    print("TaskBotAgentControlledState: sheep")
+//                    entity.mandate = .sheep(target)
                     break
                 
                 default:
                     break
             }
             
-            print("entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate)")
+//            print("entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isArrested: \(entity.isArrested)")
             
             //Check if taskbot has stayed in same position for long time, e.g. stuck in corner.  Move Taskbot away from current position
             if entity.distanceToPoint(otherPoint: oldPosition) <= 10.0 && elapsedTime >= 20.0 && !entity.isArrested
@@ -200,10 +202,12 @@ class TaskBotAgentControlledState: GKState
             
             guard let taskBot = entity as? TaskBot else { return }
             oldPosition = taskBot.agent.position
-            
+//            print("taskbot oldPosition: \(oldPosition.debugDescription)")
             
             // Ensure the agent's behavior is the appropriate behavior for its current mandate.
             entity.agent.behavior = entity.behaviorForCurrentMandate
+            
+//            print("entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), entity.behaviorForCurrentMandate: \(entity.behaviorForCurrentMandate)")
             
             // Reset `timeSinceBehaviorUpdate`, to delay when the entity's behavior is next updated.
             timeSinceBehaviorUpdate = 0.0
