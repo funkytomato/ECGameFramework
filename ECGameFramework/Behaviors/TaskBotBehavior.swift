@@ -45,10 +45,10 @@ class TaskBotBehavior: GKBehavior
         let behavior = TaskBotBehavior()
         
         // Add basic goals to reach the `TaskBot`'s maximum speed and avoid obstacles.
-        behavior.addTargetSpeedGoal(speed: agent.maxSpeed)
+//        behavior.addTargetSpeedGoal(speed: agent.maxSpeed)
+        behavior.addSeekGoal(forScene: scene, agent: targetAgent, weight: 0.1)
         behavior.addAvoidObstaclesGoal(forScene: scene)
-        behavior.addSeekGoal(forScene: scene, agent: targetAgent)
-//        behavior.addWanderGoal(forScene: scene)
+        behavior.addWanderGoal(forScene: scene)
         
         
         // Find nearby Subservient Protestors and group together
@@ -58,7 +58,8 @@ class TaskBotBehavior: GKBehavior
             {
 
                 //Crowd all subservient Protestors but not if Ringleader
-                if taskBot.isSubservient && !taskBot.isRingLeader
+//                if taskBot.isSubservient && !taskBot.isRingLeader
+                if taskBot.isSheep
                 {
                     return taskBot.agent
                 }
@@ -74,14 +75,18 @@ class TaskBotBehavior: GKBehavior
             
             // Add flocking goals for any nearby "bad" `TaskBot`s.
 //            let separationGoal = GKGoal(toSeparateFrom: agentsToFlockWith, maxDistance: GameplayConfiguration.Flocking.separationRadius, maxAngle: GameplayConfiguration.Flocking.separationAngle)
-            let separationGoal = GKGoal(toSeparateFrom: agentsToFlockWith, maxDistance: 200.0, maxAngle: GameplayConfiguration.Flocking.separationAngle)
-            behavior.setWeight(GameplayConfiguration.Flocking.separationWeight, for: separationGoal)
+//            behavior.setWeight(GameplayConfiguration.Flocking.separationWeight, for: separationGoal)
+            let separationGoal = GKGoal(toSeparateFrom: agentsToFlockWith, maxDistance: 300.0, maxAngle: GameplayConfiguration.Flocking.separationAngle)
+            behavior.setWeight(8.0, for: separationGoal)
             
-            let alignmentGoal = GKGoal(toAlignWith: agentsToFlockWith, maxDistance: GameplayConfiguration.Flocking.alignmentRadius, maxAngle: GameplayConfiguration.Flocking.alignmentAngle)
+//            let alignmentGoal = GKGoal(toAlignWith: agentsToFlockWith, maxDistance: GameplayConfiguration.Flocking.alignmentRadius, maxAngle: GameplayConfiguration.Flocking.alignmentAngle)
+            let alignmentGoal = GKGoal(toAlignWith: agentsToFlockWith, maxDistance: 300.0, maxAngle: GameplayConfiguration.Flocking.alignmentAngle)
             behavior.setWeight(GameplayConfiguration.Flocking.alignmentWeight, for: alignmentGoal)
             
-            let cohesionGoal = GKGoal(toCohereWith: agentsToFlockWith, maxDistance: GameplayConfiguration.Flocking.cohesionRadius, maxAngle: GameplayConfiguration.Flocking.cohesionAngle)
-            behavior.setWeight(GameplayConfiguration.Flocking.cohesionWeight, for: cohesionGoal)
+//            let cohesionGoal = GKGoal(toCohereWith: agentsToFlockWith, maxDistance: GameplayConfiguration.Flocking.cohesionRadius, maxAngle: GameplayConfiguration.Flocking.cohesionAngle)
+//            behavior.setWeight(GameplayConfiguration.Flocking.cohesionWeight, for: cohesionGoal)
+            let cohesionGoal = GKGoal(toCohereWith: agentsToFlockWith, maxDistance: 300.0, maxAngle: GameplayConfiguration.Flocking.cohesionAngle)
+            behavior.setWeight(10.0, for: cohesionGoal)
         }
         
         // Return a tuple containing the new behavior, and the found path points for debug drawing.
@@ -97,7 +102,8 @@ class TaskBotBehavior: GKBehavior
         let behavior = TaskBotBehavior()
         
         // Add basic goals to reach the `TaskBot`'s maximum speed and avoid obstacles.
-        behavior.addTargetSpeedGoal(speed: agent.maxSpeed)
+        behavior.addTargetSpeedGoal(speed: 30.0)
+        behavior.addSeekGoal(forScene: scene, agent: agent, weight: 0.1)
         behavior.addAvoidObstaclesGoal(forScene: scene)
         behavior.addWanderGoal(forScene: scene)
         
@@ -318,8 +324,9 @@ class TaskBotBehavior: GKBehavior
         
         //Add basic goals to reach the TaskBot's maximum speed, avoid obstacles and wander
         behavior.addTargetSpeedGoal(speed: agent.maxSpeed)
-        behavior.addAvoidObstaclesGoal(forScene: scene)
+        behavior.addSeekGoal(forScene: scene, agent: agent, weight: 0.8)
         behavior.addWanderGoal(forScene: scene)
+        behavior.addAvoidObstaclesGoal(forScene: scene)
         
         
         let pathPoints = behavior.addPointsToWander(from: agent.position, pathRadius: GameplayConfiguration.TaskBot.wanderPathRadius, inScene: scene)
@@ -339,7 +346,7 @@ class TaskBotBehavior: GKBehavior
         
         
         //Add basic goals to reach the TaskBot's maximum speed, avoid obstacles and wander
-        behavior.addTargetSpeedGoal(speed: agent.maxSpeed + 50.0)
+        behavior.addTargetSpeedGoal(speed: agent.maxSpeed + 500.0)
         behavior.addAvoidObstaclesGoal(forScene: scene)
         behavior.addFleeGoal(forScene: scene, forAgent: fearSource)
         
@@ -587,14 +594,14 @@ class TaskBotBehavior: GKBehavior
     // Adds a goal to flee around thhe scene
     private func addFleeGoal(forScene scene: LevelScene, forAgent agent: GKAgent2D)
     {
-        setWeight(50.0, for: GKGoal(toFleeAgent: agent))
+        setWeight(1.0, for: GKGoal(toFleeAgent: agent))
         //print("addWanderGoal  scene: \(scene.description)")
     }
     
     //Add a goal to seek
-    private func addSeekGoal(forScene scene: LevelScene, agent: GKAgent)
+    private func addSeekGoal(forScene scene: LevelScene, agent: GKAgent, weight: Float)
     {
-        setWeight(0.5, for: GKGoal(toSeekAgent: agent))
+        setWeight(weight, for: GKGoal(toSeekAgent: agent))
         //print("addSeekGoal \(agent.description)  scene: \(scene.description)")
     }
     
