@@ -293,6 +293,9 @@ class AnimationComponent: GKComponent
 //            print("entiy: \(self.entity?.debugDescription) animationState: \(requestedAnimationState)")
             runAnimationForAnimationState(animationState: animationState, deltaTime: deltaTime)
             requestedAnimationState = nil
+            
+//            let changeColourAction = SKAction.colorize(with: .red, colorBlendFactor: 100.0, duration: 5.0)
+//            node.run(changeColourAction)
         }
     }
     
