@@ -99,11 +99,11 @@ class InciteComponent: GKComponent
         guard ((intelligenceComponent.stateMachine.currentState as? ProtestorBotAttackState) == nil) else { return }
         guard ((intelligenceComponent.stateMachine.currentState as? ProtestorBotHitState) == nil) else { return }
         guard ((intelligenceComponent.stateMachine.currentState as? TaskBotInjuredState) == nil) else { return }
-//        guard ((intelligenceComponent.stateMachine.currentState as? TaskBotFleeState) == nil) else { return }
+        guard ((intelligenceComponent.stateMachine.currentState as? TaskBotFleeState) == nil) else { return }
         guard ((intelligenceComponent.stateMachine.currentState as? ProtestorSheepState) == nil) else { return }
         
 //
-//        guard ((intelligenceComponent.stateMachine.currentState as? ProtestorInciteState) != nil) else { return }
+        guard ((intelligenceComponent.stateMachine.currentState as? ProtestorInciteState) != nil) else { return }
 //        guard (stateMachine.currentState as? InciteActiveState) != nil else { return }
         
         guard let target = entity as? ProtestorBot else { return }
