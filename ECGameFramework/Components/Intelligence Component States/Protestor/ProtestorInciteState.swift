@@ -67,7 +67,7 @@ class ProtestorInciteState: GKState
         
         //Set the InciteComponent to on
         inciteComponent.isTriggered = true
-        inciteComponent.stateMachine.enter(InciteIdleState.self)
+//        inciteComponent.stateMachine.enter(InciteIdleState.self)
     }
     
     override func update(deltaTime seconds: TimeInterval)
