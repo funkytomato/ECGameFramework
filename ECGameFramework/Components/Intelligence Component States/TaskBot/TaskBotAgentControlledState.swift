@@ -114,6 +114,10 @@ class TaskBotAgentControlledState: GKState
                         entity.mandate = .wander
                         entity.stopAnimation()
                         entity.isPlayerControlled = false
+                        
+                        //Clear the path followed
+//                        guard let protestorBot = entity as? ProtestorBot else { return }
+//                        protestorBot.playerPathPoints.removeAll()
                     }
                         
                     else
