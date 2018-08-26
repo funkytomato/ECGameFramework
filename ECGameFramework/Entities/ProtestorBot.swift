@@ -66,7 +66,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
     // MARK: ProtestorBot Properties
     
     //The target Protestor (Ringleader) to follow when influenced
-    var ringLeader: GKEntity?
+//    var ringLeader: GKEntity?
     
     // The position in the scene that the `PoliceBot` should target with its attack.
     var targetPosition: float2?
@@ -114,7 +114,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             initialResistance = 100.0       //Red bar
             initialHealth = 100.0           //Green bar
             initialCharge = 50.0            //Blue bar
-            initialRespect = 50.0           //Yellow bar
+            initialRespect = 0.0           //Yellow bar
             initialObeisance = 100.0        //Brown bar
             initialAppetite = 0.0           //White
             initialIntoxication = 0.0       //Orange
@@ -162,9 +162,12 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         let animationComponent = AnimationComponent(textureSize: ProtestorBot.textureSize, animations: initialAnimations)
         addComponent(animationComponent)
         
+        let inputComponent = InputComponent()
+        addComponent(inputComponent)
+        
         let intelligenceComponent = IntelligenceComponent(states: [
             TaskBotAgentControlledState(entity: self),
-  //          TaskBotPlayerControlledState(entity: self),
+            TaskBotPlayerControlledState(entity: self),
             TaskBotFleeState(entity: self),
             TaskBotInjuredState(entity: self),
             ProtestorBotHitState(entity: self),
@@ -209,7 +212,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         resistanceComponent.delegate = self
         addComponent(resistanceComponent)
         
-        let respectComponent = RespectComponent(respect: initialRespect, maximumRespect: GameplayConfiguration.ProtestorBot.maximumRespect, displaysRespectBar: false)
+        let respectComponent = RespectComponent(respect: initialRespect, maximumRespect: GameplayConfiguration.ProtestorBot.maximumRespect, displaysRespectBar: true)
         respectComponent.delegate = self
         addComponent(respectComponent)
         
@@ -292,15 +295,17 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
 //            if protestorTargetObeisanceComponent.obeisance >  50.0
             if protestorTarget.isSubservient
             {
-//                self.isRingLeader = true
                 
-//                print("self ringleader: \(self.isRingLeader), \(self.ringLeader.debugDescription)")
-                
-                protestorTarget.ringLeader = self
+                //Make protestor sheep
+//                protestorTarget.ringLeader = self
                 guard let intelligenceComponent = protestorTarget.component(ofType: IntelligenceComponent.self) else { return }
                 intelligenceComponent.stateMachine.enter(ProtestorSheepState.self)
                 
-//                print("protestorTarget.ringLeader: \(protestorTarget.ringLeader.debugDescription)")
+                //Increase the RingLeader's respect with their flock
+                guard let respectComponent = self.component(ofType: RespectComponent.self) else { return }
+                respectComponent.addRespect(respectToAdd: 25.0)
+                
+//                print("protestorTarget.ringLeader: \(protestorTarget.ringLeader.debugDescription), respect: \(respectComponent.respect)")
             }
             
             
@@ -444,6 +449,11 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         {
 //            case .wander:
 //                intelligenceComponent.stateMachine.enter(ProtestorBotWanderState.self)
+            
+            case .playerMovedTaskBot:
+                print("ProtestorBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+                break
+            
             
             case let .returnToPositionOnPath(position):
 //                print("ProtestorBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
@@ -629,9 +639,10 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
     {
         guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
 
-        
+        //The player decides who the RingLeader will be by zapping them
         self.isRingLeader = true
-        self.agent.mass = 100.0
+//        self.agent.mass = 100.0
+//        self.agent.speed = 150.0
         
         //Freeze Protestor for a bit and then carry on
         isGood = !chargeComponent.hasCharge
@@ -727,11 +738,11 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             
             //Ensure InciteComponent is idle and switched off
             guard let inciteComponent = component(ofType: InciteComponent.self) else { return }
-            inciteComponent.stateMachine.enter(InciteIdleState.self)
+//            inciteComponent.stateMachine.enter(InciteIdleState.self)
             inciteComponent.isTriggered = false
             
             //Reset the Ringleader to nil (do not follow them anymore)
-            self.ringLeader = nil
+//            self.ringLeader = nil
         }
     }
 
@@ -745,6 +756,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         //and so the protesor should start to incite too
         if obeisanceComponent.obeisance > 50
         {
+//            self.isRingLeader = true
             self.isSubservient = true
             //print("Protestor has become subservient")
         }
@@ -902,6 +914,10 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
     {
         //Set the mandate to move along path
         mandate = .playerMovedTaskBot
+        
+        //Move into Player moved state
+        guard let intelligenceComponent = self.component(ofType: IntelligenceComponent.self) else { return }
+       intelligenceComponent.stateMachine.enter(TaskBotPlayerControlledState.self)
         
         startAnimation()
         
