@@ -123,6 +123,7 @@ class RespectComponent: GKComponent
         {
             respect = newRespect
             respectBar?.level = percentageRespect
+            delegate?.respectComponentDidGainRespect(respectComponent: self)
         }
     }
 }
