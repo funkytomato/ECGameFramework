@@ -19,6 +19,9 @@ class TaskBotPlayerControlledState: GKState
     
     unowned var entity: TaskBot
     
+    /// The amount of time the beam has been in player controlled state
+    var elapsedTime: TimeInterval = 0.0
+    
     /// The `AnimationComponent` associated with the `entity`.
     var animationComponent: AnimationComponent
     {
@@ -57,20 +60,26 @@ class TaskBotPlayerControlledState: GKState
     override func didEnter(from previousState: GKState?)
     {
         super.didEnter(from: previousState)
+        elapsedTime = 0.0
         
         // Turn on controller input for the `PlayerBot` when entering the player-controlled state.
         inputComponent.isEnabled = true
+        
+        entity.isPlayerControlled = true
     }
     
     override func update(deltaTime seconds: TimeInterval)
     {
         super.update(deltaTime: seconds)
+        elapsedTime += seconds
         
         /*
          Assume an animation of "idle" that can then be overwritten by the movement
          component in response to user input.
          */
         animationComponent.requestedAnimationState = .idle
+        
+        stateMachine?.enter(TaskBotAgentControlledState.self)
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
