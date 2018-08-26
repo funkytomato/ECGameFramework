@@ -155,7 +155,7 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
         
         let intelligenceComponent = IntelligenceComponent(states: [
             TaskBotAgentControlledState(entity: self),
-            TaskBotPlayerControlledState(entity: self),
+//            TaskBotPlayerControlledState(entity: self),
             TaskBotFleeState(entity: self),
             TaskBotInjuredState(entity: self),
             TaskBotZappedState(entity: self),
