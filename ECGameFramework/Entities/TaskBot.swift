@@ -161,6 +161,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
     
     var oldColour: SKColor
     
+    // Is the taskbot moving under player instruction?
+    var isPlayerControlled: Bool
+    
     // Is the taskbot still a playable bot?
     var isActive: Bool
     
@@ -514,6 +517,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         
         // Whether or not the `TaskBot` is "good" when first created.
         self.isGood = isGood
+        
+        // Whether or not the 'TaskBot' is under player controlled
+        self.isPlayerControlled = false
         
         // Whether or not the 'TaskBot' is active, = healthy and not arrested or detained
         self.isActive = true
@@ -1020,8 +1026,13 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         
         //MARK:- Define TaskBot mandates
         
+        if self.isPlayerControlled
+        {
+            mandate = .playerMovedTaskBot
+        }
+        
         // Protestor is arrested and should be moved to the meatwagaon
-        if self.isArrested
+        else if self.isArrested
         {
             //print("Moving prisoner to meatwagon")
             
@@ -1221,8 +1232,8 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                     break
                 
                 case .playerMovedTaskBot:
-//                    print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
-//                    print("playerMovedTaskbot")
+                    print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+                    print("playerMovedTaskbot")
                     // The taskbot is already on the player designated path, so no update is needed
                     break
                 
