@@ -360,7 +360,7 @@ struct GameplayConfiguration
     struct TaskBot
     {
         /// The length of time a `TaskBot` waits before re-evaluating its rules.
-        static let rulesUpdateWaitDuration: TimeInterval = 1.0
+        static let rulesUpdateWaitDuration: TimeInterval = 2.0
 
         /// The length of time a `TaskBot` waits before re-checking for an appropriate behavior.
 //        static let behaviorUpdateWaitDuration: TimeInterval = 0.25
@@ -439,7 +439,7 @@ struct GameplayConfiguration
         static let returnToPatrolPathRadius: Float = 10.0
         
         /// The buffer radius (in points) to add to polygon obstacles when calculating agent pathfinding.
-        static let pathfindingGraphBufferRadius: Float = 15.0
+        static let pathfindingGraphBufferRadius: Float = 20.0
         
         /// The duration of a `TaskBot`'s zapped state.
         static let zappedStateDuration: TimeInterval = 0.75
@@ -706,7 +706,7 @@ struct GameplayConfiguration
         static let obeisanceLossPerCycle = 1.0
         
         /// The amount of obeisance a `PlayerBot` loses by a single `GroundBot` attack.
-        static let obeisanceGainPerCycle = 2.0
+        static let obeisanceGainPerCycle = 20.0
         
         //MARK: Hit Properties
         
