@@ -179,8 +179,8 @@ class TaskBotAgentControlledState: GKState
                     break
                 
                 case .incite:
-//                    print("TaskBotAgentControlledState: incite")
-//                    entity.mandate = .incite
+                    print("TaskBotAgentControlledState: incite")
+                    entity.mandate = .incite
                     break
                 
                 case let .sheep(target):
@@ -192,10 +192,10 @@ class TaskBotAgentControlledState: GKState
                     break
             }
             
-//            print("entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isArrested: \(entity.isArrested)")
+            print("entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isArrested: \(entity.isArrested), elapsedTime: \(elapsedTime.debugDescription), distanceToPoint: \(entity.distanceToPoint(otherPoint: oldPosition))")
             
             //Check if taskbot has stayed in same position for long time, e.g. stuck in corner.  Move Taskbot away from current position
-            if entity.distanceToPoint(otherPoint: oldPosition) <= 10.0 && elapsedTime >= 20.0 && !entity.isArrested
+            if entity.distanceToPoint(otherPoint: oldPosition) <= 10.0 && elapsedTime >= 15.0 && !entity.isArrested
             {
                 entity.mandate = .returnToPositionOnPath(float2(0.0,0.0))
             }
