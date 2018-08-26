@@ -164,6 +164,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         
         let inputComponent = InputComponent()
         addComponent(inputComponent)
+        inputComponent.isEnabled = false
         
         let intelligenceComponent = IntelligenceComponent(states: [
             TaskBotAgentControlledState(entity: self),
@@ -702,13 +703,24 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
     {
         guard let respectComponent = component(ofType: RespectComponent.self) else { return }
         
-
+        if !respectComponent.hasFullRespect
+        {
+            guard let inputComponent = self.component(ofType: InputComponent.self) else { return }
+            inputComponent.isEnabled = false
+        }
+        
     }
     
     func respectComponentDidGainRespect(respectComponent: RespectComponent)
     {
         guard let respectComponent = component(ofType: RespectComponent.self) else { return }
 
+        if respectComponent.hasFullRespect
+        {
+            //RingLeader has gained full respect and should now be movable
+            guard let inputComponent = self.component(ofType: InputComponent.self) else { return }
+            inputComponent.isEnabled = true
+        }
     }
     
     
@@ -912,16 +924,22 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
     
     func moveTaskbot()
     {
-        //Set the mandate to move along path
-        mandate = .playerMovedTaskBot
         
-        //Move into Player moved state
-        guard let intelligenceComponent = self.component(ofType: IntelligenceComponent.self) else { return }
-       intelligenceComponent.stateMachine.enter(TaskBotPlayerControlledState.self)
+        //Check there is a valid minimum number of path points
+        if self.playerPathPoints.count >= 2
+        {
         
-        startAnimation()
-        
-        //print("playerpathPoints: \(playerPathPoints.count)")
+            //Set the mandate to move along path
+            mandate = .playerMovedTaskBot
+            
+            //Move into Player moved state
+            guard let intelligenceComponent = self.component(ofType: IntelligenceComponent.self) else { return }
+           intelligenceComponent.stateMachine.enter(TaskBotPlayerControlledState.self)
+            
+            startAnimation()
+            
+            //print("playerpathPoints: \(playerPathPoints.count)")
+        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?, scene: LevelScene)
