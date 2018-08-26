@@ -888,8 +888,8 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
             for node in touchedNodes
             {
 
-                //print("node: \(node.description)")
-                //print("node.entity: \(String(describing: node.entity?.description))")
+                print("node: \(node.description)")
+                print("node.entity: \(String(describing: node.entity?.description))")
                 
                 if (node.entity != nil)
                 {
@@ -897,9 +897,13 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
                     let touchedEntity = node.entity
                     if let myEntity = touchedEntity as? TaskBot
                     {
-                        //myEntity.entityTouched(touches: touches, withEvent: event)
-                        myEntity.touchesBegan(touches, with: event, scene: self)
-                        activeEntity = myEntity
+                        guard let inputComponent = myEntity.component(ofType: InputComponent.self) else { return }
+                        if inputComponent.isEnabled
+                        {
+                            //myEntity.entityTouched(touches: touches, withEvent: event)
+                            myEntity.touchesBegan(touches, with: event, scene: self)
+                            activeEntity = myEntity
+                        }
                     }
                 }
             }
@@ -913,36 +917,36 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
         super.touchesMoved(touches, with: event)
  
         //Touch control for creating paths
-//        for touch in touches
-//        {
-//            let touchLocation = touch.location(in: self)
-//            let touchedNodes = self.nodes(at: touchLocation)
-//
-//            for node in touchedNodes
-//            {
-//
-//                //print("node: \(node.description)")
-//                //print("node.entity: \(String(describing: node.entity?.description))")
-//
-//                activeEntity?.touchesMoved(touches, with: event, scene: self)
-//            }
-//        }
+        for touch in touches
+        {
+            let touchLocation = touch.location(in: self)
+            let touchedNodes = self.nodes(at: touchLocation)
+
+            for node in touchedNodes
+            {
+
+                //print("node: \(node.description)")
+                //print("node.entity: \(String(describing: node.entity?.description))")
+
+                activeEntity?.touchesMoved(touches, with: event, scene: self)
+            }
+        }
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?)
     {
         
         //Touch control for creating paths
-//        for _ in touches
-//        {
-//            //let touchLocation = touch.location(in: self)
-//            //let touchedNodes = self.nodes(at: touchLocation)
-//
-//            activeEntity?.touchesEnded(touches, with: event, scene: self)
-//        }
-//
-//        // The entity is not selected anymore, as it's path has been set
-//        activeEntity = nil
+        for _ in touches
+        {
+            //let touchLocation = touch.location(in: self)
+            //let touchedNodes = self.nodes(at: touchLocation)
+
+            activeEntity?.touchesEnded(touches, with: event, scene: self)
+        }
+
+        // The entity is not selected anymore, as it's path has been set
+        activeEntity = nil
     }
     
  /*
