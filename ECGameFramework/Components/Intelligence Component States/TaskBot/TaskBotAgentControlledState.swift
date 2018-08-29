@@ -72,7 +72,7 @@ class TaskBotAgentControlledState: GKState
     {
         super.update(deltaTime: seconds)
         
-        print("entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate)")
+//        print("entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate)")
         
         // Update the "time since last behavior update" tracker.
         timeSinceBehaviorUpdate += seconds
@@ -112,12 +112,8 @@ class TaskBotAgentControlledState: GKState
                     if case .playerMovedTaskBot = entity.mandate, entity.distanceToPoint(otherPoint: float2(lastPos)) <= GameplayConfiguration.TaskBot.thresholdProximityToPatrolPathStartPoint
                     {
                         entity.mandate = .wander
-                        entity.stopAnimation()
+//                        entity.stopAnimation()
                         entity.isPlayerControlled = false
-                        
-                        //Clear the path followed
-//                        guard let protestorBot = entity as? ProtestorBot else { return }
-//                        protestorBot.playerPathPoints.removeAll()
                     }
                         
                     else
@@ -184,7 +180,7 @@ class TaskBotAgentControlledState: GKState
                     break
                 
                 case .incite:
-                    print("TaskBotAgentControlledState: incite")
+//                    print("TaskBotAgentControlledState: incite")
                     entity.mandate = .incite
                     break
                 
@@ -197,7 +193,7 @@ class TaskBotAgentControlledState: GKState
                     break
             }
             
-            print("entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isArrested: \(entity.isArrested), elapsedTime: \(elapsedTime.debugDescription), distanceToPoint: \(entity.distanceToPoint(otherPoint: oldPosition))")
+//            print("entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isArrested: \(entity.isArrested), elapsedTime: \(elapsedTime.debugDescription), distanceToPoint: \(entity.distanceToPoint(otherPoint: oldPosition))")
             
             //Check if taskbot has stayed in same position for long time, e.g. stuck in corner.  Move Taskbot away from current position
             if entity.distanceToPoint(otherPoint: oldPosition) <= 10.0 && elapsedTime >= 15.0 && !entity.isArrested
