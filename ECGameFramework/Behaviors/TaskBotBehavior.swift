@@ -40,7 +40,7 @@ class TaskBotBehavior: GKBehavior
     // Sheep behaviour
     static func sheepBehaviour(forAgent agent: GKAgent2D, targetAgent: GKAgent2D, pathRadius: Float, inScene scene: LevelScene) -> (GKBehavior)
     {
-        print("behaviorAndPathPoints \(agent.description),  scene: \(scene.description)")
+//        print("behaviorAndPathPoints \(agent.description),  scene: \(scene.description)")
         
         let behavior = TaskBotBehavior()
         
