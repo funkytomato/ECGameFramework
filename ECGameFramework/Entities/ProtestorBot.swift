@@ -364,51 +364,6 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         //Trigger intoxication component
         guard let intoxicationComponent = self.component(ofType: IntoxicationComponent.self) else { return }
         intoxicationComponent.isTriggered = true
-        
-        
-  /*
-        
-        //If a Criminal is selling wares and a Protestor touches Criminal and wants to buy, sell them a product
-        //Check the criminal has a SellingWaresComponent
-        guard let buyingWaresComponent = component(ofType: BuyingWaresComponent.self) else { return }
-        guard (buyingWaresComponent.stateMachine.currentState as? BuyingWaresActiveState) != nil else { return }
-        
-        
-        //Check criminal is active, has a selling component, and move into selling state
-        guard let criminalBot = entity as? CriminalBot else { return }
-        if criminalBot.isActive
-        {
-            guard let criminalSellingWaresComponent = criminalBot.component(ofType: SellingWaresComponent.self) else { return }
-            //            print("state: \(protestorBuyingWaresComponent.stateMachine.currentState.debugDescription)")
-            guard (protestorBuyingWaresComponent.stateMachine.currentState as? BuyingWaresLookingState) != nil else { return }
-            // protestorBuyingWaresComponent.stateMachine.enter(BuyingState.self)
-            
-            
-            //Reduce the number of wares the Criminal has
-            sellingWaresComponent.loseWares(waresToLose: GameplayConfiguration.CriminalBot.sellingWaresLossPerCycle)
-            
-            //Protestor buys product
-            protestorBuyingWaresComponent.gainProduct(waresToAdd: GameplayConfiguration.CriminalBot.sellingWaresLossPerCycle)
-            
-            //Check protestor has an appetite
-            guard let protestorAppetiteComponent = protestorBot.component(ofType: AppetiteComponent.self) else { return }
-            
-            //Trigger the Protestor isConSuming flag
-            //            protestorAppetiteComponent.isConsumingProduct = true
-            protestorBot.isConsuming = true
-            
-            //Protestor has bought product and so does not need to look to buy more
-            protestorAppetiteComponent.isTriggered = false
-            
-            
-            //Ensure the Protestor has an IntoxicationComponent
-            guard let protestorIntoxicationComponent = protestorBot.component(ofType: IntoxicationComponent.self) else { return }
-            
-            //Trigger the Protestor's intoxication component
-            protestorIntoxicationComponent.isTriggered = true
-        }
-    */
-               
     }
     
     // MARK: RulesComponentDelegate
@@ -416,11 +371,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
     override func rulesComponent(rulesComponent: RulesComponent, didFinishEvaluatingRuleSystem ruleSystem: GKRuleSystem)
     {
 
-
         super.rulesComponent(rulesComponent: rulesComponent, didFinishEvaluatingRuleSystem: ruleSystem)
-        
-        
-        
         
         /*
          A Protestor will flee a location if the following conditions are met:
@@ -443,7 +394,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         guard agentControlledState.elapsedTime >= GameplayConfiguration.TaskBot.delayBetweenAttacks else { return }
 
         
-        print("ProtestorBot: rulesComponent:- mandate \(mandate), state: \(intelligenceComponent.stateMachine.currentState.debugDescription)")
+//        print("ProtestorBot: rulesComponent:- mandate \(mandate), state: \(intelligenceComponent.stateMachine.currentState.debugDescription)")
 
 
         switch mandate
@@ -452,7 +403,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
 //                intelligenceComponent.stateMachine.enter(ProtestorBotWanderState.self)
             
             case .playerMovedTaskBot:
-                print("ProtestorBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                print("ProtestorBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 break
             
             
@@ -584,12 +535,6 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         {
             //Protestor wants to buy a product
             appetiteComponent.isTriggered = true
-            
-            
-//            //Protestor is hungry
-//            self.isHungry = true
-            
-            //appetiteComponent.isConsumingProduct = true
         }
     }
     
@@ -642,6 +587,11 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
 
         //The player decides who the RingLeader will be by zapping them
         self.isRingLeader = true
+        
+        //RingLeader should now be movable
+        guard let inputComponent = self.component(ofType: InputComponent.self) else { return }
+        inputComponent.isEnabled = true
+        
 //        self.agent.mass = 100.0
 //        self.agent.speed = 150.0
         
@@ -666,11 +616,9 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
 
     func resistanceComponentDidLoseResistance(resistanceComponent: ResistanceComponent)
     {
-        guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
         guard let resistanceComponent = component(ofType: ResistanceComponent.self) else { return }
         
         resistanceComponent.isTriggered = true
-//        intelligenceComponent.stateMachine.enter(ProtestorBotHitState.self)
     }
 
     // MARK: Health Component Delegate
@@ -703,7 +651,8 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
     {
         guard let respectComponent = component(ofType: RespectComponent.self) else { return }
         
-        if !respectComponent.hasFullRespect
+        //Protestor has lost all respect and is no longer controllable
+        if !respectComponent.hasRespect
         {
             guard let inputComponent = self.component(ofType: InputComponent.self) else { return }
             inputComponent.isEnabled = false
@@ -717,9 +666,9 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
 
         if respectComponent.hasFullRespect
         {
-            //RingLeader has gained full respect and should now be movable
-            guard let inputComponent = self.component(ofType: InputComponent.self) else { return }
-            inputComponent.isEnabled = true
+//            //RingLeader has gained full respect and should now be movable
+//            guard let inputComponent = self.component(ofType: InputComponent.self) else { return }
+//            inputComponent.isEnabled = true
         }
     }
     
@@ -750,11 +699,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             
             //Ensure InciteComponent is idle and switched off
             guard let inciteComponent = component(ofType: InciteComponent.self) else { return }
-//            inciteComponent.stateMachine.enter(InciteIdleState.self)
             inciteComponent.isTriggered = false
-            
-            //Reset the Ringleader to nil (do not follow them anymore)
-//            self.ringLeader = nil
         }
     }
 
@@ -936,7 +881,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             guard let intelligenceComponent = self.component(ofType: IntelligenceComponent.self) else { return }
            intelligenceComponent.stateMachine.enter(TaskBotPlayerControlledState.self)
             
-            startAnimation()
+//            createHighlightNode()
             
             //print("playerpathPoints: \(playerPathPoints.count)")
         }
