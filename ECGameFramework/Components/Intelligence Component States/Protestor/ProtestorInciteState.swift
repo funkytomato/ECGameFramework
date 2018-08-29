@@ -67,7 +67,15 @@ class ProtestorInciteState: GKState
         
         //Set the InciteComponent to on
         inciteComponent.isTriggered = true
-//        inciteComponent.stateMachine.enter(InciteIdleState.self)
+        
+        //Protestors who are inciting will not want to buy wares
+        guard let appetiteComponent = entity.component(ofType: AppetiteComponent.self) else { return }
+        appetiteComponent.isTriggered = false
+        
+        
+        guard let buyWaresComponent = entity.component(ofType: BuyingWaresComponent.self) else { return}
+        buyWaresComponent.isTriggered = false
+        
     }
     
     override func update(deltaTime seconds: TimeInterval)
