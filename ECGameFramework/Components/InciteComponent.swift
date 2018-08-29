@@ -88,7 +88,7 @@ class InciteComponent: GKComponent
     {
 
         
-        print("current state: \(stateMachine.currentState.debugDescription), intelligenceComponent current state: \(intelligenceComponent.stateMachine.currentState)")
+//        print("current state: \(stateMachine.currentState.debugDescription), intelligenceComponent current state: \(intelligenceComponent.stateMachine.currentState)")
         
         //Check Protestor is not fighting or confrontation with Police
 
