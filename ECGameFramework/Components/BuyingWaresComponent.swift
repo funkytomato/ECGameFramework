@@ -125,7 +125,7 @@ class BuyingWaresComponent: GKComponent
     
     override func update(deltaTime seconds: TimeInterval)
     {
-        print("state: \(intelligenceComponent.stateMachine.currentState)")
+//        print("state: \(intelligenceComponent.stateMachine.currentState)")
         
         
         //Check Protestor is not fighting or confrontation with Police
