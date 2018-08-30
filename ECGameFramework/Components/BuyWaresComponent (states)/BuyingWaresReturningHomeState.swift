@@ -55,9 +55,6 @@ class BuyingWaresReturningHomeState: GKState
         
         //        print("BuyingWaresReturningHomeState update: \(buyWaresComponent.entity.debugDescription)")
         
-        guard let protestor = buyWaresComponent.entity as? ProtestorBot else { return }
-        guard let physicsComponent = protestor.component(ofType: PhysicsComponent.self) else { return }
-        
         // If Protestor has reached their home position (where they started before looking for product) move to BuyingWaresIdleState
         guard let protestorBot = buyWaresComponent.entity as? ProtestorBot else { return }
         if protestorBot.isHome
