@@ -321,12 +321,12 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
                 intelligenceComponent.stateMachine.enter(SellWaresState.self)
                 break
             
-            case let .vandalise(targetPosition):
+            case .vandalise:
 //                print("CriminalBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 intelligenceComponent.stateMachine.enter(VandaliseState.self)
                 break
             
-            case let .loot(targetPosition):
+            case .loot:
 //                print("CriminalBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 intelligenceComponent.stateMachine.enter(LootState.self)
                 break
@@ -585,9 +585,7 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
             
             badAnimations![.sellingWares] = AnimationComponent.animationsFromAtlas(atlas: CriminalBotAtlases[13], withImageIdentifier: "CriminalSellingWares", forAnimationState: .sellingWares)
             
-            
-            
-            
+           
             // Invoke the passed `completionHandler` to indicate that loading has completed.
             completionHandler()
             
