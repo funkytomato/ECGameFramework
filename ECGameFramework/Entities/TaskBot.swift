@@ -1207,7 +1207,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                     break
                 
                 
-                case let .sheep(target):
+                case .sheep:
 //                    print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                     break
                 
@@ -1473,41 +1473,39 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         let lightNode = SKLightNode()
         lightNode.position = CGPoint(x: node.size.width / 2, y: node.size.height / 2)
         lightNode.categoryBitMask = 1
-//        lightNode.lightColor = .red
-        lightNode.ambientColor = SKColor(red: 0.3, green: 0.3, blue: 0.3, alpha: 0.87)
-        lightNode.lightColor = SKColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 0.8)
-        lightNode.shadowColor = SKColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.8)
-        
-        
+        lightNode.ambientColor = SKColor(red: 0.3, green: 0.3, blue: 0.3, alpha: 0.9)
+        lightNode.lightColor = SKColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.9)
+//        lightNode.shadowColor = SKColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.6)
         
         node.addChild(lightNode)
         node.lightingBitMask = 1
 //        node.shadowCastBitMask = 0b0001
-        
-        
-//        let expandAction = SKAction.scale(to: 1.5, duration: 0.33)
-//        let contractAction = SKAction.scale(to: 0.7, duration: 0.33)
-//        let pulsateAction = SKAction.repeatForever(
-//            SKAction.sequence([expandAction, contractAction]))
-        
-//        guard let animationComponent = self.component(ofType: AnimationComponent.self) else { return }
-//        animationComponent.node.run(pulsateAction)
-//
-//        //guard let spriteComponent = self.component(ofType: SpriteComponent.self) else { return }
-//        //spriteComponent.node.run(pulsateAction)
     }
     
-    func removeHightlightNode()
+    func removeHighlightNode()
     {
         guard let animationComponent = self.component(ofType: AnimationComponent.self) else { return }
-//        animationComponent.node.removeAllActions()
-        
         guard let node = animationComponent.node as? SKSpriteNode else { return }
         node.lightingBitMask = 0
+    }
+    
+    func createPulseAction()
+    {
+        let expandAction = SKAction.scale(to: 1.5, duration: 0.33)
+        let contractAction = SKAction.scale(to: 0.7, duration: 0.33)
+        let pulsateAction = SKAction.repeatForever(
+            SKAction.sequence([expandAction, contractAction]))
+
+        guard let animationComponent = self.component(ofType: AnimationComponent.self) else { return }
+        animationComponent.node.run(pulsateAction)
         
-//        node.remove
-        
-        //guard let spriteComponent = self.component(ofType: SpriteComponent.self) else { return }
-        //spriteComponent.node.removeAllActions()
+        //        //guard let spriteComponent = self.component(ofType: SpriteComponent.self) else { return }
+        //        //spriteComponent.node.run(pulsateAction)
+    }
+    
+    func stopAnimations()
+    {
+        guard let spriteComponent = self.component(ofType: SpriteComponent.self) else { return }
+        spriteComponent.node.removeAllActions()
     }
 }
