@@ -136,9 +136,10 @@ class BuyingWaresComponent: GKComponent
         guard ((intelligenceComponent.stateMachine.currentState as? ProtestorBotPreAttackState) == nil) else { return }
         guard ((intelligenceComponent.stateMachine.currentState as? ProtestorBotAttackState) == nil) else { return }
         guard ((intelligenceComponent.stateMachine.currentState as? ProtestorBotHitState) == nil) else { return }
+        guard ((intelligenceComponent.stateMachine.currentState as? ProtestorInciteState) == nil) else { return }
         guard ((intelligenceComponent.stateMachine.currentState as? TaskBotInjuredState) == nil) else { return }
         guard ((intelligenceComponent.stateMachine.currentState as? TaskBotFleeState) == nil) else { return }
-        guard ((intelligenceComponent.stateMachine.currentState as? ProtestorInciteState) == nil) else { return }
+
         
         guard let target = entity as? ProtestorBot else { return }
         
