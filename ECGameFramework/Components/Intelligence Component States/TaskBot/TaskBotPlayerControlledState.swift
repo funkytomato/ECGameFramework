@@ -99,7 +99,7 @@ class TaskBotPlayerControlledState: GKState
         super.willExit(to: nextState)
         
         // Turn off controller input for the `PlayerBot` when leaving the player-controlled state.
-        entity.component(ofType: InputComponent.self)?.isEnabled = false
+//        entity.component(ofType: InputComponent.self)?.isEnabled = false
         
         // `movementComponent` is a computed property. Declare a local version so we don't compute it multiple times.
         let movementComponent = self.movementComponent
