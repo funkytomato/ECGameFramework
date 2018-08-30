@@ -68,7 +68,7 @@ class ProtestorSheepState: GKState
     override func didEnter(from previousState: GKState?)
     {
         
-        print("ProtestorSheepState entered")
+//        print("ProtestorSheepState entered")
         
         super.didEnter(from: previousState)
         elapsedTime = 0.0
@@ -78,7 +78,7 @@ class ProtestorSheepState: GKState
     
     override func update(deltaTime seconds: TimeInterval)
     {
-        print("ProtestorSheepState updating")
+//        print("ProtestorSheepState updating")
         
         super.update(deltaTime: seconds)
         elapsedTime += seconds
