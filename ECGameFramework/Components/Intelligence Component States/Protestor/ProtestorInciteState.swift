@@ -67,27 +67,21 @@ class ProtestorInciteState: GKState
         
         //Set the InciteComponent to on
         inciteComponent.isTriggered = true
-        
-        //Protestors who are inciting will not want to buy wares
-        guard let appetiteComponent = entity.component(ofType: AppetiteComponent.self) else { return }
-        appetiteComponent.isTriggered = false
-        
-        
-        guard let buyWaresComponent = entity.component(ofType: BuyingWaresComponent.self) else { return}
-        buyWaresComponent.isTriggered = false
-        
     }
     
     override func update(deltaTime seconds: TimeInterval)
     {
-        //        print("currentState: \(inciteComponent.stateMachine?.currentState.debugDescription)")
+        // print("currentState: \(inciteComponent.stateMachine?.currentState.debugDescription)")
+        
+        // THE TIME IS WRONG HERE.  BECAUSE IT IS NOT STAYING IN THIS STATE, THE ELAPSED TIME IS NOT CORRECTLY UPDATED.
+        // THIS COULD EXPLAIN WHY TASKBOTS GET STUCK, AND NOT TIMING CORRECTLY
+        // HOW DO WE STAY IN PROTESTORINCITESTATE WHILST CONTINUING TO MOVE???
         
         super.update(deltaTime: seconds)
         elapsedTime += seconds
         
         inciteComponent.stateMachine.update(deltaTime: seconds)
         intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
-        
 
         //Show the inciting animation
         guard (inciteComponent.stateMachine?.currentState as? InciteActiveState) != nil else { return }
