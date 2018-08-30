@@ -65,9 +65,6 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
     
     // MARK: ProtestorBot Properties
     
-    //The target Protestor (Ringleader) to follow when influenced
-//    var ringLeader: GKEntity?
-    
     // The position in the scene that the `PoliceBot` should target with its attack.
     var targetPosition: float2?
     
@@ -357,7 +354,6 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         //Reset appetite
         guard let appetiteComponent = self.component(ofType: AppetiteComponent.self) else { return }
         appetiteComponent.isTriggered = false
-        //appetiteComponent.isConsumingProduct = true
         self.isConsuming = true
         
         
@@ -588,24 +584,17 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         //The player decides who the RingLeader will be by zapping them
         self.isRingLeader = true
         
-        //RingLeader should now be movable
-        guard let inputComponent = self.component(ofType: InputComponent.self) else { return }
-        inputComponent.isEnabled = true
-        
-//        self.agent.mass = 100.0
-//        self.agent.speed = 150.0
-        
         //Freeze Protestor for a bit and then carry on
         isGood = !chargeComponent.hasCharge
         if !isGood
         {
-            intelligenceComponent.stateMachine.enter(TaskBotZappedState.self)
-//            self.isRingLeader = true  //This could cause a crash.  If a protestor gets to sheep state, but ringleader has not been set, will crash in sheepBehavour with null pointer
+            guard let buyingWaresComponent = self.component(ofType: BuyingWaresComponent.self) else { return }
+            buyingWaresComponent.isTriggered = false
             
-//            guard let spriteComponent = component(ofType: SpriteComponent.self) else { return }
-//            spriteComponent.changeColour(colour: SKColor.black)
+            intelligenceComponent.stateMachine.enter(TaskBotZappedState.self)
         }
     }
+    
     
     // MARK: Resistance Component Delegate
     func resistanceComponentDidGainResistance(resistanceComponent: ResistanceComponent)
@@ -621,11 +610,14 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         resistanceComponent.isTriggered = true
     }
 
+    
     // MARK: Health Component Delegate
     func healthComponentDidAddHealth(healthComponent: HealthComponent)
     {
         guard let healthComponent = component(ofType: HealthComponent.self) else { return }
     }
+    
+    
     
     func healthComponentDidLoseHealth(healthComponent: HealthComponent)
     {
@@ -656,6 +648,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         {
             guard let inputComponent = self.component(ofType: InputComponent.self) else { return }
             inputComponent.isEnabled = false
+            removeHighlightNode()
         }
         
     }
@@ -667,8 +660,9 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         if respectComponent.hasFullRespect
         {
 //            //RingLeader has gained full respect and should now be movable
-//            guard let inputComponent = self.component(ofType: InputComponent.self) else { return }
-//            inputComponent.isEnabled = true
+            guard let inputComponent = self.component(ofType: InputComponent.self) else { return }
+            inputComponent.isEnabled = true
+            createHighlightNode()
         }
     }
     
@@ -713,7 +707,6 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         //and so the protesor should start to incite too
         if obeisanceComponent.obeisance > 50
         {
-//            self.isRingLeader = true
             self.isSubservient = true
             //print("Protestor has become subservient")
         }
@@ -871,7 +864,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
     {
         
         //Check there is a valid minimum number of path points
-        if self.playerPathPoints.count >= 2
+        if self.playerPathPoints.count >= 3
         {
         
             //Set the mandate to move along path
@@ -879,9 +872,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             
             //Move into Player moved state
             guard let intelligenceComponent = self.component(ofType: IntelligenceComponent.self) else { return }
-           intelligenceComponent.stateMachine.enter(TaskBotPlayerControlledState.self)
-            
-//            createHighlightNode()
+            intelligenceComponent.stateMachine.enter(TaskBotPlayerControlledState.self)
             
             //print("playerpathPoints: \(playerPathPoints.count)")
         }
