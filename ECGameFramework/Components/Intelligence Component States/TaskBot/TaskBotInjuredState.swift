@@ -91,10 +91,6 @@ class TaskBotInjuredState: GKState
     {
         switch stateClass
         {
-        case is TaskBotInjuredState.Type:
-//        case is TaskBotZappedState.Type:
-            return true
-            
         default:
             return false
         }
