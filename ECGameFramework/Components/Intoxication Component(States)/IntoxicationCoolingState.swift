@@ -58,13 +58,15 @@ class IntoxicationCoolingState: GKState
     override func update(deltaTime seconds: TimeInterval)
     {
         super.update(deltaTime: seconds)
+        elapsedTime += seconds
         
 //        print("IntoxicationCoolingState update")
         
-        elapsedTime += seconds
+        intoxicationComponent.loseintoxication(intoxicationToLose: GameplayConfiguration.ProtestorBot.intoxicationLossPerCycle)
         
         // If the beam has spent long enough cooling down, enter `BeamIdleState`.
-        if elapsedTime >= GameplayConfiguration.Incite.coolDownDuration
+//        if elapsedTime >= GameplayConfiguration.Incite.coolDownDuration
+        if !intoxicationComponent.hasFullintoxication
         {
             stateMachine?.enter(IntoxicationIdleState.self)
         }
