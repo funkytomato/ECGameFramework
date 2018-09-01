@@ -114,7 +114,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             initialRespect = 0.0           //Yellow bar
             initialObeisance = 100.0        //Brown bar
             initialAppetite = 0.0           //White
-            initialIntoxication = 0.0       //Orange
+            initialIntoxication = 80.0       //Orange
             initialTemperament = 0.0       //Cyan
             
             texture = SKTexture(imageNamed: "ProtestorBot")
@@ -210,11 +210,11 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         resistanceComponent.delegate = self
         addComponent(resistanceComponent)
         
-        let respectComponent = RespectComponent(respect: initialRespect, maximumRespect: GameplayConfiguration.ProtestorBot.maximumRespect, displaysRespectBar: true)
+        let respectComponent = RespectComponent(respect: initialRespect, maximumRespect: GameplayConfiguration.ProtestorBot.maximumRespect, displaysRespectBar: false)
         respectComponent.delegate = self
         addComponent(respectComponent)
         
-        let obesianceComponent = ObeisanceComponent(obeisance: initialObeisance, maximumObeisance: GameplayConfiguration.ProtestorBot.maximumObesiance, displaysObeisanceBar: true)
+        let obesianceComponent = ObeisanceComponent(obeisance: initialObeisance, maximumObeisance: GameplayConfiguration.ProtestorBot.maximumObesiance, displaysObeisanceBar: false)
         obesianceComponent.delegate = self
         addComponent(obesianceComponent)
         
@@ -278,6 +278,25 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
     {
         super.contactWithEntityDidBegin(entity)
         
+        // If the Protestor is violent or drunk, they may attack who they bump into
+        guard let intoxicationComponent = self.component(ofType: IntoxicationComponent.self) else { return }
+        guard let temperamentComponent = self.component(ofType: TemperamentComponent.self) else { return }
+        
+        //Protestor is drunk
+        if intoxicationComponent.hasFullintoxication
+        {
+            //Protestor is either violent or raging, attack the Taskbot made contact with
+            if ((temperamentComponent.stateMachine.currentState as? ViolentState) != nil) || ((temperamentComponent.stateMachine.currentState as? RageState) != nil)
+            {
+                guard let intelligenceComponent = self.component(ofType: IntelligenceComponent.self) else { return }
+                guard let taskBot = entity as? TaskBot else { return }
+                print("taskBot: \(taskBot.debugDescription)")
+                targetPosition = taskBot.agent.position
+                intelligenceComponent.stateMachine.enter(ProtestorBotRotateToAttackState.self)
+            }
+        }
+        
+        
         buyWares(entity)
         
         // If the Protestor is inciting, influence Protestors on contact
@@ -290,12 +309,10 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             protestorTargetObeisanceComponent.addObeisance(obeisanceToAdd: GameplayConfiguration.ProtestorBot.obeisanceGainPerCycle)
             
             //If target Protestor's obeisance becomes high enough, set the Protestor's RingLeader Property to this entity
-//            if protestorTargetObeisanceComponent.obeisance >  50.0
             if protestorTarget.isSubservient
             {
                 
                 //Make protestor sheep
-//                protestorTarget.ringLeader = self
                 guard let intelligenceComponent = protestorTarget.component(ofType: IntelligenceComponent.self) else { return }
                 intelligenceComponent.stateMachine.enter(ProtestorSheepState.self)
                 
@@ -315,6 +332,18 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
     {
         super.contactWithEntityDidEnd(entity)
         
+        // If Protestor is drunk, their temperament will increase slightly, and cause the other protestor be affected too
+        guard let intoxicationComponent = component(ofType: IntoxicationComponent.self) else { return }
+        if intoxicationComponent.hasFullintoxication
+        {
+//            guard let temperamentComponent = component(ofType: TemperamentComponent.self) else { return }
+//            temperamentComponent.increaseTemperament(temperamentToAdd: Double(GameplayConfiguration.ProtestorBot.temperamentIncreasePerCycle))
+            
+            guard let protestorTarget = entity as? ProtestorBot else { return }
+            guard let protestorTargetTemperamentComponent = protestorTarget.component(ofType: TemperamentComponent.self) else { return }
+            protestorTargetTemperamentComponent.increaseTemperament(temperamentToAdd: 10.0)
+        }
+        
         // If the Protestor is inciting, influence Protestors on contact
         // Raise their temperament
         guard let inciteComponent = component(ofType: InciteComponent.self) else { return }
@@ -327,6 +356,11 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             
             //print("Raised temperament of touching Protestor")
         }
+        
+        
+
+        
+        
     }
     
     
@@ -556,7 +590,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         
         if !intoxicationComponent.hasintoxication
         {
-//            print("Protestor has sobered up")
+            print("Protestor has sobered up")
         }
     }
     
@@ -566,7 +600,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         
         if intoxicationComponent.hasFullintoxication
         {
-//            print("Protestor is drunk")
+            print("Protestor is drunk")
         }
     }
     
