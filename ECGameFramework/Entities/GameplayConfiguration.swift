@@ -367,10 +367,10 @@ struct GameplayConfiguration
         static let behaviorUpdateWaitDuration: TimeInterval = 1.0
         
         /// How close a `TaskBot` has to be to a patrol path start point in order to start patrolling.
-        static let thresholdProximityToPatrolPathStartPoint: Float = 20.0
+        static let thresholdProximityToPatrolPathStartPoint: Float = 50.0
         
         /// How close a `TaskBot` has to be to a return point in order to be home
-        static let thresholdProximityToReturnPoint: Float = 50.0
+        static let thresholdProximityToReturnPoint: Float = 150.0
         
         
         // The minimum speed (in points per second) for the 'TaskBot'
@@ -694,7 +694,10 @@ struct GameplayConfiguration
         static let maximumIntoxication = 100.0
         
         /// The amount of intoxication a `Protestor` gains each cycle
-        static let intoxicationGainPerCycle = 1.0
+        static let intoxicationGainPerCycle = 2.0
+        
+        // The amount of appetite a Protestor loses per cycle
+        static let intoxicationLossPerCycle = 1.0
         
         
         //MARK: Obeisance Properties
