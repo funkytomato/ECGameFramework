@@ -123,7 +123,8 @@ class IntoxicationComponent: GKComponent
     {
         stateMachine.update(deltaTime: seconds)
         
-        if hasFullintoxication
+        guard let taskBot = entity as? TaskBot else { return }
+        if hasFullintoxication && taskBot.isActive
         {
             animationComponent.requestedAnimationState = .drunk
         }
