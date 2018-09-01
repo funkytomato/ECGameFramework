@@ -65,10 +65,14 @@ class ProtestorBotRotateToAttackState: GKState
     {
         super.didEnter(from: previousState)
         
+        //Get the intoxication level of the Protestor
+        guard let intoxicationComponent = entity.component(ofType: IntoxicationComponent.self) else { return }
+        
         // Request the "walk forward" animation for this `ProtestorBot`.
         animationComponent.requestedAnimationState = .idle
         
-        if ((temperamentComponent.stateMachine.currentState as? ViolentState) != nil) || ((temperamentComponent.stateMachine.currentState as? RageState) != nil)
+        //If Protestor is Violent, Raging or Drunk, then they are allowed to attack
+        if ((temperamentComponent.stateMachine.currentState as? ViolentState) != nil) || ((temperamentComponent.stateMachine.currentState as? RageState) != nil) || intoxicationComponent.hasFullintoxication
         {
             self.entity.isDangerous = true
         }
