@@ -286,6 +286,18 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         if intoxicationComponent.hasFullintoxication
         {
             //Protestor is either violent or raging, attack the Taskbot made contact with
+//            if ((temperamentComponent.stateMachine.currentState as? ViolentState) != nil) || ((temperamentComponent.stateMachine.currentState as? RageState) != nil)
+//            {
+                guard let intelligenceComponent = self.component(ofType: IntelligenceComponent.self) else { return }
+                guard let taskBot = entity as? TaskBot else { return }
+                print("taskBot: \(taskBot.debugDescription)")
+                targetPosition = taskBot.agent.position
+                intelligenceComponent.stateMachine.enter(ProtestorBotRotateToAttackState.self)
+//            }
+        }
+        else
+        {
+            //Protestor is either violent or raging, attack the Taskbot made contact with
             if ((temperamentComponent.stateMachine.currentState as? ViolentState) != nil) || ((temperamentComponent.stateMachine.currentState as? RageState) != nil)
             {
                 guard let intelligenceComponent = self.component(ofType: IntelligenceComponent.self) else { return }
@@ -355,12 +367,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             protestorTargetTemperamentComponent.increaseTemperament(temperamentToAdd: Double(GameplayConfiguration.ProtestorBot.temperamentIncreasePerCycle))
             
             //print("Raised temperament of touching Protestor")
-        }
-        
-        
-
-        
-        
+        }    
     }
     
     
@@ -697,6 +704,11 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             guard let inputComponent = self.component(ofType: InputComponent.self) else { return }
             inputComponent.isEnabled = true
             createHighlightNode()
+            
+            // Make Ringleader heavier and more forceful through crowds
+            self.agent.mass = 2.0
+            self.agent.maxSpeed = 100.0
+            self.agent.maxAcceleration = 200.0
         }
     }
     
