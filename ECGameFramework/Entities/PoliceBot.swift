@@ -24,6 +24,11 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
     func resistanceComponentDidGainResistance(resistanceComponent: ResistanceComponent)
     {
         guard let resistanceComponent = component(ofType: ResistanceComponent.self) else { return }
+        
+        if resistanceComponent.resistance > 40.0
+        {
+            self.needsHelp = false
+        }
     }
     
     
@@ -37,7 +42,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
 //        intelligenceComponent.stateMachine.enter(PoliceBotHitState.self)
         
         //Policeman is in trouble and needs backup
-        if resistanceComponent.resistance < 50.0
+        if resistanceComponent.resistance < 70.0
         {
             self.needsHelp = true
         }
@@ -94,6 +99,8 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
     // MARK: Static Properties
     
     var texture = SKTexture()
+    
+    var physicsJoint = SKPhysicsJointLimit()
     
     /// The size to use for the `PoliceBot`s animation textures.
     static var textureSize = CGSize(width: 50.0, height: 50.0)
@@ -326,7 +333,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
         // 1) Check if enough time has passed since the `PoliceBot`'s last attack.
         guard agentControlledState.elapsedTime >= GameplayConfiguration.TaskBot.delayBetweenAttacks else { return }
         
-//        print("PoliceBot mandate: \(mandate)")
+        print("PoliceBot mandate: \(mandate)")
         
         //Check the current mandate and set the appropriate values
         switch mandate
@@ -366,6 +373,26 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
 //                print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 intelligenceComponent.stateMachine.enter(PoliceBotSupportState.self)
                 targetPosition = targetAgent.position
+            
+            case let .formWall(targetAgent):
+                print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+                
+                // Get the Physics Component for each entity
+                let policeBotA = agent.entity as? PoliceBot
+                let policeBotAPhysicsComponent = policeBotA?.component(ofType: PhysicsComponent.self)
+                
+                let policeBotB = targetAgent.entity as? PoliceBot
+                let policeBotBPhysicsComponent = policeBotB?.component(ofType: PhysicsComponent.self)
+                
+                
+                //Connect the two Taskbots together like a rope
+                
+                let physicsJoint = SKPhysicsJointLimit.joint(withBodyA: (policeBotAPhysicsComponent?.physicsBody)!, bodyB: (policeBotBPhysicsComponent?.physicsBody)!, anchorA: CGPoint(x: 0.5, y: 0.0), anchorB: CGPoint(x: -0.5, y: 0.0))
+                self.physicsJoint = physicsJoint
+                
+                intelligenceComponent.stateMachine.enter(PoliceBotFormWallState.self)
+                targetPosition = targetAgent.position
+            
             
             case let .fleeAgent(targetAgent):
                 
