@@ -181,7 +181,7 @@ class TaskBotBehavior: GKBehavior
     // Police Support behaviour
     static func supportBehaviour(forAgent agent: GKAgent2D, huntingAgent target: GKAgent2D, pathRadius: Float, inScene scene: LevelScene) -> (behaviour: GKBehavior, pathPoints: [CGPoint])
     {
-//        print("supportBehaviour \(agent.description) hunting: \(target.description) scene: \(scene.description)")
+        print("supportBehaviour \(agent.description) hunting: \(target.description) scene: \(scene.description)")
         
         let behavior = TaskBotBehavior()
         
@@ -224,6 +224,50 @@ class TaskBotBehavior: GKBehavior
         // Return a tuple containing the new behavior, and the found path points for debug drawing.
         return (behavior, pathPoints)
     }
+    
+  
+    // Police Support Hold the Line Behaviour
+    // Police will come to support target officer and create a wall
+    static func formWallBehaviour(forAgent agent: GKAgent2D, huntingAgent target: GKAgent2D, pathRadius: Float, inScene scene: LevelScene) -> (behaviour: GKBehavior, pathPoints: [CGPoint])
+    {
+        print("formWallBehaviour \(agent.description) hunting: \(target.description) scene: \(scene.description)")
+        
+        let behavior = TaskBotBehavior()
+        
+        // Add basic goals to reach the `TaskBot`'s maximum speed, avoid obstacles and seek the target Police.
+        behavior.addTargetSpeedGoal(speed: agent.maxSpeed)
+        behavior.addAvoidObstaclesGoal(forScene: scene)
+        behavior.addSeekGoal(forScene: scene, agent: target, weight: 1.0)
+
+//        // Get the Physics Component for each entity
+//        let policeBotA = agent.entity as? PoliceBot
+//        let policeBotAPhysicsBody = policeBotA?.component(ofType: PhysicsComponent.self)
+//
+//        let policeBotB = target.entity as? PoliceBot
+//        let policeBotBPhysicsBody = policeBotB?.component(ofType: PhysicsComponent.self)
+//
+//
+//        //Connect the two Taskbots together like a rope
+//
+//        let physicsJoint = SKPhysicsJointLimit.joint(withBodyA: (policeBotAPhysicsBody?.physicsBody)!, bodyB: (policeBotBPhysicsBody?.physicsBody)!, anchorA: CGPoint(x: 0.5, y: 0.0), anchorB: CGPoint(x: -0.5, y: 0.0))
+////        self.physicsJoint = physicsJoint
+        
+
+        
+
+        
+        
+        
+        // WE DON"T NEED THIS
+        // Add goals to follow a calculated path from the `TaskBot` to its target.
+        let pathPoints = behavior.addGoalsToFollowPath(from: agent.position, to: target.position, pathRadius: pathRadius, inScene: scene)
+        
+        //print("targetPosition: \(target.position)")
+        
+        // Return a tuple containing the new behavior, and the found path points for debug drawing.
+        return (behavior, pathPoints)
+    }
+    
     
     /// Constructs a behavior to hunt a `TaskBot` or `PlayerBot` via a computed path.
     static func huntBehaviour(forAgent agent: GKAgent2D, huntingAgent target: GKAgent2D, pathRadius: Float, inScene scene: LevelScene) -> (behavior: GKBehavior, pathPoints: [CGPoint])
