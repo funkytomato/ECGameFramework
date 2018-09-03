@@ -256,14 +256,14 @@ class PoliceBotInTroubleNearRule: FuzzyTaskBotRule
     
     override func grade() -> Float
     {
-        guard let distance = snapshot.nearestPoliceTaskBotTarget?.distance else { return 0.0 }
+        guard let distance = snapshot.nearestPoliceTaskBotInTroubleTarget?.distance else { return 0.0 }
         let oneThird = snapshot.proximityFactor / 3
         return (oneThird - distance) / oneThird
     }
     
     // MARK: Initializers
     
-    init() { super.init(fact: .policeBotNear) }
+    init() { super.init(fact: .policeBotInTroubleNear) }
     
     deinit {
 //        print("Deallocating PoliceBotNearRule")
@@ -277,14 +277,14 @@ class PoliceBotInTroubleMediumRule: FuzzyTaskBotRule
     
     override func grade() -> Float
     {
-        guard let distance = snapshot.nearestPoliceTaskBotTarget?.distance else { return 0.0 }
+        guard let distance = snapshot.nearestPoliceTaskBotInTroubleTarget?.distance else { return 0.0 }
         let oneThird = snapshot.proximityFactor / 3
         return 1 - (fabs(distance - oneThird) / oneThird)
     }
     
     // MARK: Initializers
     
-    init() { super.init(fact: .policeBotMedium) }
+    init() { super.init(fact: .policeBotInTroubleMedium) }
     
     deinit {
 //        print("Deallocating PoliceBotMediumRule")
@@ -298,14 +298,14 @@ class PoliceBotInTroubleFarRule: FuzzyTaskBotRule
     
     override func grade() -> Float
     {
-        guard let distance = snapshot.nearestPoliceTaskBotTarget?.distance else { return 0.0 }
+        guard let distance = snapshot.nearestPoliceTaskBotInTroubleTarget?.distance else { return 0.0 }
         let oneThird = snapshot.proximityFactor / 3
         return (distance - oneThird) / oneThird
     }
     
     // MARK: Initializers
     
-    init() { super.init(fact: .policeBotFar) }
+    init() { super.init(fact: .policeBotInTroubleFar) }
     
     deinit {
 //        print("Deallocating PoliceBotFarRule")
