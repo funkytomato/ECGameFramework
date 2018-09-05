@@ -232,7 +232,8 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
             PoliceArrestState(entity: self),
             PoliceDetainState(entity: self),
             PoliceBotHitState(entity: self),
-            PoliceBotSupportState(entity: self)
+            PoliceBotSupportState(entity: self),
+            PoliceBotFormWallState(entity: self)
             ])
         addComponent(intelligenceComponent)
         
@@ -240,13 +241,16 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
         let temperamentComponent = TemperamentComponent(initialState: temperamentState, temperament: initialTemperament, maximumTemperament: Double(GameplayConfiguration.ProtestorBot.maximumTemperament), displaysTemperamentBar: false)
         addComponent(temperamentComponent)
         
-        
+
         
         let physicsBody = SKPhysicsBody(circleOfRadius: GameplayConfiguration.TaskBot.physicsBodyRadius, center: GameplayConfiguration.TaskBot.physicsBodyOffset)
         physicsBody.restitution = 100.0
         let physicsComponent = PhysicsComponent(physicsBody: physicsBody, colliderType: .TaskBot)
         addComponent(physicsComponent)
         
+        
+        let jointComponent = JointComponent(entity: self)
+        addComponent(jointComponent)
         
         let chargeComponent = ChargeComponent(charge: initialCharge, maximumCharge: GameplayConfiguration.PoliceBot.maximumCharge, displaysChargeBar: false)
         chargeComponent.delegate = self
@@ -263,7 +267,6 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
         // `BeamComponent` implements the beam that a `PlayerBot` fires at "bad" `TaskBot`s.
         let tazerComponent = TazerComponent()
         addComponent(tazerComponent)
-        
         
         let movementComponent = MovementComponent()
         addComponent(movementComponent)
@@ -285,7 +288,6 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
         // Connect the `RenderComponent` and `ShadowComponent` to the `AnimationComponent`.
         renderComponent.node.addChild(animationComponent.node)
         //animationComponent.shadowNode = shadowComponent.node
-        
         
         // Specify the offset for beam targeting.
         beamTargetOffset = GameplayConfiguration.PoliceBot.beamTargetOffset
@@ -310,6 +312,70 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
     override func contactWithEntityDidBegin(_ entity: GKEntity)
     {
         super.contactWithEntityDidBegin(entity)
+        
+//        if let formWallState = self.component(ofType: IntelligenceComponent.self)?.stateMachine.currentState as? PoliceBotFormWallState
+//        {
+            if !self.isWall
+            {
+                // Get the Physics Component for each entity
+                let policeBotA = agent.entity as? PoliceBot
+                let policeBotAPhysicsComponent = policeBotA?.component(ofType: PhysicsComponent.self)
+                let policeARenderComponent = policeBotA?.component(ofType: RenderComponent.self)
+                let entityA = policeARenderComponent?.entity
+                
+                let policeBotB = entity as? PoliceBot
+                let policeBotBPhysicsComponent = policeBotB?.component(ofType: PhysicsComponent.self)
+                let policeBRenderComponent = policeBotB?.component(ofType: RenderComponent.self)
+                let entityB = policeBRenderComponent?.entity
+                
+
+                
+                //Connect the two Taskbots together like a rope if forming a wall
+                guard let intelligenceComponent = self.component(ofType: IntelligenceComponent.self) else { return }
+                guard ((intelligenceComponent.stateMachine.currentState as? PoliceBotFormWallState) == nil) else { return }
+                guard let jointComponent = self.component(ofType: JointComponent.self) else { return }
+                if !jointComponent.isTriggered
+                {
+                    jointComponent.setEntityB(targetEntity: policeBotB!)
+//                    jointComponent.isTriggered = true
+                    self.isWall = true
+                }
+                
+                
+                
+                //                var pinDot = SKShapeNode(circleOfRadius: 6)
+                //                pinDot.fillColor = UIColor.red
+                //                pinDot.name = "pinned"
+                
+                //                var satelliteDot = SKShapeNode(circleOfRadius: 6)
+                //                satelliteDot.fillColor = UIColor.red
+                //                satelliteDot.name = "satellite"
+                
+                //                var lineNode = SKShapeNode()
+                //                lineNode.name = "lineNode"
+                //                lineNode.strokeColor = UIColor.red
+                //                lineNode.lineWidth = 3.0
+                
+                //                guard let renderComponent = self.component(ofType: RenderComponent.self) else { return }
+                //                renderComponent.node.addChild(lineNode)
+                
+                //                let physicsJoint = SKPhysicsJointLimit.joint(withBodyA: (policeBotAPhysicsComponent?.physicsBody)!, bodyB: (policeBotBPhysicsComponent?.physicsBody)!, anchorA: CGPoint(x: 1, y: 0.0), anchorB: CGPoint(x: -1, y: 0.0))
+                //                self.physicsJoint = physicsJoint
+                
+                //                renderComponent.node.scene?.physicsWorld.add(physicsJoint)
+                
+                //                guard let levelScene = self.component(ofType: RenderComponent.self)?.node.scene as? LevelScene else { return }
+                //                levelScene.physicsWorld.add(physicsJoint)
+                
+                //                var bez = UIBezierPath()
+                //                bez.move(to: pinDot.position)
+                //                bez.addLine(to: satelliteDot.position)
+                //                lineNode.path = bez.cgPath
+                
+
+            }
+//        }
+        
         
         //If touching entity is attacking, start the arresting process
         //print("PoliceBot currentState :\(entity.component(ofType: IntelligenceComponent.self)?.stateMachine.currentState.debugDescription)")
@@ -377,18 +443,20 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
             case let .formWall(targetAgent):
                 print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 
-                // Get the Physics Component for each entity
-                let policeBotA = agent.entity as? PoliceBot
-                let policeBotAPhysicsComponent = policeBotA?.component(ofType: PhysicsComponent.self)
-                
-                let policeBotB = targetAgent.entity as? PoliceBot
-                let policeBotBPhysicsComponent = policeBotB?.component(ofType: PhysicsComponent.self)
-                
-                
-                //Connect the two Taskbots together like a rope
-                
-                let physicsJoint = SKPhysicsJointLimit.joint(withBodyA: (policeBotAPhysicsComponent?.physicsBody)!, bodyB: (policeBotBPhysicsComponent?.physicsBody)!, anchorA: CGPoint(x: 0.5, y: 0.0), anchorB: CGPoint(x: -0.5, y: 0.0))
-                self.physicsJoint = physicsJoint
+//                // Get the Physics Component for each entity
+//                let policeBotA = agent.entity as? PoliceBot
+//                let policeBotAPhysicsComponent = policeBotA?.component(ofType: PhysicsComponent.self)
+//
+//                let policeBotB = targetAgent.entity as? PoliceBot
+//                let policeBotBPhysicsComponent = policeBotB?.component(ofType: PhysicsComponent.self)
+//
+//
+//                //Connect the two Taskbots together like a rope
+//
+//                let physicsJoint = SKPhysicsJointLimit.joint(withBodyA: (policeBotAPhysicsComponent?.physicsBody)!, bodyB: (policeBotBPhysicsComponent?.physicsBody)!, anchorA: CGPoint(x: 0.5, y: 0.0), anchorB: CGPoint(x: -0.5, y: 0.0))
+//                self.physicsJoint = physicsJoint
+//
+//                scene.physicsWorld.add(physicsJoint)
                 
                 intelligenceComponent.stateMachine.enter(PoliceBotFormWallState.self)
                 targetPosition = targetAgent.position
