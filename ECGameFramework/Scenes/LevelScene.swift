@@ -130,6 +130,7 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
     lazy var componentSystems: [GKComponentSystem] = {
         let agentSystem = GKComponentSystem(componentClass: TaskBotAgent.self)
         let animationSystem = GKComponentSystem(componentClass: AnimationComponent.self)
+        let jointSystem = GKComponentSystem(componentClass: JointComponent.self)
         let chargeSystem = GKComponentSystem(componentClass: ChargeComponent.self)
         let healthSystem = GKComponentSystem(componentClass: HealthComponent.self)
         let resistanceSystem = GKComponentSystem(componentClass: ResistanceComponent.self)
@@ -147,7 +148,7 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
         let rulesSystem = GKComponentSystem(componentClass: RulesComponent.self)
         
         // The systems will be updated in order. This order is explicitly defined to match assumptions made within components.
-        return [rulesSystem, intelligenceSystem, movementSystem, agentSystem, chargeSystem, beamSystem, resistanceSystem, healthSystem, respectSystem, obeisanceSystem, temperamentSystem, inciteSystem, appetiteSystem, buyingWaresSystem, sellingWaresSystem,  intoxicationSystem, animationSystem]
+        return [rulesSystem, intelligenceSystem, movementSystem, agentSystem, jointSystem, chargeSystem, beamSystem, resistanceSystem, healthSystem, respectSystem, obeisanceSystem, temperamentSystem, inciteSystem, appetiteSystem, buyingWaresSystem, sellingWaresSystem,  intoxicationSystem, animationSystem]
         
 //        return [rulesSystem, intelligenceSystem, movementSystem, agentSystem, chargeSystem, beamSystem, healthSystem, resistanceSystem, respectSystem, obeisanceSystem, inciteSystem, temperamentSystem, buyingWaresSystem, sellingWaresSystem, appetiteSystem, intoxicationSystem, animationSystem]
     }()
