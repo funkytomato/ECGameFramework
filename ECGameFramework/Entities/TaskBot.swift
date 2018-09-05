@@ -167,6 +167,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
     // Is the taskbot moving under player instruction?
     var isPlayerControlled: Bool
     
+    // Is the TaskBot in a Police wall?
+    var isWall: Bool
+    
     // Is the taskbot still a playable bot?
     var isActive: Bool
     
@@ -533,6 +536,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         
         // Whether or not the 'TaskBot' is under player controlled
         self.isPlayerControlled = false
+        
+        //Whether or not the 'TaskBot' is in a Police wall
+        self.isWall = false
         
         // Whether or not the 'TaskBot' is active, = healthy and not arrested or detained
         self.isActive = true
@@ -1239,6 +1245,10 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 case .lockupPrisoner:
 //                    print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 //                    print("Crowding")
+                    break
+                
+                case .formWall:
+                    print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                     break
                 
                 
