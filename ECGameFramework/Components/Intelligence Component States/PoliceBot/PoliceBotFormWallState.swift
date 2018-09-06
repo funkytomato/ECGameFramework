@@ -52,8 +52,6 @@ class PoliceBotFormWallState: GKState
         //print("PoliceBotFormWallState entered")
         
         super.didEnter(from: previousState)
-        
-        //Reset the tracking of how long the 'ManBot' has been in "Detained" state
         elapsedTime = 0.0
         
     }
@@ -61,13 +59,15 @@ class PoliceBotFormWallState: GKState
     override func update(deltaTime seconds: TimeInterval)
     {
         super.update(deltaTime: seconds)
+        elapsedTime += seconds
         
         //        print("PoliceBotFormWallState updating")
         
         
+//        intelligenceComponent.stateMachine.enter(PoliceBotFormWallState.self)
         intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
         
-        elapsedTime += seconds
+
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
