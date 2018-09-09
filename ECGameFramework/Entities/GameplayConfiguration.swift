@@ -507,6 +507,10 @@ struct GameplayConfiguration
     //  MARK:- PoliceBot Properties
     struct PoliceBot
     {
+        
+        // The offset of the `PlayerBot`'s antenna
+        static let handOffset = CGPoint(x: 50.0, y: 0.0)
+        
         // MARK:- Physics Properties
         
         /*
