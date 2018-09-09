@@ -100,7 +100,10 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
     
     var texture = SKTexture()
     
-    var physicsJoint = SKPhysicsJointLimit()
+    /// Used to determine the location on the `PlayerBot` where the beam starts.
+    var handOffset = GameplayConfiguration.PoliceBot.handOffset
+    
+//    var physicsJoint = SKPhysicsJointLimit()
     
     /// The size to use for the `PoliceBot`s animation textures.
     static var textureSize = CGSize(width: 50.0, height: 50.0)
@@ -442,21 +445,6 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
             
             case let .formWall(targetAgent):
                 print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
-                
-//                // Get the Physics Component for each entity
-//                let policeBotA = agent.entity as? PoliceBot
-//                let policeBotAPhysicsComponent = policeBotA?.component(ofType: PhysicsComponent.self)
-//
-//                let policeBotB = targetAgent.entity as? PoliceBot
-//                let policeBotBPhysicsComponent = policeBotB?.component(ofType: PhysicsComponent.self)
-//
-//
-//                //Connect the two Taskbots together like a rope
-//
-//                let physicsJoint = SKPhysicsJointLimit.joint(withBodyA: (policeBotAPhysicsComponent?.physicsBody)!, bodyB: (policeBotBPhysicsComponent?.physicsBody)!, anchorA: CGPoint(x: 0.5, y: 0.0), anchorB: CGPoint(x: -0.5, y: 0.0))
-//                self.physicsJoint = physicsJoint
-//
-//                scene.physicsWorld.add(physicsJoint)
                 
                 intelligenceComponent.stateMachine.enter(PoliceBotFormWallState.self)
                 targetPosition = targetAgent.position
