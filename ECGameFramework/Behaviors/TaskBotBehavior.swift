@@ -237,26 +237,9 @@ class TaskBotBehavior: GKBehavior
         // Add basic goals to reach the `TaskBot`'s maximum speed, avoid obstacles and seek the target Police.
         behavior.addTargetSpeedGoal(speed: agent.maxSpeed)
         behavior.addAvoidObstaclesGoal(forScene: scene)
-        behavior.addSeekGoal(forScene: scene, agent: target, weight: 1.0)
-
-//        // Get the Physics Component for each entity
-//        let policeBotA = agent.entity as? PoliceBot
-//        let policeBotAPhysicsBody = policeBotA?.component(ofType: PhysicsComponent.self)
-//
-//        let policeBotB = target.entity as? PoliceBot
-//        let policeBotBPhysicsBody = policeBotB?.component(ofType: PhysicsComponent.self)
-//
-//
-//        //Connect the two Taskbots together like a rope
-//
-//        let physicsJoint = SKPhysicsJointLimit.joint(withBodyA: (policeBotAPhysicsBody?.physicsBody)!, bodyB: (policeBotBPhysicsBody?.physicsBody)!, anchorA: CGPoint(x: 0.5, y: 0.0), anchorB: CGPoint(x: -0.5, y: 0.0))
-////        self.physicsJoint = physicsJoint
-        
-
-        
-
-        
-        
+//        behavior.addSeekGoal(forScene: scene, agent: self, weight: 1.0)
+//        behavior.addWanderGoal(forScene: scene)
+      
         
         // WE DON"T NEED THIS
         // Add goals to follow a calculated path from the `TaskBot` to its target.
