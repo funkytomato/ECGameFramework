@@ -70,28 +70,29 @@ class JointComponent: GKComponent
         
         super.init()
         
-        let pinDot = SKShapeNode(circleOfRadius: 6)
-        pinDot.fillColor = UIColor.red
-        pinDot.name = kPinDotNode
-        guard let renderComponent = entity.component(ofType: RenderComponent.self) else { return }
-//        pinDot.position = renderComponent.node.scene!.convert(CGPoint.zero, from: renderComponent.node)
-        pinDot.position = renderComponent.node.position
-        self.pinDot = pinDot
-        
-        let satelliteDot = SKShapeNode(circleOfRadius: 6)
-        satelliteDot.fillColor = UIColor.red
-        satelliteDot.name = kSatelliteDotNode
-        self.satelliteDot = satelliteDot
-        
-        let lineNode = SKShapeNode()
-        lineNode.name = kLineNode
-        lineNode.strokeColor = UIColor.red
-        lineNode.lineWidth = 3.0
-        self.lineNode = lineNode
-        
-        renderComponent.node.addChild(pinDot)
-        renderComponent.node.addChild(satelliteDot)
-        renderComponent.node.addChild(lineNode)
+//        let pinDot = SKShapeNode(circleOfRadius: 6)
+//        pinDot.fillColor = UIColor.green
+//        pinDot.name = kPinDotNode
+//        pinDot.zPosition = 10
+//        self.pinDot = pinDot
+//
+//        let satelliteDot = SKShapeNode(circleOfRadius: 6)
+//        satelliteDot.fillColor = UIColor.red
+//        satelliteDot.name = kSatelliteDotNode
+//        satelliteDot.zPosition = 12
+//        self.satelliteDot = satelliteDot
+//
+//        let lineNode = SKShapeNode()
+//        lineNode.name = kLineNode
+//        lineNode.strokeColor = UIColor.red
+//        lineNode.lineWidth = 3.0
+//        self.lineNode = lineNode
+//
+//
+//        guard let renderComponent = entity.component(ofType: RenderComponent.self) else { return }
+//        renderComponent.node.addChild(pinDot)
+//        renderComponent.node.addChild(satelliteDot)
+//        renderComponent.node.addChild(lineNode)
         
         
 
@@ -115,27 +116,32 @@ class JointComponent: GKComponent
         if isTriggered
         {
         
-//            var pin = renderComponent.node.childNode(withName: kPinnedNode)
-//            var satellite = renderComponent.node.childNode(withName: kSatelliteNode)
+////            var pin = renderComponent.node.childNode(withName: kPinnedNode)
+////            var satellite = renderComponent.node.childNode(withName: kSatelliteNode)
 //            var pinDot = renderComponent.node.childNode(withName: kPinDotNode)
 //            var satelliteDot = renderComponent.node.childNode(withName: kSatelliteDotNode)
-//            var line = renderComponent.node.childNode(withName: kLineNode) as! SKShapeNode
-            
-            
-            guard let renderComponent = entity?.component(ofType: RenderComponent.self) else { return }
-//            pinDot!.position = renderComponent.node.scene!.convert(CGPoint(x: -0.5, y: -0.5), from: renderComponent.node)
-            pinDot!.position = renderComponent.node.scene!.convert(CGPoint.zero, from: renderComponent.node)
-            
-            guard let entityBRenderComponent = entityB?.component(ofType: RenderComponent.self) else { return }
-//            satelliteDot!.position = renderComponent.node.scene!.convert(CGPoint(x: -0.5, y: -0.5), from: entityBRenderComponent.node)
-            satelliteDot!.position = renderComponent.node.scene!.convert(CGPoint.zero, from: entityBRenderComponent.node)
-            
-            print("entityA position: \(renderComponent.node.position), entityb position: \(entityBRenderComponent.node.position)")
-            
-            let bez = UIBezierPath()
-            bez.move(to: pinDot!.position)
-            bez.addLine(to: satelliteDot!.position)
-            self.lineNode?.path = bez.cgPath
+////            var line = renderComponent.node.childNode(withName: kLineNode) as! SKShapeNode
+//            
+//            
+//            guard let renderComponent = entity?.component(ofType: RenderComponent.self) else { return }
+//            pinDot!.position = renderComponent.node.scene!.convert(CGPoint(x: 50.0, y: 0.0), from: renderComponent.node.parent!)
+//
+////            pinDot!.position = renderComponent.node.scene!.convert(CGPoint.zero, from: renderComponent.node.parent!)
+//            
+////            guard let entityBRenderComponent = entityB?.component(ofType: RenderComponent.self) else { return }
+////            satelliteDot!.position = renderComponent.node.scene!.convert(CGPoint(x: -0.5, y: -0.5), from: entityBRenderComponent.node)
+////            satelliteDot!.position = renderComponent.node.scene!.convert(CGPoint.zero, from: entityBRenderComponent.node.parent!)
+//            
+////            print("entityA position: \(renderComponent.node.position), entityb position: \(entityBRenderComponent.node.position)")
+//            
+//            self.pinDot = pinDot as! SKShapeNode
+////            self.satelliteDot = satelliteDot as! SKShapeNode
+//            
+//            
+////            let bez = UIBezierPath()
+////            bez.move(to: pinDot!.position)
+////            bez.addLine(to: satelliteDot!.position)
+////            self.lineNode?.path = bez.cgPath
         }
     }
     
@@ -146,12 +152,21 @@ class JointComponent: GKComponent
         self.entityB = targetEntity
         
         guard let renderComponent = targetEntity.component(ofType: RenderComponent.self) else { return }
-        satelliteDot?.position = renderComponent.node.scene!.convert(CGPoint.zero, from: renderComponent.node)
+//        satelliteDot?.position = renderComponent.node.scene!.convert(CGPoint.zero, from: renderComponent.node)
         
-        let physicsJoint = SKPhysicsJointLimit.joint(withBodyA: (entity!.component(ofType: RenderComponent.self)?.node.physicsBody)!,
-                                                     bodyB: (self.entityB!.component(ofType: RenderComponent.self)?.node.physicsBody)!,
-                                                     anchorA: CGPoint(x: 0.5, y: 0.5),
-                                                     anchorB: CGPoint(x: 0.5, y: 0.5))
+        let bodyA = entity!.component(ofType: RenderComponent.self)?.node.physicsBody
+        let bodyB = self.entityB!.component(ofType: RenderComponent.self)?.node.physicsBody
+        
+        let physicsJoint = SKPhysicsJointLimit.joint(withBodyA: bodyA!,
+                                                     bodyB: bodyB!,
+                                                     anchorA: CGPoint.zero,
+                                                     anchorB: CGPoint.zero)
+        
+        physicsJoint.maxLength = 10.0
+        
+        
+//        let physicsJoint = SKPhysicsJointFixed.joint(withBodyA: bodyA!, bodyB: bodyB!, anchor: CGPoint.zero)
+
         
         renderComponent.node.scene?.physicsWorld.add(physicsJoint)
         
