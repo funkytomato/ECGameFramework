@@ -148,7 +148,7 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
         let rulesSystem = GKComponentSystem(componentClass: RulesComponent.self)
         
         // The systems will be updated in order. This order is explicitly defined to match assumptions made within components.
-        return [rulesSystem, intelligenceSystem, movementSystem, agentSystem, jointSystem, chargeSystem, beamSystem, resistanceSystem, healthSystem, respectSystem, obeisanceSystem, temperamentSystem, inciteSystem, appetiteSystem, buyingWaresSystem, sellingWaresSystem,  intoxicationSystem, animationSystem]
+        return [rulesSystem, intelligenceSystem, movementSystem, agentSystem, animationSystem, jointSystem, chargeSystem, beamSystem, resistanceSystem, healthSystem, respectSystem, obeisanceSystem, temperamentSystem, inciteSystem, appetiteSystem, buyingWaresSystem, sellingWaresSystem,  intoxicationSystem]
         
 //        return [rulesSystem, intelligenceSystem, movementSystem, agentSystem, chargeSystem, beamSystem, healthSystem, resistanceSystem, respectSystem, obeisanceSystem, inciteSystem, temperamentSystem, buyingWaresSystem, sellingWaresSystem, appetiteSystem, intoxicationSystem, animationSystem]
     }()
@@ -472,6 +472,35 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
                 addNode(node: spriteNode, toWorldLayer: .characters)
             }
           */
+            
+//            if let leftArmNode = entity.component(ofType: JointComponent.self)?.leftArm
+//            {
+//                addNode(node: leftArmNode, toWorldLayer: .aboveCharacters)
+//                
+//                // Constrain the shadow node's position to the render node.
+//                let xRange = SKRange(constantValue: leftArmNode.position.x)
+//                let yRange = SKRange(constantValue: leftArmNode.position.y)
+//                
+//                let constraint = SKConstraint.positionX(xRange, y: yRange)
+//                constraint.referenceNode = renderNode
+//                
+//                leftArmNode.constraints = [constraint]
+//            }
+//            
+//            if let rightArmNode = entity.component(ofType: JointComponent.self)?.rightArm
+//            {
+//                addNode(node: rightArmNode, toWorldLayer: .aboveCharacters)
+//                
+//                // Constrain the shadow node's position to the render node.
+//                let xRange = SKRange(constantValue: rightArmNode.position.x)
+//                let yRange = SKRange(constantValue: rightArmNode.position.y)
+//                
+//                let constraint = SKConstraint.positionX(xRange, y: yRange)
+//                constraint.referenceNode = renderNode
+//                
+//                rightArmNode.constraints = [constraint]
+//            }
+            
             /* 
                 If the entity has a `ShadowComponent`, add its shadow node to the scene.
                 Constrain the `ShadowComponent`'s node to the `RenderComponent`'s node.
