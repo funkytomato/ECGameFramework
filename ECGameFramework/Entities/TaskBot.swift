@@ -274,11 +274,18 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             case let .formWall(target):
                 print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
             
+//                let pathPoints = isGood ? goodPathPoints : badPathPoints
+//                radius = GameplayConfiguration.TaskBot.patrolPathRadius
+//                agentBehavior = TaskBotBehavior.patrolBehaviour(forAgent: agent, patrollingPathWithPoints: pathPoints, pathRadius: radius, inScene: levelScene, cyclical: true)
+//                debugPathPoints = pathPoints
+            
                 radius = GameplayConfiguration.TaskBot.huntPathRadius
                 (agentBehavior, debugPathPoints) = TaskBotBehavior.formWallBehaviour(forAgent: agent, huntingAgent: target, pathRadius: radius, inScene: levelScene)
                 debugColor = SKColor.orange
-            
-
+//
+//                radius = GameplayConfiguration.TaskBot.wanderPathRadius
+//                (agentBehavior, debugPathPoints)  = TaskBotBehavior.wanderBehaviour(forAgent: agent, inScene: levelScene)
+//                debugColor = SKColor.cyan
             
             
             // Player has created a path for the TaskBot to follow
@@ -1171,7 +1178,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
 //            print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
 //        }
   
-        else if self.isPolice
+        else if self.isPolice && !self.isWall
         {
             guard let supportPoliceBot = state.nearestPoliceTaskBotTarget?.target.agent else { return }
             mandate = .formWall(supportPoliceBot)
