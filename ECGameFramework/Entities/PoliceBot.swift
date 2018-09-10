@@ -341,6 +341,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
                 {
                     jointComponent.setEntityB(targetEntity: policeBotB!)
 //                    jointComponent.isTriggered = true
+                    policeBotB?.isWall = true
                     self.isWall = true
                 }
                 
