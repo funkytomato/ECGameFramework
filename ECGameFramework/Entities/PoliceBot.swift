@@ -14,7 +14,7 @@ A ground-based `TaskBot` with a distance attack. This `GKEntity` subclass allows
 import SpriteKit
 import GameplayKit
 
-//class PoliceBot: TaskBot, ChargeComponentDelegate, HealthComponentDelegate, ResourceLoadableType
+
 class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, HealthComponentDelegate, ResourceLoadableType
 {
 
@@ -318,7 +318,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
         
 //        if let formWallState = self.component(ofType: IntelligenceComponent.self)?.stateMachine.currentState as? PoliceBotFormWallState
 //        {
-            if !self.isWall
+            if !self.isWall && self.isPolice
             {
                 // Get the Physics Component for each entity
                 let policeBotA = agent.entity as? PoliceBot
@@ -337,46 +337,15 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
                 guard let intelligenceComponent = self.component(ofType: IntelligenceComponent.self) else { return }
                 guard ((intelligenceComponent.stateMachine.currentState as? PoliceBotFormWallState) == nil) else { return }
                 guard let jointComponent = self.component(ofType: JointComponent.self) else { return }
-                if !jointComponent.isTriggered
+                
+                guard let policeBot = entity as? PoliceBot else { return }
+                if !jointComponent.isTriggered && policeBot.isPolice
                 {
                     jointComponent.setEntityB(targetEntity: policeBotB!)
 //                    jointComponent.isTriggered = true
                     policeBotB?.isWall = true
                     self.isWall = true
                 }
-                
-                
-                
-                //                var pinDot = SKShapeNode(circleOfRadius: 6)
-                //                pinDot.fillColor = UIColor.red
-                //                pinDot.name = "pinned"
-                
-                //                var satelliteDot = SKShapeNode(circleOfRadius: 6)
-                //                satelliteDot.fillColor = UIColor.red
-                //                satelliteDot.name = "satellite"
-                
-                //                var lineNode = SKShapeNode()
-                //                lineNode.name = "lineNode"
-                //                lineNode.strokeColor = UIColor.red
-                //                lineNode.lineWidth = 3.0
-                
-                //                guard let renderComponent = self.component(ofType: RenderComponent.self) else { return }
-                //                renderComponent.node.addChild(lineNode)
-                
-                //                let physicsJoint = SKPhysicsJointLimit.joint(withBodyA: (policeBotAPhysicsComponent?.physicsBody)!, bodyB: (policeBotBPhysicsComponent?.physicsBody)!, anchorA: CGPoint(x: 1, y: 0.0), anchorB: CGPoint(x: -1, y: 0.0))
-                //                self.physicsJoint = physicsJoint
-                
-                //                renderComponent.node.scene?.physicsWorld.add(physicsJoint)
-                
-                //                guard let levelScene = self.component(ofType: RenderComponent.self)?.node.scene as? LevelScene else { return }
-                //                levelScene.physicsWorld.add(physicsJoint)
-                
-                //                var bez = UIBezierPath()
-                //                bez.move(to: pinDot.position)
-                //                bez.addLine(to: satelliteDot.position)
-                //                lineNode.path = bez.cgPath
-                
-
             }
 //        }
         
@@ -534,19 +503,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
             goodAnimations![.zapped] = AnimationComponent.animationsFromAtlas(atlas: PoliceBotAtlases[7], withImageIdentifier: "PoliceZapped", forAnimationState: .zapped)
             
             goodAnimations![.injured] = AnimationComponent.animationsFromAtlas(atlas: PoliceBotAtlases[8], withImageIdentifier: "PoliceInjured", forAnimationState: .injured)
-
-
-            
-            
-            //Temperament
-//            goodAnimations![.angry] = AnimationComponent.animationsFromAtlas(atlas: PoliceBotAtlases[7], withImageIdentifier: "PoliceAngry", forAnimationState: .angry)
-//            goodAnimations![.calm] = AnimationComponent.animationsFromAtlas(atlas: PoliceBotAtlases[7], withImageIdentifier: "PoliceCalm", forAnimationState: .calm)
-//            goodAnimations![.scared] = AnimationComponent.animationsFromAtlas(atlas: PoliceBotAtlases[7], withImageIdentifier: "PoliceScared", forAnimationState: .scared)
-//            goodAnimations![.unhappy] = AnimationComponent.animationsFromAtlas(atlas: PoliceBotAtlases[7], withImageIdentifier: "PoliceUnhappy", forAnimationState: .unhappy)
-//            goodAnimations![.violent] = AnimationComponent.animationsFromAtlas(atlas: PoliceBotAtlases[7], withImageIdentifier: "PoliceViolent", forAnimationState: .violent)
-            
-
-            
+         
             
             badAnimations = [:]
             
@@ -569,29 +526,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
             badAnimations![.zapped] = AnimationComponent.animationsFromAtlas(atlas: PoliceBotAtlases[7], withImageIdentifier: "PoliceZapped", forAnimationState: .zapped)
             
             badAnimations![.injured] = AnimationComponent.animationsFromAtlas(atlas: PoliceBotAtlases[8], withImageIdentifier: "PoliceInjured", forAnimationState: .injured)
-            
-//            badAnimations![.arresting] = AnimationComponent.animationsFromAtlas(atlas: PoliceBotAtlases[0], withImageIdentifier: "Arresting", forAnimationState: .arresting)
-//
-//            badAnimations![.holdingPrisoner] = AnimationComponent.animationsFromAtlas(atlas: PoliceBotAtlases[1], withImageIdentifier: "HoldingPrisoner", forAnimationState: .holdingPrisoner, bodyActionName: "ZappedShake", shadowActionName: "ZappedShadowShake", repeatTexturesForever: false)
-//
-//            badAnimations![.attack] = AnimationComponent.animationsFromAtlas(atlas: PoliceBotAtlases[2], withImageIdentifier: "PoliceAttack", forAnimationState: .attack)
-//
-//            badAnimations![.hit] = AnimationComponent.animationsFromAtlas(atlas: PoliceBotAtlases[3], withImageIdentifier: "PoliceHit", forAnimationState: .hit, bodyActionName: "ZappedShake", shadowActionName: "ZappedShadowShake", repeatTexturesForever: false)
-//
-//            badAnimations![.idle] = AnimationComponent.animationsFromAtlas(atlas: PoliceBotAtlases[4], withImageIdentifier: "PoliceIdle", forAnimationState: .idle)
-//
-//            badAnimations![.patrol] = AnimationComponent.animationsFromAtlas(atlas: PoliceBotAtlases[5], withImageIdentifier: "PolicePatrol", forAnimationState: .patrol)
-//
-//            badAnimations![.walkForward] = AnimationComponent.animationsFromAtlas(atlas: PoliceBotAtlases[6], withImageIdentifier: "PolicePatrol", forAnimationState: .walkForward)
-//
-//            badAnimations![.inactive] = AnimationComponent.animationsFromAtlas(atlas: PoliceBotAtlases[7], withImageIdentifier: "PoliceInActive", forAnimationState: .inactive)
-//
-//            badAnimations![.zapped] = AnimationComponent.animationsFromAtlas(atlas: PoliceBotAtlases[8], withImageIdentifier: "PoliceZapped", forAnimationState: .zapped)
-//
-//            badAnimations![.injured] = AnimationComponent.animationsFromAtlas(atlas: PoliceBotAtlases[9], withImageIdentifier: "PoliceInjured", forAnimationState: .injured)
- 
 
-  
             
             // Invoke the passed `completionHandler` to indicate that loading has completed.
             completionHandler()
