@@ -31,59 +31,6 @@ enum JointLabels : String
     case Limit = "Limit"
 }
 
-class JointOutline : SKNode
-{
-    
-    class func create(_ scene:SKScene) -> SKNode
-    {
-        let parent = JointOutline()
-        parent.name = kJointOutlineNode
-        
-        let pinDot = SKShapeNode(circleOfRadius: 6)
-        pinDot.fillColor = UIColor.red
-        pinDot.name = kPinDotNode
-        
-        let satelliteDot = SKShapeNode(circleOfRadius: 6)
-        satelliteDot.fillColor = UIColor.red
-        satelliteDot.name = kSatelliteDotNode
-        
-        let lineNode = SKShapeNode()
-        lineNode.name = kLineNode
-        lineNode.strokeColor = UIColor.red
-        lineNode.lineWidth = 3.0
-        
-        scene.addChild(parent)
-        parent.updateOutline()
-        
-        return parent
-    }
-    
-    func updateOutline()
-    {
-        guard let renderComponent = entity?.component(ofType: RenderComponent.self) else { return }
-        guard let jointComponent = entity?.component(ofType: JointComponent.self) else { return }
-        
-//         Make the pin the Policeman A node
-        let pin = renderComponent.node
-        
-//         Make the satellite the Policeman B node
-        let satellite = jointComponent.entityB?.component(ofType: RenderComponent.self)?.node
-        let pinDot = childNode(withName: kPinDotNode)
-        let satelliteDot = childNode(withName: kSatelliteDotNode)
-        let line = childNode(withName: kLineNode) as! SKShapeNode
-        
-        pinDot?.position = (scene?.convert(CGPoint.zero, from: pin))!
-        satelliteDot?.position = (scene?.convert(CGPoint.zero, from: satellite!))!
-        
-        let bez = UIBezierPath()
-        bez.move(to: (pinDot?.position)!)
-        bez.addLine(to: (satelliteDot?.position)!)
-        line.path = bez.cgPath
-        
-    }
-    
-}
-
 
 class JointComponent: GKComponent
 {
@@ -130,9 +77,6 @@ class JointComponent: GKComponent
     
     init(entity: TaskBot)
     {
-        var parent = JointOutline()
-        parent.name = kJointOutlineNode
-
         self.entityB = nil
         
         super.init()
@@ -157,13 +101,11 @@ class JointComponent: GKComponent
         satellite.name = kSatelliteNode
         self.satellite = satellite
 
-        
-        
-
         let lineNode = SKShapeNode()
         lineNode.name = kLineNode
         lineNode.strokeColor = UIColor.red
         lineNode.lineWidth = 3.0
+        lineNode.zPosition = 12
         self.lineNode = lineNode
      }
     
@@ -185,26 +127,25 @@ class JointComponent: GKComponent
         if isTriggered
         {
         
-            let jointOutline = renderComponent.node.scene!.childNode(withName: kJointOutlineNode) as! JointOutline
-            jointOutline.updateOutline()
+            //Get pointer to our Pin node
+            let pin = renderComponent.node.childNode(withName: kPinnedNode)
             
-//            if( alternating )
-//            {
-//                if let timeMark = lastTimeMark
-//                {
-//                    if( currentTime - timeMark > alternatingThreshold )
-//                    {
-//                        impulseVelocity = CGVector( dx: impulseVelocity.dx * -1.0, dy: impulseVelocity.dy * -1.0)
-//                        _doImpulse(impulseVelocity)
-//                        lastTimeMark = currentTime
-//                    }
-//                }
-//                else
-//                {
-//                    lastTimeMark = currentTime
-//                }
-//            }
+            //Get pointer to the Satellite node
+            let satellite = entityB!.renderComponent.node.childNode(withName: kSatelliteNode)
             
+            //Get pointer to the Line node
+            let line = renderComponent.node.scene!.childNode(withName: kLineNode) as! SKShapeNode
+
+            //Get the anchor positions for the joint to display the connecting line
+            let anchorA = (renderComponent.node.scene!.convert(CGPoint.zero, from: pin!))
+            let anchorB = (entityB!.renderComponent.node.scene!.convert(CGPoint.zero, from: satellite!))
+            
+            //Draw the line between the joint nodes
+            let bez = UIBezierPath()
+            bez.move(to: anchorA)
+            bez.addLine(to: anchorB)
+            line.path = bez.cgPath
+          
         }
     }
     
@@ -212,69 +153,39 @@ class JointComponent: GKComponent
     
     func setEntityB(targetEntity: TaskBot)
     {
+        //Set the connecting entity as the target entity
         self.entityB = targetEntity
         
-//        satellite!.position = (entityB?.component(ofType: RenderComponent)?.node.position)!
-
-        
+        //Add the pin nodes to this entity
         renderComponent.node.addChild(pinned!)
         renderComponent.node.addChild(pinDot!)
         
-        
+        //Add the satellite nodes to the target entity
         self.entityB?.component(ofType: RenderComponent.self)?.node.addChild(satellite!)
         self.entityB?.component(ofType: RenderComponent.self)?.node.addChild(satelliteDot!)
         
-        resetPhysicsBodies()
-        JointOutline.create(renderComponent.node.scene!)
+        //Create the joint between this node and the target node
         makeJoint(JointLabels.Limit)
         
+        //Inform the JointComponent that a joint has been created
         self.isTriggered = true
         
+        //Add the line node to the scene
+        renderComponent.node.scene?.addChild(lineNode!)
         
 //        print("bodyAPosition: \(bodyAPosition), bodyBPosition: \(bodyBPosition)")
     }
     
-    func resetPhysicsBodies()
-    {
-    
-//        let pinned = self.pinned as? SKSpriteNode
-//        let satellite = self.satellite as? SKSpriteNode
-//        let pinned = renderComponent.node.scene!.childNode(withName: kPinnedNode) as! SKSpriteNode
-//        let satellite = renderComponent.node.scene!.childNode(withName: kSatelliteNode) as! SKSpriteNode
-        
-        // remember if the pinned body is currently dynamic
-        var dynamic = false
-        if let pbody = pinned!.physicsBody
-        {
-            dynamic = pbody.isDynamic
-        }
-        
-//        pinned!.physicsBody = SKPhysicsBody(rectangleOf: pinned!.size)
-        pinned!.physicsBody?.isDynamic = dynamic
-//        pinned!.physicsBody?.affectedByGravity = false
-        
-//        satellite!.physicsBody = SKPhysicsBody(rectangleOf: satellite!.size)
-//        satellite!.physicsBody?.isDynamic = true
-    }
-    
-    func resetNodes()
-    {
-        renderComponent.node.scene!.childNode(withName: kPinnedNode)?.position = pinnedHome
-        renderComponent.node.scene!.childNode(withName: kSatelliteNode)?.position = satelliteHome
-    }
     
     func makeJoint(_ name:JointLabels)
     {
         renderComponent.node.scene!.physicsWorld.removeAllJoints()
         
-        resetNodes()
-        if( name != .Pin )
-        {
-            resetPhysicsBodies()
-        }
-        
-//        let pinned = renderComponent.node.scene!.childNode(withName: kPinnedNode)
-//        let satellite = renderComponent.node.scene!.childNode(withName: kSatelliteNode)
+//        if( name != .Pin )
+//        {
+////            resetPhysicsBodies()
+//        }
+
         
         //Connect joint to Police nodes
         let pinned = entity?.component(ofType: RenderComponent.self)?.node
@@ -289,7 +200,7 @@ class JointComponent: GKComponent
         {
         case .Pin:
             pinned?.position.y -= ((pinned?.position.y)! - (satellite?.position.y)!) / 2.0
-            resetPhysicsBodies()
+//            resetPhysicsBodies()
             let pin = SKPhysicsJointPin.joint(withBodyA: (pinned?.physicsBody!)!,
                                               bodyB: (satellite?.physicsBody!)!,
                                               anchor: (pinned?.position)!)
@@ -323,6 +234,7 @@ class JointComponent: GKComponent
             joint = limit
         }
         
+        //Add the Physics Joint to the scene's physics world
         renderComponent.node.scene!.physicsWorld.add(joint)
         
     }
