@@ -102,7 +102,8 @@ class JointComponent: GKComponent
         self.satellite = satellite
 
         let lineNode = SKShapeNode()
-        lineNode.name = kLineNode
+        lineNode.name = kLineNode + entity.id.description
+//        lineNode.name = entity.id.description
         lineNode.strokeColor = UIColor.red
         lineNode.lineWidth = 3.0
         lineNode.zPosition = 12
@@ -134,7 +135,8 @@ class JointComponent: GKComponent
             let satellite = entityB!.renderComponent.node.childNode(withName: kSatelliteNode)
             
             //Get pointer to the Line node
-            let line = renderComponent.node.scene!.childNode(withName: kLineNode) as! SKShapeNode
+//            let line = renderComponent.node.scene!.childNode(withName: kLineNode) as! SKShapeNode
+            let line = renderComponent.node.scene!.childNode(withName: (lineNode?.name)!) as! SKShapeNode
 
             //Get the anchor positions for the joint to display the connecting line
             let anchorA = (renderComponent.node.scene!.convert(CGPoint.zero, from: pin!))
@@ -155,6 +157,7 @@ class JointComponent: GKComponent
     {
         //Set the connecting entity as the target entity
         self.entityB = targetEntity
+        
         
         //Add the pin nodes to this entity
         renderComponent.node.addChild(pinned!)
@@ -179,7 +182,7 @@ class JointComponent: GKComponent
     
     func makeJoint(_ name:JointLabels)
     {
-        renderComponent.node.scene!.physicsWorld.removeAllJoints()
+//        renderComponent.node.scene!.physicsWorld.removeAllJoints()
         
 //        if( name != .Pin )
 //        {
@@ -230,7 +233,7 @@ class JointComponent: GKComponent
                                                   bodyB: (satellite?.physicsBody!)!,
                                                   anchorA: pinnedAnchor,
                                                   anchorB: satelliteAnchor)
-            limit.maxLength = 100.0
+            limit.maxLength = 75.0
             joint = limit
         }
         
