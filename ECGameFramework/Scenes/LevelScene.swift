@@ -226,6 +226,7 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
         //let meatWagonCoordinate = meatWagon.position
         //print("meatWagon:\(meatWagonCoordinate.debugDescription)")
         
+        var id = Int()
         
         // Iterate over the `TaskBot` configurations for this level, and create each `TaskBot`.
         for taskBotConfiguration in levelConfiguration.taskBotConfigurations
@@ -236,18 +237,20 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
             let goodPathPoints = nodePointsFromNodeNames(nodeNames: taskBotConfiguration.goodPathNodeNames)
             let badPathPoints = nodePointsFromNodeNames(nodeNames: taskBotConfiguration.badPathNodeNames)
             
+            id += 1
+            
             // Create the appropriate type `TaskBot` (ground or flying).
             switch taskBotConfiguration.botType
             {
                 
                 case .police:
-                    taskBot = PoliceBot(temperamentState: taskBotConfiguration.temperament, isGood: !taskBotConfiguration.startsBad, goodPathPoints: goodPathPoints, badPathPoints: badPathPoints)
+                    taskBot = PoliceBot(id: id, temperamentState: taskBotConfiguration.temperament, isGood: !taskBotConfiguration.startsBad, goodPathPoints: goodPathPoints, badPathPoints: badPathPoints)
                 
                 case .protestor:
-                    taskBot = ProtestorBot(temperamentState: taskBotConfiguration.temperament, isGood: !taskBotConfiguration.startsBad, goodPathPoints: goodPathPoints, badPathPoints: badPathPoints)
+                    taskBot = ProtestorBot(id: id, temperamentState: taskBotConfiguration.temperament, isGood: !taskBotConfiguration.startsBad, goodPathPoints: goodPathPoints, badPathPoints: badPathPoints)
                 
                 case .criminal:
-                    taskBot = CriminalBot(temperamentState: taskBotConfiguration.temperament, isGood: !taskBotConfiguration.startsBad, goodPathPoints: goodPathPoints, badPathPoints: badPathPoints)
+                    taskBot = CriminalBot(id: id, temperamentState: taskBotConfiguration.temperament, isGood: !taskBotConfiguration.startsBad, goodPathPoints: goodPathPoints, badPathPoints: badPathPoints)
                 
             }
             
