@@ -70,9 +70,9 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
     
     
     // MARK: Initialization
-    required init(temperamentState: String, isGood: Bool, goodPathPoints: [CGPoint], badPathPoints: [CGPoint])
+    required init(id: Int, temperamentState: String, isGood: Bool, goodPathPoints: [CGPoint], badPathPoints: [CGPoint])
     {
-        super.init(isGood: isGood, goodPathPoints: goodPathPoints, badPathPoints: badPathPoints)
+        super.init(id: id, isGood: isGood, goodPathPoints: goodPathPoints, badPathPoints: badPathPoints)
         
         // Determine initial animations and charge based on the initial state of the bot.
         let initialAnimations: [AnimationState: Animation]
@@ -263,7 +263,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         fatalError("init(coder:) has not been implemented")
     }
     
-    required init(isGood: Bool, goodPathPoints: [CGPoint], badPathPoints: [CGPoint]) {
+    required init(id: Int, isGood: Bool, goodPathPoints: [CGPoint], badPathPoints: [CGPoint]) {
         fatalError("init(isGood:goodPathPoints:badPathPoints:) has not been implemented")
     }
     

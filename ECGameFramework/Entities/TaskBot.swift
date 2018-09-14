@@ -164,6 +164,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
     
     var oldColour: SKColor
     
+    // Uinque id for jointComponent
+    var id: Int
+    
     // Is the taskbot moving under player instruction?
     var isPlayerControlled: Bool
     
@@ -528,12 +531,14 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
     
     // MARK: Initializers
     
-    required init(isGood: Bool, goodPathPoints: [CGPoint], badPathPoints: [CGPoint])
+    required init(id: Int, isGood: Bool, goodPathPoints: [CGPoint], badPathPoints: [CGPoint])
     {
         //Initialise for capturing touch movement
         self.gestureStartPoint = CGPoint.init()
         
         self.oldColour = SKColor.clear
+        
+        self.id = id
         
         //Whether or not the 'TaskBot' is located at it's return position
         self.isHome = false

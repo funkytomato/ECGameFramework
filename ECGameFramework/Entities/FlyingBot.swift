@@ -52,9 +52,9 @@ class FlyingBot: TaskBot, ChargeComponentDelegate, ResourceLoadableType
     
     // MARK: Initialization
 
-    required init(isGood: Bool, goodPathPoints: [CGPoint], badPathPoints: [CGPoint])
+    required init(id: Int, isGood: Bool, goodPathPoints: [CGPoint], badPathPoints: [CGPoint])
     {
-        super.init(isGood: isGood, goodPathPoints: goodPathPoints, badPathPoints: badPathPoints)
+        super.init(id: id, isGood: isGood, goodPathPoints: goodPathPoints, badPathPoints: badPathPoints)
 
         // Determine initial animations and charge based on the initial state of the bot.
         //let initialAnimations: [AnimationState: [CompassDirection: Animation]]

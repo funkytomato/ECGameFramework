@@ -151,9 +151,9 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
     
     // MARK: Initialization
     
-    required init(temperamentState: String, isGood: Bool, goodPathPoints: [CGPoint], badPathPoints: [CGPoint])
+    required init(id: Int, temperamentState: String, isGood: Bool, goodPathPoints: [CGPoint], badPathPoints: [CGPoint])
     {
-        super.init(isGood: isGood, goodPathPoints: goodPathPoints, badPathPoints: badPathPoints)
+        super.init(id: id, isGood: isGood, goodPathPoints: goodPathPoints, badPathPoints: badPathPoints)
         
         //TaskBot is Police
         self.isPolice = true
@@ -301,7 +301,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
         fatalError("init(coder:) has not been implemented")
     }
     
-    required init(isGood: Bool, goodPathPoints: [CGPoint], badPathPoints: [CGPoint]) {
+    required init(id: Int, isGood: Bool, goodPathPoints: [CGPoint], badPathPoints: [CGPoint]) {
         fatalError("init(isGood:goodPathPoints:badPathPoints:) has not been implemented")
     }
     
