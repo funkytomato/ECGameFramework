@@ -167,6 +167,24 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
     // Uinque id for jointComponent
     var id: Int
     
+    //Number of TaskBots connected via PhysicsJoints
+    var connections: Int
+    {
+        didSet
+        {
+            //TaskBot has one or more arms available for linking to
+            if connections < 2
+            {
+                self.isWall = false
+            }
+            else
+            {
+                //TaskBot is using both arms in Wall
+                self.isWall = true
+            }
+        }
+    }
+    
     // Is the taskbot moving under player instruction?
     var isPlayerControlled: Bool
     
@@ -538,7 +556,12 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         
         self.oldColour = SKColor.clear
         
+        
+        //Unique identifier for Taskbot (use in JointComponent naming)
         self.id = id
+        
+        //Number of physics joint connections to this TaskBot (maximum of 2 Taskbots can be connected to one TaskBot (left and right arm)
+        self.connections = 0
         
         //Whether or not the 'TaskBot' is located at it's return position
         self.isHome = false
