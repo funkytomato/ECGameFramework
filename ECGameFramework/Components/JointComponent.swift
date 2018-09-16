@@ -134,6 +134,9 @@ class JointComponent: GKComponent
             //Get pointer to the Satellite node
             let satellite = entityB!.renderComponent.node.childNode(withName: kSatelliteNode)
             
+            //Make TaskBots face the same direction
+//            entityB!.renderComponent.node.zRotation = renderComponent.node.zRotation
+            
             //Get pointer to the Line node
 //            let line = renderComponent.node.scene!.childNode(withName: kLineNode) as! SKShapeNode
             let line = renderComponent.node.scene!.childNode(withName: (lineNode?.name)!) as! SKShapeNode
@@ -175,6 +178,11 @@ class JointComponent: GKComponent
         
         //Add the line node to the scene
         renderComponent.node.scene?.addChild(lineNode!)
+        
+        //Increment the connections property on this TaskBot and the target TaskBot
+        guard let taskBot = entity as? TaskBot else { return }
+        taskBot.connections += 1
+//        targetEntity.connections += 1
         
 //        print("bodyAPosition: \(bodyAPosition), bodyBPosition: \(bodyBPosition)")
     }
@@ -239,7 +247,6 @@ class JointComponent: GKComponent
         
         //Add the Physics Joint to the scene's physics world
         renderComponent.node.scene!.physicsWorld.add(joint)
-        
     }
 }
 
