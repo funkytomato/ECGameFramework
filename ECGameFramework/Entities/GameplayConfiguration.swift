@@ -306,6 +306,9 @@ struct GameplayConfiguration
         
         //The maximum number of PoliceBots required to create a wall
         static let maximumWallSize = 10
+        
+        /// How fast the `PoliceBot` rotates to face its target in radians per second.
+        static let wallRotationSpeed = Double.pi
     }
     
     //  MARK:- PlayerBot Properties
