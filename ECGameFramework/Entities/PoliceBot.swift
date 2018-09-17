@@ -254,7 +254,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
         let jointComponent = JointComponent(entity: self)
         addComponent(jointComponent)
         
-        let wallComponent = WallComponent(entity: self)
+        let wallComponent = WallComponent(entity: self, minimum: GameplayConfiguration.Wall.minimumWallSize, maximum: GameplayConfiguration.Wall.maximumWallSize)
         addComponent(wallComponent)
         
         let chargeComponent = ChargeComponent(charge: initialCharge, maximumCharge: GameplayConfiguration.PoliceBot.maximumCharge, displaysChargeBar: false)
