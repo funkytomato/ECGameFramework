@@ -33,6 +33,9 @@ class WallComponent: GKComponent
     
     
     // MARK: Properties
+        
+    // The current number of Taskbots in wall
+    var currentWallSize: Int
     
     // The minimum number of Police required to create a wall
     var minimumWallSize: Int
@@ -81,21 +84,22 @@ class WallComponent: GKComponent
     
     // MARK: Initializers
     
-    init(entity: GKEntity, minimum: Int, maximum: Int)
+    init(entity: PoliceBot, minimum: Int, maximum: Int)
     {
         //Set the Wall size properties
+        self.currentWallSize = 0
         self.minimumWallSize = minimum
         self.maximumWallSize = maximum
         
         super.init()
         
         stateMachine = GKStateMachine(states: [
-            RegroupState(wallComponent: self),
-            HoldTheLineState(wallComponent: self),
-            MoveBackwardState(wallComponent: self),
-            RetreatState(wallComponent: self),
-            MoveForwardState(wallComponent: self),
-            ChargeState(wallComponent: self)
+            RegroupState(wallComponent: self, entity: entity),
+            HoldTheLineState(wallComponent: self, entity: entity),
+            MoveBackwardState(wallComponent: self, entity: entity),
+            RetreatState(wallComponent: self, entity: entity),
+            MoveForwardState(wallComponent: self, entity: entity),
+            ChargeState(wallComponent: self, entity: entity)
             ])
         
         stateMachine.enter(RegroupState.self)
