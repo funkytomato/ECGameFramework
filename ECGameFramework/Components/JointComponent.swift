@@ -184,6 +184,10 @@ class JointComponent: GKComponent
         taskBot.connections += 1
 //        targetEntity.connections += 1
         
+        //Increase the wall account
+        entity?.component(ofType: WallComponent.self)?.currentWallSize += 1
+
+        
 //        print("bodyAPosition: \(bodyAPosition), bodyBPosition: \(bodyBPosition)")
     }
     
