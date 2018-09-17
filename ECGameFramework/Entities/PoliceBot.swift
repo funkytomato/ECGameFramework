@@ -214,7 +214,6 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
         addComponent(orientationComponent)
         
         let spriteComponent = SpriteComponent(entity: self, texture: texture, textureSize: PoliceBot.textureSize)
-        //let spriteComponent = SpriteComponent(texture: PoliceBot.texture, textureSize: PoliceBot.textureSize)
         addComponent(spriteComponent)
         
         
@@ -254,6 +253,9 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
         
         let jointComponent = JointComponent(entity: self)
         addComponent(jointComponent)
+        
+        let wallComponent = WallComponent(entity: self)
+        addComponent(wallComponent)
         
         let chargeComponent = ChargeComponent(charge: initialCharge, maximumCharge: GameplayConfiguration.PoliceBot.maximumCharge, displaysChargeBar: false)
         chargeComponent.delegate = self
