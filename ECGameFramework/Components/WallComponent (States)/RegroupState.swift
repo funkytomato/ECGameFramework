@@ -8,7 +8,8 @@
 //
 
 Abstract:
- TaskBots create a wall
+ TaskBots who are in proximity to the target Policeman will reconnect.
+ When the total number of Police has been reached or times out, move to HoldTheLineState.
 */
 
 import SpriteKit
@@ -19,6 +20,7 @@ class RegroupState: GKState
     // MARK: Properties
     
     unowned var wallComponent: WallComponent
+    unowned var entity: PoliceBot
     
     
     /// The amount of time the beam has been cooling down.
@@ -28,9 +30,10 @@ class RegroupState: GKState
     
     // MARK: Initializers
     
-    required init(wallComponent: WallComponent)
+    required init(wallComponent: WallComponent, entity: TaskBot)
     {
         self.wallComponent = wallComponent
+        self.entity = entity as! PoliceBot
     }
     
     deinit {
@@ -54,17 +57,24 @@ class RegroupState: GKState
         super.update(deltaTime: seconds)
         elapsedTime += seconds
         
+        //If regroup time has expired and the wall size is greater than the minimum wall size move to the next state
+        if elapsedTime >= GameplayConfiguration.Wall.regroupStateDuration &&
+            wallComponent.currentWallSize > GameplayConfiguration.Wall.minimumWallSize &&
+            wallComponent.currentWallSize < GameplayConfiguration.Wall.maximumWallSize
+        {
+                stateMachine?.enter(HoldTheLineState.self)
+        }
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
     {
         switch stateClass
         {
-        case is HoldTheLineState.Type:
-            return true
+            case is HoldTheLineState.Type:
+                return true
             
-        default:
-            return false
+            default:
+                return false
         }
     }
     
