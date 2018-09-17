@@ -8,7 +8,8 @@
 //
 
 Abstract:
-TaskBots create a wall
+Police are in a wall and are charging with loose connections.
+Police should already be facing the correct direction and so should start to move in that direction.
 */
 
 import SpriteKit
@@ -19,6 +20,7 @@ class ChargeState: GKState
     // MARK: Properties
     
     unowned var wallComponent: WallComponent
+    unowned var entity: PoliceBot
     
     
     /// The amount of time the beam has been cooling down.
@@ -28,9 +30,10 @@ class ChargeState: GKState
     
     // MARK: Initializers
     
-    required init(wallComponent: WallComponent)
+    required init(wallComponent: WallComponent, entity: TaskBot)
     {
         self.wallComponent = wallComponent
+        self.entity = entity as! PoliceBot
     }
     
     deinit {

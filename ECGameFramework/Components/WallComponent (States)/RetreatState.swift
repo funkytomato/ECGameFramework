@@ -9,7 +9,9 @@
 
 
 Abstract:
-TaskBots create a wall
+ Police are in a wall and are retreating away from the targetPosition with loose connections.
+ Police should already be facing the correct direction and so should start to move quickly away from the targetPosition.
+ 
 */
 
 import SpriteKit
@@ -20,6 +22,7 @@ class RetreatState: GKState
     // MARK: Properties
     
     unowned var wallComponent: WallComponent
+    unowned var entity: TaskBot
     
     
     /// The amount of time the beam has been cooling down.
@@ -29,9 +32,10 @@ class RetreatState: GKState
     
     // MARK: Initializers
     
-    required init(wallComponent: WallComponent)
+    required init(wallComponent: WallComponent, entity: TaskBot)
     {
         self.wallComponent = wallComponent
+        self.entity = entity as! PoliceBot
     }
     
     deinit {

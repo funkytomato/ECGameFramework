@@ -9,7 +9,8 @@
 
 
 Abstract:
-TaskBots create a wall
+ Police are in a wall and are moving away from the targetPosition.
+ Police should already be facing the correct direction and so should start to move away from the targetPosition.
 */
 
 import SpriteKit
@@ -20,6 +21,7 @@ class MoveBackwardState: GKState
     // MARK: Properties
     
     unowned var wallComponent: WallComponent
+    unowned var entity: PoliceBot
     
     
     /// The amount of time the beam has been cooling down.
@@ -29,9 +31,10 @@ class MoveBackwardState: GKState
     
     // MARK: Initializers
     
-    required init(wallComponent: WallComponent)
+    required init(wallComponent: WallComponent, entity: TaskBot)
     {
         self.wallComponent = wallComponent
+        self.entity = entity as! PoliceBot
     }
     
     deinit {
