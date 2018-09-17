@@ -34,6 +34,15 @@ class WallComponent: GKComponent
     
     // MARK: Properties
     
+    // The minimum number of Police required to create a wall
+    var minimumWallSize: Int
+    
+    // The maximum number of Police required to create a wall
+    var maximumWallSize: Int
+    
+    
+    // The position in the scene that the `PoliceBot` should target when performing Wall manonevres
+    var targetPosition: float2?
     
     weak var delegate: WallComponentDelegate?
     
@@ -72,8 +81,11 @@ class WallComponent: GKComponent
     
     // MARK: Initializers
     
-    init(entity: GKEntity)
+    init(entity: GKEntity, minimum: Int, maximum: Int)
     {
+        //Set the Wall size properties
+        self.minimumWallSize = minimum
+        self.maximumWallSize = maximum
         
         super.init()
         
