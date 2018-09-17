@@ -295,6 +295,18 @@ struct GameplayConfiguration
         static let rageStateInitialValue = 95.0
     }
     
+    // MARK:- WallComponent Properties
+    struct Wall
+    {
+        //The duration of time spent regrouping
+        static let regroupStateDuration = 10.0
+        
+        //The minimum number of PoliceBots required to create a wall
+        static let minimumWallSize = 3
+        
+        //The maximum number of PoliceBots required to create a wall
+        static let maximumWallSize = 10
+    }
     
     //  MARK:- PlayerBot Properties
     struct PlayerBot
