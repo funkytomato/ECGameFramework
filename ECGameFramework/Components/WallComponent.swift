@@ -35,13 +35,13 @@ class WallComponent: GKComponent
     // MARK: Properties
         
     // The current number of Taskbots in wall
-    var currentWallSize: Int
+    var currentWallSize: Int = 0
     
     // The minimum number of Police required to create a wall
-    var minimumWallSize: Int
+    var minimumWallSize: Int = 0
     
     // The maximum number of Police required to create a wall
-    var maximumWallSize: Int
+    var maximumWallSize: Int = 0
     
     
     // The position in the scene that the `PoliceBot` should target when performing Wall manonevres
