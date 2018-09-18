@@ -56,6 +56,8 @@ class RegroupState: GKState
 
         super.update(deltaTime: seconds)
         elapsedTime += seconds
+
+        print("wallComponent: \(wallComponent.debugDescription), currentSize: \(wallComponent.currentWallSize), minimum: \(wallComponent.minimumWallSize), maximum: \(wallComponent.maximumWallSize)")
         
         //If regroup time has expired and the wall size is greater than the minimum wall size move to the next state
         if elapsedTime >= GameplayConfiguration.Wall.regroupStateDuration &&
