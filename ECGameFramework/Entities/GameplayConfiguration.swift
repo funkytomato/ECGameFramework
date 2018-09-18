@@ -302,13 +302,19 @@ struct GameplayConfiguration
         static let regroupStateDuration = 10.0
         
         //The minimum number of PoliceBots required to create a wall
-        static let minimumWallSize = 3
+        static let minimumWallSize = 2
         
         //The maximum number of PoliceBots required to create a wall
         static let maximumWallSize = 10
         
-        /// How fast the `PoliceBot` rotates to face its target in radians per second.
+        // How fast the `PoliceBot` rotates to face its target in radians per second.
         static let wallRotationSpeed = Double.pi
+        
+        // How much faster the `PoliceBot` can move when in a wall
+        static let movementSpeedMultiplierWhenInWall: CGFloat = 2.5
+        
+        // How much faster the `PoliceBot` can rotate when in a wall.
+        static let angularSpeedMultiplierWhenInWall: CGFloat = 2.5
     }
     
     //  MARK:- PlayerBot Properties
