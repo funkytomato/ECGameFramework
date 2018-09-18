@@ -37,7 +37,7 @@ class HoldTheLineState: GKState
     /// The `targetPosition` from the `entity`.
     var targetPosition: float2
     {
-        guard let targetPosition = wallComponent.targetPosition else { fatalError("A HoldTheLineState entity must have a targetLocation set.") }
+        guard let targetPosition = entity.targetPosition else { fatalError("A HoldTheLineState entity must have a targetLocation set.") }
         return targetPosition
     }
     
@@ -89,7 +89,7 @@ class HoldTheLineState: GKState
         {
             // Finish the rotation and enter `PoliceBotPreAttackState`.
             orientationComponent.zRotation += angleDeltaToTarget
-//            stateMachine?.enter(PoliceBotPreAttackState.self)
+            stateMachine?.enter(MoveForwardState.self)
             return
         }
         
