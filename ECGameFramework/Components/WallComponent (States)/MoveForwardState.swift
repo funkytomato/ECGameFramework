@@ -27,6 +27,13 @@ class MoveForwardState: GKState
     
     // The amount of time the within this state
     var elapsedTime: TimeInterval = 0.0
+
+    // The `IntelligenceComponent` associated with the `entity`.
+    var intelligenceComponent: IntelligenceComponent
+    {
+        guard let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self) else { fatalError("A MoveForwardState entity must have a IntelligenceComponent.") }
+        return intelligenceComponent
+    }
     
     // The `MovementComponent` associated with the `entity`.
     var movementComponent: MovementComponent
@@ -128,6 +135,7 @@ class MoveForwardState: GKState
         if currentDistanceToTarget > lastDistanceToTarget
         {
             stateMachine?.enter(TaskBotAgentControlledState.self)
+//            stateMachine?.enter(ChargeState.self)
             return
         }
         
