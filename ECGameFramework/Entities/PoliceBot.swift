@@ -235,7 +235,8 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
             PoliceDetainState(entity: self),
             PoliceBotHitState(entity: self),
             PoliceBotSupportState(entity: self),
-            PoliceBotFormWallState(entity: self)
+            PoliceBotFormWallState(entity: self),
+            PoliceBotInWallState(entity: self)
             ])
         addComponent(intelligenceComponent)
         
@@ -426,7 +427,18 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
                 print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 
                 intelligenceComponent.stateMachine.enter(PoliceBotFormWallState.self)
-                targetPosition = targetAgent.position
+//                targetPosition = targetAgent.position
+                
+                let scene = renderComponent.node.scene as? LevelScene
+                targetPosition = scene?.playerBot.agent.position
+
+            case let .inWall(targetAgent):
+                print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+
+                intelligenceComponent.stateMachine.enter(PoliceBotInWallState.self)
+                
+                let scene = renderComponent.node.scene as? LevelScene
+                targetPosition = scene?.playerBot.agent.position
             
             
             case let .fleeAgent(targetAgent):
