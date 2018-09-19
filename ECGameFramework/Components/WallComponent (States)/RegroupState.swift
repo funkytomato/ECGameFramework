@@ -8,7 +8,7 @@
 //
 
 Abstract:
- TaskBots who are in proximity to the target Policeman will reconnect.
+ TaskBots who are in proximity to the target Policeman will connect and allows additional PoliceBots to join the line.
  When the total number of Police has been reached or times out, move to HoldTheLineState.
 */
 
@@ -48,6 +48,8 @@ class RegroupState: GKState
         
         super.didEnter(from: previousState)
         elapsedTime = 0.0
+        
+        entity.agent.maxSpeed = 100.0
     }
     
     override func update(deltaTime seconds: TimeInterval)
@@ -60,9 +62,7 @@ class RegroupState: GKState
         print("wallComponent: \(wallComponent.debugDescription), currentSize: \(wallComponent.currentWallSize), minimum: \(wallComponent.minimumWallSize), maximum: \(wallComponent.maximumWallSize)")
         
         //If regroup time has expired and the wall size is greater than the minimum wall size move to the next state
-        if elapsedTime >= GameplayConfiguration.Wall.regroupStateDuration /*&&
-            wallComponent.currentWallSize > GameplayConfiguration.Wall.minimumWallSize &&
-            wallComponent.currentWallSize < GameplayConfiguration.Wall.maximumWallSize */
+        if elapsedTime >= GameplayConfiguration.Wall.regroupStateDuration
         {
                 stateMachine?.enter(HoldTheLineState.self)
         }
