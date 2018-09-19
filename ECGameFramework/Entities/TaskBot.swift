@@ -21,6 +21,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         //Police should go and give support to an officer in need
         case supportPolice(GKAgent2D)
         
+        //Police are in wall and must face nearest Protestor
+        case inWall(GKAgent2D)
+        
         //Police will form a wall
         case formWall(GKAgent2D)
         
@@ -291,23 +294,28 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 (agentBehavior, debugPathPoints) = TaskBotBehavior.supportBehaviour(forAgent: agent, huntingAgent: target, pathRadius: radius, inScene: levelScene)
                 debugColor = SKColor.orange
             
+            //PoliceBots are in wall
+//            case let .inWall(target):
+//                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+            
+                //Police should have no behaviour
+            
             // PoliceBots needed to form wall
             case let .formWall(target):
                 print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
             
-//                let pathPoints = isGood ? goodPathPoints : badPathPoints
-//                radius = GameplayConfiguration.TaskBot.patrolPathRadius
-//                agentBehavior = TaskBotBehavior.patrolBehaviour(forAgent: agent, patrollingPathWithPoints: pathPoints, pathRadius: radius, inScene: levelScene, cyclical: true)
-//                debugPathPoints = pathPoints
-            
                 radius = GameplayConfiguration.TaskBot.huntPathRadius
                 (agentBehavior, debugPathPoints) = TaskBotBehavior.formWallBehaviour(forAgent: agent, huntingAgent: target, pathRadius: radius, inScene: levelScene)
                 debugColor = SKColor.orange
-//
-//                radius = GameplayConfiguration.TaskBot.wanderPathRadius
-//                (agentBehavior, debugPathPoints)  = TaskBotBehavior.wanderBehaviour(forAgent: agent, inScene: levelScene)
-//                debugColor = SKColor.cyan
+
             
+            
+            case let .inWall(target):
+                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+
+                radius = GameplayConfiguration.TaskBot.huntPathRadius
+                (agentBehavior, debugPathPoints) = TaskBotBehavior.inWallBehaviour(forAgent: agent, huntingAgent: target, pathRadius: radius, inScene: levelScene)
+                debugColor = SKColor.yellow
             
             // Player has created a path for the TaskBot to follow
             case .playerMovedTaskBot:
@@ -1205,7 +1213,13 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
 //            
 //            print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
 //        }
-  
+        else if self.isPolice && self.isWall
+        {
+            guard let targetProtestor = state.nearestProtestorTaskBotTarget?.target.agent else { return }
+            mandate = .inWall(targetProtestor)
+        }
+            
+            
         else if self.isPolice && !self.isWall
         {
             guard let supportPoliceBot = state.nearestPoliceTaskBotTarget?.target.agent else { return }
@@ -1281,6 +1295,10 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
 //                    print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 //                    print("Crowding")
                     break
+                
+                case .inWall:
+                    print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+                break
                 
                 case .formWall:
                     print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
