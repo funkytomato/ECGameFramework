@@ -62,6 +62,9 @@ class MoveForwardState: GKState
     {
         self.wallComponent = wallComponent
         self.entity = entity as! PoliceBot
+        
+        self.entity.agent.maxSpeed = 100.0
+
     }
     
     deinit {
@@ -99,8 +102,8 @@ class MoveForwardState: GKState
         let movementComponent = self.movementComponent
         
         // Move the `ManBot` towards the target at an increased speed.
-        movementComponent.movementSpeed *= GameplayConfiguration.TaskBot.movementSpeedMultiplierWhenAttacking
-        movementComponent.angularSpeed *= GameplayConfiguration.TaskBot.angularSpeedMultiplierWhenAttacking
+        movementComponent.movementSpeed *= GameplayConfiguration.Wall.movementSpeedMultiplierWhenInWall
+        movementComponent.angularSpeed *= GameplayConfiguration.Wall.angularSpeedMultiplierWhenInWall
         
         movementComponent.nextTranslation = MovementKind(displacement: targetVector)
         movementComponent.nextRotation = nil
@@ -124,7 +127,7 @@ class MoveForwardState: GKState
         let currentDistanceToTarget = hypot(dx, dy)
         if currentDistanceToTarget < GameplayConfiguration.TaskBot.attackEndProximity
         {
-            stateMachine?.enter(TaskBotAgentControlledState.self)
+            stateMachine?.enter(HoldTheLineState.self)
             return
         }
         
@@ -134,8 +137,7 @@ class MoveForwardState: GKState
          */
         if currentDistanceToTarget > lastDistanceToTarget
         {
-            stateMachine?.enter(TaskBotAgentControlledState.self)
-//            stateMachine?.enter(ChargeState.self)
+            stateMachine?.enter(HoldTheLineState.self)
             return
         }
         
@@ -148,7 +150,7 @@ class MoveForwardState: GKState
     {
         switch stateClass
         {
-        case is ChargeState.Type, is HoldTheLineState.Type:
+        case is ChargeState.Type, is HoldTheLineState.Type, is RegroupState.Type:
             return true
             
         default:
