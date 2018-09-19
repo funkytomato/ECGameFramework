@@ -120,7 +120,8 @@ class ChargeState: GKState
         let currentDistanceToTarget = hypot(dx, dy)
         if currentDistanceToTarget < GameplayConfiguration.TaskBot.attackEndProximity
         {
-            stateMachine?.enter(TaskBotAgentControlledState.self)
+//            stateMachine?.enter(TaskBotAgentControlledState.self)
+            stateMachine?.enter(RegroupState.self)
             return
         }
         
@@ -130,8 +131,8 @@ class ChargeState: GKState
          */
         if currentDistanceToTarget > lastDistanceToTarget
         {
-            stateMachine?.enter(TaskBotAgentControlledState.self)
-            //            stateMachine?.enter(ChargeState.self)
+//            stateMachine?.enter(TaskBotAgentControlledState.self)
+            stateMachine?.enter(RegroupState.self)
             return
         }
         
