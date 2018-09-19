@@ -8,7 +8,8 @@
 //
 Abstract:
 
-Police are connected and should now move into a line to create the wall.
+ Police are connected and no more Police can join the line at this time.
+ The Police should move into a line forming a wall, facing the target location.
  Police should use the WallComponent targetPosition to orientate themselves towards the target.
 */
 
@@ -31,6 +32,12 @@ class HoldTheLineState: GKState
     {
         guard let orientationComponent = wallComponent.entity!.component(ofType: OrientationComponent.self) else { fatalError("A HoldTheLineState entity must have an OrientationComponent.") }
         return orientationComponent
+    }
+    
+    var renderComponent: RenderComponent
+    {
+        guard let renderComponent = wallComponent.entity!.component(ofType: RenderComponent.self) else { fatalError("A HoldTheLineState entity must have an RenderComponent.") }
+        return renderComponent
     }
     
     
@@ -62,6 +69,8 @@ class HoldTheLineState: GKState
         
         super.didEnter(from: previousState)
         elapsedTime = 0.0
+        
+        entity.agent.maxSpeed = 100.0
     }
     
     override func update(deltaTime seconds: TimeInterval)
@@ -100,10 +109,6 @@ class HoldTheLineState: GKState
         
         // Apply the delta to the `ManBot`'s rotation.
         orientationComponent.zRotation += delta
-        
-
-
-        
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
@@ -130,7 +135,7 @@ class HoldTheLineState: GKState
         // Determine the start and end points and the angle the `ManBot` is facing.
         let ManBotPosition = entity.agent.position
         let targetPosition = self.targetPosition
-        
+          
         // Create a vector that represents the translation from the `ManBot` to the target position.
         let translationVector = float2(x: targetPosition.x - ManBotPosition.x, y: targetPosition.y - ManBotPosition.y)
         
