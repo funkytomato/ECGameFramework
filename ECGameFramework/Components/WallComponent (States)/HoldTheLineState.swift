@@ -89,17 +89,19 @@ class HoldTheLineState: GKState
         {
             // Finish the rotation and enter `PoliceBotPreAttackState`.
             orientationComponent.zRotation += angleDeltaToTarget
-            stateMachine?.enter(MoveForwardState.self)
+            
+            if elapsedTime >= 10.0
+            {
+                stateMachine?.enter(MoveForwardState.self)
+            }
+            
             return
         }
         
         // Apply the delta to the `ManBot`'s rotation.
         orientationComponent.zRotation += delta
         
-        if elapsedTime >= 10.0
-        {
-            stateMachine?.enter(MoveForwardState.self)
-        }
+
 
         
     }
