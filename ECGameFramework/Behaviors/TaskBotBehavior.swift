@@ -235,11 +235,38 @@ class TaskBotBehavior: GKBehavior
         let behavior = TaskBotBehavior()
         
         // Add basic goals to reach the `TaskBot`'s maximum speed, avoid obstacles and seek the target Police.
-        behavior.addTargetSpeedGoal(speed: agent.maxSpeed)
+//        behavior.addTargetSpeedGoal(speed: agent.maxSpeed)
+        behavior.addTargetSpeedGoal(speed: 25.0)
         behavior.addAvoidObstaclesGoal(forScene: scene)
 //        behavior.addSeekGoal(forScene: scene, agent: self, weight: 1.0)
 //        behavior.addWanderGoal(forScene: scene)
       
+        
+        // WE DON"T NEED THIS
+        // Add goals to follow a calculated path from the `TaskBot` to its target.
+        let pathPoints = behavior.addGoalsToFollowPath(from: agent.position, to: agent.position, pathRadius: pathRadius, inScene: scene)
+        
+        //print("targetPosition: \(target.position)")
+        
+        // Return a tuple containing the new behavior, and the found path points for debug drawing.
+        return (behavior, pathPoints)
+    }
+    
+    
+    // Police Support Hold the Line Behaviour
+    // Police will come to support target officer and create a wall
+    static func inWallBehaviour(forAgent agent: GKAgent2D, huntingAgent target: GKAgent2D, pathRadius: Float, inScene scene: LevelScene) -> (behaviour: GKBehavior, pathPoints: [CGPoint])
+    {
+        print("inWallBehaviour \(agent.description) hunting: \(target.description) scene: \(scene.description)")
+        
+        let behavior = TaskBotBehavior()
+        
+        // Add basic goals to reach the `TaskBot`'s maximum speed, avoid obstacles and seek the target Police.
+        behavior.addTargetSpeedGoal(speed: agent.maxSpeed)
+//        behavior.addAvoidObstaclesGoal(forScene: scene)
+        //        behavior.addSeekGoal(forScene: scene, agent: self, weight: 1.0)
+        //        behavior.addWanderGoal(forScene: scene)
+        
         
         // WE DON"T NEED THIS
         // Add goals to follow a calculated path from the `TaskBot` to its target.
