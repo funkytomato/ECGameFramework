@@ -194,7 +194,7 @@ class TaskBotAgentControlledState: GKState
                     //If Police support is close to Police leader
                     if entity.distanceToPoint(otherPoint: target.position) <= 100.0
                     {
-                        print("Forming wall")
+//                        print("Forming wall")
                         entity.mandate = entity.isGood ? .followGoodPatrolPath : .followBadPatrolPath
                     }
                     break
@@ -203,7 +203,7 @@ class TaskBotAgentControlledState: GKState
                     break
             }
             
-            print("entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isArrested: \(entity.isArrested), elapsedTime: \(elapsedTime.debugDescription), distanceToPoint: \(entity.distanceToPoint(otherPoint: oldPosition))")
+//            print("entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isArrested: \(entity.isArrested), elapsedTime: \(elapsedTime.debugDescription), distanceToPoint: \(entity.distanceToPoint(otherPoint: oldPosition))")
             
             //Check if taskbot has stayed in same position for long time, e.g. stuck in corner.  Move Taskbot away from current position
             if entity.distanceToPoint(otherPoint: oldPosition) <= 10.0 && elapsedTime >= 15.0 && !entity.isArrested
