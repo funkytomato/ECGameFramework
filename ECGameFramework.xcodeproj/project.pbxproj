@@ -493,7 +493,6 @@
 		181073652088E538001390EA /* PoliceBot */ = {
 			isa = PBXGroup;
 			children = (
-				187522252153F7C10081C7F2 /* PoliceBotInWallState.swift */,
 				1899E18020E2D06E00C29031 /* PoliceBotSupportState.swift */,
 				181073682088E604001390EA /* PoliceBotRotateToAttackState.swift */,
 				1810736B2088E740001390EA /* PoliceBotAttackState.swift */,
@@ -503,6 +502,7 @@
 				18C8C08E208F380E002FA9C0 /* PoliceBotHitState.swift */,
 				18C8C090208F38DE002FA9C0 /* PoliceBotRechargingState.swift */,
 				187C4B65213B2CC60037D582 /* PoliceBotFormWallState.swift */,
+				187522252153F7C10081C7F2 /* PoliceBotInWallState.swift */,
 			);
 			path = PoliceBot;
 			sourceTree = "<group>";
