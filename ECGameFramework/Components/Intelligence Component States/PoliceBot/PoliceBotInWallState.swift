@@ -8,7 +8,7 @@
 //
 Abstract:
 
-Police form wall
+Police are in wall state
 
 */
 
