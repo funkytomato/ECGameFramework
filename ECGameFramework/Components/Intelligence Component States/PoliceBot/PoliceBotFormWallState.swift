@@ -49,7 +49,7 @@ class PoliceBotFormWallState: GKState
     override func didEnter(from previousState: GKState?)
     {
         
-        //print("PoliceBotFormWallState entered")
+//        print("PoliceBotFormWallState entered")
         
         super.didEnter(from: previousState)
         elapsedTime = 0.0
@@ -61,7 +61,7 @@ class PoliceBotFormWallState: GKState
         super.update(deltaTime: seconds)
         elapsedTime += seconds
         
-        //        print("PoliceBotFormWallState updating")
+//        print("PoliceBotFormWallState updating")
         
         
 //        intelligenceComponent.stateMachine.enter(PoliceBotFormWallState.self)
