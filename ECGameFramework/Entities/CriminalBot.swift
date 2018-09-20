@@ -126,7 +126,7 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
         let randomSource = GKRandomSource.sharedRandom()
         let diff = randomSource.nextUniform() // returns random Float between 0.0 and 1.0
         let speed = diff * GameplayConfiguration.TaskBot.maximumSpeedForIsGood(isGood: isGood) + GameplayConfiguration.TaskBot.minimumSpeed //Ensure it has some speed
-        print("speed :\(speed.debugDescription)")
+//        print("speed :\(speed.debugDescription)")
         
         // Configure the agent's characteristics for the steering physics simulation.
         agent.maxSpeed = speed
