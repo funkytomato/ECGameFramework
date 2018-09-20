@@ -182,7 +182,7 @@ class JointComponent: GKComponent
         //Increment the connections property on this TaskBot and the target TaskBot
         guard let taskBot = entity as? TaskBot else { return }
         taskBot.connections += 1
-//        targetEntity.connections += 1
+        targetEntity.connections += 1
         
         //Increase the wall account
         entity?.component(ofType: WallComponent.self)?.currentWallSize += 1
