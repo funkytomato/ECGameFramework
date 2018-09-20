@@ -181,7 +181,7 @@ class TaskBotBehavior: GKBehavior
     // Police Support behaviour
     static func supportBehaviour(forAgent agent: GKAgent2D, huntingAgent target: GKAgent2D, pathRadius: Float, inScene scene: LevelScene) -> (behaviour: GKBehavior, pathPoints: [CGPoint])
     {
-        print("supportBehaviour \(agent.description) hunting: \(target.description) scene: \(scene.description)")
+//        print("supportBehaviour \(agent.description) hunting: \(target.description) scene: \(scene.description)")
         
         let behavior = TaskBotBehavior()
         
@@ -230,7 +230,7 @@ class TaskBotBehavior: GKBehavior
     // Police will come to support target officer and create a wall
     static func formWallBehaviour(forAgent agent: GKAgent2D, huntingAgent target: GKAgent2D, pathRadius: Float, inScene scene: LevelScene) -> (behaviour: GKBehavior, pathPoints: [CGPoint])
     {
-        print("formWallBehaviour \(agent.description) hunting: \(target.description) scene: \(scene.description)")
+//        print("formWallBehaviour \(agent.description) hunting: \(target.description) scene: \(scene.description)")
         
         let behavior = TaskBotBehavior()
         
@@ -257,7 +257,7 @@ class TaskBotBehavior: GKBehavior
     // Police will come to support target officer and create a wall
     static func inWallBehaviour(forAgent agent: GKAgent2D, huntingAgent target: GKAgent2D, pathRadius: Float, inScene scene: LevelScene) -> (behaviour: GKBehavior, pathPoints: [CGPoint])
     {
-        print("inWallBehaviour \(agent.description) hunting: \(target.description) scene: \(scene.description)")
+//        print("inWallBehaviour \(agent.description) hunting: \(target.description) scene: \(scene.description)")
         
         let behavior = TaskBotBehavior()
         
