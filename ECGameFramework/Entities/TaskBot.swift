@@ -176,13 +176,13 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         didSet
         {
             //TaskBot has one or more arms available for linking to
-            if connections < 2
+            if connections < 1
             {
                 self.isWall = false
             }
             else
             {
-                //TaskBot is using both arms in Wall
+                //TaskBot is connected to another Policeman
                 self.isWall = true
             }
         }
