@@ -323,7 +323,8 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
         
 //        if let formWallState = self.component(ofType: IntelligenceComponent.self)?.stateMachine.currentState as? PoliceBotFormWallState
 //        {
-            if self.isPolice && self.connections < 2 && !self.isWall && targetBot.isPolice && targetBot.connections < 2 && !targetBot.isWall
+            if self.isPolice && self.connections < 2 /*&& !self.isWall*/ &&
+                targetBot.isPolice && targetBot.connections < 2 /* && !targetBot.isWall */
             {
                 //Check other PoliceBot is not in wall.
                 
@@ -341,10 +342,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
                     let policeARenderComponent = policeBotA?.component(ofType: RenderComponent.self)
                     let entityA = policeARenderComponent?.entity
                     
-
-                    
-
-                    
+                  
                     //Connect the two Taskbots together like a rope if forming a wall
                     guard let intelligenceComponent = self.component(ofType: IntelligenceComponent.self) else { return }
                     guard ((intelligenceComponent.stateMachine.currentState as? PoliceBotFormWallState) == nil) else { return }
@@ -424,7 +422,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
                 targetPosition = targetAgent.position
             
             case let .formWall(targetAgent):
-//                print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+                print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 
                 intelligenceComponent.stateMachine.enter(PoliceBotFormWallState.self)
 //                targetPosition = targetAgent.position
@@ -433,7 +431,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
                 targetPosition = scene?.playerBot.agent.position
 
             case let .inWall(targetAgent):
-//                print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+                print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
 
                 intelligenceComponent.stateMachine.enter(PoliceBotInWallState.self)
                 
