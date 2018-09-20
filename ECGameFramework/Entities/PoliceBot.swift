@@ -382,7 +382,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
         // 1) Check if enough time has passed since the `PoliceBot`'s last attack.
         guard agentControlledState.elapsedTime >= GameplayConfiguration.TaskBot.delayBetweenAttacks else { return }
         
-        print("PoliceBot mandate: \(mandate)")
+//        print("PoliceBot mandate: \(mandate)")
         
         //Check the current mandate and set the appropriate values
         switch mandate
@@ -424,7 +424,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
                 targetPosition = targetAgent.position
             
             case let .formWall(targetAgent):
-                print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 
                 intelligenceComponent.stateMachine.enter(PoliceBotFormWallState.self)
 //                targetPosition = targetAgent.position
@@ -433,7 +433,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
                 targetPosition = scene?.playerBot.agent.position
 
             case let .inWall(targetAgent):
-                print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
 
                 intelligenceComponent.stateMachine.enter(PoliceBotInWallState.self)
                 
@@ -567,6 +567,6 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
  
     override func entityTouched (touches: Set<UITouch>, withEvent event: UIEvent?)
     {
-        print("PoliceBot touched!!!")
+//        print("PoliceBot touched!!!")
     }
 }

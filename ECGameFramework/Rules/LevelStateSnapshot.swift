@@ -213,7 +213,7 @@ class LevelStateSnapshot
 //                                    Float(subservientTaskBots.count) + Float(protestorTaskBots.count) + Float(dangerousTaskBots.count) + Float(injuredTaskBots.count) + Float(policeTaskBots.count) + Float(criminalTaskBots.count)
         
 
-        print("policeBotPercentage:\(policeBotPercentage.description), protestorBotPercentage: \(protestorBotPercentage.description), criminalBotPercentage: \(criminalBotPercentage.description), dangerousBotPercentage: \(dangerousBotPercentage.description), injuredBotPercentage: \(injuredBotPercentage.description), policeInTroubleTaskBots: \(policeInTroubleTaskBots.count), policeTaskBots: \(policeTaskBots.count),  protestorTaskBots: \(protestorTaskBots.count), dangerousTaskBots: \(dangerousTaskBots.count), scaredBots: \(scaredTaskBots.count), injuredTaskBots: \(injuredTaskBots.count), sellerTaskBots: \(sellerTaskBots.count), buyerTaskBots: \(buyerTaskBots.count)")
+//        print("policeBotPercentage:\(policeBotPercentage.description), protestorBotPercentage: \(protestorBotPercentage.description), criminalBotPercentage: \(criminalBotPercentage.description), dangerousBotPercentage: \(dangerousBotPercentage.description), injuredBotPercentage: \(injuredBotPercentage.description), policeInTroubleTaskBots: \(policeInTroubleTaskBots.count), policeTaskBots: \(policeTaskBots.count),  protestorTaskBots: \(protestorTaskBots.count), dangerousTaskBots: \(dangerousTaskBots.count), scaredBots: \(scaredTaskBots.count), injuredTaskBots: \(injuredTaskBots.count), sellerTaskBots: \(sellerTaskBots.count), buyerTaskBots: \(buyerTaskBots.count)")
         
         
         

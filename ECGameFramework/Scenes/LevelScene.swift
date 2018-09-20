@@ -922,8 +922,8 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
             for node in touchedNodes
             {
 
-                print("node: \(node.description)")
-                print("node.entity: \(String(describing: node.entity?.description))")
+//                print("node: \(node.description)")
+//                print("node.entity: \(String(describing: node.entity?.description))")
                 
                 if (node.entity != nil)
                 {

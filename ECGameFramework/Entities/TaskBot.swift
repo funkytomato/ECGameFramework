@@ -302,7 +302,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             
             // PoliceBots needed to form wall
             case let .formWall(target):
-                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
             
                 radius = GameplayConfiguration.TaskBot.huntPathRadius
                 (agentBehavior, debugPathPoints) = TaskBotBehavior.formWallBehaviour(forAgent: agent, huntingAgent: target, pathRadius: radius, inScene: levelScene)
@@ -311,7 +311,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             
             
             case let .inWall(target):
-                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
 
                 radius = GameplayConfiguration.TaskBot.huntPathRadius
                 (agentBehavior, debugPathPoints) = TaskBotBehavior.inWallBehaviour(forAgent: agent, huntingAgent: target, pathRadius: radius, inScene: levelScene)
@@ -663,7 +663,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         let randomSource = GKRandomSource.sharedRandom()
         let diff = randomSource.nextUniform() // returns random Float between 0.0 and 1.0
         let speed = diff * GameplayConfiguration.TaskBot.maximumSpeedForIsGood(isGood: isGood) + GameplayConfiguration.TaskBot.minimumSpeed //Ensure it has some speed
-        print("speed :\(speed.debugDescription)")
+//        print("speed :\(speed.debugDescription)")
         
         // Configure the agent's characteristics for the steering physics simulation.
         agent.maxSpeed = speed
@@ -909,7 +909,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 ])
         ]
         let supportPoliceBot = supportTaskBotRaw.reduce(0.0, max)
-        print("supportPoliceBot: \(supportPoliceBot.description), supportPoliceBotRaw: \(supportTaskBotRaw.description) ")
+//        print("supportPoliceBot: \(supportPoliceBot.description), supportPoliceBotRaw: \(supportTaskBotRaw.description) ")
 
         
         //A series of situation in which we prefer to hunt the criminal
@@ -1233,7 +1233,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             guard let supportPoliceBot = state.nearestPoliceTaskBotInTroubleTarget?.target.agent else { return }
             mandate = .formWall(supportPoliceBot)
             
-            print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//            print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
         }
             
         //TaskBot is Police and another Policeman needs help, go support them
@@ -1243,7 +1243,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             guard let supportPoliceBot = state.nearestPoliceTaskBotTarget?.target.agent else { return }
             mandate = .supportPolice(supportPoliceBot)
             
-            print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//            print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
         }
         
             
@@ -1297,11 +1297,11 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                     break
                 
                 case .inWall:
-                    print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                    print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 break
                 
                 case .formWall:
-                    print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                    print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                     break
                 
                 
@@ -1330,8 +1330,8 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                     break
                 
                 case .playerMovedTaskBot:
-                    print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
-                    print("playerMovedTaskbot")
+//                    print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                    print("playerMovedTaskbot")
                     // The taskbot is already on the player designated path, so no update is needed
                     break
                 
