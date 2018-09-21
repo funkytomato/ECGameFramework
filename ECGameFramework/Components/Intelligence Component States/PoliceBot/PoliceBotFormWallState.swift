@@ -49,7 +49,7 @@ class PoliceBotFormWallState: GKState
     override func didEnter(from previousState: GKState?)
     {
         
-//        print("PoliceBotFormWallState entered")
+        print("PoliceBotFormWallState entered")
         
         super.didEnter(from: previousState)
         elapsedTime = 0.0
@@ -64,10 +64,7 @@ class PoliceBotFormWallState: GKState
 //        print("PoliceBotFormWallState updating")
         
         
-//        intelligenceComponent.stateMachine.enter(PoliceBotFormWallState.self)
-        intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
-        
-
+        intelligenceComponent.stateMachine.enter(PoliceBotInWallState.self)
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
@@ -76,7 +73,7 @@ class PoliceBotFormWallState: GKState
         {
             
         case is TaskBotAgentControlledState.Type, is TaskBotFleeState.Type, is TaskBotInjuredState.Type,  is TaskBotZappedState.Type,
-             is PoliceBotHitState.Type:
+             is PoliceBotHitState.Type, is PoliceBotInWallState.Type:
             return true
             
         default:
