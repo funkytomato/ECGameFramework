@@ -25,7 +25,8 @@ class HoldTheLineState: GKState
     
     /// The amount of time the beam has been cooling down.
     var elapsedTime: TimeInterval = 0.0
-    var consumptionSpeed: Double = 0.0
+
+
     
     /// The `OrientationComponent` associated with the `entity`.
     var orientationComponent: OrientationComponent
@@ -71,44 +72,62 @@ class HoldTheLineState: GKState
         elapsedTime = 0.0
         
         entity.agent.maxSpeed = 100.0
+        
+//        entity.isWall = true
     }
     
     override func update(deltaTime seconds: TimeInterval)
     {
-        //        print("RegroupState update")
+        print("HoldTheLineState update")
         
         super.update(deltaTime: seconds)
         elapsedTime += seconds
         
-        // `orientationComponent` is a computed property. Declare a local version so we don't compute it multiple times.
-        let orientationComponent = self.orientationComponent
         
-        // Calculate the angle the `ManBot` needs to turn to face the `targetPosition`.
-        let angleDeltaToTarget = shortestAngleDeltaToTargetFromRotation(entityRotation: Float(orientationComponent.zRotation))
-        
-        // Calculate the amount of rotation that should be applied during this update.
-        var delta = CGFloat(seconds * GameplayConfiguration.Wall.wallRotationSpeed)
-        if angleDeltaToTarget < 0
+        //Check TaskBot is in wall before proceeding
+        if entity.isWall
         {
-            delta *= -1
-        }
         
-        // Check if the `ManBot` would reach the angle required to face the target during this update.
-        if abs(delta) >= abs(angleDeltaToTarget)
-        {
-            // Finish the rotation and enter `PoliceBotPreAttackState`.
-            orientationComponent.zRotation += angleDeltaToTarget
+            //Position PoliceBot 100p to the right of the PoliceBot
+//            let range = SKRange(lowerLimit: 100.0, upperLimit: 150.0)
+//            let lockPosition = SKConstraint.positionX(range)
+//            let lockPosition = SKConstraint.positionX(range, y: range)
+//            renderComponent.node.constraints = [ lockPosition ]
             
-            if elapsedTime >= 10.0
+            
+            //Orientate the TaskBot to be the same as all others in the Wall
+            
+            // `orientationComponent` is a computed property. Declare a local version so we don't compute it multiple times.
+            let orientationComponent = self.orientationComponent
+            
+            // Calculate the angle the `ManBot` needs to turn to face the `targetPosition`.
+            let angleDeltaToTarget = shortestAngleDeltaToTargetFromRotation(entityRotation: Float(orientationComponent.zRotation))
+            
+            // Calculate the amount of rotation that should be applied during this update.
+            var delta = CGFloat(seconds * GameplayConfiguration.Wall.wallRotationSpeed)
+            if angleDeltaToTarget < 0
             {
-                stateMachine?.enter(MoveForwardState.self)
+                delta *= -1
             }
             
-            return
+            // Check if the `ManBot` would reach the angle required to face the target during this update.
+            if abs(delta) >= abs(angleDeltaToTarget)
+            {
+                // Finish the rotation and enter `PoliceBotPreAttackState`.
+                orientationComponent.zRotation += angleDeltaToTarget
+                
+                //Check enough time has elapsed and TaskBot is in wall before moving to next state
+                if elapsedTime >= 15.0
+                {
+                    stateMachine?.enter(MoveForwardState.self)
+                }
+                
+                return
+            }
+            
+            // Apply the delta to the `ManBot`'s rotation.
+            orientationComponent.zRotation += delta
         }
-        
-        // Apply the delta to the `ManBot`'s rotation.
-        orientationComponent.zRotation += delta
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
@@ -126,6 +145,8 @@ class HoldTheLineState: GKState
     override func willExit(to nextState: GKState)
     {
         super.willExit(to: nextState)
+        
+
     }
     
     // MARK: Convenience
