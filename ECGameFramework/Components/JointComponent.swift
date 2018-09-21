@@ -171,7 +171,34 @@ class JointComponent: GKComponent
         self.entityB?.component(ofType: RenderComponent.self)?.node.addChild(satelliteDot!)
         
         //Create the joint between this node and the target node
-        makeJoint(JointLabels.Limit)
+        
+        
+        //Lock the two entities to a specified distance
+        let distanceRange = SKRange(lowerLimit: 55.0, upperLimit: 100.0)
+        let lockDistance = SKConstraint.distance(distanceRange, to: targetEntity.renderComponent.node)
+        renderComponent.node.constraints = [ lockDistance ]
+  
+        //Position PoliceBot 100p to the right of the PoliceBot
+//        let positionRange = SKRange(lowerLimit: 50.0, upperLimit: 150.0)
+////        let lockPosition = SKConstraint.positionX(positionRange)
+//        let lockPosition = SKConstraint.positionX(positionRange, y: positionRange)
+//        renderComponent.node.constraints = [ lockPosition ]
+        
+        
+        //Lock orientation to a specified directtion
+//        let lookAtConstraint = SKConstraint.orient(to: targetProtestor, offset: SKRange(constantValue: -CGFloat.pi /2)
+//        renderComponent.node.constraints = [ lookAtConstraint ]
+        
+        /*
+        
+        let lockOn = SKConstraint.positionX(range, y: range)
+    
+        entity?.component(ofType: RenderComponent.self)?.node.constraints = [ lockOn ]
+        targetEntity.renderComponent.node.constraints = [ lockOn ]
+        */
+        
+//        makeJoint(JointLabels.Limit)
+//        makeJoint(JointLabels.Fixed)
         
         //Inform the JointComponent that a joint has been created
         self.isTriggered = true
@@ -207,8 +234,11 @@ class JointComponent: GKComponent
         let satellite = entityB?.component(ofType: RenderComponent.self)?.node
         
         var vz = CGVector(dx: 0, dy: 0)
-        let pinnedAnchor = renderComponent.node.scene!.convert(CGPoint.zero, from: pinned!)
-        let satelliteAnchor = renderComponent.node.scene!.convert(CGPoint.zero, from: satellite!)
+//        let pinnedAnchor = renderComponent.node.scene!.convert(CGPoint.zero, from: pinned!)
+//        let satelliteAnchor = renderComponent.node.scene!.convert(CGPoint.zero, from: satellite!)
+        
+        let pinnedAnchor = renderComponent.node.scene!.convert(CGPoint(x: 0.0, y: 0.5), from: pinned!)
+        let satelliteAnchor = renderComponent.node.scene!.convert(CGPoint(x: 0.0, y: 0.5), from: satellite!)
         var joint:SKPhysicsJoint!
         
         switch(name)
@@ -220,11 +250,13 @@ class JointComponent: GKComponent
                                               bodyB: (satellite?.physicsBody!)!,
                                               anchor: (pinned?.position)!)
             joint = pin
+            
         case .Fixed:
             let fixed = SKPhysicsJointFixed.joint(withBodyA: (pinned?.physicsBody!)!,
                                                   bodyB: (satellite?.physicsBody!)!,
                                                   anchor: pinnedAnchor)
             joint = fixed
+            
         case JointLabels.Sliding:
             let sliding = SKPhysicsJointSliding.joint(withBodyA: (pinned?.physicsBody!)!,
                                                       bodyB: (satellite?.physicsBody!)!,
@@ -233,6 +265,7 @@ class JointComponent: GKComponent
             sliding.upperDistanceLimit = (pinned?.position.y)! - (satellite?.position.y)!
             sliding.shouldEnableLimits = true
             joint = sliding
+            
         case JointLabels.Spring:
             let spring = SKPhysicsJointSpring.joint(withBodyA: (pinned?.physicsBody!)!,
                                                     bodyB: (satellite?.physicsBody!)!,
@@ -240,6 +273,7 @@ class JointComponent: GKComponent
                                                     anchorB: satelliteAnchor)
             spring.frequency = 0.5
             joint = spring
+            
         case JointLabels.Limit:
             let limit = SKPhysicsJointLimit.joint(withBodyA: (pinned?.physicsBody!)!,
                                                   bodyB: (satellite?.physicsBody!)!,
