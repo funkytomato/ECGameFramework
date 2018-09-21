@@ -28,6 +28,14 @@ class RegroupState: GKState
     var consumptionSpeed: Double = 0.0
     
     
+    /// The `MovementComponent` associated with the `entity`.
+    var movementComponent: MovementComponent
+    {
+        guard let movementComponent = entity.component(ofType: MovementComponent.self) else { fatalError("A TaskBot FleeState's entity must have a MovementComponent.") }
+        return movementComponent
+    }
+    
+    
     // MARK: Initializers
     
     required init(wallComponent: WallComponent, entity: TaskBot)
@@ -83,5 +91,14 @@ class RegroupState: GKState
     override func willExit(to nextState: GKState)
     {
         super.willExit(to: nextState)
+        
+        // `movementComponent` is a computed property. Declare a local version so we don't compute it multiple times.
+        let movementComponent = self.movementComponent
+        
+        // Stop the `ProtestorBot`'s movement and restore its standard movement speed.
+        movementComponent.nextRotation = nil
+        movementComponent.nextTranslation = nil
+        movementComponent.movementSpeed = 0
+        movementComponent.angularSpeed = 0
     }
 }
