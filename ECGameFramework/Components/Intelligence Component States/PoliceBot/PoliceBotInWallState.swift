@@ -48,7 +48,7 @@ class PoliceBotInWallState: GKState
     override func didEnter(from previousState: GKState?)
     {
         
-//        print("PoliceBotInWallState entered")
+        print("PoliceBotInWallState entered")
         
         super.didEnter(from: previousState)
         elapsedTime = 0.0
