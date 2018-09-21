@@ -75,7 +75,7 @@ class MoveForwardState: GKState
     
     override func didEnter(from previousState: GKState?)
     {
-        //        print("MoveForwardState entered")
+        print("MoveForwardState entered")
         
         super.didEnter(from: previousState)
         elapsedTime = 0.0
@@ -135,7 +135,7 @@ class MoveForwardState: GKState
          Leave the attack state if the `PoliceBot` has moved further away from
          its target because it has been knocked off course.
          */
-        if currentDistanceToTarget > lastDistanceToTarget
+        if currentDistanceToTarget > lastDistanceToTarget && elapsedTime > 10.0
         {
             stateMachine?.enter(HoldTheLineState.self)
             return
