@@ -417,7 +417,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
             
             case let .supportPolice(targetAgent):
                 
-//                print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+                print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 intelligenceComponent.stateMachine.enter(PoliceBotSupportState.self)
                 targetPosition = targetAgent.position
             
@@ -434,9 +434,10 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
                 print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
 
                 intelligenceComponent.stateMachine.enter(PoliceBotInWallState.self)
+                targetPosition = targetAgent.position
                 
-                let scene = renderComponent.node.scene as? LevelScene
-                targetPosition = scene?.playerBot.agent.position
+//                let scene = renderComponent.node.scene as? LevelScene
+//                targetPosition = scene?.playerBot.agent.position
             
             
             case let .fleeAgent(targetAgent):
