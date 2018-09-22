@@ -198,6 +198,10 @@ class TaskBotAgentControlledState: GKState
                         entity.mandate = entity.isGood ? .followGoodPatrolPath : .followBadPatrolPath
                     }
                     break
+                                // When a `TaskBot` is in wall, do some shit...
+                case let .inWall(target):
+                    
+                    break
                 
                 default:
                     break
