@@ -70,7 +70,7 @@ class RegroupState: GKState
 //        print("wallComponent: \(wallComponent.debugDescription), currentSize: \(wallComponent.currentWallSize), minimum: \(wallComponent.minimumWallSize), maximum: \(wallComponent.maximumWallSize)")
         
         //If regroup time has expired and the wall size is greater than the minimum wall size move to the next state
-        if elapsedTime >= GameplayConfiguration.Wall.regroupStateDuration
+        if self.entity.isWall && elapsedTime >= GameplayConfiguration.Wall.regroupStateDuration
         {
                 stateMachine?.enter(HoldTheLineState.self)
         }
@@ -93,12 +93,12 @@ class RegroupState: GKState
         super.willExit(to: nextState)
         
         // `movementComponent` is a computed property. Declare a local version so we don't compute it multiple times.
-        let movementComponent = self.movementComponent
+//        let movementComponent = self.movementComponent
         
         // Stop the `ProtestorBot`'s movement and restore its standard movement speed.
-        movementComponent.nextRotation = nil
-        movementComponent.nextTranslation = nil
-        movementComponent.movementSpeed = 0
-        movementComponent.angularSpeed = 0
+//        movementComponent.nextRotation = nil
+//        movementComponent.nextTranslation = nil
+//        movementComponent.movementSpeed = 0
+//        movementComponent.angularSpeed = 0
     }
 }
