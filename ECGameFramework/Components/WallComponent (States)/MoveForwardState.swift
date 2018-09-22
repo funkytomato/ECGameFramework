@@ -63,7 +63,7 @@ class MoveForwardState: GKState
         self.wallComponent = wallComponent
         self.entity = entity as! PoliceBot
         
-        self.entity.agent.maxSpeed = 100.0
+        self.entity.agent.maxSpeed = 150.0
 
     }
     
@@ -79,7 +79,7 @@ class MoveForwardState: GKState
         
         super.didEnter(from: previousState)
         elapsedTime = 0.0
-        
+    
         // Apply damage to any entities the `PoliceBot` is already in contact with.
         let contactedBodies = physicsComponent.physicsBody.allContactedBodies()
         for contactedBody in contactedBodies
@@ -116,7 +116,7 @@ class MoveForwardState: GKState
         
         super.update(deltaTime: seconds)
         elapsedTime += seconds
-        
+ 
         // `targetPosition` is a computed property. Declare a local version so we don't compute it multiple times.
         let targetPosition = self.targetPosition
         
@@ -125,9 +125,9 @@ class MoveForwardState: GKState
         let dy = targetPosition.y - entity.agent.position.y
         
         let currentDistanceToTarget = hypot(dx, dy)
-        if currentDistanceToTarget < GameplayConfiguration.TaskBot.attackEndProximity
+        if currentDistanceToTarget < GameplayConfiguration.TaskBot.attackEndProximity && elapsedTime > 10.0
         {
-            stateMachine?.enter(HoldTheLineState.self)
+            stateMachine?.enter(RegroupState.self)
             return
         }
         
@@ -137,13 +137,13 @@ class MoveForwardState: GKState
          */
         if currentDistanceToTarget > lastDistanceToTarget && elapsedTime > 10.0
         {
-            stateMachine?.enter(HoldTheLineState.self)
+            stateMachine?.enter(RegroupState.self)
             return
         }
         
         // Otherwise, remember the current distance for the next time we update this state.
         lastDistanceToTarget = currentDistanceToTarget
-        
+      
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
