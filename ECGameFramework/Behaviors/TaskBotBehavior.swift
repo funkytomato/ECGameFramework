@@ -244,7 +244,8 @@ class TaskBotBehavior: GKBehavior
         
         // WE DON"T NEED THIS
         // Add goals to follow a calculated path from the `TaskBot` to its target.
-        let pathPoints = behavior.addGoalsToFollowPath(from: agent.position, to: agent.position, pathRadius: pathRadius, inScene: scene)
+//        let pathPoints = behavior.addGoalsToFollowPath(from: agent.position, to: agent.position, pathRadius: pathRadius, inScene: scene)
+        let pathPoints = behavior.addGoalsToFollowPath(from: agent.position, to: target.position, pathRadius: pathRadius, inScene: scene)
         
         //print("targetPosition: \(target.position)")
         
