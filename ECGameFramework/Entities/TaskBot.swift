@@ -182,7 +182,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             }
             else
             {
-                //TaskBot is connected to another Policeman
+                //TaskBot is connected to one or more Policeman
                 self.isWall = true
             }
         }
@@ -253,6 +253,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
     
     //Is the taskbot in trouble?
     var needsHelp: Bool
+    
+    //Is the taskbot requesting support to build wall?
+    var requestWall: Bool
     
     /// The aim that the `TaskBot` is currently trying to achieve.
     var mandate: TaskBotMandate
@@ -632,6 +635,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         //Whether or not the taskbot needs help
         self.needsHelp = false
         
+        //Whether or not the taskbot needs support to build a wall
+        self.requestWall = false
+        
         // Whether or not the taskbot is Injured
         self.isInjured = false
         
@@ -907,6 +913,30 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
 //        print("supportPoliceBot: \(supportPoliceBot.description), supportPoliceBotRaw: \(supportTaskBotRaw.description) ")
 
         
+        // Build Wall Facts
+        let supportWallTaskBotRaw = [
+            
+            //Police are in trouble are nearby
+            ruleSystem.minimumGrade(forFacts: [
+                Fact.policeBotRequestWallNear.rawValue as AnyObject,
+                Fact.policeBotRequestWallMedium.rawValue as AnyObject,
+                Fact.policeBotRequestWallFar.rawValue as AnyObject
+                ]),
+            
+            //Police are in trouble are medium distance
+            ruleSystem.minimumGrade(forFacts: [
+                Fact.policeBotRequestWallMedium.rawValue as AnyObject
+                ]),
+            
+            //Police are in trouble are far away
+            ruleSystem.minimumGrade(forFacts: [
+                Fact.policeBotRequestWallFar.rawValue as AnyObject
+                ])
+        ]
+        let supportWallPoliceBot = supportWallTaskBotRaw.reduce(0.0, max)
+//        print("supportWallPoliceBot: \(supportWallPoliceBot.description), supportWallPoliceBotRaw: \(supportWallTaskBotRaw.description) ")
+        
+        
         //A series of situation in which we prefer to hunt the criminal
         let huntCriminalTaskBotRaw = [
             
@@ -1172,6 +1202,15 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
 //            print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
         }
             
+        //Protestor is subvervient and protestors are nearby
+        else if self.isSubservient /*&& !self.isSheep */&& inciteTaskBot > 0.0
+        {
+            //            print("Inciting others")
+            mandate = .incite
+            
+            //            print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+        }
+            
         //TaskBot is Criminal and wants to sell wares
         else if self.isCriminal && self.isSelling// && huntBuyerTaskBot > 0.5
         {
@@ -1214,11 +1253,12 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             mandate = .inWall(targetProtestor)
         }
             
-            
-        else if self.isPolice && !self.isWall /*&& supportPoliceBot > 0.5 */
+         
+        // Taskbot is Police and is not in a wall, but another Police has requested support for building a Wall
+        else if self.isPolice && !self.isWall && supportWallPoliceBot > 0.0
         {
-            guard let supportPoliceBot = state.nearestPoliceTaskBotTarget?.target.agent else { return }
-//            guard let supportPoliceBot = state.nearestPoliceTaskBotInTroubleTarget?.target.agent else { return }
+            guard let supportPoliceBot = state.nearestPoliceTaskBotTarget?.target.agent else { return }  // FOR TESTING
+//            guard let supportPoliceBot = state.nearestPoliceTaskBotRequestWallTarget?.target.agent else { return }
             mandate = .formWall(supportPoliceBot)
         }
            
@@ -1245,14 +1285,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         }
         
             
-        //Protestor is subvervient and protestors are nearby
-        else if self.isSubservient /*&& !self.isSheep */&& inciteTaskBot > 0.0
-        {
-//            print("Inciting others")
-            mandate = .incite
-            
-//            print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
-        }
+
             
         // TaskBot is Police and active (alive) and a dangerous bot is detected, attack it
         else if self.isPolice && self.isActive && huntDangerousProtestorBot > 0.0
