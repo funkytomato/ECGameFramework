@@ -89,8 +89,8 @@ class LevelStateSnapshot
         }
         
         // Determine the number of "criminal", "scared", "dangerous, "protestor", "Police" and "Injured" `TaskBot`s in the scene.
-        let (criminalTaskBots, sellerTaskBots, buyerTaskBots, scaredTaskBots, dangerousTaskBots, protestorTaskBots, subservientTaskBots, policeInTroubleTaskBots, policeTaskBots, injuredTaskBots, ringLeaderTaskBots) =
-            scene.entities.reduce(([],[],[],[],[],[],[],[],[],[],[]))
+        let (criminalTaskBots, sellerTaskBots, buyerTaskBots, scaredTaskBots, dangerousTaskBots, protestorTaskBots, subservientTaskBots, policeRequestWallTaskBots, policeInTroubleTaskBots, policeTaskBots, injuredTaskBots, ringLeaderTaskBots) =
+            scene.entities.reduce(([],[],[],[],[],[],[],[],[],[],[],[]))
         {
 
             (workingArrays: (criminalTaskBots: [TaskBot],
@@ -100,11 +100,12 @@ class LevelStateSnapshot
                             dangerousTaskBots: [TaskBot],
                             protestorBots: [TaskBot],
                             subservientTaskBots: [TaskBot],
+                            policeRequestWallTaskBots: [TaskBot],
                             policeInTroubleTaskBots: [TaskBot],
                             policeBots: [TaskBot],
                             injuredBots: [TaskBot],
                             ringLeaderTaskBots: [TaskBot]),
-                            thisEntity: GKEntity) -> ([TaskBot], [TaskBot], [TaskBot], [TaskBot], [TaskBot], [TaskBot], [TaskBot], [TaskBot], [TaskBot], [TaskBot], [TaskBot]) in
+                            thisEntity: GKEntity) -> ([TaskBot], [TaskBot], [TaskBot], [TaskBot], [TaskBot], [TaskBot], [TaskBot], [TaskBot], [TaskBot], [TaskBot], [TaskBot], [TaskBot]) in
             
             // Try to cast this entity as a `TaskBot`, and skip this entity if the cast fails.
             guard let thisTaskbot = thisEntity as? TaskBot else { return workingArrays }
@@ -114,85 +115,86 @@ class LevelStateSnapshot
             // The taskbot is active and scared
             if thisTaskbot.isActive && thisTaskbot.isScared
             {
-                return (workingArrays.criminalTaskBots, workingArrays.sellerTaskBots, workingArrays.buyerTaskBots, workingArrays.scaredTaskBots + [thisTaskbot], workingArrays.dangerousTaskBots, workingArrays.protestorBots, workingArrays.subservientTaskBots, workingArrays.policeInTroubleTaskBots, workingArrays.policeBots, workingArrays.injuredBots, workingArrays.ringLeaderTaskBots)
+                return (workingArrays.criminalTaskBots, workingArrays.sellerTaskBots, workingArrays.buyerTaskBots, workingArrays.scaredTaskBots + [thisTaskbot], workingArrays.dangerousTaskBots, workingArrays.protestorBots, workingArrays.subservientTaskBots, workingArrays.policeRequestWallTaskBots, workingArrays.policeInTroubleTaskBots, workingArrays.policeBots, workingArrays.injuredBots, workingArrays.ringLeaderTaskBots)
             }
             
             // The taskbot is active and Ringleader
             else if thisTaskbot.isActive && thisTaskbot.isRingLeader
             {
-                return (workingArrays.criminalTaskBots, workingArrays.sellerTaskBots, workingArrays.buyerTaskBots, workingArrays.scaredTaskBots, workingArrays.dangerousTaskBots, workingArrays.protestorBots, workingArrays.subservientTaskBots,
-                        workingArrays.policeInTroubleTaskBots, workingArrays.policeBots, workingArrays.injuredBots, workingArrays.ringLeaderTaskBots + [thisTaskbot])
+                return (workingArrays.criminalTaskBots, workingArrays.sellerTaskBots, workingArrays.buyerTaskBots, workingArrays.scaredTaskBots, workingArrays.dangerousTaskBots, workingArrays.protestorBots, workingArrays.subservientTaskBots, workingArrays.policeRequestWallTaskBots, workingArrays.policeInTroubleTaskBots, workingArrays.policeBots, workingArrays.injuredBots, workingArrays.ringLeaderTaskBots + [thisTaskbot])
             }
                 
             // The taskbot is active and dangerous
             else if thisTaskbot.isActive && thisTaskbot.isDangerous
             {
-                return (workingArrays.criminalTaskBots, workingArrays.sellerTaskBots, workingArrays.buyerTaskBots, workingArrays.scaredTaskBots, workingArrays.dangerousTaskBots + [thisTaskbot], workingArrays.protestorBots, workingArrays.subservientTaskBots,
-                        workingArrays.policeInTroubleTaskBots, workingArrays.policeBots, workingArrays.injuredBots, workingArrays.ringLeaderTaskBots)
+                return (workingArrays.criminalTaskBots, workingArrays.sellerTaskBots, workingArrays.buyerTaskBots, workingArrays.scaredTaskBots, workingArrays.dangerousTaskBots + [thisTaskbot], workingArrays.protestorBots, workingArrays.subservientTaskBots, workingArrays.policeRequestWallTaskBots, workingArrays.policeInTroubleTaskBots, workingArrays.policeBots, workingArrays.injuredBots, workingArrays.ringLeaderTaskBots)
             }
             
             // The taskbot is active and buying
             else if thisTaskbot.isActive && thisTaskbot.isBuying
             {
                 return (workingArrays.criminalTaskBots, workingArrays.sellerTaskBots, workingArrays.buyerTaskBots + [thisTaskbot], workingArrays.scaredTaskBots, workingArrays.dangerousTaskBots, workingArrays.protestorBots + [thisTaskbot],
-                        workingArrays.subservientTaskBots,
-                        workingArrays.policeInTroubleTaskBots, workingArrays.policeBots, workingArrays.injuredBots, workingArrays.ringLeaderTaskBots)
+                        workingArrays.subservientTaskBots, workingArrays.policeRequestWallTaskBots, workingArrays.policeInTroubleTaskBots, workingArrays.policeBots, workingArrays.injuredBots, workingArrays.ringLeaderTaskBots)
             }
                 
             // The taskbot is active and subervient
             else if thisTaskbot.isActive && thisTaskbot.isSubservient
             {
                 return (workingArrays.criminalTaskBots, workingArrays.sellerTaskBots, workingArrays.buyerTaskBots, workingArrays.scaredTaskBots, workingArrays.dangerousTaskBots, workingArrays.protestorBots + [thisTaskbot],
-                    workingArrays.subservientTaskBots + [thisTaskbot],
-                        workingArrays.policeInTroubleTaskBots, workingArrays.policeBots, workingArrays.injuredBots, workingArrays.ringLeaderTaskBots)
+                    workingArrays.subservientTaskBots + [thisTaskbot], workingArrays.policeRequestWallTaskBots, workingArrays.policeInTroubleTaskBots, workingArrays.policeBots, workingArrays.injuredBots, workingArrays.ringLeaderTaskBots)
             }
                 
             // The taskbot is an active protestor
             else if thisTaskbot.isProtestor && thisTaskbot.isActive
             {
-                return (workingArrays.criminalTaskBots, workingArrays.sellerTaskBots, workingArrays.buyerTaskBots, workingArrays.scaredTaskBots, workingArrays.dangerousTaskBots, workingArrays.protestorBots + [thisTaskbot], workingArrays.subservientTaskBots, workingArrays.policeInTroubleTaskBots, workingArrays.policeBots, workingArrays.injuredBots, workingArrays.ringLeaderTaskBots)
+                return (workingArrays.criminalTaskBots, workingArrays.sellerTaskBots, workingArrays.buyerTaskBots, workingArrays.scaredTaskBots, workingArrays.dangerousTaskBots, workingArrays.protestorBots + [thisTaskbot], workingArrays.subservientTaskBots, workingArrays.policeRequestWallTaskBots, workingArrays.policeInTroubleTaskBots, workingArrays.policeBots, workingArrays.injuredBots, workingArrays.ringLeaderTaskBots)
             }
                 
             // The taskbot has become incapacitated or injured
             else if thisTaskbot.isInjured && !thisTaskbot.isActive
             {
-                return (workingArrays.criminalTaskBots, workingArrays.sellerTaskBots, workingArrays.buyerTaskBots, workingArrays.scaredTaskBots, workingArrays.dangerousTaskBots, workingArrays.protestorBots, workingArrays.subservientTaskBots, workingArrays.policeInTroubleTaskBots, workingArrays.policeBots,
-                        workingArrays.injuredBots + [thisTaskbot], workingArrays.ringLeaderTaskBots)
+                return (workingArrays.criminalTaskBots, workingArrays.sellerTaskBots, workingArrays.buyerTaskBots, workingArrays.scaredTaskBots, workingArrays.dangerousTaskBots, workingArrays.protestorBots, workingArrays.subservientTaskBots, workingArrays.policeRequestWallTaskBots, workingArrays.policeInTroubleTaskBots, workingArrays.policeBots, workingArrays.injuredBots + [thisTaskbot], workingArrays.ringLeaderTaskBots)
             }
              
             // The taskbot is a policeman and in trouble
             else if thisTaskbot.isPolice && thisTaskbot.needsHelp
             {
-                return (workingArrays.criminalTaskBots, workingArrays.sellerTaskBots, workingArrays.buyerTaskBots, workingArrays.scaredTaskBots, workingArrays.dangerousTaskBots, workingArrays.protestorBots, workingArrays.subservientTaskBots, workingArrays.policeInTroubleTaskBots  + [thisTaskbot], workingArrays.policeBots + [thisTaskbot], workingArrays.injuredBots, workingArrays.ringLeaderTaskBots)
+                return (workingArrays.criminalTaskBots, workingArrays.sellerTaskBots, workingArrays.buyerTaskBots, workingArrays.scaredTaskBots, workingArrays.dangerousTaskBots, workingArrays.protestorBots, workingArrays.subservientTaskBots, workingArrays.policeRequestWallTaskBots, workingArrays.policeInTroubleTaskBots  + [thisTaskbot], workingArrays.policeBots + [thisTaskbot], workingArrays.injuredBots, workingArrays.ringLeaderTaskBots)
+            }
+            
+            // The taskbot is a policeman and is requesting support to build a wall
+            else if thisTaskbot.isPolice && thisTaskbot.requestWall
+            {
+                return (workingArrays.criminalTaskBots, workingArrays.sellerTaskBots, workingArrays.buyerTaskBots, workingArrays.scaredTaskBots, workingArrays.dangerousTaskBots, workingArrays.protestorBots, workingArrays.subservientTaskBots, workingArrays.policeRequestWallTaskBots + [thisTaskbot], workingArrays.policeInTroubleTaskBots, workingArrays.policeBots + [thisTaskbot], workingArrays.injuredBots, workingArrays.ringLeaderTaskBots)
             }
                 
             // The taskbot is a policeman
             else if thisTaskbot.isPolice // && isPolice
             {
-                return (workingArrays.criminalTaskBots, workingArrays.sellerTaskBots, workingArrays.buyerTaskBots, workingArrays.scaredTaskBots, workingArrays.dangerousTaskBots, workingArrays.protestorBots, workingArrays.subservientTaskBots,  workingArrays.policeInTroubleTaskBots, workingArrays.policeBots + [thisTaskbot], workingArrays.injuredBots, workingArrays.ringLeaderTaskBots)
+                return (workingArrays.criminalTaskBots, workingArrays.sellerTaskBots, workingArrays.buyerTaskBots, workingArrays.scaredTaskBots, workingArrays.dangerousTaskBots, workingArrays.protestorBots, workingArrays.subservientTaskBots, workingArrays.policeRequestWallTaskBots, workingArrays.policeInTroubleTaskBots, workingArrays.policeBots + [thisTaskbot], workingArrays.injuredBots, workingArrays.ringLeaderTaskBots)
             }
 
              
             // The taskbot is a Criminal and seller
             else if thisTaskbot.isCriminal && thisTaskbot.isSelling // && isCriminal
             {
-                return (workingArrays.criminalTaskBots + [thisTaskbot], workingArrays.sellerTaskBots + [thisTaskbot], workingArrays.buyerTaskBots, workingArrays.scaredTaskBots, workingArrays.dangerousTaskBots, workingArrays.protestorBots, workingArrays.subservientTaskBots, workingArrays.policeInTroubleTaskBots, workingArrays.policeBots, workingArrays.injuredBots, workingArrays.ringLeaderTaskBots)
+                return (workingArrays.criminalTaskBots + [thisTaskbot], workingArrays.sellerTaskBots + [thisTaskbot], workingArrays.buyerTaskBots, workingArrays.scaredTaskBots, workingArrays.dangerousTaskBots, workingArrays.protestorBots, workingArrays.subservientTaskBots, workingArrays.policeRequestWallTaskBots, workingArrays.policeInTroubleTaskBots, workingArrays.policeBots, workingArrays.injuredBots, workingArrays.ringLeaderTaskBots)
             }
                 
             // The taskbot is a Criminal
             else if thisTaskbot.isCriminal // && isCriminal
             {
-                return (workingArrays.criminalTaskBots  + [thisTaskbot], workingArrays.sellerTaskBots, workingArrays.buyerTaskBots, workingArrays.scaredTaskBots, workingArrays.dangerousTaskBots, workingArrays.protestorBots, workingArrays.subservientTaskBots, workingArrays.policeInTroubleTaskBots, workingArrays.policeBots, workingArrays.injuredBots, workingArrays.ringLeaderTaskBots)
+                return (workingArrays.criminalTaskBots  + [thisTaskbot], workingArrays.sellerTaskBots, workingArrays.buyerTaskBots, workingArrays.scaredTaskBots, workingArrays.dangerousTaskBots, workingArrays.protestorBots, workingArrays.subservientTaskBots, workingArrays.policeRequestWallTaskBots, workingArrays.policeInTroubleTaskBots, workingArrays.policeBots, workingArrays.injuredBots, workingArrays.ringLeaderTaskBots)
             }
                 
             else
             {
-                return (workingArrays.criminalTaskBots, workingArrays.sellerTaskBots, workingArrays.buyerTaskBots, workingArrays.scaredTaskBots, workingArrays.dangerousTaskBots, workingArrays.protestorBots, workingArrays.subservientTaskBots, workingArrays.policeInTroubleTaskBots, workingArrays.policeBots, workingArrays.injuredBots, workingArrays.ringLeaderTaskBots)
+                return (workingArrays.criminalTaskBots, workingArrays.sellerTaskBots, workingArrays.buyerTaskBots, workingArrays.scaredTaskBots, workingArrays.dangerousTaskBots, workingArrays.protestorBots, workingArrays.subservientTaskBots, workingArrays.policeRequestWallTaskBots, workingArrays.policeInTroubleTaskBots, workingArrays.policeBots, workingArrays.injuredBots, workingArrays.ringLeaderTaskBots)
             }
 
         }
         
-        let totalTaskBotCount = Float(subservientTaskBots.count) + Float(protestorTaskBots.count) + Float(dangerousTaskBots.count) + Float(injuredTaskBots.count) + Float(policeInTroubleTaskBots.count) + Float(policeTaskBots.count) + Float(criminalTaskBots.count) + Float(sellerTaskBots.count) + Float(buyerTaskBots.count) + Float(ringLeaderTaskBots.count)
+        let totalTaskBotCount = Float(subservientTaskBots.count) + Float(protestorTaskBots.count) + Float(dangerousTaskBots.count) + Float(injuredTaskBots.count) + Float(policeRequestWallTaskBots.count) + Float(policeInTroubleTaskBots.count) + Float(policeTaskBots.count) + Float(criminalTaskBots.count) + Float(sellerTaskBots.count) + Float(buyerTaskBots.count) + Float(ringLeaderTaskBots.count)
         
         let policeBotPercentage = Float(policeTaskBots.count) + Float(policeInTroubleTaskBots.count) / totalTaskBotCount
 //                                    Float(subservientTaskBots.count) + Float(protestorTaskBots.count) + Float(dangerousTaskBots.count) + Float(injuredTaskBots.count) + Float(policeTaskBots.count) + Float(criminalTaskBots.count)
@@ -264,8 +266,11 @@ class EntitySnapshot
     /// The nearest "Police" `TaskBot`.
     let nearestPoliceTaskBotTarget: (target: TaskBot, distance: Float)?
     
-    /// The nearest "Police" `TaskBot`.
+    /// The nearest "Police" `TaskBot` that needs help.
     let nearestPoliceTaskBotInTroubleTarget: (target: TaskBot, distance: Float)?
+
+    /// The nearest "Police" `TaskBot` that wants to build a wall.
+    let nearestPoliceTaskBotRequestWallTarget: (target: TaskBot, distance: Float)?
     
     /// The nearest "RingLeader" `TaskBot`.
     let nearestRingLeaderTaskBotTarget: (target: TaskBot, distance: Float)?
@@ -318,6 +323,7 @@ class EntitySnapshot
         var playerBotTarget: (target: PlayerBot, distance: Float)?
         var nearestPoliceTaskBotTarget: (target: TaskBot, distance: Float)?
         var nearestPoliceTaskBotInTroubleTarget: (target: TaskBot, distance: Float)?
+        var nearestPoliceTaskBotRequestWallTarget: (target: TaskBot, distance: Float)?
         var nearestRingLeaderTaskBotTarget: (target: TaskBot, distance: Float)?
         var nearestProtestorTaskBotTarget: (target: TaskBot, distance: Float)?
         var nearestSubservientTaskBotTarget: (target: TaskBot, distance: Float)?
@@ -335,58 +341,87 @@ class EntitySnapshot
         */
         for entityDistance in self.entityDistances
         {
+            
+            // Set the player target
             if let target = entityDistance.target as? PlayerBot, playerBotTarget == nil && target.isTargetable
             {
                 playerBotTarget = (target: target, distance: entityDistance.distance)
             }
+            
+            // Set the nearest Dangerous taskbot
             else if let target = entityDistance.target as? TaskBot, nearestDangerousTaskBotTarget == nil && target.isDangerous && target.isActive
             {
                 nearestDangerousTaskBotTarget = (target: target, distance: entityDistance.distance)
             }
+                
+            // Set the nearest Buyer taskbot
             else if let target = entityDistance.target as? TaskBot, nearestBuyerTaskBotTarget == nil && target.isProtestor && target.isActive && target.isBuying
             {
                 nearestBuyerTaskBotTarget = (target: target, distance: entityDistance.distance)
             }
+                
+            // Set the nearest Ringleader taskbot
             else if let target = entityDistance.target as? TaskBot, nearestRingLeaderTaskBotTarget == nil && target.isRingLeader && target.isActive
             {
                 nearestRingLeaderTaskBotTarget = (target: target, distance: entityDistance.distance)
             }
+                
+            // Set the nearest Protestor taskbot
             else if let target = entityDistance.target as? TaskBot, nearestProtestorTaskBotTarget == nil && target.isProtestor && target.isActive
             {
                 nearestProtestorTaskBotTarget = (target: target, distance: entityDistance.distance)
             }
+                
+            // Set the nearest Subservient taskbot
             else if let target = entityDistance.target as? TaskBot, nearestSubservientTaskBotTarget == nil && target.isProtestor && target.isActive && target.isSubservient
             {
                 nearestSubservientTaskBotTarget = (target: target, distance: entityDistance.distance)
             }
+                
+            //Set the nearest Scared taskbot
             else if let target = entityDistance.target as? TaskBot, nearestScaredTaskBotTarget == nil && target.isProtestor && target.isScared && target.isActive
             {
                 nearestScaredTaskBotTarget = (target: target, distance: entityDistance.distance)
             }
+                
+            // Set the nearest Police taskbot that needs help
             else if let target = entityDistance.target as? TaskBot, nearestPoliceTaskBotInTroubleTarget == nil && target.isPolice && target.isActive && target.needsHelp
             {
                 nearestPoliceTaskBotInTroubleTarget = (target: target, distance: entityDistance.distance)
             }
+                
+            // Set the nearest Police taskbot that has requested build Wall support
+            else if let target = entityDistance.target as? TaskBot, nearestPoliceTaskBotRequestWallTarget == nil && target.isPolice && target.isActive && target.requestWall
+            {
+                nearestPoliceTaskBotRequestWallTarget = (target: target, distance: entityDistance.distance)
+            }
+                
+            // Set the nearest Police taskbot
             else if let target = entityDistance.target as? TaskBot, nearestPoliceTaskBotTarget == nil && target.isPolice && target.isActive
             {
                 nearestPoliceTaskBotTarget = (target: target, distance: entityDistance.distance)
             }
+                
+            // Set the nearest Seller taskbot
             else if let target = entityDistance.target as? TaskBot, nearestSellerTaskBotTarget == nil && target.isCriminal && target.isActive && target.isSelling // && isCriminal (isBad gets confused with PoliceBot
             {
                 nearestSellerTaskBotTarget = (target: target, distance: entityDistance.distance)
             }
+                
+            // Set the nearest Criminal tasbot
             else if let target = entityDistance.target as? TaskBot, nearestCriminalTaskBotTarget == nil && target.isCriminal && target.isActive // && isCriminal (isBad gets confused with PoliceBot
             {
                 nearestCriminalTaskBotTarget = (target: target, distance: entityDistance.distance)
             }
  
+            // Set the nearest Injured taskbot
             else if let target = entityDistance.target as? TaskBot, nearestInjuredTaskBotTarget == nil && target.isInjured && !target.isActive // && isCriminal (isBad gets confused with PoliceBot
             {
                 nearestInjuredTaskBotTarget = (target: target, distance: entityDistance.distance)
             }
             
             // Stop iterating over the array once we have found both the `PlayerBot` and the nearest good `TaskBot` and the nearest dangerous 'TaskBot'
-            if playerBotTarget != nil && nearestProtestorTaskBotTarget != nil && nearestSubservientTaskBotTarget != nil && nearestDangerousTaskBotTarget != nil && nearestScaredTaskBotTarget != nil && nearestPoliceTaskBotInTroubleTarget != nil && nearestPoliceTaskBotTarget != nil && nearestCriminalTaskBotTarget != nil && nearestSellerTaskBotTarget != nil && nearestBuyerTaskBotTarget != nil &&  nearestInjuredTaskBotTarget != nil && nearestRingLeaderTaskBotTarget != nil
+            if playerBotTarget != nil && nearestProtestorTaskBotTarget != nil && nearestSubservientTaskBotTarget != nil && nearestDangerousTaskBotTarget != nil && nearestScaredTaskBotTarget != nil && nearestPoliceTaskBotRequestWallTarget != nil &&  nearestPoliceTaskBotInTroubleTarget != nil && nearestPoliceTaskBotTarget != nil && nearestCriminalTaskBotTarget != nil && nearestSellerTaskBotTarget != nil && nearestBuyerTaskBotTarget != nil &&  nearestInjuredTaskBotTarget != nil && nearestRingLeaderTaskBotTarget != nil
             {
                 break
             }
@@ -395,6 +430,7 @@ class EntitySnapshot
         self.playerBotTarget = playerBotTarget
         self.nearestPoliceTaskBotTarget = nearestPoliceTaskBotTarget
         self.nearestPoliceTaskBotInTroubleTarget = nearestPoliceTaskBotInTroubleTarget
+        self.nearestPoliceTaskBotRequestWallTarget = nearestPoliceTaskBotRequestWallTarget
         self.nearestRingLeaderTaskBotTarget = nearestRingLeaderTaskBotTarget
         self.nearestProtestorTaskBotTarget = nearestProtestorTaskBotTarget
         self.nearestSubservientTaskBotTarget = nearestSubservientTaskBotTarget
