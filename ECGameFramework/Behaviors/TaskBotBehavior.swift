@@ -264,16 +264,16 @@ class TaskBotBehavior: GKBehavior
         
         // Add basic goals to reach the `TaskBot`'s maximum speed, avoid obstacles and seek the target Police.
         behavior.addTargetSpeedGoal(speed: agent.maxSpeed)
-//        behavior.addAvoidObstaclesGoal(forScene: scene)
+        behavior.addAvoidObstaclesGoal(forScene: scene)
         //        behavior.addSeekGoal(forScene: scene, agent: self, weight: 1.0)
         //        behavior.addWanderGoal(forScene: scene)
         
         
         // WE DON"T NEED THIS
-        // Add goals to follow a calculated path from the `TaskBot` to its target.
-        let pathPoints = behavior.addGoalsToFollowPath(from: agent.position, to: target.position, pathRadius: pathRadius, inScene: scene)
+        // Add goals to follow a calculated path from the `TaskBot` to its target.  The WallComponent states will move the TaskBot
+        let pathPoints = behavior.addGoalsToFollowPath(from: agent.position, to: agent.position, pathRadius: 100.0, inScene: scene)
         
-        //print("targetPosition: \(target.position)")
+        print("target: \(target.debugDescription)")
         
         // Return a tuple containing the new behavior, and the found path points for debug drawing.
         return (behavior, pathPoints)
