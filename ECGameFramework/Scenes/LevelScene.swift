@@ -61,6 +61,11 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
     {
         return childNode(withName: "world/characters/meatwagon")!
     }
+    
+    var formWall: SKNode
+    {
+        return childNode(withName: "world/characters/createWall")!
+    }
 
     let playerBot = PlayerBot()
     var entities = Set<GKEntity>()
