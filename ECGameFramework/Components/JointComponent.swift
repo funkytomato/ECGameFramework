@@ -174,9 +174,9 @@ class JointComponent: GKComponent
         
         
         //Lock the two entities to a specified distance
-        let distanceRange = SKRange(lowerLimit: 55.0, upperLimit: 100.0)
-        let lockDistance = SKConstraint.distance(distanceRange, to: targetEntity.renderComponent.node)
-        renderComponent.node.constraints = [ lockDistance ]
+//        let distanceRange = SKRange(lowerLimit: 55.0, upperLimit: 100.0)
+//        let lockDistance = SKConstraint.distance(distanceRange, to: targetEntity.renderComponent.node)
+//        renderComponent.node.constraints = [ lockDistance ]
   
         //Position PoliceBot 100p to the right of the PoliceBot
 //        let positionRange = SKRange(lowerLimit: 50.0, upperLimit: 150.0)
@@ -197,7 +197,7 @@ class JointComponent: GKComponent
         targetEntity.renderComponent.node.constraints = [ lockOn ]
         */
         
-//        makeJoint(JointLabels.Limit)
+        makeJoint(JointLabels.Limit)
 //        makeJoint(JointLabels.Fixed)
         
         //Inform the JointComponent that a joint has been created
