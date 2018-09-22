@@ -49,6 +49,11 @@ enum Fact: String
     case policeBotInTroubleNear = "PoliceBotInTroubleNear"
     case policeBotInTroubleMedium = "PoliceBotInTroubleMedium"
     case policeBotInTroubleFar = "PoliceBotInTroubleFar"
+
+    // Fuzzy rules pertaining to this 'TaskBot''s proximity to a PoliceBot requesting support to build wall
+    case policeBotRequestWallNear = "PoliceBotRequestWallNear"
+    case policeBotRequestWallMedium = "PoliceBotRequestWallMedium"
+    case policeBotRequestWallFar = "PoliceBotRequestWallFar"
     
     // Fuzzy rules pertaining to this `TaskBot`'s proximity to the `PlayerBot`.
     case playerBotNear = "PlayerBotNear"
@@ -311,6 +316,71 @@ class PoliceBotInTroubleFarRule: FuzzyTaskBotRule
 //        print("Deallocating PoliceBotFarRule")
     }
 }
+
+/// Asserts whether the `PoliceBot` is considered to be "near" to this `TaskBot`.
+class PoliceBotRequestWallNearRule: FuzzyTaskBotRule
+{
+    // MARK: Properties
+    
+    override func grade() -> Float
+    {
+        guard let distance = snapshot.nearestPoliceTaskBotRequestWallTarget?.distance else { return 0.0 }
+        let oneThird = snapshot.proximityFactor / 3
+        return (oneThird - distance) / oneThird
+    }
+    
+    // MARK: Initializers
+    
+    init() { super.init(fact: .policeBotRequestWallNear) }
+    
+    deinit {
+        //        print("Deallocating PoliceBotNearRule")
+    }
+}
+
+/// Asserts whether the `PoliceBot` is considered to be at a "medium" distance from this `TaskBot`.
+class PoliceBotRequestWallMediumRule: FuzzyTaskBotRule
+{
+    // MARK: Properties
+    
+    override func grade() -> Float
+    {
+        guard let distance = snapshot.nearestPoliceTaskBotRequestWallTarget?.distance else { return 0.0 }
+        let oneThird = snapshot.proximityFactor / 3
+        return 1 - (fabs(distance - oneThird) / oneThird)
+    }
+    
+    // MARK: Initializers
+    
+    init() { super.init(fact: .policeBotRequestWallMedium) }
+    
+    deinit {
+        //        print("Deallocating PoliceBotMediumRule")
+    }
+}
+
+/// Asserts whether the `PoliceBot` is considered to be "far" from this `TaskBot`.
+class PoliceBotRequestWallFarRule: FuzzyTaskBotRule
+{
+    // MARK: Properties
+    
+    override func grade() -> Float
+    {
+        guard let distance = snapshot.nearestPoliceTaskBotRequestWallTarget?.distance else { return 0.0 }
+        let oneThird = snapshot.proximityFactor / 3
+        return (distance - oneThird) / oneThird
+    }
+    
+    // MARK: Initializers
+    
+    init() { super.init(fact: .policeBotRequestWallFar) }
+    
+    deinit {
+        //        print("Deallocating PoliceBotFarRule")
+    }
+}
+
+
 
 
 
