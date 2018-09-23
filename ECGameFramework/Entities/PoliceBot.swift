@@ -319,6 +319,28 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
     {
         super.contactWithEntityDidBegin(entity)
         
+        // Check if Protestor on form wall trigger node
+        guard let physicsComponent = entity.component(ofType: PhysicsComponent.self) else { return }
+        let contactedBodies = physicsComponent.physicsBody.allContactedBodies()
+        for contactedBody in contactedBodies
+        {
+//            guard let entity = contactedBody.node?.entity else { continue }
+            if contactedBody.node?.name == "createWall"
+            {
+                print("creatWall detected")
+                entity.component(ofType: WallComponent.self)?.isTriggered = true
+            }
+        }
+        
+//        if let targetBot = entity as? PoliceBot,
+//            let targetPhysicsComponent = targetBot.component(ofType: PhysicsComponent.self)
+//        {
+//            if targetPhysicsComponent.physicsBody.node?.name == "createWall"
+//            {
+//                print("creatWall detected")
+//            }
+//        }
+        
         guard let targetBot = entity as? TaskBot else { return }
         
 //        if let formWallState = self.component(ofType: IntelligenceComponent.self)?.stateMachine.currentState as? PoliceBotFormWallState
