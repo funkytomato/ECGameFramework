@@ -198,6 +198,7 @@
 		C21F6126214FD6C200254198 /* WallComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21F6125214FD6C200254198 /* WallComponent.swift */; };
 		C22B2B1520594D230001EC87 /* ManBot.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C22B2B1420594D230001EC87 /* ManBot.xcassets */; };
 		C23337C520B5CD8C00A79CD5 /* CriminalBot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C23337C420B5CD8C00A79CD5 /* CriminalBot.swift */; };
+		C26FC46D21571D500011E036 /* WallIdleState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26FC46C21571D500011E036 /* WallIdleState.swift */; };
 		C28F12D520B5B49B00EB3FC0 /* LootState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28F12D420B5B49B00EB3FC0 /* LootState.swift */; };
 		C28F12D720B5B52500EB3FC0 /* SellWaresState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28F12D620B5B52500EB3FC0 /* SellWaresState.swift */; };
 		C28F12D920B5B5D000EB3FC0 /* VandaliseState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C28F12D820B5B5D000EB3FC0 /* VandaliseState.swift */; };
@@ -436,6 +437,7 @@
 		C21F6125214FD6C200254198 /* WallComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallComponent.swift; sourceTree = "<group>"; };
 		C22B2B1420594D230001EC87 /* ManBot.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ManBot.xcassets; sourceTree = "<group>"; };
 		C23337C420B5CD8C00A79CD5 /* CriminalBot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CriminalBot.swift; sourceTree = "<group>"; };
+		C26FC46C21571D500011E036 /* WallIdleState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallIdleState.swift; sourceTree = "<group>"; };
 		C28F12D420B5B49B00EB3FC0 /* LootState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LootState.swift; sourceTree = "<group>"; };
 		C28F12D620B5B52500EB3FC0 /* SellWaresState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellWaresState.swift; sourceTree = "<group>"; };
 		C28F12D820B5B5D000EB3FC0 /* VandaliseState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VandaliseState.swift; sourceTree = "<group>"; };
@@ -1053,6 +1055,7 @@
 				C2DE204D214FE6FE0068EC36 /* ChargeState.swift */,
 				C2DE204F214FE72E0068EC36 /* MoveBackwardState.swift */,
 				C2DE2051214FE7550068EC36 /* RetreatState.swift */,
+				C26FC46C21571D500011E036 /* WallIdleState.swift */,
 			);
 			path = "WallComponent (States)";
 			sourceTree = "<group>";
@@ -1356,6 +1359,7 @@
 				18F1455B20D0173D002DC88D /* ProtestorInciteState.swift in Sources */,
 				181146AA20DEAD710060EF0A /* IntoxicationComponent.swift in Sources */,
 				C2AC3A0B20E50310001F784E /* SellingWaresComponent.swift in Sources */,
+				C26FC46D21571D500011E036 /* WallIdleState.swift in Sources */,
 				C2D1BAF920CB501A00400BB3 /* InciteActiveState.swift in Sources */,
 				181073642088E15B001390EA /* PoliceBot.swift in Sources */,
 				18F52203208927820070EB0C /* PoliceArrestState.swift in Sources */,
