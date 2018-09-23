@@ -82,6 +82,14 @@ class TaskBotAgentControlledState: GKState
         if timeSinceBehaviorUpdate >= GameplayConfiguration.TaskBot.behaviorUpdateWaitDuration
         {
             
+            // If PoliceBot nears CreateWall location then create a wall
+            if /* self.entity.isPolice && */
+                entity.distanceToPoint(otherPoint: destination) <= 300.0
+            {
+                self.entity.requestWall = true
+            }
+            
+            
             //Gradually increase the Police resistance
             if self.entity.isPolice,
                 let resistanceComponent = entity.component(ofType: ResistanceComponent.self)
@@ -198,7 +206,8 @@ class TaskBotAgentControlledState: GKState
                         entity.mandate = entity.isGood ? .followGoodPatrolPath : .followBadPatrolPath
                     }
                     break
-                                // When a `TaskBot` is in wall, do some shit...
+                
+                // When a `TaskBot` is in wall, do some shit...
                 case let .inWall(target):
                     
                     break
