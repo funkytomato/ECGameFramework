@@ -35,6 +35,8 @@ enum JointLabels : String
 class JointComponent: GKComponent
 {
     
+    var thisJoint:SKPhysicsJoint?
+    
     var entityB : TaskBot?
     var pinDot : SKShapeNode?
     var pinned : SKSpriteNode?
@@ -103,11 +105,11 @@ class JointComponent: GKComponent
 
         let lineNode = SKShapeNode()
         lineNode.name = kLineNode + entity.id.description
-//        lineNode.name = entity.id.description
         lineNode.strokeColor = UIColor.red
         lineNode.lineWidth = 3.0
         lineNode.zPosition = 12
         self.lineNode = lineNode
+
      }
     
     required init?(coder aDecoder: NSCoder)
@@ -123,6 +125,7 @@ class JointComponent: GKComponent
     
     override func update(deltaTime seconds: TimeInterval)
     {
+        guard let taskBot = entity as? TaskBot else { return }
         
         //Joint has been created, redraw it repective to entity changed positions
         if isTriggered
@@ -165,7 +168,7 @@ class JointComponent: GKComponent
         //Add the pin nodes to this entity
         renderComponent.node.addChild(pinned!)
         renderComponent.node.addChild(pinDot!)
-        
+
         //Add the satellite nodes to the target entity
         self.entityB?.component(ofType: RenderComponent.self)?.node.addChild(satellite!)
         self.entityB?.component(ofType: RenderComponent.self)?.node.addChild(satelliteDot!)
@@ -283,8 +286,35 @@ class JointComponent: GKComponent
             joint = limit
         }
         
+        self.thisJoint = joint
+        
         //Add the Physics Joint to the scene's physics world
         renderComponent.node.scene!.physicsWorld.add(joint)
+    }
+    
+    func removeJoint()
+    {
+        renderComponent.node.scene?.physicsWorld.remove(thisJoint!)
+        self.thisJoint = nil
+        guard let policeBot = entity as? PoliceBot else { return }
+        policeBot.connections -= 1
+        self.isTriggered = false
+        policeBot.requestWall = false
+        
+        //Remove the line node to the scene
+        renderComponent.node.scene?.removeChildren(in: [lineNode!])
+        
+        
+        //Remove the pin nodes to this entity
+        renderComponent.node.removeChildren(in: [pinned!])
+        renderComponent.node.removeChildren(in: [pinDot!])
+        
+        //Add the satellite nodes to the target entity
+        self.entityB?.component(ofType: RenderComponent.self)?.node.removeChildren(in: [satellite!])
+        self.entityB?.component(ofType: RenderComponent.self)?.node.removeChildren(in: [satelliteDot!])
+
+        
+        print("Removing joint on entity: \(policeBot.debugDescription), connections: \(policeBot.connections)")
     }
 }
 
