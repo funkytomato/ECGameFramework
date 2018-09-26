@@ -37,14 +37,14 @@ class WallIdleState: GKState
     }
     
     deinit {
-        //        print("Deallocating SellingWaresIdleState")
+        //        print("Deallocating WallIdleState")
     }
     
     // MARK: GKState life cycle
     
     override func didEnter(from previousState: GKState?)
     {
-        //        print("SellingWaresIdleState entered: \(sellingWaresComponent.entity.debugDescription)")
+        print("WallIdleState didEnter: \(wallComponent.debugDescription)")
         
         super.didEnter(from: previousState)
         elapsedTime = 0.0
@@ -52,6 +52,8 @@ class WallIdleState: GKState
     
     override func update(deltaTime seconds: TimeInterval)
     {
+//        print("WallIdleState update: \(wallComponent.debugDescription)")
+        
         super.update(deltaTime: seconds)
         
         if wallComponent.isTriggered
