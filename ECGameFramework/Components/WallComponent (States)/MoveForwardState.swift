@@ -63,7 +63,7 @@ class MoveForwardState: GKState
         self.wallComponent = wallComponent
         self.entity = entity as! PoliceBot
         
-        self.entity.agent.maxSpeed = 150.0
+//        self.entity.agent.maxSpeed = 150.0
 
     }
     
@@ -112,7 +112,7 @@ class MoveForwardState: GKState
     
     override func update(deltaTime seconds: TimeInterval)
     {
-        //        print("MoveForwardState update")
+//        print("MoveForwardState update")
         
         super.update(deltaTime: seconds)
         elapsedTime += seconds
@@ -135,7 +135,7 @@ class MoveForwardState: GKState
          Leave the attack state if the `PoliceBot` has moved further away from
          its target because it has been knocked off course.
          */
-        if currentDistanceToTarget > lastDistanceToTarget && elapsedTime > 10.0
+        if currentDistanceToTarget > lastDistanceToTarget && elapsedTime > 3.0
         {
             stateMachine?.enter(RegroupState.self)
             return
@@ -150,7 +150,7 @@ class MoveForwardState: GKState
     {
         switch stateClass
         {
-        case is ChargeState.Type, is HoldTheLineState.Type, is RegroupState.Type:
+        case is ChargeState.Type, is HoldTheLineState.Type, is RegroupState.Type, is DisbandState.Type:
             return true
             
         default:
