@@ -52,22 +52,103 @@ class RegroupState: GKState
     
     override func didEnter(from previousState: GKState?)
     {
-        //        print("WallCoolingState entered")
+        print("RegroupState entered")
         
         super.didEnter(from: previousState)
         elapsedTime = 0.0
         
-        entity.agent.maxSpeed = 100.0
+//        entity.agent.maxSpeed = 100.0
     }
     
     override func update(deltaTime seconds: TimeInterval)
     {
-        //        print("RegroupState update")
+//        print("RegroupState update")
 
         super.update(deltaTime: seconds)
         elapsedTime += seconds
 
-//        print("wallComponent: \(wallComponent.debugDescription), currentSize: \(wallComponent.currentWallSize), minimum: \(wallComponent.minimumWallSize), maximum: \(wallComponent.maximumWallSize)")
+
+
+        guard let physicsComponent = entity.component(ofType: PhysicsComponent.self) else { return }
+        let contactedBodies = physicsComponent.physicsBody.allContactedBodies()
+        for contactedBody in contactedBodies
+        {
+            guard let entity = contactedBody.node?.entity else { continue }
+            guard let targetBot = entity as? PoliceBot else { break }
+            if self.entity.isPolice && self.entity.connections < 2 /*&& self.entity.requestWall*/ &&
+                targetBot.isPolice && targetBot.connections < 2
+            {
+                //Check other PoliceBot is not in wall.
+                
+                let policeBotB = entity as? PoliceBot
+                if /*!policeBotB!.isWall && */policeBotB!.connections < 2
+                {
+                    
+                    let policeBotBPhysicsComponent = policeBotB?.component(ofType: PhysicsComponent.self)
+                    let policeBRenderComponent = policeBotB?.component(ofType: RenderComponent.self)
+                    let entityB = policeBRenderComponent?.entity
+                    
+                    // Get the Physics Component for each entity
+                    let policeBotA = entity as? PoliceBot
+                    let policeBotAPhysicsComponent = policeBotA?.component(ofType: PhysicsComponent.self)
+                    let policeARenderComponent = policeBotA?.component(ofType: RenderComponent.self)
+                    let entityA = policeARenderComponent?.entity
+                    
+                    
+                    //Connect the two Taskbots together like a rope if forming a wall
+                    guard let intelligenceComponent = self.entity.component(ofType: IntelligenceComponent.self) else { return }
+                    guard ((intelligenceComponent.stateMachine.currentState as? PoliceBotFormWallState) == nil) else { return }
+                    guard let jointComponent = self.entity.component(ofType: JointComponent.self) else { return }
+                    
+                    guard let policeBot = entity as? PoliceBot else { return }
+                    if !jointComponent.isTriggered && policeBot.isPolice
+                    {
+                        jointComponent.setEntityB(targetEntity: policeBotB!)
+                    }
+                
+                }
+            }
+        }
+
+        
+        
+//        // Check entity is Police, has less than 2 connections and is connecting with a PoliceBot who has less than 2 connections and has requested to build a wall
+//        if self.isPolice && self.connections < 2 /*&& !self.isWall*/ &&
+//            targetBot.isPolice && targetBot.connections < 2 && self.requestWall /* && !targetBot.isWall */
+//        {
+//            //Check other PoliceBot is not in wall.
+//
+//            let policeBotB = entity as? PoliceBot
+//            if !policeBotB!.isWall && policeBotB!.connections < 2
+//            {
+//
+//                let policeBotBPhysicsComponent = policeBotB?.component(ofType: PhysicsComponent.self)
+//                let policeBRenderComponent = policeBotB?.component(ofType: RenderComponent.self)
+//                let entityB = policeBRenderComponent?.entity
+//
+//                // Get the Physics Component for each entity
+//                let policeBotA = agent.entity as? PoliceBot
+//                let policeBotAPhysicsComponent = policeBotA?.component(ofType: PhysicsComponent.self)
+//                let policeARenderComponent = policeBotA?.component(ofType: RenderComponent.self)
+//                let entityA = policeARenderComponent?.entity
+//
+//
+//                //Connect the two Taskbots together like a rope if forming a wall
+//                guard let intelligenceComponent = self.component(ofType: IntelligenceComponent.self) else { return }
+//                guard ((intelligenceComponent.stateMachine.currentState as? PoliceBotFormWallState) == nil) else { return }
+//                guard let jointComponent = self.component(ofType: JointComponent.self) else { return }
+//
+//                guard let policeBot = entity as? PoliceBot else { return }
+//                if !jointComponent.isTriggered && policeBot.isPolice
+//                {
+//                    jointComponent.setEntityB(targetEntity: policeBotB!)
+//                }
+//
+//                policeBotA!.component(ofType: WallComponent.self)?.isTriggered = true
+//                policeBotB!.component(ofType: WallComponent.self)?.isTriggered = true
+//            }
+//        }
+        
         
         //If regroup time has expired and the wall size is greater than the minimum wall size move to the next state
         if self.entity.isWall && elapsedTime >= GameplayConfiguration.Wall.regroupStateDuration
@@ -80,7 +161,7 @@ class RegroupState: GKState
     {
         switch stateClass
         {
-            case is HoldTheLineState.Type:
+            case is HoldTheLineState.Type, is DisbandState.Type:
                 return true
             
             default:
