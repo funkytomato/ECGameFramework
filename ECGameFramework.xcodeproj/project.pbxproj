@@ -25,6 +25,7 @@
 		181146C320DEC14E0060EF0A /* AppetiteIdleState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181146C220DEC14E0060EF0A /* AppetiteIdleState.swift */; };
 		1818BC1120A6612C007FB4C7 /* TaskBotPlayerControlledState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1818BC1020A6612C007FB4C7 /* TaskBotPlayerControlledState.swift */; };
 		1823608D209BA1D000E71EB6 /* ResistanceComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1823608C209BA1D000E71EB6 /* ResistanceComponent.swift */; };
+		182CE4EE215AB37200989C0D /* DisbandState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182CE4ED215AB37200989C0D /* DisbandState.swift */; };
 		182D0D8621120C5A0004ED60 /* BuyingWaresReturningHomeState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182D0D8521120C5A0004ED60 /* BuyingWaresReturningHomeState.swift */; };
 		1838BBA420E5895E00C59E36 /* ProtestorBuyWaresState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1838BBA320E5895E00C59E36 /* ProtestorBuyWaresState.swift */; };
 		18443F2020E7EDB600660E27 /* BuyingWaresComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18443F1F20E7EDB600660E27 /* BuyingWaresComponent.swift */; };
@@ -264,6 +265,7 @@
 		181146C220DEC14E0060EF0A /* AppetiteIdleState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppetiteIdleState.swift; sourceTree = "<group>"; };
 		1818BC1020A6612C007FB4C7 /* TaskBotPlayerControlledState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskBotPlayerControlledState.swift; sourceTree = "<group>"; };
 		1823608C209BA1D000E71EB6 /* ResistanceComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResistanceComponent.swift; sourceTree = "<group>"; };
+		182CE4ED215AB37200989C0D /* DisbandState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisbandState.swift; sourceTree = "<group>"; };
 		182D0D8521120C5A0004ED60 /* BuyingWaresReturningHomeState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyingWaresReturningHomeState.swift; sourceTree = "<group>"; };
 		1838BBA320E5895E00C59E36 /* ProtestorBuyWaresState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtestorBuyWaresState.swift; sourceTree = "<group>"; };
 		18443F1F20E7EDB600660E27 /* BuyingWaresComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyingWaresComponent.swift; sourceTree = "<group>"; };
@@ -1049,13 +1051,14 @@
 		C2DE2046214FE50E0068EC36 /* WallComponent (States) */ = {
 			isa = PBXGroup;
 			children = (
+				C26FC46C21571D500011E036 /* WallIdleState.swift */,
 				C2DE2047214FE5730068EC36 /* RegroupState.swift */,
 				C2DE2049214FE6880068EC36 /* HoldTheLineState.swift */,
 				C2DE204B214FE6BB0068EC36 /* MoveForwardState.swift */,
 				C2DE204D214FE6FE0068EC36 /* ChargeState.swift */,
 				C2DE204F214FE72E0068EC36 /* MoveBackwardState.swift */,
 				C2DE2051214FE7550068EC36 /* RetreatState.swift */,
-				C26FC46C21571D500011E036 /* WallIdleState.swift */,
+				182CE4ED215AB37200989C0D /* DisbandState.swift */,
 			);
 			path = "WallComponent (States)";
 			sourceTree = "<group>";
@@ -1324,6 +1327,7 @@
 				186F6E512040D1D1001EEF65 /* AppDelegate.swift in Sources */,
 				18FCEA622040EC40009A5C0D /* CompassDirection.swift in Sources */,
 				18FCEA772040EC40009A5C0D /* TaskBotBehavior.swift in Sources */,
+				182CE4EE215AB37200989C0D /* DisbandState.swift in Sources */,
 				181146B620DEBE130060EF0A /* ObserveIdleState.swift in Sources */,
 				18F52207208928410070EB0C /* TaskBotFleeState.swift in Sources */,
 				181146BC20DEC06D0060EF0A /* AppetiteComponent.swift in Sources */,
