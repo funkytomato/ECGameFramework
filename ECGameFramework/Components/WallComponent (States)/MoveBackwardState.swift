@@ -45,7 +45,7 @@ class MoveBackwardState: GKState
     
     override func didEnter(from previousState: GKState?)
     {
-        //        print("MoveBackwardsState entered")
+        print("MoveBackwardsState entered")
         
         super.didEnter(from: previousState)
         elapsedTime = 0.0
@@ -64,7 +64,7 @@ class MoveBackwardState: GKState
     {
         switch stateClass
         {
-        case is RetreatState.Type, is HoldTheLineState.Type:
+        case is RetreatState.Type, is HoldTheLineState.Type, is DisbandState.Type:
             return true
             
         default:
