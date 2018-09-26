@@ -444,18 +444,18 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
             
             case let .supportPolice(targetAgent):
                 
-//                print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+                print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 intelligenceComponent.stateMachine.enter(PoliceBotSupportState.self)
                 targetPosition = targetAgent.position
             
             case .initateWall:
-//                print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+                print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
             
                 intelligenceComponent.stateMachine.enter(PoliceBotFormWallState.self)
             
             
             case let .formWall(targetAgent):
-//                print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+                print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 
                 intelligenceComponent.stateMachine.enter(PoliceBotFormWallState.self)
                 targetPosition = targetAgent.position
@@ -467,7 +467,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
                 self.isSupporting = true
 
             case let .inWall(targetAgent):
-//                print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+                print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
 
                 intelligenceComponent.stateMachine.enter(PoliceBotInWallState.self)
                 targetPosition = targetAgent.position
@@ -483,7 +483,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
                 targetPosition = targetAgent.position
             
             default:
-//                print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+                print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 break
 //                print("Hmm, do something hereE?")
         }
