@@ -62,7 +62,7 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
         return childNode(withName: "world/characters/meatwagon")!
     }
     
-    var formWall: SKNode
+    var formWallNode: SKNode
     {
         return childNode(withName: "world/characters/createWall")!
     }
@@ -907,6 +907,10 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
         return float2(meatWagon.position)
     }
     
+    func meatCreateWallLocation() -> float2
+    {
+        return float2(formWallNode.position)
+    }
 
     //var activeEntity: GKEntity?
     var activeEntity: TaskBot?
