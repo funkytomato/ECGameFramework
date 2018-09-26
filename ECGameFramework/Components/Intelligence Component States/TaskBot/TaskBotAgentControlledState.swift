@@ -63,9 +63,9 @@ class TaskBotAgentControlledState: GKState
             chargeComponent.addCharge(chargeToAdd: chargeToAdd)
         }
         
-        guard let renderComponent = entity.component(ofType: RenderComponent.self) else { return }
-        let scene = renderComponent.node.scene as? LevelScene
-        self.destination = (scene?.meatWagonLocation())!
+//        guard let renderComponent = entity.component(ofType: RenderComponent.self) else { return }
+//        let scene = renderComponent.node.scene as? LevelScene
+//        self.destination = (scene?.meatWagonLocation())!
     }
     
     override func update(deltaTime seconds: TimeInterval)
@@ -82,11 +82,15 @@ class TaskBotAgentControlledState: GKState
         if timeSinceBehaviorUpdate >= GameplayConfiguration.TaskBot.behaviorUpdateWaitDuration
         {
             
-            // If PoliceBot nears CreateWall location then create a wall
-            if /* self.entity.isPolice && */
-                entity.distanceToPoint(otherPoint: destination) <= 300.0
+            // If PoliceBot nears CreateWall location then initiate wall formation
+            if self.entity.isPolice && !self.entity.isSupporting &&
+                entity.distanceToPoint(otherPoint: destination) <= 150.0
             {
+                print("entity: \(entity.debugDescription)")
                 self.entity.requestWall = true
+//                self.entity.component(ofType: WallComponent.self)?.isTriggered = true
+//                self.entity.component(ofType: SpriteComponent.self)?.changeColour(colour: SKColor.brown)
+                self.entity.component(ofType: SpriteComponent.self)?.node.color = SKColor.brown
             }
             
             
@@ -199,11 +203,13 @@ class TaskBotAgentControlledState: GKState
                 
                 case let .formWall(target):
                     
-                    //If Police support is close to Police leader
-                    if entity.distanceToPoint(otherPoint: target.position) <= 100.0
+                    //When Police get within proximity of the Police leader, switch on the entities wall component
+                    if entity.distanceToPoint(otherPoint: target.position) <= 75.0
                     {
 //                        print("Forming wall")
-                        entity.mandate = entity.isGood ? .followGoodPatrolPath : .followBadPatrolPath
+                        entity.component(ofType: WallComponent.self)?.isTriggered = true
+//                        entity.mandate = entity.isGood ? .followGoodPatrolPath : .followBadPatrolPath
+                        
                     }
                     break
                 
