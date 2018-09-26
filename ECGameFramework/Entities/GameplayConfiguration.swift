@@ -299,7 +299,7 @@ struct GameplayConfiguration
     struct Wall
     {
         //The duration of time spent regrouping
-        static let regroupStateDuration = 10.0
+        static let regroupStateDuration = 5.0
         
         //The minimum number of PoliceBots required to create a wall
         static let minimumWallSize = 2
