@@ -54,6 +54,9 @@ class PoliceBotFormWallState: GKState
         super.didEnter(from: previousState)
         elapsedTime = 0.0
         
+        //Trigger WallComponent to form a wall with entities in PoliceBotFormWallState
+//        entity.component(ofType: WallComponent.self)?.isTriggered = true
+        
     }
     
     override func update(deltaTime seconds: TimeInterval)
@@ -63,8 +66,18 @@ class PoliceBotFormWallState: GKState
         
 //        print("PoliceBotFormWallState updating")
         
+        guard let wallComponent = entity.component(ofType: WallComponent.self) else { return }
+        guard let policeBot = entity as? PoliceBot else { return }
         
-        intelligenceComponent.stateMachine.enter(PoliceBotInWallState.self)
+        //Should only move into this state when Taskbots are connected
+        if policeBot.isWall
+        {
+            intelligenceComponent.stateMachine.enter(PoliceBotInWallState.self)
+        }
+        else
+        {
+            intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
+        }
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
