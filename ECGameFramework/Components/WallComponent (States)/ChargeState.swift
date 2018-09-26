@@ -68,7 +68,7 @@ class ChargeState: GKState
     
     override func didEnter(from previousState: GKState?)
     {
-        //        print("ChargeState entered")
+        print("ChargeState entered")
         
         super.didEnter(from: previousState)
         elapsedTime = 0.0
@@ -145,7 +145,7 @@ class ChargeState: GKState
     {
         switch stateClass
         {
-        case is RegroupState.Type:
+        case is RegroupState.Type, is DisbandState.Type:
             return true
             
         default:
