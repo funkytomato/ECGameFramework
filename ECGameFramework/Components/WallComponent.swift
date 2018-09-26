@@ -94,15 +94,17 @@ class WallComponent: GKComponent
         super.init()
         
         stateMachine = GKStateMachine(states: [
+            WallIdleState(wallComponent: self, entity: entity),
             RegroupState(wallComponent: self, entity: entity),
             HoldTheLineState(wallComponent: self, entity: entity),
             MoveBackwardState(wallComponent: self, entity: entity),
             RetreatState(wallComponent: self, entity: entity),
             MoveForwardState(wallComponent: self, entity: entity),
-            ChargeState(wallComponent: self, entity: entity)
+            ChargeState(wallComponent: self, entity: entity),
+            DisbandState(wallComponent: self, entity: entity)
             ])
         
-        stateMachine.enter(RegroupState.self)
+        stateMachine.enter(WallIdleState.self)
     }
     
     required init?(coder aDecoder: NSCoder)
@@ -127,17 +129,17 @@ class WallComponent: GKComponent
         
         //        print("state: \(intelligenceComponent.stateMachine.currentState)")
         
-        guard let currentState = stateMachine.currentState else { return }
-        switch currentState
-        {
-            
-            case is HoldTheLineState:
-                animationComponent.requestedAnimationState = .drinking
-            
-            default:
-                //                animationComponent.requestedAnimationState = .idle
-                break
-        }
+//        guard let currentState = stateMachine.currentState else { return }
+//        switch currentState
+//        {
+//            
+//            case is HoldTheLineState:
+////                animationComponent.requestedAnimationState = .drinking
+//                break
+//            default:
+//                //                animationComponent.requestedAnimationState = .idle
+//                break
+//        }
         
     }
     
