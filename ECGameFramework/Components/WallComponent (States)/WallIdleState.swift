@@ -60,6 +60,11 @@ class WallIdleState: GKState
         {
             stateMachine?.enter(RegroupState.self)
         }
+//        else
+//        {
+//            guard let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self) else { return }
+//            intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
+//        }
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
