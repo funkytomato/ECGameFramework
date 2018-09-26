@@ -20,12 +20,15 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
     {
         //Police should go and give support to an officer in need
         case supportPolice(GKAgent2D)
-        
-        //Police are in wall and must face nearest Protestor
-        case inWall(GKAgent2D)
+    
+        // Police has initiated creation of a wall
+        case initateWall
         
         //Police will form a wall
         case formWall(GKAgent2D)
+        
+        //Police are in wall and must face nearest Protestor
+        case inWall(GKAgent2D)
         
         // Player instructed TaskBot to move to a location
         case playerMovedTaskBot
@@ -257,6 +260,10 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
     //Is the taskbot requesting support to build wall?
     var requestWall: Bool
     
+    //Is the taskbot supporting another? (Build a wall or supporting TaskBot in trouble)
+    var isSupporting: Bool
+    
+    
     /// The aim that the `TaskBot` is currently trying to achieve.
     var mandate: TaskBotMandate
     
@@ -297,8 +304,15 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 (agentBehavior, debugPathPoints) = TaskBotBehavior.supportBehaviour(forAgent: agent, huntingAgent: target, pathRadius: radius, inScene: levelScene)
                 debugColor = SKColor.orange
             
+            // PoliceBot is initiating a wall
+            case .initateWall:
+                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
             
-            // PoliceBots needed to form wall
+                radius = GameplayConfiguration.TaskBot.huntPathRadius
+                (agentBehavior, debugPathPoints) = TaskBotBehavior.initiateWallBehaviour(forAgent: agent, pathRadius: radius, inScene: levelScene)
+                debugColor = SKColor.orange
+            
+            // PoliceBots shall support the building of a wall
             case let .formWall(target):
                 print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
             
@@ -638,6 +652,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         //Whether or not the taskbot needs support to build a wall
         self.requestWall = false
         
+        //Whether or not the taskbot is currently supporting another TaskBot
+        self.isSupporting = false
+        
         // Whether or not the taskbot is Injured
         self.isInjured = false
         
@@ -704,6 +721,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             PoliceTaskBotPercentageLowRule(),
             PoliceTaskBotPercentageMediumRule(),
             PoliceTaskBotPercentageHighRule(),
+            PoliceBotRequestWallNearRule(),
+            PoliceBotRequestWallMediumRule(),
+            PoliceBotRequestWallFarRule(),
             PoliceBotInTroubleNearRule(),
             PoliceBotInTroubleMediumRule(),
             PoliceBotInTroubleFarRule(),
@@ -890,7 +910,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
 
         
         //A series of situation in which Police go to support other Police
-        let supportTaskBotRaw = [
+        let supportPoliceInTroubleTaskBotRaw = [
             
             //Police are in trouble are nearby
             ruleSystem.minimumGrade(forFacts: [
@@ -909,7 +929,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 Fact.policeBotInTroubleFar.rawValue as AnyObject
                 ])
         ]
-        let supportPoliceBot = supportTaskBotRaw.reduce(0.0, max)
+        let supportPoliceBotInTrouble = supportPoliceInTroubleTaskBotRaw.reduce(0.0, max)
 //        print("supportPoliceBot: \(supportPoliceBot.description), supportPoliceBotRaw: \(supportTaskBotRaw.description) ")
 
         
@@ -1252,37 +1272,44 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             guard let targetProtestor = state.nearestProtestorTaskBotTarget?.target.agent else { return }
             mandate = .inWall(targetProtestor)
         }
-            
+          
+        //PoliceBot has requested to form a wall
+        else if self.isPolice && self.requestWall && supportWallPoliceBot == 0.0
+        {
+            mandate = .initateWall
+        }
          
-        // Taskbot is Police and is not in a wall, but another Police has requested support for building a Wall
-        else if self.isPolice && !self.isWall && supportWallPoliceBot > 0.5
+        // Taskbot is Police and is not in a wall, not the officer requesting wall, and not in need of help,
+        // but another Police has requested support for building a Wall
+        else if self.isPolice /* && !self.isWall */ && !self.requestWall /* && !self.needsHelp */ && supportWallPoliceBot > 0.2
         {
 //            guard let supportPoliceBot = state.nearestPoliceTaskBotTarget?.target.agent else { return }  // FOR TESTING
-            guard let supportPoliceBot = state.nearestPoliceTaskBotRequestWallTarget?.target.agent else { return }
-            mandate = .formWall(supportPoliceBot)
+            guard let supportWallPoliceBot = state.nearestPoliceTaskBotRequestWallTarget?.target.agent else { return }
+            mandate = .formWall(supportWallPoliceBot)
         }
            
-            
-        //TaskBot is Police and another Policeman needs to form wall, go support them
-        else if self.isPolice && supportPoliceBot > 0.0
+        //TaskBot is Police and another Policeman needs help, go support them
+        else if self.isPolice && self.needsHelp && supportPoliceBotInTrouble > 0.5
         {
             //            print("Support another Police")
-            guard let supportPoliceBot = state.nearestPoliceTaskBotInTroubleTarget?.target.agent else { return }
-            mandate = .formWall(supportPoliceBot)
-            
-//            print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
-        }
-            
-            
-        //TaskBot is Police and another Policeman needs help, go support them
-        else if self.isPolice && self.needsHelp && supportPoliceBot > 0.5
-        {
-//            print("Support another Police")
             guard let supportPoliceBot = state.nearestPoliceTaskBotTarget?.target.agent else { return }
             mandate = .supportPolice(supportPoliceBot)
             
-//            print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+            //            print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
         }
+            
+        //TaskBot is Police and is in trouble, go help hem
+//        else if self.isPolice && supportPoliceBotInTrouble > 0.5
+//        {
+//            //            print("Support another Police")
+//            guard let supportPoliceBot = state.nearestPoliceTaskBotInTroubleTarget?.target.agent else { return }
+//            mandate = .supportPolice(supportPoliceBot)
+//
+////            print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//        }
+            
+            
+
         
             
 
@@ -1299,6 +1326,13 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
 //            print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
         }
         
+            
+        //TaskBot is Police and active (alive) with nothing to do, so wander
+        else if self.isPolice && self.isActive
+        {
+            mandate  = .wander
+        }
+            
         // PROBABLY DELETE THIS LATER
         // An active PoliceBot is near a Protestor, attack them
 //        else if self.isPolice && self.isActive && huntTaskBot > huntPlayerBot
@@ -1328,11 +1362,11 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                     break
                 
                 case .inWall:
-                    print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                    print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 break
                 
                 case .formWall:
-                    print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                    print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                     break
                 
                 
