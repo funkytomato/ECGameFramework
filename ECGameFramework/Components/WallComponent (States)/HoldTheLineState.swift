@@ -66,19 +66,19 @@ class HoldTheLineState: GKState
     
     override func didEnter(from previousState: GKState?)
     {
-        //        print("HoldTheLineState entered")
+        print("HoldTheLineState entered")
         
         super.didEnter(from: previousState)
         elapsedTime = 0.0
         
-        entity.agent.maxSpeed = 100.0
+//        entity.agent.maxSpeed = 100.0
         
 //        entity.isWall = true
     }
     
     override func update(deltaTime seconds: TimeInterval)
     {
-        print("HoldTheLineState update")
+//        print("HoldTheLineState update")
         
         super.update(deltaTime: seconds)
         elapsedTime += seconds
@@ -117,7 +117,7 @@ class HoldTheLineState: GKState
                 orientationComponent.zRotation += angleDeltaToTarget
                 
                 //Check enough time has elapsed and TaskBot is in wall before moving to next state
-                if elapsedTime >= 15.0
+                if elapsedTime >= 5.0
                 {
                     stateMachine?.enter(MoveForwardState.self)
                 }
@@ -134,7 +134,7 @@ class HoldTheLineState: GKState
     {
         switch stateClass
         {
-        case is MoveBackwardState.Type, is RetreatState.Type, is MoveForwardState.Type:
+        case is MoveBackwardState.Type, is RetreatState.Type, is MoveForwardState.Type, is DisbandState.Type:
             return true
             
         default:
