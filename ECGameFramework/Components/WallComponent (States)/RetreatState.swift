@@ -46,7 +46,7 @@ class RetreatState: GKState
     
     override func didEnter(from previousState: GKState?)
     {
-        //        print("RetreatState entered")
+        print("RetreatState entered")
         
         super.didEnter(from: previousState)
         elapsedTime = 0.0
@@ -65,7 +65,7 @@ class RetreatState: GKState
     {
         switch stateClass
         {
-        case is RegroupState.Type:
+        case is RegroupState.Type, is DisbandState.Type:
             return true
             
         default:
