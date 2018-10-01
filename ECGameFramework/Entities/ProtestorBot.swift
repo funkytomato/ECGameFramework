@@ -467,7 +467,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
                 break
             
             
-            case let .returnToPositionOnPath(position):
+            case .returnToPositionOnPath:
 //                print("ProtestorBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 break
             
@@ -663,7 +663,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
     // MARK: Resistance Component Delegate
     func resistanceComponentDidGainResistance(resistanceComponent: ResistanceComponent)
     {
-        guard let resistanceComponent = component(ofType: ResistanceComponent.self) else { return }
+//        guard let resistanceComponent = component(ofType: ResistanceComponent.self) else { return }
     }
     
 
@@ -678,7 +678,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
     // MARK: Health Component Delegate
     func healthComponentDidAddHealth(healthComponent: HealthComponent)
     {
-        guard let healthComponent = component(ofType: HealthComponent.self) else { return }
+//        guard let healthComponent = component(ofType: HealthComponent.self) else { return }
     }
     
     
@@ -738,11 +738,11 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
     
     // MARK: Temperament Component Delegate
     func temperamentComponentDidReduceTemperament(temperamentComponent: TemperamentComponent) {
-        guard let temperamentComponent = component(ofType: TemperamentComponent.self) else { return }
+//        guard let temperamentComponent = component(ofType: TemperamentComponent.self) else { return }
     }
     
     func temperamentComponentDidIncreaseTemperament(temperamentComponent: TemperamentComponent) {
-        guard let temperamentComponent = component(ofType: TemperamentComponent.self) else { return }
+//        guard let temperamentComponent = component(ofType: TemperamentComponent.self) else { return }
     }
     
     // MARK: Obeisance Component Delegate
