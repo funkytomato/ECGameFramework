@@ -361,7 +361,7 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
     // MARK: Resistance Component Delegate
     func resistanceComponentDidGainResistance(resistanceComponent: ResistanceComponent)
     {
-        guard let resistanceComponent = component(ofType: ResistanceComponent.self) else { return }
+//        guard let resistanceComponent = component(ofType: ResistanceComponent.self) else { return }
     }
     
 
@@ -389,7 +389,7 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
     func healthComponentDidAddHealth(healthComponent: HealthComponent)
     
     {
-         guard let healthComponent = component(ofType: HealthComponent.self) else { return }
+//         guard let healthComponent = component(ofType: HealthComponent.self) else { return }
     }
     
     func healthComponentDidLoseHealth(healthComponent: HealthComponent)
@@ -407,14 +407,14 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
     // MARK: Respect Component Delegate
     func respectComponentDidLoseRespect(respectComponent: RespectComponent)
     {
-        guard let respectComponent = component(ofType: RespectComponent.self) else { return }
+//        guard let respectComponent = component(ofType: RespectComponent.self) else { return }
         
         
     }
     
     func respectComponentDidGainRespect(respectComponent: RespectComponent)
     {
-        guard let respectComponent = component(ofType: RespectComponent.self) else { return }
+//        guard let respectComponent = component(ofType: RespectComponent.self) else { return }
         
     }
     
