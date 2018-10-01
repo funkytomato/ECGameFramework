@@ -316,7 +316,7 @@ class PlayerBot: GKEntity, HealthComponentDelegate, ResistanceComponentDelegate,
     
     func healthComponentDidAddHealth(healthComponent: HealthComponent)
     {
-        guard let healthComponent = component(ofType: HealthComponent.self) else { return }
+//        guard let healthComponent = component(ofType: HealthComponent.self) else { return }
     }
     
     func healthComponentDidLoseHealth(healthComponent: HealthComponent)
@@ -334,7 +334,7 @@ class PlayerBot: GKEntity, HealthComponentDelegate, ResistanceComponentDelegate,
     // MARK: Resistance Component delegates
     func resistanceComponentDidGainResistance(resistanceComponent: ResistanceComponent)
     {
-        guard let resistanceComponent = component(ofType: ResistanceComponent.self) else { return }
+//        guard let resistanceComponent = component(ofType: ResistanceComponent.self) else { return }
     }
     
     func resistanceComponentDidLoseResistance(resistanceComponent: ResistanceComponent)
@@ -382,14 +382,14 @@ class PlayerBot: GKEntity, HealthComponentDelegate, ResistanceComponentDelegate,
     // MARK: Respect Component delegates
     func respectComponentDidLoseRespect(respectComponent: RespectComponent)
     {
-        guard let respectComponent = component(ofType: RespectComponent.self) else { return }
+//        guard let respectComponent = component(ofType: RespectComponent.self) else { return }
         
         
     }
     
     func respectComponentDidGainRespect(respectComponent: RespectComponent)
     {
-        guard let respectComponent = component(ofType: RespectComponent.self) else { return }
+//        guard let respectComponent = component(ofType: RespectComponent.self) else { return }
         
     }
     
