@@ -97,7 +97,7 @@ class BuyingWaresLookingState: GKState
     {
         //        print("entity: \(self.entity.debugDescription) target: \(entity.debugDescription)")
         
-        if let playerBot = entity as? PlayerBot, let chargeComponent = playerBot.component(ofType: ChargeComponent.self), !playerBot.isPoweredDown
+        if let playerBot = entity as? PlayerBot,/* let chargeComponent = playerBot.component(ofType: ChargeComponent.self),*/ !playerBot.isPoweredDown
         {
             // If the other entity is a `PlayerBot` that isn't powered down, reduce its charge.
             //chargeComponent.loseCharge(chargeToLose: GameplayConfiguration.ManBot.chargeLossPerContact)
