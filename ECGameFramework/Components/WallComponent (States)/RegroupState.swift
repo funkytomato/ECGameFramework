@@ -84,15 +84,15 @@ class RegroupState: GKState
                 if /*!policeBotB!.isWall && */policeBotB!.connections < 2
                 {
                     
-                    let policeBotBPhysicsComponent = policeBotB?.component(ofType: PhysicsComponent.self)
-                    let policeBRenderComponent = policeBotB?.component(ofType: RenderComponent.self)
-                    let entityB = policeBRenderComponent?.entity
+//                    let policeBotBPhysicsComponent = policeBotB?.component(ofType: PhysicsComponent.self)
+//                    let policeBRenderComponent = policeBotB?.component(ofType: RenderComponent.self)
+//                    let entityB = policeBRenderComponent?.entity
                     
                     // Get the Physics Component for each entity
-                    let policeBotA = entity as? PoliceBot
-                    let policeBotAPhysicsComponent = policeBotA?.component(ofType: PhysicsComponent.self)
-                    let policeARenderComponent = policeBotA?.component(ofType: RenderComponent.self)
-                    let entityA = policeARenderComponent?.entity
+//                    let policeBotA = entity as? PoliceBot
+//                    let policeBotAPhysicsComponent = policeBotA?.component(ofType: PhysicsComponent.self)
+//                    let policeARenderComponent = policeBotA?.component(ofType: RenderComponent.self)
+//                    let entityA = policeARenderComponent?.entity
                     
                     
                     //Connect the two Taskbots together like a rope if forming a wall
