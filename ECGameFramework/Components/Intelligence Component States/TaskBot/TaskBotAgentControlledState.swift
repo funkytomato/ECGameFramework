@@ -196,7 +196,7 @@ class TaskBotAgentControlledState: GKState
                     entity.mandate = .incite
                     break
                 
-                case let .sheep(target):
+                case .sheep:
 //                    print("TaskBotAgentControlledState: sheep")
 //                    entity.mandate = .sheep(target)
                     break
@@ -214,7 +214,7 @@ class TaskBotAgentControlledState: GKState
                     break
                 
                 // When a `TaskBot` is in wall, do some shit...
-                case let .inWall(target):
+                case .inWall:
                     
                     break
                 
