@@ -66,7 +66,7 @@ class PoliceBotFormWallState: GKState
         
 //        print("PoliceBotFormWallState updating")
         
-        guard let wallComponent = entity.component(ofType: WallComponent.self) else { return }
+//        guard let wallComponent = entity.component(ofType: WallComponent.self) else { return }
         guard let policeBot = entity as? PoliceBot else { return }
         
         //Should only move into this state when Taskbots are connected
