@@ -87,7 +87,8 @@ class PoliceDetainState: GKState
         movementComponent.angularSpeed *= GameplayConfiguration.ManBot.angularSpeedMultiplierWhenAttacking
         
         movementComponent.nextTranslation = MovementKind(displacement: targetVector)
-        movementComponent.nextRotation = nil
+//        movementComponent.nextRotation = nil
+        
     }
     
     override func update(deltaTime seconds: TimeInterval)
@@ -138,14 +139,14 @@ class PoliceDetainState: GKState
     {
         super.willExit(to: nextState)
         
-        // `movementComponent` is a computed property. Declare a local version so we don't compute it multiple times.
-        let movementComponent = self.movementComponent
-        
-        // Stop the `ManBot`'s movement and restore its standard movement speed.
-        movementComponent.nextRotation = nil
-        movementComponent.nextTranslation = nil
-        movementComponent.movementSpeed /= GameplayConfiguration.ManBot.movementSpeedMultiplierWhenAttacking
-        movementComponent.angularSpeed /= GameplayConfiguration.ManBot.angularSpeedMultiplierWhenAttacking
+//        // `movementComponent` is a computed property. Declare a local version so we don't compute it multiple times.
+//        let movementComponent = self.movementComponent
+//
+//        // Stop the `ManBot`'s movement and restore its standard movement speed.
+//        movementComponent.nextRotation = nil
+//        movementComponent.nextTranslation = nil
+//        movementComponent.movementSpeed /= GameplayConfiguration.ManBot.movementSpeedMultiplierWhenAttacking
+//        movementComponent.angularSpeed /= GameplayConfiguration.ManBot.angularSpeedMultiplierWhenAttacking
     }
     
     // MARK: Convenience
@@ -162,10 +163,6 @@ class PoliceDetainState: GKState
             //Move state to being Arrested
             guard let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self) else { return }
             intelligenceComponent.stateMachine.enter(ProtestorDetainedState.self)
-            
-            
-            // If the other entity is a good `TaskBot`, turn it bad.
-            //taskBot.isGood = false
         }
     }
 }

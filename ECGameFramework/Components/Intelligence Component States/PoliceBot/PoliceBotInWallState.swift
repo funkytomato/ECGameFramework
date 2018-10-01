@@ -118,7 +118,7 @@ class PoliceBotInWallState: GKState
         
 //        intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
         
-        if elapsedTime > 60.0
+        if elapsedTime > 30.0
         {
             wallComponent.isTriggered = false
             wallComponent.stateMachine.enter(DisbandState.self)
