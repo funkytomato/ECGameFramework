@@ -475,7 +475,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 debugColor = SKColor.white
             
             // TaskBot is a criminal and is selling their wares
-            case let .sellWares(target):
+            case .sellWares:
                 
 //                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 
@@ -1010,7 +1010,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
 //                Fact.policeBotFar.rawValue as AnyObject
                 ])
         ]
-        let huntBuyerTaskBot = huntBuyerTaskBotRaw.reduce(0.0, max)
+//        let huntBuyerTaskBot = huntBuyerTaskBotRaw.reduce(0.0, max)
 //        print("huntBuyerTaskBot: \(huntBuyerTaskBot.description), huntBuyerTaskBotRaw: \(huntBuyerTaskBotRaw.description) ")
         
         
