@@ -35,7 +35,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
 
     func resistanceComponentDidLoseResistance(resistanceComponent: ResistanceComponent)
     {
-        guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
+//        guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
         guard let resistanceComponent = component(ofType: ResistanceComponent.self) else { return }
         
         resistanceComponent.isTriggered = true
@@ -69,7 +69,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
     // MARK: HealthComponentDelegate
     func healthComponentDidAddHealth(healthComponent: HealthComponent)
     {
-        guard let healthComponent = component(ofType: HealthComponent.self) else { return }
+//        guard let healthComponent = component(ofType: HealthComponent.self) else { return }
     }
     
 
