@@ -965,7 +965,7 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
             let touchLocation = touch.location(in: self)
             let touchedNodes = self.nodes(at: touchLocation)
 
-            for node in touchedNodes
+            for _ in touchedNodes
             {
 
                 //print("node: \(node.description)")
