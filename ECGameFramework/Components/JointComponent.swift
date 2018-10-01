@@ -294,16 +294,23 @@ class JointComponent: GKComponent
     
     func removeJoint()
     {
+        //Remove this joint from the scene
         renderComponent.node.scene?.physicsWorld.remove(thisJoint!)
         self.thisJoint = nil
+        
+        
         guard let policeBot = entity as? PoliceBot else { return }
         policeBot.connections -= 1
         self.isTriggered = false
         policeBot.requestWall = false
         
+        //Remove connections from other entity and reset
+        self.entityB?.connections -= 1
+        self.entityB?.component(ofType: WallComponent.self)?.isTriggered = false
+        self.entityB?.requestWall = false
+        
         //Remove the line node to the scene
         renderComponent.node.scene?.removeChildren(in: [lineNode!])
-        
         
         //Remove the pin nodes to this entity
         renderComponent.node.removeChildren(in: [pinned!])
