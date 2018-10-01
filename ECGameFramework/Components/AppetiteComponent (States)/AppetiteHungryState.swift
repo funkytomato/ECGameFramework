@@ -44,7 +44,7 @@ class AppetiteHungryState: GKState
         super.didEnter(from: previousState)
         elapsedTime = 0.0
         
-        guard let protestorBot = appetiteComponent.entity as? ProtestorBot else { return }
+//        guard let protestorBot = appetiteComponent.entity as? ProtestorBot else { return }
 //        protestorBot.isHungry = true
         
     }
