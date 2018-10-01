@@ -407,7 +407,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
         // 1) Check if enough time has passed since the `PoliceBot`'s last attack.
         guard agentControlledState.elapsedTime >= GameplayConfiguration.TaskBot.delayBetweenAttacks else { return }
         
-//        print("PoliceBot mandate: \(mandate)")
+        print("PoliceBot mandate: \(mandate)")
         
         //Check the current mandate and set the appropriate values
         switch mandate

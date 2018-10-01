@@ -292,7 +292,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         var debugPathShouldCycle = false
         let debugColor: SKColor
     
-        
+        print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
         switch mandate
         {
             // PoliceBots need support
