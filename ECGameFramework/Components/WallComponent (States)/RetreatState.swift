@@ -54,7 +54,7 @@ class RetreatState: GKState
     
     override func update(deltaTime seconds: TimeInterval)
     {
-        //        print("RetreatState update")
+        print("RetreatState update")
         
         super.update(deltaTime: seconds)
         elapsedTime += seconds

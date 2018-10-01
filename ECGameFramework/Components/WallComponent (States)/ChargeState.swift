@@ -104,7 +104,7 @@ class ChargeState: GKState
     
     override func update(deltaTime seconds: TimeInterval)
     {
-        //        print("ChargeState update")
+        print("ChargeState update")
         
         super.update(deltaTime: seconds)
         elapsedTime += seconds

@@ -78,7 +78,7 @@ class HoldTheLineState: GKState
     
     override func update(deltaTime seconds: TimeInterval)
     {
-//        print("HoldTheLineState update")
+        print("HoldTheLineState update")
         
         super.update(deltaTime: seconds)
         elapsedTime += seconds

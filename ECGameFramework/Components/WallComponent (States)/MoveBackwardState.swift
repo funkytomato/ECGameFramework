@@ -53,7 +53,7 @@ class MoveBackwardState: GKState
     
     override func update(deltaTime seconds: TimeInterval)
     {
-        //        print("MoveBackwardsState update")
+        print("MoveBackwardsState update")
         
         super.update(deltaTime: seconds)
         elapsedTime += seconds

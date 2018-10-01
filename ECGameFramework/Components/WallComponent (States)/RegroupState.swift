@@ -62,7 +62,7 @@ class RegroupState: GKState
     
     override func update(deltaTime seconds: TimeInterval)
     {
-//        print("RegroupState update")
+        print("RegroupState update")
 
         super.update(deltaTime: seconds)
         elapsedTime += seconds
@@ -172,14 +172,5 @@ class RegroupState: GKState
     override func willExit(to nextState: GKState)
     {
         super.willExit(to: nextState)
-        
-        // `movementComponent` is a computed property. Declare a local version so we don't compute it multiple times.
-//        let movementComponent = self.movementComponent
-        
-        // Stop the `ProtestorBot`'s movement and restore its standard movement speed.
-//        movementComponent.nextRotation = nil
-//        movementComponent.nextTranslation = nil
-//        movementComponent.movementSpeed = 0
-//        movementComponent.angularSpeed = 0
     }
 }

@@ -112,7 +112,7 @@ class MoveForwardState: GKState
     
     override func update(deltaTime seconds: TimeInterval)
     {
-//        print("MoveForwardState update")
+        print("MoveForwardState update")
         
         super.update(deltaTime: seconds)
         elapsedTime += seconds
