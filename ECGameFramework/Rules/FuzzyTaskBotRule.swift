@@ -39,7 +39,7 @@ class FuzzyTaskBotRule: GKRule
     
     override func evaluatePredicate(in system: GKRuleSystem) -> Bool
     {
-        snapshot = system.state["snapshot"] as! EntitySnapshot
+        snapshot = system.state["snapshot"] as? EntitySnapshot
         
         if grade() >= 0.0
         {
