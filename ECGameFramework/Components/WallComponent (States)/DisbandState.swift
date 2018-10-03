@@ -51,13 +51,20 @@ class DisbandState: GKState
     
     override func didEnter(from previousState: GKState?)
     {
-        print("DisbandState didEnter: \(wallComponent.debugDescription)")
+//        print("DisbandState didEnter: \(wallComponent.debugDescription) entity: \(entity.debugDescription)")
+//        print("DisbandState: entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
+
         
         super.didEnter(from: previousState)
         elapsedTime = 0.0
         
         guard let jointComponent = entity.component(ofType: JointComponent.self) else { return }
         jointComponent.removeJoint()
+        
+        self.entity.requestWall = false
+        self.entity.isSupporting = false
+        self.entity.isWall = false
+        wallComponent.isTriggered = false
     }
     
     override func update(deltaTime seconds: TimeInterval)
