@@ -67,7 +67,7 @@ class PoliceBotInWallState: GKState
         elapsedTime += seconds
         
 //        print("PoliceBotInWallState updating")
-
+//        print("PoliceBotInWallState: entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
         
         //If Police is in RegroupState, connect to wall
         let currentWallComponentState = wallComponent.stateMachine.currentState
@@ -118,7 +118,7 @@ class PoliceBotInWallState: GKState
         
 //        intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
         
-        if elapsedTime > 30.0
+        if !self.entity.requestWall && elapsedTime > 30.0
         {
             wallComponent.isTriggered = false
             wallComponent.stateMachine.enter(DisbandState.self)
