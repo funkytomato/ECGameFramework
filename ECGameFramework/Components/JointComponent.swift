@@ -296,7 +296,12 @@ class JointComponent: GKComponent
     {
         //Remove this joint from the scene
 
-        renderComponent.node.scene?.physicsWorld.remove(thisJoint!)
+        //Check a joint is exists for this entity
+        guard let joint = thisJoint else { return }
+        
+        //Only continue if a Physics Joint exists for this entity
+        renderComponent.node.scene?.physicsWorld.remove(joint)
+//        renderComponent.node.scene?.physicsWorld.remove(thisJoint!)
         self.thisJoint = nil
         
         //Remove connections from this entity and reset
@@ -305,10 +310,10 @@ class JointComponent: GKComponent
         self.isTriggered = false
         policeBot.requestWall = false
         
-//        //Remove connections from other entity and reset
-//        self.entityB?.connections -= 1
-//        self.entityB?.component(ofType: WallComponent.self)?.isTriggered = false
-//        self.entityB?.requestWall = false
+        //Remove connections from other entity and reset
+        self.entityB?.connections -= 1
+        self.entityB?.component(ofType: WallComponent.self)?.isTriggered = false
+        self.entityB?.requestWall = false
         
         //Remove the line node to the scene
         renderComponent.node.scene?.removeChildren(in: [lineNode!])
