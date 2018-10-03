@@ -1276,16 +1276,15 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         }
           
         //PoliceBot has requested to form a wall
-        else if self.isPolice && self.requestWall && supportWallPoliceBot == 0.0
+        else if self.isPolice && self.requestWall && supportWallPoliceBot <= 0.2
         {
             mandate = .initateWall
         }
          
         // Taskbot is Police and is not in a wall, not the officer requesting wall, and not in need of help,
         // but another Police has requested support for building a Wall
-        else if self.isPolice /* && !self.isWall */ && !self.requestWall /* && !self.needsHelp */ && supportWallPoliceBot > 0.2
+        else if self.isPolice /* && !self.isWall */ /*&& !self.requestWall *//* && !self.needsHelp */ && supportWallPoliceBot > 0.2
         {
-//            guard let supportPoliceBot = state.nearestPoliceTaskBotTarget?.target.agent else { return }  // FOR TESTING
             guard let supportWallPoliceBot = state.nearestPoliceTaskBotRequestWallTarget?.target.agent else { return }
             mandate = .formWall(supportWallPoliceBot)
         }
