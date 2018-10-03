@@ -125,7 +125,7 @@ class JointComponent: GKComponent
     
     override func update(deltaTime seconds: TimeInterval)
     {
-        guard let taskBot = entity as? TaskBot else { return }
+//        guard let taskBot = entity as? TaskBot else { return }
         
         //Joint has been created, redraw it repective to entity changed positions
         if isTriggered
@@ -236,12 +236,12 @@ class JointComponent: GKComponent
         let pinned = entity?.component(ofType: RenderComponent.self)?.node
         let satellite = entityB?.component(ofType: RenderComponent.self)?.node
         
-        var vz = CGVector(dx: 0, dy: 0)
-//        let pinnedAnchor = renderComponent.node.scene!.convert(CGPoint.zero, from: pinned!)
-//        let satelliteAnchor = renderComponent.node.scene!.convert(CGPoint.zero, from: satellite!)
+//        var vz = CGVector(dx: 0, dy: 0)
+        let pinnedAnchor = renderComponent.node.scene!.convert(CGPoint.zero, from: pinned!)
+        let satelliteAnchor = renderComponent.node.scene!.convert(CGPoint.zero, from: satellite!)
         
-        let pinnedAnchor = renderComponent.node.scene!.convert(CGPoint(x: 0.0, y: 0.5), from: pinned!)
-        let satelliteAnchor = renderComponent.node.scene!.convert(CGPoint(x: 0.0, y: 0.5), from: satellite!)
+//        let pinnedAnchor = renderComponent.node.scene!.convert(CGPoint(x: 0.0, y: 0.5), from: pinned!)
+//        let satelliteAnchor = renderComponent.node.scene!.convert(CGPoint(x: 0.0, y: 0.5), from: satellite!)
         var joint:SKPhysicsJoint!
         
         switch(name)
@@ -295,19 +295,20 @@ class JointComponent: GKComponent
     func removeJoint()
     {
         //Remove this joint from the scene
+
         renderComponent.node.scene?.physicsWorld.remove(thisJoint!)
         self.thisJoint = nil
         
-        
+        //Remove connections from this entity and reset
         guard let policeBot = entity as? PoliceBot else { return }
         policeBot.connections -= 1
         self.isTriggered = false
         policeBot.requestWall = false
         
-        //Remove connections from other entity and reset
-        self.entityB?.connections -= 1
-        self.entityB?.component(ofType: WallComponent.self)?.isTriggered = false
-        self.entityB?.requestWall = false
+//        //Remove connections from other entity and reset
+//        self.entityB?.connections -= 1
+//        self.entityB?.component(ofType: WallComponent.self)?.isTriggered = false
+//        self.entityB?.requestWall = false
         
         //Remove the line node to the scene
         renderComponent.node.scene?.removeChildren(in: [lineNode!])
@@ -320,6 +321,8 @@ class JointComponent: GKComponent
         self.entityB?.component(ofType: RenderComponent.self)?.node.removeChildren(in: [satellite!])
         self.entityB?.component(ofType: RenderComponent.self)?.node.removeChildren(in: [satelliteDot!])
 
+        //Decrease the wall account
+        entity?.component(ofType: WallComponent.self)?.currentWallSize -= 1
         
         print("Removing joint on entity: \(policeBot.debugDescription), connections: \(policeBot.connections)")
     }
