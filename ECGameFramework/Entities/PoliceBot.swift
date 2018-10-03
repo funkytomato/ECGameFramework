@@ -407,7 +407,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
         // 1) Check if enough time has passed since the `PoliceBot`'s last attack.
         guard agentControlledState.elapsedTime >= GameplayConfiguration.TaskBot.delayBetweenAttacks else { return }
         
-        print("PoliceBot mandate: \(mandate)")
+        print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
         
         //Check the current mandate and set the appropriate values
         switch mandate
@@ -444,18 +444,18 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
             
             case let .supportPolice(targetAgent):
                 
-                print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 intelligenceComponent.stateMachine.enter(PoliceBotSupportState.self)
                 targetPosition = targetAgent.position
             
             case .initateWall:
-                print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
             
                 intelligenceComponent.stateMachine.enter(PoliceBotFormWallState.self)
             
             
             case let .formWall(targetAgent):
-                print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 
                 intelligenceComponent.stateMachine.enter(PoliceBotFormWallState.self)
                 targetPosition = targetAgent.position
@@ -467,7 +467,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
                 self.isSupporting = true
 
             case let .inWall(targetAgent):
-                print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
 
                 intelligenceComponent.stateMachine.enter(PoliceBotInWallState.self)
                 targetPosition = targetAgent.position
