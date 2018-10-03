@@ -44,7 +44,7 @@ class WallIdleState: GKState
     
     override func didEnter(from previousState: GKState?)
     {
-        print("WallIdleState didEnter: \(wallComponent.debugDescription)")
+        print("WallIdleState didEnter: \(wallComponent.debugDescription), entity: \(entity.debugDescription)")
         
         super.didEnter(from: previousState)
         elapsedTime = 0.0
@@ -55,23 +55,21 @@ class WallIdleState: GKState
 //        print("WallIdleState update: \(wallComponent.debugDescription)")
         
         super.update(deltaTime: seconds)
+        elapsedTime += seconds
+        
+        print("WallIdleState: entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
         
         if wallComponent.isTriggered
         {
             stateMachine?.enter(RegroupState.self)
         }
-//        else
-//        {
-//            guard let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self) else { return }
-//            intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
-//        }
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
     {
         switch stateClass
         {
-        case is RegroupState.Type:
+        case is RegroupState.Type, is DisbandState.Type:
             return true
         default:
             return false
