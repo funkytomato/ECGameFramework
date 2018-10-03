@@ -52,8 +52,8 @@ class RegroupState: GKState
     
     override func didEnter(from previousState: GKState?)
     {
-        print("RegroupState entered")
-        
+        print("RegroupState didEnter: \(wallComponent.debugDescription), entity: \(entity.debugDescription)")
+
         super.didEnter(from: previousState)
         elapsedTime = 0.0
         
@@ -62,8 +62,11 @@ class RegroupState: GKState
     
     override func update(deltaTime seconds: TimeInterval)
     {
-        print("RegroupState update")
+//        print("RegroupState update")
 
+        print("RegroupState: entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
+
+        
         super.update(deltaTime: seconds)
         elapsedTime += seconds
 
@@ -153,8 +156,14 @@ class RegroupState: GKState
         //If regroup time has expired and the wall size is greater than the minimum wall size move to the next state
         if self.entity.isWall && elapsedTime >= GameplayConfiguration.Wall.regroupStateDuration
         {
-                stateMachine?.enter(HoldTheLineState.self)
+            stateMachine?.enter(HoldTheLineState.self)
         }
+        
+//        //If Taskbot no longer has a joint to wall, move to DisbandState
+//        else if self.entity.component(ofType: JointComponent.self)?.thisJoint == nil
+//        {
+//            stateMachine?.enter(DisbandState.self)
+//        }
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
@@ -172,5 +181,7 @@ class RegroupState: GKState
     override func willExit(to nextState: GKState)
     {
         super.willExit(to: nextState)
+        
+//        self.entity.requestWall = false
     }
 }
