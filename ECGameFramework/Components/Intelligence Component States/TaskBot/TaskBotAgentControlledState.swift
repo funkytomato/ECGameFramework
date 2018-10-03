@@ -72,7 +72,7 @@ class TaskBotAgentControlledState: GKState
     {
         super.update(deltaTime: seconds)
         
-//        print("entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate)")
+//        print("entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
         
         // Update the "time since last behavior update" tracker.
         timeSinceBehaviorUpdate += seconds
@@ -82,14 +82,12 @@ class TaskBotAgentControlledState: GKState
         if timeSinceBehaviorUpdate >= GameplayConfiguration.TaskBot.behaviorUpdateWaitDuration
         {
             
-            // If PoliceBot nears CreateWall location then initiate wall formation
-            if self.entity.isPolice && !self.entity.isSupporting &&
-                entity.distanceToPoint(otherPoint: destination) <= 150.0
+            // If PoliceBot nears CreateWall location, and has not already requested a wall, and is not already supporting another PoliceBot, then initiate wall formation
+            if self.entity.isPolice && !self.entity.requestWall && !self.entity.isSupporting &&
+                entity.distanceToPoint(otherPoint: destination) <= 300.0
             {
-                print("entity: \(entity.debugDescription)")
+                print("PoliceBot close proximity to CreateWall node, entity: \(entity.debugDescription)")
                 self.entity.requestWall = true
-//                self.entity.component(ofType: WallComponent.self)?.isTriggered = true
-//                self.entity.component(ofType: SpriteComponent.self)?.changeColour(colour: SKColor.brown)
                 self.entity.component(ofType: SpriteComponent.self)?.node.color = SKColor.brown
             }
             
