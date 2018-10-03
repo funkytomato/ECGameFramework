@@ -292,13 +292,13 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         var debugPathShouldCycle = false
         let debugColor: SKColor
     
-        print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//        print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
         switch mandate
         {
             // PoliceBots need support
             case let .supportPolice(target):
                 
-                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 
                 radius = GameplayConfiguration.TaskBot.huntPathRadius
                 (agentBehavior, debugPathPoints) = TaskBotBehavior.supportBehaviour(forAgent: agent, huntingAgent: target, pathRadius: radius, inScene: levelScene)
@@ -306,7 +306,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             
             // PoliceBot is initiating a wall
             case .initateWall:
-                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
             
                 radius = GameplayConfiguration.TaskBot.huntPathRadius
                 (agentBehavior, debugPathPoints) = TaskBotBehavior.initiateWallBehaviour(forAgent: agent, pathRadius: radius, inScene: levelScene)
@@ -314,7 +314,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             
             // PoliceBots shall support the building of a wall
             case let .formWall(target):
-                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
             
                 radius = GameplayConfiguration.TaskBot.huntPathRadius
                 (agentBehavior, debugPathPoints) = TaskBotBehavior.formWallBehaviour(forAgent: agent, huntingAgent: target, pathRadius: radius, inScene: levelScene)
@@ -323,7 +323,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             
             // PoliceBots are in wall
             case let .inWall(target):
-                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
 
                 radius = GameplayConfiguration.TaskBot.huntPathRadius
                 (agentBehavior, debugPathPoints) = TaskBotBehavior.inWallBehaviour(forAgent: agent, huntingAgent: target, pathRadius: radius, inScene: levelScene)
@@ -1010,7 +1010,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
 //                Fact.policeBotFar.rawValue as AnyObject
                 ])
         ]
-//        let huntBuyerTaskBot = huntBuyerTaskBotRaw.reduce(0.0, max)
+        let huntBuyerTaskBot = huntBuyerTaskBotRaw.reduce(0.0, max)
 //        print("huntBuyerTaskBot: \(huntBuyerTaskBot.description), huntBuyerTaskBotRaw: \(huntBuyerTaskBotRaw.description) ")
         
         
@@ -1137,6 +1137,8 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         
         
         //MARK:- Define TaskBot mandates
+        
+//        print("TaskBot: ruleComponent: - entity: \(self.debugDescription), Current behaviour mandate: \(self.mandate), isWall: \(self.isWall), requestWall: \(self.requestWall), isSupporting: \(self.isSupporting), wallComponentisTriggered: \(String(describing: self.component(ofType: WallComponent.self)?.isTriggered))")
         
         if self.isPlayerControlled
         {
