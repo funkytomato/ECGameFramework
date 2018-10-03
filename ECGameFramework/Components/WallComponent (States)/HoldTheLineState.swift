@@ -66,8 +66,8 @@ class HoldTheLineState: GKState
     
     override func didEnter(from previousState: GKState?)
     {
-        print("HoldTheLineState entered")
-        
+        print("HoldTheLineState didEnter: \(wallComponent.debugDescription), entity: \(entity.debugDescription)")
+
         super.didEnter(from: previousState)
         elapsedTime = 0.0
         
@@ -78,7 +78,10 @@ class HoldTheLineState: GKState
     
     override func update(deltaTime seconds: TimeInterval)
     {
-        print("HoldTheLineState update")
+//        print("HoldTheLineState update")
+  
+        print("HoldTheLineState: entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
+
         
         super.update(deltaTime: seconds)
         elapsedTime += seconds
