@@ -278,45 +278,22 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
     {
         super.contactWithEntityDidBegin(entity)
         
-        // Check if Protestor on form wall trigger node
-//        guard let physicsComponent = entity.component(ofType: PhysicsComponent.self) else { return }
-//        let contactedBodies = physicsComponent.physicsBody.allContactedBodies()
-//        for contactedBody in contactedBodies
-//        {
-//            //            guard let entity = contactedBody.node?.entity else { continue }
-//            if contactedBody.node?.name == "createWall"
-//            {
-//                print("creatWall detected")
-//            }
-//        }
-        
-//        if let targetBot = entity as? ProtestorBot,
-//            let targetPhysicsComponent = targetBot.component(ofType: PhysicsComponent.self)
-//        {
-//            if targetPhysicsComponent.physicsBody.node?.name == "createWall"
-//            {
-//                print("creatWall detected")
-//            }
-//        }
-
-        
-        
         // If the Protestor is violent or drunk, they may attack who they bump into
         guard let intoxicationComponent = self.component(ofType: IntoxicationComponent.self) else { return }
         guard let temperamentComponent = self.component(ofType: TemperamentComponent.self) else { return }
         
-        //Protestor is drunk
+        //Drunk Protestors will attack anybody
         if intoxicationComponent.hasFullintoxication
         {
-            //Protestor is either violent or raging, attack the Taskbot made contact with
-//            if ((temperamentComponent.stateMachine.currentState as? ViolentState) != nil) || ((temperamentComponent.stateMachine.currentState as? RageState) != nil)
-//            {
-                guard let intelligenceComponent = self.component(ofType: IntelligenceComponent.self) else { return }
-                guard let taskBot = entity as? TaskBot else { return }
-                print("taskBot: \(taskBot.debugDescription)")
-                targetPosition = taskBot.agent.position
-                intelligenceComponent.stateMachine.enter(ProtestorBotRotateToAttackState.self)
-//            }
+
+            //Get the touching TaskBot's position to be used as the attack position
+            guard let taskBot = entity as? TaskBot else { return }
+            print("taskBot: \(taskBot.debugDescription)")
+            targetPosition = taskBot.agent.position
+            
+            //Move the Protestor into the attack sequence, ProtestorBotRotateToAttackState being the starting state
+            guard let intelligenceComponent = self.component(ofType: IntelligenceComponent.self) else { return }
+            intelligenceComponent.stateMachine.enter(ProtestorBotRotateToAttackState.self)
         }
         else
         {
@@ -331,7 +308,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             }
         }
         
-        
+        //Protestor will attempt to buy from the touching Criminal TaskBot
         buyWares(entity)
         
         // If the Protestor is inciting, influence Protestors on contact
@@ -358,7 +335,6 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
 //                print("protestorTarget.ringLeader: \(protestorTarget.ringLeader.debugDescription), respect: \(respectComponent.respect)")
             }
             
-            
             //print("Increased the obeisance of the touching Protestor")
         }
     }
@@ -371,9 +347,6 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         guard let intoxicationComponent = component(ofType: IntoxicationComponent.self) else { return }
         if intoxicationComponent.hasFullintoxication
         {
-//            guard let temperamentComponent = component(ofType: TemperamentComponent.self) else { return }
-//            temperamentComponent.increaseTemperament(temperamentToAdd: Double(GameplayConfiguration.ProtestorBot.temperamentIncreasePerCycle))
-            
             guard let protestorTarget = entity as? ProtestorBot else { return }
             guard let protestorTargetTemperamentComponent = protestorTarget.component(ofType: TemperamentComponent.self) else { return }
             protestorTargetTemperamentComponent.increaseTemperament(temperamentToAdd: 10.0)
