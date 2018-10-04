@@ -23,7 +23,11 @@ class BuyingWaresTimeOutState: GKState
     /// The amount of time the beam has been in its "firing" state.
     var elapsedTime: TimeInterval = 0.0
     
-    
+    var appetiteComponent: AppetiteComponent
+    {
+        guard let appetiteComponent = buyWaresComponent.entity?.component(ofType: AppetiteComponent.self) else { fatalError("A BuyWaresTimeOutState entity must have a AppetiteComponent") }
+        return appetiteComponent
+    }
     
     
     // MARK: Initializers
@@ -58,7 +62,7 @@ class BuyingWaresTimeOutState: GKState
         
         //        print("BuyWaresIdleState update: \(buyWaresComponent.entity.debugDescription)")
         
-        guard let appetiteComponent = buyWaresComponent.entity?.component(ofType: AppetiteComponent.self) else { return }
+//        guard let appetiteComponent = buyWaresComponent.entity?.component(ofType: AppetiteComponent.self) else { return }
         appetiteComponent.loseAppetite(appetiteToLose: 2.0)
         
         if elapsedTime >= GameplayConfiguration.Wares.timeOutPeriod
