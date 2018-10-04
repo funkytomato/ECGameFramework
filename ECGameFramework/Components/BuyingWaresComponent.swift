@@ -87,6 +87,12 @@ class BuyingWaresComponent: GKComponent
         return animationComponent
     }
     
+    var appetiteComponent: AppetiteComponent
+    {
+        guard let appetiteComponent = entity?.component(ofType: AppetiteComponent.self) else { fatalError("A BuyWaresComponent entity must have a AppetiteComponent") }
+        return appetiteComponent
+    }
+    
     // MARK: Initializers
     
     init(wares: Double, maximumWares: Double)
@@ -154,7 +160,7 @@ class BuyingWaresComponent: GKComponent
             switch currentState
             {
                 
-            case is BuyingWaresIdleState:
+                case is BuyingWaresIdleState:
                     break
                 
                 case is BuyingWaresLookingState:
@@ -172,8 +178,8 @@ class BuyingWaresComponent: GKComponent
                     
                     //Protestor has stopped looking for wares and has lost their appetite.
                     //Reset Appetite to idle
-                    let appetiteComponent = self.renderComponent.entity?.component(ofType: AppetiteComponent.self)
-                    appetiteComponent?.stateMachine.enter(AppetiteIdleState.self)
+//                    let appetiteComponent = self.renderComponent.entity?.component(ofType: AppetiteComponent.self)
+                    appetiteComponent.stateMachine.enter(AppetiteIdleState.self)
                     break
                 
                 case is BuyingWaresReturningHomeState:
