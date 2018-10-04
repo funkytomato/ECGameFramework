@@ -1269,6 +1269,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
 //            
 //            print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
 //        }
+        
+            //MARK: - Police mandates
+            
         else if self.isPolice && self.isWall
         {
             guard let targetProtestor = state.nearestProtestorTaskBotTarget?.target.agent else { return }
