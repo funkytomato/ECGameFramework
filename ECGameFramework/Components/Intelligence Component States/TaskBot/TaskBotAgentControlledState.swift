@@ -71,6 +71,7 @@ class TaskBotAgentControlledState: GKState
     override func update(deltaTime seconds: TimeInterval)
     {
         super.update(deltaTime: seconds)
+ 
         
 //        print("entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
         
@@ -84,7 +85,7 @@ class TaskBotAgentControlledState: GKState
             
             // If PoliceBot nears CreateWall location, and has not already requested a wall, and is not already supporting another PoliceBot, then initiate wall formation
             if self.entity.isPolice && !self.entity.requestWall && !self.entity.isSupporting &&
-                entity.distanceToPoint(otherPoint: destination) <= 300.0
+                entity.distanceToPoint(otherPoint: destination) <= 300.0 && elapsedTime > 30.0
             {
                 print("PoliceBot close proximity to CreateWall node, entity: \(entity.debugDescription)")
                 self.entity.requestWall = true
