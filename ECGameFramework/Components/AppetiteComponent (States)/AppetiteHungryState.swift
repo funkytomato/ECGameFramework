@@ -42,11 +42,7 @@ class AppetiteHungryState: GKState
 //        print("AppetiteActiveState entered: \(appetiteComponent.entity.debugDescription)")
         
         super.didEnter(from: previousState)
-        elapsedTime = 0.0
-        
-//        guard let protestorBot = appetiteComponent.entity as? ProtestorBot else { return }
-//        protestorBot.isHungry = true
-        
+        elapsedTime = 0.0    
     }
     
     override func update(deltaTime seconds: TimeInterval)
