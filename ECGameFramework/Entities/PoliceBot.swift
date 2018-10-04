@@ -35,11 +35,9 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
 
     func resistanceComponentDidLoseResistance(resistanceComponent: ResistanceComponent)
     {
-//        guard let intelligenceComponent = component(ofType: IntelligenceComponent.self) else { return }
         guard let resistanceComponent = component(ofType: ResistanceComponent.self) else { return }
         
         resistanceComponent.isTriggered = true
-//        intelligenceComponent.stateMachine.enter(PoliceBotHitState.self)
         
         //Policeman is in trouble and needs backup
         if resistanceComponent.resistance < 70.0
@@ -102,8 +100,6 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
     
     /// Used to determine the location on the `PlayerBot` where the beam starts.
     var handOffset = GameplayConfiguration.PoliceBot.handOffset
-    
-//    var physicsJoint = SKPhysicsJointLimit()
     
     /// The size to use for the `PoliceBot`s animation textures.
     static var textureSize = CGSize(width: 50.0, height: 50.0)
@@ -289,7 +285,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
         let emitterComponent = EmitterComponent(particleName: "Trail.sks")
         addComponent(emitterComponent)
         renderComponent.node.addChild(emitterComponent.node)
- */
+         */
  
         // Connect the `RenderComponent` and `ShadowComponent` to the `AnimationComponent`.
         renderComponent.node.addChild(animationComponent.node)
@@ -319,71 +315,6 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
     {
         super.contactWithEntityDidBegin(entity)
         
-        // Check if Protestor on form wall trigger node
-//        guard let physicsComponent = entity.component(ofType: PhysicsComponent.self) else { return }
-//        let contactedBodies = physicsComponent.physicsBody.allContactedBodies()
-//        for contactedBody in contactedBodies
-//        {
-////            guard let entity = contactedBody.node?.entity else { continue }
-//            if contactedBody.node?.name == "createWall"
-//            {
-//                print("creatWall detected")
-//                entity.component(ofType: WallComponent.self)?.isTriggered = true
-//            }
-//        }
-        
-//        if let targetBot = entity as? PoliceBot,
-//            let targetPhysicsComponent = targetBot.component(ofType: PhysicsComponent.self)
-//        {
-//            if targetPhysicsComponent.physicsBody.node?.name == "createWall"
-//            {
-//                print("creatWall detected")
-//            }
-//        }
-        
-//        guard let targetBot = entity as? TaskBot else { return }
-//        
-////        if let formWallState = self.component(ofType: IntelligenceComponent.self)?.stateMachine.currentState as? PoliceBotFormWallState
-////        {
-//        
-//        // Check entity is Police, has less than 2 connections and is connecting with a PoliceBot who has less than 2 connections and has requested to build a wall
-//            if self.isPolice && self.connections < 2 /*&& !self.isWall*/ &&
-//                targetBot.isPolice && targetBot.connections < 2 && self.requestWall /* && !targetBot.isWall */
-//            {
-//                //Check other PoliceBot is not in wall.
-//                
-//                let policeBotB = entity as? PoliceBot
-//                if !policeBotB!.isWall && policeBotB!.connections < 2
-//                {
-//                
-//                    let policeBotBPhysicsComponent = policeBotB?.component(ofType: PhysicsComponent.self)
-//                    let policeBRenderComponent = policeBotB?.component(ofType: RenderComponent.self)
-//                    let entityB = policeBRenderComponent?.entity
-//                    
-//                    // Get the Physics Component for each entity
-//                    let policeBotA = agent.entity as? PoliceBot
-//                    let policeBotAPhysicsComponent = policeBotA?.component(ofType: PhysicsComponent.self)
-//                    let policeARenderComponent = policeBotA?.component(ofType: RenderComponent.self)
-//                    let entityA = policeARenderComponent?.entity
-//                    
-//                  
-//                    //Connect the two Taskbots together like a rope if forming a wall
-//                    guard let intelligenceComponent = self.component(ofType: IntelligenceComponent.self) else { return }
-//                    guard ((intelligenceComponent.stateMachine.currentState as? PoliceBotFormWallState) == nil) else { return }
-//                    guard let jointComponent = self.component(ofType: JointComponent.self) else { return }
-//                    
-//                    guard let policeBot = entity as? PoliceBot else { return }
-//                    if !jointComponent.isTriggered && policeBot.isPolice
-//                    {
-//                        jointComponent.setEntityB(targetEntity: policeBotB!)
-//                    }
-//                    
-//                    policeBotA!.component(ofType: WallComponent.self)?.isTriggered = true
-//                    policeBotB!.component(ofType: WallComponent.self)?.isTriggered = true
-//                }
-//            }
-////        }
-        
         
         //If touching entity is attacking, start the arresting process
         //print("PoliceBot currentState :\(entity.component(ofType: IntelligenceComponent.self)?.stateMachine.currentState.debugDescription)")
@@ -407,7 +338,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
         // 1) Check if enough time has passed since the `PoliceBot`'s last attack.
         guard agentControlledState.elapsedTime >= GameplayConfiguration.TaskBot.delayBetweenAttacks else { return }
         
-        print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//        print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
         
         //Check the current mandate and set the appropriate values
         switch mandate
@@ -460,9 +391,6 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
                 intelligenceComponent.stateMachine.enter(PoliceBotFormWallState.self)
                 targetPosition = targetAgent.position
                 
-//                let scene = renderComponent.node.scene as? LevelScene
-//                targetPosition = scene?.playerBot.agent.position
-                
             
                 self.isSupporting = true
 
@@ -471,9 +399,6 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
 
                 intelligenceComponent.stateMachine.enter(PoliceBotInWallState.self)
                 targetPosition = targetAgent.position
-                
-//                let scene = renderComponent.node.scene as? LevelScene
-//                targetPosition = scene?.playerBot.agent.position
             
             
             case let .fleeAgent(targetAgent):
@@ -483,9 +408,10 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
                 targetPosition = targetAgent.position
             
             default:
-                print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
-                break
+//                print("PoliceBot: rulesComponent default:- entity: \(self.debugDescription), mandate: \(mandate)")
 //                print("Hmm, do something hereE?")
+                break
+
         }
     }
     
