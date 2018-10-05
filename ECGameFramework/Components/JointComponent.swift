@@ -159,7 +159,7 @@ class JointComponent: GKComponent
     
     // Convenience methods
     
-    func setEntityB(targetEntity: TaskBot)
+    func makeJointWith(targetEntity: TaskBot)
     {
         //Set the connecting entity as the target entity
         self.entityB = targetEntity
@@ -201,7 +201,6 @@ class JointComponent: GKComponent
         */
         
         makeJoint(JointLabels.Limit)
-//        makeJoint(JointLabels.Fixed)
         
         //Inform the JointComponent that a joint has been created
         self.isTriggered = true
