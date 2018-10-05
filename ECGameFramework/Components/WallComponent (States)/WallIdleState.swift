@@ -44,7 +44,7 @@ class WallIdleState: GKState
     
     override func didEnter(from previousState: GKState?)
     {
-        print("WallIdleState didEnter: \(wallComponent.debugDescription), entity: \(entity.debugDescription)")
+        print("WallIdleState: entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
         
         super.didEnter(from: previousState)
         elapsedTime = 0.0
@@ -52,12 +52,13 @@ class WallIdleState: GKState
     
     override func update(deltaTime seconds: TimeInterval)
     {
+        //        print("WallIdleState: entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
 //        print("WallIdleState update: \(wallComponent.debugDescription)")
         
         super.update(deltaTime: seconds)
         elapsedTime += seconds
         
-        print("WallIdleState: entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
+
         
         if wallComponent.isTriggered
         {
