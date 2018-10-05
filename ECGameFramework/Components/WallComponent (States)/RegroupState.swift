@@ -92,7 +92,7 @@ class RegroupState: GKState
                     guard let policeBot = entity as? PoliceBot else { return }
                     if !jointComponent.isTriggered && policeBot.isPolice
                     {
-                        jointComponent.setEntityB(targetEntity: policeBotB!)
+                        jointComponent.makeJointWith(targetEntity: policeBotB!)
                     }
                 }
             }
