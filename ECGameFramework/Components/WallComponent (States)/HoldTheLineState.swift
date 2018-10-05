@@ -71,10 +71,6 @@ class HoldTheLineState: GKState
         
         super.didEnter(from: previousState)
         elapsedTime = 0.0
-        
-//        entity.agent.maxSpeed = 100.0
-        
-//        entity.isWall = true
     }
     
     override func update(deltaTime seconds: TimeInterval)
