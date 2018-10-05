@@ -52,7 +52,7 @@ class DisbandState: GKState
     override func didEnter(from previousState: GKState?)
     {
 //        print("DisbandState didEnter: \(wallComponent.debugDescription) entity: \(entity.debugDescription)")
-//        print("DisbandState: entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
+        print("DisbandState: entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
 
         
         super.didEnter(from: previousState)
@@ -69,7 +69,7 @@ class DisbandState: GKState
     
     override func update(deltaTime seconds: TimeInterval)
     {
-        print("DisbandState update: \(wallComponent.debugDescription)")
+//        print("DisbandState update: \(wallComponent.debugDescription)")
         
         super.update(deltaTime: seconds)
         
