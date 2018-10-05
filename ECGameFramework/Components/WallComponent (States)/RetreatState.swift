@@ -46,7 +46,9 @@ class RetreatState: GKState
     
     override func didEnter(from previousState: GKState?)
     {
-        print("RetreatState entered")
+//        print("RetreatState entered")
+        print("RetreatState: entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
+
         
         super.didEnter(from: previousState)
         elapsedTime = 0.0
@@ -54,7 +56,7 @@ class RetreatState: GKState
     
     override func update(deltaTime seconds: TimeInterval)
     {
-        print("RetreatState update")
+//        print("RetreatState update")
         
         super.update(deltaTime: seconds)
         elapsedTime += seconds
