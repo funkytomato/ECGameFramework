@@ -87,14 +87,7 @@ class HoldTheLineState: GKState
         //Check TaskBot is in wall before proceeding
         if entity.isWall
         {
-        
-            //Position PoliceBot 100p to the right of the PoliceBot
-//            let range = SKRange(lowerLimit: 100.0, upperLimit: 150.0)
-//            let lockPosition = SKConstraint.positionX(range)
-//            let lockPosition = SKConstraint.positionX(range, y: range)
-//            renderComponent.node.constraints = [ lockPosition ]
-            
-            
+       
             //Orientate the TaskBot to be the same as all others in the Wall
             
             // `orientationComponent` is a computed property. Declare a local version so we don't compute it multiple times.
@@ -117,7 +110,7 @@ class HoldTheLineState: GKState
                 orientationComponent.zRotation += angleDeltaToTarget
                 
                 //Check enough time has elapsed and TaskBot is in wall before moving to next state
-                if elapsedTime >= 5.0
+                if elapsedTime >= 15.0
                 {
                     stateMachine?.enter(MoveForwardState.self)
                 }
