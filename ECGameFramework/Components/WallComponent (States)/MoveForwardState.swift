@@ -62,9 +62,6 @@ class MoveForwardState: GKState
     {
         self.wallComponent = wallComponent
         self.entity = entity as! PoliceBot
-        
-//        self.entity.agent.maxSpeed = 150.0
-
     }
     
     deinit {
@@ -75,8 +72,7 @@ class MoveForwardState: GKState
     
     override func didEnter(from previousState: GKState?)
     {
-        print("MoveForwardState didEnter: \(wallComponent.debugDescription), entity: \(entity.debugDescription)")
-
+        print("MoveForwardState: entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
         
         super.didEnter(from: previousState)
         elapsedTime = 0.0
@@ -115,7 +111,7 @@ class MoveForwardState: GKState
     {
 //        print("MoveForwardState update")
   
-        print("MoveForwardState: entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
+//        print("MoveForwardState: entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
         
         
         super.update(deltaTime: seconds)
