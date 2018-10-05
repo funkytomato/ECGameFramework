@@ -52,7 +52,7 @@ class RegroupState: GKState
     
     override func didEnter(from previousState: GKState?)
     {
-        print("RegroupState didEnter: \(wallComponent.debugDescription), entity: \(entity.debugDescription)")
+        print("RegroupState: entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
 
         super.didEnter(from: previousState)
         elapsedTime = 0.0
@@ -64,7 +64,7 @@ class RegroupState: GKState
     {
 //        print("RegroupState update")
 
-        print("RegroupState: entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
+//        print("RegroupState: entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
 
         
         super.update(deltaTime: seconds)
