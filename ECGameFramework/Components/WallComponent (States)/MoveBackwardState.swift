@@ -45,7 +45,9 @@ class MoveBackwardState: GKState
     
     override func didEnter(from previousState: GKState?)
     {
-        print("MoveBackwardsState entered")
+//        print("MoveBackwardsState entered")
+        print("MoveBackwardsState: entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
+
         
         super.didEnter(from: previousState)
         elapsedTime = 0.0
@@ -53,7 +55,7 @@ class MoveBackwardState: GKState
     
     override func update(deltaTime seconds: TimeInterval)
     {
-        print("MoveBackwardsState update")
+//        print("MoveBackwardsState update")
         
         super.update(deltaTime: seconds)
         elapsedTime += seconds
