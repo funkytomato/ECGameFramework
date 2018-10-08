@@ -77,7 +77,7 @@ class HoldTheLineState: GKState
     {
 //        print("HoldTheLineState update")
   
-//        print("HoldTheLineState: entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
+        print("HoldTheLineState: entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
 
         
         super.update(deltaTime: seconds)
@@ -89,7 +89,7 @@ class HoldTheLineState: GKState
         {
        
             //Orientate the TaskBot to be the same as all others in the Wall
-            
+  
             // `orientationComponent` is a computed property. Declare a local version so we don't compute it multiple times.
             let orientationComponent = self.orientationComponent
             
@@ -138,8 +138,6 @@ class HoldTheLineState: GKState
     override func willExit(to nextState: GKState)
     {
         super.willExit(to: nextState)
-        
-
     }
     
     // MARK: Convenience
