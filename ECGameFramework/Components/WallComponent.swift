@@ -45,7 +45,7 @@ class WallComponent: GKComponent
     
     
     // The position in the scene that the `PoliceBot` should target when performing Wall manonevres
-    var targetPosition: float2?
+//    var targetPosition: float2?
     
     weak var delegate: WallComponentDelegate?
     
@@ -118,9 +118,7 @@ class WallComponent: GKComponent
     }
     
     // MARK: GKComponent Life Cycle
-    
-    
-    
+
     override func update(deltaTime seconds: TimeInterval)
     {
         //Check Protestor is not fighting, confrontation, scared or injured
