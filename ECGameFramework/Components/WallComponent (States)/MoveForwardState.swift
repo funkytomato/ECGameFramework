@@ -111,7 +111,7 @@ class MoveForwardState: GKState
     {
 //        print("MoveForwardState update")
   
-//        print("MoveForwardState: entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
+        print("MoveForwardState: entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
         
         
         super.update(deltaTime: seconds)
@@ -135,7 +135,7 @@ class MoveForwardState: GKState
          Leave the attack state if the `PoliceBot` has moved further away from
          its target because it has been knocked off course.
          */
-        if currentDistanceToTarget > lastDistanceToTarget && elapsedTime > 3.0
+        if currentDistanceToTarget > lastDistanceToTarget && elapsedTime > 10.0
         {
             stateMachine?.enter(RegroupState.self)
             return
