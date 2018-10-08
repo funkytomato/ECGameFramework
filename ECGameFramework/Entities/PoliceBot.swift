@@ -373,18 +373,23 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
                 targetPosition = targetAgent.position
                 intelligenceComponent.stateMachine.enter(PoliceBotRotateToAttackState.self)
             
+            
+            //Police are in trouble, request help, and the targetAgent is the Police in need
             case let .supportPolice(targetAgent):
                 
 //                print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 intelligenceComponent.stateMachine.enter(PoliceBotSupportState.self)
                 targetPosition = targetAgent.position
             
+            
+            //Police have been triggered to create a wall
             case .initateWall:
 //                print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
             
                 intelligenceComponent.stateMachine.enter(PoliceBotFormWallState.self)
             
             
+            //Police are forming a wall, the targetAgent is the PoliceBot initiating the wall
             case let .formWall(targetAgent):
 //                print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 
@@ -394,6 +399,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
             
                 self.isSupporting = true
 
+            //Police are in the wall and the target is the nearest Protestor
             case let .inWall(targetAgent):
 //                print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
 
@@ -401,6 +407,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
                 targetPosition = targetAgent.position
             
             
+            //Police are scared, run away from targetAgent
             case let .fleeAgent(targetAgent):
                 
 //                print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
@@ -408,7 +415,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
                 targetPosition = targetAgent.position
             
             default:
-//                print("PoliceBot: rulesComponent default:- entity: \(self.debugDescription), mandate: \(mandate)")
+                print("PoliceBot: rulesComponent default:- entity: \(self.debugDescription), mandate: \(mandate)")
 //                print("Hmm, do something hereE?")
                 break
 
