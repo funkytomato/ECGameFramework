@@ -131,11 +131,11 @@ class LevelStateSnapshot
             }
             
             // The taskbot is active and buying
-            else if thisTaskbot.isActive && thisTaskbot.isBuying
-            {
-                return (workingArrays.criminalTaskBots, workingArrays.sellerTaskBots, workingArrays.buyerTaskBots + [thisTaskbot], workingArrays.scaredTaskBots, workingArrays.dangerousTaskBots, workingArrays.protestorBots + [thisTaskbot],
-                        workingArrays.subservientTaskBots, workingArrays.policeRequestWallTaskBots, workingArrays.policeInTroubleTaskBots, workingArrays.policeBots, workingArrays.injuredBots, workingArrays.ringLeaderTaskBots)
-            }
+//            else if thisTaskbot.isActive && thisTaskbot.isBuying
+//            {
+//                return (workingArrays.criminalTaskBots, workingArrays.sellerTaskBots, workingArrays.buyerTaskBots + [thisTaskbot], workingArrays.scaredTaskBots, workingArrays.dangerousTaskBots, workingArrays.protestorBots + [thisTaskbot],
+//                        workingArrays.subservientTaskBots, workingArrays.policeRequestWallTaskBots, workingArrays.policeInTroubleTaskBots, workingArrays.policeBots, workingArrays.injuredBots, workingArrays.ringLeaderTaskBots)
+//            }
                 
             // The taskbot is active and subervient
             else if thisTaskbot.isActive && thisTaskbot.isSubservient
@@ -215,7 +215,7 @@ class LevelStateSnapshot
 //                                    Float(subservientTaskBots.count) + Float(protestorTaskBots.count) + Float(dangerousTaskBots.count) + Float(injuredTaskBots.count) + Float(policeTaskBots.count) + Float(criminalTaskBots.count)
         
 
-//        print("policeBotPercentage:\(policeBotPercentage.description), protestorBotPercentage: \(protestorBotPercentage.description), criminalBotPercentage: \(criminalBotPercentage.description), dangerousBotPercentage: \(dangerousBotPercentage.description), injuredBotPercentage: \(injuredBotPercentage.description), policeRequestWallTaskBots: \(policeRequestWallTaskBots.count), policeInTroubleTaskBots: \(policeInTroubleTaskBots.count), policeTaskBots: \(policeTaskBots.count),  protestorTaskBots: \(protestorTaskBots.count), dangerousTaskBots: \(dangerousTaskBots.count), scaredBots: \(scaredTaskBots.count), injuredTaskBots: \(injuredTaskBots.count), sellerTaskBots: \(sellerTaskBots.count), buyerTaskBots: \(buyerTaskBots.count)")
+        print("policeBotPercentage:\(policeBotPercentage.description), protestorBotPercentage: \(protestorBotPercentage.description), criminalBotPercentage: \(criminalBotPercentage.description), dangerousBotPercentage: \(dangerousBotPercentage.description), injuredBotPercentage: \(injuredBotPercentage.description), policeRequestWallTaskBots: \(policeRequestWallTaskBots.count), policeInTroubleTaskBots: \(policeInTroubleTaskBots.count), policeTaskBots: \(policeTaskBots.count),  protestorTaskBots: \(protestorTaskBots.count), dangerousTaskBots: \(dangerousTaskBots.count), scaredBots: \(scaredTaskBots.count), injuredTaskBots: \(injuredTaskBots.count), sellerTaskBots: \(sellerTaskBots.count), buyerTaskBots: \(buyerTaskBots.count)")
         
         
         
@@ -355,21 +355,15 @@ class EntitySnapshot
             }
                 
             // Set the nearest Buyer taskbot
-            else if let target = entityDistance.target as? TaskBot, nearestBuyerTaskBotTarget == nil && target.isProtestor && target.isActive && target.isBuying
-            {
-                nearestBuyerTaskBotTarget = (target: target, distance: entityDistance.distance)
-            }
+//            else if let target = entityDistance.target as? TaskBot, nearestBuyerTaskBotTarget == nil && target.isProtestor && target.isActive && target.isBuying
+//            {
+//                nearestBuyerTaskBotTarget = (target: target, distance: entityDistance.distance)
+//            }
                 
             // Set the nearest Ringleader taskbot
             else if let target = entityDistance.target as? TaskBot, nearestRingLeaderTaskBotTarget == nil && target.isRingLeader && target.isActive
             {
                 nearestRingLeaderTaskBotTarget = (target: target, distance: entityDistance.distance)
-            }
-                
-            // Set the nearest Protestor taskbot
-            else if let target = entityDistance.target as? TaskBot, nearestProtestorTaskBotTarget == nil && target.isProtestor && target.isActive
-            {
-                nearestProtestorTaskBotTarget = (target: target, distance: entityDistance.distance)
             }
                 
             // Set the nearest Subservient taskbot
@@ -382,6 +376,12 @@ class EntitySnapshot
             else if let target = entityDistance.target as? TaskBot, nearestScaredTaskBotTarget == nil && target.isProtestor && target.isScared && target.isActive
             {
                 nearestScaredTaskBotTarget = (target: target, distance: entityDistance.distance)
+            }
+                
+            // Set the nearest Protestor taskbot
+            else if let target = entityDistance.target as? TaskBot, nearestProtestorTaskBotTarget == nil && target.isProtestor && target.isActive
+            {
+                nearestProtestorTaskBotTarget = (target: target, distance: entityDistance.distance)
             }
                 
             // Set the nearest Police taskbot that needs help
