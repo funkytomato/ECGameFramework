@@ -89,37 +89,40 @@ class HoldTheLineState: GKState
         {
        
             //Orientate the TaskBot to be the same as all others in the Wall
-  
-            // `orientationComponent` is a computed property. Declare a local version so we don't compute it multiple times.
-            let orientationComponent = self.orientationComponent
             
-            // Calculate the angle the `ManBot` needs to turn to face the `targetPosition`.
-            let angleDeltaToTarget = shortestAngleDeltaToTargetFromRotation(entityRotation: Float(orientationComponent.zRotation))
             
-            // Calculate the amount of rotation that should be applied during this update.
-            var delta = CGFloat(seconds * GameplayConfiguration.Wall.wallRotationSpeed)
-            if angleDeltaToTarget < 0
-            {
-                delta *= -1
-            }
             
-            // Check if the `ManBot` would reach the angle required to face the target during this update.
-            if abs(delta) >= abs(angleDeltaToTarget)
-            {
-                // Finish the rotation and enter `PoliceBotPreAttackState`.
-                orientationComponent.zRotation += angleDeltaToTarget
-                
-                //Check enough time has elapsed and TaskBot is in wall before moving to next state
-                if elapsedTime >= 15.0
-                {
-                    stateMachine?.enter(MoveForwardState.self)
-                }
-                
-                return
-            }
             
-            // Apply the delta to the `ManBot`'s rotation.
-            orientationComponent.zRotation += delta
+//            // `orientationComponent` is a computed property. Declare a local version so we don't compute it multiple times.
+//            let orientationComponent = self.orientationComponent
+//
+//            // Calculate the angle the `ManBot` needs to turn to face the `targetPosition`.
+//            let angleDeltaToTarget = shortestAngleDeltaToTargetFromRotation(entityRotation: Float(orientationComponent.zRotation))
+//
+//            // Calculate the amount of rotation that should be applied during this update.
+//            var delta = CGFloat(seconds * GameplayConfiguration.Wall.wallRotationSpeed)
+//            if angleDeltaToTarget < 0
+//            {
+//                delta *= -1
+//            }
+//
+//            // Check if the `ManBot` would reach the angle required to face the target during this update.
+//            if abs(delta) >= abs(angleDeltaToTarget)
+//            {
+//                // Finish the rotation and enter `PoliceBotPreAttackState`.
+//                orientationComponent.zRotation += angleDeltaToTarget
+//
+//                //Check enough time has elapsed and TaskBot is in wall before moving to next state
+//                if elapsedTime >= 15.0
+//                {
+//                    stateMachine?.enter(MoveForwardState.self)
+//                }
+//
+//                return
+//            }
+//
+//            // Apply the delta to the `ManBot`'s rotation.
+//            orientationComponent.zRotation += delta
         }
     }
     
