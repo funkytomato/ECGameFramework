@@ -1276,6 +1276,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         else if self.isPolice && self.isWall
         {
             guard let targetProtestor = state.nearestProtestorTaskBotTarget?.target.agent else { return }
+            print("PoliceBot is inWall - targetProtestor: \(targetProtestor.debugDescription)")
             mandate = .inWall(targetProtestor)
         }
           
@@ -1287,7 +1288,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
          
         // Taskbot is Police and is not in a wall, not the officer requesting wall, and not in need of help,
         // but another Police has requested support for building a Wall
-        else if self.isPolice && !self.isWall /*&& !self.requestWall *//* && !self.needsHelp */ && supportWallPoliceBot > 0.2
+        else if self.isPolice && !self.isWall && !self.requestWall /* && !self.needsHelp */ && supportWallPoliceBot > 0.2
         {
             guard let supportWallPoliceBot = state.nearestPoliceTaskBotRequestWallTarget?.target.agent else { return }
             mandate = .formWall(supportWallPoliceBot)
