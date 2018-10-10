@@ -415,7 +415,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
                 targetPosition = targetAgent.position
             
             default:
-                print("PoliceBot: rulesComponent default:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                print("PoliceBot: rulesComponent default:- entity: \(self.debugDescription), mandate: \(mandate)")
 //                print("Hmm, do something hereE?")
                 break
 
