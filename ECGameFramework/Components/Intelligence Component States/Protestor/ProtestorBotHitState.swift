@@ -102,7 +102,7 @@ class ProtestorBotHitState: GKState
                 temperamentComponent.increaseTemperament(temperamentToAdd: Double(GameplayConfiguration.ProtestorBot.temperamentIncreasePerCycle))
             }
             
-            print("Temperament: \(temperamentComponent.stateMachine.currentState.debugDescription), Health: \(healthComponent.health.debugDescription)")
+//            print("Temperament: \(temperamentComponent.stateMachine.currentState.debugDescription), Health: \(healthComponent.health.debugDescription)")
             
             // Decide what to do on the Protestor's current temperament
             if ((temperamentComponent.stateMachine.currentState as? ScaredState) != nil) || healthComponent.health <= 50.0
