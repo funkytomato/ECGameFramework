@@ -382,11 +382,11 @@ struct GameplayConfiguration
     struct TaskBot
     {
         /// The length of time a `TaskBot` waits before re-evaluating its rules.
-        static let rulesUpdateWaitDuration: TimeInterval = 2.0
+        static let rulesUpdateWaitDuration: TimeInterval = 0.5
 
         /// The length of time a `TaskBot` waits before re-checking for an appropriate behavior.
 //        static let behaviorUpdateWaitDuration: TimeInterval = 0.25
-        static let behaviorUpdateWaitDuration: TimeInterval = 1.0
+        static let behaviorUpdateWaitDuration: TimeInterval = 0.75
         
         /// How close a `TaskBot` has to be to a patrol path start point in order to start patrolling.
         static let thresholdProximityToPatrolPathStartPoint: Float = 50.0
