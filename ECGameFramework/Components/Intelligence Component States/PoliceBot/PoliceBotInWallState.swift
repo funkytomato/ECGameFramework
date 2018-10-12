@@ -71,11 +71,12 @@ class PoliceBotInWallState: GKState
         
         
 //        if !self.entity.requestWall && elapsedTime > 30.0
-        if elapsedTime > 30.0
+        if elapsedTime > 120.0
         {
             wallComponent.stateMachine.enter(DisbandState.self)
         }
         
+        wallComponent.stateMachine.update(deltaTime: seconds)
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
