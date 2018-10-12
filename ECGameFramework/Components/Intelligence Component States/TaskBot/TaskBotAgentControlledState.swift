@@ -216,7 +216,13 @@ class TaskBotAgentControlledState: GKState
                     break
                 
                 // When a `TaskBot` is in wall, do some shit...
-                case .inWall:
+                case let .inWall(target):
+                    
+                    //When Police get within proximity of the target position, stop movement
+                    if entity.distanceToPoint(otherPoint: target.position) <= 100.0
+                    {
+                        print("Destination reached")
+                    }
                     
                     break
                 
