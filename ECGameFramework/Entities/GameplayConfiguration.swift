@@ -308,14 +308,14 @@ struct GameplayConfiguration
         static let maximumWallSize = 10
         
         // How fast the `PoliceBot` rotates to face its target in radians per second.
-        static let wallRotationSpeed = Double.pi
-//        static let wallRotationSpeed = Double.pi / 4        //slow them down
+//        static let wallRotationSpeed = Double.pi
+        static let wallRotationSpeed = Double.pi / 4        //slow them down
         
         // How much faster the `PoliceBot` can move when in a wall
-        static let movementSpeedMultiplierWhenInWall: CGFloat = 0.8  //slow them down
+        static let movementSpeedMultiplierWhenInWall: CGFloat = 1.0  //slow them down
         
         // How much faster the `PoliceBot` can rotate when in a wall.
-        static let angularSpeedMultiplierWhenInWall: CGFloat = 0.8  //slow them down
+        static let angularSpeedMultiplierWhenInWall: CGFloat = 1.0  //slow them down
     }
     
     //  MARK:- PlayerBot Properties
