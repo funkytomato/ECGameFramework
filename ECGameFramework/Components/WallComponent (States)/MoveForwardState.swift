@@ -72,7 +72,7 @@ class MoveForwardState: GKState
     
     override func didEnter(from previousState: GKState?)
     {
-        print("MoveForwardState: entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
+        print("MoveForwardState didEnter: entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
         
         super.didEnter(from: previousState)
         elapsedTime = 0.0
@@ -111,7 +111,7 @@ class MoveForwardState: GKState
     {
 //        print("MoveForwardState update")
   
-        print("MoveForwardState: entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
+        print("MoveForwardState update: entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
         
         
         super.update(deltaTime: seconds)
@@ -125,7 +125,7 @@ class MoveForwardState: GKState
         let dy = targetPosition.y - entity.agent.position.y
         
         let currentDistanceToTarget = hypot(dx, dy)
-        if currentDistanceToTarget < GameplayConfiguration.TaskBot.attackEndProximity && elapsedTime > 10.0
+        if currentDistanceToTarget < GameplayConfiguration.TaskBot.attackEndProximity
         {
             stateMachine?.enter(RegroupState.self)
             return
@@ -135,7 +135,7 @@ class MoveForwardState: GKState
          Leave the attack state if the `PoliceBot` has moved further away from
          its target because it has been knocked off course.
          */
-        if currentDistanceToTarget > lastDistanceToTarget && elapsedTime > 10.0
+        if currentDistanceToTarget > lastDistanceToTarget
         {
             stateMachine?.enter(RegroupState.self)
             return
@@ -166,8 +166,8 @@ class MoveForwardState: GKState
         let movementComponent = self.movementComponent
         
         // Stop the `ManBot`'s movement and restore its standard movement speed.
-        movementComponent.nextRotation = nil
-        movementComponent.nextTranslation = nil
+//        movementComponent.nextRotation = nil
+//        movementComponent.nextTranslation = nil
         movementComponent.movementSpeed /= GameplayConfiguration.Wall.movementSpeedMultiplierWhenInWall
         movementComponent.angularSpeed /= GameplayConfiguration.Wall.angularSpeedMultiplierWhenInWall
     }
