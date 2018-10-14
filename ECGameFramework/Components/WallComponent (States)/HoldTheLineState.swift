@@ -27,6 +27,12 @@ class HoldTheLineState: GKState
     var elapsedTime: TimeInterval = 0.0
 
 
+    var intelligenceComponent: IntelligenceComponent
+    {
+        guard let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self) else { fatalError("A HoldTheLineState entity must have an IntelligenceComponent.") }
+        return intelligenceComponent
+    }
+    
     
     /// The `OrientationComponent` associated with the `entity`.
     var orientationComponent: OrientationComponent
@@ -79,6 +85,8 @@ class HoldTheLineState: GKState
   
         print("HoldTheLineState: entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
 
+//        guard let targetProtestor = state.nearestProtestorTaskBotTarget?.target.agent else { return }
+        
         
         super.update(deltaTime: seconds)
         elapsedTime += seconds
@@ -91,38 +99,45 @@ class HoldTheLineState: GKState
             //Orientate the TaskBot to be the same as all others in the Wall
             
             
-            
-            
-//            // `orientationComponent` is a computed property. Declare a local version so we don't compute it multiple times.
-//            let orientationComponent = self.orientationComponent
-//
-//            // Calculate the angle the `ManBot` needs to turn to face the `targetPosition`.
-//            let angleDeltaToTarget = shortestAngleDeltaToTargetFromRotation(entityRotation: Float(orientationComponent.zRotation))
-//
-//            // Calculate the amount of rotation that should be applied during this update.
-//            var delta = CGFloat(seconds * GameplayConfiguration.Wall.wallRotationSpeed)
-//            if angleDeltaToTarget < 0
-//            {
-//                delta *= -1
-//            }
-//
-//            // Check if the `ManBot` would reach the angle required to face the target during this update.
-//            if abs(delta) >= abs(angleDeltaToTarget)
-//            {
-//                // Finish the rotation and enter `PoliceBotPreAttackState`.
-//                orientationComponent.zRotation += angleDeltaToTarget
-//
+            // `orientationComponent` is a computed property. Declare a local version so we don't compute it multiple times.
+            let orientationComponent = self.orientationComponent
+
+            // Calculate the angle the `ManBot` needs to turn to face the `targetPosition`.
+            let angleDeltaToTarget = shortestAngleDeltaToTargetFromRotation(entityRotation: Float(orientationComponent.zRotation))
+
+            // Calculate the amount of rotation that should be applied during this update.
+            var delta = CGFloat(seconds * GameplayConfiguration.Wall.wallRotationSpeed)
+            if angleDeltaToTarget < 0
+            {
+                delta *= -1
+            }
+
+            // Check if the `ManBot` would reach the angle required to face the target during this update.
+            if abs(delta) >= abs(angleDeltaToTarget)
+            {
+                // Finish the rotation and enter `PoliceBotPreAttackState`.
+                orientationComponent.zRotation += angleDeltaToTarget
+
 //                //Check enough time has elapsed and TaskBot is in wall before moving to next state
-//                if elapsedTime >= 15.0
+//                if elapsedTime >= 2.0
 //                {
 //                    stateMachine?.enter(MoveForwardState.self)
 //                }
-//
-//                return
-//            }
-//
-//            // Apply the delta to the `ManBot`'s rotation.
-//            orientationComponent.zRotation += delta
+
+                return
+            }
+
+            // Apply the delta to the `ManBot`'s rotation.
+            orientationComponent.zRotation += delta
+            
+            
+            //Check enough time has elapsed and TaskBot is in wall before moving to next state
+            if elapsedTime >= 2.0
+            {
+                stateMachine?.enter(MoveForwardState.self)
+            }
+            
+            intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
         }
     }
     
