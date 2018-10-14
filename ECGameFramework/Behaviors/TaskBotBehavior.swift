@@ -267,7 +267,6 @@ class TaskBotBehavior: GKBehavior
 //        behavior.addWanderGoal(forScene: scene)
       
         
-        // WE DON"T NEED THIS
         // Add goals to follow a calculated path from the `TaskBot` to its target.
         let pathPoints = behavior.addGoalsToFollowPath(from: agent.position, to: target.position, pathRadius: pathRadius, inScene: scene)
 //        let pathPoints = behavior.addGoalsToFollowPath(from: agent.position, to: target.position, pathRadius: pathRadius, inScene: scene)
@@ -284,7 +283,7 @@ class TaskBotBehavior: GKBehavior
     // Police will come to support target officer and create a wall
     static func inWallBehaviour(forAgent agent: GKAgent2D, huntingAgent target: GKAgent2D, pathRadius: Float, inScene scene: LevelScene) -> (behaviour: GKBehavior, pathPoints: [CGPoint])
     {
-//        print("inWallBehaviour \(agent.description) hunting: \(target.description) scene: \(scene.description)")
+        print("inWallBehaviour \(agent.description) hunting: \(target.description) scene: \(scene.description)")
         
         let behavior = TaskBotBehavior()
         
@@ -297,7 +296,8 @@ class TaskBotBehavior: GKBehavior
         
         // WE DON"T NEED THIS
         // Add goals to follow a calculated path from the `TaskBot` to its target.  The WallComponent states will move the TaskBot
-        let pathPoints = behavior.addGoalsToFollowPath(from: agent.position, to: agent.position, pathRadius: 100.0, inScene: scene)
+//        let pathPoints = behavior.addGoalsToFollowPath(from: agent.position, to: agent.position, pathRadius: 100.0, inScene: scene)
+        let pathPoints = behavior.addGoalsToFollowPath(from: agent.position, to: target.position, pathRadius: 500.0, inScene: scene)
         
 //        print("target: \(target.debugDescription)")
         
