@@ -33,7 +33,10 @@ class WallComponent: GKComponent
     
     
     // MARK: Properties
-        
+    
+    // The amount of time the 'ManBot' has been in its "Detained" state
+    var elapsedTime: TimeInterval = 0.0
+    
     // The current number of Taskbots in wall
     var currentWallSize: Int = 0
     
@@ -90,6 +93,7 @@ class WallComponent: GKComponent
         self.currentWallSize = 0
         self.minimumWallSize = minimum
         self.maximumWallSize = maximum
+        self.elapsedTime = 0.0
         
         super.init()
         
@@ -124,8 +128,25 @@ class WallComponent: GKComponent
         //Check Protestor is not fighting, confrontation, scared or injured
         
         stateMachine.update(deltaTime: seconds)
+//        elapsedTime += seconds
         
         //        print("state: \(intelligenceComponent.stateMachine.currentState)")
+        
+        guard let policeBot = entity as? PoliceBot else { return }
+        
+        
+        if policeBot.isWall
+        {
+            //Police will Disband from wall after 60 seconds whatever
+            if elapsedTime > 60.0
+            {
+                stateMachine.enter(DisbandState.self)
+            }
+            
+            //If Police are in wall increment the counter
+            elapsedTime += seconds
+        }
+        
         
 //        guard let currentState = stateMachine.currentState else { return }
 //        switch currentState
