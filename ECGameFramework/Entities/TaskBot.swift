@@ -1276,6 +1276,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         else if self.isPolice && self.isWall
         {
             guard let targetProtestor = state.nearestProtestorTaskBotTarget?.target.agent else { return }
+//            guard let targetProtestor = state.nearestDangerousTaskBotTarget?.target.agent else { return }     ///Causes weird behaviour
 //            guard let targetProtestor = state.playerBotTarget?.target.agent else { return }
             print("PoliceBot is inWall - targetProtestor: \(targetProtestor))")
             mandate = .inWall(targetProtestor)
