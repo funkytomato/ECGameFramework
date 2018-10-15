@@ -76,8 +76,8 @@ class DisbandState: GKState
         if !wallComponent.isTriggered
         {
             stateMachine?.enter(WallIdleState.self)
-            guard let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self) else { return }
-            intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
+//            guard let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self) else { return }
+//            intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
         }
     }
     
@@ -95,6 +95,15 @@ class DisbandState: GKState
     override func willExit(to nextState: GKState)
     {
         super.willExit(to: nextState)
+        
+        // `movementComponent` is a computed property. Declare a local version so we don't compute it multiple times.
+        let movementComponent = self.movementComponent
+        
+        // Stop the `ManBot`'s movement and restore its standard movement speed.
+//        movementComponent.nextRotation = nil
+//        movementComponent.nextTranslation = nil
+        movementComponent.movementSpeed /= GameplayConfiguration.TaskBot.movementSpeedMultiplierWhenAttacking
+        movementComponent.angularSpeed /= GameplayConfiguration.TaskBot.angularSpeedMultiplierWhenAttacking
     }
 }
 
