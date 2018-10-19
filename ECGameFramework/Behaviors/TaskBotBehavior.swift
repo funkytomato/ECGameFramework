@@ -297,7 +297,9 @@ class TaskBotBehavior: GKBehavior
         // WE DON"T NEED THIS
         // Add goals to follow a calculated path from the `TaskBot` to its target.  The WallComponent states will move the TaskBot
 //        let pathPoints = behavior.addGoalsToFollowPath(from: agent.position, to: agent.position, pathRadius: 100.0, inScene: scene)
-        let pathPoints = behavior.addGoalsToFollowPath(from: agent.position, to: target.position, pathRadius: 500.0, inScene: scene)
+//        let pathPoints = behavior.addGoalsToFollowPath(from: agent.position, to: target.position, pathRadius: 500.0, inScene: scene)
+        let pathPoints = behavior.addGoalsToFollowPath(from: agent.position, to: scene.endWallLocation(), pathRadius: 500.0, inScene: scene)
+        
         
 //        print("target: \(target.debugDescription)")
         
