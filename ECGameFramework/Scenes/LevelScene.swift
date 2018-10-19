@@ -67,6 +67,11 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
         return childNode(withName: "world/characters/createWall")!
     }
 
+    var endWallNode: SKNode
+    {
+        return childNode(withName: "world/characters/endWall")!
+    }
+    
     let playerBot = PlayerBot()
     var entities = Set<GKEntity>()
     
@@ -907,11 +912,16 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
         return float2(meatWagon.position)
     }
     
-    func meatCreateWallLocation() -> float2
+    func createWallLocation() -> float2
     {
         return float2(formWallNode.position)
     }
 
+    func endWallLocation() -> float2
+    {
+        return float2(endWallNode.position)
+    }
+    
     //var activeEntity: GKEntity?
     var activeEntity: TaskBot?
     
