@@ -225,8 +225,8 @@ class TaskBotBehavior: GKBehavior
         return (behavior, pathPoints)
     }
     
-    // PoliceBot initates building a wall
-    static func initiateWallBehaviour(forAgent agent: GKAgent2D, pathRadius: Float, inScene scene: LevelScene) -> (behaviour: GKBehavior, pathPoints: [CGPoint])
+    // PoliceBot initates building a wall and moves the Police leader to the createWallLocation
+    static func initiateWallBehaviour(forAgent agent: GKAgent2D, startLocation: float2, pathRadius: Float, inScene scene: LevelScene) -> (behaviour: GKBehavior, pathPoints: [CGPoint])
     {
         print("initiateWallBehaviour \(agent.description) scene: \(scene.description)")
         
@@ -234,19 +234,19 @@ class TaskBotBehavior: GKBehavior
         
         // Add basic goals to reach the `TaskBot`'s maximum speed, avoid obstacles and seek the target Police.
         //        behavior.addTargetSpeedGoal(speed: agent.maxSpeed)
-//        behavior.addTargetSpeedGoal(speed: 25.0)
-//        behavior.addAvoidObstaclesGoal(forScene: scene)
+        behavior.addTargetSpeedGoal(speed: 25.0)
+        behavior.addAvoidObstaclesGoal(forScene: scene)
 //        behavior.addSeekGoal(forScene: scene, agent: target, weight: 1.0)
         //        behavior.addWanderGoal(forScene: scene)
         
         
         // WE DON"T NEED THIS
         // Add goals to follow a calculated path from the `TaskBot` to its target.
-        let pathPoints = behavior.addGoalsToFollowPath(from: agent.position, to: agent.position, pathRadius: pathRadius, inScene: scene)
+        let pathPoints = behavior.addGoalsToFollowPath(from: agent.position, to: startLocation, pathRadius: pathRadius, inScene: scene)
         //        let pathPoints = behavior.addGoalsToFollowPath(from: agent.position, to: target.position, pathRadius: pathRadius, inScene: scene)
         
 //        print("meatWagon: \(scene.meatWagon.position)")
-//        print("targetPosition: \(target.position)")
+        print("targetPosition: \(startLocation.debugDescription)")
         
         // Return a tuple containing the new behavior, and the found path points for debug drawing.
         return (behavior, pathPoints)
