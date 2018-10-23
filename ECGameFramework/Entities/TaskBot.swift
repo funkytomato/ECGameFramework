@@ -308,8 +308,10 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             case .initateWall:
 //                print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
             
+                let destination = levelScene.createWallLocation()
+                
                 radius = GameplayConfiguration.TaskBot.huntPathRadius
-                (agentBehavior, debugPathPoints) = TaskBotBehavior.initiateWallBehaviour(forAgent: agent, pathRadius: radius, inScene: levelScene)
+                (agentBehavior, debugPathPoints) = TaskBotBehavior.initiateWallBehaviour(forAgent: agent, startLocation: destination, pathRadius: radius, inScene: levelScene)
                 debugColor = SKColor.orange
             
             // PoliceBots shall support the building of a wall
