@@ -75,7 +75,7 @@ class PoliceBotInWallState: GKState
         
         
 //        if !self.entity.requestWall && elapsedTime > 30.0
-        if elapsedTime > 120.0
+        if elapsedTime > 30.0
         {
             wallComponent.stateMachine.enter(DisbandState.self)
         }
@@ -91,7 +91,7 @@ class PoliceBotInWallState: GKState
         {
             
         case is TaskBotAgentControlledState.Type, is TaskBotFleeState.Type, is TaskBotInjuredState.Type,  is TaskBotZappedState.Type,
-             is PoliceBotHitState.Type:
+             is PoliceBotHitState.Type, is PoliceBotWanderState.Type:
             return true
             
         default:
