@@ -137,7 +137,7 @@ class HoldTheLineState: GKState
                 stateMachine?.enter(MoveForwardState.self)
             }
             
-            intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
+//            intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
         }
     }
     
