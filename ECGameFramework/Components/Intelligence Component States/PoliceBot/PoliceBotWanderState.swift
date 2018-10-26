@@ -66,24 +66,24 @@ class PoliceBotWanderState: GKState
         elapsedTime += seconds
         
         
-        guard let renderComponent = entity.component(ofType: RenderComponent.self) else { return }
-        let scene = renderComponent.node.scene as? LevelScene
-        let destination = (scene?.createWallLocation())!
+//        guard let renderComponent = entity.component(ofType: RenderComponent.self) else { return }
+//        let scene = renderComponent.node.scene as? LevelScene
+//        let destination = (scene?.createWallLocation())!
         
-        // If PoliceBot nears CreateWall location, and has not already requested a wall, and is not already supporting another PoliceBot, then initiate wall formation
-        if self.entity.isPolice && !self.entity.requestWall && !self.entity.isSupporting &&
-            entity.distanceToPoint(otherPoint: destination) <= 150.0/* && elapsedTime > 30.0*/
-        {
-            print("PoliceBot close proximity to CreateWall node, entity: \(entity.debugDescription)")
-//            self.entity.requestWall = true
-//            self.entity.component(ofType: SpriteComponent.self)?.node.color = SKColor.brown
-            
-            intelligenceComponent.stateMachine.enter(PoliceBotInitateWallState.self)
-        }
-        else
-        {
-            intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
-        }
+//        // If PoliceBot nears CreateWall location, and has not already requested a wall, and is not already supporting another PoliceBot, then initiate wall formation
+//        if self.entity.isPolice && !self.entity.requestWall && !self.entity.isSupporting &&
+//            entity.distanceToPoint(otherPoint: destination) <= 150.0/* && elapsedTime > 30.0*/
+//        {
+//            print("PoliceBot close proximity to CreateWall node, entity: \(entity.debugDescription)")
+////            self.entity.requestWall = true
+////            self.entity.component(ofType: SpriteComponent.self)?.node.color = SKColor.brown
+//
+//            intelligenceComponent.stateMachine.enter(PoliceBotInitateWallState.self)
+//        }
+//        else
+//        {
+//            intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
+//        }
         
     }
     
