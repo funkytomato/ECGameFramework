@@ -77,7 +77,7 @@ class TaskBotAgentControlledState: GKState
         super.update(deltaTime: seconds)
  
         
-//        print("TaskBotAgentControlledState update:- entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
+        print("TaskBotAgentControlledState update:- entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
         
         // Update the "time since last behavior update" tracker.
         timeSinceBehaviorUpdate += seconds
@@ -94,6 +94,8 @@ class TaskBotAgentControlledState: GKState
                 print("PoliceBot close proximity to CreateWall node, entity: \(entity.debugDescription)")
                 self.entity.requestWall = true
                 self.entity.component(ofType: SpriteComponent.self)?.node.color = SKColor.brown
+                
+                entity.mandate = .initateWall
             }
             
             
@@ -189,11 +191,13 @@ class TaskBotAgentControlledState: GKState
                 
                 case .wander:
                     
-//                    print("TaskBotAgentControlledState: wander")
+                    print("TaskBotAgentControlledState update: wander")
 //                    entity.mandate = .wander
                     
-                    guard let protestor = entity as? ProtestorBot else { return }
-                    print("TaskbotAgentControlledState wander mandate:- \(protestor.debugDescription), Protestor position: \(protestor.agent.position)")
+//                    guard let protestor = entity as? ProtestorBot else { return }
+//                    print("TaskbotAgentControlledState wander mandate:- \(protestor.debugDescription), Protestor position: \(protestor.agent.position)")
+                    
+                    entity.mandate = .wander
                     
                     break
                 
@@ -219,6 +223,7 @@ class TaskBotAgentControlledState: GKState
                         policeBot.component(ofType: WallComponent.self)?.isTriggered = true
                     }
                     
+                    entity.mandate = .initateWall
 
                     break
                 
@@ -285,7 +290,7 @@ class TaskBotAgentControlledState: GKState
         switch stateClass
         {
         case is TaskBotAgentControlledState.Type, is TaskBotZappedState.Type, is TaskBotPlayerControlledState.Type, is TaskBotFleeState.Type, is TaskBotInjuredState.Type,
-              is PoliceBotPreAttackState.Type, is PoliceBotRotateToAttackState.Type, is PoliceBotAttackState.Type, is PoliceArrestState.Type, is PoliceDetainState.Type, is PoliceBotHitState.Type, is PoliceBotSupportState.Type, is PoliceBotFormWallState.Type, is PoliceBotInWallState.Type,
+              is PoliceBotPreAttackState.Type, is PoliceBotRotateToAttackState.Type, is PoliceBotAttackState.Type, is PoliceArrestState.Type, is PoliceDetainState.Type, is PoliceBotHitState.Type, is PoliceBotSupportState.Type, is PoliceBotFormWallState.Type, is PoliceBotInWallState.Type, is PoliceBotWanderState.Type,
              is ProtestorBotPreAttackState.Type, is ProtestorBotRotateToAttackState.Type, is ProtestorBotAttackState.Type, is ProtestorBeingArrestedState.Type, is ProtestorArrestedState.Type, is ProtestorDetainedState.Type, is ProtestorBotHitState.Type, is ProtestorBotRechargingState.Type, is ProtestorInciteState.Type, is ProtestorBuyWaresState.Type, is ProtestorSheepState.Type, /*is ProtestorBotWanderState.Type,*/
              is SellWaresState.Type:
                 return true
