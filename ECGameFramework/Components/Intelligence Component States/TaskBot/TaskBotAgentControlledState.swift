@@ -206,8 +206,27 @@ class TaskBotAgentControlledState: GKState
 //                    print("TaskBotAgentControlledState: sheep")
 //                    entity.mandate = .sheep(target)
                     break
+
+                case .initateWall:
+                
+                    guard let policeBot = entity as? PoliceBot else { return }
+                    print("TaskBotAgentControlledState: entity: \(policeBot.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(policeBot.isWall), requestWall: \(policeBot.requestWall), isSupporting: \(policeBot.isSupporting), wallComponentisTriggered: \(String(describing: policeBot.component(ofType: WallComponent.self)?.isTriggered))")
+                
+                    
+                    //When a connection has been made, trigger the WallComponent
+                    if policeBot.isWall
+                    {
+                        policeBot.component(ofType: WallComponent.self)?.isTriggered = true
+                    }
+                    
+
+                    break
                 
                 case let .formWall(target):
+                    
+                    guard let policeBot = entity as? PoliceBot else { return }
+                    print("TaskBotAgentControlledState: entity: \(policeBot.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(policeBot.isWall), requestWall: \(policeBot.requestWall), isSupporting: \(policeBot.isSupporting), wallComponentisTriggered: \(String(describing: policeBot.component(ofType: WallComponent.self)?.isTriggered))")
+                    
                     
                     //When Police get within proximity of the Police leader, switch on the entities wall component
                     if entity.distanceToPoint(otherPoint: target.position) <= 75.0
