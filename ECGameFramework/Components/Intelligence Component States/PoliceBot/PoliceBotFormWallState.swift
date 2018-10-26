@@ -32,7 +32,12 @@ class PoliceBotFormWallState: GKState
         return intelligenceComponent
     }
     
-    
+    /// The `WallComponent` associated with the `entity`.
+    var wallComponent: WallComponent
+    {
+        guard let wallComponent = entity.component(ofType: WallComponent.self) else { fatalError("A PoliceBotInWallState entity must have an WallComponent.") }
+        return wallComponent
+    }
     
     //MARK:- Initializers
     required init(entity: PoliceBot)
@@ -49,10 +54,11 @@ class PoliceBotFormWallState: GKState
     override func didEnter(from previousState: GKState?)
     {
         
-        print("PoliceBotFormWallState entered")
-        
         super.didEnter(from: previousState)
         elapsedTime = 0.0
+        
+        guard let policeBot = entity as? PoliceBot else { return }
+        print("PoliceBotFormWallState entered :\(policeBot.debugDescription)")
         
         //Trigger WallComponent to form a wall with entities in PoliceBotFormWallState
 //        entity.component(ofType: WallComponent.self)?.isTriggered = true
@@ -65,9 +71,13 @@ class PoliceBotFormWallState: GKState
         elapsedTime += seconds
         
 //        print("PoliceBotFormWallState updating")
+
         
 //        guard let wallComponent = entity.component(ofType: WallComponent.self) else { return }
         guard let policeBot = entity as? PoliceBot else { return }
+        
+        print("PoliceBotFormWallState: entity: \(policeBot.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(policeBot.isWall), requestWall: \(policeBot.requestWall), isSupporting: \(policeBot.isSupporting), wallComponentisTriggered: \(String(describing: policeBot.component(ofType: WallComponent.self)?.isTriggered))")
+
         
         //Should only move into this state when Taskbots are connected
         if policeBot.isWall
@@ -78,6 +88,10 @@ class PoliceBotFormWallState: GKState
         {
             intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
         }
+        
+        
+        //Ensure the WallComponent statemachine is started and updated.
+        wallComponent.stateMachine.update(deltaTime: seconds)
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
