@@ -61,6 +61,7 @@ class DisbandState: GKState
         guard let jointComponent = entity.component(ofType: JointComponent.self) else { return }
         jointComponent.removeJoint()
         
+        self.entity.isRingLeader = false
         self.entity.requestWall = false
         self.entity.isSupporting = false
         self.entity.isWall = false
@@ -76,8 +77,8 @@ class DisbandState: GKState
         if !wallComponent.isTriggered
         {
             stateMachine?.enter(WallIdleState.self)
-//            guard let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self) else { return }
-//            intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
+            guard let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self) else { return }
+            intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
         }
     }
     
