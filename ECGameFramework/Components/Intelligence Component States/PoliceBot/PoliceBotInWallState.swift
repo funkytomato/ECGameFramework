@@ -54,11 +54,15 @@ class PoliceBotInWallState: GKState
     override func didEnter(from previousState: GKState?)
     {
         
-        print("PoliceBotInWallState entered")
+//        print("PoliceBotInWallState entered")
         
         super.didEnter(from: previousState)
         elapsedTime = 0.0
         
+        
+        guard let policeBot = entity as? PoliceBot else { return }
+        print("PoliceBotInWallState didEnter: entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
+
     }
     
     override func update(deltaTime seconds: TimeInterval)
@@ -67,7 +71,7 @@ class PoliceBotInWallState: GKState
         elapsedTime += seconds
         
 //        print("PoliceBotInWallState updating")
-//        print("PoliceBotInWallState: entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
+        print("PoliceBotInWallState update: entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
         
         
 //        if !self.entity.requestWall && elapsedTime > 30.0
@@ -76,6 +80,8 @@ class PoliceBotInWallState: GKState
             wallComponent.stateMachine.enter(DisbandState.self)
         }
         
+        
+        //Ensure the WallComponent statemachine is started and updated.
         wallComponent.stateMachine.update(deltaTime: seconds)
     }
     
