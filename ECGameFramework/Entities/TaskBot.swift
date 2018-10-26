@@ -1285,7 +1285,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         }
           
         //PoliceBot has requested to create a wall
-        else if self.isPolice && self.requestWall && supportWallPoliceBot <= 0.2
+        else if self.isPolice && self.requestWall /* && supportWallPoliceBot <= 0.2 */
         {
             mandate = .initateWall
         }
@@ -1372,7 +1372,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                     break
                 
                 case .inWall:
-//                    print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+                    print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 break
                 
                 case .formWall:
