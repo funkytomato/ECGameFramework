@@ -1140,7 +1140,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         
         //MARK:- Define TaskBot mandates
         
-//        print("TaskBot: ruleComponent: - entity: \(self.debugDescription), Current behaviour mandate: \(self.mandate), isWall: \(self.isWall), requestWall: \(self.requestWall), isSupporting: \(self.isSupporting), wallComponentisTriggered: \(String(describing: self.component(ofType: WallComponent.self)?.isTriggered))")
+        print("TaskBot: ruleComponent: - entity: \(self.debugDescription), Current behaviour mandate: \(self.mandate), isWall: \(self.isWall), requestWall: \(self.requestWall), isSupporting: \(self.isSupporting), wallComponentisTriggered: \(String(describing: self.component(ofType: WallComponent.self)?.isTriggered))")
         
         if self.isPlayerControlled
         {
