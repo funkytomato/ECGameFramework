@@ -71,18 +71,9 @@ class PoliceBotInWallState: GKState
         elapsedTime += seconds
         
 //        print("PoliceBotInWallState updating")
-        print("PoliceBotInWallState update: entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
-        
-        
-//        if !self.entity.requestWall && elapsedTime > 30.0
-        if elapsedTime > 30.0
-        {
-            wallComponent.stateMachine.enter(DisbandState.self)
-        }
-        
-        
-        //Ensure the WallComponent statemachine is started and updated.
-        wallComponent.stateMachine.update(deltaTime: seconds)
+        print("PoliceBotInWallState: entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
+
+        intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
@@ -91,7 +82,7 @@ class PoliceBotInWallState: GKState
         {
             
         case is TaskBotAgentControlledState.Type, is TaskBotFleeState.Type, is TaskBotInjuredState.Type,  is TaskBotZappedState.Type,
-             is PoliceBotHitState.Type, is PoliceBotWanderState.Type:
+             is PoliceBotHitState.Type:
             return true
             
         default:

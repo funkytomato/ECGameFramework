@@ -145,7 +145,7 @@ class HoldTheLineState: GKState
     {
         switch stateClass
         {
-        case is MoveBackwardState.Type, is RetreatState.Type, is MoveForwardState.Type, is DisbandState.Type:
+        case /*is MoveBackwardState.Type, is RetreatState.Type,*/ is MoveForwardState.Type /*, is DisbandState.Type*/:
             return true
             
         default:

@@ -150,7 +150,7 @@ class MoveForwardState: GKState
     {
         switch stateClass
         {
-        case is ChargeState.Type, is HoldTheLineState.Type, is RegroupState.Type, is DisbandState.Type:
+        case /*is ChargeState.Type, is HoldTheLineState.Type,*/ is RegroupState.Type, is DisbandState.Type:
             return true
             
         default:
@@ -163,13 +163,13 @@ class MoveForwardState: GKState
         super.willExit(to: nextState)
         
         // `movementComponent` is a computed property. Declare a local version so we don't compute it multiple times.
-        let movementComponent = self.movementComponent
+//        let movementComponent = self.movementComponent
         
         // Stop the `ManBot`'s movement and restore its standard movement speed.
 //        movementComponent.nextRotation = nil
 //        movementComponent.nextTranslation = nil
-        movementComponent.movementSpeed /= GameplayConfiguration.Wall.movementSpeedMultiplierWhenInWall
-        movementComponent.angularSpeed /= GameplayConfiguration.Wall.angularSpeedMultiplierWhenInWall
+//        movementComponent.movementSpeed /= GameplayConfiguration.Wall.movementSpeedMultiplierWhenInWall
+//        movementComponent.angularSpeed /= GameplayConfiguration.Wall.angularSpeedMultiplierWhenInWall
     }
     
     

@@ -283,14 +283,20 @@ class TaskBotBehavior: GKBehavior
     // Police will come to support target officer and create a wall
     static func inWallBehaviour(forAgent agent: GKAgent2D, huntingAgent target: GKAgent2D, pathRadius: Float, inScene scene: LevelScene) -> (behaviour: GKBehavior, pathPoints: [CGPoint])
     {
-        print("inWallBehaviour \(agent.description) hunting: \(target.description) scene: \(scene.description)")
+        
+        let policeBot = agent.entity as? PoliceBot
+        
+//        print("inWallBehaviour \(agent.description) hunting: \(target.description) scene: \(scene.description)")
+        print("TaskBotBehaviour inWallbehaviour:- entity: \(policeBot.debugDescription), Current behaviour mandate: \(policeBot?.mandate), isWall: \(policeBot?.isWall), requestWall: \(policeBot?.requestWall), isSupporting: \(policeBot?.isSupporting), wallComponentisTriggered: \(String(describing: policeBot?.component(ofType: WallComponent.self)?.isTriggered))")
+
+        
         
         let behavior = TaskBotBehavior()
         
         // Add basic goals to reach the `TaskBot`'s maximum speed, avoid obstacles and seek the target Police.
         behavior.addTargetSpeedGoal(speed: agent.maxSpeed)
         behavior.addAvoidObstaclesGoal(forScene: scene)
-        behavior.addSeekGoal(forScene: scene, agent: agent, weight: 1.0)
+//        behavior.addSeekGoal(forScene: scene, agent: agent, weight: 1.0)
         //        behavior.addWanderGoal(forScene: scene)
         
         

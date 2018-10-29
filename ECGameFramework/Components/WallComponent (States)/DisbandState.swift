@@ -71,11 +71,9 @@ class DisbandState: GKState
     override func update(deltaTime seconds: TimeInterval)
     {
 //        print("DisbandState update: \(wallComponent.debugDescription)")
+        print("DisbandState update: entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
         
         super.update(deltaTime: seconds)
-        
-        print("DisbandState update: entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
-
         
         if !wallComponent.isTriggered
         {
@@ -99,6 +97,13 @@ class DisbandState: GKState
     override func willExit(to nextState: GKState)
     {
         super.willExit(to: nextState)
+        
+        // `movementComponent` is a computed property. Declare a local version so we don't compute it multiple times.
+        let movementComponent = self.movementComponent
+        
+        // Cancel any planned movement or rotation when leaving the player-controlled state.
+        movementComponent.nextTranslation = nil
+        movementComponent.nextRotation = nil
     }
 }
 
