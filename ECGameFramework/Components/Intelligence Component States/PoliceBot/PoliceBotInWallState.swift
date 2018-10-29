@@ -68,15 +68,7 @@ class PoliceBotInWallState: GKState
         
 //        print("PoliceBotInWallState updating")
         print("PoliceBotInWallState: entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
-        
-        
-//        if !self.entity.requestWall && elapsedTime > 30.0
-        if elapsedTime > 120.0
-        {
-            wallComponent.stateMachine.enter(DisbandState.self)
-        }
-        
-        wallComponent.stateMachine.update(deltaTime: seconds)
+
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
