@@ -101,10 +101,10 @@ class WallComponent: GKComponent
             WallIdleState(wallComponent: self, entity: entity),
             RegroupState(wallComponent: self, entity: entity),
             HoldTheLineState(wallComponent: self, entity: entity),
-            MoveBackwardState(wallComponent: self, entity: entity),
-            RetreatState(wallComponent: self, entity: entity),
+//            MoveBackwardState(wallComponent: self, entity: entity),
+//            RetreatState(wallComponent: self, entity: entity),
             MoveForwardState(wallComponent: self, entity: entity),
-            ChargeState(wallComponent: self, entity: entity),
+//            ChargeState(wallComponent: self, entity: entity),
             DisbandState(wallComponent: self, entity: entity)
             ])
         
@@ -125,10 +125,6 @@ class WallComponent: GKComponent
 
     override func update(deltaTime seconds: TimeInterval)
     {
-        //Check Protestor is not fighting, confrontation, scared or injured
-        
-        stateMachine.update(deltaTime: seconds)
-//        elapsedTime += seconds
         
         //        print("state: \(intelligenceComponent.stateMachine.currentState)")
         
@@ -138,7 +134,7 @@ class WallComponent: GKComponent
         if policeBot.isWall
         {
             //Police will Disband from wall after 60 seconds whatever
-            if elapsedTime > 60.0
+            if elapsedTime > 30.0
             {
                 stateMachine.enter(DisbandState.self)
             }
@@ -147,19 +143,8 @@ class WallComponent: GKComponent
             elapsedTime += seconds
         }
         
-        
-//        guard let currentState = stateMachine.currentState else { return }
-//        switch currentState
-//        {
-//            
-//            case is HoldTheLineState:
-////                animationComponent.requestedAnimationState = .drinking
-//                break
-//            default:
-//                //                animationComponent.requestedAnimationState = .idle
-//                break
-//        }
-        
+        stateMachine.update(deltaTime: seconds)
+
     }
     
     // MARK: Convenience
