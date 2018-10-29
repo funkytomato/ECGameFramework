@@ -69,6 +69,7 @@ class PoliceBotInWallState: GKState
 //        print("PoliceBotInWallState updating")
         print("PoliceBotInWallState: entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
 
+        intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
