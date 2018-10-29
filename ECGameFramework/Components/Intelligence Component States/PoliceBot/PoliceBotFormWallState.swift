@@ -64,6 +64,8 @@ class PoliceBotFormWallState: GKState
         super.update(deltaTime: seconds)
         elapsedTime += seconds
         
+        print("PoliceBotFormWallState: entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
+        
 //        print("PoliceBotFormWallState updating")
         
 //        guard let wallComponent = entity.component(ofType: WallComponent.self) else { return }
