@@ -70,6 +70,7 @@ class DisbandState: GKState
     override func update(deltaTime seconds: TimeInterval)
     {
 //        print("DisbandState update: \(wallComponent.debugDescription)")
+        print("DisbandState update: entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
         
         super.update(deltaTime: seconds)
         
