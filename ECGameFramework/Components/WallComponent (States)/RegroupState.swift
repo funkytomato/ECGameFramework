@@ -110,7 +110,7 @@ class RegroupState: GKState
     {
         switch stateClass
         {
-            case is HoldTheLineState.Type, is DisbandState.Type:
+            case is HoldTheLineState.Type/*, is DisbandState.Type*/:
                 return true
             
             default:
