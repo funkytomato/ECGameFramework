@@ -77,7 +77,7 @@ class TaskBotAgentControlledState: GKState
         super.update(deltaTime: seconds)
  
         
-//        print("TaskBotAgentControlledState update:- entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
+        print("TaskBotAgentControlledState update:- entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
         
         // Update the "time since last behavior update" tracker.
         timeSinceBehaviorUpdate += seconds
@@ -190,7 +190,7 @@ class TaskBotAgentControlledState: GKState
                 case .wander:
                     
 //                    print("TaskBotAgentControlledState: wander")
-//                    entity.mandate = .wander
+                    entity.mandate = .wander
                     
                     guard let protestor = entity as? ProtestorBot else { return }
                     print("TaskbotAgentControlledState wander mandate:- \(protestor.debugDescription), Protestor position: \(protestor.agent.position)")
