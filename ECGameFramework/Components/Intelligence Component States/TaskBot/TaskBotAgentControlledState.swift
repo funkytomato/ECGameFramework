@@ -77,7 +77,7 @@ class TaskBotAgentControlledState: GKState
         super.update(deltaTime: seconds)
  
         
-        print("TaskBotAgentControlledState update:- entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
+//        print("TaskBotAgentControlledState update:- entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
         
         // Update the "time since last behavior update" tracker.
         timeSinceBehaviorUpdate += seconds
@@ -89,7 +89,7 @@ class TaskBotAgentControlledState: GKState
             
             // If PoliceBot nears CreateWall location, and has not already requested a wall, and is not already supporting another PoliceBot, then initiate wall formation
             if self.entity.isPolice && !self.entity.requestWall && !self.entity.isSupporting &&
-                entity.distanceToPoint(otherPoint: destination) <= 150.0/* && elapsedTime > 30.0*/
+                entity.distanceToPoint(otherPoint: destination) <= 150.0 && elapsedTime > 10.0
             {
                 print("PoliceBot close proximity to CreateWall node, entity: \(entity.debugDescription)")
                 self.entity.requestWall = true
