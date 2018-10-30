@@ -132,7 +132,7 @@ class HoldTheLineState: GKState
             
             
             //Check enough time has elapsed and TaskBot is in wall before moving to next state
-            if elapsedTime >= 2.0
+            if elapsedTime >= 10.0
             {
                 stateMachine?.enter(MoveForwardState.self)
             }
