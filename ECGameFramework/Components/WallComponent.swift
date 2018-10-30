@@ -134,7 +134,7 @@ class WallComponent: GKComponent
         if policeBot.isWall
         {
             //Police will Disband from wall after 60 seconds whatever
-            if elapsedTime > 30.0
+            if elapsedTime > 60.0
             {
                 stateMachine.enter(DisbandState.self)
             }
