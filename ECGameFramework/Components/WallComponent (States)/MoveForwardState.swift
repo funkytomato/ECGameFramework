@@ -99,11 +99,11 @@ class MoveForwardState: GKState
         let movementComponent = self.movementComponent
         
         // Move the `ManBot` towards the target at an increased speed.
-        movementComponent.movementSpeed *= GameplayConfiguration.Wall.movementSpeedMultiplierWhenInWall
-        movementComponent.angularSpeed *= GameplayConfiguration.Wall.angularSpeedMultiplierWhenInWall
+//        movementComponent.movementSpeed *= GameplayConfiguration.Wall.movementSpeedMultiplierWhenInWall
+//        movementComponent.angularSpeed *= GameplayConfiguration.Wall.angularSpeedMultiplierWhenInWall
         
-        movementComponent.nextTranslation = MovementKind(displacement: targetVector)
-        movementComponent.nextRotation = nil
+//        movementComponent.nextTranslation = MovementKind(displacement: targetVector)
+//        movementComponent.nextRotation = nil
 
     }
     
@@ -127,7 +127,7 @@ class MoveForwardState: GKState
         let currentDistanceToTarget = hypot(dx, dy)
         if currentDistanceToTarget < GameplayConfiguration.TaskBot.attackEndProximity
         {
-            stateMachine?.enter(RegroupState.self)
+            stateMachine?.enter(HoldTheLineState.self)
             return
         }
         
