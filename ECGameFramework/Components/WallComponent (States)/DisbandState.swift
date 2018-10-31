@@ -78,8 +78,6 @@ class DisbandState: GKState
         if !wallComponent.isTriggered
         {
             stateMachine?.enter(WallIdleState.self)
-//            guard let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self) else { return }
-//            intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
         }
     }
     
