@@ -294,10 +294,38 @@ class TaskBotBehavior: GKBehavior
         let behavior = TaskBotBehavior()
         
         // Add basic goals to reach the `TaskBot`'s maximum speed, avoid obstacles and seek the target Police.
-        behavior.addTargetSpeedGoal(speed: agent.maxSpeed)
+        behavior.addTargetSpeedGoal(speed: 50.0)
+//        behavior.addTargetSpeedGoal(speed: agent.maxSpeed)
         behavior.addAvoidObstaclesGoal(forScene: scene)
 //        behavior.addSeekGoal(forScene: scene, agent: agent, weight: 1.0)
-        //        behavior.addWanderGoal(forScene: scene)
+//        behavior.addWanderGoal(forScene: scene)
+        
+        // Find any nearby "police" in wall TaskBots to flock with.
+        let agentsToFlockWith: [GKAgent2D] = scene.entities.compactMap { entity in
+            if let taskBot = entity as? PoliceBot, taskBot.isWall && taskBot.agent !== agent && taskBot.distanceToAgent(otherAgent: agent) <= GameplayConfiguration.Flocking.agentSupportSearchDistanceForArrest
+            {
+                return taskBot.agent
+            }
+            
+            return nil
+        }
+        
+        if !agentsToFlockWith.isEmpty
+        {
+            //print("arrestedBehaviour - agents are flocking \(agentsToFlockWith.description)")
+            
+            
+            // Add flocking goals for any nearby "bad" `TaskBot`s.
+//            let separationGoal = GKGoal(toSeparateFrom: agentsToFlockWith, maxDistance: GameplayConfiguration.Flocking.separationRadius, maxAngle: GameplayConfiguration.Flocking.separationAngle)
+//            behavior.setWeight(GameplayConfiguration.Flocking.separationWeight, for: separationGoal)
+            
+            let alignmentGoal = GKGoal(toAlignWith: agentsToFlockWith, maxDistance: GameplayConfiguration.Flocking.alignmentRadius, maxAngle: Float(Double.pi / 2))
+            behavior.setWeight(GameplayConfiguration.Flocking.alignmentWeight, for: alignmentGoal)
+            
+//            let cohesionGoal = GKGoal(toCohereWith: agentsToFlockWith, maxDistance: GameplayConfiguration.Flocking.cohesionRadius, maxAngle: Float(Double.pi / 2))
+//            behavior.setWeight(GameplayConfiguration.Flocking.cohesionWeight, for: cohesionGoal)
+        }
+
         
         
         // WE DON"T NEED THIS
