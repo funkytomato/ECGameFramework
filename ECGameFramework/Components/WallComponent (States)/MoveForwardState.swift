@@ -96,7 +96,7 @@ class MoveForwardState: GKState
         let targetVector = float2(x: Float(dx), y: Float(dy))
         
         // `movementComponent` is a computed property. Declare a local version so we don't compute it multiple times.
-        let movementComponent = self.movementComponent
+//        let movementComponent = self.movementComponent
         
         // Move the `ManBot` towards the target at an increased speed.
 //        movementComponent.movementSpeed *= GameplayConfiguration.Wall.movementSpeedMultiplierWhenInWall
