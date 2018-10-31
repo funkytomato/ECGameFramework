@@ -87,7 +87,7 @@ class RegroupState: GKState
             {
                 guard let entity = contactedBody.node?.entity else { continue }
                 guard let targetBot = entity as? PoliceBot else { break }
-                if self.entity.isPolice && self.entity.connections < 2 /*&& self.entity.requestWall*/ &&
+                if self.entity.isPolice && self.entity.connections < 2 &&
                     targetBot.isPolice && targetBot.connections < 2
                 {
                     //Check other PoliceBot is not in wall.
