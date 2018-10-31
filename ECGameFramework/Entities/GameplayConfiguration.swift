@@ -1003,7 +1003,8 @@ struct GameplayConfiguration
         static let separationAngle = Float (3 * Double.pi / 4)
         static let separationWeight: Float = 2.0
         
-        static let alignmentRadius: Float = 43.333
+//        static let alignmentRadius: Float = 43.333
+        static let alignmentRadius: Float = 60.0
         static let alignmentAngle = Float(Double.pi / 4)
         static let alignmentWeight: Float = 1.667
         
