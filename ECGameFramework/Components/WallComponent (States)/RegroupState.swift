@@ -77,41 +77,50 @@ class RegroupState: GKState
         super.update(deltaTime: seconds)
         elapsedTime += seconds
         
-
-        guard let physicsComponent = entity.component(ofType: PhysicsComponent.self) else { return }
-        let contactedBodies = physicsComponent.physicsBody.allContactedBodies()
-        for contactedBody in contactedBodies
+        //If the WallComponent is triggered, make joints with touching PoliceBots
+        if wallComponent.isTriggered
         {
-            guard let entity = contactedBody.node?.entity else { continue }
-            guard let targetBot = entity as? PoliceBot else { break }
-            if self.entity.isPolice && self.entity.connections < 2 /*&& self.entity.requestWall*/ &&
-                targetBot.isPolice && targetBot.connections < 2
+
+            guard let physicsComponent = entity.component(ofType: PhysicsComponent.self) else { return }
+            let contactedBodies = physicsComponent.physicsBody.allContactedBodies()
+            for contactedBody in contactedBodies
             {
-                //Check other PoliceBot is not in wall.
-                
-                let policeBotB = entity as? PoliceBot
-                if /*!policeBotB!.isWall && */policeBotB!.connections < 2
+                guard let entity = contactedBody.node?.entity else { continue }
+                guard let targetBot = entity as? PoliceBot else { break }
+                if self.entity.isPolice && self.entity.connections < 2 /*&& self.entity.requestWall*/ &&
+                    targetBot.isPolice && targetBot.connections < 2
                 {
-                   
-                    //Connect the two Taskbots together like a rope if forming a wall
-                    guard let intelligenceComponent = self.entity.component(ofType: IntelligenceComponent.self) else { return }
-                    guard ((intelligenceComponent.stateMachine.currentState as? PoliceBotFormWallState) == nil) else { return }
-                    guard let jointComponent = self.entity.component(ofType: JointComponent.self) else { return }
+                    //Check other PoliceBot is not in wall.
                     
-                    guard let policeBot = entity as? PoliceBot else { return }
-                    if !jointComponent.isTriggered && policeBot.isPolice
+                    let policeBotB = entity as? PoliceBot
+                    if policeBotB!.connections < 2
                     {
-                        jointComponent.makeJointWith(targetEntity: policeBotB!)
+                       
+                        //Connect the two Taskbots together like a rope if forming a wall
+                        guard let intelligenceComponent = self.entity.component(ofType: IntelligenceComponent.self) else { return }
+                        guard ((intelligenceComponent.stateMachine.currentState as? PoliceBotFormWallState) == nil) else { return }
+                        guard let jointComponent = self.entity.component(ofType: JointComponent.self) else { return }
+                        
+                        guard let policeBot = entity as? PoliceBot else { return }
+                        if !jointComponent.isTriggered && policeBot.isPolice
+                        {
+                            jointComponent.makeJointWith(targetEntity: policeBotB!)
+                        }
                     }
                 }
             }
+            
+            //If regroup time has expired and the wall size is greater than the minimum wall size move to the next state
+            if self.entity.isWall && elapsedTime >= GameplayConfiguration.Wall.regroupStateDuration
+            {
+                stateMachine?.enter(HoldTheLineState.self)
+            }
         }
-      
-        
-        //If regroup time has expired and the wall size is greater than the minimum wall size move to the next state
-        if self.entity.isWall && elapsedTime >= GameplayConfiguration.Wall.regroupStateDuration
+            
+        //If the WallComponent is not triggered, disband from the wall.
+        else
         {
-            stateMachine?.enter(HoldTheLineState.self)
+            stateMachine?.enter(DisbandState.self)
         }
     }
     
@@ -119,7 +128,7 @@ class RegroupState: GKState
     {
         switch stateClass
         {
-            case is HoldTheLineState.Type/*, is DisbandState.Type*/:
+            case is HoldTheLineState.Type, is DisbandState.Type:
                 return true
             
             default:
