@@ -136,7 +136,8 @@ class WallComponent: GKComponent
             //Police will Disband from wall after 60 seconds whatever
             if elapsedTime > 60.0
             {
-                stateMachine.enter(DisbandState.self)
+                self.isTriggered = false
+//                stateMachine.enter(DisbandState.self)
             }
             
             //If Police are in wall increment the counter
