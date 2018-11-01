@@ -107,53 +107,63 @@ class HoldTheLineState: GKState
         super.update(deltaTime: seconds)
         elapsedTime += seconds
         
-        
-        //Check TaskBot is in wall before proceeding
-        if entity.isWall
+        //If the WallComponent has been triggered, align towards target location
+        if wallComponent.isTriggered
         {
+        
+            //Check TaskBot is in wall before proceeding
+            if entity.isWall
+            {
        
-            //Orientate the TaskBot to be the same as all others in the Wall
+                //Orientate the TaskBot to be the same as all others in the Wall
             
             
-            // `orientationComponent` is a computed property. Declare a local version so we don't compute it multiple times.
-            let orientationComponent = self.orientationComponent
+                // `orientationComponent` is a computed property. Declare a local version so we don't compute it multiple times.
+                let orientationComponent = self.orientationComponent
 
-            // Calculate the angle the `ManBot` needs to turn to face the `targetPosition`.
-            let angleDeltaToTarget = shortestAngleDeltaToTargetFromRotation(entityRotation: Float(orientationComponent.zRotation))
+                // Calculate the angle the `ManBot` needs to turn to face the `targetPosition`.
+                let angleDeltaToTarget = shortestAngleDeltaToTargetFromRotation(entityRotation: Float(orientationComponent.zRotation))
 
-            // Calculate the amount of rotation that should be applied during this update.
-            var delta = CGFloat(seconds * GameplayConfiguration.Wall.wallRotationSpeed)
-            if angleDeltaToTarget < 0
-            {
-                delta *= -1
+                // Calculate the amount of rotation that should be applied during this update.
+                var delta = CGFloat(seconds * GameplayConfiguration.Wall.wallRotationSpeed)
+                if angleDeltaToTarget < 0
+                {
+                    delta *= -1
+                }
+
+                // Check if the `ManBot` would reach the angle required to face the target during this update.
+                if abs(delta) >= abs(angleDeltaToTarget)
+                {
+                    // Finish the rotation and enter `PoliceBotPreAttackState`.
+                    orientationComponent.zRotation += angleDeltaToTarget
+
+    //                //Check enough time has elapsed and TaskBot is in wall before moving to next state
+    //                if elapsedTime >= 2.0
+    //                {
+    //                    stateMachine?.enter(MoveForwardState.self)
+    //                }
+
+                    return
+                }
+
+                // Apply the delta to the `ManBot`'s rotation.
+                orientationComponent.zRotation += delta
+            
+            
+                //Check enough time has elapsed and TaskBot is in wall before moving to next state
+                if elapsedTime >= 10.0
+                {
+                    stateMachine?.enter(MoveForwardState.self)
+                }
+            
+    //            intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
             }
+        }
 
-            // Check if the `ManBot` would reach the angle required to face the target during this update.
-            if abs(delta) >= abs(angleDeltaToTarget)
-            {
-                // Finish the rotation and enter `PoliceBotPreAttackState`.
-                orientationComponent.zRotation += angleDeltaToTarget
-
-//                //Check enough time has elapsed and TaskBot is in wall before moving to next state
-//                if elapsedTime >= 2.0
-//                {
-//                    stateMachine?.enter(MoveForwardState.self)
-//                }
-
-                return
-            }
-
-            // Apply the delta to the `ManBot`'s rotation.
-            orientationComponent.zRotation += delta
-            
-            
-            //Check enough time has elapsed and TaskBot is in wall before moving to next state
-            if elapsedTime >= 10.0
-            {
-                stateMachine?.enter(MoveForwardState.self)
-            }
-            
-//            intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
+        //If the WallComponent is not triggered, disband from the wall.
+        else
+        {
+            stateMachine?.enter(DisbandState.self)
         }
     }
     
@@ -161,7 +171,7 @@ class HoldTheLineState: GKState
     {
         switch stateClass
         {
-        case /*is MoveBackwardState.Type, is RetreatState.Type,*/ is MoveForwardState.Type /*, is DisbandState.Type*/:
+        case /*is MoveBackwardState.Type, is RetreatState.Type,*/ is MoveForwardState.Type, is DisbandState.Type:
             return true
             
         default:
