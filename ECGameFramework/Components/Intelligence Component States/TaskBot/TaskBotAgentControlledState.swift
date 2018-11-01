@@ -229,6 +229,9 @@ class TaskBotAgentControlledState: GKState
                 
                 case let .formWall(target):
                     
+                    print("TaskBotAgentControlledState update formWall target location:\(target.position)")
+
+                    
                     guard let policeBot = entity as? PoliceBot else { return }
                     print("TaskBotAgentControlledState: entity: \(policeBot.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(policeBot.isWall), requestWall: \(policeBot.requestWall), isSupporting: \(policeBot.isSupporting), wallComponentisTriggered: \(String(describing: policeBot.component(ofType: WallComponent.self)?.isTriggered))")
                     
@@ -246,10 +249,19 @@ class TaskBotAgentControlledState: GKState
                 // When a `TaskBot` is in wall, do some shit...
                 case let .inWall(target):
                     
+                    
+                    guard let scene = entity.component(ofType: RenderComponent.self)?.node.scene as? LevelScene else { return }
+                    let endWallLocation = scene.endWallLocation()
+                    
+                    print("TaskBotAgentControlledState update inWall target location:\(target.position) endWallLocationL\(endWallLocation)")
+                    
+                    
                     //When Police get within proximity of the target position, stop movement
-                    if entity.distanceToPoint(otherPoint: target.position) <= 100.0
+//                    if entity.distanceToPoint(otherPoint: target.position) <= 100.0
+                    if entity.distanceToPoint(otherPoint: endWallLocation) <= 100.0
                     {
                         print("Destination reached")
+                        entity.component(ofType: WallComponent.self)?.isTriggered = false
                     }
                     
                     break
