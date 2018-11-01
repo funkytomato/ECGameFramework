@@ -430,7 +430,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
                 targetPosition = targetAgent.position
                 
             
-                self.isSupporting = true
+//                self.isSupporting = true
 
             //Police are in the wall and the target is the nearest Protestor
             case let .inWall(targetAgent):
