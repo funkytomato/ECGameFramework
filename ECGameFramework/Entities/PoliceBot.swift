@@ -437,7 +437,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
 //                print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
 
                 intelligenceComponent.stateMachine.enter(PoliceBotInWallState.self)
-                targetPosition = targetAgent.position
+                targetPosition = targetAgent
             
             
             //Police are scared, run away from targetAgent
