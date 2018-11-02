@@ -237,7 +237,7 @@ class TaskBotAgentControlledState: GKState
                     
                     
                     //When Police get within proximity of the Police leader, switch on the entities wall component
-                    if entity.distanceToPoint(otherPoint: target.position) <= 75.0
+                    if entity.distanceToPoint(otherPoint: target.position) <= 100.0
                     {
 //                        print("Forming wall")
                         entity.component(ofType: WallComponent.self)?.isTriggered = true
@@ -250,15 +250,8 @@ class TaskBotAgentControlledState: GKState
                 case let .inWall(target):
                     
                     
-                    guard let scene = entity.component(ofType: RenderComponent.self)?.node.scene as? LevelScene else { return }
-                    let endWallLocation = scene.endWallLocation()
-                    
-                    print("TaskBotAgentControlledState update inWall target location:\(target.position) endWallLocationL\(endWallLocation)")
-                    
-                    
                     //When Police get within proximity of the target position, stop movement
-//                    if entity.distanceToPoint(otherPoint: target.position) <= 100.0
-                    if entity.distanceToPoint(otherPoint: endWallLocation) <= 100.0
+                    if entity.distanceToPoint(otherPoint: target) <= 100.0
                     {
                         print("Destination reached")
                         entity.component(ofType: WallComponent.self)?.isTriggered = false
