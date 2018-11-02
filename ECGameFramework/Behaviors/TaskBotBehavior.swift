@@ -281,7 +281,8 @@ class TaskBotBehavior: GKBehavior
     
     // Police Support Hold the Line Behaviour
     // Police will come to support target officer and create a wall
-    static func inWallBehaviour(forAgent agent: GKAgent2D, huntingAgent target: GKAgent2D, pathRadius: Float, inScene scene: LevelScene) -> (behaviour: GKBehavior, pathPoints: [CGPoint])
+//    static func inWallBehaviour(forAgent agent: GKAgent2D, huntingAgent target: GKAgent2D, pathRadius: Float, inScene scene: LevelScene) -> (behaviour: GKBehavior, pathPoints: [CGPoint])
+    static func inWallBehaviour(forAgent agent: GKAgent2D, huntingAgent target: float2, pathRadius: Float, inScene scene: LevelScene) -> (behaviour: GKBehavior, pathPoints: [CGPoint])
     {
         
         let policeBot = agent.entity as? PoliceBot
