@@ -28,7 +28,8 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         case formWall(GKAgent2D)
         
         //Police are in wall and must face nearest Protestor
-        case inWall(GKAgent2D)
+//        case inWall(GKAgent2D)
+        case inWall(float2)
         
         // Player instructed TaskBot to move to a location
         case playerMovedTaskBot
@@ -1281,7 +1282,11 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
 //            guard let targetProtestor = state.nearestDangerousTaskBotTarget?.target.agent else { return }     ///Causes weird behaviour
 //            guard let targetProtestor = state.playerBotTarget?.target.agent else { return }
             print("PoliceBot is inWall - targetProtestor: \(targetProtestor))")
-            mandate = .inWall(targetProtestor)
+//            mandate = .inWall(targetProtestor)
+            
+            guard let scene = self.component(ofType: RenderComponent.self)?.node.scene as? LevelScene else { return }
+            let endWallLocation = scene.endWallLocation()
+            mandate = .inWall(endWallLocation)
         }
           
         //PoliceBot has requested to create a wall
