@@ -86,13 +86,13 @@ class HoldTheLineState: GKState
         
         
         // `movementComponent` is a computed property. Declare a local version so we don't compute it multiple times.
-        let movementComponent = self.movementComponent
-        
-        // Stop the `ProtestorBot`'s movement and restore its standard movement speed.
-        movementComponent.nextRotation = nil
-        movementComponent.nextTranslation = nil
-        movementComponent.movementSpeed = 0
-        movementComponent.angularSpeed = 0
+//        let movementComponent = self.movementComponent
+//        
+//        // Stop the `ProtestorBot`'s movement and restore its standard movement speed.
+//        movementComponent.nextRotation = nil
+//        movementComponent.nextTranslation = nil
+//        movementComponent.movementSpeed = 0
+//        movementComponent.angularSpeed = 0
     }
     
     override func update(deltaTime seconds: TimeInterval)
