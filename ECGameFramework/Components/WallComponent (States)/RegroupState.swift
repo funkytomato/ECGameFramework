@@ -28,6 +28,13 @@ class RegroupState: GKState
     var consumptionSpeed: Double = 0.0
     
     
+    /// The `IntelligenceComponent` associated with the `entity`.
+    var intelligenceComponent: IntelligenceComponent
+    {
+        guard let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self) else { fatalError("A TaskBot RegroupState entity must have a IntelligenceComponent.") }
+        return intelligenceComponent
+    }
+    
     /// The `MovementComponent` associated with the `entity`.
     var movementComponent: MovementComponent
     {
@@ -52,7 +59,7 @@ class RegroupState: GKState
     
     override func didEnter(from previousState: GKState?)
     {
-        print("RegroupState: entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
+        print("RegroupState: didEnter - entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
 
         super.didEnter(from: previousState)
         elapsedTime = 0.0
@@ -71,7 +78,7 @@ class RegroupState: GKState
     {
 //        print("RegroupState update")
 
-        print("RegroupState: entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
+        print("RegroupState: update - entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
 
         
         super.update(deltaTime: seconds)
@@ -85,13 +92,15 @@ class RegroupState: GKState
             let contactedBodies = physicsComponent.physicsBody.allContactedBodies()
             for contactedBody in contactedBodies
             {
+                
                 guard let entity = contactedBody.node?.entity else { continue }
                 guard let targetBot = entity as? PoliceBot else { break }
+                
                 if self.entity.isPolice && self.entity.connections < 2 &&
                     targetBot.isPolice && targetBot.connections < 2
                 {
-                    //Check other PoliceBot is not in wall.
                     
+                    //Check other PoliceBot is not in wall.
                     let policeBotB = entity as? PoliceBot
                     if policeBotB!.connections < 2
                     {
@@ -109,6 +118,9 @@ class RegroupState: GKState
                     }
                 }
             }
+            
+            //Check PoliceBot is in PoliceBotInWallState before continuing, ensuring their is a valid target
+            guard (intelligenceComponent.stateMachine.currentState as? PoliceBotInWallState) != nil else { return }
             
             //If regroup time has expired and the wall size is greater than the minimum wall size move to the next state
             if self.entity.isWall && elapsedTime >= GameplayConfiguration.Wall.regroupStateDuration
@@ -140,5 +152,7 @@ class RegroupState: GKState
     {
         super.willExit(to: nextState)
         
+        //Police has moved out of formation state, no other Police should come to join
+//        entity.requestWall = false
     }
 }
