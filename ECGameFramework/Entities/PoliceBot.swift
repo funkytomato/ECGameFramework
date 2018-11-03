@@ -336,7 +336,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
 //                    guard ((intelligenceComponent.stateMachine.currentState as? PoliceBotFormWallState) == nil) else { return }
                     guard let jointComponent = self.component(ofType: JointComponent.self) else { return }
 
-                    self.component(ofType: WallComponent.self)?.isTriggered = true
+                    self.component(ofType: WallComponent.self)?.isTriggered = true    //fry
                     
 //                    guard let policeBot = entity as? PoliceBot else { return }
 //                    if !jointComponent.isTriggered && policeBot.isPolice
