@@ -69,7 +69,7 @@ class TaskBotFleeState: GKState
     {
         super.didEnter(from: previousState)
         
-        self.entity.isScared = true  //fry
+        self.entity.isScared = true
         self.entity.isDangerous = false
 
         animationComponent.requestedAnimationState = .idle
