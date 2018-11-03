@@ -137,7 +137,6 @@ class WallComponent: GKComponent
             if elapsedTime > 60.0
             {
                 self.isTriggered = false
-//                stateMachine.enter(DisbandState.self)
             }
             
             //If Police are in wall increment the counter
