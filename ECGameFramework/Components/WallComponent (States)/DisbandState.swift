@@ -75,10 +75,11 @@ class DisbandState: GKState
         
         super.update(deltaTime: seconds)
         
-        if !wallComponent.isTriggered
-        {
+        //If WallComponent is no longer triggered, move into WallIdle State
+//        if !wallComponent.isTriggered
+//        {
             stateMachine?.enter(WallIdleState.self)
-        }
+//        }
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
