@@ -939,7 +939,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         // Build Wall Facts
         let supportWallTaskBotRaw = [
             
-            //Police are in trouble are nearby
+            //Requesting Wall Police are not far away
             ruleSystem.minimumGrade(forFacts: [
                 Fact.policeBotRequestWallNear.rawValue as AnyObject,
                 Fact.policeBotRequestWallMedium.rawValue as AnyObject,
