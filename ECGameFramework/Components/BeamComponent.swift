@@ -136,8 +136,8 @@ class BeamComponent: GKComponent
             // Filter out entities that aren't "bad" `TaskBot`s with a `RenderComponent`.
             guard let taskBotNode = taskBot.component(ofType: RenderComponent.self)?.node else { return false }
        
-            // if !taskBot.isGood
-            if taskBot.isPolice  //FRY change to filter PoliceBots out
+            // If TaskBot is Police, do not continue
+            if taskBot.isPolice
             {
                 return false
             }
