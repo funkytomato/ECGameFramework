@@ -61,7 +61,10 @@ class PoliceBotFormWallState: GKState
         print("PoliceBotFormWallState entered :\(policeBot.debugDescription)")
         
         //Trigger WallComponent to form a wall with entities in PoliceBotFormWallState
-//        entity.component(ofType: WallComponent.self)?.isTriggered = true
+//        entity.component(ofType: WallComponent.self)?.isTriggered = true //fry
+        
+        //A flag is set when a Policeman is enroute to help, so it is not reset to something else
+        entity.isSupporting = true
         
     }
     
