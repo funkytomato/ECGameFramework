@@ -88,8 +88,8 @@ class TaskBotAgentControlledState: GKState
         {
             
             // If PoliceBot nears CreateWall location, and has not already requested a wall, and is not already supporting another PoliceBot, then initiate wall formation
-            if self.entity.isPolice && !self.entity.requestWall && !self.entity.isSupporting &&
-                entity.distanceToPoint(otherPoint: destination) <= 150.0 && elapsedTime > 10.0
+            if self.entity.isPolice && !self.entity.requestWall &&
+                entity.distanceToPoint(otherPoint: destination) <= 150.0 && elapsedTime > 2.0
             {
                 print("PoliceBot close proximity to CreateWall node, entity: \(entity.debugDescription)")
                 self.entity.requestWall = true
@@ -214,17 +214,16 @@ class TaskBotAgentControlledState: GKState
                 case .initateWall:
                 
                     guard let policeBot = entity as? PoliceBot else { return }
-                    print("TaskBotAgentControlledState: entity: \(policeBot.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(policeBot.isWall), requestWall: \(policeBot.requestWall), isSupporting: \(policeBot.isSupporting), wallComponentisTriggered: \(String(describing: policeBot.component(ofType: WallComponent.self)?.isTriggered))")
+                    print("TaskBotAgentControlledState: entity: \(policeBot.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(policeBot.isWall), requestWall: \(policeBot.requestWall), isSupporting: \(policeBot.isSupporting), wallComponentisTriggered: \(String(describing: policeBot.component(ofType: WallComponent.self)?.isTriggered)), position: \(policeBot.agent.position)")
                 
+                    //If Police are not already supporting another, create the wall
+//                    if !policeBot.isSupporting
+//                    {
                     
-                    //When a connection has been made, trigger the WallComponent
-                    if policeBot.isWall
-                    {
-                        policeBot.component(ofType: WallComponent.self)?.isTriggered = true
-                    }
+    //                    policeBot.component(ofType: WallComponent.self)?.isTriggered = true  //this is done in PoliceBotInitateWallState   //fry
+                        entity.mandate = .initateWall
+//                    }
                     
-                    entity.mandate = .initateWall
-
                     break
                 
                 case let .formWall(target):
@@ -233,28 +232,33 @@ class TaskBotAgentControlledState: GKState
 
                     
                     guard let policeBot = entity as? PoliceBot else { return }
-                    print("TaskBotAgentControlledState: entity: \(policeBot.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(policeBot.isWall), requestWall: \(policeBot.requestWall), isSupporting: \(policeBot.isSupporting), wallComponentisTriggered: \(String(describing: policeBot.component(ofType: WallComponent.self)?.isTriggered))")
+                    print("TaskBotAgentControlledState: entity: \(policeBot.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(policeBot.isWall), requestWall: \(policeBot.requestWall), isSupporting: \(policeBot.isSupporting), wallComponentisTriggered: \(String(describing: policeBot.component(ofType: WallComponent.self)?.isTriggered)), position: \(policeBot.agent.position), target: \(target.position)")
                     
                     
                     //When Police get within proximity of the Police leader, switch on the entities wall component
-                    if entity.distanceToPoint(otherPoint: target.position) <= 100.0
+                    if entity.distanceToPoint(otherPoint: target.position) <= 150.0
                     {
 //                        print("Forming wall")
-                        entity.component(ofType: WallComponent.self)?.isTriggered = true
-//                        entity.mandate = entity.isGood ? .followGoodPatrolPath : .followBadPatrolPath
                         
+                        entity.component(ofType: WallComponent.self)?.isTriggered = true     //fry
+//                        entity.mandate = entity.isGood ? .followGoodPatrolPath : .followBadPatrolPath
+                        entity.mandate = .formWall(target)
                     }
                     break
                 
                 // When a `TaskBot` is in wall, do some shit...
                 case let .inWall(target):
                     
+                    guard let policeBot = entity as? PoliceBot else { return }
+                    print("TaskBotAgentControlledState: entity: \(policeBot.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(policeBot.isWall), requestWall: \(policeBot.requestWall), isSupporting: \(policeBot.isSupporting), wallComponentisTriggered: \(String(describing: policeBot.component(ofType: WallComponent.self)?.isTriggered)), position: \(policeBot.agent.position), target: \(target)")
                     
-                    //When Police get within proximity of the target position, stop movement
+                    
+                    //When Police get within proximity of the destination, disband from the wall
                     if entity.distanceToPoint(otherPoint: target) <= 100.0
                     {
                         print("Destination reached")
-                        entity.component(ofType: WallComponent.self)?.isTriggered = false
+                        
+                        entity.component(ofType: WallComponent.self)?.isTriggered = false     //fry
                     }
                     
                     break
@@ -295,7 +299,8 @@ class TaskBotAgentControlledState: GKState
         switch stateClass
         {
         case is TaskBotAgentControlledState.Type, is TaskBotZappedState.Type, is TaskBotPlayerControlledState.Type, is TaskBotFleeState.Type, is TaskBotInjuredState.Type,
-              is PoliceBotPreAttackState.Type, is PoliceBotRotateToAttackState.Type, is PoliceBotAttackState.Type, is PoliceArrestState.Type, is PoliceDetainState.Type, is PoliceBotHitState.Type, is PoliceBotSupportState.Type, is PoliceBotFormWallState.Type, is PoliceBotInWallState.Type,
+              is PoliceBotPreAttackState.Type, is PoliceBotRotateToAttackState.Type, is PoliceBotAttackState.Type, is PoliceArrestState.Type, is PoliceDetainState.Type, is PoliceBotHitState.Type, is PoliceBotSupportState.Type,
+              is PoliceBotInitateWallState.Type, is PoliceBotFormWallState.Type, is PoliceBotInWallState.Type,
              is ProtestorBotPreAttackState.Type, is ProtestorBotRotateToAttackState.Type, is ProtestorBotAttackState.Type, is ProtestorBeingArrestedState.Type, is ProtestorArrestedState.Type, is ProtestorDetainedState.Type, is ProtestorBotHitState.Type, is ProtestorBotRechargingState.Type, is ProtestorInciteState.Type, is ProtestorBuyWaresState.Type, is ProtestorSheepState.Type, /*is ProtestorBotWanderState.Type,*/
              is SellWaresState.Type:
                 return true
