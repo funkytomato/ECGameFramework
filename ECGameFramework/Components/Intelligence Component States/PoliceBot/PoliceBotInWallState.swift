@@ -59,6 +59,8 @@ class PoliceBotInWallState: GKState
         super.didEnter(from: previousState)
         elapsedTime = 0.0
         
+        //PoliceBot is no longer enroute to support, but is in the Wall
+        entity.isSupporting = false
         
         guard let policeBot = entity as? PoliceBot else { return }
         print("PoliceBotInWallState didEnter: entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
@@ -73,7 +75,19 @@ class PoliceBotInWallState: GKState
 //        print("PoliceBotInWallState updating")
         print("PoliceBotInWallState: entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
 
-        intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
+        
+        wallComponent.stateMachine.update(deltaTime: seconds)
+        
+        //If PoliceBot is in wall move into PoliceBotInWallState
+//        if entity.isWall
+//        {
+            //Manual movement enforced
+//            intelligenceComponent.stateMachine.enter(PoliceBotInWallState.self)
+//        }
+//        else
+//        {
+            intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
+//        }
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
