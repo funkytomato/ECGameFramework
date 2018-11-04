@@ -151,8 +151,5 @@ class RegroupState: GKState
     override func willExit(to nextState: GKState)
     {
         super.willExit(to: nextState)
-        
-        //Police has moved out of formation state, no other Police should come to join
-//        entity.requestWall = false
     }
 }
