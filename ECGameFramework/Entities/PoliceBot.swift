@@ -428,9 +428,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
                 
                 intelligenceComponent.stateMachine.enter(PoliceBotFormWallState.self)
                 targetPosition = targetAgent.position
-                
-            
-//                self.isSupporting = true
+    
 
             //Police are in the wall and the target is the nearest Protestor
             case let .inWall(targetAgent):
