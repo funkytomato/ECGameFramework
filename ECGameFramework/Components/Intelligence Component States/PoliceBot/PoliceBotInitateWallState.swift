@@ -65,7 +65,7 @@ class PoliceBotInitateWallState: GKState
 //        self.entity.component(ofType: SpriteComponent.self)?.node.color = SKColor.brown
         
         //Trigger WallComponent to form a wall with entities in PoliceBotInitateWallState
-        //        entity.component(ofType: WallComponent.self)?.isTriggered = true
+        wallComponent.isTriggered = true  //fry
         
     }
     
@@ -97,7 +97,7 @@ class PoliceBotInitateWallState: GKState
         {
             
         case is TaskBotAgentControlledState.Type, is TaskBotFleeState.Type, is TaskBotInjuredState.Type,  is TaskBotZappedState.Type,
-             is PoliceBotHitState.Type, is PoliceBotInWallState.Type:
+             is PoliceBotHitState.Type /*, is PoliceBotInWallState.Type*/:
             return true
             
         default:
