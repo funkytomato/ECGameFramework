@@ -307,12 +307,12 @@ class JointComponent: GKComponent
         guard let policeBot = entity as? PoliceBot else { return }
         policeBot.connections -= 1
         self.isTriggered = false
-        policeBot.requestWall = false
+//        policeBot.requestWall = false
         
         //Remove connections from other entity and reset
         self.entityB?.connections -= 1
         self.entityB?.component(ofType: WallComponent.self)?.isTriggered = false
-        self.entityB?.requestWall = false
+//        self.entityB?.requestWall = false
         
         //Remove the line node to the scene
         renderComponent.node.scene?.removeChildren(in: [lineNode!])
