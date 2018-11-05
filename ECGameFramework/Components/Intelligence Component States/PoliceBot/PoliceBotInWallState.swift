@@ -54,8 +54,6 @@ class PoliceBotInWallState: GKState
     override func didEnter(from previousState: GKState?)
     {
         
-//        print("PoliceBotInWallState entered")
-        
         super.didEnter(from: previousState)
         elapsedTime = 0.0
         
@@ -72,7 +70,6 @@ class PoliceBotInWallState: GKState
         super.update(deltaTime: seconds)
         elapsedTime += seconds
         
-//        print("PoliceBotInWallState updating")
         print("PoliceBotInWallState: entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
 
         
