@@ -62,7 +62,6 @@ class PoliceBotInitateWallState: GKState
         
         entity.isRingLeader = true
         entity.requestWall = true
-//        self.entity.component(ofType: SpriteComponent.self)?.node.color = SKColor.brown
         
         //Trigger WallComponent to form a wall with entities in PoliceBotInitateWallState
         wallComponent.isTriggered = true  //fry
@@ -73,9 +72,6 @@ class PoliceBotInitateWallState: GKState
     {
         super.update(deltaTime: seconds)
         elapsedTime += seconds
-        
-        //        print("PoliceBotInitateWallState updating")
-        
         
         //        guard let wallComponent = entity.component(ofType: WallComponent.self) else { return }
         guard let policeBot = entity as? PoliceBot else { return }
