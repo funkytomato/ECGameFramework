@@ -150,7 +150,7 @@ class MoveForwardState: GKState
     {
         switch stateClass
         {
-        case /*is ChargeState.Type, is HoldTheLineState.Type,*/ is RegroupState.Type, is DisbandState.Type:
+        case /*is ChargeState.Type, is HoldTheLineState.Type,*/ is RegroupState.Type/*, is DisbandState.Type*/:
             return true
             
         default:
