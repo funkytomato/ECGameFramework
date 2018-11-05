@@ -118,8 +118,8 @@ class LevelStateSnapshot
                 return (workingArrays.criminalTaskBots, workingArrays.sellerTaskBots, workingArrays.buyerTaskBots, workingArrays.scaredTaskBots + [thisTaskbot], workingArrays.dangerousTaskBots, workingArrays.protestorBots, workingArrays.subservientTaskBots, workingArrays.policeRequestWallTaskBots, workingArrays.policeInTroubleTaskBots, workingArrays.policeBots, workingArrays.injuredBots, workingArrays.ringLeaderTaskBots)
             }
             
-            // The taskbot is active and Ringleader
-            else if thisTaskbot.isActive && thisTaskbot.isRingLeader
+            // The taskbot is active and Ringleader for Protestors
+            else if thisTaskbot.isActive && thisTaskbot.isRingLeader && thisTaskbot.isProtestor
             {
                 return (workingArrays.criminalTaskBots, workingArrays.sellerTaskBots, workingArrays.buyerTaskBots, workingArrays.scaredTaskBots, workingArrays.dangerousTaskBots, workingArrays.protestorBots, workingArrays.subservientTaskBots, workingArrays.policeRequestWallTaskBots, workingArrays.policeInTroubleTaskBots, workingArrays.policeBots, workingArrays.injuredBots, workingArrays.ringLeaderTaskBots + [thisTaskbot])
             }
@@ -215,7 +215,7 @@ class LevelStateSnapshot
 //                                    Float(subservientTaskBots.count) + Float(protestorTaskBots.count) + Float(dangerousTaskBots.count) + Float(injuredTaskBots.count) + Float(policeTaskBots.count) + Float(criminalTaskBots.count)
         
 
-//        print("policeBotPercentage:\(policeBotPercentage.description), protestorBotPercentage: \(protestorBotPercentage.description), criminalBotPercentage: \(criminalBotPercentage.description), dangerousBotPercentage: \(dangerousBotPercentage.description), injuredBotPercentage: \(injuredBotPercentage.description), policeRequestWallTaskBots: \(policeRequestWallTaskBots.count), policeInTroubleTaskBots: \(policeInTroubleTaskBots.count), policeTaskBots: \(policeTaskBots.count),  protestorTaskBots: \(protestorTaskBots.count), dangerousTaskBots: \(dangerousTaskBots.count), scaredBots: \(scaredTaskBots.count), injuredTaskBots: \(injuredTaskBots.count), sellerTaskBots: \(sellerTaskBots.count), buyerTaskBots: \(buyerTaskBots.count)")
+        print("policeBotPercentage:\(policeBotPercentage.description), protestorBotPercentage: \(protestorBotPercentage.description), criminalBotPercentage: \(criminalBotPercentage.description), dangerousBotPercentage: \(dangerousBotPercentage.description), injuredBotPercentage: \(injuredBotPercentage.description), policeRequestWallTaskBots: \(policeRequestWallTaskBots.count), policeInTroubleTaskBots: \(policeInTroubleTaskBots.count), policeTaskBots: \(policeTaskBots.count),  protestorTaskBots: \(protestorTaskBots.count), dangerousTaskBots: \(dangerousTaskBots.count), scaredBots: \(scaredTaskBots.count), injuredTaskBots: \(injuredTaskBots.count), sellerTaskBots: \(sellerTaskBots.count), buyerTaskBots: \(buyerTaskBots.count)")
         
         
         
@@ -391,7 +391,7 @@ class EntitySnapshot
             }
                 
             // Set the nearest Police taskbot that has requested build Wall support
-            else if let target = entityDistance.target as? TaskBot, nearestPoliceTaskBotRequestWallTarget == nil && target.isPolice && target.isActive && target.requestWall
+            else if let target = entityDistance.target as? TaskBot, nearestPoliceTaskBotRequestWallTarget == nil && target.isPolice && target.isActive && target.requestWall && !target.isSupporting
             {
                 nearestPoliceTaskBotRequestWallTarget = (target: target, distance: entityDistance.distance)
             }
