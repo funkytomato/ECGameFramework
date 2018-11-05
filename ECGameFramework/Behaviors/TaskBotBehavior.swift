@@ -246,7 +246,7 @@ class TaskBotBehavior: GKBehavior
         //        let pathPoints = behavior.addGoalsToFollowPath(from: agent.position, to: target.position, pathRadius: pathRadius, inScene: scene)
         
 //        print("meatWagon: \(scene.meatWagon.position)")
-        print("targetPosition: \(startLocation.debugDescription)")
+//        print("targetPosition: \(startLocation.debugDescription)")
         
         // Return a tuple containing the new behavior, and the found path points for debug drawing.
         return (behavior, pathPoints)
