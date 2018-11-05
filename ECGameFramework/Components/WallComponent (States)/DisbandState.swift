@@ -65,21 +65,20 @@ class DisbandState: GKState
         self.entity.requestWall = false
         self.entity.isSupporting = false
         self.entity.isWall = false
-//        wallComponent.isTriggered = false
     }
     
     override func update(deltaTime seconds: TimeInterval)
     {
-//        print("DisbandState update: \(wallComponent.debugDescription)")
         print("DisbandState update: entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
         
         super.update(deltaTime: seconds)
-        
-        //If WallComponent is no longer triggered, move into WallIdle State
-//        if !wallComponent.isTriggered
-//        {
+        elapsedTime += seconds
+
+        if elapsedTime >= 2.0
+        {
             stateMachine?.enter(WallIdleState.self)
-//        }
+        }
+
     }
     
     override func isValidNextState(_ stateClass: AnyClass) -> Bool
