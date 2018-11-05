@@ -236,14 +236,14 @@ class TaskBotAgentControlledState: GKState
                     
                     
                     //When Police get within proximity of the Police leader, switch on the entities wall component
-                    if entity.distanceToPoint(otherPoint: target.position) <= 150.0
-                    {
-//                        print("Forming wall")
-                        
-                        entity.component(ofType: WallComponent.self)?.isTriggered = true     //fry
-//                        entity.mandate = entity.isGood ? .followGoodPatrolPath : .followBadPatrolPath
-                        entity.mandate = .formWall(target)
-                    }
+//                    if entity.distanceToPoint(otherPoint: target.position) <= 150.0
+//                    {
+////                        print("Forming wall")
+//                        
+//                        entity.component(ofType: WallComponent.self)?.isTriggered = true     //fry
+////                        entity.mandate = entity.isGood ? .followGoodPatrolPath : .followBadPatrolPath
+//                        entity.mandate = .formWall(target)
+//                    }
                     break
                 
                 // When a `TaskBot` is in wall, do some shit...
