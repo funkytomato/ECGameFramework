@@ -70,7 +70,7 @@ class WallIdleState: GKState
     {
         switch stateClass
         {
-        case is RegroupState.Type/*, is DisbandState.Type*/:
+        case is RegroupState.Type:
             return true
         default:
             return false
