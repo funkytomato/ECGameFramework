@@ -316,36 +316,47 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
     {
         super.contactWithEntityDidBegin(entity)
         
-        guard let physicsComponent = entity.component(ofType: PhysicsComponent.self) else { return }
-        let contactedBodies = physicsComponent.physicsBody.allContactedBodies()
-        for contactedBody in contactedBodies
-        {
-            guard let entity = contactedBody.node?.entity else { continue }
-            guard let targetBot = entity as? PoliceBot else { break }
-            if self.isPolice && self.connections < 2 && self.requestWall/* &&
-                targetBot.isPolice && targetBot.connections < 2*/
-            {
-                //Check other PoliceBot is not in wall.
-                
-                let policeBotB = entity as? PoliceBot
-                if /*!policeBotB!.isWall && */policeBotB!.connections < 2
-                {
-                    
-                    //Connect the two Taskbots together like a rope if forming a wall
-                    guard let intelligenceComponent = self.component(ofType: IntelligenceComponent.self) else { return }
-//                    guard ((intelligenceComponent.stateMachine.currentState as? PoliceBotFormWallState) == nil) else { return }
-                    guard let jointComponent = self.component(ofType: JointComponent.self) else { return }
-
-                    self.component(ofType: WallComponent.self)?.isTriggered = true    //fry
-                    
-//                    guard let policeBot = entity as? PoliceBot else { return }
-//                    if !jointComponent.isTriggered && policeBot.isPolice
+//        if self.isWall
+//        {
+//            
+//            
+//        }
+//        else
+//        {
+//            guard let physicsComponent = entity.component(ofType: PhysicsComponent.self) else { return }
+//            let contactedBodies = physicsComponent.physicsBody.allContactedBodies()
+//            for contactedBody in contactedBodies
+//            {
+//                guard let entity = contactedBody.node?.entity else { continue }
+//                guard let targetBot = entity as? PoliceBot else { break }
+//                
+//                //Police must have less than 2 connections, be the wall initator, and touching another PoliceBot that has available connections
+//                if self.isPolice && self.connections < 2 && self.requestWall &&
+//                    targetBot.isPolice && targetBot.connections < 2
+//                {
+//                    //Check other PoliceBot is not in wall.
+//                    
+//                    let policeBotB = entity as? PoliceBot
+//                    if /*!policeBotB!.isWall && */policeBotB!.connections < 2
 //                    {
-//                        jointComponent.makeJointWith(targetEntity: policeBotB!)
+//                        
+//                        //Connect the two Taskbots together like a rope if forming a wall
+//                        guard let intelligenceComponent = self.component(ofType: IntelligenceComponent.self) else { return }
+//    //                    guard ((intelligenceComponent.stateMachine.currentState as? PoliceBotFormWallState) == nil) else { return }
+//                        guard let jointComponent = self.component(ofType: JointComponent.self) else { return }
+//
+//                        self.component(ofType: WallComponent.self)?.isTriggered = true    //fry
+//                        entity.component(ofType: WallComponent.self)?.isTriggered = true
+//                        
+//    //                    guard let policeBot = entity as? PoliceBot else { return }
+//    //                    if !jointComponent.isTriggered && policeBot.isPolice
+//    //                    {
+//    //                        jointComponent.makeJointWith(targetEntity: policeBotB!)
+//    //                    }
 //                    }
-                }
-            }
-        }
+//                }
+//            }
+//        }
         
         //If touching entity is attacking, start the arresting process
         //print("PoliceBot currentState :\(entity.component(ofType: IntelligenceComponent.self)?.stateMachine.currentState.debugDescription)")
