@@ -93,9 +93,9 @@ class TaskBotAgentControlledState: GKState
             {
                 print("PoliceBot close proximity to CreateWall node, entity: \(entity.debugDescription)")
                 self.entity.requestWall = true
-                self.entity.component(ofType: SpriteComponent.self)?.node.color = SKColor.brown
+
                 
-                entity.mandate = .initateWall
+//                entity.mandate = .initateWall
             }
             
             
