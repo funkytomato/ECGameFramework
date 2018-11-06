@@ -75,8 +75,6 @@ class PoliceBotFormWallState: GKState
         
         print("PoliceBotFormWallState: entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
         
-//        print("PoliceBotFormWallState updating")
-
         
 //        guard let wallComponent = entity.component(ofType: WallComponent.self) else { return }
         guard let policeBot = entity as? PoliceBot else { return }
@@ -85,7 +83,7 @@ class PoliceBotFormWallState: GKState
 
         
         //Should only move into this state when Taskbots are connected
-        if policeBot.isWall
+        if policeBot.isWall && elapsedTime > 3.0
         {
             intelligenceComponent.stateMachine.enter(PoliceBotInWallState.self)
         }
