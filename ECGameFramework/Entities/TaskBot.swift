@@ -174,6 +174,23 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
     // Uinque id for jointComponent
     var id: Int
     
+    //Is the taskbot protestor?
+    var isProtestor: Bool
+    
+    //Is the taskbot criminal?
+    var isCriminal: Bool
+    
+    //Is the taskbot police?
+    var isPolice: Bool
+    
+    //Is the taskbot in trouble?
+    var needsHelp: Bool
+    
+    //Is the taskbot requesting support to build wall?
+    var requestWall: Bool
+    
+    //Is the taskbot supporting another? (Build a wall or supporting TaskBot in trouble)
+    var isSupporting: Bool
 
     
     // Is the taskbot moving under player instruction?
@@ -190,31 +207,18 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         didSet
         {
             //TaskBot has one or more arms available for linking to
-            if connections > 1
-            {
-                self.connectionAvailable = false
-                self.isWall = true
-            }
-            else if connections > 0
-            {
-                self.connectionAvailable = true
-                self.isWall = true
-            }
-            else
+            print("Connections: \(connections.description)")
+            switch connections
             {
                 self.connectionAvailable = true
                 self.isWall = false
             }
             
-//            if connections < 1
-//            {
-//                self.isWall = false
-//            }
-//            else
-//            {
-//                //TaskBot is connected to one or more Policeman
-//                self.isWall = true
-//            }
+                default:
+                
+                    self.connectionAvailable = true
+                    self.isWall = false
+            }
         }
     }
     
@@ -239,8 +243,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
     //Is the taskbot fighting back?
     var isRetaliating: Bool
 
-    //Is the taskbot protestor?
-    var isProtestor: Bool
+
     
     // Is the taskbot a ringleader?
     var isRingLeader: Bool
@@ -260,8 +263,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
     //Is the taskbot Subservient?
     var isSubservient: Bool
     
-    //Is the taskbot criminal?
-    var isCriminal: Bool
+
     
     //Is the taskbot selling wares?
     var isSelling: Bool
@@ -272,17 +274,8 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
     //Is the taskbot injured?
     var isInjured: Bool
     
-    //Is the taskbot police?
-    var isPolice: Bool
+
     
-    //Is the taskbot in trouble?
-    var needsHelp: Bool
-    
-    //Is the taskbot requesting support to build wall?
-    var requestWall: Bool
-    
-    //Is the taskbot supporting another? (Build a wall or supporting TaskBot in trouble)
-    var isSupporting: Bool
     
     
     /// The aim that the `TaskBot` is currently trying to achieve.
