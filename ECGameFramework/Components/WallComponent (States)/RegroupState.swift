@@ -76,13 +76,18 @@ class RegroupState: GKState
     
     override func update(deltaTime seconds: TimeInterval)
     {
-//        print("RegroupState update")
 
         print("RegroupState: update - entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
 
         
         super.update(deltaTime: seconds)
-        elapsedTime += seconds
+        
+        
+        
+        //Check PoliceBot is in PoliceBotFormWallState before trying to connect with them
+//        guard let intelligenceComponent = self.entity.component(ofType: IntelligenceComponent.self) else { return }
+//        guard ((intelligenceComponent.stateMachine.currentState as? PoliceBotFormWallState) != nil) else { return }
+
         
         //If the WallComponent is triggered, make joints with touching PoliceBots
         if wallComponent.isTriggered
@@ -95,30 +100,30 @@ class RegroupState: GKState
                 
                 guard let entity = contactedBody.node?.entity else { continue }
                 guard let targetBot = entity as? PoliceBot else { break }
+
                 
-                if self.entity.isPolice && self.entity.connections < 2 &&
-                    targetBot.isPolice && targetBot.connections < 2
+                //This PoliceBot and the touching PoliceBot should have available connections before continuing
+                if self.entity.isPolice && self.entity.connectionAvailable && targetBot.isPolice && targetBot.connectionAvailable
                 {
                     
-                    //Check other PoliceBot is not in wall.
-                    let policeBotB = entity as? PoliceBot
-                    if policeBotB!.connections < 2
+                    //Check touching entity has available connections
+                    if targetBot.connectionAvailable
                     {
                        
                         //Connect the two Taskbots together like a rope if forming a wall
-                        guard let intelligenceComponent = self.entity.component(ofType: IntelligenceComponent.self) else { return }
-                        guard ((intelligenceComponent.stateMachine.currentState as? PoliceBotFormWallState) == nil) else { return }
-                        guard let jointComponent = self.entity.component(ofType: JointComponent.self) else { return }
+                         guard let jointComponent = self.entity.component(ofType: JointComponent.self) else { return }
                         
                         guard let policeBot = entity as? PoliceBot else { return }
                         if !jointComponent.isTriggered && policeBot.isPolice
                         {
-                            jointComponent.makeJointWith(targetEntity: policeBotB!)
+                            jointComponent.makeJointWith(targetEntity: targetBot)
                         }
+                        
+                        elapsedTime += seconds
                     }
                 }
             }
-            
+        
             //Check PoliceBot is in PoliceBotInWallState before continuing, ensuring their is a valid target
             guard (intelligenceComponent.stateMachine.currentState as? PoliceBotInWallState) != nil else { return }
             
@@ -132,6 +137,7 @@ class RegroupState: GKState
         //If the WallComponent is not triggered, disband from the wall.
         else
         {
+            print("Disbanding TaskBot from Regroup State because wall component is no longer triggered.")
             stateMachine?.enter(DisbandState.self)
         }
     }
