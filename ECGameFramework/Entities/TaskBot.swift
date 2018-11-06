@@ -210,9 +210,16 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             print("Connections: \(connections.description)")
             switch connections
             {
-                self.connectionAvailable = true
-                self.isWall = false
-            }
+                case 2:
+                    self.connectionAvailable = false
+                    self.isWall = true
+                    break
+                
+                case 1:
+                
+                    self.connectionAvailable = true
+                    self.isWall = true
+                    break
             
                 default:
                 
