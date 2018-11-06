@@ -391,7 +391,7 @@ class EntitySnapshot
             }
                 
             // Set the nearest Police taskbot that has requested build Wall support
-            else if let target = entityDistance.target as? TaskBot, nearestPoliceTaskBotRequestWallTarget == nil && target.isPolice && target.isActive && target.requestWall && !target.isSupporting
+            else if let target = entityDistance.target as? TaskBot, nearestPoliceTaskBotRequestWallTarget == nil && target.isPolice && target.isActive && target.requestWall
             {
                 nearestPoliceTaskBotRequestWallTarget = (target: target, distance: entityDistance.distance)
             }
