@@ -62,6 +62,7 @@ class PoliceBotInitateWallState: GKState
         
         entity.isRingLeader = true
         entity.requestWall = true
+        entity.isSupporting = false     //Police can not be supporting and be the ringleader
         
         //Trigger WallComponent to form a wall with entities in PoliceBotInitateWallState
         wallComponent.isTriggered = true  //fry
