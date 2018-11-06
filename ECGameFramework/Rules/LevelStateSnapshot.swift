@@ -361,7 +361,7 @@ class EntitySnapshot
 //            }
                 
             // Set the nearest Ringleader taskbot
-            else if let target = entityDistance.target as? TaskBot, nearestRingLeaderTaskBotTarget == nil && target.isRingLeader && target.isActive
+            else if let target = entityDistance.target as? TaskBot, nearestRingLeaderTaskBotTarget == nil && target.isRingLeader && target.isActive && target.isProtestor
             {
                 nearestRingLeaderTaskBotTarget = (target: target, distance: entityDistance.distance)
             }
