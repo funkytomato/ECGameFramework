@@ -174,29 +174,49 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
     // Uinque id for jointComponent
     var id: Int
     
-    //Number of TaskBots connected via PhysicsJoints
-    var connections: Int
-    {
-        didSet
-        {
-            //TaskBot has one or more arms available for linking to
-            if connections < 1
-            {
-                self.isWall = false
-            }
-            else
-            {
-                //TaskBot is connected to one or more Policeman
-                self.isWall = true
-            }
-        }
-    }
+
     
     // Is the taskbot moving under player instruction?
     var isPlayerControlled: Bool
     
     // Is the TaskBot in a Police wall?
     var isWall: Bool
+    
+    var connectionAvailable: Bool
+    
+    //Number of TaskBots connected via PhysicsJoints
+    var connections: Int
+    {
+        didSet
+        {
+            //TaskBot has one or more arms available for linking to
+            if connections > 1
+            {
+                self.connectionAvailable = false
+                self.isWall = true
+            }
+            else if connections > 0
+            {
+                self.connectionAvailable = true
+                self.isWall = true
+            }
+            else
+            {
+                self.connectionAvailable = true
+                self.isWall = false
+            }
+            
+//            if connections < 1
+//            {
+//                self.isWall = false
+//            }
+//            else
+//            {
+//                //TaskBot is connected to one or more Policeman
+//                self.isWall = true
+//            }
+        }
+    }
     
     // Is the taskbot still a playable bot?
     var isActive: Bool
@@ -597,6 +617,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         
         //Whether or not the 'TaskBot' is in a Police wall
         self.isWall = false
+        
+        // Whether or not the 'TaskBot' has available joint connections
+        self.connectionAvailable = true
         
         // Whether or not the 'TaskBot' is active, = healthy and not arrested or detained
         self.isActive = true
