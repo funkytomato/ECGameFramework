@@ -88,14 +88,14 @@ class TaskBotAgentControlledState: GKState
         {
             
             // If PoliceBot nears CreateWall location, and has not already requested a wall, and is not already supporting another PoliceBot, then initiate wall formation
-            if self.entity.isPolice && !self.entity.requestWall &&
+            if self.entity.isPolice && !self.entity.requestWall && !self.entity.isSupporting &&
                 entity.distanceToPoint(otherPoint: destination) <= 150.0 && elapsedTime > 2.0
             {
                 print("PoliceBot close proximity to CreateWall node, entity: \(entity.debugDescription)")
                 self.entity.requestWall = true
 
                 
-//                entity.mandate = .initateWall
+                entity.mandate = .initateWall
             }
             
             
