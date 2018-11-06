@@ -89,6 +89,7 @@ class RegroupState: GKState
 //        guard ((intelligenceComponent.stateMachine.currentState as? PoliceBotFormWallState) != nil) else { return }
 
         
+        
         //If the WallComponent is triggered, make joints with touching PoliceBots
         if wallComponent.isTriggered
         {
@@ -102,24 +103,32 @@ class RegroupState: GKState
                 guard let targetBot = entity as? PoliceBot else { break }
 
                 
-                //This PoliceBot and the touching PoliceBot should have available connections before continuing
-                if self.entity.isPolice && self.entity.connectionAvailable && targetBot.isPolice && targetBot.connectionAvailable
+                print("entityB: \(self.entity.component(ofType: JointComponent.self)?.entityB?.description), targetBot: \(targetBot.description)")
+                
+                //Gotta check TaskBot is not trying to create another joint with existing connection
+                if self.entity.component(ofType: JointComponent.self)?.entityB != targetBot
                 {
-                    
-                    //Check touching entity has available connections
-                    if targetBot.connectionAvailable
+                
+                
+                    //This PoliceBot and the touching PoliceBot should have available connections before continuing
+                    if self.entity.isPolice && self.entity.connectionAvailable && targetBot.isPolice && targetBot.connectionAvailable
                     {
-                       
-                        //Connect the two Taskbots together like a rope if forming a wall
-                         guard let jointComponent = self.entity.component(ofType: JointComponent.self) else { return }
                         
-                        guard let policeBot = entity as? PoliceBot else { return }
-                        if !jointComponent.isTriggered && policeBot.isPolice
+                        //Check touching entity has available connections
+                        if targetBot.connectionAvailable
                         {
-                            jointComponent.makeJointWith(targetEntity: targetBot)
+                           
+                            //Connect the two Taskbots together like a rope if forming a wall
+                             guard let jointComponent = self.entity.component(ofType: JointComponent.self) else { return }
+                            
+                            guard let policeBot = entity as? PoliceBot else { return }
+                            if !jointComponent.isTriggered && policeBot.isPolice
+                            {
+                                jointComponent.makeJointWith(targetEntity: targetBot)
+                            }
+                            
+                            elapsedTime += seconds
                         }
-                        
-                        elapsedTime += seconds
                     }
                 }
             }
