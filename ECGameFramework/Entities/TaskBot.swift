@@ -1312,7 +1312,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
             mandate = .inWall(endWallLocation)
         }
           
-        //PoliceBot has requested to create a wall
+        //PoliceBot has requested to create a wall, we want to trigger this on location
         else if self.isPolice && self.requestWall && supportWallPoliceBot <= 0.2
         {
             mandate = .initateWall
@@ -1461,9 +1461,6 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
 //                    print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
             }
         }
-        
-//        guard let formWallWithPoliceBot = state.nearestPoliceTaskBotInTroubleTarget?.target.agent else { return }
-//        mandate = .formWall(formWallWithPoliceBot)
     }
     
     // MARK: ContactableType
