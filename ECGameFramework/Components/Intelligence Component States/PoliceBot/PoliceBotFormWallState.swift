@@ -58,8 +58,10 @@ class PoliceBotFormWallState: GKState
         elapsedTime = 0.0
         
         guard let policeBot = entity as? PoliceBot else { return }
-        print("PoliceBotFormWallState entered :\(policeBot.debugDescription)")
         
+        
+        print("PoliceBotFormWallState: entity: \(policeBot.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(policeBot.isWall), requestWall: \(policeBot.requestWall), isSupporting: \(policeBot.isSupporting), wallComponentisTriggered: \(String(describing: policeBot.component(ofType: WallComponent.self)?.isTriggered))")
+
         //Trigger WallComponent to form a wall with entities in PoliceBotFormWallState
 //        entity.component(ofType: WallComponent.self)?.isTriggered = true //fry
         
@@ -72,14 +74,11 @@ class PoliceBotFormWallState: GKState
     {
         super.update(deltaTime: seconds)
         elapsedTime += seconds
-        
-        print("PoliceBotFormWallState: entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
-        
-        
+                
 //        guard let wallComponent = entity.component(ofType: WallComponent.self) else { return }
         guard let policeBot = entity as? PoliceBot else { return }
         
-        print("PoliceBotFormWallState: entity: \(policeBot.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(policeBot.isWall), requestWall: \(policeBot.requestWall), isSupporting: \(policeBot.isSupporting), wallComponentisTriggered: \(String(describing: policeBot.component(ofType: WallComponent.self)?.isTriggered))")
+        print("PoliceBotFormWallState: \(elapsedTime.description), entity: \(policeBot.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(policeBot.isWall), requestWall: \(policeBot.requestWall), isSupporting: \(policeBot.isSupporting), wallComponentisTriggered: \(String(describing: policeBot.component(ofType: WallComponent.self)?.isTriggered))")
 
         
         //Should only move into this state when Taskbots are connected
