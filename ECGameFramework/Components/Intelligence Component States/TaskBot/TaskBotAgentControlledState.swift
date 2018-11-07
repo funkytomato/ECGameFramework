@@ -76,12 +76,14 @@ class TaskBotAgentControlledState: GKState
     {
         super.update(deltaTime: seconds)
  
-        
-//        print("TaskBotAgentControlledState update:- entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
-        
         // Update the "time since last behavior update" tracker.
         timeSinceBehaviorUpdate += seconds
         elapsedTime += seconds
+        
+        
+        print("TaskBotAgentControlledState update:- \(elapsedTime.description), entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
+
+        
         
         // Check if enough time has passed since the last behavior update, and update the behavior if so.
         if timeSinceBehaviorUpdate >= GameplayConfiguration.TaskBot.behaviorUpdateWaitDuration
@@ -236,14 +238,14 @@ class TaskBotAgentControlledState: GKState
                     
                     
                     //When Police get within proximity of the Police leader, switch on the entities wall component
-                    if entity.distanceToPoint(otherPoint: target.position) <= 150.0
-                    {
-//                        print("Forming wall")
-                        
-                        entity.component(ofType: WallComponent.self)?.isTriggered = true     //fry
-//                        entity.mandate = entity.isGood ? .followGoodPatrolPath : .followBadPatrolPath
-//                        entity.mandate = .formWall(target)
-                    }
+//                    if entity.distanceToPoint(otherPoint: target.position) <= 150.0
+//                    {
+////                        print("Forming wall")
+//
+//                        entity.component(ofType: WallComponent.self)?.isTriggered = true     //fry
+////                        entity.mandate = entity.isGood ? .followGoodPatrolPath : .followBadPatrolPath
+////                        entity.mandate = .formWall(target)
+//                    }
                     break
                 
                 // When a `TaskBot` is in wall, do some shit...
@@ -253,13 +255,13 @@ class TaskBotAgentControlledState: GKState
                     print("TaskBotAgentControlledState: entity: \(policeBot.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(policeBot.isWall), requestWall: \(policeBot.requestWall), isSupporting: \(policeBot.isSupporting), wallComponentisTriggered: \(String(describing: policeBot.component(ofType: WallComponent.self)?.isTriggered)), position: \(policeBot.agent.position), target: \(target)")
                     
                     
-                    //When Police get within proximity of the destination, disband from the wall
-                    if entity.distanceToPoint(otherPoint: target) <= 100.0
-                    {
-                        print("Destination reached")
-                        
-                        entity.component(ofType: WallComponent.self)?.isTriggered = false     //fry
-                    }
+//                    //When Police get within proximity of the destination, disband from the wall
+//                    if entity.distanceToPoint(otherPoint: target) <= 100.0
+//                    {
+//                        print("Destination reached")
+//                        
+//                        entity.component(ofType: WallComponent.self)?.isTriggered = false     //fry
+//                    }
                     
                     break
                 
