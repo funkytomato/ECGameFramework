@@ -435,18 +435,19 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
             
             //Police are forming a wall, the targetAgent is the PoliceBot initiating the wall
             case let .formWall(targetAgent):
-//                print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+                print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 
-                intelligenceComponent.stateMachine.enter(PoliceBotFormWallState.self)
-                targetPosition = targetAgent.position
-    
-            
+                
                 //When Police get within proximity of the Police leader, switch on the entities wall component
                 if self.distanceToPoint(otherPoint: targetAgent.position) <= 150.0
                 {
                     self.component(ofType: WallComponent.self)?.isTriggered = true     //fry
                 }
-
+                
+                intelligenceComponent.stateMachine.enter(PoliceBotFormWallState.self)
+                targetPosition = targetAgent.position
+    
+            
             //Police are in the wall and the target is the nearest Protestor
             case let .inWall(targetAgent):
 //                print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
@@ -454,6 +455,13 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
                 intelligenceComponent.stateMachine.enter(PoliceBotInWallState.self)
                 targetPosition = targetAgent
             
+                //When Police get within proximity of the destination, disband from the wall
+                if self.distanceToPoint(otherPoint: targetAgent) <= 100.0
+                {
+                    print("Destination reached")
+                    
+                    self.component(ofType: WallComponent.self)?.isTriggered = false     //fry
+                }
             
             //Police are scared, run away from targetAgent
             case let .fleeAgent(targetAgent):
