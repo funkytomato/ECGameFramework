@@ -450,7 +450,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
             
             //Police are in the wall and the target is the nearest Protestor
             case let .inWall(targetAgent):
-//                print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+                print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate), target Position: \(targetPosition)")
 
                 intelligenceComponent.stateMachine.enter(PoliceBotInWallState.self)
                 targetPosition = targetAgent
