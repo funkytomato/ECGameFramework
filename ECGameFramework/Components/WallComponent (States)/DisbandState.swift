@@ -65,6 +65,9 @@ class DisbandState: GKState
         self.entity.requestWall = false
         self.entity.isSupporting = false
         self.entity.isWall = false
+        
+        //This should already be set, but just encase!!!
+        wallComponent.isTriggered = false
     }
     
     override func update(deltaTime seconds: TimeInterval)
