@@ -137,9 +137,6 @@ class JointComponent: GKComponent
             //Get pointer to the Satellite node
             let satellite = entityB!.renderComponent.node.childNode(withName: kSatelliteNode)
             
-            //Make TaskBots face the same direction
-//            entityB!.renderComponent.node.zRotation = renderComponent.node.zRotation
-            
             //Get pointer to the Line node
 //            let line = renderComponent.node.scene!.childNode(withName: kLineNode) as! SKShapeNode
             let line = renderComponent.node.scene!.childNode(withName: (lineNode?.name)!) as! SKShapeNode
