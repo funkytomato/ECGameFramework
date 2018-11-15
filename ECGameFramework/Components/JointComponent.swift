@@ -325,6 +325,9 @@ class JointComponent: GKComponent
         //Decrease the wall account
         entity?.component(ofType: WallComponent.self)?.currentWallSize -= 1
         
+        //Clear the pointer to the connected node
+        self.entityB = nil
+        
         print("Removing joint on entity: \(policeBot.debugDescription), connections: \(policeBot.connections)")
     }
 }
