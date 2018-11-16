@@ -126,6 +126,9 @@ class WallComponent: GKComponent
     override func update(deltaTime seconds: TimeInterval)
     {
         
+        stateMachine.update(deltaTime: seconds)
+
+     
         //        print("state: \(intelligenceComponent.stateMachine.currentState)")
         
         guard let policeBot = entity as? PoliceBot else { return }
@@ -134,7 +137,7 @@ class WallComponent: GKComponent
         if policeBot.isWall
         {
             //Police will Disband from wall after 60 seconds whatever
-            if elapsedTime > 60.0
+            if elapsedTime > 120.0
             {
                 print("WALL TIME HAS EXPIRED!!!  DISBAND")
                 self.isTriggered = false
@@ -144,7 +147,6 @@ class WallComponent: GKComponent
             elapsedTime += seconds
         }
         
-        stateMachine.update(deltaTime: seconds)
 
     }
     
