@@ -99,7 +99,7 @@ class HoldTheLineState: GKState
     {
 //        print("HoldTheLineState update")
   
-        print("HoldTheLineState: entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
+//        print("HoldTheLineState: entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
 
 //        guard let targetProtestor = state.nearestProtestorTaskBotTarget?.target.agent else { return }
         
