@@ -81,14 +81,7 @@ class RegroupState: GKState
 
         
         super.update(deltaTime: seconds)
-        
-        
-        
-        //Check PoliceBot is in PoliceBotFormWallState before trying to connect with them
-//        guard let intelligenceComponent = self.entity.component(ofType: IntelligenceComponent.self) else { return }
-//        guard ((intelligenceComponent.stateMachine.currentState as? PoliceBotFormWallState) != nil) else { return }
-
-        
+       
         
         //If the WallComponent is triggered, make joints with touching PoliceBots
         if wallComponent.isTriggered
@@ -103,7 +96,7 @@ class RegroupState: GKState
                 guard let targetBot = entity as? PoliceBot else { break }
 
                 
-                print("entityB: \(self.entity.component(ofType: JointComponent.self)?.entityB?.description), targetBot: \(targetBot.description)")
+//                print("entityB: \(self.entity.component(ofType: JointComponent.self)?.entityB?.description), entityB connections: \(self.entity.component(ofType: JointComponent.self)?.entityB?.connections)targetBot: \(targetBot.description), targetBot connections: \(targetBot.connections)")
                 
                 //Gotta check TaskBot is not trying to create another joint with existing connection
                 if self.entity.component(ofType: JointComponent.self)?.entityB != targetBot
