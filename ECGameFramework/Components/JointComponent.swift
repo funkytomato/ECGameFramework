@@ -208,7 +208,9 @@ class JointComponent: GKComponent
         //Increment the connections property on this TaskBot and the target TaskBot
         guard let taskBot = entity as? TaskBot else { return }
         taskBot.connections += 1
+        taskBot.isWall = true
         targetEntity.connections += 1
+        targetEntity.isWall = true
         
         //Increase the wall account
         entity?.component(ofType: WallComponent.self)?.currentWallSize += 1
@@ -297,19 +299,6 @@ class JointComponent: GKComponent
         
         //Only continue if a Physics Joint exists for this entity
         renderComponent.node.scene?.physicsWorld.remove(joint)
-//        renderComponent.node.scene?.physicsWorld.remove(thisJoint!)
-        self.thisJoint = nil
-        
-        //Remove connections from this entity and reset
-        guard let policeBot = entity as? PoliceBot else { return }
-        policeBot.connections -= 1
-        self.isTriggered = false
-//        policeBot.requestWall = false
-        
-        //Remove connections from other entity and reset
-        self.entityB?.connections -= 1
-        self.entityB?.component(ofType: WallComponent.self)?.isTriggered = false
-//        self.entityB?.requestWall = false
         
         //Remove the line node to the scene
         renderComponent.node.scene?.removeChildren(in: [lineNode!])
@@ -318,17 +307,34 @@ class JointComponent: GKComponent
         renderComponent.node.removeChildren(in: [pinned!])
         renderComponent.node.removeChildren(in: [pinDot!])
         
-        //Add the satellite nodes to the target entity
-        self.entityB?.component(ofType: RenderComponent.self)?.node.removeChildren(in: [satellite!])
-        self.entityB?.component(ofType: RenderComponent.self)?.node.removeChildren(in: [satelliteDot!])
+        
+        
+        //Reset the joint to nil
+        self.thisJoint = nil
+        
+        //Remove connections from this entity and reset
+        guard let policeBot = entity as? PoliceBot else { return }
+        policeBot.component(ofType: WallComponent.self)?.isTriggered = false
+        policeBot.connections -= 1
+        self.isTriggered = false
+        
+        
+        //Remove connections from other entity and reset
+        guard let linkedPoliceBot = self.entityB as? PoliceBot else { return }
+        linkedPoliceBot.connections -= 1
+        
+        guard let linkedpoliceBotWallComponent = linkedPoliceBot.component(ofType: WallComponent.self) else { return }
+        linkedpoliceBotWallComponent.isTriggered = false
 
-        //Decrease the wall account
-        entity?.component(ofType: WallComponent.self)?.currentWallSize -= 1
+        //Remove the satellite nodes from the target entity
+        linkedPoliceBot.component(ofType: RenderComponent.self)?.node.removeChildren(in: [satellite!])
+        linkedPoliceBot.component(ofType: RenderComponent.self)?.node.removeChildren(in: [satelliteDot!])
+
         
         //Clear the pointer to the connected node
         self.entityB = nil
-        
-        print("Removing joint on entity: \(policeBot.debugDescription), connections: \(policeBot.connections)")
+    
+//        print("Removing joint on entity: \(policeBot.debugDescription), connections: \(policeBot.connections), entityB: \(self.entityB.debugDescription), entityB connections: \(self.entityB?.connections)")
     }
 }
 
