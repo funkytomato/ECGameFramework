@@ -52,7 +52,7 @@ class DisbandState: GKState
     override func didEnter(from previousState: GKState?)
     {
 //        print("DisbandState didEnter: \(wallComponent.debugDescription) entity: \(entity.debugDescription)")
-        print("DisbandState: entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
+        print("DisbandState didEnter: entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered)), connections: \(entity.connections)")
 
         
         super.didEnter(from: previousState)
@@ -60,6 +60,7 @@ class DisbandState: GKState
         
         guard let jointComponent = entity.component(ofType: JointComponent.self) else { return }
         jointComponent.removeJoint()
+        jointComponent.isTriggered = false
         
         self.entity.isRingLeader = false
         self.entity.requestWall = false
@@ -68,11 +69,14 @@ class DisbandState: GKState
         
         //This should already be set, but just encase!!!
         wallComponent.isTriggered = false
+        entity.connections = 0
+        
+        
     }
     
     override func update(deltaTime seconds: TimeInterval)
     {
-        print("DisbandState update: entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
+//        print("DisbandState update: entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
         
         super.update(deltaTime: seconds)
         elapsedTime += seconds
