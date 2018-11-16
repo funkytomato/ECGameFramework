@@ -313,7 +313,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         var debugPathShouldCycle = false
         let debugColor: SKColor
     
-//        print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+        print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
         switch mandate
         {
             // PoliceBots need support
@@ -1301,12 +1301,13 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         //Taskbot is Police and in a wall
         else if self.isPolice && self.isWall
         {
-            guard let targetProtestor = state.nearestProtestorTaskBotTarget?.target.agent else { return }
+//            guard let targetProtestor = state.nearestProtestorTaskBotTarget?.target.agent else { return }
 //            guard let targetProtestor = state.nearestDangerousTaskBotTarget?.target.agent else { return }     ///Causes weird behaviour
 //            guard let targetProtestor = state.playerBotTarget?.target.agent else { return }
-            print("PoliceBot is inWall - targetProtestor: \(targetProtestor))")
+//            print("PoliceBot is inWall - targetProtestor: \(targetProtestor))")
 //            mandate = .inWall(targetProtestor)
             
+            print("TaskBot rulesComponent inWall :- \(self.debugDescription), isWall: \(self.isWall), requestsWall: \(self.requestWall), supporting :- \(self.isSupporting)")
             guard let scene = self.component(ofType: RenderComponent.self)?.node.scene as? LevelScene else { return }
             let endWallLocation = scene.endWallLocation()
             mandate = .inWall(endWallLocation)
