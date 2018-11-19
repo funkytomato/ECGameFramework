@@ -52,8 +52,7 @@ class WallIdleState: GKState
     
     override func update(deltaTime seconds: TimeInterval)
     {
-//        print("WallIdleState update: entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
-//        print("WallIdleState update: \(wallComponent.debugDescription)")
+        print("WallIdleState update: entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
         
         super.update(deltaTime: seconds)
         elapsedTime += seconds
@@ -62,7 +61,7 @@ class WallIdleState: GKState
         
         if wallComponent.isTriggered
         {
-            stateMachine?.enter(RegroupState.self)
+            stateMachine?.enter(WallActiveState.self)
         }
     }
     
@@ -70,7 +69,7 @@ class WallIdleState: GKState
     {
         switch stateClass
         {
-        case is RegroupState.Type, is DisbandState.Type:
+        case is WallActiveState.Type:
             return true
         default:
             return false
