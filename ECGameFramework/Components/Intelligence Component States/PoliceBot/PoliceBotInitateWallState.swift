@@ -97,7 +97,7 @@ class PoliceBotInitateWallState: GKState
         {
             
         case is TaskBotAgentControlledState.Type, is TaskBotFleeState.Type, is TaskBotInjuredState.Type,  is TaskBotZappedState.Type,
-             is PoliceBotHitState.Type, is PoliceBotInWallState.Type:
+             is PoliceBotHitState.Type/*, is PoliceBotInWallState.Type*/:
             return true
             
         default:
