@@ -48,6 +48,8 @@
 		185960F8209E7DFB00F6972E /* ResistanceHitState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185960F7209E7DFB00F6972E /* ResistanceHitState.swift */; };
 		185960FA209E7F6000F6972E /* ResistanceIdleState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185960F9209E7F6000F6972E /* ResistanceIdleState.swift */; };
 		1859B2C020CBE8F900F3E687 /* RespectComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1859B2BF20CBE8F900F3E687 /* RespectComponent.swift */; };
+		185C661721A2EEAB004122FD /* WallActiveState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185C661621A2EEAB004122FD /* WallActiveState.swift */; };
+		185C661921A2EF03004122FD /* WallCooldownState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185C661821A2EF03004122FD /* WallCooldownState.swift */; };
 		186F6E512040D1D1001EEF65 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186F6E502040D1D1001EEF65 /* AppDelegate.swift */; };
 		186F6E6C2040D1D1001EEF65 /* ECGameFrameworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186F6E6B2040D1D1001EEF65 /* ECGameFrameworkTests.swift */; };
 		186F6E772040D1D1001EEF65 /* ECGameFrameworkUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 186F6E762040D1D1001EEF65 /* ECGameFrameworkUITests.swift */; };
@@ -290,6 +292,8 @@
 		185960F7209E7DFB00F6972E /* ResistanceHitState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResistanceHitState.swift; sourceTree = "<group>"; };
 		185960F9209E7F6000F6972E /* ResistanceIdleState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResistanceIdleState.swift; sourceTree = "<group>"; };
 		1859B2BF20CBE8F900F3E687 /* RespectComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RespectComponent.swift; sourceTree = "<group>"; };
+		185C661621A2EEAB004122FD /* WallActiveState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallActiveState.swift; sourceTree = "<group>"; };
+		185C661821A2EF03004122FD /* WallCooldownState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallCooldownState.swift; sourceTree = "<group>"; };
 		186F6E4D2040D1D1001EEF65 /* ECGameFramework.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ECGameFramework.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		186F6E502040D1D1001EEF65 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		186F6E622040D1D1001EEF65 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1065,6 +1069,8 @@
 				C2DE204F214FE72E0068EC36 /* MoveBackwardState.swift */,
 				C2DE2051214FE7550068EC36 /* RetreatState.swift */,
 				182CE4ED215AB37200989C0D /* DisbandState.swift */,
+				185C661621A2EEAB004122FD /* WallActiveState.swift */,
+				185C661821A2EF03004122FD /* WallCooldownState.swift */,
 			);
 			path = "WallComponent (States)";
 			sourceTree = "<group>";
@@ -1312,6 +1318,7 @@
 				186F6E9D2040DAF5001EEF65 /* GameViewController.swift in Sources */,
 				18EDA50F2084FB26005CB784 /* TemperamentComponent.swift in Sources */,
 				C2D1BAF420CB4D6600400BB3 /* InciteComponent.swift in Sources */,
+				185C661721A2EEAB004122FD /* WallActiveState.swift in Sources */,
 				184B7631207D052200F959F7 /* ProtestorBeingArrestedState.swift in Sources */,
 				181146C320DEC14E0060EF0A /* AppetiteIdleState.swift in Sources */,
 				18C3A24F209FB4110072BC28 /* TaskBotInjuredState.swift in Sources */,
@@ -1320,6 +1327,7 @@
 				18DF360F2052FBCD001F55DE /* SpriteComponent.swift in Sources */,
 				1818BC1120A6612C007FB4C7 /* TaskBotPlayerControlledState.swift in Sources */,
 				18FCEA552040EC40009A5C0D /* SceneOverlay.swift in Sources */,
+				185C661921A2EF03004122FD /* WallCooldownState.swift in Sources */,
 				18FCEAA72040EC40009A5C0D /* ButtonNodeResponderType+ScreenRecording.swift in Sources */,
 				18FCEA982040EC40009A5C0D /* BeamNode.swift in Sources */,
 				18FCEA682040EC40009A5C0D /* FlyingBotBlastState.swift in Sources */,
