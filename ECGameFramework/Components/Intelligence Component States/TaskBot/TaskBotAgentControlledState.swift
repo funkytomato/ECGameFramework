@@ -81,7 +81,7 @@ class TaskBotAgentControlledState: GKState
         elapsedTime += seconds
         
         
-        print("TaskBotAgentControlledState update:- \(elapsedTime.description), entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
+        print("TaskBotAgentControlledState update:- \(elapsedTime.description), entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered)), connections: \(entity.connections)")
 
         
         
@@ -89,16 +89,16 @@ class TaskBotAgentControlledState: GKState
         if timeSinceBehaviorUpdate >= GameplayConfiguration.TaskBot.behaviorUpdateWaitDuration
         {
             
-            // If PoliceBot nears CreateWall location, and has not already requested a wall, and is not already supporting another PoliceBot, then initiate wall formation
-            if self.entity.isPolice && !self.entity.requestWall && !self.entity.isSupporting &&
-                entity.distanceToPoint(otherPoint: destination) <= 150.0 && elapsedTime > 2.0
-            {
-                print("PoliceBot close proximity to CreateWall node, entity: \(entity.debugDescription)")
-                self.entity.requestWall = true
-
-                
-                entity.mandate = .initateWall
-            }
+//            // If PoliceBot nears CreateWall location, and has not already requested a wall, and is not already supporting another PoliceBot, then initiate wall formation
+//            if self.entity.isPolice && !self.entity.requestWall && !self.entity.isSupporting &&
+//                entity.distanceToPoint(otherPoint: destination) <= 150.0 && elapsedTime > 2.0
+//            {
+//                print("PoliceBot close proximity to CreateWall node, entity: \(entity.debugDescription)")
+//                self.entity.requestWall = true
+//
+//                
+//                entity.mandate = .initateWall
+//            }
             
             
             //Gradually increase the Police resistance
