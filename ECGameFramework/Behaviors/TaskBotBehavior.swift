@@ -260,8 +260,8 @@ class TaskBotBehavior: GKBehavior
         let behavior = TaskBotBehavior()
         
         // Add basic goals to reach the `TaskBot`'s maximum speed, avoid obstacles and seek the target Police.
-//        behavior.addTargetSpeedGoal(speed: agent.maxSpeed)
-        behavior.addTargetSpeedGoal(speed: 25.0)
+        behavior.addTargetSpeedGoal(speed: agent.maxSpeed)
+//        behavior.addTargetSpeedGoal(speed: 25.0)
         behavior.addAvoidObstaclesGoal(forScene: scene)
         behavior.addSeekGoal(forScene: scene, agent: target, weight: 1.0)
 //        behavior.addWanderGoal(forScene: scene)
@@ -295,7 +295,7 @@ class TaskBotBehavior: GKBehavior
         let behavior = TaskBotBehavior()
         
         // Add basic goals to reach the `TaskBot`'s maximum speed, avoid obstacles and seek the target Police.
-        behavior.addTargetSpeedGoal(speed: 50.0)
+        behavior.addTargetSpeedGoal(speed: 100.0)
 //        behavior.addTargetSpeedGoal(speed: agent.maxSpeed)
         behavior.addAvoidObstaclesGoal(forScene: scene)
 //        behavior.addSeekGoal(forScene: scene, agent: agent, weight: 1.0)
