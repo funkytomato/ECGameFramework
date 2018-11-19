@@ -348,11 +348,11 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
 //                        self.component(ofType: WallComponent.self)?.isTriggered = true    //fry
 //                        entity.component(ofType: WallComponent.self)?.isTriggered = true
 //                        
-//    //                    guard let policeBot = entity as? PoliceBot else { return }
-//    //                    if !jointComponent.isTriggered && policeBot.isPolice
-//    //                    {
-//    //                        jointComponent.makeJointWith(targetEntity: policeBotB!)
-//    //                    }
+//                        guard let policeBot = entity as? PoliceBot else { return }
+//                        if !jointComponent.isTriggered && policeBot.isPolice
+//                        {
+//                            jointComponent.makeJointWith(targetEntity: policeBotB!)
+//                        }
 //                    }
 //                }
 //            }
@@ -428,7 +428,6 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
             case .initateWall:
                 print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
             
-//                intelligenceComponent.stateMachine.enter(PoliceBotFormWallState.self)
                 intelligenceComponent.stateMachine.enter(PoliceBotInitateWallState.self)
             
             
@@ -471,10 +470,23 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
                 targetPosition = targetAgent.position
             
             case .wander:
-            
-                    self.isRingLeader = false
-                    self.isSupporting = false
-                    self.requestWall = false
+                
+                guard let renderComponent = self.component(ofType: RenderComponent.self) else { return }
+                let scene = renderComponent.node.scene as? LevelScene
+                let wallTriggerLocation = (scene?.createWallLocation())!
+                
+                // If PoliceBot nears CreateWall location, and has not already requested a wall, and is not already supporting another PoliceBot, then initiate wall formation
+                if self.distanceToPoint(otherPoint: wallTriggerLocation) <= 150.0
+                {
+                    print("PoliceBot close proximity to CreateWall node, entity: \(self.debugDescription)")
+                    self.requestWall = true
+                    self.mandate = .initateWall
+                }
+                
+//                self.isRingLeader = false
+//                self.isSupporting = false
+//                self.requestWall = false
+                break
             
             default:
 //                print("PoliceBot: rulesComponent default:- entity: \(self.debugDescription), mandate: \(mandate)")
