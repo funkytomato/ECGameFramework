@@ -62,8 +62,6 @@ class PoliceBotFormWallState: GKState
         
         print("PoliceBotFormWallState: entity: \(policeBot.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(policeBot.isWall), requestWall: \(policeBot.requestWall), isSupporting: \(policeBot.isSupporting), wallComponentisTriggered: \(String(describing: policeBot.component(ofType: WallComponent.self)?.isTriggered))")
 
-        //Trigger WallComponent to form a wall with entities in PoliceBotFormWallState
-//        entity.component(ofType: WallComponent.self)?.isTriggered = true //fry
         
         //A flag is set when a Policeman is enroute to help, so it is not reset to something else
         entity.isSupporting = true
@@ -75,14 +73,19 @@ class PoliceBotFormWallState: GKState
         super.update(deltaTime: seconds)
         elapsedTime += seconds
                 
-//        guard let wallComponent = entity.component(ofType: WallComponent.self) else { return }
         guard let policeBot = entity as? PoliceBot else { return }
         
         print("PoliceBotFormWallState: \(elapsedTime.description), entity: \(policeBot.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(policeBot.isWall), requestWall: \(policeBot.requestWall), isSupporting: \(policeBot.isSupporting), wallComponentisTriggered: \(String(describing: policeBot.component(ofType: WallComponent.self)?.isTriggered))")
 
         
+        if elapsedTime > 5.0
+        {
+            print("PoliceBotFormWallState update elapsedTime expired, WallComponent.isTriggered = false")
+            wallComponent.isTriggered = false
+        }
+        
         //Should only move into this state when Taskbots are connected
-        if policeBot.isWall && elapsedTime > 3.0
+        if policeBot.isWall
         {
             intelligenceComponent.stateMachine.enter(PoliceBotInWallState.self)
         }
@@ -102,7 +105,7 @@ class PoliceBotFormWallState: GKState
         {
             
         case is TaskBotAgentControlledState.Type, is TaskBotFleeState.Type, is TaskBotInjuredState.Type,  is TaskBotZappedState.Type,
-             is PoliceBotHitState.Type, is PoliceBotInWallState.Type:
+             is PoliceBotHitState.Type/*, is PoliceBotInWallState.Type*/:
             return true
             
         default:
