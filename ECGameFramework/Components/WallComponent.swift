@@ -99,13 +99,15 @@ class WallComponent: GKComponent
         
         stateMachine = GKStateMachine(states: [
             WallIdleState(wallComponent: self, entity: entity),
-            RegroupState(wallComponent: self, entity: entity),
-            HoldTheLineState(wallComponent: self, entity: entity),
+            WallActiveState(wallComponent: self, entity: entity),
+            WallCooldownState(wallComponent: self, entity: entity)
+//            RegroupState(wallComponent: self, entity: entity),
+//            HoldTheLineState(wallComponent: self, entity: entity),
 //            MoveBackwardState(wallComponent: self, entity: entity),
 //            RetreatState(wallComponent: self, entity: entity),
-            MoveForwardState(wallComponent: self, entity: entity),
+//            MoveForwardState(wallComponent: self, entity: entity),
 //            ChargeState(wallComponent: self, entity: entity),
-            DisbandState(wallComponent: self, entity: entity)
+//            DisbandState(wallComponent: self, entity: entity)
             ])
         
         stateMachine.enter(WallIdleState.self)
@@ -127,6 +129,7 @@ class WallComponent: GKComponent
     {
         
         stateMachine.update(deltaTime: seconds)
+        elapsedTime += seconds
 
      
         //        print("state: \(intelligenceComponent.stateMachine.currentState)")
@@ -134,18 +137,18 @@ class WallComponent: GKComponent
         guard let policeBot = entity as? PoliceBot else { return }
         
         
-        if policeBot.isWall
-        {
-            //Police will Disband from wall after 60 seconds whatever
-            if elapsedTime > 120.0
-            {
-                print("WALL TIME HAS EXPIRED!!!  DISBAND")
-                self.isTriggered = false
-            }
-            
-            //If Police are in wall increment the counter
-            elapsedTime += seconds
-        }
+//        if policeBot.isWall
+//        {
+//            //Police will Disband from wall after 60 seconds whatever
+//            if elapsedTime > 120.0
+//            {
+//                print("WALL TIME HAS EXPIRED!!!  DISBAND")
+//                self.isTriggered = false
+//            }
+//            
+//            //If Police are in wall increment the counter
+//            elapsedTime += seconds
+//        }
         
 
     }
