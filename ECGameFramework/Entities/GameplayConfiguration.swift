@@ -1022,7 +1022,7 @@ struct GameplayConfiguration
         
 //        static let alignmentRadius: Float = 43.333
         static let alignmentRadius: Float = 60.0
-        static let alignmentAngle = Float(Double.pi / 4)
+        static let alignmentAngle = Float(Double.pi / 2)
         static let alignmentWeight: Float = 1.667
         
         static let cohesionRadius: Float = 50.0
