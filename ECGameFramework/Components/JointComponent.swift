@@ -199,6 +199,11 @@ class JointComponent: GKComponent
         
         makeJoint(JointLabels.Limit)
         
+        //Lock the two entities to a specified distance
+        let distanceRange = SKRange(lowerLimit: 55.0, upperLimit: 100.0)
+        let lockDistance = SKConstraint.distance(distanceRange, to: targetEntity.renderComponent.node)
+        renderComponent.node.constraints = [ lockDistance ]
+        
         //Inform the JointComponent that a joint has been created
         self.isTriggered = true
         
@@ -334,6 +339,10 @@ class JointComponent: GKComponent
         //Clear the pointer to the connected node
         self.entityB = nil
     
+        
+        //Remove constrints from node
+        renderComponent.node.constraints = nil
+        
 //        print("Removing joint on entity: \(policeBot.debugDescription), connections: \(policeBot.connections), entityB: \(self.entityB.debugDescription), entityB connections: \(self.entityB?.connections)")
     }
 }
