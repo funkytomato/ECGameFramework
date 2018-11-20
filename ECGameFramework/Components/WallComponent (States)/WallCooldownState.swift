@@ -59,7 +59,7 @@ class WallCooldownState: GKState
         self.entity.isSupporting = false
         self.entity.isWall = false
         
-        self.entity.connections = 0
+//        self.entity.connections = 0
         
         print("WallCooldownState didEnter: entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
 
