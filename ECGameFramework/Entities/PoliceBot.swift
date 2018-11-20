@@ -451,9 +451,6 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
             case let .inWall(targetAgent):
                 print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate), target Position: \(targetPosition)")
 
-                intelligenceComponent.stateMachine.enter(PoliceBotInWallState.self)
-                targetPosition = targetAgent
-            
                 //When Police get within proximity of the destination, disband from the wall
                 if self.distanceToPoint(otherPoint: targetAgent) <= 100.0
                 {
@@ -461,6 +458,10 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
                     
                     self.component(ofType: WallComponent.self)?.isTriggered = false     //fry
                 }
+            
+                //The WallComponent trigger should be set before moving into PoliceBotInWallState
+                intelligenceComponent.stateMachine.enter(PoliceBotInWallState.self)
+                targetPosition = targetAgent
             
             //Police are scared, run away from targetAgent
             case let .fleeAgent(targetAgent):
