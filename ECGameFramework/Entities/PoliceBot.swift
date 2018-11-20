@@ -475,6 +475,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
                 guard let renderComponent = self.component(ofType: RenderComponent.self) else { return }
                 let scene = renderComponent.node.scene as? LevelScene
                 let wallTriggerLocation = (scene?.createWallLocation())!
+                let wallFinishLocation = (scene?.endWallLocation())!
                 
                 // If PoliceBot nears CreateWall location, and has not already requested a wall, and is not already supporting another PoliceBot, then initiate wall formation
                 if self.distanceToPoint(otherPoint: wallTriggerLocation) <= 150.0
@@ -482,6 +483,15 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
                     print("PoliceBot close proximity to CreateWall node, entity: \(self.debugDescription)")
                     self.requestWall = true
                     self.mandate = .initateWall
+                }
+                
+                // If Police nears EndWall locstion, and has not already disbanded, reset the WallComponent trigger, and move into wander state
+                else if self.distanceToPoint(otherPoint: wallFinishLocation) <= 150.0
+                {
+                    print("PoliceBot close proximity to EndWall node, entity: \(self.debugDescription)")
+                    self.requestWall = false
+                    self.component(ofType: WallComponent.self)?.isTriggered = false
+                    self.mandate = .wander
                 }
                 
 //                self.isRingLeader = false
