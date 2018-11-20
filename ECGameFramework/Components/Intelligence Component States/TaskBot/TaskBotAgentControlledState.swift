@@ -255,13 +255,15 @@ class TaskBotAgentControlledState: GKState
                     print("TaskBotAgentControlledState: entity: \(policeBot.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(policeBot.isWall), requestWall: \(policeBot.requestWall), isSupporting: \(policeBot.isSupporting), wallComponentisTriggered: \(String(describing: policeBot.component(ofType: WallComponent.self)?.isTriggered)), position: \(policeBot.agent.position), target: \(target)")
                     
                     
-//                    //When Police get within proximity of the destination, disband from the wall
-//                    if entity.distanceToPoint(otherPoint: target) <= 100.0
-//                    {
-//                        print("Destination reached")
-//                        
-//                        entity.component(ofType: WallComponent.self)?.isTriggered = false     //fry
-//                    }
+                    //When Police get within proximity of the destination, disband from the wall
+                    if entity.distanceToPoint(otherPoint: target) <= 100.0
+                    {
+                        print("Destination reached")
+                        
+                        entity.component(ofType: WallComponent.self)?.isTriggered = false     //fry
+//                        entity.mandate = .wander
+                        entity.mandate = entity.isGood ? .followGoodPatrolPath : .followBadPatrolPath
+                    }
                     
                     break
                 
