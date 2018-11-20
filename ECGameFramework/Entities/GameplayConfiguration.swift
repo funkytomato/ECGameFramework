@@ -559,6 +559,23 @@ struct GameplayConfiguration
         }
         
         
+        //MARK: Wall Flocking Properties
+
+        // Separation, alignment, and cohesion parameters for multiple `TaskBot`s.
+        static let separationRadius: Float = 60.0
+        static let separationAngle = Float (3 * Double.pi / 4)
+        static let separationWeight: Float = 2.0
+        
+        static let alignmentRadius: Float = 180.0
+        static let alignmentAngle = Float(Double.pi / 4)
+        static let alignmentWeight: Float = 1.667
+        
+        static let cohesionRadius: Float = 60.0
+        static let cohesionAngle = Float(Double.pi / 2)
+        static let cohesionWeight: Float = 1.667
+
+        
+        
         //MARK: Health Properties
         
         // The maximum amount of health a `GroundBot` stores.
