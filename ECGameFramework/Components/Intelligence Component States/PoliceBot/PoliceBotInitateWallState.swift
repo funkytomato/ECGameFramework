@@ -81,10 +81,10 @@ class PoliceBotInitateWallState: GKState
         
         
         //PoliceBot has joined a wall, if not stand and wait
-        if entity.isWall
-        {
+//        if entity.isWall
+//        {
             intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
-        }
+//        }
         
         
         //Ensure the WallComponent statemachine is started and updated.
