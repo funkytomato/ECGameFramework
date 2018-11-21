@@ -79,13 +79,9 @@ class PoliceBotInitateWallState: GKState
         
         print("PoliceBotInitateWallState: \(elapsedTime.description), entity: \(policeBot.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(policeBot.isWall), requestWall: \(policeBot.requestWall), isSupporting: \(policeBot.isSupporting), wallComponentisTriggered: \(String(describing: policeBot.component(ofType: WallComponent.self)?.isTriggered))")
         
-        
-        //PoliceBot has joined a wall, if not stand and wait
-//        if entity.isWall
-//        {
-            intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
-//        }
-        
+
+        intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
+
         
         //Ensure the WallComponent statemachine is started and updated.
         wallComponent.stateMachine.update(deltaTime: seconds)
