@@ -85,15 +85,19 @@ class PoliceBotInWallState: GKState
         print("PoliceBotInWallState didEnter: entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
 
         
-        // `movementComponent` is a computed property. Declare a local version so we don't compute it multiple times.
-        let movementComponent = self.movementComponent
+//        // `movementComponent` is a computed property. Declare a local version so we don't compute it multiple times.
+//        let movementComponent = self.movementComponent
+//
+//        // Move the `ManBot` towards the target at an increased speed.
+//        movementComponent.movementSpeed *= GameplayConfiguration.TaskBot.movementSpeedMultiplierWhenAttacking
+//        movementComponent.angularSpeed *= GameplayConfiguration.TaskBot.angularSpeedMultiplierWhenAttacking
+//
+////        movementComponent.nextTranslation = MovementKind(displacement: targetVector)
+//        movementComponent.nextRotation = nil
         
-        // Move the `ManBot` towards the target at an increased speed.
-        movementComponent.movementSpeed *= GameplayConfiguration.TaskBot.movementSpeedMultiplierWhenAttacking
-        movementComponent.angularSpeed *= GameplayConfiguration.TaskBot.angularSpeedMultiplierWhenAttacking
+        //When TaskBot has joined wall, move TaskBot to the side of the joined TaskBot.  (How do we know which side to put it on?  Always position to the right maybe?
         
-//        movementComponent.nextTranslation = MovementKind(displacement: targetVector)
-        movementComponent.nextRotation = nil
+
     }
     
     override func update(deltaTime seconds: TimeInterval)
@@ -103,6 +107,9 @@ class PoliceBotInWallState: GKState
         
         print("PoliceBotInWallState: \(elapsedTime.description), entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered))")
 
+        
+
+        
         
         //Ensure PoliceBot orientated in the correct direction
         
@@ -161,14 +168,14 @@ class PoliceBotInWallState: GKState
     {
         super.willExit(to: nextState)
         
-        // `movementComponent` is a computed property. Declare a local version so we don't compute it multiple times.
-        let movementComponent = self.movementComponent
-        
-        // Stop the `ManBot`'s movement and restore its standard movement speed.
-        movementComponent.nextRotation = nil
-        movementComponent.nextTranslation = nil
-        movementComponent.movementSpeed /= GameplayConfiguration.TaskBot.movementSpeedMultiplierWhenAttacking
-        movementComponent.angularSpeed /= GameplayConfiguration.TaskBot.angularSpeedMultiplierWhenAttacking
+//        // `movementComponent` is a computed property. Declare a local version so we don't compute it multiple times.
+//        let movementComponent = self.movementComponent
+//
+//        // Stop the `ManBot`'s movement and restore its standard movement speed.
+//        movementComponent.nextRotation = nil
+//        movementComponent.nextTranslation = nil
+//        movementComponent.movementSpeed /= GameplayConfiguration.TaskBot.movementSpeedMultiplierWhenAttacking
+//        movementComponent.angularSpeed /= GameplayConfiguration.TaskBot.angularSpeedMultiplierWhenAttacking
     }
     
     // MARK: Convenience
