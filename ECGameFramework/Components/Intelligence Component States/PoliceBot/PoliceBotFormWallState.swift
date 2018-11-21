@@ -78,22 +78,7 @@ class PoliceBotFormWallState: GKState
         print("PoliceBotFormWallState: \(elapsedTime.description), entity: \(policeBot.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(policeBot.isWall), requestWall: \(policeBot.requestWall), isSupporting: \(policeBot.isSupporting), wallComponentisTriggered: \(String(describing: policeBot.component(ofType: WallComponent.self)?.isTriggered))")
 
         
-        //If PoliceBot has not made a connection within 5 seconds, disable the WallComponent
-        if elapsedTime > 5.0
-        {
-            print("PoliceBotFormWallState update elapsedTime expired, WallComponent.isTriggered = false")
-            wallComponent.isTriggered = false
-        }
-        
-        //Should only move into this state when Taskbots are connected
-        if policeBot.isWall
-        {
-            intelligenceComponent.stateMachine.enter(PoliceBotInWallState.self)
-        }
-        else
-        {
-            intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
-        }
+        intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
         
         
         //Ensure the WallComponent statemachine is started and updated.
