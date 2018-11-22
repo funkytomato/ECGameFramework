@@ -562,19 +562,24 @@ struct GameplayConfiguration
         //MARK: Wall Flocking Properties
 
         // Separation, alignment, and cohesion parameters for multiple `TaskBot`s.
+        // The radius is the affected proximity around the agent towards other taskbots
+        
+        //Separation is the behavior that causes an agent to steer away from all of its neighbors.
         static let separationRadius: Float = 60.0
         static let separationAngle = Float (3 * Double.pi / 4)
         static let separationWeight: Float = 2.0
         
-        static let alignmentRadius: Float = 180.0
+        //Alignment is a behavior that causes a particular agent to line up with agents close by.
+        static let alignmentRadius: Float = 500.0
         static let alignmentAngle = Float(Double.pi / 4)
-        static let alignmentWeight: Float = 1.667
+        static let alignmentWeight: Float = 2.0
         
-        static let cohesionRadius: Float = 60.0
-        static let cohesionAngle = Float(Double.pi / 2)
-        static let cohesionWeight: Float = 1.667
+        //Cohesion is a behavior that causes agents to steer towards the "center of mass" - that is, the average position of the agents within a certain radius.
+        static let cohesionRadius: Float = 500.0
+        static let cohesionAngle = Float(Double.pi / 4)
+        static let cohesionWeight: Float = 0.1
 
-        
+        static let agentSearchDistanceForFlocking: Float = 500.0
         
         //MARK: Health Properties
         
