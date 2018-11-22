@@ -267,6 +267,23 @@ class TaskBotBehavior: GKBehavior
 //        behavior.addWanderGoal(forScene: scene)
       
         
+        // Find any nearby "police" creating wall TaskBots to flock with.
+        let agentsToFlockWith: [GKAgent2D] = scene.entities.compactMap { entity in
+            if let taskBot = entity as? PoliceBot, taskBot.isSupporting && taskBot.agent !== agent && taskBot.distanceToAgent(otherAgent: agent) <= GameplayConfiguration.PoliceBot.agentSearchDistanceForFlocking
+            {
+                return taskBot.agent
+            }
+            
+            return nil
+        }
+        
+        if !agentsToFlockWith.isEmpty
+        {
+            let cohesionGoal = GKGoal(toCohereWith: agentsToFlockWith, maxDistance: GameplayConfiguration.PoliceBot.cohesionRadius, maxAngle: GameplayConfiguration.PoliceBot.cohesionAngle)
+            behavior.setWeight(GameplayConfiguration.Flocking.cohesionWeight, for: cohesionGoal)
+        }
+        
+        
         // Add goals to follow a calculated path from the `TaskBot` to its target.
         let pathPoints = behavior.addGoalsToFollowPath(from: agent.position, to: target.position, pathRadius: pathRadius, inScene: scene)
 //        let pathPoints = behavior.addGoalsToFollowPath(from: agent.position, to: target.position, pathRadius: pathRadius, inScene: scene)
@@ -287,7 +304,6 @@ class TaskBotBehavior: GKBehavior
         
         let policeBot = agent.entity as? PoliceBot
         
-//        print("inWallBehaviour \(agent.description) hunting: \(target.description) scene: \(scene.description)")
         print("TaskBotBehaviour inWallbehaviour:- entity: \(policeBot.debugDescription), Current behaviour mandate: \(policeBot?.mandate), isWall: \(policeBot?.isWall), requestWall: \(policeBot?.requestWall), isSupporting: \(policeBot?.isSupporting), wallComponentisTriggered: \(String(describing: policeBot?.component(ofType: WallComponent.self)?.isTriggered))")
 
         
@@ -315,16 +331,10 @@ class TaskBotBehavior: GKBehavior
         {
             //print("arrestedBehaviour - agents are flocking \(agentsToFlockWith.description)")
             
-            
-            // Add flocking goals for any nearby "bad" `TaskBot`s.
-//            let separationGoal = GKGoal(toSeparateFrom: agentsToFlockWith, maxDistance: GameplayConfiguration.PoliceBot.separationRadius, maxAngle: GameplayConfiguration.PoliceBot.separationAngle)
-//            behavior.setWeight(GameplayConfiguration.Flocking.separationWeight, for: separationGoal)
-            
-            let alignmentGoal = GKGoal(toAlignWith: agentsToFlockWith, maxDistance: GameplayConfiguration.PoliceBot.alignmentRadius, maxAngle: Float(Double.pi / 2))
+            //Make the Taskbots align with each other (resemble a wall)
+            let alignmentGoal = GKGoal(toAlignWith: agentsToFlockWith, maxDistance: GameplayConfiguration.PoliceBot.alignmentRadius, maxAngle: GameplayConfiguration.PoliceBot.alignmentAngle)
             behavior.setWeight(GameplayConfiguration.Flocking.alignmentWeight, for: alignmentGoal)
             
-//            let cohesionGoal = GKGoal(toCohereWith: agentsToFlockWith, maxDistance: GameplayConfiguration.PoliceBot.cohesionRadius, maxAngle: Float(Double.pi / 2))
-//            behavior.setWeight(GameplayConfiguration.Flocking.cohesionWeight, for: cohesionGoal)
         }
 
         
@@ -332,7 +342,9 @@ class TaskBotBehavior: GKBehavior
         // WE DON"T NEED THIS
         // Add goals to follow a calculated path from the `TaskBot` to its target.  The WallComponent states will move the TaskBot
 //        let pathPoints = behavior.addGoalsToFollowPath(from: agent.position, to: agent.position, pathRadius: 100.0, inScene: scene)
-        let pathPoints = behavior.addGoalsToFollowPath(from: agent.position, to: target, pathRadius: 500.0, inScene: scene)
+//        let pathRadius = Float(agentsToFlockWith.count) * 50.0
+//        print("pathRadius: \(pathRadius.description)")
+        let pathPoints = behavior.addGoalsToFollowPath(from: agent.position, to: target, pathRadius: 1000.0, inScene: scene)
 //        let pathPoints = behavior.addGoalsToFollowPath(from: agent.position, to: scene.endWallLocation(), pathRadius: 500.0, inScene: scene)
         
         
