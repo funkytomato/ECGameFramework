@@ -207,7 +207,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         didSet
         {
             //TaskBot has one or more arms available for linking to
-            print("Connections: \(connections.description)")
+//            print("Connections: \(connections.description)")
             switch connections
             {
                 case 2:
@@ -313,7 +313,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         var debugPathShouldCycle = false
         let debugColor: SKColor
     
-        print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//        print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
         switch mandate
         {
             // PoliceBots need support
@@ -1164,7 +1164,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         
         //MARK:- Define TaskBot mandates
         
-        print("TaskBot: ruleComponent: - entity: \(self.debugDescription), Current behaviour mandate: \(self.mandate), isWall: \(self.isWall), requestWall: \(self.requestWall), isSupporting: \(self.isSupporting), wallComponentisTriggered: \(String(describing: self.component(ofType: WallComponent.self)?.isTriggered))")
+//        print("TaskBot: ruleComponent: - entity: \(self.debugDescription), Current behaviour mandate: \(self.mandate), isWall: \(self.isWall), requestWall: \(self.requestWall), isSupporting: \(self.isSupporting), wallComponentisTriggered: \(String(describing: self.component(ofType: WallComponent.self)?.isTriggered))")
         
         if self.isPlayerControlled
         {
@@ -1307,7 +1307,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
 //            print("PoliceBot is inWall - targetProtestor: \(targetProtestor))")
 //            mandate = .inWall(targetProtestor)
             
-            print("TaskBot rulesComponent inWall :- \(self.debugDescription), isWall: \(self.isWall), requestsWall: \(self.requestWall), supporting :- \(self.isSupporting)")
+//            print("TaskBot rulesComponent inWall :- \(self.debugDescription), isWall: \(self.isWall), requestsWall: \(self.requestWall), supporting :- \(self.isSupporting)")
             guard let scene = self.component(ofType: RenderComponent.self)?.node.scene as? LevelScene else { return }
             let endWallLocation = scene.endWallLocation()
             mandate = .inWall(endWallLocation)

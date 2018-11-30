@@ -380,7 +380,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
         // 1) Check if enough time has passed since the `PoliceBot`'s last attack.
         guard agentControlledState.elapsedTime >= GameplayConfiguration.TaskBot.delayBetweenAttacks else { return }
         
-        print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//        print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
         
         //Check the current mandate and set the appropriate values
         switch mandate
@@ -426,7 +426,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
             
             //Police have been triggered to create a wall
             case .initateWall:
-                print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
             
                 intelligenceComponent.stateMachine.enter(PoliceBotInitateWallState.self)
             
@@ -434,7 +434,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
             
             //Police are forming a wall, the targetAgent is the PoliceBot initiating the wall
             case let .formWall(targetAgent):
-                print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
+//                print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
                 
                 
                 //When Police get within proximity of the Police leader, switch on the entities wall component
@@ -449,15 +449,15 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
             
             //Police are in the wall and the target is the nearest Protestor
             case let .inWall(targetAgent):
-                print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate), target Position: \(targetPosition)")
+//                print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate), target Position: \(targetPosition)")
 
                 //When Police get within proximity of the destination, disband from the wall
-                if self.distanceToPoint(otherPoint: targetAgent) <= 100.0
-                {
-                    print("Destination reached")
-                    
-                    self.component(ofType: WallComponent.self)?.isTriggered = false     //fry
-                }
+//                if self.distanceToPoint(otherPoint: targetAgent) <= 100.0
+//                {
+//                    print("PoliceBot rulesComponent :- Destination reached \(self.debugDescription)")
+//                    
+//                    self.component(ofType: WallComponent.self)?.isTriggered = false     //fry
+//                }
             
                 //The WallComponent trigger should be set before moving into PoliceBotInWallState
                 intelligenceComponent.stateMachine.enter(PoliceBotInWallState.self)
@@ -480,7 +480,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
                 // If PoliceBot nears CreateWall location, and has not already requested a wall, and is not already supporting another PoliceBot, then initiate wall formation
                 if self.distanceToPoint(otherPoint: wallTriggerLocation) <= 150.0
                 {
-                    print("PoliceBot close proximity to CreateWall node, entity: \(self.debugDescription)")
+//                    print("PoliceBot close proximity to CreateWall node, entity: \(self.debugDescription)")
                     self.requestWall = true
                     self.mandate = .initateWall
                 }
@@ -488,7 +488,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
                 // If Police nears EndWall locstion, and has not already disbanded, reset the WallComponent trigger, and move into wander state
                 else if self.distanceToPoint(otherPoint: wallFinishLocation) <= 150.0
                 {
-                    print("PoliceBot close proximity to EndWall node, entity: \(self.debugDescription)")
+//                    print("PoliceBot close proximity to EndWall node, entity: \(self.debugDescription)")
                     self.requestWall = false
                     self.component(ofType: WallComponent.self)?.isTriggered = false
                     self.mandate = .wander
