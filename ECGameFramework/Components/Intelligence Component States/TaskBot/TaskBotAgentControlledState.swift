@@ -81,7 +81,7 @@ class TaskBotAgentControlledState: GKState
         elapsedTime += seconds
         
         
-        print("TaskBotAgentControlledState update:- \(elapsedTime.description), entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered)), connections: \(entity.connections)")
+//        print("TaskBotAgentControlledState update:- \(elapsedTime.description), entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(entity.isWall), requestWall: \(entity.requestWall), isSupporting: \(entity.isSupporting), wallComponentisTriggered: \(String(describing: entity.component(ofType: WallComponent.self)?.isTriggered)), connections: \(entity.connections)")
 
         
         
@@ -193,7 +193,7 @@ class TaskBotAgentControlledState: GKState
                 
                 case .wander:
                     
-                    print("TaskBotAgentControlledState update: wander")
+//                    print("TaskBotAgentControlledState update: wander")
 //                    entity.mandate = .wander
                     
 //                    guard let protestor = entity as? ProtestorBot else { return }
@@ -216,7 +216,7 @@ class TaskBotAgentControlledState: GKState
                 case .initateWall:
                 
                     guard let policeBot = entity as? PoliceBot else { return }
-                    print("TaskBotAgentControlledState: entity: \(policeBot.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(policeBot.isWall), requestWall: \(policeBot.requestWall), isSupporting: \(policeBot.isSupporting), wallComponentisTriggered: \(String(describing: policeBot.component(ofType: WallComponent.self)?.isTriggered)), position: \(policeBot.agent.position)")
+//                    print("TaskBotAgentControlledState: entity: \(policeBot.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(policeBot.isWall), requestWall: \(policeBot.requestWall), isSupporting: \(policeBot.isSupporting), wallComponentisTriggered: \(String(describing: policeBot.component(ofType: WallComponent.self)?.isTriggered)), position: \(policeBot.agent.position)")
                 
                     //If Police are not already supporting another, create the wall
 //                    if !policeBot.isSupporting
@@ -230,11 +230,11 @@ class TaskBotAgentControlledState: GKState
                 
                 case let .formWall(target):
                     
-                    print("TaskBotAgentControlledState update formWall target location:\(target.position)")
+//                    print("TaskBotAgentControlledState update formWall target location:\(target.position)")
 
                     
                     guard let policeBot = entity as? PoliceBot else { return }
-                    print("TaskBotAgentControlledState: entity: \(policeBot.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(policeBot.isWall), requestWall: \(policeBot.requestWall), isSupporting: \(policeBot.isSupporting), wallComponentisTriggered: \(String(describing: policeBot.component(ofType: WallComponent.self)?.isTriggered)), position: \(policeBot.agent.position), target: \(target.position)")
+//                    print("TaskBotAgentControlledState: entity: \(policeBot.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(policeBot.isWall), requestWall: \(policeBot.requestWall), isSupporting: \(policeBot.isSupporting), wallComponentisTriggered: \(String(describing: policeBot.component(ofType: WallComponent.self)?.isTriggered)), position: \(policeBot.agent.position), target: \(target.position)")
                     
                     
                     //When Police get within proximity of the Police leader, switch on the entities wall component
@@ -252,13 +252,13 @@ class TaskBotAgentControlledState: GKState
                 case let .inWall(target):
                     
                     guard let policeBot = entity as? PoliceBot else { return }
-                    print("TaskBotAgentControlledState: entity: \(policeBot.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(policeBot.isWall), requestWall: \(policeBot.requestWall), isSupporting: \(policeBot.isSupporting), wallComponentisTriggered: \(String(describing: policeBot.component(ofType: WallComponent.self)?.isTriggered)), position: \(policeBot.agent.position), target: \(target)")
+//                    print("TaskBotAgentControlledState: entity: \(policeBot.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(policeBot.isWall), requestWall: \(policeBot.requestWall), isSupporting: \(policeBot.isSupporting), wallComponentisTriggered: \(String(describing: policeBot.component(ofType: WallComponent.self)?.isTriggered)), position: \(policeBot.agent.position), target: \(target)")
                     
                     
                     //When Police get within proximity of the destination, disband from the wall
                     if entity.distanceToPoint(otherPoint: target) <= 100.0
                     {
-                        print("Destination reached")
+                        print("TaskBotAgentControlledState update:- Destination reached \(entity.debugDescription)")
                         
                         entity.component(ofType: WallComponent.self)?.isTriggered = false     //fry
 //                        entity.mandate = .wander
