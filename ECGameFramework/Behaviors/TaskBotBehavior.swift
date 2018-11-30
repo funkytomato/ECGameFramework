@@ -228,7 +228,7 @@ class TaskBotBehavior: GKBehavior
     // PoliceBot initates building a wall and moves the Police leader to the createWallLocation
     static func initiateWallBehaviour(forAgent agent: GKAgent2D, startLocation: float2, pathRadius: Float, inScene scene: LevelScene) -> (behaviour: GKBehavior, pathPoints: [CGPoint])
     {
-        print("initiateWallBehaviour \(agent.description) scene: \(scene.description)")
+//        print("initiateWallBehaviour \(agent.description) scene: \(scene.description)")
         
         let behavior = TaskBotBehavior()
         
@@ -304,7 +304,7 @@ class TaskBotBehavior: GKBehavior
         
         let policeBot = agent.entity as? PoliceBot
         
-        print("TaskBotBehaviour inWallbehaviour:- entity: \(policeBot.debugDescription), Current behaviour mandate: \(policeBot?.mandate), isWall: \(policeBot?.isWall), requestWall: \(policeBot?.requestWall), isSupporting: \(policeBot?.isSupporting), wallComponentisTriggered: \(String(describing: policeBot?.component(ofType: WallComponent.self)?.isTriggered))")
+//        print("TaskBotBehaviour inWallbehaviour:- entity: \(policeBot.debugDescription), Current behaviour mandate: \(policeBot?.mandate), isWall: \(policeBot?.isWall), requestWall: \(policeBot?.requestWall), isSupporting: \(policeBot?.isSupporting), wallComponentisTriggered: \(String(describing: policeBot?.component(ofType: WallComponent.self)?.isTriggered))")
 
         
         
