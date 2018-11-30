@@ -58,7 +58,7 @@ class PoliceBotInitateWallState: GKState
         elapsedTime = 0.0
         
         guard let policeBot = entity as? PoliceBot else { return }
-        print("PoliceBotInitateWallState entered :\(policeBot.debugDescription)")
+//        print("PoliceBotInitateWallState entered :\(policeBot.debugDescription)")
         
         entity.isRingLeader = true
         entity.requestWall = true
@@ -77,7 +77,7 @@ class PoliceBotInitateWallState: GKState
         //        guard let wallComponent = entity.component(ofType: WallComponent.self) else { return }
         guard let policeBot = entity as? PoliceBot else { return }
         
-        print("PoliceBotInitateWallState: \(elapsedTime.description), entity: \(policeBot.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(policeBot.isWall), requestWall: \(policeBot.requestWall), isSupporting: \(policeBot.isSupporting), wallComponentisTriggered: \(String(describing: policeBot.component(ofType: WallComponent.self)?.isTriggered))")
+//        print("PoliceBotInitateWallState: \(elapsedTime.description), entity: \(policeBot.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(policeBot.isWall), requestWall: \(policeBot.requestWall), isSupporting: \(policeBot.isSupporting), wallComponentisTriggered: \(String(describing: policeBot.component(ofType: WallComponent.self)?.isTriggered))")
         
 
         intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
