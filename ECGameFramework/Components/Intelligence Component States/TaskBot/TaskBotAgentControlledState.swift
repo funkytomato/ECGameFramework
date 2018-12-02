@@ -89,18 +89,6 @@ class TaskBotAgentControlledState: GKState
         if timeSinceBehaviorUpdate >= GameplayConfiguration.TaskBot.behaviorUpdateWaitDuration
         {
             
-//            // If PoliceBot nears CreateWall location, and has not already requested a wall, and is not already supporting another PoliceBot, then initiate wall formation
-//            if self.entity.isPolice && !self.entity.requestWall && !self.entity.isSupporting &&
-//                entity.distanceToPoint(otherPoint: destination) <= 150.0 && elapsedTime > 2.0
-//            {
-//                print("PoliceBot close proximity to CreateWall node, entity: \(entity.debugDescription)")
-//                self.entity.requestWall = true
-//
-//                
-//                entity.mandate = .initateWall
-//            }
-            
-            
             //Gradually increase the Police resistance
             if self.entity.isPolice,
                 let resistanceComponent = entity.component(ofType: ResistanceComponent.self)
@@ -194,11 +182,6 @@ class TaskBotAgentControlledState: GKState
                 case .wander:
                     
 //                    print("TaskBotAgentControlledState update: wander")
-//                    entity.mandate = .wander
-                    
-//                    guard let protestor = entity as? ProtestorBot else { return }
-//                    print("TaskbotAgentControlledState wander mandate:- \(protestor.debugDescription), Protestor position: \(protestor.agent.position)")
-                    
                     entity.mandate = .wander
                     
                     break
@@ -215,44 +198,26 @@ class TaskBotAgentControlledState: GKState
 
                 case .initateWall:
                 
-                    guard let policeBot = entity as? PoliceBot else { return }
-//                    print("TaskBotAgentControlledState: entity: \(policeBot.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(policeBot.isWall), requestWall: \(policeBot.requestWall), isSupporting: \(policeBot.isSupporting), wallComponentisTriggered: \(String(describing: policeBot.component(ofType: WallComponent.self)?.isTriggered)), position: \(policeBot.agent.position)")
-                
-                    //If Police are not already supporting another, create the wall
-//                    if !policeBot.isSupporting
-//                    {
-                    
-    //                    policeBot.component(ofType: WallComponent.self)?.isTriggered = true  //this is done in PoliceBotInitateWallState   //fry
+                    //guard let policeBot = entity as? PoliceBot else { return }
+                    //print("TaskBotAgentControlledState: entity: \(policeBot.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(policeBot.isWall), requestWall: \(policeBot.requestWall), isSupporting: \(policeBot.isSupporting), wallComponentisTriggered: \(String(describing: policeBot.component(ofType: WallComponent.self)?.isTriggered)), position: \(policeBot.agent.position)")
+            
                         entity.mandate = .initateWall
-//                    }
                     
                     break
                 
                 case let .formWall(target):
                     
-//                    print("TaskBotAgentControlledState update formWall target location:\(target.position)")
-
-                    
-                    guard let policeBot = entity as? PoliceBot else { return }
-//                    print("TaskBotAgentControlledState: entity: \(policeBot.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(policeBot.isWall), requestWall: \(policeBot.requestWall), isSupporting: \(policeBot.isSupporting), wallComponentisTriggered: \(String(describing: policeBot.component(ofType: WallComponent.self)?.isTriggered)), position: \(policeBot.agent.position), target: \(target.position)")
+                    //guard let policeBot = entity as? PoliceBot else { return }
+                    //print("TaskBotAgentControlledState: entity: \(policeBot.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(policeBot.isWall), requestWall: \(policeBot.requestWall), isSupporting: \(policeBot.isSupporting), wallComponentisTriggered: \(String(describing: policeBot.component(ofType: WallComponent.self)?.isTriggered)), position: \(policeBot.agent.position), target: \(target.position)")
                     
                     
-                    //When Police get within proximity of the Police leader, switch on the entities wall component
-//                    if entity.distanceToPoint(otherPoint: target.position) <= 150.0
-//                    {
-////                        print("Forming wall")
-//
-//                        entity.component(ofType: WallComponent.self)?.isTriggered = true     //fry
-////                        entity.mandate = entity.isGood ? .followGoodPatrolPath : .followBadPatrolPath
-////                        entity.mandate = .formWall(target)
-//                    }
                     break
                 
                 // When a `TaskBot` is in wall, do some shit...
                 case let .inWall(target):
                     
-                    guard let policeBot = entity as? PoliceBot else { return }
-//                    print("TaskBotAgentControlledState: entity: \(policeBot.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(policeBot.isWall), requestWall: \(policeBot.requestWall), isSupporting: \(policeBot.isSupporting), wallComponentisTriggered: \(String(describing: policeBot.component(ofType: WallComponent.self)?.isTriggered)), position: \(policeBot.agent.position), target: \(target)")
+                    //guard let policeBot = entity as? PoliceBot else { return }
+                    //print("TaskBotAgentControlledState: entity: \(policeBot.debugDescription), Current behaviour mandate: \(entity.mandate), isWall: \(policeBot.isWall), requestWall: \(policeBot.requestWall), isSupporting: \(policeBot.isSupporting), wallComponentisTriggered: \(String(describing: policeBot.component(ofType: WallComponent.self)?.isTriggered)), position: \(policeBot.agent.position), target: \(target)")
                     
                     
                     //When Police get within proximity of the destination, disband from the wall
@@ -261,7 +226,6 @@ class TaskBotAgentControlledState: GKState
                         print("TaskBotAgentControlledState update:- Destination reached \(entity.debugDescription)")
                         
                         entity.component(ofType: WallComponent.self)?.isTriggered = false     //fry
-//                        entity.mandate = .wander
                         entity.mandate = entity.isGood ? .followGoodPatrolPath : .followBadPatrolPath
                     }
                     
@@ -274,7 +238,7 @@ class TaskBotAgentControlledState: GKState
                     break
             }
             
-//            print("entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isArrested: \(entity.isArrested), elapsedTime: \(elapsedTime.debugDescription), distanceToPoint: \(entity.distanceToPoint(otherPoint: oldPosition))")
+            //print("entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), isArrested: \(entity.isArrested), elapsedTime: \(elapsedTime.debugDescription), distanceToPoint: \(entity.distanceToPoint(otherPoint: oldPosition))")
             
             //Check if taskbot has stayed in same position for long time, e.g. stuck in corner.  Move Taskbot away from current position
             if entity.distanceToPoint(otherPoint: oldPosition) <= 10.0 && elapsedTime >= 15.0 && !entity.isArrested
@@ -284,12 +248,12 @@ class TaskBotAgentControlledState: GKState
             
             guard let taskBot = entity as? TaskBot else { return }
             oldPosition = taskBot.agent.position
-//            print("taskbot oldPosition: \(oldPosition.debugDescription)")
+            //print("taskbot oldPosition: \(oldPosition.debugDescription)")
             
             // Ensure the agent's behavior is the appropriate behavior for its current mandate.
             entity.agent.behavior = entity.behaviorForCurrentMandate
             
-//            print("entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), entity.behaviorForCurrentMandate: \(entity.behaviorForCurrentMandate)")
+            //print("entity: \(entity.debugDescription), Current behaviour mandate: \(entity.mandate), entity.behaviorForCurrentMandate: \(entity.behaviorForCurrentMandate)")
             
             // Reset `timeSinceBehaviorUpdate`, to delay when the entity's behavior is next updated.
             timeSinceBehaviorUpdate = 0.0
