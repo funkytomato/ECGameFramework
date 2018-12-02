@@ -316,47 +316,6 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
     {
         super.contactWithEntityDidBegin(entity)
         
-//        if self.isWall
-//        {
-//            
-//            
-//        }
-//        else
-//        {
-//            guard let physicsComponent = entity.component(ofType: PhysicsComponent.self) else { return }
-//            let contactedBodies = physicsComponent.physicsBody.allContactedBodies()
-//            for contactedBody in contactedBodies
-//            {
-//                guard let entity = contactedBody.node?.entity else { continue }
-//                guard let targetBot = entity as? PoliceBot else { break }
-//                
-//                //Police must have less than 2 connections, be the wall initator, and touching another PoliceBot that has available connections
-//                if self.isPolice && self.connections < 2 && self.requestWall &&
-//                    targetBot.isPolice && targetBot.connections < 2
-//                {
-//                    //Check other PoliceBot is not in wall.
-//                    
-//                    let policeBotB = entity as? PoliceBot
-//                    if /*!policeBotB!.isWall && */policeBotB!.connections < 2
-//                    {
-//                        
-//                        //Connect the two Taskbots together like a rope if forming a wall
-//                        guard let intelligenceComponent = self.component(ofType: IntelligenceComponent.self) else { return }
-//    //                    guard ((intelligenceComponent.stateMachine.currentState as? PoliceBotFormWallState) == nil) else { return }
-//                        guard let jointComponent = self.component(ofType: JointComponent.self) else { return }
-//
-//                        self.component(ofType: WallComponent.self)?.isTriggered = true    //fry
-//                        entity.component(ofType: WallComponent.self)?.isTriggered = true
-//                        
-//                        guard let policeBot = entity as? PoliceBot else { return }
-//                        if !jointComponent.isTriggered && policeBot.isPolice
-//                        {
-//                            jointComponent.makeJointWith(targetEntity: policeBotB!)
-//                        }
-//                    }
-//                }
-//            }
-//        }
         
         //If touching entity is attacking, start the arresting process
         //print("PoliceBot currentState :\(entity.component(ofType: IntelligenceComponent.self)?.stateMachine.currentState.debugDescription)")
@@ -452,16 +411,21 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
 //                print("PoliceBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate), target Position: \(targetPosition)")
 
                 //When Police get within proximity of the destination, disband from the wall
-//                if self.distanceToPoint(otherPoint: targetAgent) <= 100.0
-//                {
-//                    print("PoliceBot rulesComponent :- Destination reached \(self.debugDescription)")
-//                    
+                if self.distanceToPoint(otherPoint: targetAgent) <= 100.0
+                {
+                    print("PoliceBot rulesComponent :- Destination reached \(self.debugDescription)")
+                    
 //                    self.component(ofType: WallComponent.self)?.isTriggered = false     //fry
-//                }
+                    
+                    intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
+                }
+                else
+                {
             
-                //The WallComponent trigger should be set before moving into PoliceBotInWallState
-                intelligenceComponent.stateMachine.enter(PoliceBotInWallState.self)
-                targetPosition = targetAgent
+                    //The WallComponent trigger should be set before moving into PoliceBotInWallState
+                    intelligenceComponent.stateMachine.enter(PoliceBotInWallState.self)
+                    targetPosition = targetAgent
+                }
             
             //Police are scared, run away from targetAgent
             case let .fleeAgent(targetAgent):
@@ -493,10 +457,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
                     self.component(ofType: WallComponent.self)?.isTriggered = false
                     self.mandate = .wander
                 }
-                
-//                self.isRingLeader = false
-//                self.isSupporting = false
-//                self.requestWall = false
+
                 break
             
             default:
