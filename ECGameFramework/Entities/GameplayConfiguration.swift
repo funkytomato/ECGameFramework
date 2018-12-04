@@ -565,21 +565,43 @@ struct GameplayConfiguration
         // The radius is the affected proximity around the agent towards other taskbots
         
         //Separation is the behavior that causes an agent to steer away from all of its neighbors.
-        static let separationRadius: Float = 60.0
-        static let separationAngle = Float (3 * Double.pi / 4)
-        static let separationWeight: Float = 2.0
+        static let wallSeparationRadius: Float = 60.0
+        static let wallSeparationAngle = Float (3 * Double.pi / 4)
+        static let wallSeparationWeight: Float = 2.0
         
         //Alignment is a behavior that causes a particular agent to line up with agents close by.
-        static let alignmentRadius: Float = 500.0
-        static let alignmentAngle = Float(Double.pi / 4)
-        static let alignmentWeight: Float = 2.0
+        static let wallAlignmentRadius: Float = 500.0
+        static let wallAlignmentAngle = Float(Double.pi / 4)
+        static let wallAlignmentWeight: Float = 2.0
         
         //Cohesion is a behavior that causes agents to steer towards the "center of mass" - that is, the average position of the agents within a certain radius.
-        static let cohesionRadius: Float = 500.0
-        static let cohesionAngle = Float(Double.pi / 4)
-        static let cohesionWeight: Float = 0.1
+        static let wallCohesionRadius: Float = 500.0
+        static let wallCohesionAngle = Float(Double.pi / 4)
+        static let wallCohesionWeight: Float = 0.1
 
-        static let agentSearchDistanceForFlocking: Float = 500.0
+        static let agentSearchDistanceForWall: Float = 500.0
+        
+        
+        //MARK: Support Flocking Properties
+        
+        // Separation, alignment, and cohesion parameters for multiple `TaskBot`s.
+        // The radius is the affected proximity around the agent towards other taskbots
+        
+        //Separation is the behavior that causes an agent to steer away from all of its neighbors.
+        static let supportSeparationRadius: Float = 60.0
+        static let supportSeparationAngle = Float (3 * Double.pi / 4)
+        static let supportSeparationWeight: Float = 2.0
+        
+        //Alignment is a behavior that causes a particular agent to line up with agents close by.
+        static let supportAlignmentRadius: Float = 500.0
+        static let supportAlignmentAngle = Float(Double.pi / 4)
+        static let supportAlignmentWeight: Float = 2.0
+        
+        //Cohesion is a behavior that causes agents to steer towards the "center of mass" - that is, the average position of the agents within a certain radius.
+        static let supportCohesionRadius: Float = 500.0
+        static let supportCohesionAngle = Float(Double.pi / 4)
+        static let supportCohesionWeight: Float = 0.1
+        
         
         //MARK: Health Properties
         
