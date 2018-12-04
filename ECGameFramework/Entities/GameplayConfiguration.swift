@@ -485,7 +485,7 @@ struct GameplayConfiguration
         static let resistanceCooldownDuration: TimeInterval = 5
         
         /// How close a `TaskBot` has to be to meatwagon point in order to be locked up
-        static let thresholdProximityToMeatwagonPoint: Float = 50.0
+        static let thresholdProximityToMeatwagonPoint: Float = 150.0
         
         
         //MARK: Attack Properties
