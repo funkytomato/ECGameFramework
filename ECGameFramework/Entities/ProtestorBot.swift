@@ -427,7 +427,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         guard agentControlledState.elapsedTime >= GameplayConfiguration.TaskBot.delayBetweenAttacks else { return }
 
         
-//        print("ProtestorBot: rulesComponent:- mandate \(mandate), state: \(intelligenceComponent.stateMachine.currentState.debugDescription)")
+        print("ProtestorBot: rulesComponent:- mandate \(mandate), state: \(intelligenceComponent.stateMachine.currentState.debugDescription)")
 
 
         switch mandate
@@ -510,10 +510,11 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
                 break
             
             case .lockupPrisoner:
-                break
+ 
 //                print("ProtestorBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
             
 //                intelligenceComponent.stateMachine.enter(TaskBotAgentControlledState.self)
+                break
             
             case let .fleeAgent(targetAgent):
                 
