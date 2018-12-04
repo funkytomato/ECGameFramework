@@ -323,7 +323,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
                 
                 radius = GameplayConfiguration.TaskBot.huntPathRadius
                 (agentBehavior, debugPathPoints) = TaskBotBehavior.supportBehaviour(forAgent: agent, huntingAgent: target, pathRadius: radius, inScene: levelScene)
-                debugColor = SKColor.orange
+                debugColor = SKColor.blue
             
             // PoliceBot is initiating a wall
             case .initateWall:
@@ -1331,7 +1331,7 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         else if self.isPolice && self.needsHelp && supportPoliceBotInTrouble > 0.5
         {
             //            print("Support another Police")
-            guard let supportPoliceBot = state.nearestPoliceTaskBotTarget?.target.agent else { return }
+            guard let supportPoliceBot = state.nearestPoliceTaskBotInTroubleTarget?.target.agent else { return }
             mandate = .supportPolice(supportPoliceBot)
             
             //            print("TaskBot: rulesComponent:- entity: \(self.debugDescription), mandate: \(mandate)")
