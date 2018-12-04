@@ -184,6 +184,7 @@ class BuyingWaresComponent: GKComponent
                 
                 case is BuyingWaresReturningHomeState:
                     animationComponent.requestedAnimationState = .idle
+                    break
                 
                 
                 default:
