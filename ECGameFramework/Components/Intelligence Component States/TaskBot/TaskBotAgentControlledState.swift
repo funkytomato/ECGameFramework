@@ -21,7 +21,10 @@ class TaskBotAgentControlledState: GKState
     // The amount of time that has passed since the `TaskBot` became agent-controlled.
     var elapsedTime: TimeInterval = 0.0
     
-    var destination: float2 = [0.0,0.0]
+//    var destination: float2 = [0.0,0.0]
+    
+//    var triggerWallLocation: float2 = [0.0,0.0]
+    var meatWagonLocation: float2 = [0.0,0.0]
     
     // The amount of time that has passed since the `TaskBot` last determined an appropriate behavior.
     var timeSinceBehaviorUpdate: TimeInterval = 0.0
@@ -63,13 +66,13 @@ class TaskBotAgentControlledState: GKState
             chargeComponent.addCharge(chargeToAdd: chargeToAdd)
         }
         
+///        guard let renderComponent = entity.component(ofType: RenderComponent.self) else { return }
+//        let scene = renderComponent.node.scene as? LevelScene
+//        self.triggerWallLocation = (scene?.createWallLocation())!
+        
         guard let renderComponent = entity.component(ofType: RenderComponent.self) else { return }
         let scene = renderComponent.node.scene as? LevelScene
-        self.destination = (scene?.createWallLocation())!
-        
-//        guard let renderComponent = entity.component(ofType: RenderComponent.self) else { return }
-//        let scene = renderComponent.node.scene as? LevelScene
-//        self.destination = (scene?.meatWagonLocation())!
+        self.meatWagonLocation = (scene?.meatWagonLocation())!
     }
     
     override func update(deltaTime seconds: TimeInterval)
@@ -132,7 +135,7 @@ class TaskBotAgentControlledState: GKState
                 // When a `TaskBot` is close to the meatwagon, it should be removed from game
                 case .lockupPrisoner:
  
-                    if entity.distanceToPoint(otherPoint: destination) <= GameplayConfiguration.TaskBot.thresholdProximityToMeatwagonPoint
+                    if entity.distanceToPoint(otherPoint: meatWagonLocation) <= GameplayConfiguration.TaskBot.thresholdProximityToMeatwagonPoint
                     {
                         guard let intelligenceComponent = entity.component(ofType: IntelligenceComponent.self) else { return }
                         intelligenceComponent.stateMachine.enter(ProtestorDetainedState.self)
@@ -232,9 +235,9 @@ class TaskBotAgentControlledState: GKState
                     break
                 
                 default:
-                    guard let protestor = entity as? ProtestorBot else { return }
+//                    guard let protestor = entity as? ProtestorBot else { return }
                     
-                    print("Protestor position: \(protestor.agent.position)")
+//                    print("Protestor position: \(protestor.agent.position)")
                     break
             }
             
