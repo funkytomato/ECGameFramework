@@ -155,6 +155,8 @@ class AppetiteComponent: GKComponent
     
     override func update(deltaTime seconds: TimeInterval)
     {
+        stateMachine.update(deltaTime: seconds)
+
         //Check Protestor is not fighting, confrontation, scared or injured
         guard ((intelligenceComponent.stateMachine.currentState as? ProtestorDetainedState) == nil) else { return }
         guard ((intelligenceComponent.stateMachine.currentState as? ProtestorArrestedState) == nil) else { return }
@@ -167,8 +169,6 @@ class AppetiteComponent: GKComponent
         guard ((intelligenceComponent.stateMachine.currentState as? TaskBotInjuredState) == nil) else { return }
         guard ((intelligenceComponent.stateMachine.currentState as? TaskBotFleeState) == nil) else { return }
 
-    
-        stateMachine.update(deltaTime: seconds)
         
 //        print("state: \(intelligenceComponent.stateMachine.currentState)")
         
