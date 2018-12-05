@@ -143,8 +143,8 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
         addComponent(orientationComponent)
         
         
-        let spriteComponent = SpriteComponent(entity: self, texture: texture, textureSize: CriminalBot.textureSize)
-        addComponent(spriteComponent)
+//        let spriteComponent = SpriteComponent(entity: self, texture: texture, textureSize: CriminalBot.textureSize)
+//        addComponent(spriteComponent)
         
         
         //let shadowComponent = ShadowComponent(texture: PoliceBot.shadowTexture, size: PoliceBot.shadowSize, offset: PoliceBot.shadowOffset)
@@ -203,7 +203,7 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
         renderComponent.node.physicsBody = physicsComponent.physicsBody
         
         // Connect the 'SpriteComponent' to the 'RenderComponent'
-        renderComponent.node.addChild(spriteComponent.node)
+//        renderComponent.node.addChild(spriteComponent.node)
         
         //print("scene:\(String(describing: renderComponent.node.scene?.description))")
         

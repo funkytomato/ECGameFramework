@@ -1707,7 +1707,10 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
     
     func stopAnimations()
     {
-        guard let spriteComponent = self.component(ofType: SpriteComponent.self) else { return }
-        spriteComponent.node.removeAllActions()
+        guard let animationComponent = self.component(ofType: AnimationComponent.self) else { return }
+        animationComponent.node.removeAllActions()
+        
+//        guard let spriteComponent = self.component(ofType: SpriteComponent.self) else { return }
+//        spriteComponent.node.removeAllActions()
     }
 }
