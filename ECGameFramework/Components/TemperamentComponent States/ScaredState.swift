@@ -27,11 +27,11 @@ class ScaredState: GKState
     
     
     /// The `SpriteComponent` associated with the `entity`.
-    var spriteComponent: SpriteComponent
-    {
-        guard let spriteComponent = temperamentComponent.entity?.component(ofType: SpriteComponent.self) else { fatalError("An entity's AngryState must have an AnimationComponent.") }
-        return spriteComponent
-    }
+//    var spriteComponent: SpriteComponent
+//    {
+//        guard let spriteComponent = temperamentComponent.entity?.component(ofType: SpriteComponent.self) else { fatalError("An entity's AngryState must have an AnimationComponent.") }
+//        return spriteComponent
+//    }
 
     
     //MARK:- Initializers

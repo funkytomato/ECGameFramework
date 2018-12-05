@@ -27,11 +27,11 @@ class SubduedState: GKState
 
     
     /// The `SpriteComponent` associated with the `entity`.
-    var spriteComponent: SpriteComponent
-    {
-        guard let spriteComponent = temperamentComponent.entity?.component(ofType: SpriteComponent.self) else { fatalError("An entity's AngryState must have an AnimationComponent.") }
-        return spriteComponent
-    }
+//    var spriteComponent: SpriteComponent
+//    {
+//        guard let spriteComponent = temperamentComponent.entity?.component(ofType: SpriteComponent.self) else { fatalError("An entity's AngryState must have an AnimationComponent.") }
+//        return spriteComponent
+//    }
     
     
     //MARK:- Initializers
@@ -56,7 +56,7 @@ class SubduedState: GKState
         elapsedTime = 0.0
         
         //Change the colour of the sprite to show subdued
-        spriteComponent.changeColour(colour: SKColor.darkGray)
+//        spriteComponent.changeColour(colour: SKColor.darkGray)
         
         //Set the entity to incapacitated for pathfinding
         guard let taskBot = temperamentComponent.entity as? TaskBot else { return }

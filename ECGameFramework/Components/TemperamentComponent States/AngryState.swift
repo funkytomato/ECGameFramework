@@ -27,11 +27,11 @@ class AngryState: GKState
     var elapsedTime: TimeInterval = 0.0
     
     /// The `SpriteComponent` associated with the `entity`.
-    var spriteComponent: SpriteComponent
-    {
-        guard let spriteComponent = temperamentComponent.entity?.component(ofType: SpriteComponent.self) else { fatalError("An entity's AngryState must have an AnimationComponent.") }
-        return spriteComponent
-    }
+//    var spriteComponent: SpriteComponent
+//    {
+//        guard let spriteComponent = temperamentComponent.entity?.component(ofType: SpriteComponent.self) else { fatalError("An entity's AngryState must have an AnimationComponent.") }
+//        return spriteComponent
+//    }
 
     //MARK:- Initializers
 //    required init(entity: TaskBot)

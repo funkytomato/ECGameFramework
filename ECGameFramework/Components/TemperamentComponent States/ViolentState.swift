@@ -29,11 +29,11 @@ class ViolentState: GKState
     let meatWagonCoordinate = float2(x: 0.0, y: 0.0)
     
     /// The `SpriteComponent` associated with the `entity`.
-    var spriteComponent: SpriteComponent
-    {
-        guard let spriteComponent = temperamentComponent.entity?.component(ofType: SpriteComponent.self) else { fatalError("An entity's ViolentState must have an AnimationComponent.") }
-        return spriteComponent
-    }
+//    var spriteComponent: SpriteComponent
+//    {
+//        guard let spriteComponent = temperamentComponent.entity?.component(ofType: SpriteComponent.self) else { fatalError("An entity's ViolentState must have an AnimationComponent.") }
+//        return spriteComponent
+//    }
     
     //MARK:- Initializers
 //    required init(entity: TaskBot)
