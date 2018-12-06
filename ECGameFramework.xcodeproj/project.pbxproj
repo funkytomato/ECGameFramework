@@ -222,6 +222,7 @@
 		C2DE204E214FE6FE0068EC36 /* ChargeState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2DE204D214FE6FE0068EC36 /* ChargeState.swift */; };
 		C2DE2050214FE72E0068EC36 /* MoveBackwardState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2DE204F214FE72E0068EC36 /* MoveBackwardState.swift */; };
 		C2DE2052214FE7550068EC36 /* RetreatState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2DE2051214FE7550068EC36 /* RetreatState.swift */; };
+		C2DF0F4421B9551500B9097A /* Elemen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2DF0F4321B9551500B9097A /* Elemen.swift */; };
 		C2EB3494209127CA00DCF457 /* TazerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EB3493209127CA00DCF457 /* TazerComponent.swift */; };
 		C2EB3497209129BD00DCF457 /* TazerCoolingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EB3496209129BD00DCF457 /* TazerCoolingState.swift */; };
 		C2EB349920912A9C00DCF457 /* TazerFiringState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EB349820912A9C00DCF457 /* TazerFiringState.swift */; };
@@ -466,6 +467,7 @@
 		C2DE204D214FE6FE0068EC36 /* ChargeState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChargeState.swift; sourceTree = "<group>"; };
 		C2DE204F214FE72E0068EC36 /* MoveBackwardState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveBackwardState.swift; sourceTree = "<group>"; };
 		C2DE2051214FE7550068EC36 /* RetreatState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetreatState.swift; sourceTree = "<group>"; };
+		C2DF0F4321B9551500B9097A /* Elemen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Elemen.swift; sourceTree = "<group>"; };
 		C2EB3493209127CA00DCF457 /* TazerComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TazerComponent.swift; sourceTree = "<group>"; };
 		C2EB3496209129BD00DCF457 /* TazerCoolingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TazerCoolingState.swift; sourceTree = "<group>"; };
 		C2EB349820912A9C00DCF457 /* TazerFiringState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TazerFiringState.swift; sourceTree = "<group>"; };
@@ -998,10 +1000,11 @@
 			children = (
 				18FCEA342040EC3F009A5C0D /* BeamNode.swift */,
 				18FCEA352040EC3F009A5C0D /* ButtonNode.swift */,
+				189183E520CC557D00DE0435 /* ColourBar.swift */,
+				C2DF0F4321B9551500B9097A /* Elemen.swift */,
 				18FCF8CC20CB0AB5000C1B63 /* InciteNode.swift */,
 				C2EB349C20913D3800DCF457 /* TazerNode.swift */,
 				18FCEA372040EC3F009A5C0D /* ThumbStickNode.swift */,
-				189183E520CC557D00DE0435 /* ColourBar.swift */,
 			);
 			path = Nodes;
 			sourceTree = "<group>";
@@ -1367,6 +1370,7 @@
 				181073692088E604001390EA /* PoliceBotRotateToAttackState.swift in Sources */,
 				181146BF20DEC0D80060EF0A /* AppetiteConsumingState.swift in Sources */,
 				181146B320DEBDB70060EF0A /* ObserveComponent.swift in Sources */,
+				C2DF0F4421B9551500B9097A /* Elemen.swift in Sources */,
 				187522262153F7C10081C7F2 /* PoliceBotInWallState.swift in Sources */,
 				18FCEA762040EC40009A5C0D /* GeometryExtensions.swift in Sources */,
 				18FCEA5E2040EC40009A5C0D /* BeamFiringState.swift in Sources */,
