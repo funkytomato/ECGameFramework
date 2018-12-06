@@ -128,7 +128,7 @@ class AnimationComponent: GKComponent
     
     /// The node on which animations should be run for this animation component.
 //    let node: SKSpriteNode
-    let node: Element
+    let node: ElementNode
     
     
     
@@ -151,7 +151,7 @@ class AnimationComponent: GKComponent
     init(textureSize: CGSize, animations: [AnimationState: Animation])
     {
 //        node = SKSpriteNode(texture: nil, size: textureSize)
-        node = Element()
+        node = ElementNode()
         self.animations = animations
         super.init()
     }
