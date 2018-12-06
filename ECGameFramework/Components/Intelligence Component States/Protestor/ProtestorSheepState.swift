@@ -26,11 +26,11 @@ class ProtestorSheepState: GKState
     
     
     /// The `TemperamentComponent` associated with the `entity`.
-    var spriteComponent: SpriteComponent
-    {
-        guard let spriteComponent = entity.component(ofType: SpriteComponent.self) else { fatalError("A ProtestorSheepState entity must have an SpriteComponent.") }
-        return spriteComponent
-    }
+//    var spriteComponent: SpriteComponent
+//    {
+//        guard let spriteComponent = entity.component(ofType: SpriteComponent.self) else { fatalError("A ProtestorSheepState entity must have an SpriteComponent.") }
+//        return spriteComponent
+//    }
     
     /// The `TemperamentComponent` associated with the `entity`.
     var intelligenceComponent: IntelligenceComponent
