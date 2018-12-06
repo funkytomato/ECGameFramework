@@ -33,10 +33,17 @@ class TemperamentComponent: GKComponent
 //    }
     
     /// The `SpriteComponent` associated with the `entity`.
-    var spriteComponent: SpriteComponent
+//    var spriteComponent: SpriteComponent
+//    {
+//        guard let spriteComponent = self.entity?.component(ofType: SpriteComponent.self) else { fatalError("TemperamentComponent must have an SpriteComponent.") }
+//        return spriteComponent
+//    }
+    
+    /// The `AnimationComponent` associated with the `entity`.
+    var animationComponent: AnimationComponent
     {
-        guard let spriteComponent = self.entity?.component(ofType: SpriteComponent.self) else { fatalError("An entity's AngryState must have an SpriteComponent.") }
-        return spriteComponent
+        guard let animationComponent = self.entity?.component(ofType: AnimationComponent.self) else { fatalError("TemperamentComponent must have an AnimationComponent.") }
+        return animationComponent
     }
     
     // MARK: Properties
@@ -142,23 +149,34 @@ class TemperamentComponent: GKComponent
         switch currentState
         {
             case is ScaredState:
-                spriteComponent.changeColour(colour: SKColor.darkGray)
+//                spriteComponent.changeColour(colour: SKColor.darkGray)
+                    break
             case is FearfulState:
-                spriteComponent.changeColour(colour: SKColor.lightGray)
+//                spriteComponent.changeColour(colour: SKColor.lightGray)
+                    break
             case is CalmState:
-                spriteComponent.changeColour(colour: SKColor.green)
+//                spriteComponent.changeColour(colour: SKColor.green)
+                
+                    break
             case is AggitatedState:
-                spriteComponent.changeColour(colour: SKColor.cyan)
+//                spriteComponent.changeColour(colour: SKColor.cyan)
+                    break
             case is AngryState:
-                spriteComponent.changeColour(colour: SKColor.orange)
+//                spriteComponent.changeColour(colour: SKColor.orange)
+                    break
             case is ViolentState:
-                spriteComponent.changeColour(colour: SKColor.red)
+                animationComponent.node.turnRed(duration: 2)
+//                spriteComponent.changeColour(colour: SKColor.red)
+                    break
             case is RageState:
-                spriteComponent.changeColour(colour: SKColor.brown)
+//                spriteComponent.changeColour(colour: SKColor.brown)
+                    break
             case is SubduedState:
-                spriteComponent.changeColour(colour: SKColor.blue)
+//                spriteComponent.changeColour(colour: SKColor.blue)
+                    break
             default:
-                spriteComponent.changeColour(colour: SKColor.green)
+//                spriteComponent.changeColour(colour: SKColor.green)
+                    break
         }
     }
     
