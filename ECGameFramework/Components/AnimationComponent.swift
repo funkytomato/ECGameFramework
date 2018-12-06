@@ -127,7 +127,10 @@ class AnimationComponent: GKComponent
     var requestedAnimationState: AnimationState?
     
     /// The node on which animations should be run for this animation component.
-    let node: SKSpriteNode
+//    let node: SKSpriteNode
+    let node: Element
+    
+    
     
     /// The node for the entity's shadow (to be set by the entity if needed).
     var shadowNode: SKSpriteNode?
@@ -147,7 +150,8 @@ class AnimationComponent: GKComponent
     //init(textureSize: CGSize, animations: [AnimationState: [CompassDirection: Animation]])
     init(textureSize: CGSize, animations: [AnimationState: Animation])
     {
-        node = SKSpriteNode(texture: nil, size: textureSize)
+//        node = SKSpriteNode(texture: nil, size: textureSize)
+        node = Element()
         self.animations = animations
         super.init()
     }
@@ -191,7 +195,7 @@ class AnimationComponent: GKComponent
         if currentAnimation?.bodyActionName != animation.bodyActionName
         {
             // Remove the existing body action if it exists.
-            node.removeAction(forKey: AnimationComponent.bodyActionKey)
+            node.green?.removeAction(forKey: AnimationComponent.bodyActionKey)
             
             // Reset the node's position in its parent (it may have been animating with a move action).
             node.position = CGPoint.zero
@@ -199,7 +203,7 @@ class AnimationComponent: GKComponent
             // Add the new body action to the node if an action exists.
             if let bodyAction = animation.bodyAction
             {
-                node.run(SKAction.repeatForever(bodyAction), withKey: AnimationComponent.bodyActionKey)
+                node.green?.run(SKAction.repeatForever(bodyAction), withKey: AnimationComponent.bodyActionKey)
             }
         }
 
@@ -272,7 +276,7 @@ class AnimationComponent: GKComponent
         }
         
         // Add the textures animation to the body node.
-        node.run(texturesAction, withKey: AnimationComponent.textureActionKey)
+        node.green?.run(texturesAction, withKey: AnimationComponent.textureActionKey)
         
         // Remember the animation we are currently running.
         currentAnimation = animation
@@ -293,9 +297,6 @@ class AnimationComponent: GKComponent
 //            print("entiy: \(self.entity?.debugDescription) animationState: \(requestedAnimationState)")
             runAnimationForAnimationState(animationState: animationState, deltaTime: deltaTime)
             requestedAnimationState = nil
-            
-//            let changeColourAction = SKAction.colorize(with: .red, colorBlendFactor: 100.0, duration: 5.0)
-//            node.run(changeColourAction)
         }
     }
     
