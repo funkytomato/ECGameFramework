@@ -7,7 +7,7 @@
 //
 import SpriteKit
 
-class Element: SKNode
+class ElementNode: SKNode
 {
     
     var texture : SKTexture?
@@ -61,6 +61,14 @@ class Element: SKNode
         green!.run(.fadeAlpha(to: greenIntensity, duration: 2))
         red!.run(.fadeAlpha(to: redIntensity, duration: 2))
         
+    }
+    
+    func turnRedd(duration: TimeInterval)
+    {
+        green?.alpha = 1.0
+        green?.color = .white
+        let colorize = SKAction.colorize(withColorBlendFactor: 1.0, duration: 5.0)
+        green!.run(colorize)
     }
     
     func turnRed(duration: TimeInterval)
