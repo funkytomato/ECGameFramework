@@ -65,10 +65,10 @@ class ElementNode: SKNode
     
     func turnRedd(duration: TimeInterval)
     {
-        green?.alpha = 1.0
-        green?.color = .white
-        let colorize = SKAction.colorize(withColorBlendFactor: 1.0, duration: 5.0)
-        green!.run(colorize)
+        var actions = Array<SKAction>();
+        actions.append(SKAction.colorize(with: .red, colorBlendFactor: 1.0, duration: 1));
+        let sequence = SKAction.sequence(actions);
+        green!.run(sequence)
     }
     
     func turnRed(duration: TimeInterval)
