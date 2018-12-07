@@ -156,13 +156,15 @@ class TemperamentComponent: GKComponent
                     break
             case is CalmState:
 //                spriteComponent.changeColour(colour: SKColor.green)
-                    animationComponent.node.turnRedd(duration: 1.0)
                     break
             case is AggitatedState:
 //                spriteComponent.changeColour(colour: SKColor.cyan)
                     break
             case is AngryState:
+                print("Temperament is Angry!!!  grrrr")
 //                spriteComponent.changeColour(colour: SKColor.orange)
+//                animationComponent.node.turnRedd(duration: 1.0)
+                animationComponent.doStuff()
                     break
             case is ViolentState:
 //                animationComponent.node.turnRedd(duration: 5.0)
