@@ -23,6 +23,7 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
   
     // MARK: Static Properties
     
+
     var texture = SKTexture()
     
     // The size to use for the `PoliceBot`s animation textures.
@@ -86,7 +87,9 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         let initialTemperament: Double
 
         
+        //Inform the TaskBot it is a Protestor, and set the base colour for a Protestor (Green)
         self.isProtestor = true
+        self.baseColour = .green
         
         
         // Create a random speed for each taskbot
@@ -256,6 +259,11 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         
         // Specify the offset for beam targeting.
         beamTargetOffset = GameplayConfiguration.PoliceBot.beamTargetOffset
+        
+        
+        //Set the base colour for the TaskBot
+        animationComponent.node.colorBlendFactor = 1.0
+        animationComponent.node.color = self.baseColour
     }
     
     required init?(coder aDecoder: NSCoder)
