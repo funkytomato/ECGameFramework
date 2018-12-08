@@ -19,7 +19,6 @@ import GameplayKit
 class RageState: GKState
 {
     // MARK:- Properties
-//    unowned var entity: TaskBot
     unowned var temperamentComponent: TemperamentComponent
     
     //The amount of time the 'ProtestorBot' has been in its "Violent" state
@@ -28,18 +27,12 @@ class RageState: GKState
     //The MeatWagon location
     let meatWagonCoordinate = float2(x: 0.0, y: 0.0)
     
-    /// The `SpriteComponent` associated with the `entity`.
-//    var spriteComponent: SpriteComponent
-//    {
-//        guard let spriteComponent = temperamentComponent.entity?.component(ofType: SpriteComponent.self) else { fatalError("An entity's RageState must have an AnimationComponent.") }
-//        return spriteComponent
-//    }
-    
-    //MARK:- Initializers
-//    required init(entity: TaskBot)
-//    {
-//        self.entity = entity
-//    }
+    /// The `AnimationComponent` associated with the `entity`.
+    var animationComponent: AnimationComponent
+    {
+        guard let animationComponent = temperamentComponent.entity?.component(ofType: AnimationComponent.self) else { fatalError("TemperamentComponent must have an AnimationComponent.") }
+        return animationComponent
+    }
     
     required init(temperamentComponent: TemperamentComponent)
     {
@@ -57,13 +50,13 @@ class RageState: GKState
         super.didEnter(from: previousState)
         elapsedTime = 0.0
         
-        //Change the colour of the sprite to show violent
-//        spriteComponent.changeColour(colour: SKColor.red)
-        
         //Set the entity is scared for pathfinding
         guard let taskBot = temperamentComponent.entity as? TaskBot else { return }
         taskBot.isViolent = true
         taskBot.isScared = false
+        
+        //Change the colour of the sprite to show violent
+        animationComponent.changeColour(color: .purple)
     }
     
     override func update(deltaTime seconds: TimeInterval)

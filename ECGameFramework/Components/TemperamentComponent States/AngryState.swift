@@ -26,18 +26,13 @@ class AngryState: GKState
     //The amount of time the 'ManBot' has been in its "Arrested" state
     var elapsedTime: TimeInterval = 0.0
     
-    /// The `SpriteComponent` associated with the `entity`.
-//    var spriteComponent: SpriteComponent
-//    {
-//        guard let spriteComponent = temperamentComponent.entity?.component(ofType: SpriteComponent.self) else { fatalError("An entity's AngryState must have an AnimationComponent.") }
-//        return spriteComponent
-//    }
+    /// The `AnimationComponent` associated with the `entity`.
+    var animationComponent: AnimationComponent
+    {
+        guard let animationComponent = temperamentComponent.entity?.component(ofType: AnimationComponent.self) else { fatalError("TemperamentComponent must have an AnimationComponent.") }
+        return animationComponent
+    }
 
-    //MARK:- Initializers
-//    required init(entity: TaskBot)
-//    {
-//        self.entity = entity
-//    }
     
     required init(temperamentComponent: TemperamentComponent)
     {
@@ -56,14 +51,13 @@ class AngryState: GKState
         super.didEnter(from: previousState)
         elapsedTime = 0.0
         
-        
-        //Change the colour of the sprite to show anger
-//        spriteComponent.changeColour(colour: SKColor.orange)
-        
         //Set the entity is scared for pathfinding
         guard let taskBot = temperamentComponent.entity as? TaskBot else { return }
         taskBot.isViolent = false
         taskBot.isScared = false
+        
+        //Change the colour of the sprite to show anger
+        animationComponent.changeColour(color: .orange)
     }
     
     override func update(deltaTime seconds: TimeInterval)

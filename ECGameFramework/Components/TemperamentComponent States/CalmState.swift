@@ -19,25 +19,19 @@ import GameplayKit
 class CalmState: GKState
 {
     // MARK:- Properties
-//    unowned var entity: TaskBot
     unowned var temperamentComponent: TemperamentComponent
     
     //The amount of time the 'ManBot' has been in its "Arrested" state
     var elapsedTime: TimeInterval = 0.0
     
-//    /// The `SpriteComponent` associated with the `entity`.
-//    var spriteComponent: SpriteComponent
-//    {
-//        guard let spriteComponent = temperamentComponent.entity?.component(ofType: SpriteComponent.self) else { fatalError("An entity's CalmState must have an AnimationComponent.") }
-//        return spriteComponent
-//    }
     
+    /// The `AnimationComponent` associated with the `entity`.
+    var animationComponent: AnimationComponent
+    {
+        guard let animationComponent = temperamentComponent.entity?.component(ofType: AnimationComponent.self) else { fatalError("TemperamentComponent must have an AnimationComponent.") }
+        return animationComponent
+    }
     
-    //MARK:- Initializers
-//    required init(e/Users/spaceman/Development/Game Development/Games/ECGameFramework/ECGameFramework/Components/TemperamentComponent States/RageState.swiftntity: TaskBot)
-//    {
-//        self.entity = entity
-//    }
     required init(temperamentComponent: TemperamentComponent)
     {
         self.temperamentComponent = temperamentComponent
@@ -53,20 +47,19 @@ class CalmState: GKState
         super.didEnter(from: previousState)
         elapsedTime = 0.0
         
-        //Change the colour of the sprite to show calmness
-//        spriteComponent.changeColour(colour: SKColor.green)
-        
         //Set the entity is scared for pathfinding
         guard let taskBot = temperamentComponent.entity as? TaskBot else { return }
         taskBot.isViolent = false
         taskBot.isScared = false
+        
+        //Change the colour of the sprite to show calmness
+        animationComponent.changeColour(color: .green)
     }
     
     override func update(deltaTime seconds: TimeInterval)
     {
         super.update(deltaTime: seconds)
         elapsedTime += seconds
-        
         
 //        print("temperament: \(temperamentComponent.temperament), calmStateMaximum: \(GameplayConfiguration.Temperament.calmStateMaximumValue)")
         
