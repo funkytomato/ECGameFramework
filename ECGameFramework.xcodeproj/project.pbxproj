@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1802413921BB398200A5E7CE /* CriminalBotWhite.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1802413821BB398200A5E7CE /* CriminalBotWhite.xcassets */; };
 		181073642088E15B001390EA /* PoliceBot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181073632088E15B001390EA /* PoliceBot.swift */; };
 		181073692088E604001390EA /* PoliceBotRotateToAttackState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181073682088E604001390EA /* PoliceBotRotateToAttackState.swift */; };
 		1810736C2088E740001390EA /* PoliceBotAttackState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1810736B2088E740001390EA /* PoliceBotAttackState.swift */; };
@@ -62,13 +63,13 @@
 		186F6EA52040DC39001EEF65 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 186F6EA12040DC38001EEF65 /* LaunchScreen.storyboard */; };
 		186F6EA62040DC39001EEF65 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 186F6EA12040DC38001EEF65 /* LaunchScreen.storyboard */; };
 		186F6EA72040DC39001EEF65 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 186F6EA12040DC38001EEF65 /* LaunchScreen.storyboard */; };
-		1874890E20880FE000DAF14E /* ProtestorBot.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1874890D20880FE000DAF14E /* ProtestorBot.xcassets */; };
+		1874890E20880FE000DAF14E /* ProtestorBotGreen.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1874890D20880FE000DAF14E /* ProtestorBotGreen.xcassets */; };
 		187522262153F7C10081C7F2 /* PoliceBotInWallState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187522252153F7C10081C7F2 /* PoliceBotInWallState.swift */; };
 		1878B6CB208E5F9400FC5FDA /* ProtestorBotRechargingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1878B6CA208E5F9400FC5FDA /* ProtestorBotRechargingState.swift */; };
 		187C4B64213B1EC80037D582 /* JointComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187C4B63213B1EC80037D582 /* JointComponent.swift */; };
 		187C4B66213B2CC60037D582 /* PoliceBotFormWallState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187C4B65213B2CC60037D582 /* PoliceBotFormWallState.swift */; };
 		187C4BEC212764B600DB5584 /* ProtestorSheepState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187C4BEB212764B600DB5584 /* ProtestorSheepState.swift */; };
-		188359FF2087FCA90054111A /* PoliceBot.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 188359FE2087FCA90054111A /* PoliceBot.xcassets */; };
+		188359FF2087FCA90054111A /* PoliceBotBlue.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 188359FE2087FCA90054111A /* PoliceBotBlue.xcassets */; };
 		189183E620CC557D00DE0435 /* ColourBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189183E520CC557D00DE0435 /* ColourBar.swift */; };
 		189183EA20CC72EE00DE0435 /* ObeisanceComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189183E920CC72EE00DE0435 /* ObeisanceComponent.swift */; };
 		1899E18120E2D06E00C29031 /* PoliceBotSupportState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1899E18020E2D06E00C29031 /* PoliceBotSupportState.swift */; };
@@ -83,10 +84,12 @@
 		18D0FAEC204465140098DF17 /* Level4.plist in Resources */ = {isa = PBXBuildFile; fileRef = 18D0FAE9204462DF0098DF17 /* Level4.plist */; };
 		18D0FAED2044651D0098DF17 /* Level4.sks in Resources */ = {isa = PBXBuildFile; fileRef = 18D0FAEA204462DF0098DF17 /* Level4.sks */; };
 		18D0FAEE204465200098DF17 /* Level4.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18D0FAEB204462DF0098DF17 /* Level4.xcassets */; };
-		18D4706820D933B9007DD9B9 /* CriminalBot.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18D4706720D933B9007DD9B9 /* CriminalBot.xcassets */; };
+		18D4706820D933B9007DD9B9 /* CriminalBotGrey.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18D4706720D933B9007DD9B9 /* CriminalBotGrey.xcassets */; };
 		18DE88D4208F4E8100732803 /* ProtestorBotHitState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DE88D3208F4E8100732803 /* ProtestorBotHitState.swift */; };
 		18DF360F2052FBCD001F55DE /* SpriteComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DF360E2052FBCC001F55DE /* SpriteComponent.swift */; };
 		18EA813220864631002B00EB /* HealthComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EA813120864631002B00EB /* HealthComponent.swift */; };
+		18EBE9C921BB32670033AF1A /* ProtestorBotWhite.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18EBE9C821BB32670033AF1A /* ProtestorBotWhite.xcassets */; };
+		18EBE9CB21BB37590033AF1A /* PoliceBotWhite.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18EBE9CA21BB37590033AF1A /* PoliceBotWhite.xcassets */; };
 		18EDA50F2084FB26005CB784 /* TemperamentComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EDA50E2084FB26005CB784 /* TemperamentComponent.swift */; };
 		18EDE36120F39FDC00AF2DAF /* BuyingWaresTimeOutState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EDE36020F39FDC00AF2DAF /* BuyingWaresTimeOutState.swift */; };
 		18F1455B20D0173D002DC88D /* ProtestorInciteState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F1455A20D0173D002DC88D /* ProtestorInciteState.swift */; };
@@ -252,6 +255,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1802413821BB398200A5E7CE /* CriminalBotWhite.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CriminalBotWhite.xcassets; sourceTree = "<group>"; };
 		181073632088E15B001390EA /* PoliceBot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoliceBot.swift; sourceTree = "<group>"; };
 		181073682088E604001390EA /* PoliceBotRotateToAttackState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoliceBotRotateToAttackState.swift; sourceTree = "<group>"; };
 		1810736B2088E740001390EA /* PoliceBotAttackState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoliceBotAttackState.swift; sourceTree = "<group>"; };
@@ -307,13 +311,13 @@
 		186F6E9C2040DAF5001EEF65 /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		186F6EA02040DC36001EEF65 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		186F6EA12040DC38001EEF65 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
-		1874890D20880FE000DAF14E /* ProtestorBot.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ProtestorBot.xcassets; sourceTree = "<group>"; };
+		1874890D20880FE000DAF14E /* ProtestorBotGreen.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ProtestorBotGreen.xcassets; sourceTree = "<group>"; };
 		187522252153F7C10081C7F2 /* PoliceBotInWallState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PoliceBotInWallState.swift; sourceTree = "<group>"; };
 		1878B6CA208E5F9400FC5FDA /* ProtestorBotRechargingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtestorBotRechargingState.swift; sourceTree = "<group>"; };
 		187C4B63213B1EC80037D582 /* JointComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JointComponent.swift; sourceTree = "<group>"; };
 		187C4B65213B2CC60037D582 /* PoliceBotFormWallState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoliceBotFormWallState.swift; sourceTree = "<group>"; };
 		187C4BEB212764B600DB5584 /* ProtestorSheepState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtestorSheepState.swift; sourceTree = "<group>"; };
-		188359FE2087FCA90054111A /* PoliceBot.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = PoliceBot.xcassets; sourceTree = "<group>"; };
+		188359FE2087FCA90054111A /* PoliceBotBlue.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = PoliceBotBlue.xcassets; sourceTree = "<group>"; };
 		189183E520CC557D00DE0435 /* ColourBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColourBar.swift; sourceTree = "<group>"; };
 		189183E920CC72EE00DE0435 /* ObeisanceComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObeisanceComponent.swift; sourceTree = "<group>"; };
 		1899E18020E2D06E00C29031 /* PoliceBotSupportState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoliceBotSupportState.swift; sourceTree = "<group>"; };
@@ -328,10 +332,12 @@
 		18D0FAE9204462DF0098DF17 /* Level4.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Level4.plist; sourceTree = "<group>"; };
 		18D0FAEA204462DF0098DF17 /* Level4.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level4.sks; sourceTree = "<group>"; };
 		18D0FAEB204462DF0098DF17 /* Level4.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Level4.xcassets; sourceTree = "<group>"; };
-		18D4706720D933B9007DD9B9 /* CriminalBot.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CriminalBot.xcassets; sourceTree = "<group>"; };
+		18D4706720D933B9007DD9B9 /* CriminalBotGrey.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CriminalBotGrey.xcassets; sourceTree = "<group>"; };
 		18DE88D3208F4E8100732803 /* ProtestorBotHitState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtestorBotHitState.swift; sourceTree = "<group>"; };
 		18DF360E2052FBCC001F55DE /* SpriteComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpriteComponent.swift; sourceTree = "<group>"; };
 		18EA813120864631002B00EB /* HealthComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthComponent.swift; sourceTree = "<group>"; };
+		18EBE9C821BB32670033AF1A /* ProtestorBotWhite.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ProtestorBotWhite.xcassets; sourceTree = "<group>"; };
+		18EBE9CA21BB37590033AF1A /* PoliceBotWhite.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = PoliceBotWhite.xcassets; sourceTree = "<group>"; };
 		18EDA50E2084FB26005CB784 /* TemperamentComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemperamentComponent.swift; sourceTree = "<group>"; };
 		18EDE36020F39FDC00AF2DAF /* BuyingWaresTimeOutState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyingWaresTimeOutState.swift; sourceTree = "<group>"; };
 		18F1455A20D0173D002DC88D /* ProtestorInciteState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProtestorInciteState.swift; sourceTree = "<group>"; };
@@ -971,7 +977,7 @@
 		18FCEA282040EC3C009A5C0D /* TaskBots */ = {
 			isa = PBXGroup;
 			children = (
-				18D4706720D933B9007DD9B9 /* CriminalBot.xcassets */,
+				18D4706720D933B9007DD9B9 /* CriminalBotGrey.xcassets */,
 				C22B2B1420594D230001EC87 /* ManBot.xcassets */,
 				18FCEA292040EC3C009A5C0D /* FlyingBot.xcassets */,
 				18FCEA2A2040EC3C009A5C0D /* FlyingBotBadAttackParticleEmitter.sks */,
@@ -980,8 +986,11 @@
 				18FCEA2D2040EC3C009A5C0D /* ReferenceActions.sks */,
 				18FCEA2E2040EC3C009A5C0D /* ReferenceScene.sks */,
 				18FCEA2F2040EC3C009A5C0D /* spark.png */,
-				188359FE2087FCA90054111A /* PoliceBot.xcassets */,
-				1874890D20880FE000DAF14E /* ProtestorBot.xcassets */,
+				188359FE2087FCA90054111A /* PoliceBotBlue.xcassets */,
+				1874890D20880FE000DAF14E /* ProtestorBotGreen.xcassets */,
+				18EBE9C821BB32670033AF1A /* ProtestorBotWhite.xcassets */,
+				18EBE9CA21BB37590033AF1A /* PoliceBotWhite.xcassets */,
+				1802413821BB398200A5E7CE /* CriminalBotWhite.xcassets */,
 			);
 			path = TaskBots;
 			sourceTree = "<group>";
@@ -1211,7 +1220,7 @@
 			files = (
 				18F35DB2205428B900B686DA /* Trail.sks in Resources */,
 				1852819E204896C100F614A1 /* RiotScene.sks in Resources */,
-				18D4706820D933B9007DD9B9 /* CriminalBot.xcassets in Resources */,
+				18D4706820D933B9007DD9B9 /* CriminalBotGrey.xcassets in Resources */,
 				18FCEA8E2040EC40009A5C0D /* Scenery.xcassets in Resources */,
 				18FCEA7E2040EC40009A5C0D /* EndScene.sks in Resources */,
 				18FCEA7F2040EC40009A5C0D /* HomeScene.sks in Resources */,
@@ -1225,12 +1234,14 @@
 				18FCEA802040EC40009A5C0D /* Level1.plist in Resources */,
 				18FCEA922040EC40009A5C0D /* GroundBot.xcassets in Resources */,
 				18D0FAED2044651D0098DF17 /* Level4.sks in Resources */,
-				188359FF2087FCA90054111A /* PoliceBot.xcassets in Resources */,
+				18EBE9CB21BB37590033AF1A /* PoliceBotWhite.xcassets in Resources */,
+				188359FF2087FCA90054111A /* PoliceBotBlue.xcassets in Resources */,
 				18FCEA8B2040EC40009A5C0D /* SuccessScene.sks in Resources */,
+				18EBE9C921BB32670033AF1A /* ProtestorBotWhite.xcassets in Resources */,
 				18FCEA842040EC40009A5C0D /* Level2.sks in Resources */,
 				18FCEA8D2040EC40009A5C0D /* SceneConfiguration.plist in Resources */,
 				18FCEA852040EC40009A5C0D /* Level2.xcassets in Resources */,
-				1874890E20880FE000DAF14E /* ProtestorBot.xcassets in Resources */,
+				1874890E20880FE000DAF14E /* ProtestorBotGreen.xcassets in Resources */,
 				1852819F204896C100F614A1 /* RiotScene.xcassets in Resources */,
 				186F6EA22040DC39001EEF65 /* Main.storyboard in Resources */,
 				18FCEA7A2040EC40009A5C0D /* BeamLine.sks in Resources */,
@@ -1249,6 +1260,7 @@
 				185281A0204896C100F614A1 /* RiotScene.plist in Resources */,
 				18FCEA942040EC40009A5C0D /* ReferenceScene.sks in Resources */,
 				18FCEA862040EC40009A5C0D /* Level3.plist in Resources */,
+				1802413921BB398200A5E7CE /* CriminalBotWhite.xcassets in Resources */,
 				18FCEA952040EC40009A5C0D /* spark.png in Resources */,
 				18F35DB3205428B900B686DA /* circle.png in Resources */,
 				18FCEA822040EC40009A5C0D /* Level1.xcassets in Resources */,
