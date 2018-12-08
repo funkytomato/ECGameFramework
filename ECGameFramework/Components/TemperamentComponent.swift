@@ -25,27 +25,6 @@ protocol TemperamentComponentDelegate: class
 class TemperamentComponent: GKComponent
 {
     
-//    /// The `RenderComponent' for this component's 'entity'.
-//    var animationComponent: AnimationComponent
-//    {
-//        guard let animationComponent = entity?.component(ofType: AnimationComponent.self) else { fatalError("A SellingWaresComponent's entity must have a AnimationComponent") }
-//        return animationComponent
-//    }
-    
-    /// The `SpriteComponent` associated with the `entity`.
-//    var spriteComponent: SpriteComponent
-//    {
-//        guard let spriteComponent = self.entity?.component(ofType: SpriteComponent.self) else { fatalError("TemperamentComponent must have an SpriteComponent.") }
-//        return spriteComponent
-//    }
-    
-    /// The `AnimationComponent` associated with the `entity`.
-    var animationComponent: AnimationComponent
-    {
-        guard let animationComponent = self.entity?.component(ofType: AnimationComponent.self) else { fatalError("TemperamentComponent must have an AnimationComponent.") }
-        return animationComponent
-    }
-    
     // MARK: Properties
     
     var temperament: Double
@@ -143,42 +122,30 @@ class TemperamentComponent: GKComponent
         //Update the temperament state machine
         stateMachine?.update(deltaTime: seconds)
         
+        //TEST - PoliceBots turn blue and Criminals turn grey
+        guard (self.entity as? ProtestorBot) != nil else { return }
         
         //Set the colour for the current temperament
         guard let currentState = stateMachine.currentState else { return }
         switch currentState
         {
             case is ScaredState:
-//                spriteComponent.changeColour(colour: SKColor.darkGray)
                     break
             case is FearfulState:
-//                spriteComponent.changeColour(colour: SKColor.lightGray)
                     break
             case is CalmState:
-//                spriteComponent.changeColour(colour: SKColor.green)
                     break
             case is AggitatedState:
-//                spriteComponent.changeColour(colour: SKColor.cyan)
                     break
             case is AngryState:
-                print("Temperament is Angry!!!  grrrr")
-//                spriteComponent.changeColour(colour: SKColor.orange)
-//                animationComponent.node.turnRedd(duration: 1.0)
-                animationComponent.doStuff()
                     break
             case is ViolentState:
-//                animationComponent.node.turnRedd(duration: 5.0)
-//                animationComponent.node.turnRed(duration: 2)
-//                spriteComponent.changeColour(colour: SKColor.red)
                     break
             case is RageState:
-//                spriteComponent.changeColour(colour: SKColor.brown)
                     break
             case is SubduedState:
-//                spriteComponent.changeColour(colour: SKColor.blue)
                     break
             default:
-//                spriteComponent.changeColour(colour: SKColor.green)
                     break
         }
     }
