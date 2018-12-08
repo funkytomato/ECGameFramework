@@ -82,6 +82,7 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
         let initialTemperament: Int
         
         self.isCriminal = true
+        self.baseColour = .gray
         
         // Good TaskBot
         if isGood
@@ -219,6 +220,11 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
         
         // Specify the offset for beam targeting.
         beamTargetOffset = GameplayConfiguration.PoliceBot.beamTargetOffset
+        
+        
+        //Set the base colour for the TaskBot
+        animationComponent.node.colorBlendFactor = 1.0
+        animationComponent.node.color = self.baseColour
     }
     
     required init?(coder aDecoder: NSCoder)
