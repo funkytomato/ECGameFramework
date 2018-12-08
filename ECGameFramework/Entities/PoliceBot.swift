@@ -153,6 +153,7 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
         
         //TaskBot is Police
         self.isPolice = true
+        self.baseColour = .blue
         
 
         // Configure the agent's characteristics for the steering physics simulation.
@@ -294,6 +295,11 @@ class PoliceBot: TaskBot, ChargeComponentDelegate, ResistanceComponentDelegate, 
         
         // Specify the offset for beam targeting.
         beamTargetOffset = GameplayConfiguration.PoliceBot.beamTargetOffset
+        
+        
+        //Set the base colour for the TaskBot
+        animationComponent.node.colorBlendFactor = 1.0
+        animationComponent.node.color = self.baseColour
     }
     
     required init?(coder aDecoder: NSCoder)
