@@ -304,12 +304,20 @@ class AnimationComponent: GKComponent
         }
     }
     
-    func doStuff()
+    func moveNode()
     {
         var actions = Array<SKAction>();
-//        actions.append(SKAction.move(to: CGPoint(x:300,y:300), duration: 1));
+        actions.append(SKAction.move(to: CGPoint(x:100,y:100), duration: 1));
         actions.append(SKAction.rotate(byAngle: 6.28, duration: 1));
-        actions.append(SKAction.colorize(with: .red, colorBlendFactor: 1.0, duration: 1));
+        actions.append(SKAction.colorize(with: .cyan, colorBlendFactor: 1.0, duration: 2.0));
+        let sequence = SKAction.sequence(actions);
+        node.run(sequence);
+    }
+    
+    func changeColour(color: UIColor)
+    {
+        var actions = Array<SKAction>();
+        actions.append(SKAction.colorize(with: color, colorBlendFactor: 1.0, duration: 1.0));
         let sequence = SKAction.sequence(actions);
         node.run(sequence);
     }
