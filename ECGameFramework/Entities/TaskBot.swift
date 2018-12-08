@@ -169,7 +169,8 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
     }
     
     
-    var oldColour: SKColor
+    var baseColour: SKColor
+//    var oldColour: SKColor
     
     // Uinque id for jointComponent
     var id: Int
@@ -597,8 +598,8 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         //Initialise for capturing touch movement
         self.gestureStartPoint = CGPoint.init()
         
-        self.oldColour = SKColor.clear
-        
+//        self.oldColour = SKColor.clear
+        self.baseColour = SKColor.white
         
         //Unique identifier for Taskbot (use in JointComponent naming)
         self.id = id
