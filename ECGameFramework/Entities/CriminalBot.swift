@@ -613,7 +613,8 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
         //Set the mandate to move along path
         mandate = .playerMovedTaskBot
         
-        createHighlightNode()
+        guard let animationComponent = component(ofType: AnimationComponent.self) else { return }
+        animationComponent.createHighlightNode()
         
         //print("playerpathPoints: \(playerPathPoints.count)")
     }
