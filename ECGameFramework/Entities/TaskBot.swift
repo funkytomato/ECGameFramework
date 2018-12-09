@@ -1668,50 +1668,9 @@ class TaskBot: GKEntity, ContactNotifiableType, GKAgentDelegate, RulesComponentD
         //print("playerPathPoints: \(playerPathPoints.count)")
     }
     
-    func createHighlightNode()
-    {
-        guard let animationComponent = self.component(ofType: AnimationComponent.self) else { return }
-        guard let node = animationComponent.node as? SKSpriteNode else { return }
-        
-        let lightNode = SKLightNode()
-        lightNode.position = CGPoint(x: node.size.width / 2, y: node.size.height / 2)
-        lightNode.categoryBitMask = 1
-        lightNode.ambientColor = SKColor(red: 0.3, green: 0.3, blue: 0.3, alpha: 0.9)
-        lightNode.lightColor = SKColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.9)
-//        lightNode.shadowColor = SKColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.6)
-        
-        node.addChild(lightNode)
-        node.lightingBitMask = 1
-//        node.shadowCastBitMask = 0b0001
-    }
-    
-    func removeHighlightNode()
-    {
-        guard let animationComponent = self.component(ofType: AnimationComponent.self) else { return }
-        guard let node = animationComponent.node as? SKSpriteNode else { return }
-        node.lightingBitMask = 0
-    }
-    
-    func createPulseAction()
-    {
-        let expandAction = SKAction.scale(to: 1.5, duration: 0.33)
-        let contractAction = SKAction.scale(to: 0.7, duration: 0.33)
-        let pulsateAction = SKAction.repeatForever(
-            SKAction.sequence([expandAction, contractAction]))
-
-        guard let animationComponent = self.component(ofType: AnimationComponent.self) else { return }
-        animationComponent.node.run(pulsateAction)
-        
-        //        //guard let spriteComponent = self.component(ofType: SpriteComponent.self) else { return }
-        //        //spriteComponent.node.run(pulsateAction)
-    }
-    
     func stopAnimations()
     {
         guard let animationComponent = self.component(ofType: AnimationComponent.self) else { return }
         animationComponent.node.removeAllActions()
-        
-//        guard let spriteComponent = self.component(ofType: SpriteComponent.self) else { return }
-//        spriteComponent.node.removeAllActions()
     }
 }
