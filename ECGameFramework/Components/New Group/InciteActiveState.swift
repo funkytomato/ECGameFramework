@@ -25,6 +25,14 @@ class InciteActiveState: GKState
     var elapsedTime: TimeInterval = 0.0
     
     
+    /// The `RenderComponent' for this component's 'entity'.
+    var animationComponent: AnimationComponent
+    {
+        guard let animationComponent = inciteComponent.entity?.component(ofType: AnimationComponent.self) else { fatalError("A InciteComponent's entity must have a AnimationComponent") }
+        return animationComponent
+    }
+    
+    
     // MARK: Initializers
     
     required init(inciteComponent: InciteComponent)
@@ -46,6 +54,8 @@ class InciteActiveState: GKState
         
         // Reset the "amount of time firing" tracker when we enter the "firing" state.
         elapsedTime = 0.0
+        
+//        animationComponent.lightNode.isEnabled = true
     }
     
     override func update(deltaTime seconds: TimeInterval)
@@ -82,8 +92,6 @@ class InciteActiveState: GKState
     
     override func willExit(to nextState: GKState)
     {
-     //   inciteComponent.isTriggered = false
-        
         super.willExit(to: nextState)
     }
 }
