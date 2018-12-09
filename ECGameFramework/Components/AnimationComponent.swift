@@ -120,6 +120,9 @@ class AnimationComponent: GKComponent
     
     // MARK: Properties
     
+    //Taskbot lightnode
+    var lightNode = SKLightNode()
+    
     /**
         The most recent animation state that the animation component has been requested to play,
         but has not yet started playing.
@@ -313,11 +316,77 @@ class AnimationComponent: GKComponent
         let sequence = SKAction.sequence(actions);
         node.run(sequence);
     }
+   
+    func createHighlightNode()
+    {
+        
+        //Inform background we have a lightsource
+//        guard let scene = entity?.component(ofType: RenderComponent.self) else { return }
+        
+        //Is the background effected by lighting
+//        background.lightingBitMask = 1
+        
+        //Does the background cast a shadow?
+//        background.shadowCastBitMask = 0
+        
+//        Can this background have shadows cast on it?
+//        background.shadowedBitMask = 1
+        
+        //Taskbot lightnode
+        let lightNode = SKLightNode()
+
+        
+        //Ambient Color is the light everywhere but our lightsource isn't (night time settings)
+        lightNode.ambientColor = SKColor(red: 0.3, green: 0.3, blue: 0.3, alpha: 0.87)
+        
+        //LightColor is the color of our main light source
+        lightNode.lightColor = SKColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.2)
+        
+        //ShadowColor is the color of shadows
+        lightNode.shadowColor = SKColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.8)
+        
+        //Falloff in intensity of the light over distance, defaults to 1.
+        lightNode.falloff = 0
+        
+        //The category of the light, which determines the group(s) a light belongs to.
+        //Any node that has its corresponding light and shadow bitmasks set to an overlapping value
+        //will be lit, shadow casting or shadowed by this light.
+        lightNode.categoryBitMask = 1
+        lightNode.isEnabled = false
+        
+        node.addChild(lightNode)
+        
+        //Bitmask to indicate being lit by a set of lights using overlapping lighting categories.
+        //A light whose category is set to a value that masks to non-zero using this mask will
+        //apply light to this sprite.
+        //When used together with a normal texture, complex lighting effects can be used.
+        node.lightingBitMask = 0
+        node.shadowCastBitMask = 0
+        node.shadowedBitMask = 0
+        
+        self.lightNode = lightNode
+    }
+    
+    func removeHighlightNode()
+    {
+        self.lightNode.isEnabled = false
+        node.lightingBitMask = 0
+    }
+    
+    func createPulseAction()
+    {
+        let expandAction = SKAction.scale(to: 1.5, duration: 0.33)
+        let contractAction = SKAction.scale(to: 0.7, duration: 0.33)
+        let pulsateAction = SKAction.repeatForever(
+            SKAction.sequence([expandAction, contractAction]))
+        
+        node.run(pulsateAction)
+    }
     
     func changeColour(color: UIColor)
     {
         var actions = Array<SKAction>();
-        actions.append(SKAction.colorize(with: color, colorBlendFactor: 1.0, duration: 1.0));
+        actions.append(SKAction.colorize(with: color, colorBlendFactor: 1.0, duration: 5.0));
         let sequence = SKAction.sequence(actions);
         node.run(sequence);
     }
