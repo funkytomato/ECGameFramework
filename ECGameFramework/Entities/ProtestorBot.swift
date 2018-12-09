@@ -264,6 +264,10 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         //Set the base colour for the TaskBot
         animationComponent.node.colorBlendFactor = 1.0
         animationComponent.node.color = self.baseColour
+        
+        
+        //Create light node
+        animationComponent.createHighlightNode()
     }
     
     required init?(coder aDecoder: NSCoder)
@@ -694,7 +698,9 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
         {
             guard let inputComponent = self.component(ofType: InputComponent.self) else { return }
             inputComponent.isEnabled = false
-            removeHighlightNode()
+            
+            guard let animationComponent = component(ofType: AnimationComponent.self) else { return }
+            animationComponent.removeHighlightNode()
         }
         
     }
@@ -708,7 +714,9 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
 //            //RingLeader has gained full respect and should now be movable
             guard let inputComponent = self.component(ofType: InputComponent.self) else { return }
             inputComponent.isEnabled = true
-            createHighlightNode()
+            
+            guard let animationComponent = component(ofType: AnimationComponent.self) else { return }
+            animationComponent.createHighlightNode()
             
             // Make Ringleader heavier and more forceful through crowds
             self.agent.mass = 2.0
