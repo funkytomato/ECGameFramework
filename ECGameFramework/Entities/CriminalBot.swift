@@ -131,7 +131,7 @@ class CriminalBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegate
         
         // Configure the agent's characteristics for the steering physics simulation.
         agent.maxSpeed = speed
-        agent.mass = GameplayConfiguration.CriminalBot.agentMass
+        agent.mass = GameplayConfiguration.TaskBot.agentMass
 
         
         
