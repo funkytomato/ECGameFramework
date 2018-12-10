@@ -389,7 +389,7 @@ struct GameplayConfiguration
         static let behaviorUpdateWaitDuration: TimeInterval = 0.75
         
         /// How close a `TaskBot` has to be to a patrol path start point in order to start patrolling.
-        static let thresholdProximityToPatrolPathStartPoint: Float = 50.0
+        static let thresholdProximityToPatrolPathStartPoint: Float = 100.0
         
         /// How close a `TaskBot` has to be to a return point in order to be home
         static let thresholdProximityToReturnPoint: Float = 150.0
@@ -694,7 +694,7 @@ struct GameplayConfiguration
          This ensures that the `TaskBot` can follow its patrol path more effectively.
          */
         /// The maximum acceleration (in points per second per second) for the `TaskBot`.
-        static let maximumAcceleration: Float = 100.0
+//        static let maximumAcceleration: Float = 100.0
         
         // The agent's mass.
         static let agentMass: Float = 0.25
