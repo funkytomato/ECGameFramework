@@ -971,17 +971,17 @@
 		18FCEA282040EC3C009A5C0D /* TaskBots */ = {
 			isa = PBXGroup;
 			children = (
+				18FCEA2C2040EC3C009A5C0D /* GroundBot.xcassets */,
 				C22B2B1420594D230001EC87 /* ManBot.xcassets */,
 				18FCEA292040EC3C009A5C0D /* FlyingBot.xcassets */,
 				18FCEA2A2040EC3C009A5C0D /* FlyingBotBadAttackParticleEmitter.sks */,
 				18FCEA2B2040EC3C009A5C0D /* FlyingBotGoodAttackParticleEmitter.sks */,
-				18FCEA2C2040EC3C009A5C0D /* GroundBot.xcassets */,
 				18FCEA2D2040EC3C009A5C0D /* ReferenceActions.sks */,
 				18FCEA2E2040EC3C009A5C0D /* ReferenceScene.sks */,
 				18FCEA2F2040EC3C009A5C0D /* spark.png */,
+				1802413821BB398200A5E7CE /* CriminalBotWhite.xcassets */,
 				18EBE9C821BB32670033AF1A /* ProtestorBotWhite.xcassets */,
 				18EBE9CA21BB37590033AF1A /* PoliceBotWhite.xcassets */,
-				1802413821BB398200A5E7CE /* CriminalBotWhite.xcassets */,
 			);
 			path = TaskBots;
 			sourceTree = "<group>";
