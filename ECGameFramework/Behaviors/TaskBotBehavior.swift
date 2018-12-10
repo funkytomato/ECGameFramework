@@ -425,7 +425,7 @@ class TaskBotBehavior: GKBehavior
     //Construct a behaviour to wander, avoiding obstacles along the way
     static func wanderBehaviour(forAgent agent: GKAgent2D, inScene scene: LevelScene) -> (behavior: GKBehavior, pathPoints: [CGPoint])
     {
-        //print("behaviorAndWander agent:\(agent.description)  scene: \(scene.description)")
+        print("behaviorAndWander agent:\(agent.entity!.description)  scene: \(scene.description)")
         
         let behavior = TaskBotBehavior()
         
@@ -441,6 +441,7 @@ class TaskBotBehavior: GKBehavior
         
         
         // Return a tuple containing the new behavior, and the found path points for debug drawing.
+        print("behaviours: \(behavior.debugDescription)")
         return (behavior, pathPoints)
     }
     
@@ -634,27 +635,32 @@ class TaskBotBehavior: GKBehavior
     private func addPointsToWander(from startPoint: float2, pathRadius: Float, inScene scene: LevelScene) -> [CGPoint]
     {
 
-        //let endPoint = float2(140.0,45.0)
-       // guard let endNode = connectedNode(forPoint: endPoint, onObstacleGraphInScene: scene) else { return []  }
+
         
-        //scene.graph.connectUsingObstacles(node: endNode)
+        let endPoint = float2(0.0,0.0)
+         
+        // Convert the provided `CGPoint`s into nodes for the `GPGraph`.
+        guard let startNode = connectedNode(forPoint: startPoint, onObstacleGraphInScene: scene),
+            let endNode = connectedNode(forPoint: endPoint, onObstacleGraphInScene: scene) else { return [] }
         
-        //print("addGoalsToWander startPoint: \(startPoint) endPoint: \(endNode.position)  scene: \(scene.description)")
-        
-        
-        //Convert the provided 'CGpoint' into nodes for the 'GKGraph'
-        guard let startNode = connectedNode(forPoint: startPoint, onObstacleGraphInScene: scene) else { return []  }
-       
         // Remove the "start" and "end" nodes when exiting this scope.
-        defer { scene.graph.remove([startNode/*, endNode*/]) }
+        defer { scene.graph.remove([startNode, endNode]) }
         
-        //let pathNodes = scene.graph.findPath(from: startNode, to: endNode) as! [GKGraphNode2D]
-        let pathNodes = [CGPoint()]
+        // Find a path between these two nodes.
+        let pathNodes = scene.graph.findPath(from: startNode, to: endNode) as! [GKGraphNode2D]
+        
+        // A valid `GKPath` can not be created if fewer than 2 path nodes were found, return.
+        guard pathNodes.count > 1 else { return [] }
+        
+        // Create a new `GKPath` from the found nodes with the requested path radius.
+        let path = GKPath(graphNodes: pathNodes, radius: pathRadius)
+        
+        // Add "follow path" and "stay on path" goals for this path.
+//        addFollowAndStayOnPathGoals(for: path)
         
         // Convert the `GKGraphNode2D` nodes into `CGPoint`s for debug drawing.
-        //let pathPoints = pathNodes.map { CGPoint($0.position) }
-        //return pathPoints
-        return pathNodes
+        let pathPoints = pathNodes.map { CGPoint($0.position) }
+        return pathPoints
     }
     
     
@@ -692,7 +698,7 @@ class TaskBotBehavior: GKBehavior
     // Adds a goal to wander around thhe scene
     private func addWanderGoal(forScene scene: LevelScene)
     {
-        setWeight(0.9, for: GKGoal(toWander: 500))
+        setWeight(1.0, for: GKGoal(toWander: 500))
         //print("addWanderGoal  scene: \(scene.description)")
     }
 
@@ -717,7 +723,14 @@ class TaskBotBehavior: GKBehavior
     private func addAvoidObstaclesGoal(forScene scene: LevelScene)
     {
         setWeight(1.0, for: GKGoal(toAvoid: scene.polygonObstacles, maxPredictionTime: GameplayConfiguration.TaskBot.maxPredictionTimeForObstacleAvoidance))
-        print("addAvoidObstaclesGoal  scene: \(scene.polygonObstacles.debugDescription)")
+//        print("addAvoidObstaclesGoal  scene: \(scene.polygonObstacles.debugDescription)")
+        
+        //testing
+//        for node in scene.polygonObstacles
+//        {
+//            guard let skNode = node as? GKPolygonObstacle else { return }
+//            print("polygonObstacle: \(skNode.debugDescription), vertix count: \(skNode.vertexCount)")
+//        }
     }
     
     
