@@ -52,9 +52,6 @@ class InciteCoolingState: GKState
         super.didEnter(from: previousState)
         
         elapsedTime = 0.0
-        
-        animationComponent.removeHighlightNode()
-        
     }
     
     override func update(deltaTime seconds: TimeInterval)
