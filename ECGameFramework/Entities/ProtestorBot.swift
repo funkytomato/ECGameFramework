@@ -700,7 +700,8 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             inputComponent.isEnabled = false
             
             guard let animationComponent = component(ofType: AnimationComponent.self) else { return }
-            animationComponent.removeHighlightNode()
+//            animationComponent.removeHighlightNode()
+            animationComponent.lightNode.isEnabled = false
         }
         
     }
@@ -715,13 +716,14 @@ class ProtestorBot: TaskBot, HealthComponentDelegate, ResistanceComponentDelegat
             guard let inputComponent = self.component(ofType: InputComponent.self) else { return }
             inputComponent.isEnabled = true
             
+            //Highlight the RingLeader
             guard let animationComponent = component(ofType: AnimationComponent.self) else { return }
-            animationComponent.createHighlightNode()
+            animationComponent.lightNode.isEnabled = true
             
             // Make Ringleader heavier and more forceful through crowds
             self.agent.mass = 2.0
-            self.agent.maxSpeed = 100.0
-            self.agent.maxAcceleration = 200.0
+//            self.agent.maxSpeed = 100.0
+//            self.agent.maxAcceleration = 200.0
         }
     }
     
