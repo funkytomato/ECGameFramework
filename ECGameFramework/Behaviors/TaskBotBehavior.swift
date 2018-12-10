@@ -717,7 +717,7 @@ class TaskBotBehavior: GKBehavior
     private func addAvoidObstaclesGoal(forScene scene: LevelScene)
     {
         setWeight(1.0, for: GKGoal(toAvoid: scene.polygonObstacles, maxPredictionTime: GameplayConfiguration.TaskBot.maxPredictionTimeForObstacleAvoidance))
-        //print("addAvoidObstaclesGoal  scene: \(scene.description)")
+        print("addAvoidObstaclesGoal  scene: \(scene.polygonObstacles.debugDescription)")
     }
     
     
