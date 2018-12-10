@@ -296,7 +296,7 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
         startScreenRecording()
         #endif
         
-        debugDrawingEnabled = true
+//        debugDrawingEnabled = true
     }
     
     override func didChangeSize(_ oldSize: CGSize)
