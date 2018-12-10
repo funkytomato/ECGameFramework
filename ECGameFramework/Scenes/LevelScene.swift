@@ -479,41 +479,6 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
         if let renderNode = entity.component(ofType: RenderComponent.self)?.node
         {
             addNode(node: renderNode, toWorldLayer: .characters)
-
-        /*
-            if let spriteNode = entity.component(ofType: SpriteComponent.self)?.node
-            {
-                addNode(node: spriteNode, toWorldLayer: .characters)
-            }
-          */
-            
-//            if let leftArmNode = entity.component(ofType: JointComponent.self)?.leftArm
-//            {
-//                addNode(node: leftArmNode, toWorldLayer: .aboveCharacters)
-//                
-//                // Constrain the shadow node's position to the render node.
-//                let xRange = SKRange(constantValue: leftArmNode.position.x)
-//                let yRange = SKRange(constantValue: leftArmNode.position.y)
-//                
-//                let constraint = SKConstraint.positionX(xRange, y: yRange)
-//                constraint.referenceNode = renderNode
-//                
-//                leftArmNode.constraints = [constraint]
-//            }
-//            
-//            if let rightArmNode = entity.component(ofType: JointComponent.self)?.rightArm
-//            {
-//                addNode(node: rightArmNode, toWorldLayer: .aboveCharacters)
-//                
-//                // Constrain the shadow node's position to the render node.
-//                let xRange = SKRange(constantValue: rightArmNode.position.x)
-//                let yRange = SKRange(constantValue: rightArmNode.position.y)
-//                
-//                let constraint = SKConstraint.positionX(xRange, y: yRange)
-//                constraint.referenceNode = renderNode
-//                
-//                rightArmNode.constraints = [constraint]
-//            }
             
             /* 
                 If the entity has a `ShadowComponent`, add its shadow node to the scene.
@@ -701,12 +666,6 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
         {
             intelligenceComponent.enterInitialState()
         }
-        
-//        // If the entity has an `TemperamentComponent`, enter its initial state.
-//        if let temperamentComponent = entity.component(ofType: TemperamentComponent.self)
-//        {
-//            temperamentComponent.enterInitialState()
-//        }
         
     }
     
