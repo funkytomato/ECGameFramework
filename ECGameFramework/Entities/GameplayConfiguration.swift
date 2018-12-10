@@ -399,7 +399,7 @@ struct GameplayConfiguration
         static let minimumSpeed: Float = 50.0
         
         /// The maximum speed (in points per second) for the `TaskBot` when in its "good" state.
-        static let maximumSpeedWhenGood: Float = 100.0
+        static let maximumSpeedWhenGood: Float = 150.0
 
         /// The maximum speed (in points per second) for the `TaskBot` when in its "bad" state.
         static let maximumSpeedWhenBad: Float = 50.0
@@ -416,7 +416,7 @@ struct GameplayConfiguration
         */
         /// The maximum acceleration (in points per second per second) for the `TaskBot`.
 //        static let maximumAcceleration: Float = 10.0
-        static let maximumAcceleration: Float = 150.0
+        static let maximumAcceleration: Float = 250.0
 
         /// The agent's mass.
         static let agentMass: Float = 0.25
@@ -436,32 +436,34 @@ struct GameplayConfiguration
         
         // A.I. Properties
         
+        /// The buffer radius (in points) to add to polygon obstacles when calculating agent pathfinding.
+        static let pathfindingGraphBufferRadius: Float = 30.0
+        
         /// The maximum time to look ahead when following a path.
-        static let maxPredictionTimeWhenFollowingPath: TimeInterval = 1.0
+        static let maxPredictionTimeWhenFollowingPath: TimeInterval = 5.0
         
         /// The maximum time to look ahead for obstacles to be avoided.
         static let maxPredictionTimeForObstacleAvoidance: TimeInterval = 5.0
         
         /// The radius of the path along which an agent patrols.
-        static let patrolPathRadius: Float = 10.0
+        static let patrolPathRadius: Float = 50.0
         
         /// The radius of the path along which an agent travels when hunting.
-        static let huntPathRadius: Float = 20.0
+        static let huntPathRadius: Float = 50.0
 
         /// The radius of the path along which an agent travels when wandering.
-        static let wanderPathRadius: Float = 5.0
+        static let wanderPathRadius: Float = 50.0
 
         /// The radius of the path along which an agent travels when fleeing.
-        static let fleePathRadius: Float = 10.0
+        static let fleePathRadius: Float = 50.0
         
         // The radius of meatwagon location
-        static let lockupRadius: Float = 25.0
+        static let lockupRadius: Float = 50.0
         
         /// The radius of the path along which an agent travels when returning to its patrol path.
-        static let returnToPatrolPathRadius: Float = 10.0
+        static let returnToPatrolPathRadius: Float = 50.0
         
-        /// The buffer radius (in points) to add to polygon obstacles when calculating agent pathfinding.
-        static let pathfindingGraphBufferRadius: Float = 20.0
+
         
         /// The duration of a `TaskBot`'s zapped state.
         static let zappedStateDuration: TimeInterval = 0.75
