@@ -595,6 +595,8 @@ class TaskBotBehavior: GKBehavior
         // Create a graph node for this point.
         let pointNode = GKGraphNode2D(point: point)
         
+        
+        print("pointNode: \(pointNode.debugDescription)")
         // Try to connect this node to the graph.
         scene.graph.connectUsingObstacles(node: pointNode)
 
@@ -617,8 +619,8 @@ class TaskBotBehavior: GKBehavior
                 Connect this node to the graph ignoring the buffer radius of any
                 obstacles that the point is currently intersecting.
             */
-            scene.graph.connectUsingObstacles(node: pointNode, ignoringBufferRadiusOf: intersectingObstacles)
-            //scene.graph.connectUsingObstacles(node: pointNode)
+            //scene.graph.connectUsingObstacles(node: pointNode, ignoringBufferRadiusOf: intersectingObstacles)
+            scene.graph.connectUsingObstacles(node: pointNode)
         
             // If still no connection could be made, return `nil`.
             if pointNode.connectedNodes.isEmpty
@@ -635,9 +637,8 @@ class TaskBotBehavior: GKBehavior
     private func addPointsToWander(from startPoint: float2, pathRadius: Float, inScene scene: LevelScene) -> [CGPoint]
     {
 
-
-        
-        let endPoint = float2(0.0,0.0)
+    
+        let endPoint = float2(400.0,200.0)
          
         // Convert the provided `CGPoint`s into nodes for the `GPGraph`.
         guard let startNode = connectedNode(forPoint: startPoint, onObstacleGraphInScene: scene),
@@ -698,7 +699,7 @@ class TaskBotBehavior: GKBehavior
     // Adds a goal to wander around thhe scene
     private func addWanderGoal(forScene scene: LevelScene)
     {
-        setWeight(1.0, for: GKGoal(toWander: 500))
+        setWeight(1.0, for: GKGoal(toWander: 1000))
         //print("addWanderGoal  scene: \(scene.description)")
     }
 
