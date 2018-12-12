@@ -269,7 +269,15 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
             guard let orientationComponent = taskBot.component(ofType: OrientationComponent.self) else {
                 fatalError("A task bot must have an orientation component to be able to be added to a level")
             }
-            orientationComponent.compassDirection = taskBotConfiguration.initialOrientation
+            
+            //Set the Orientation of the TaskBot
+//            orientationComponent.compassDirection = taskBotConfiguration.initialOrientation
+            
+            //Create a random orientation
+            //Create a random number to decide on action
+            let randomDouble = Float.random(in: 0..<Float.pi)
+            orientationComponent.zRotation = CGFloat(randomDouble)
+
 
             // Set the `TaskBot`'s initial position.
             let taskBotNode = taskBot.renderComponent.node
