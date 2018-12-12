@@ -422,10 +422,10 @@ struct GameplayConfiguration
         static let agentMass: Float = 0.25
         
         /// The radius of the `TaskBot`'s physics body.
-        static var physicsBodyRadius: CGFloat = 28.0
+        static var physicsBodyRadius: CGFloat = 23.0
 
         /// The offset of the `TaskBot` physics body's center from the `TaskBot`'s center.
-        static let physicsBodyOffset = CGPoint(x: 0.0, y: 0.0)
+        static let physicsBodyOffset = CGPoint(x: 0.5, y: 0.5)
 
         /// The radius (in points) of the agent associated with this `TaskBot` for steering.
         static let agentRadius = Float(physicsBodyRadius)
@@ -443,7 +443,7 @@ struct GameplayConfiguration
         static let maxPredictionTimeWhenFollowingPath: TimeInterval = 5.0
         
         /// The maximum time to look ahead for obstacles to be avoided.
-        static let maxPredictionTimeForObstacleAvoidance: TimeInterval = 5.0
+        static let maxPredictionTimeForObstacleAvoidance: TimeInterval = 10.0
         
         /// The radius of the path along which an agent patrols.
         static let patrolPathRadius: Float = 50.0
