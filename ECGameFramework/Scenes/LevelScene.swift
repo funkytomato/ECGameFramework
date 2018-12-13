@@ -100,7 +100,7 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
   
     // MARK: Pathfinding
     
-    let graph = GKMeshGraph(bufferRadius: GameplayConfiguration.TaskBot.pathfindingGraphBufferRadius, minCoordinate: float2(0.0,0.0), maxCoordinate: float2(1760.0,1170.0) )
+    let graph = GKMeshGraph(bufferRadius: GameplayConfiguration.TaskBot.pathfindingGraphBufferRadius, minCoordinate: float2(0.0,0.0), maxCoordinate: float2(2000.0,2000.0) )
     
 //    let graph = GKObstacleGraph(obstacles: [], bufferRadius: GameplayConfiguration.TaskBot.pathfindingGraphBufferRadius)
   
@@ -306,7 +306,7 @@ class LevelScene: BaseScene, SKPhysicsContactDelegate
         startScreenRecording()
         #endif
         
-//        debugDrawingEnabled = true
+        debugDrawingEnabled = true
     }
     
     override func didChangeSize(_ oldSize: CGSize)
