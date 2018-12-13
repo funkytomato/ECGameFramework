@@ -46,7 +46,7 @@ class TaskBotBehavior: GKBehavior
         let behavior = TaskBotBehavior()
         
         // Add basic goals to reach the `TaskBot`'s maximum speed and avoid obstacles.
-//        behavior.addTargetSpeedGoal(speed: agent.maxSpeed)
+        behavior.addTargetSpeedGoal(speed: agent.maxSpeed)
         behavior.addSeekGoal(forScene: scene, agent: targetAgent, weight: 0.1)
         behavior.addAvoidObstaclesGoal(forScene: scene)
         behavior.addWanderGoal(forScene: scene)
@@ -103,7 +103,7 @@ class TaskBotBehavior: GKBehavior
         let behavior = TaskBotBehavior()
         
         // Add basic goals to reach the `TaskBot`'s maximum speed and avoid obstacles.
-        behavior.addTargetSpeedGoal(speed: 30.0)
+        behavior.addTargetSpeedGoal(speed: agent.maxSpeed)
         behavior.addSeekGoal(forScene: scene, agent: agent, weight: 0.1)
         behavior.addAvoidObstaclesGoal(forScene: scene)
         behavior.addWanderGoal(forScene: scene)
@@ -234,7 +234,8 @@ class TaskBotBehavior: GKBehavior
         let behavior = TaskBotBehavior()
         
         // Add basic goals to reach the `TaskBot`'s maximum speed, avoid obstacles and seek the target Police.
-        behavior.addTargetSpeedGoal(speed: 25.0)
+//        behavior.addTargetSpeedGoal(speed: 25.0)
+        behavior.addTargetSpeedGoal(speed: agent.maxSpeed)
         behavior.addAvoidObstaclesGoal(forScene: scene)
         
         
@@ -596,7 +597,7 @@ class TaskBotBehavior: GKBehavior
         let pointNode = GKGraphNode2D(point: point)
         
         
-        print("pointNode: \(pointNode.debugDescription)")
+        print("TaskBotBehavior.connectedNode :- pointNode: \(pointNode.debugDescription)")
         // Try to connect this node to the graph.
         scene.graph.connectUsingObstacles(node: pointNode)
 
